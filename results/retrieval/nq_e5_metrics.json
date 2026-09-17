@@ -1,0 +1,13 @@
+{
+  "model": "intfloat/e5-base-v2",
+  "index": "D:\\Liuzheng\\Australia\\2026semester2\\ELEC5623\\capability-aware-slm-rag\\data\\processed\\indexes\\nq_e5_base.index",
+  "num_passages": 99922,
+  "num_queries": 3216,
+  "embedding_device": "cuda",
+  "faiss_device": "cpu",
+  "normalization": "l2",
+  "index_type": "IndexFlatIP",
+  "recall@3": 0.6893656716417911,
+  "recall@5": 0.7705223880597015,
+  "recall@10": 0.8566542288557214
+}

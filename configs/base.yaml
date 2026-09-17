@@ -7,9 +7,13 @@ dataset:
   optional:
     - finder
 
+# Frozen after the NQ retrieval pilot. See docs/RETRIEVAL_CONFIG.md.
+# E5 index/results are kept for comparison and must not be overwritten.
 retrieval:
-  embedding_model: null
+  embedding_model: BAAI/bge-base-en-v1.5
   top_k: 5
+  index_type: faiss_flat_ip
+  normalize_embeddings: true
   chunk_size: 512
   chunk_overlap: 64
 
