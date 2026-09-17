@@ -7,3 +7,5 @@ pandas
 numpy
 pyyaml
 tqdm
+bitsandbytes
+accelerate

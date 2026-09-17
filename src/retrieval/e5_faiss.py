@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import gc
 import json
 from pathlib import Path
 
@@ -47,7 +48,13 @@ class E5FaissRetriever:
         self.passage_ids: list[str] = []
         self.metadata: list[dict] = []
 
-    def encode(self, texts: list[str], prefix: str, batch_size: int = 64) -> np.ndarray:
+    def encode(
+        self,
+        texts: list[str],
+        prefix: str,
+        batch_size: int = 64,
+        show_progress_bar: bool = True,
+    ) -> np.ndarray:
         prefixed = [apply_prefix(prefix, text) for text in texts]
         current_batch = max(1, batch_size)
         while True:
@@ -57,7 +64,7 @@ class E5FaissRetriever:
                     batch_size=current_batch,
                     convert_to_numpy=True,
                     normalize_embeddings=True,
-                    show_progress_bar=True,
+                    show_progress_bar=show_progress_bar,
                 )
                 break
             except (torch.cuda.OutOfMemoryError, RuntimeError) as exc:
@@ -116,3 +123,17 @@ class E5FaissRetriever:
                 if line:
                     metadata.append(json.loads(line))
         self.set_metadata(metadata)
+
+    def unload(self) -> None:
+        if getattr(self, "model", None) is not None:
+            try:
+                self.model.to("cpu")
+            except Exception:
+                pass
+            del self.model
+            self.model = None
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+            if hasattr(torch.cuda, "ipc_collect"):
+                torch.cuda.ipc_collect()

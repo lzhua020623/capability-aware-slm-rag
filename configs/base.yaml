@@ -18,8 +18,11 @@ retrieval:
   chunk_overlap: 64
 
 generator:
-  model_name: null
-  max_new_tokens: 256
+  model_name: Qwen/Qwen2.5-7B-Instruct
+  quantization: nf4
+  load_in_4bit: true
+  do_sample: false
+  max_new_tokens: 64
   temperature: 0.2
 
 paths:
