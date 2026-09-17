@@ -1,0 +1,26 @@
+seed: 42
+
+dataset:
+  primary:
+    - natural_questions
+    - fever
+  optional:
+    - finder
+
+retrieval:
+  embedding_model: null
+  top_k: 5
+  chunk_size: 512
+  chunk_overlap: 64
+
+generator:
+  model_name: null
+  max_new_tokens: 256
+  temperature: 0.2
+
+paths:
+  data_raw: data/raw
+  data_processed: data/processed
+  models: models
+  checkpoints: checkpoints
+  results: results

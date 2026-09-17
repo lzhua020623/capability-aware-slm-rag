@@ -1,0 +1,9 @@
+transformers
+datasets
+sentence-transformers
+faiss-cpu
+scikit-learn
+pandas
+numpy
+pyyaml
+tqdm
