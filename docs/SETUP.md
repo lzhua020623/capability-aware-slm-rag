@@ -2,12 +2,12 @@
 
 Windows 环境。PyTorch **不在** `requirements.txt` 里，需按本机硬件单独安装，再装其余依赖。
 
-模型和原始/预处理数据都很大，**不会提交到 GitHub**（见 `.gitignore`：`.venv/`、`data/raw/*`、`data/processed/*`、`models/`、`checkpoints/`）。clone 之后需要在本地重新下载数据、跑预处理，并在需要跑 Reference RAG 时本地生成 FAISS index。`results/` 里体积较小的 smoke-test / retrieval metrics 可以随仓库保留，用于对照，不是可执行的数据或模型。
+模型和原始/预处理数据都很大，**不会提交到 GitHub**（见 `.gitignore`：`.venv/`、`data/raw/*`、`data/processed/*`、`models/`、`checkpoints/`）。clone 之后用下面已验证的脚本在本地重建数据。Preliminary Recoverability Experiment 必须使用冻结的 sample manifests，不要重新抽样。`results/` 里体积较小的 smoke-test / retrieval metrics 可以随仓库保留，用于对照，不是可执行的数据或模型。
 
 当前正式 Retriever：**BGE + FAISS + Top-5**（`BAAI/bge-base-en-v1.5`）。Primary SLM：`Qwen/Qwen2.5-7B-Instruct`，4-bit NF4。第一次加载该模型时，Hugging Face 会把它下载到本地 cache（不在本仓库里）。
 
 **smoke test** = 工程验证（工程能否跑通）。  
-**Preliminary Recoverability Experiment** = 尚未正式开始。
+**Preliminary Recoverability Experiment** = 配置已冻结，实验尚未开始。见 [PRELIMINARY_EXPERIMENT.md](PRELIMINARY_EXPERIMENT.md)。
 
 ## 1. Clone repository / 克隆存储库
 
@@ -15,6 +15,26 @@ Windows 环境。PyTorch **不在** `requirements.txt` 里，需按本机硬件�
 git clone <repository-url>
 cd capability-aware-slm-rag
 ```
+
+## Shared Experiment Data Setup
+
+组员 clone 仓库、创建 Python 环境并安装依赖后，用仓库里已验证的脚本在本地重建共用数据，不需要 `ELEC5623_shared_data.zip`：
+
+```powershell
+python scripts/download_data.py
+python scripts/verify_data.py
+python scripts/prepare_nq.py
+python scripts/prepare_retrieval_data.py
+```
+
+负责 NQ C1 的组员可用已记录的 NQ 检索脚本生成正式 BGE IndexFlatIP：`python scripts/run_nq_bge_retriever.py`。
+
+所有人必须使用冻结的 manifests，不得重新抽样：
+
+- NQ：`configs/splits/preliminary_nq_500.json`
+- FEVER：`configs/splits/preliminary_fever_500.json`
+
+本地数据准备完成后即可跑 FEVER **C0** 和 **C3**。正式 FEVER **C1** 必须等 integrator 的全库检索 / index；**不能**使用早先 100k smoke-test candidate pool。
 
 ## 2. 创建并激活 `.venv`
 
@@ -94,11 +114,13 @@ NQ 的正式 FAISS index 需要在本地用已验证过的脚本生成（同样�
 python scripts/run_nq_bge_retriever.py
 ```
 
-这会编码 NQ corpus 并写入 `data/processed/indexes/nq_bge_base.index` 与 `nq_bge_base_meta.jsonl`。E5 对照 index 由 `python scripts/run_nq_retriever.py` 生成，仅作历史对比，正式 Retriever 仍是 BGE + FAISS + Top-5。
+这会编码 NQ corpus 并写入 `data/processed/indexes/nq_bge_base.index` 与 `nq_bge_base_meta.jsonl`。E5 对照文件 `nq_e5_base.index` / `nq_e5_base_meta.jsonl` 由 `python scripts/run_nq_retriever.py` 生成，仅作历史对比。正式 NQ C1 使用 **BGE + IndexFlatIP**：`nq_bge_base.index` + `nq_bge_base_meta.jsonl`。
+
+FEVER 正式 C1 **不是** `scripts/run_fever_base_rag.py` 里那个 100k controlled smoke-test pool；那次检索不能当作正式实验结果。全库 FEVER index 由 integrator 构建，组员不要自行运行 `python scripts/build_fever_index.py`，除非之后另有明确要求。
 
 ## 哪些可直接复用，哪些必须本地重新生成
 
-clone 后仓库里有代码、`configs/`、`docs/`，以及（若已提交）`results/` 下的小型 json/jsonl。
+clone 后仓库里有代码、`configs/`、`docs/`，以及（若已提交）`results/` 下的小型 json/jsonl。Preliminary Recoverability Experiment 必须使用冻结的 500-ID manifests，不要重新抽样。共用 `data/` 按上面的脚本在本地重建。
 
 需要在本机重新生成的大文件：
 
@@ -107,7 +129,7 @@ clone 后仓库里有代码、`configs/`、`docs/`，以及（若已提交）`re
 | `data/raw/` | `.gitignore`，含 NQ disk dataset、FEVER jsonl、wiki-pages |
 | `data/processed/nq_controlled/` | `.gitignore` |
 | `data/processed/retrieval/` | `.gitignore`；FEVER corpus 约数百万页 |
-| `data/processed/indexes/` | `.gitignore`；BGE/E5 FAISS index 与 passage metadata |
+| `data/processed/indexes/` | `.gitignore`；NQ BGE/E5 FlatIP、FEVER IVFPQ index、embedding shards 与 passage ids |
 | `Qwen/Qwen2.5-7B-Instruct` | Hugging Face cache，不在仓库内；第一次跑 generator 时自动下载 |
 | `BAAI/bge-base-en-v1.5` | 同样由 `sentence-transformers` 下载到 HF cache |
 

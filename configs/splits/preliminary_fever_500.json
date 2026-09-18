@@ -1,0 +1,2011 @@
+{
+  "dataset": "fever",
+  "seed": 42,
+  "n": 500,
+  "supports": 250,
+  "refutes": 250,
+  "source": "data/processed/retrieval/fever_dev.jsonl",
+  "filter": "valid gold evidence, SUPPORTS/REFUTES",
+  "samples": [
+    {
+      "id": 106023,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 42213,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 33955,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 157048,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 203615,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 113150,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 73329,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 141746,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 1251,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 201745,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 118800,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 192595,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 57433,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 107438,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 7401,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 169934,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 192837,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 40205,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 212314,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 78244,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 206150,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 18346,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 71180,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 56481,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 44703,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 84701,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 78055,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 116433,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 34695,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 130027,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 32939,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 111049,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 26836,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 145012,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 161578,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 153303,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 107305,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 1536,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 140316,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 161905,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 111074,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 140820,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 63168,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 27307,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 146639,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 71120,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 193411,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 227357,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 194761,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 191445,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 23147,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 199735,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 21032,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 849,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 128243,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 14285,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 223664,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 78349,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 140663,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 123236,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 47004,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 122252,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 84409,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 27148,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 58415,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 71091,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 61171,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 91498,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 215283,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 217666,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 40621,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 171614,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 78514,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 25520,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 149144,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 79881,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 227361,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 193910,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 182442,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 21145,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 215137,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 8780,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 212029,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 17376,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 165238,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 7262,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 19176,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 29595,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 117063,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 29364,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 144815,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 219205,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 129767,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 217014,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 65132,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 112725,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 95417,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 9735,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 202298,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 154761,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 36425,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 156071,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 164508,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 88868,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 183615,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 228071,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 180689,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 93739,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 38029,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 150614,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 196986,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 127240,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 7297,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 204025,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 136040,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 207388,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 114050,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 128336,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 211771,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 44950,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 171087,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 92509,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 172326,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 72738,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 137464,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 169011,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 146272,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 193831,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 68132,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 2197,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 158361,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 224369,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 27398,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 120364,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 218094,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 192040,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 33982,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 99043,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 13201,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 120866,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 220974,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 32233,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 175725,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 55703,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 17973,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 223337,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 8863,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 205076,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 123756,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 111414,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 192910,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 117842,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 41661,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 80074,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 98066,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 80361,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 188979,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 32535,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 145866,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 187323,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 131373,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 219125,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 98655,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 48541,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 20563,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 16527,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 80487,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 111764,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 174878,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 20429,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 105236,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 39175,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 223205,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 178229,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 185418,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 33009,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 202297,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 105931,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 33840,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 189762,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 91111,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 19994,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 77007,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 186996,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 48217,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 69422,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 122572,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 198425,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 69972,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 192981,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 178904,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 26081,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 33275,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 8246,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 215853,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 177836,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 192843,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 159932,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 13515,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 1233,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 148164,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 156601,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 190081,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 192714,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 222745,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 227365,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 42619,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 48697,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 206161,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 35065,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 143905,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 75267,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 119437,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 37557,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 79038,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 70840,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 173508,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 42998,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 74961,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 104988,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 134830,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 154940,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 126559,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 34774,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 14448,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 16336,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 37710,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 208901,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 191433,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 192832,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 222650,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 220442,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 87019,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 217672,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 121817,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 101111,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 23729,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 8483,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 187108,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 43078,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 165111,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 16161,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 174616,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 126474,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 152918,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 42024,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 188977,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 6106,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 37792,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 72578,
+      "label": "SUPPORTS"
+    },
+    {
+      "id": 20461,
+      "label": "REFUTES"
+    },
+    {
+      "id": 163988,
+      "label": "REFUTES"
+    },
+    {
+      "id": 222026,
+      "label": "REFUTES"
+    },
+    {
+      "id": 131309,
+      "label": "REFUTES"
+    },
+    {
+      "id": 192584,
+      "label": "REFUTES"
+    },
+    {
+      "id": 167988,
+      "label": "REFUTES"
+    },
+    {
+      "id": 161915,
+      "label": "REFUTES"
+    },
+    {
+      "id": 63746,
+      "label": "REFUTES"
+    },
+    {
+      "id": 31418,
+      "label": "REFUTES"
+    },
+    {
+      "id": 173501,
+      "label": "REFUTES"
+    },
+    {
+      "id": 81772,
+      "label": "REFUTES"
+    },
+    {
+      "id": 64131,
+      "label": "REFUTES"
+    },
+    {
+      "id": 182271,
+      "label": "REFUTES"
+    },
+    {
+      "id": 183593,
+      "label": "REFUTES"
+    },
+    {
+      "id": 156493,
+      "label": "REFUTES"
+    },
+    {
+      "id": 154494,
+      "label": "REFUTES"
+    },
+    {
+      "id": 137376,
+      "label": "REFUTES"
+    },
+    {
+      "id": 211291,
+      "label": "REFUTES"
+    },
+    {
+      "id": 213436,
+      "label": "REFUTES"
+    },
+    {
+      "id": 194023,
+      "label": "REFUTES"
+    },
+    {
+      "id": 83896,
+      "label": "REFUTES"
+    },
+    {
+      "id": 113664,
+      "label": "REFUTES"
+    },
+    {
+      "id": 39455,
+      "label": "REFUTES"
+    },
+    {
+      "id": 153654,
+      "label": "REFUTES"
+    },
+    {
+      "id": 80532,
+      "label": "REFUTES"
+    },
+    {
+      "id": 216347,
+      "label": "REFUTES"
+    },
+    {
+      "id": 145061,
+      "label": "REFUTES"
+    },
+    {
+      "id": 98622,
+      "label": "REFUTES"
+    },
+    {
+      "id": 110133,
+      "label": "REFUTES"
+    },
+    {
+      "id": 110571,
+      "label": "REFUTES"
+    },
+    {
+      "id": 49192,
+      "label": "REFUTES"
+    },
+    {
+      "id": 3668,
+      "label": "REFUTES"
+    },
+    {
+      "id": 151128,
+      "label": "REFUTES"
+    },
+    {
+      "id": 49775,
+      "label": "REFUTES"
+    },
+    {
+      "id": 112394,
+      "label": "REFUTES"
+    },
+    {
+      "id": 179340,
+      "label": "REFUTES"
+    },
+    {
+      "id": 185402,
+      "label": "REFUTES"
+    },
+    {
+      "id": 92939,
+      "label": "REFUTES"
+    },
+    {
+      "id": 70359,
+      "label": "REFUTES"
+    },
+    {
+      "id": 110873,
+      "label": "REFUTES"
+    },
+    {
+      "id": 71187,
+      "label": "REFUTES"
+    },
+    {
+      "id": 60241,
+      "label": "REFUTES"
+    },
+    {
+      "id": 91139,
+      "label": "REFUTES"
+    },
+    {
+      "id": 60979,
+      "label": "REFUTES"
+    },
+    {
+      "id": 164986,
+      "label": "REFUTES"
+    },
+    {
+      "id": 205122,
+      "label": "REFUTES"
+    },
+    {
+      "id": 194254,
+      "label": "REFUTES"
+    },
+    {
+      "id": 107699,
+      "label": "REFUTES"
+    },
+    {
+      "id": 92103,
+      "label": "REFUTES"
+    },
+    {
+      "id": 165664,
+      "label": "REFUTES"
+    },
+    {
+      "id": 103098,
+      "label": "REFUTES"
+    },
+    {
+      "id": 77126,
+      "label": "REFUTES"
+    },
+    {
+      "id": 223768,
+      "label": "REFUTES"
+    },
+    {
+      "id": 7811,
+      "label": "REFUTES"
+    },
+    {
+      "id": 207382,
+      "label": "REFUTES"
+    },
+    {
+      "id": 127225,
+      "label": "REFUTES"
+    },
+    {
+      "id": 219030,
+      "label": "REFUTES"
+    },
+    {
+      "id": 61641,
+      "label": "REFUTES"
+    },
+    {
+      "id": 206994,
+      "label": "REFUTES"
+    },
+    {
+      "id": 91881,
+      "label": "REFUTES"
+    },
+    {
+      "id": 222031,
+      "label": "REFUTES"
+    },
+    {
+      "id": 60079,
+      "label": "REFUTES"
+    },
+    {
+      "id": 177152,
+      "label": "REFUTES"
+    },
+    {
+      "id": 111685,
+      "label": "REFUTES"
+    },
+    {
+      "id": 103568,
+      "label": "REFUTES"
+    },
+    {
+      "id": 190171,
+      "label": "REFUTES"
+    },
+    {
+      "id": 119221,
+      "label": "REFUTES"
+    },
+    {
+      "id": 214784,
+      "label": "REFUTES"
+    },
+    {
+      "id": 42344,
+      "label": "REFUTES"
+    },
+    {
+      "id": 222046,
+      "label": "REFUTES"
+    },
+    {
+      "id": 162041,
+      "label": "REFUTES"
+    },
+    {
+      "id": 142942,
+      "label": "REFUTES"
+    },
+    {
+      "id": 121157,
+      "label": "REFUTES"
+    },
+    {
+      "id": 98062,
+      "label": "REFUTES"
+    },
+    {
+      "id": 125496,
+      "label": "REFUTES"
+    },
+    {
+      "id": 215510,
+      "label": "REFUTES"
+    },
+    {
+      "id": 137715,
+      "label": "REFUTES"
+    },
+    {
+      "id": 195244,
+      "label": "REFUTES"
+    },
+    {
+      "id": 113613,
+      "label": "REFUTES"
+    },
+    {
+      "id": 25521,
+      "label": "REFUTES"
+    },
+    {
+      "id": 120678,
+      "label": "REFUTES"
+    },
+    {
+      "id": 99465,
+      "label": "REFUTES"
+    },
+    {
+      "id": 202773,
+      "label": "REFUTES"
+    },
+    {
+      "id": 170406,
+      "label": "REFUTES"
+    },
+    {
+      "id": 124805,
+      "label": "REFUTES"
+    },
+    {
+      "id": 129441,
+      "label": "REFUTES"
+    },
+    {
+      "id": 89815,
+      "label": "REFUTES"
+    },
+    {
+      "id": 102001,
+      "label": "REFUTES"
+    },
+    {
+      "id": 200042,
+      "label": "REFUTES"
+    },
+    {
+      "id": 106078,
+      "label": "REFUTES"
+    },
+    {
+      "id": 120983,
+      "label": "REFUTES"
+    },
+    {
+      "id": 206171,
+      "label": "REFUTES"
+    },
+    {
+      "id": 96963,
+      "label": "REFUTES"
+    },
+    {
+      "id": 32338,
+      "label": "REFUTES"
+    },
+    {
+      "id": 190074,
+      "label": "REFUTES"
+    },
+    {
+      "id": 199668,
+      "label": "REFUTES"
+    },
+    {
+      "id": 89174,
+      "label": "REFUTES"
+    },
+    {
+      "id": 55426,
+      "label": "REFUTES"
+    },
+    {
+      "id": 104922,
+      "label": "REFUTES"
+    },
+    {
+      "id": 7625,
+      "label": "REFUTES"
+    },
+    {
+      "id": 183623,
+      "label": "REFUTES"
+    },
+    {
+      "id": 213948,
+      "label": "REFUTES"
+    },
+    {
+      "id": 40622,
+      "label": "REFUTES"
+    },
+    {
+      "id": 213949,
+      "label": "REFUTES"
+    },
+    {
+      "id": 109288,
+      "label": "REFUTES"
+    },
+    {
+      "id": 108201,
+      "label": "REFUTES"
+    },
+    {
+      "id": 179827,
+      "label": "REFUTES"
+    },
+    {
+      "id": 192043,
+      "label": "REFUTES"
+    },
+    {
+      "id": 128415,
+      "label": "REFUTES"
+    },
+    {
+      "id": 83425,
+      "label": "REFUTES"
+    },
+    {
+      "id": 39599,
+      "label": "REFUTES"
+    },
+    {
+      "id": 204651,
+      "label": "REFUTES"
+    },
+    {
+      "id": 190168,
+      "label": "REFUTES"
+    },
+    {
+      "id": 175876,
+      "label": "REFUTES"
+    },
+    {
+      "id": 131865,
+      "label": "REFUTES"
+    },
+    {
+      "id": 222662,
+      "label": "REFUTES"
+    },
+    {
+      "id": 227101,
+      "label": "REFUTES"
+    },
+    {
+      "id": 61821,
+      "label": "REFUTES"
+    },
+    {
+      "id": 121517,
+      "label": "REFUTES"
+    },
+    {
+      "id": 151579,
+      "label": "REFUTES"
+    },
+    {
+      "id": 103511,
+      "label": "REFUTES"
+    },
+    {
+      "id": 172468,
+      "label": "REFUTES"
+    },
+    {
+      "id": 3119,
+      "label": "REFUTES"
+    },
+    {
+      "id": 146359,
+      "label": "REFUTES"
+    },
+    {
+      "id": 40755,
+      "label": "REFUTES"
+    },
+    {
+      "id": 59149,
+      "label": "REFUTES"
+    },
+    {
+      "id": 114912,
+      "label": "REFUTES"
+    },
+    {
+      "id": 71791,
+      "label": "REFUTES"
+    },
+    {
+      "id": 95673,
+      "label": "REFUTES"
+    },
+    {
+      "id": 35754,
+      "label": "REFUTES"
+    },
+    {
+      "id": 28381,
+      "label": "REFUTES"
+    },
+    {
+      "id": 185192,
+      "label": "REFUTES"
+    },
+    {
+      "id": 40221,
+      "label": "REFUTES"
+    },
+    {
+      "id": 172279,
+      "label": "REFUTES"
+    },
+    {
+      "id": 148263,
+      "label": "REFUTES"
+    },
+    {
+      "id": 201083,
+      "label": "REFUTES"
+    },
+    {
+      "id": 127233,
+      "label": "REFUTES"
+    },
+    {
+      "id": 30962,
+      "label": "REFUTES"
+    },
+    {
+      "id": 178898,
+      "label": "REFUTES"
+    },
+    {
+      "id": 83530,
+      "label": "REFUTES"
+    },
+    {
+      "id": 181265,
+      "label": "REFUTES"
+    },
+    {
+      "id": 99531,
+      "label": "REFUTES"
+    },
+    {
+      "id": 95210,
+      "label": "REFUTES"
+    },
+    {
+      "id": 196978,
+      "label": "REFUTES"
+    },
+    {
+      "id": 79984,
+      "label": "REFUTES"
+    },
+    {
+      "id": 25933,
+      "label": "REFUTES"
+    },
+    {
+      "id": 124967,
+      "label": "REFUTES"
+    },
+    {
+      "id": 211290,
+      "label": "REFUTES"
+    },
+    {
+      "id": 171625,
+      "label": "REFUTES"
+    },
+    {
+      "id": 119519,
+      "label": "REFUTES"
+    },
+    {
+      "id": 137498,
+      "label": "REFUTES"
+    },
+    {
+      "id": 134950,
+      "label": "REFUTES"
+    },
+    {
+      "id": 51239,
+      "label": "REFUTES"
+    },
+    {
+      "id": 201799,
+      "label": "REFUTES"
+    },
+    {
+      "id": 181267,
+      "label": "REFUTES"
+    },
+    {
+      "id": 51919,
+      "label": "REFUTES"
+    },
+    {
+      "id": 35822,
+      "label": "REFUTES"
+    },
+    {
+      "id": 77700,
+      "label": "REFUTES"
+    },
+    {
+      "id": 204020,
+      "label": "REFUTES"
+    },
+    {
+      "id": 187546,
+      "label": "REFUTES"
+    },
+    {
+      "id": 76649,
+      "label": "REFUTES"
+    },
+    {
+      "id": 32959,
+      "label": "REFUTES"
+    },
+    {
+      "id": 132762,
+      "label": "REFUTES"
+    },
+    {
+      "id": 59067,
+      "label": "REFUTES"
+    },
+    {
+      "id": 95222,
+      "label": "REFUTES"
+    },
+    {
+      "id": 102142,
+      "label": "REFUTES"
+    },
+    {
+      "id": 43698,
+      "label": "REFUTES"
+    },
+    {
+      "id": 172102,
+      "label": "REFUTES"
+    },
+    {
+      "id": 187112,
+      "label": "REFUTES"
+    },
+    {
+      "id": 61989,
+      "label": "REFUTES"
+    },
+    {
+      "id": 66218,
+      "label": "REFUTES"
+    },
+    {
+      "id": 149134,
+      "label": "REFUTES"
+    },
+    {
+      "id": 35914,
+      "label": "REFUTES"
+    },
+    {
+      "id": 226143,
+      "label": "REFUTES"
+    },
+    {
+      "id": 179091,
+      "label": "REFUTES"
+    },
+    {
+      "id": 205004,
+      "label": "REFUTES"
+    },
+    {
+      "id": 121921,
+      "label": "REFUTES"
+    },
+    {
+      "id": 48230,
+      "label": "REFUTES"
+    },
+    {
+      "id": 119515,
+      "label": "REFUTES"
+    },
+    {
+      "id": 8538,
+      "label": "REFUTES"
+    },
+    {
+      "id": 115807,
+      "label": "REFUTES"
+    },
+    {
+      "id": 72756,
+      "label": "REFUTES"
+    },
+    {
+      "id": 113560,
+      "label": "REFUTES"
+    },
+    {
+      "id": 194183,
+      "label": "REFUTES"
+    },
+    {
+      "id": 201600,
+      "label": "REFUTES"
+    },
+    {
+      "id": 127197,
+      "label": "REFUTES"
+    },
+    {
+      "id": 93473,
+      "label": "REFUTES"
+    },
+    {
+      "id": 156076,
+      "label": "REFUTES"
+    },
+    {
+      "id": 187324,
+      "label": "REFUTES"
+    },
+    {
+      "id": 65017,
+      "label": "REFUTES"
+    },
+    {
+      "id": 49650,
+      "label": "REFUTES"
+    },
+    {
+      "id": 143054,
+      "label": "REFUTES"
+    },
+    {
+      "id": 171509,
+      "label": "REFUTES"
+    },
+    {
+      "id": 86738,
+      "label": "REFUTES"
+    },
+    {
+      "id": 160414,
+      "label": "REFUTES"
+    },
+    {
+      "id": 126292,
+      "label": "REFUTES"
+    },
+    {
+      "id": 90901,
+      "label": "REFUTES"
+    },
+    {
+      "id": 89932,
+      "label": "REFUTES"
+    },
+    {
+      "id": 208427,
+      "label": "REFUTES"
+    },
+    {
+      "id": 199682,
+      "label": "REFUTES"
+    },
+    {
+      "id": 159578,
+      "label": "REFUTES"
+    },
+    {
+      "id": 47317,
+      "label": "REFUTES"
+    },
+    {
+      "id": 166951,
+      "label": "REFUTES"
+    },
+    {
+      "id": 103298,
+      "label": "REFUTES"
+    },
+    {
+      "id": 112295,
+      "label": "REFUTES"
+    },
+    {
+      "id": 33498,
+      "label": "REFUTES"
+    },
+    {
+      "id": 131376,
+      "label": "REFUTES"
+    },
+    {
+      "id": 110394,
+      "label": "REFUTES"
+    },
+    {
+      "id": 47551,
+      "label": "REFUTES"
+    },
+    {
+      "id": 174599,
+      "label": "REFUTES"
+    },
+    {
+      "id": 45124,
+      "label": "REFUTES"
+    },
+    {
+      "id": 112277,
+      "label": "REFUTES"
+    },
+    {
+      "id": 101839,
+      "label": "REFUTES"
+    },
+    {
+      "id": 114567,
+      "label": "REFUTES"
+    },
+    {
+      "id": 57895,
+      "label": "REFUTES"
+    },
+    {
+      "id": 29849,
+      "label": "REFUTES"
+    },
+    {
+      "id": 128686,
+      "label": "REFUTES"
+    },
+    {
+      "id": 161047,
+      "label": "REFUTES"
+    },
+    {
+      "id": 143387,
+      "label": "REFUTES"
+    },
+    {
+      "id": 69562,
+      "label": "REFUTES"
+    },
+    {
+      "id": 28914,
+      "label": "REFUTES"
+    },
+    {
+      "id": 67746,
+      "label": "REFUTES"
+    },
+    {
+      "id": 35416,
+      "label": "REFUTES"
+    },
+    {
+      "id": 130721,
+      "label": "REFUTES"
+    },
+    {
+      "id": 31105,
+      "label": "REFUTES"
+    },
+    {
+      "id": 42385,
+      "label": "REFUTES"
+    },
+    {
+      "id": 124723,
+      "label": "REFUTES"
+    },
+    {
+      "id": 85196,
+      "label": "REFUTES"
+    },
+    {
+      "id": 174027,
+      "label": "REFUTES"
+    },
+    {
+      "id": 119422,
+      "label": "REFUTES"
+    },
+    {
+      "id": 102627,
+      "label": "REFUTES"
+    },
+    {
+      "id": 101176,
+      "label": "REFUTES"
+    },
+    {
+      "id": 215477,
+      "label": "REFUTES"
+    },
+    {
+      "id": 28657,
+      "label": "REFUTES"
+    },
+    {
+      "id": 205125,
+      "label": "REFUTES"
+    },
+    {
+      "id": 97307,
+      "label": "REFUTES"
+    },
+    {
+      "id": 60459,
+      "label": "REFUTES"
+    },
+    {
+      "id": 217115,
+      "label": "REFUTES"
+    },
+    {
+      "id": 181638,
+      "label": "REFUTES"
+    },
+    {
+      "id": 35708,
+      "label": "REFUTES"
+    },
+    {
+      "id": 206717,
+      "label": "REFUTES"
+    },
+    {
+      "id": 43378,
+      "label": "REFUTES"
+    },
+    {
+      "id": 160832,
+      "label": "REFUTES"
+    },
+    {
+      "id": 132990,
+      "label": "REFUTES"
+    },
+    {
+      "id": 122614,
+      "label": "REFUTES"
+    },
+    {
+      "id": 119253,
+      "label": "REFUTES"
+    },
+    {
+      "id": 36350,
+      "label": "REFUTES"
+    },
+    {
+      "id": 153129,
+      "label": "REFUTES"
+    },
+    {
+      "id": 76783,
+      "label": "REFUTES"
+    },
+    {
+      "id": 10357,
+      "label": "REFUTES"
+    }
+  ]
+}

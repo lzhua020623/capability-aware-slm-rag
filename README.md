@@ -28,7 +28,8 @@
 - retrieval pilot completed
 - Reference RAG engineering validation completed
 - primary SLM changed from 3B to 7B
-- formal Preliminary Recoverability Experiment has **not** started
+- Preliminary Recoverability Experiment configuration is frozen; the experiment has **not** started
+- see [docs/PRELIMINARY_EXPERIMENT.md](docs/PRELIMINARY_EXPERIMENT.md)
 
 ## Engineering Validation
 

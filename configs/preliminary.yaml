@@ -1,0 +1,132 @@
+# Frozen Preliminary Recoverability Experiment configuration.
+# Do not change sample IDs, model, retriever, top-k, prompts, decoding,
+# seed, or evaluation metrics. Shared retrieval settings match configs/base.yaml
+# (BGE-base, L2, inner product, Top-5). NQ uses IndexFlatIP; FEVER uses IndexIVFPQ.
+
+seed: 42
+
+primary_model:
+  model_name: Qwen/Qwen2.5-7B-Instruct
+  quantization: nf4
+  load_in_4bit: true
+  do_sample: false
+  max_new_tokens: 64
+
+retrieval:
+  embedding_model: BAAI/bge-base-en-v1.5
+  top_k: 5
+  normalize_embeddings: true
+  metric: inner_product
+  nq:
+    index_type: faiss_flat_ip
+    index_path: data/processed/indexes/nq_bge_base.index
+    meta_path: data/processed/indexes/nq_bge_base_meta.jsonl
+  fever:
+    index_type: faiss_ivfpq
+    corpus: data/processed/retrieval/fever_corpus.jsonl
+    expected_corpus_size: 5396106
+    dimension: auto
+    nlist: 4096
+    m: 64
+    nbits: 8
+    nprobe: 16
+    metric: inner_product
+    seed: 42
+    train_size_per_list: 256
+    shard_size: 20000
+    encode_batch: 64
+    engineering_test_passages: 256
+    engineering_test_nlist: 8
+    index_path: data/processed/indexes/fever_bge_ivfpq.index
+    ids_path: data/processed/indexes/fever_bge_ivfpq_ids.jsonl
+    work_dir: data/processed/indexes/fever_bge_ivfpq_work
+    metadata_path: results/retrieval/fever_bge_ivfpq_meta.json
+
+conditions:
+  included:
+    C0: No Evidence
+    C1: Standard Retrieval, Top-5 evidence
+    C3: Oracle / Gold Evidence
+  excluded:
+    C2: not part of this preliminary experiment
+
+larger_model_control:
+  required: Qwen/Qwen2.5-32B-Instruct
+  optional_escalation: Qwen/Qwen2.5-72B-Instruct
+  routing:
+    "32B": C1 wrong AND C3-7B wrong only
+    "72B": only if resources allow, and only remaining C3-32B wrong samples
+
+samples:
+  nq:
+    source: data/processed/nq_controlled/dev.jsonl
+    source_size: 3216
+    n: 500
+    seed: 42
+    manifest: configs/splits/preliminary_nq_500.json
+  fever:
+    source: data/processed/retrieval/fever_dev.jsonl
+    filter: valid gold evidence, SUPPORTS/REFUTES only
+    n: 500
+    supports: 250
+    refutes: 250
+    seed: 42
+    manifest: configs/splits/preliminary_fever_500.json
+  shared_ids: C0, C1, and C3 must use these exact sample IDs. Do not resample.
+
+prompts:
+  nq:
+    C0: "Answer the question using your knowledge. Return only the shortest answer span. Do not provide explanations or full sentences."
+    C1: "Answer the question using only the provided context. Return only the shortest answer span. Do not provide explanations or full sentences."
+    C3: "Answer the question using only the provided context. Return only the shortest answer span. Do not provide explanations or full sentences."
+  fever:
+    C0: "Determine whether the claim is supported or refuted. Return only SUPPORTS or REFUTES."
+    C1: "Based only on the provided evidence, determine whether the claim is supported or refuted. Return only SUPPORTS or REFUTES."
+    C3: "Based only on the provided evidence, determine whether the claim is supported or refuted. Return only SUPPORTS or REFUTES."
+
+evaluation:
+  nq:
+    metrics:
+      - normalized Exact Match
+      - token-level F1
+    normalization: src/evaluation/qa.py
+  fever:
+    metrics:
+      - classification accuracy
+  primary_statistic: Recoverable Failure Rate
+  recoverable_failure_rate: number(C1 wrong AND C3-7B correct) / number(C1 wrong)
+  also_record:
+    retrieval_induced_degradation: C0 correct AND C1 wrong
+    likely_small_model_capability_limitation: C1 wrong AND C3-7B wrong AND C3-32B correct
+    unresolved_hard_case: 32B still wrong
+  optional_72b: report separately; do not change the definitions above
+
+result_fields:
+  required:
+    - sample_id
+    - dataset
+    - condition
+    - model_name
+    - question_or_claim
+    - gold_answer_or_label
+    - evidence
+    - prediction
+    - correct
+    - latency
+  nq_extra:
+    - em
+    - f1
+  c1_extra:
+    - retrieved_top5_ids
+    - gold_evidence_in_top5
+  c0_evidence: empty
+
+result_paths:
+  nq_c0_7b: results/preliminary/nq_c0_7b.jsonl
+  nq_c1_7b: results/preliminary/nq_c1_7b.jsonl
+  nq_c3_7b: results/preliminary/nq_c3_7b.jsonl
+  fever_c0_7b: results/preliminary/fever_c0_7b.jsonl
+  fever_c1_7b: results/preliminary/fever_c1_7b.jsonl
+  fever_c3_7b: results/preliminary/fever_c3_7b.jsonl
+  c3_32b: results/preliminary/c3_32b.jsonl
+  c3_72b: results/preliminary/c3_72b.jsonl
