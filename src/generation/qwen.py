@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import gc
+import os
 import time
 
 import torch
@@ -34,6 +35,18 @@ def free_cuda_memory() -> None:
         torch.cuda.empty_cache()
         if hasattr(torch.cuda, "ipc_collect"):
             torch.cuda.ipc_collect()
+
+
+def cpu_offload_enabled() -> bool:
+    """Return the machine-local offload choice without changing shared config."""
+    value = os.environ.get("SLM_RAG_CPU_OFFLOAD", "0").strip().lower()
+    if value in {"1", "true", "yes", "on"}:
+        return True
+    if value in {"", "0", "false", "no", "off"}:
+        return False
+    raise RuntimeError(
+        "SLM_RAG_CPU_OFFLOAD must be one of: 1/0, true/false, yes/no, on/off"
+    )
 
 
 def require_nf4_support() -> None:
@@ -86,6 +99,7 @@ def load_qwen_nf4(model_name: str | None = None):
     model_name = _configured_model_name(model_name)
     quant_type = str(generator.get("quantization") or "nf4")
     load_in_4bit = bool(generator.get("load_in_4bit", True))
+    cpu_offload = cpu_offload_enabled()
     if not load_in_4bit or quant_type.lower() != "nf4":
         raise RuntimeError(
             "This project requires 4-bit NF4 loading from configs/base.yaml. "
@@ -98,13 +112,24 @@ def load_qwen_nf4(model_name: str | None = None):
         bnb_4bit_quant_type="nf4",
         bnb_4bit_use_double_quant=True,
         bnb_4bit_compute_dtype=torch.float16,
+        # When enabled by the shared config, Accelerate may place modules that
+        # do not fit in VRAM on the CPU in fp32. The flag name is inherited
+        # from bitsandbytes but is also checked by the 4-bit integration.
+        llm_int8_enable_fp32_cpu_offload=cpu_offload,
     )
+    if cpu_offload:
+        # Keep every quantized transformer block on CUDA. Offloading arbitrary
+        # Linear4bit modules through an automatic map can leave their bnb
+        # quantization state on the meta device. lm_head is kept in fp32 on CPU.
+        device_map = {"model": 0, "lm_head": "cpu"}
+    else:
+        device_map = {"": 0}
     try:
         tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
         model = AutoModelForCausalLM.from_pretrained(
             model_name,
             quantization_config=quant_config,
-            device_map="auto",
+            device_map=device_map,
             trust_remote_code=True,
         )
     except Exception as exc:
@@ -112,6 +137,7 @@ def load_qwen_nf4(model_name: str | None = None):
             _raise_cuda_oom(exc, model_name, "model load")
         raise RuntimeError(
             f"Failed to load {model_name} with 4-bit NF4 quantization. "
+            f"CPU offload configured: {cpu_offload}. "
             "Refusing to fall back to another model or a different quantization. "
             f"Original error: {type(exc).__name__}: {exc}"
         ) from exc
