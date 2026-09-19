@@ -5,7 +5,7 @@ Frozen configuration for the team experiment. Do not start from a new random sam
 Formal config: `configs/preliminary.yaml`.  
 Sample IDs: `configs/splits/preliminary_nq_500.json`, `configs/splits/preliminary_fever_500.json`.
 
-The experiment has **not** started. This document freezes the setup only.
+FEVER500 7B C0 and C3 are complete; see [results and validation](../results/preliminary/fever_c0_c3_summary.md). FEVER C1 is still needed to compute Recoverable Failure Rate. This document continues to define the frozen protocol.
 
 ## Research question
 

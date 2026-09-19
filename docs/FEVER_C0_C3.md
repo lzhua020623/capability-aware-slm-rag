@@ -74,4 +74,4 @@ python -m unittest discover -s tests -v
 ```
 
 回归测试使用真实冻结 ID 与合成 claim/evidence、模拟生成器，在临时目录验证 500 × 2 的中断续跑、输入隔离、数据校验和结果防混写；不会生成正式实验结果。
-本分支在无 CUDA、无正式 `fever_dev.jsonl` 的环境完成代码验证。正式数据预检与真实 7B NF4 smoke 仍须在数据和 GPU 就绪后执行。
+最初的代码验证在无 CUDA 的本地环境完成。随后已在 GPU 机器通过正式数据预检、真实 7B NF4 smoke，并完成 C0/C3 各 500 条生成；下载的结果也已在本地逐条校验。见 [实验结果与校验记录](../results/preliminary/fever_c0_c3_summary.md)。

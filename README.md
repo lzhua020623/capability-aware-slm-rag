@@ -28,7 +28,7 @@
 - retrieval pilot completed
 - Reference RAG engineering validation completed
 - primary SLM changed from 3B to 7B
-- Preliminary Recoverability Experiment configuration is frozen; the experiment has **not** started
+- Preliminary Recoverability Experiment configuration is frozen; FEVER500 7B C0 and C3 are complete: **72.0%** and **95.2%** accuracy. See [results and validation](results/preliminary/fever_c0_c3_summary.md). FEVER C1 is still needed for Recoverable Failure Rate.
 - see [docs/PRELIMINARY_EXPERIMENT.md](docs/PRELIMINARY_EXPERIMENT.md)
 
 ## Engineering Validation
