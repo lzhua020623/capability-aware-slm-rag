@@ -44,3 +44,5 @@ These are **engineering smoke tests** only. They do **not** answer the Prelimina
 ## Quick Start
 
 See [docs/SETUP.md](docs/SETUP.md).
+
+FEVER500 7B C0 / C3: [运行与续跑说明](docs/FEVER_C0_C3.md).

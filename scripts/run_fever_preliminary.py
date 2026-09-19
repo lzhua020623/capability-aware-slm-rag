@@ -14,7 +14,10 @@ configs/preliminary.yaml and are validated before the model is loaded.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import math
+import os
 import sys
 from collections import Counter
 from pathlib import Path
@@ -25,19 +28,10 @@ if str(ROOT) not in sys.path:
 
 from src.config import load_base_config, load_preliminary_config
 from src.evaluation.fever import parse_fever_prediction
-from src.generation.qwen import (
+from src.generation.prompts import (
     FEVER_PROMPT_INSTRUCTION,
     build_fever_rag_prompt,
-    generate_greedy,
-    load_qwen_nf4,
 )
-
-try:  # Added by feature/nq-c0-c1; absent on main, where offload is never used.
-    from src.generation.qwen import cpu_offload_enabled
-except ImportError:  # pragma: no cover
-
-    def cpu_offload_enabled() -> bool:
-        return False
 
 
 DATASET = "fever"
@@ -55,7 +49,21 @@ def safe_print(text: str) -> None:
 
 def load_jsonl(path: Path) -> list[dict]:
     with path.open("r", encoding="utf-8") as handle:
-        return [json.loads(line) for line in handle if line.strip()]
+        records = []
+        for number, line in enumerate(handle, start=1):
+            if not line.strip():
+                continue
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError as exc:
+                raise RuntimeError(
+                    f"Invalid JSON at {path}:{number}. Back up the file and inspect "
+                    "the damaged line before resuming; no results were overwritten."
+                ) from exc
+            if not isinstance(record, dict):
+                raise RuntimeError(f"Expected an object at {path}:{number}")
+            records.append(record)
+        return records
 
 
 def validate_frozen_settings(config: dict) -> None:
@@ -70,15 +78,18 @@ def validate_frozen_settings(config: dict) -> None:
             )
     if primary["do_sample"] is not False:
         raise RuntimeError("The frozen experiment requires deterministic decoding")
+    if (primary["model_name"] != "Qwen/Qwen2.5-7B-Instruct"
+            or primary["quantization"] != "nf4" or primary["load_in_4bit"] is not True):
+        raise RuntimeError("This runner requires Qwen2.5-7B-Instruct in 4-bit NF4")
     prompts = config["prompts"][DATASET]
     for condition in CONDITIONS:
-        if not str(prompts.get(condition, "")).strip():
+        if not isinstance(prompts.get(condition), str) or not prompts[condition].strip():
             raise RuntimeError(f"Missing frozen FEVER {condition} prompt in configs/preliminary.yaml")
     # C3 reuses build_fever_rag_prompt so C1 and C3 share one evidence format.
     if prompts["C3"] != FEVER_PROMPT_INSTRUCTION:
         raise RuntimeError(
             "Frozen FEVER C3 prompt in configs/preliminary.yaml does not match "
-            "FEVER_PROMPT_INSTRUCTION in src/generation/qwen.py"
+            "FEVER_PROMPT_INSTRUCTION in src/generation/prompts.py"
         )
 
 
@@ -86,6 +97,11 @@ def load_frozen_samples(config: dict) -> list[dict]:
     sample_config = config["samples"][DATASET]
     manifest_path = ROOT / sample_config["manifest"]
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    for key, expected in {"dataset": DATASET, **{
+        k: sample_config[k] for k in ("seed", "n", "supports", "refutes", "source")
+    }}.items():
+        if manifest.get(key) != expected:
+            raise RuntimeError(f"Manifest {key} does not match frozen config")
     items = manifest["samples"]
     expected_n = int(sample_config["n"])
     ids = [str(item["id"]) for item in items]
@@ -107,7 +123,12 @@ def load_frozen_samples(config: dict) -> list[dict]:
             f"Missing FEVER source file: {source_path}. Copy it from a machine that has "
             "run scripts/prepare_retrieval_data.py; C0/C3 need no other data."
         )
-    by_id = {str(record["id"]): record for record in load_jsonl(source_path)}
+    by_id = {}
+    for record in load_jsonl(source_path):
+        sample_id = str(record["id"])
+        if sample_id in by_id:
+            raise RuntimeError(f"Duplicate FEVER source ID {sample_id} in {source_path}")
+        by_id[sample_id] = record
 
     samples: list[dict] = []
     problems: list[str] = []
@@ -121,14 +142,20 @@ def load_frozen_samples(config: dict) -> list[dict]:
             problems.append(
                 f"{sample_id}: manifest label {item['label']} != source label {record.get('label')}"
             )
-        gold = [str(s) for s in (record.get("gold_evidence_text") or []) if str(s).strip()]
-        gold_pages = [str(p) for p in (record.get("gold_page_ids") or [])]
-        if not gold or not gold_pages:
+        gold = record.get("gold_evidence_text")
+        gold_pages = record.get("gold_page_ids")
+        if not all(
+            isinstance(values, list) and values
+            and all(isinstance(value, str) and value.strip() for value in values)
+            for values in (gold, gold_pages)
+        ):
             problems.append(f"{sample_id}: no valid gold evidence for C3")
+        if not isinstance(record.get("claim"), str) or not record["claim"].strip():
+            problems.append(f"{sample_id}: empty or invalid claim")
         samples.append(
             {
                 "id": item["id"],
-                "claim": record["claim"],
+                "claim": record.get("claim"),
                 "label": item["label"],
                 "gold_page_ids": gold_pages,
                 "gold_evidence_text": gold,
@@ -153,27 +180,83 @@ def evidence_for(condition: str, sample: dict) -> list[dict]:
     return [{"text": sentence} for sentence in sample["gold_evidence_text"]]
 
 
-def completed_ids(path: Path, condition: str, frozen_ids: set[str]) -> set[str]:
+def experiment_fingerprint(config: dict, samples: list[dict]) -> str:
+    """Bind resumed records to the exact inputs and inference/evaluation code."""
+    payload = {
+        "primary_model": config["primary_model"],
+        "seed": config["seed"],
+        "prompts": config["prompts"][DATASET],
+        "samples": samples,
+        "code": {
+            name: hashlib.sha256(
+                (ROOT / name).read_text(encoding="utf-8").encode("utf-8")
+            ).hexdigest()
+            for name in (
+                "src/generation/qwen.py", "src/generation/prompts.py",
+                "src/evaluation/fever.py", "scripts/run_fever_preliminary.py",
+            )
+        },
+    }
+    return hashlib.sha256(json.dumps(
+        payload, sort_keys=True, ensure_ascii=False, separators=(",", ":")
+    ).encode("utf-8")).hexdigest()
+
+
+def completed_ids(
+    path: Path, condition: str, samples: list[dict], config: dict, fingerprint: str,
+) -> set[str]:
     if not path.exists():
         return set()
     done: set[str] = set()
+    by_id = {str(sample["id"]): sample for sample in samples}
     for record in load_jsonl(path):
         if record.get("dataset") != DATASET or record.get("condition") != condition:
             raise RuntimeError(f"Unexpected dataset/condition in existing result file {path}")
         sample_id = str(record["sample_id"])
         if sample_id in done:
             raise RuntimeError(f"Duplicate sample ID {sample_id} in {path}")
-        if sample_id not in frozen_ids:
+        if sample_id not in by_id:
             raise RuntimeError(f"Non-frozen sample ID {sample_id} in {path}")
+        sample = by_id[sample_id]
+        expected = {
+            "model_name": config["primary_model"]["model_name"],
+            "experiment_fingerprint": fingerprint,
+            "question_or_claim": sample["claim"],
+            "gold_answer_or_label": sample["label"],
+            "evidence": evidence_for(condition, sample),
+            "gold_page_ids": sample["gold_page_ids"],
+        }
+        for key, value in expected.items():
+            if record.get(key) != value:
+                raise RuntimeError(
+                    f"Result {sample_id}: incompatible {key} in {path}; "
+                    "archive incompatible results before starting a new run."
+                )
+        raw = record.get("raw_output")
+        prediction = parse_fever_prediction(raw) if isinstance(raw, str) else None
+        latency = record.get("latency")
+        if (prediction is None or record.get("prediction") != prediction
+                or record.get("correct") is not (prediction == sample["label"])
+                or type(latency) not in (int, float)
+                or not math.isfinite(latency) or latency < 0):
+            raise RuntimeError(f"Invalid prediction/metrics for {sample_id} in {path}")
         done.add(sample_id)
     return done
 
 
 def write_result(path: Path, record: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    # A valid last JSON object may lack its newline after an interruption.
+    prefix = ""
+    if path.exists() and path.stat().st_size:
+        with path.open("rb") as existing:
+            existing.seek(-1, os.SEEK_END)
+            if existing.read(1) != b"\n":
+                prefix = "\n"
     with path.open("a", encoding="utf-8", newline="\n") as handle:
-        handle.write(json.dumps(record, ensure_ascii=False) + "\n")
+        handle.write(prefix + json.dumps(record, ensure_ascii=False) + "\n")
         handle.flush()
+        os.fsync(handle.fileno())
 
 
 def summarize(path: Path) -> None:
@@ -195,12 +278,13 @@ def summarize(path: Path) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Frozen FEVER 500 C0/C3 preliminary experiment")
-    parser.add_argument(
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument(
         "--check-only",
         action="store_true",
         help="validate config, manifest and source data without loading the model",
     )
-    parser.add_argument(
+    mode.add_argument(
         "--smoke-test",
         action="store_true",
         help="run the first frozen claim under each condition without writing formal results",
@@ -213,12 +297,22 @@ def main() -> int:
         help="conditions to run (default: C0 C3)",
     )
     args = parser.parse_args()
+    args.conditions = list(dict.fromkeys(args.conditions))
 
     config = load_preliminary_config()
     validate_frozen_settings(config)
     samples = load_frozen_samples(config)
     primary = config["primary_model"]
     max_new_tokens = int(primary["max_new_tokens"])
+    fingerprint = experiment_fingerprint(config, samples)
+    paths = {
+        c: ROOT / config["result_paths"][f"fever_{c.lower()}_7b"] for c in args.conditions
+    }
+    if len({path.resolve() for path in paths.values()}) != len(paths):
+        raise RuntimeError("Each condition must have a separate result file")
+    done = {} if args.smoke_test else {
+        c: completed_ids(paths[c], c, samples, config, fingerprint) for c in args.conditions
+    }
     label_counts = Counter(sample["label"] for sample in samples)
     print("Preflight passed")
     print(
@@ -227,10 +321,15 @@ def main() -> int:
     )
     print(f"Generator: {primary['model_name']}, 4-bit NF4, greedy, max_new_tokens={max_new_tokens}")
     print(f"Conditions: {' '.join(args.conditions)}")
+    print(f"Experiment fingerprint: {fingerprint}")
     if args.check_only:
         return 0
 
     if args.smoke_test:
+        from src.generation.qwen import generate_greedy, load_qwen_nf4
+        from transformers import set_seed
+
+        set_seed(config["seed"])
         tokenizer, model = load_qwen_nf4(primary["model_name"])
         sample = samples[0]
         for condition in args.conditions:
@@ -241,13 +340,11 @@ def main() -> int:
                 f"SMOKE {condition}: gold={sample['label']} pred={prediction} "
                 f"correct={prediction == sample['label']} latency={latency:.2f}s raw={raw!r}"
             )
+            if prediction == "UNKNOWN":
+                raise RuntimeError(f"Smoke {condition} returned no parseable FEVER label")
         print("Smoke test passed; no formal result files were written.")
         return 0
 
-    result_paths = config["result_paths"]
-    paths = {c: ROOT / result_paths[f"fever_{c.lower()}_7b"] for c in args.conditions}
-    frozen_ids = {str(sample["id"]) for sample in samples}
-    done = {c: completed_ids(paths[c], c, frozen_ids) for c in args.conditions}
     total = len(samples) * len(args.conditions)
     finished = sum(len(ids) for ids in done.values())
     if finished == total:
@@ -258,8 +355,15 @@ def main() -> int:
     if finished:
         print(f"Resuming: {finished}/{total} generations already saved")
 
+    from src.generation.qwen import generate_greedy, load_qwen_nf4
+    from transformers import set_seed
+
+    set_seed(config["seed"])
     tokenizer, model = load_qwen_nf4(primary["model_name"])
-    offload = cpu_offload_enabled()
+    offload = any(
+        str(device) in {"cpu", "disk"}
+        for device in getattr(model, "hf_device_map", {}).values()
+    )
     for position, sample in enumerate(samples, start=1):
         sample_id = str(sample["id"])
         for condition in args.conditions:
@@ -274,6 +378,7 @@ def main() -> int:
                 "dataset": DATASET,
                 "condition": condition,
                 "model_name": primary["model_name"],
+                "experiment_fingerprint": fingerprint,
                 "cpu_offload": offload,
                 "question_or_claim": sample["claim"],
                 "gold_answer_or_label": sample["label"],
