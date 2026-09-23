@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import gc
+import os
 import time
 
 import torch
@@ -81,6 +82,22 @@ def _configured_model_name(requested: str | None = None) -> str:
     return configured
 
 
+def _offload_settings() -> dict | None:
+    """Optional CPU-offload placement for GPUs too small to hold the whole model.
+
+    Off by default: with neither variable set this returns None and loading is
+    byte-for-byte the frozen path. Set SLMRAG_GPU_MAX_MEMORY (e.g. "5GiB") to cap
+    GPU use and spill the remaining layers to CPU RAM. SLMRAG_CPU_MAX_MEMORY
+    overrides the CPU budget (default "24GiB"). Offloading changes only where
+    layers live, not the model, quantization, decoding, or prompts.
+    """
+    gpu_budget = os.environ.get("SLMRAG_GPU_MAX_MEMORY", "").strip()
+    if not gpu_budget:
+        return None
+    cpu_budget = os.environ.get("SLMRAG_CPU_MAX_MEMORY", "").strip() or "24GiB"
+    return {0: gpu_budget, "cpu": cpu_budget}
+
+
 def load_qwen_nf4(model_name: str | None = None):
     generator = load_generator_config()
     model_name = _configured_model_name(model_name)
@@ -93,18 +110,23 @@ def load_qwen_nf4(model_name: str | None = None):
         )
     require_nf4_support()
     free_cuda_memory()
+    max_memory = _offload_settings()
     quant_config = BitsAndBytesConfig(
         load_in_4bit=True,
         bnb_4bit_quant_type="nf4",
         bnb_4bit_use_double_quant=True,
         bnb_4bit_compute_dtype=torch.float16,
+        llm_int8_enable_fp32_cpu_offload=max_memory is not None,
     )
+    if max_memory is not None:
+        print(f"CPU offload enabled: max_memory={max_memory}")
     try:
         tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
         model = AutoModelForCausalLM.from_pretrained(
             model_name,
             quantization_config=quant_config,
             device_map="auto",
+            max_memory=max_memory,
             trust_remote_code=True,
         )
     except Exception as exc:
