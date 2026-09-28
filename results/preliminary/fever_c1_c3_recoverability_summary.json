@@ -1,0 +1,12 @@
+{
+  "dataset": "fever",
+  "paired_samples": 500,
+  "total_c1_wrong": 98,
+  "c1_wrong_c3_correct": 80,
+  "c1_wrong_c3_wrong": 18,
+  "recoverable_failure_rate": 0.8163265306122449,
+  "c1_path": "results/preliminary/fever_c1_7b.jsonl",
+  "c3_path": "results/preliminary/fever_c3_7b.jsonl",
+  "recoverable_set_path": "results/preliminary/fever_c1_c3_recoverable.jsonl",
+  "persistent_failure_set_path": "results/preliminary/fever_c1_c3_persistent_failures.jsonl"
+}
