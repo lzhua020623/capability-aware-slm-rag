@@ -140,6 +140,27 @@ def score(prediction: str, record: dict, dataset: str) -> tuple[bool, dict]:
     return bool(em), {"em": em, "f1": f1}
 
 
+def _from_cohort(record: dict, condition: str) -> dict:
+    """Present a cohort row in the shape the rest of this script expects.
+
+    Cohort rows store the 7B's two predictions side by side and name the oracle
+    evidence `oracle_evidence`; a condition result names them `prediction` and
+    `evidence`. C1 evidence is not kept in a cohort row, so --condition C1 has to
+    come from the C1 result file instead.
+    """
+    if condition == "C1":
+        raise SystemExit(
+            "--condition C1 needs the retrieved passages, which a cohort file does "
+            "not store. Use --qwen-c1 for C1, or --condition C3 with the cohort."
+        )
+    return {
+        **record,
+        "evidence": record.get("oracle_evidence") or [],
+        "prediction": record.get("c3_prediction"),
+        "correct": bool(record.get("c3_correct")),
+    }
+
+
 def select_subset(
     c1_records: list[dict],
     c3_records: list[dict],
@@ -160,7 +181,14 @@ def select_subset(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--qwen-c1", type=Path, required=True, help="7B C1 result jsonl")
+    parser.add_argument(
+        "--cohort",
+        type=Path,
+        help="A precomputed persistent-failure cohort jsonl (C1 wrong AND C3 wrong). "
+        "Simplest path: it already carries the question, gold, and oracle evidence. "
+        "Mutually exclusive with --qwen-c1/--qwen-c3.",
+    )
+    parser.add_argument("--qwen-c1", type=Path, help="7B C1 result jsonl")
     parser.add_argument("--qwen-c3", type=Path, help="7B C3 result jsonl")
     parser.add_argument("--dataset", choices=("nq", "fever"), required=True)
     parser.add_argument(
@@ -196,18 +224,34 @@ def main() -> int:
     max_new_tokens = int(config["primary_model"]["max_new_tokens"])
     instruction = config["prompts"][args.dataset][args.condition]
 
-    c1_records = load_jsonl(args.qwen_c1)
-    c3_records = load_jsonl(args.qwen_c3) if args.qwen_c3 else []
-    failure_ids, correct_ids = select_subset(c1_records, c3_records, args.subset)
-
-    # The record carrying the evidence for the condition we are running.
-    source_records = c3_records if args.condition == "C3" else c1_records
-    if not source_records:
-        raise SystemExit(f"--condition {args.condition} needs the matching 7B result file")
-    by_id = {sample_key(r): r for r in source_records}
+    correct_ids: set[str] = set()
+    if args.cohort:
+        if args.qwen_c1 or args.qwen_c3:
+            raise SystemExit("--cohort cannot be combined with --qwen-c1/--qwen-c3")
+        # A cohort file already carries question, gold, and oracle evidence, and
+        # its rows are the failure set by construction.
+        records = load_jsonl(args.cohort)
+        by_id = {sample_key(r): _from_cohort(r, args.condition) for r in records}
+        failure_ids = set(by_id)
+        print(f"Cohort       : {args.cohort.name} ({len(failure_ids)} samples)")
+        rules = {r.get("correctness_rule", "exact_match") for r in records}
+        print(f"Correctness rule behind this cohort: {', '.join(sorted(rules))}")
+    else:
+        if not args.qwen_c1:
+            raise SystemExit("Pass either --cohort or --qwen-c1 (with --qwen-c3)")
+        c1_records = load_jsonl(args.qwen_c1)
+        c3_records = load_jsonl(args.qwen_c3) if args.qwen_c3 else []
+        failure_ids, correct_ids = select_subset(c1_records, c3_records, args.subset)
+        # The record carrying the evidence for the condition we are running.
+        source_records = c3_records if args.condition == "C3" else c1_records
+        if not source_records:
+            raise SystemExit(f"--condition {args.condition} needs the matching 7B result file")
+        by_id = {sample_key(r): r for r in source_records}
 
     targets = [(sid, "failure") for sid in sorted(failure_ids) if sid in by_id]
     if args.control_n > 0:
+        if not correct_ids:
+            raise SystemExit("--control-n needs --qwen-c1/--qwen-c3; a cohort file has no correct samples")
         pool = sorted(sid for sid in correct_ids if sid in by_id)
         n = min(args.control_n, len(pool))
         chosen = random.Random(args.seed).sample(pool, n)
@@ -229,8 +273,9 @@ def main() -> int:
     backend = build_backend(args.backend, args.model, args.base_url, args.api_key)
     print(f"Backend      : {backend.name}")
     print(f"Dataset      : {args.dataset}   Condition: {args.condition}")
-    print(f"Subset rule  : {args.subset}")
-    print(f"7B failures  : {len(failure_ids)}  of {len(c1_records)} C1 samples")
+    if not args.cohort:
+        print(f"Subset rule  : {args.subset}")
+    print(f"7B failures  : {len(failure_ids)}")
     print(f"To run       : {len([t for t in targets if t[0] not in done])}")
     print(f"Output       : {out_path}\n")
 
