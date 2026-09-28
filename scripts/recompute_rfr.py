@@ -61,6 +61,13 @@ def main() -> int:
     parser.add_argument("--c3", type=Path, required=True)
     parser.add_argument("--verdicts", type=Path, required=True)
     parser.add_argument("--out", type=Path)
+    parser.add_argument(
+        "--cohort-dir",
+        type=Path,
+        help="Also write the judge-corrected recoverable and persistent-failure "
+        "cohorts here, mirroring the frozen cohort schema with a _judged suffix. "
+        "The frozen cohort files are never touched.",
+    )
     args = parser.parse_args()
 
     c1 = {str(r["sample_id"]): r for r in load_jsonl(args.c1)}
@@ -105,9 +112,45 @@ def main() -> int:
         print(f"  {name}: exact match {frozen_acc / len(shared):6.1%}   judge {judged_acc / len(shared):6.1%}")
 
     persistent = [s for s in judged_c1w if not correct("C3", s, c3)]
-    print(f"\nPersistent failures (C1 wrong AND C3 wrong)")
+    recoverable = [s for s in judged_c1w if correct("C3", s, c3)]
+    print("\nPersistent failures (C1 wrong AND C3 wrong)")
     print(f"  frozen : {sum(1 for s in frozen_c1w if not c3[s]['correct'])}")
     print(f"  judged : {len(persistent)}    <- the real target set for a larger-model control")
+
+    if args.cohort_dir:
+        args.cohort_dir.mkdir(parents=True, exist_ok=True)
+        for name, ids, outcome in (
+            ("nq_c1_c3_recoverable_judged", recoverable, "c1_wrong_c3_correct"),
+            ("nq_c1_c3_persistent_failures_judged", persistent, "c1_wrong_c3_wrong"),
+        ):
+            path = args.cohort_dir / f"{name}.jsonl"
+            with path.open("w", encoding="utf-8") as handle:
+                for sid in ids:
+                    handle.write(
+                        json.dumps(
+                            {
+                                "sample_id": sid,
+                                "dataset": c3[sid].get("dataset"),
+                                "outcome": outcome,
+                                "correctness_rule": "llm_judge",
+                                "model_name": c3[sid].get("model_name"),
+                                "question_or_claim": c3[sid].get("question_or_claim"),
+                                "gold_answer_or_label": c3[sid].get("gold_answer_or_label"),
+                                "oracle_evidence": c3[sid].get("evidence"),
+                                "c1_prediction": c1[sid].get("prediction"),
+                                "c1_correct": correct("C1", sid, c1),
+                                "c1_exact_match": bool(c1[sid]["correct"]),
+                                "c1_f1": c1[sid].get("f1"),
+                                "c3_prediction": c3[sid].get("prediction"),
+                                "c3_correct": correct("C3", sid, c3),
+                                "c3_exact_match": bool(c3[sid]["correct"]),
+                                "c3_f1": c3[sid].get("f1"),
+                            },
+                            ensure_ascii=False,
+                        )
+                        + "\n"
+                    )
+            print(f"Wrote {path}  ({len(ids)} samples)")
 
     if args.out:
         args.out.parent.mkdir(parents=True, exist_ok=True)
