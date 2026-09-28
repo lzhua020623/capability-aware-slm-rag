@@ -58,16 +58,20 @@ VERDICT_RE = re.compile(r"\b(CORRECT|INCORRECT)\b", re.IGNORECASE)
 
 # Neutral on purpose: the judge is never told that exact match already scored
 # the prediction wrong, so it cannot simply ratify the metric.
-JUDGE_PROMPT = """You are grading one short-answer question.
+JUDGE_PROMPT = """You are grading one short-answer question against a reference answer.
 
-Decide whether the predicted answer conveys the same answer as the reference \
-answer. Ignore differences in wording, word order, capitalization, punctuation, \
-spacing, verbosity, and surrounding context words. Accept a prediction that is \
-a shorter span of the reference when that span still answers the question, and \
-accept one that adds harmless extra words.
+Judge ONLY whether the prediction says the same thing as the reference. Do not \
+use your own knowledge of the subject. A prediction that is true in the real \
+world but states something the reference does not state is INCORRECT.
 
-Mark INCORRECT only if the prediction states a different fact, omits the key \
-information the question asks for, or is wrong.
+Mark CORRECT when the difference is only in form: wording, word order, \
+capitalization, punctuation, spacing, verbosity, an abbreviation or full name \
+of the same entity, a shorter span of the reference that still answers the \
+question, or harmless extra words around the same content.
+
+Mark INCORRECT when the prediction names a different entity, date, number, or \
+fact than the reference, omits the information the question asks for, or says \
+the answer is unavailable.
 
 Question: {question}
 Reference answer: {gold}
