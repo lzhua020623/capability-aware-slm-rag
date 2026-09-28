@@ -214,14 +214,32 @@ def main() -> int:
             handle.flush()
             safe_print(f"  {condition} {group:10s} {sid:22s} {verdict}")
 
-    print("\nverdict counts:")
-    for key in sorted(counts):
-        print(f"  {key:24s} {counts[key]}")
-    val_total = sum(v for k, v in counts.items() if k.startswith("validation/"))
-    val_agree = counts.get("validation/CORRECT", 0)
+    # Count the file, not this session: after a resume the in-memory tally omits
+    # every record that was skipped, and a rate read off it would be wrong.
+    totals: dict[str, int] = {}
+    for record in load_jsonl(args.out):
+        key = f"{record['group']}/{record['judge_verdict']}"
+        totals[key] = totals.get(key, 0) + 1
+
+    n_this_run = sum(counts.values())
+    print(f"\nverdict counts over all {sum(totals.values())} records in {args.out.name}"
+          f" ({n_this_run} judged this run):")
+    for key in sorted(totals):
+        print(f"  {key:24s} {totals[key]}")
+
+    wrong_correct = totals.get("wrong/CORRECT", 0)
+    wrong_total = wrong_correct + totals.get("wrong/INCORRECT", 0)
+    if wrong_total:
+        print(
+            f"\nexact-match-wrong answers the judge accepted: "
+            f"{wrong_correct}/{wrong_total} ({wrong_correct / wrong_total:.1%})"
+        )
+
+    val_total = sum(v for k, v in totals.items() if k.startswith("validation/"))
+    val_agree = totals.get("validation/CORRECT", 0)
     if val_total:
         rate = val_agree / val_total
-        print(f"\njudge agreement on exact-match-CORRECT samples: {val_agree}/{val_total} ({rate:.1%})")
+        print(f"judge agreement on exact-match-CORRECT samples: {val_agree}/{val_total} ({rate:.1%})")
         if rate < 0.9:
             print("  WARNING: the judge disagrees with exact match on samples it already")
             print("  scored correct. Inspect before trusting any verdict from this run.")
