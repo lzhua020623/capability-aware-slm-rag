@@ -1,0 +1,5029 @@
+{
+  "note": "Frozen final TEST runtime outputs; no target labels or gold fields are stored or were read.",
+  "model": "models/diagnosis/diagnosis_v2_expanded_hierarchical.json",
+  "n": 474,
+  "predictions": [
+    {
+      "sample_id": "-1014091045618911654",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.32456184681345424,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6754381531865458
+    },
+    {
+      "sample_id": "-1045095421340178958",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.26835678085432574,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7316432191456743
+    },
+    {
+      "sample_id": "-10654472505181277",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.628718744071117,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.30619949744757446,
+        "evidence_accessibility": 0.2548913398514546,
+        "evidence_utilisation": 0.438909162700971
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2759504175346601
+    },
+    {
+      "sample_id": "-113853178908722264",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6271977456719958,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.44153027342282214,
+        "evidence_accessibility": 0.2582138675247288,
+        "evidence_utilisation": 0.30025585905244906
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.276926792136734
+    },
+    {
+      "sample_id": "-1176280233636154422",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.37912529475788803,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.620874705242112
+    },
+    {
+      "sample_id": "-1180168003678804636",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.8069036479694655,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.44488344001043667,
+        "evidence_accessibility": 0.2629905390995759,
+        "evidence_utilisation": 0.29212602088998735
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.3589780706656262
+    },
+    {
+      "sample_id": "-1204722541964024977",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.38180894144668936,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6181910585533106
+    },
+    {
+      "sample_id": "-120593119776464649",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.11198668420811062,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8880133157918894
+    },
+    {
+      "sample_id": "-1242596807633339159",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5767763177201741,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.389875629560457,
+        "evidence_accessibility": 0.21104064716946772,
+        "evidence_utilisation": 0.3990837232700752
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.23018204036977094
+    },
+    {
+      "sample_id": "-12824711872448438",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6280384214582525,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.35175592917078,
+        "evidence_accessibility": 0.28395400851830627,
+        "evidence_utilisation": 0.3642900623109136
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.22878815568667463
+    },
+    {
+      "sample_id": "-1288756836147893929",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7385378019374023,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3326969554350917,
+        "evidence_accessibility": 0.37854671621912533,
+        "evidence_utilisation": 0.288756328345783
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.2795710597270944
+    },
+    {
+      "sample_id": "-1302735871169787915",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6849496287255016,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2663818651849627,
+        "evidence_accessibility": 0.41801256147135185,
+        "evidence_utilisation": 0.31560557334368555
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.28631754878239835
+    },
+    {
+      "sample_id": "-1329195140453226437",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3842883336302908,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6157116663697092
+    },
+    {
+      "sample_id": "-1344850267781439277",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.640012385347781,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.26452842315910285,
+        "evidence_accessibility": 0.2457687562321945,
+        "evidence_utilisation": 0.4897028206087027
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.31341587032931234
+    },
+    {
+      "sample_id": "-1377431887732785331",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7854412856970379,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.27925114592259176,
+        "evidence_accessibility": 0.3271853299139375,
+        "evidence_utilisation": 0.39356352416347073
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.3091210404224137
+    },
+    {
+      "sample_id": "-1403561686055024600",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.18137835787491502,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8186216421250849
+    },
+    {
+      "sample_id": "-1407747451197583708",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.16442036944304508,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8355796305569549
+    },
+    {
+      "sample_id": "-1591814844395063631",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.30451545024174764,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6954845497582524
+    },
+    {
+      "sample_id": "-1602445747694951824",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5183106510824395,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.31021541736208086,
+        "evidence_accessibility": 0.3488397616087139,
+        "evidence_utilisation": 0.3409448210292053
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.18080736396285546
+    },
+    {
+      "sample_id": "-1639393378146810331",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3878562311723024,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6121437688276976
+    },
+    {
+      "sample_id": "-1667661819585085026",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.24830586605397484,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7516941339460251
+    },
+    {
+      "sample_id": "-1773607187248198254",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2459753660366856,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7540246339633144
+    },
+    {
+      "sample_id": "-1833051064924762940",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.39607935771472924,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6039206422852708
+    },
+    {
+      "sample_id": "-1904757966771983046",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3491911231806699,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6508088768193301
+    },
+    {
+      "sample_id": "-1989085239392486277",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.554846908555969,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.21540796341900292,
+        "evidence_accessibility": 0.4553040493786567,
+        "evidence_utilisation": 0.3292879872023403
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.2526240442507619
+    },
+    {
+      "sample_id": "-2033893527164697325",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.290746736695949,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7092532633040509
+    },
+    {
+      "sample_id": "-2040293408787954805",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.25905229427618354,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7409477057238165
+    },
+    {
+      "sample_id": "-2055788643958254872",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.32977729704645653,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6702227029535435
+    },
+    {
+      "sample_id": "-217684522847197793",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.44697286735250247,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5530271326474976
+    },
+    {
+      "sample_id": "-2265968001577911109",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.35186021416025126,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6481397858397487
+    },
+    {
+      "sample_id": "-2315980566643853836",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3283128913531401,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6716871086468599
+    },
+    {
+      "sample_id": "-232899194860976791",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4157958169822032,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5842041830177969
+    },
+    {
+      "sample_id": "-2419576910417046724",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2080024676607033,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7919975323392967
+    },
+    {
+      "sample_id": "-251770629620567718",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.38419147828614353,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6158085217138565
+    },
+    {
+      "sample_id": "-252884797611335797",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5773516832850812,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2824907688037889,
+        "evidence_accessibility": 0.35864915896455907,
+        "evidence_utilisation": 0.35886007223165206
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.20718846676675015
+    },
+    {
+      "sample_id": "-2609190921911067088",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2099963323749508,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7900036676250493
+    },
+    {
+      "sample_id": "-2651390481836592629",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5077363556957721,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.1887492274131282,
+        "evidence_accessibility": 0.28616349749247283,
+        "evidence_utilisation": 0.525087275094399
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.26660589947865354
+    },
+    {
+      "sample_id": "-2659168512523622985",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.44736859399862117,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5526314060013788
+    },
+    {
+      "sample_id": "-266038724951254114",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3522196496973758,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6477803503026243
+    },
+    {
+      "sample_id": "-2751908283042856030",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.25188792072395155,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7481120792760485
+    },
+    {
+      "sample_id": "-2910111192739222653",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7101772578402084,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3532382455764423,
+        "evidence_accessibility": 0.29682046759719066,
+        "evidence_utilisation": 0.349941286826367
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.2508617686077639
+    },
+    {
+      "sample_id": "-2928116638358297228",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.40615166090283655,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5938483390971634
+    },
+    {
+      "sample_id": "-2931786986551528103",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.38966279168871953,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6103372083112805
+    },
+    {
+      "sample_id": "-2976262139241480610",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.37233079500247546,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6276692049975245
+    },
+    {
+      "sample_id": "-3015473067588310177",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7127313871312112,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3758674968502665,
+        "evidence_accessibility": 0.2737343515854444,
+        "evidence_utilisation": 0.35039815156428905
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.2678925624076266
+    },
+    {
+      "sample_id": "-3156792715420337745",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2642030856369419,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.735796914363058
+    },
+    {
+      "sample_id": "-3160944401519566327",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.792253586669988,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.34079012813851634,
+        "evidence_accessibility": 0.398010281958931,
+        "evidence_utilisation": 0.2611995899025527
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.3153250734134963
+    },
+    {
+      "sample_id": "-3422482453881148813",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6775510695080748,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3287827446377213,
+        "evidence_accessibility": 0.12436892843950036,
+        "evidence_utilisation": 0.5468483269227783
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.37051766876522974
+    },
+    {
+      "sample_id": "-3427566802943028712",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.09573092097404814,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9042690790259519
+    },
+    {
+      "sample_id": "-3428106355897335676",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6284309290530051,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.4270916357052375,
+        "evidence_accessibility": 0.2087649204853623,
+        "evidence_utilisation": 0.3641434438094003
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.26839759341701
+    },
+    {
+      "sample_id": "-3482256578135150392",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6662743172747027,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2601138977637273,
+        "evidence_accessibility": 0.4059329906262528,
+        "evidence_utilisation": 0.33395311161001995
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.27046272618878486
+    },
+    {
+      "sample_id": "-3556174730654201439",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4371729800605405,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5628270199394595
+    },
+    {
+      "sample_id": "-3632972835558527833",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3740943913783792,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6259056086216208
+    },
+    {
+      "sample_id": "-3763685644851446484",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.765451364123276,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2726177232988371,
+        "evidence_accessibility": 0.34780465260979326,
+        "evidence_utilisation": 0.3795776240913696
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2905482101514109
+    },
+    {
+      "sample_id": "-3784260065793085301",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5569713664160971,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2226471329962516,
+        "evidence_accessibility": 0.28292752370162005,
+        "evidence_utilisation": 0.4944253433021284
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.27538075904973436
+    },
+    {
+      "sample_id": "-3875543356658910705",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6691470711288098,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.24559805763232925,
+        "evidence_accessibility": 0.17641351160163068,
+        "evidence_utilisation": 0.57798843076604
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.38675926559343254
+    },
+    {
+      "sample_id": "-3886770275251117853",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7469281224538173,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.36321242832765516,
+        "evidence_accessibility": 0.2908733290601257,
+        "evidence_utilisation": 0.34591424261221926
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.27129357714266716
+    },
+    {
+      "sample_id": "-3946622065085295485",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.397364738875474,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.602635261124526
+    },
+    {
+      "sample_id": "-3970079294139411862",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2770775353256784,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7229224646743215
+    },
+    {
+      "sample_id": "-4088294748246363182",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.48026729897785364,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5197327010221464
+    },
+    {
+      "sample_id": "-4092499579855624350",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7489268967848355,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3485063495949111,
+        "evidence_accessibility": 0.33830050651111687,
+        "evidence_utilisation": 0.313193143893972
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.2610057789119278
+    },
+    {
+      "sample_id": "-4221604869059375188",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3113819065913151,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.688618093408685
+    },
+    {
+      "sample_id": "-4222512069603517522",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.17923041913010454,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8207695808698955
+    },
+    {
+      "sample_id": "-4227398832220654666",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3193921324645976,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6806078675354024
+    },
+    {
+      "sample_id": "-4283216610904702043",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.42929456434108676,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5707054356589132
+    },
+    {
+      "sample_id": "-4292736993227486718",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7412270346545526,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.342016050483682,
+        "evidence_accessibility": 0.29119897407036704,
+        "evidence_utilisation": 0.36678497544595096
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.27187093970564513
+    },
+    {
+      "sample_id": "-43348669610522740",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5538075039267091,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.30084690681252374,
+        "evidence_accessibility": 0.3438874592260907,
+        "evidence_utilisation": 0.3552656339613856
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.19674877397509485
+    },
+    {
+      "sample_id": "-4364906616801702347",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2601231686317092,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7398768313682909
+    },
+    {
+      "sample_id": "-4423551111496986075",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.8349025636440289,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.43976932428721827,
+        "evidence_accessibility": 0.28273150319561857,
+        "evidence_utilisation": 0.2774991725171632
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.3671645362594008
+    },
+    {
+      "sample_id": "-4487724214437405890",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.383055234974913,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.616944765025087
+    },
+    {
+      "sample_id": "-4507364608939813047",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.04477034995089697,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.955229650049103
+    },
+    {
+      "sample_id": "-4529708874973104813",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2937489967344251,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7062510032655749
+    },
+    {
+      "sample_id": "-4565661977175862394",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.45082649549795817,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5491735045020418
+    },
+    {
+      "sample_id": "-4620078914335056493",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7104420626951019,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3228180050213967,
+        "evidence_accessibility": 0.15640341079329742,
+        "evidence_utilisation": 0.5207785841853059
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.36998301155604346
+    },
+    {
+      "sample_id": "-4622532030074150432",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.27471535020678156,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7252846497932184
+    },
+    {
+      "sample_id": "-4627264087519762286",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.23626073486433852,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7637392651356615
+    },
+    {
+      "sample_id": "-4643939675634395319",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4680645209118861,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5319354790881139
+    },
+    {
+      "sample_id": "-4722625208527212534",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5631931289683656,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.23065908172969554,
+        "evidence_accessibility": 0.35589541870755426,
+        "evidence_utilisation": 0.4134454995627503
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.23284966455663436
+    },
+    {
+      "sample_id": "-474186399952989830",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.41019783331910065,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5898021666808994
+    },
+    {
+      "sample_id": "-4748546458506417454",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.629336162422703,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.26935913693343433,
+        "evidence_accessibility": 0.3672237270520729,
+        "evidence_utilisation": 0.36341713601449277
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.2311071711335137
+    },
+    {
+      "sample_id": "-476336404126036031",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.282101881406148,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.717898118593852
+    },
+    {
+      "sample_id": "-4842157801620760631",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.35018585231418264,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6498141476858174
+    },
+    {
+      "sample_id": "-4876736938910486341",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3142555762508527,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6857444237491472
+    },
+    {
+      "sample_id": "-4882553194262710105",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2549953764247789,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7450046235752211
+    },
+    {
+      "sample_id": "-4954940607558097452",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5758809796360997,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3078617455219753,
+        "evidence_accessibility": 0.4606392578156496,
+        "evidence_utilisation": 0.2314989966623752
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.2652733870497222
+    },
+    {
+      "sample_id": "-5127759950686598566",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6156804633848477,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2545379597481471,
+        "evidence_accessibility": 0.3339838757914376,
+        "evidence_utilisation": 0.41147816446041524
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.25333906696773506
+    },
+    {
+      "sample_id": "-5156175277578141617",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6122499271760257,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.38383545987839746,
+        "evidence_accessibility": 0.10840890579683947,
+        "evidence_utilisation": 0.5077556343247631
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.31087335013855294
+    },
+    {
+      "sample_id": "-525942396749510966",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.13995430536632286,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8600456946336772
+    },
+    {
+      "sample_id": "-5270061954035899369",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2055988418872143,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7944011581127857
+    },
+    {
+      "sample_id": "-5289834111281891019",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.21192207116490802,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.788077928835092
+    },
+    {
+      "sample_id": "-531947143811037748",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.23775199363140032,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7622480063685997
+    },
+    {
+      "sample_id": "-5372667077951673175",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7006701566389326,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3163873387125012,
+        "evidence_accessibility": 0.3130949943304085,
+        "evidence_utilisation": 0.3705176669570904
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2596106717443164
+    },
+    {
+      "sample_id": "-5406271458964804846",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.8940090495719853,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.5336006849910733,
+        "evidence_accessibility": 0.09141099170132885,
+        "evidence_utilisation": 0.37498832330759796
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.47704384123982974
+    },
+    {
+      "sample_id": "-5462041699131391964",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7138137370578961,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3613193232145999,
+        "evidence_accessibility": 0.26080882188544025,
+        "evidence_utilisation": 0.3778718548999598
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.26973012087513937
+    },
+    {
+      "sample_id": "-5471598133729816691",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.25395856743215683,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7460414325678432
+    },
+    {
+      "sample_id": "-5473444875466431416",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5230993746096125,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.31168479409570476,
+        "evidence_accessibility": 0.15853387572223743,
+        "evidence_utilisation": 0.5297813301820578
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2771282824980831
+    },
+    {
+      "sample_id": "-5494234289594552874",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6083270049282452,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3037013853400059,
+        "evidence_accessibility": 0.28122741613931385,
+        "evidence_utilisation": 0.4150711985206803
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.25249901902806254
+    },
+    {
+      "sample_id": "-5540073670385654363",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.8096918905821747,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.4242286549535467,
+        "evidence_accessibility": 0.21879010623997236,
+        "evidence_utilisation": 0.3569812388064811
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.3434945016684703
+    },
+    {
+      "sample_id": "-5574999151866581512",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7488958443554893,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3499638476702542,
+        "evidence_accessibility": 0.056335578500318034,
+        "evidence_utilisation": 0.5937005738294278
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.4446198925323278
+    },
+    {
+      "sample_id": "-5575610778325611586",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.38326250351769137,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6167374964823087
+    },
+    {
+      "sample_id": "-5653778591571381839",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.8102838692988013,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.43239816140651005,
+        "evidence_accessibility": 0.064520344978181,
+        "evidence_utilisation": 0.503081493615309
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.40763881921923273
+    },
+    {
+      "sample_id": "-5667708502568925602",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5427790848051733,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.33188397145158255,
+        "evidence_accessibility": 0.4866802703632373,
+        "evidence_utilisation": 0.18143575818518012
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.26415987174049227
+    },
+    {
+      "sample_id": "-5738880170312599174",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7852797280238352,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.31697354089892865,
+        "evidence_accessibility": 0.325248119079443,
+        "evidence_utilisation": 0.3577783400216283
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.28095607754500346
+    },
+    {
+      "sample_id": "-5757676728167190063",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.37960330798008785,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6203966920199122
+    },
+    {
+      "sample_id": "-5839630689334758403",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6899153394256117,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2827475785691607,
+        "evidence_accessibility": 0.34689224173468436,
+        "evidence_utilisation": 0.37036017969615503
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2555171690848033
+    },
+    {
+      "sample_id": "-585297311370673041",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4801294158672633,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5198705841327367
+    },
+    {
+      "sample_id": "-5893650412353024844",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.26667152646847864,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7333284735315213
+    },
+    {
+      "sample_id": "-5931088709249789625",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.20262866581890102,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.797371334181099
+    },
+    {
+      "sample_id": "-5935683210985272192",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5327851275411981,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.1758149403468083,
+        "evidence_accessibility": 0.5645767426089762,
+        "evidence_utilisation": 0.2596083170442155
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.30079809181771755
+    },
+    {
+      "sample_id": "-5942357491167725852",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5259308122140057,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3539616667992681,
+        "evidence_accessibility": 0.18054671708491396,
+        "evidence_utilisation": 0.46549161611581796
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2448163837426023
+    },
+    {
+      "sample_id": "-6013821792423290372",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5173363824999395,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.36445756185796396,
+        "evidence_accessibility": 0.3706657775140386,
+        "evidence_utilisation": 0.26487666062799736
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.19175889245564015
+    },
+    {
+      "sample_id": "-6075869945949324935",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.17493297827348103,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.825067021726519
+    },
+    {
+      "sample_id": "-6115724697038263676",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7815952957828,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.30579910518630093,
+        "evidence_accessibility": 0.3086796944458827,
+        "evidence_utilisation": 0.38552120036781634
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.3013215566320235
+    },
+    {
+      "sample_id": "-6115798499199649443",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6819676838861072,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.33399950813079227,
+        "evidence_accessibility": 0.27994132915998493,
+        "evidence_utilisation": 0.38605916270922275
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.26327987303581846
+    },
+    {
+      "sample_id": "-6137128706340485777",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.671493957291407,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3556407427221938,
+        "evidence_accessibility": 0.3027501696837772,
+        "evidence_utilisation": 0.34160908759402897
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.2388106097045811
+    },
+    {
+      "sample_id": "-6159174402926036720",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3431771277817598,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6568228722182402
+    },
+    {
+      "sample_id": "-6267746560439390778",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.10055916404860005,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8994408359513999
+    },
+    {
+      "sample_id": "-6268901707080208502",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5403717718399119,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.19994911203228258,
+        "evidence_accessibility": 0.26609871713200706,
+        "evidence_utilisation": 0.5339521708357103
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2885326806322601
+    },
+    {
+      "sample_id": "-6311914778265000994",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7023151551407534,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.44131549494162386,
+        "evidence_accessibility": 0.1800046418978887,
+        "evidence_utilisation": 0.3786798631604875
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.3099425602959449
+    },
+    {
+      "sample_id": "-6339722844243759601",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7239145267273396,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.39026341092241074,
+        "evidence_accessibility": 0.27412490288256364,
+        "evidence_utilisation": 0.3356116861950257
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.28251735241689424
+    },
+    {
+      "sample_id": "-6413223102332441255",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5031442539084837,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3102853848814888,
+        "evidence_accessibility": 0.4258427736935296,
+        "evidence_utilisation": 0.26387184142498166
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.21426034465235022
+    },
+    {
+      "sample_id": "-6612294468579893046",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7780923305609266,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.45817580074960557,
+        "evidence_accessibility": 0.13735623814393366,
+        "evidence_utilisation": 0.40446796110646077
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.35650307661187935
+    },
+    {
+      "sample_id": "-6618900434743562612",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3208491599558592,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6791508400441408
+    },
+    {
+      "sample_id": "-6621623690879619950",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.16923298943456425,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8307670105654358
+    },
+    {
+      "sample_id": "-6630606102962013596",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3462936795910936,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6537063204089064
+    },
+    {
+      "sample_id": "-666438026258925606",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4304530827367876,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5695469172632124
+    },
+    {
+      "sample_id": "-6705663232244508339",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6139494604954234,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3074749721005205,
+        "evidence_accessibility": 0.41134383401491575,
+        "evidence_utilisation": 0.2811811938845637
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.25254432497157653
+    },
+    {
+      "sample_id": "-6745767529711751487",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3030738892774355,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6969261107225645
+    },
+    {
+      "sample_id": "-6747120392723244868",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.17604973916801944,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8239502608319805
+    },
+    {
+      "sample_id": "-6762654750812139940",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.42506724718344596,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.574932752816554
+    },
+    {
+      "sample_id": "-693847391395525804",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.22303873296930174,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7769612670306982
+    },
+    {
+      "sample_id": "-6944975865006468886",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.34024810066816663,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6597518993318334
+    },
+    {
+      "sample_id": "-6969822882191683401",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.492146340992615,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.507853659007385
+    },
+    {
+      "sample_id": "-701619113953256261",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6557168276891238,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.31453515128238674,
+        "evidence_accessibility": 0.18868637344138328,
+        "evidence_utilisation": 0.4967784752762301
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.3257460058723694
+    },
+    {
+      "sample_id": "-7098436211686405768",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.30178294736839034,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6982170526316096
+    },
+    {
+      "sample_id": "-7119324654516311671",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.1538864788484304,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8461135211515696
+    },
+    {
+      "sample_id": "-7147339950013793632",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.14659787859956808,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8534021214004319
+    },
+    {
+      "sample_id": "-7170779167971049436",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2848220712927667,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7151779287072333
+    },
+    {
+      "sample_id": "-723195820759181666",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.15342496682905196,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8465750331709481
+    },
+    {
+      "sample_id": "-7243720341959076675",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.308367977392346,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.691632022607654
+    },
+    {
+      "sample_id": "-7315704277534873222",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3992723748455122,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6007276251544877
+    },
+    {
+      "sample_id": "-7320107493259542345",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4188042888709783,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5811957111290217
+    },
+    {
+      "sample_id": "-7344445742524899311",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.828486721513868,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.5168342883072722,
+        "evidence_accessibility": 0.12107250760342513,
+        "evidence_utilisation": 0.3620932040893027
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.4281903450856452
+    },
+    {
+      "sample_id": "-736666438111464162",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.8110510900245848,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.5730510815995459,
+        "evidence_accessibility": 0.12055890601955828,
+        "evidence_utilisation": 0.3063900123808959
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.46477370437107896
+    },
+    {
+      "sample_id": "-7370925457649269027",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.43667752913294383,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5633224708670561
+    },
+    {
+      "sample_id": "-745462523697378219",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7542291499521656,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3754002326525439,
+        "evidence_accessibility": 0.28398085191315153,
+        "evidence_utilisation": 0.34061891543430456
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.2831377983653734
+    },
+    {
+      "sample_id": "-7483795661822231594",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.349818041680516,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.650181958319484
+    },
+    {
+      "sample_id": "-7565739765702854010",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3362029182609225,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6637970817390775
+    },
+    {
+      "sample_id": "-7581059872074630037",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6262897147332395,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.22497765751365767,
+        "evidence_accessibility": 0.38435320719474336,
+        "evidence_utilisation": 0.3906691352915989
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2446720612968568
+    },
+    {
+      "sample_id": "-76002262753102474",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6024791500115403,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2764924401072693,
+        "evidence_accessibility": 0.2202565375807837,
+        "evidence_utilisation": 0.503251022311947
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.3031982481649405
+    },
+    {
+      "sample_id": "-7607504458781868831",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5011246017052491,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.35745620123094246,
+        "evidence_accessibility": 0.4086161223931739,
+        "evidence_utilisation": 0.23392767637588371
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.2047675915846226
+    },
+    {
+      "sample_id": "-764171144565980759",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.29528438918923405,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.704715610810766
+    },
+    {
+      "sample_id": "-7657379080399040683",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6131090632144142,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.275586355890051,
+        "evidence_accessibility": 0.3493140210881196,
+        "evidence_utilisation": 0.3750996230218295
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.22997697848299378
+    },
+    {
+      "sample_id": "-7741502514105511395",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4662027580482549,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5337972419517452
+    },
+    {
+      "sample_id": "-7751936485586885299",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7147042329683068,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3897348506728379,
+        "evidence_accessibility": 0.27080375683954144,
+        "evidence_utilisation": 0.3394613924876207
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.2785451475111482
+    },
+    {
+      "sample_id": "-7796046651025876055",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.36380094183399886,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6361990581660011
+    },
+    {
+      "sample_id": "-7876488844834691314",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.35761911261853463,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6423808873814654
+    },
+    {
+      "sample_id": "-7891787418755685108",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7644805468916422,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.38263791197799163,
+        "evidence_accessibility": 0.29905965333851986,
+        "evidence_utilisation": 0.31830243468348846
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.2925192402104111
+    },
+    {
+      "sample_id": "-7910863565090217321",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2603769185379431,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7396230814620569
+    },
+    {
+      "sample_id": "-793935713894199451",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3755792485987843,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6244207514012157
+    },
+    {
+      "sample_id": "-7989535213092054347",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.1684584390247051,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.831541560975295
+    },
+    {
+      "sample_id": "-7994495557308141403",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3573259082293325,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6426740917706675
+    },
+    {
+      "sample_id": "-7996848750766210292",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.31837813241130275,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6816218675886973
+    },
+    {
+      "sample_id": "-8036273344877520260",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.35025692774388045,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6497430722561195
+    },
+    {
+      "sample_id": "-8049695851713697163",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.27417865771196814,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7258213422880319
+    },
+    {
+      "sample_id": "-8081431644783557175",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.13354554823819995,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8664544517618
+    },
+    {
+      "sample_id": "-8111631832195028942",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.46349727289990694,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5365027271000931
+    },
+    {
+      "sample_id": "-8143736059759034639",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.28939824810764603,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.710601751892354
+    },
+    {
+      "sample_id": "-8160637999448921796",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2568485628104493,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7431514371895507
+    },
+    {
+      "sample_id": "-8161584049610727037",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2343751844573744,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7656248155426256
+    },
+    {
+      "sample_id": "-81929067993816692",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.35078953782910344,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6492104621708965
+    },
+    {
+      "sample_id": "-822810697742332337",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7182553806798456,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.44151880860639175,
+        "evidence_accessibility": 0.26232324321858985,
+        "evidence_utilisation": 0.29615794817501834
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.3171232599528958
+    },
+    {
+      "sample_id": "-8233386764121986360",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.46227032783219685,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5377296721678031
+    },
+    {
+      "sample_id": "-8247901781841476685",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7819326288204176,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.4220062052214814,
+        "evidence_accessibility": 0.0981930628592817,
+        "evidence_utilisation": 0.47980073191923694
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.3751718476195694
+    },
+    {
+      "sample_id": "-8306492276515645379",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.580502805656109,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.44263407246223735,
+        "evidence_accessibility": 0.3006706059947766,
+        "evidence_utilisation": 0.25669532154298613
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.25695032094331827
+    },
+    {
+      "sample_id": "-8381009484419676852",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5040972780923161,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.37061089444473255,
+        "evidence_accessibility": 0.2444202576342234,
+        "evidence_utilisation": 0.384968847921044
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.19406174838733306
+    },
+    {
+      "sample_id": "-8392081634321923269",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6973671731671894,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.31212372611310196,
+        "evidence_accessibility": 0.23473072915399376,
+        "evidence_utilisation": 0.4531455447329043
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.31600882756369164
+    },
+    {
+      "sample_id": "-8424688964238112177",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.16452012873241414,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8354798712675858
+    },
+    {
+      "sample_id": "-844607040165108603",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.569085364883813,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3800757899823807,
+        "evidence_accessibility": 0.3743403502501901,
+        "evidence_utilisation": 0.24558385976742916
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.2162955696256266
+    },
+    {
+      "sample_id": "-8518155586522600846",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7973457779248682,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.34986636158260254,
+        "evidence_accessibility": 0.37265077649163186,
+        "evidence_utilisation": 0.2774828619257656
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.2971315232760264
+    },
+    {
+      "sample_id": "-8521826207096650014",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.19188923290274834,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8081107670972516
+    },
+    {
+      "sample_id": "-8544960023313580012",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3248790938211984,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6751209061788016
+    },
+    {
+      "sample_id": "-8573099532306102698",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.33817859604756756,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6618214039524324
+    },
+    {
+      "sample_id": "-864239359964960011",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4319569381916588,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5680430618083412
+    },
+    {
+      "sample_id": "-8652687492451572522",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.573862504840588,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3158252448297989,
+        "evidence_accessibility": 0.22257469268869967,
+        "evidence_utilisation": 0.4616000624815015
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.26489496809020635
+    },
+    {
+      "sample_id": "-8659305167311182035",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5821604507374947,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.28079032202715687,
+        "evidence_accessibility": 0.21478668576522358,
+        "evidence_utilisation": 0.5044229922076195
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.29365511650594356
+    },
+    {
+      "sample_id": "-8671238223451151584",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.9999272695680742,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.5943906058149813,
+        "evidence_accessibility": 0.17714966943470228,
+        "evidence_utilisation": 0.22845972475031645
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.5943473755294877
+    },
+    {
+      "sample_id": "-8812057354438162118",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.12493861342682303,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.875061386573177
+    },
+    {
+      "sample_id": "-8853360627511483976",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.22352623720390458,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7764737627960954
+    },
+    {
+      "sample_id": "-892126850374165642",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.648057917410011,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.4013439926195206,
+        "evidence_accessibility": 0.21624923121753034,
+        "evidence_utilisation": 0.3824067761629491
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.2600941520220253
+    },
+    {
+      "sample_id": "-8951937367079407640",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5801739158236209,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2712758897363099,
+        "evidence_accessibility": 0.3589191373463226,
+        "evidence_utilisation": 0.3698049729173676
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.21455119922851723
+    },
+    {
+      "sample_id": "-8967537755972066133",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.45579137623636723,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5442086237636328
+    },
+    {
+      "sample_id": "-9012928126702403111",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2151738424587186,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7848261575412814
+    },
+    {
+      "sample_id": "-9044766538067253255",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3904415931283381,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.609558406871662
+    },
+    {
+      "sample_id": "-9151459252301477194",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5120459397875113,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.1448869125718796,
+        "evidence_accessibility": 0.5075153206934064,
+        "evidence_utilisation": 0.34759776673471393
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.2598711593410155
+    },
+    {
+      "sample_id": "-9210099757513379343",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.21044691593488615,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7895530840651138
+    },
+    {
+      "sample_id": "-9217396003551875690",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6729004882049705,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.1942507908618885,
+        "evidence_accessibility": 0.5259423624466758,
+        "evidence_utilisation": 0.27980684669143563
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.3539068724580437
+    },
+    {
+      "sample_id": "101283134098691894",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.38850438978154755,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6114956102184524
+    },
+    {
+      "sample_id": "1039102546557940080",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4970294171703073,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5029705828296926
+    },
+    {
+      "sample_id": "112939521296080681",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2260577147474644,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7739422852525356
+    },
+    {
+      "sample_id": "1174522695577165411",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4173909056042206,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5826090943957793
+    },
+    {
+      "sample_id": "1331101156591334824",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5686449585545902,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.29699554547669665,
+        "evidence_accessibility": 0.3993369288174614,
+        "evidence_utilisation": 0.3036675257058419
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.22708093133672266
+    },
+    {
+      "sample_id": "134587584998146088",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5011768348006226,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.24818035603004177,
+        "evidence_accessibility": 0.5465389397740675,
+        "evidence_utilisation": 0.20528070419589065
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.27391265593125524
+    },
+    {
+      "sample_id": "1379169289505958111",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4024171271420042,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5975828728579957
+    },
+    {
+      "sample_id": "143358760627476379",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7109961700457195,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2742850318142006,
+        "evidence_accessibility": 0.4303992308492486,
+        "evidence_utilisation": 0.29531573733655075
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.3060122047244392
+    },
+    {
+      "sample_id": "1453227198324349389",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.29828127026932594,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7017187297306741
+    },
+    {
+      "sample_id": "1469150137425764076",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.8803539704198982,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.5300376832816597,
+        "evidence_accessibility": 0.15644686684890113,
+        "evidence_utilisation": 0.31351544986943913
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.4666207789491736
+    },
+    {
+      "sample_id": "1471380661271996166",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3694537222112053,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6305462777887947
+    },
+    {
+      "sample_id": "1471601930209559051",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.720374431509767,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.4216258786001627,
+        "evidence_accessibility": 0.28436095102475273,
+        "evidence_utilisation": 0.2940131703750845
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.3037285026063982
+    },
+    {
+      "sample_id": "1547647803339899015",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4013477685060322,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5986522314939677
+    },
+    {
+      "sample_id": "1550607712450089106",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.36287565484501244,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6371243451549875
+    },
+    {
+      "sample_id": "1586691717504133123",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.8233157634949662,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3832547379295832,
+        "evidence_accessibility": 0.3176237348811752,
+        "evidence_utilisation": 0.2991215271892416
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.31553966717155796
+    },
+    {
+      "sample_id": "1589792771853651113",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.33612835932518625,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6638716406748137
+    },
+    {
+      "sample_id": "1590057314624809928",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.45858539362820405,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.541414606371796
+    },
+    {
+      "sample_id": "1615626468308135253",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3330732534450275,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6669267465549725
+    },
+    {
+      "sample_id": "1624012912518696153",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6778322094769211,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3578628760163434,
+        "evidence_accessibility": 0.3138572875010919,
+        "evidence_utilisation": 0.3282798364825646
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.24257098393992355
+    },
+    {
+      "sample_id": "1645929395978122645",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4695535846431968,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5304464153568031
+    },
+    {
+      "sample_id": "1656636013570720778",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6992411289503495,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.23268044710550156,
+        "evidence_accessibility": 0.3947314539826664,
+        "evidence_utilisation": 0.3725880989118319
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.2760124675150526
+    },
+    {
+      "sample_id": "1735766792677422630",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5375199363699745,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.36365000299788847,
+        "evidence_accessibility": 0.25599458834027905,
+        "evidence_utilisation": 0.38035540866183243
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.20444861506188383
+    },
+    {
+      "sample_id": "1760961066899651429",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5907399428579345,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.34109409895649595,
+        "evidence_accessibility": 0.2840977519189273,
+        "evidence_utilisation": 0.37480814912457683
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2214141445965407
+    },
+    {
+      "sample_id": "1823053967207989806",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3458521453698248,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6541478546301752
+    },
+    {
+      "sample_id": "1838851770314085590",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.16312457411401945,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8368754258859805
+    },
+    {
+      "sample_id": "1848006246448298349",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.9998924914991395,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.5742794244941346,
+        "evidence_accessibility": 0.09871657427630728,
+        "evidence_utilisation": 0.3270040012295582
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.5742176845741322
+    },
+    {
+      "sample_id": "1851594182842213971",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4371486450498219,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5628513549501781
+    },
+    {
+      "sample_id": "1915885935757407192",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5549867371821776,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2794416281984162,
+        "evidence_accessibility": 0.29043971049799344,
+        "evidence_utilisation": 0.4301186613035903
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.23871015243804572
+    },
+    {
+      "sample_id": "1988662011276832086",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.37930597171886393,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6206940282811361
+    },
+    {
+      "sample_id": "212435016090205927",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7944370826330288,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.45468502432239055,
+        "evidence_accessibility": 0.19092775871608283,
+        "evidence_utilisation": 0.3543872169615266
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.3612186442396077
+    },
+    {
+      "sample_id": "213833303613621065",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.35966000731837283,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6403399926816271
+    },
+    {
+      "sample_id": "2247250807557083996",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.9999240782881296,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.5987661839288282,
+        "evidence_accessibility": 0.20014392207841594,
+        "evidence_utilisation": 0.2010898939927559
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.5987207245751341
+    },
+    {
+      "sample_id": "22732644474650367",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.778628004768176,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3087519720027521,
+        "evidence_accessibility": 0.32806571081813674,
+        "evidence_utilisation": 0.3631823171791111
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2827839229922541
+    },
+    {
+      "sample_id": "2352051038192309240",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4403396870467672,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5596603129532328
+    },
+    {
+      "sample_id": "2370076891269438265",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.22287574008453376,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7771242599154662
+    },
+    {
+      "sample_id": "2417467680631356371",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2932502011514567,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7067497988485433
+    },
+    {
+      "sample_id": "24224390922062302",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6934130855924747,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3957122096166366,
+        "evidence_accessibility": 0.22250247013748334,
+        "evidence_utilisation": 0.38178532024588
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.27439202427688814
+    },
+    {
+      "sample_id": "2444419494447200668",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2977668212484321,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7022331787515679
+    },
+    {
+      "sample_id": "2494339783007699672",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4585061379686545,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5414938620313454
+    },
+    {
+      "sample_id": "2503275827954984607",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5586897821771503,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.4293879398322626,
+        "evidence_accessibility": 0.23106232647162417,
+        "evidence_utilisation": 0.3395497336961133
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.23989465457438208
+    },
+    {
+      "sample_id": "2536150218240275989",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2149185228498064,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7850814771501936
+    },
+    {
+      "sample_id": "2702301543069387295",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5266756922430262,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.27443938317804295,
+        "evidence_accessibility": 0.19118095113940486,
+        "evidence_utilisation": 0.5343796656825522
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.28144478034395515
+    },
+    {
+      "sample_id": "2722525402856944570",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.29391720724967285,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7060827927503271
+    },
+    {
+      "sample_id": "2741826828451174428",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5233631061236959,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3195780966903261,
+        "evidence_accessibility": 0.2941733755449981,
+        "evidence_utilisation": 0.38624852776467583
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.20214822922662531
+    },
+    {
+      "sample_id": "2836265093692765955",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6916415226151696,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.39365991442569326,
+        "evidence_accessibility": 0.19311734745237902,
+        "evidence_utilisation": 0.4132227381219278
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2858020037738596
+    },
+    {
+      "sample_id": "2851585794686488659",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.29100193816503056,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7089980618349694
+    },
+    {
+      "sample_id": "2862391704407185252",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.39523112491058104,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6047688750894189
+    },
+    {
+      "sample_id": "2864099969295435495",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5816589808928812,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3043804221870814,
+        "evidence_accessibility": 0.3044610430261274,
+        "evidence_utilisation": 0.39115853478679113
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.22752087471163754
+    },
+    {
+      "sample_id": "2885278237105070353",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4711843483266473,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5288156516733526
+    },
+    {
+      "sample_id": "2978504262848357235",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2969799707909308,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7030200292090691
+    },
+    {
+      "sample_id": "3017786305624129255",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.14224961913435732,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8577503808656427
+    },
+    {
+      "sample_id": "3028343500075334931",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2760633237884752,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7239366762115248
+    },
+    {
+      "sample_id": "306074923032581824",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3718281040980255,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6281718959019744
+    },
+    {
+      "sample_id": "3062778689902618642",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7200353298406479,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2986918693483899,
+        "evidence_accessibility": 0.2492171333247575,
+        "evidence_utilisation": 0.4520909973268526
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.32552149037822775
+    },
+    {
+      "sample_id": "3133023570425583704",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.24725285416747836,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7527471458325217
+    },
+    {
+      "sample_id": "3152334139132359350",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.27789928496874694,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7221007150312531
+    },
+    {
+      "sample_id": "3178522985375895008",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.41740845353463923,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5825915464653608
+    },
+    {
+      "sample_id": "3182507307097242113",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.503433001700273,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.30227371814783377,
+        "evidence_accessibility": 0.20982678243802513,
+        "evidence_utilisation": 0.4878994994141412
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2456247095181217
+    },
+    {
+      "sample_id": "3197263819650216852",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.38719425917268535,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6128057408273146
+    },
+    {
+      "sample_id": "3216644197084568934",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.647116100886246,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.21284303941400956,
+        "evidence_accessibility": 0.4929435063786964,
+        "evidence_utilisation": 0.29421345420729406
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.31899167980497634
+    },
+    {
+      "sample_id": "3217872438894951101",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5813252065176431,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3116965912449188,
+        "evidence_accessibility": 0.3086965036302279,
+        "evidence_utilisation": 0.37960690512485346
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.22067506251722876
+    },
+    {
+      "sample_id": "324460096927819590",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.10893827278922012,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8910617272107799
+    },
+    {
+      "sample_id": "3249143050053167368",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.9999245177203283,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.6778960015275992,
+        "evidence_accessibility": 0.07766502954555102,
+        "evidence_utilisation": 0.24443896892684985
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.6778448323920235
+    },
+    {
+      "sample_id": "3262882280361419647",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.31816650006446645,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6818334999355335
+    },
+    {
+      "sample_id": "3297310095043146275",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.1904705819540229,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8095294180459771
+    },
+    {
+      "sample_id": "3311962143974666464",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.15820094017036093,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8417990598296391
+    },
+    {
+      "sample_id": "3329484920776215448",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7456461133942115,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3253362820998089,
+        "evidence_accessibility": 0.0687699239891289,
+        "evidence_utilisation": 0.6058937939110621
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.45178235255945687
+    },
+    {
+      "sample_id": "3368186292408394314",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.36320955918247266,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6367904408175273
+    },
+    {
+      "sample_id": "3421591493369976475",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.35841888052477844,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6415811194752216
+    },
+    {
+      "sample_id": "343386192639661502",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.15035960046824887,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8496403995317512
+    },
+    {
+      "sample_id": "3497042947752645554",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.9998901289221742,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.6196617682299808,
+        "evidence_accessibility": 0.12543312321301744,
+        "evidence_utilisation": 0.2549051085570017
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.6195936853236179
+    },
+    {
+      "sample_id": "3515985474543482606",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5972806506760011,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3244091947350802,
+        "evidence_accessibility": 0.1454949499803391,
+        "evidence_utilisation": 0.5300958552845807
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.31661599736502566
+    },
+    {
+      "sample_id": "3521334647073967978",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3551731467646286,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6448268532353714
+    },
+    {
+      "sample_id": "3593786118993246315",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7192431440408507,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.22690646510517523,
+        "evidence_accessibility": 0.34664703735488567,
+        "evidence_utilisation": 0.426446497539939
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.30671871965583464
+    },
+    {
+      "sample_id": "3639746340952270790",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3889734573332494,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6110265426667506
+    },
+    {
+      "sample_id": "3644312111851521034",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.39208514298901775,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6079148570109822
+    },
+    {
+      "sample_id": "3673814853402336146",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.514691443622591,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.28417176277181305,
+        "evidence_accessibility": 0.21010108124544577,
+        "evidence_utilisation": 0.5057271559827412
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.26029343999190435
+    },
+    {
+      "sample_id": "3724356943291190911",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.43782646080638005,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.56217353919362
+    },
+    {
+      "sample_id": "3864930130255054488",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4225733881095916,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5774266118904083
+    },
+    {
+      "sample_id": "390660943990140780",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2225563375088957,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7774436624911043
+    },
+    {
+      "sample_id": "3929376598998928646",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7931808785070991,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.33029016465575894,
+        "evidence_accessibility": 0.25297576468900373,
+        "evidence_utilisation": 0.4167340706552373
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.33054549626616064
+    },
+    {
+      "sample_id": "3941543233938260280",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.763883447795359,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3166754579982144,
+        "evidence_accessibility": 0.32696574463204575,
+        "evidence_utilisation": 0.3563587973697399
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2722165867870046
+    },
+    {
+      "sample_id": "3971602566853823038",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4823412657592825,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5176587342407175
+    },
+    {
+      "sample_id": "397204824317594616",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6170557960497669,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.26199794669288967,
+        "evidence_accessibility": 0.2021751011213452,
+        "evidence_utilisation": 0.5358269521857651
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.3306351265259077
+    },
+    {
+      "sample_id": "3977993332190439710",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.27965077096896845,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7203492290310316
+    },
+    {
+      "sample_id": "4003112133897014732",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.339735942772278,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6602640572277221
+    },
+    {
+      "sample_id": "4019335299699332844",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6544909622057568,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2983165280958282,
+        "evidence_accessibility": 0.25502185479867057,
+        "evidence_utilisation": 0.4466616171055013
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2923359915597588
+    },
+    {
+      "sample_id": "4125353610319729657",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4199757490980354,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5800242509019646
+    },
+    {
+      "sample_id": "4160617673481105517",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.45388073829922043,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5461192617007795
+    },
+    {
+      "sample_id": "4161460381563799831",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.36608294235879385,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6339170576412061
+    },
+    {
+      "sample_id": "4186485631454362041",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5869235954944534,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2169025802377786,
+        "evidence_accessibility": 0.5517894495953024,
+        "evidence_utilisation": 0.23130797016691904
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.32385824771238036
+    },
+    {
+      "sample_id": "4220294884897994209",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.05725429668464109,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9427457033153589
+    },
+    {
+      "sample_id": "4324390011980361975",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2518872766533719,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.748112723346628
+    },
+    {
+      "sample_id": "4333514272418210636",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.28923408258890226,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7107659174110977
+    },
+    {
+      "sample_id": "4344803622779505142",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.1941165292483109,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8058834707516891
+    },
+    {
+      "sample_id": "4349358961724018214",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.29057646048845365,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7094235395115464
+    },
+    {
+      "sample_id": "4361512494258228555",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5988746338573405,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.23849307509387807,
+        "evidence_accessibility": 0.32936144958030805,
+        "evidence_utilisation": 0.4321454753258139
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.25880096330885316
+    },
+    {
+      "sample_id": "4430099317862304778",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6381916120414188,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3141179383059005,
+        "evidence_accessibility": 0.3223799083898371,
+        "evidence_utilisation": 0.36350215330426244
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2319840251977742
+    },
+    {
+      "sample_id": "4477102041223186075",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.45507396077602935,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5449260392239706
+    },
+    {
+      "sample_id": "4480034477137973992",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2107097264588096,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7892902735411904
+    },
+    {
+      "sample_id": "4545658360788980127",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.44812377050438273,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5518762294956172
+    },
+    {
+      "sample_id": "4590422471265833514",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5814164060370586,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3112513349725464,
+        "evidence_accessibility": 0.30595466291006224,
+        "evidence_utilisation": 0.3827940021173914
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2225627129636359
+    },
+    {
+      "sample_id": "4614639925949581519",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.32011981967194036,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6798801803280596
+    },
+    {
+      "sample_id": "4674269357266381610",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6103872925555727,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3939392064016978,
+        "evidence_accessibility": 0.3310096089398021,
+        "evidence_utilisation": 0.27505118465850026
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.24045548562702324
+    },
+    {
+      "sample_id": "4705803842367216340",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4673829984353123,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5326170015646877
+    },
+    {
+      "sample_id": "4721622231665415813",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.35641055414175915,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6435894458582408
+    },
+    {
+      "sample_id": "4768125604454612756",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6012755976959843,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.31592398625065354,
+        "evidence_accessibility": 0.4307202886331762,
+        "evidence_utilisation": 0.2533557251161702
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.25898159898769985
+    },
+    {
+      "sample_id": "4803203223743199668",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.39039572678349865,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6096042732165013
+    },
+    {
+      "sample_id": "4826133206438959478",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.36911707733124144,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6308829226687586
+    },
+    {
+      "sample_id": "4884658732028049316",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3318815473707316,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6681184526292684
+    },
+    {
+      "sample_id": "4943207042321394497",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3336998975367772,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6663001024632228
+    },
+    {
+      "sample_id": "5046330903295447703",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7662567269003886,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.20609050906286452,
+        "evidence_accessibility": 0.47224092504272,
+        "evidence_utilisation": 0.32166856589441545
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.3618577855316464
+    },
+    {
+      "sample_id": "5078709962400196312",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5055703943755421,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.33139404716150495,
+        "evidence_accessibility": 0.19724694657901082,
+        "evidence_utilisation": 0.47135900625948424
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.23830515868707106
+    },
+    {
+      "sample_id": "5117748440024890059",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.492020128254883,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5079798717451169
+    },
+    {
+      "sample_id": "525023656480961403",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.49941766312526553,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5005823368747344
+    },
+    {
+      "sample_id": "5255969991136559330",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.45135473244455165,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5486452675554483
+    },
+    {
+      "sample_id": "5364680911815100032",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6973728295932552,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2601449176056332,
+        "evidence_accessibility": 0.02149268080776477,
+        "evidence_utilisation": 0.7183624015866021
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.500966420667855
+    },
+    {
+      "sample_id": "5372631738578000712",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4302035930033063,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5697964069966936
+    },
+    {
+      "sample_id": "5404116173326600628",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.35887576164155616,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6411242383584439
+    },
+    {
+      "sample_id": "5465903250853475905",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5324802442844544,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.22935005696704605,
+        "evidence_accessibility": 0.26153543420595976,
+        "evidence_utilisation": 0.5091145088269943
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2710934180289579
+    },
+    {
+      "sample_id": "549545544241578743",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.1387265153976923,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8612734846023077
+    },
+    {
+      "sample_id": "5591916631811807548",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.272935184383246,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7270648156167541
+    },
+    {
+      "sample_id": "5658693752461141407",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5196142635311779,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.26927529678952455,
+        "evidence_accessibility": 0.27246389577712576,
+        "evidence_utilisation": 0.45826080743334974
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.23811885195968296
+    },
+    {
+      "sample_id": "5758694170037504500",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.1389175220928662,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8610824779071338
+    },
+    {
+      "sample_id": "5772493760731282819",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4750462640828907,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5249537359171093
+    },
+    {
+      "sample_id": "583026970021621830",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.463717077572318,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5362829224276819
+    },
+    {
+      "sample_id": "5964804974616776960",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2624876180497858,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7375123819502142
+    },
+    {
+      "sample_id": "6021153026631234929",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.76789670175184,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3967040497181006,
+        "evidence_accessibility": 0.17136927948727732,
+        "evidence_utilisation": 0.4319266707946221
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.3316750659018431
+    },
+    {
+      "sample_id": "6059963286717890517",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2294983362677415,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7705016637322585
+    },
+    {
+      "sample_id": "6069686966346900698",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3743257018782342,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6256742981217658
+    },
+    {
+      "sample_id": "6077371157930183398",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.47812354467449275,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5218764553255073
+    },
+    {
+      "sample_id": "608940495852211528",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3271976758380285,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6728023241619715
+    },
+    {
+      "sample_id": "6117400998512150504",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6175515208511588,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3608364398059377,
+        "evidence_accessibility": 0.207765538873707,
+        "evidence_utilisation": 0.43139802132035543
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.26641050415856615
+    },
+    {
+      "sample_id": "6207806205046746204",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5531593514901878,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.26345517082135417,
+        "evidence_accessibility": 0.44374606813955464,
+        "evidence_utilisation": 0.2927987610390913
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.24546228727839672
+    },
+    {
+      "sample_id": "6255051608078138794",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.56404096994001,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.32702513907581443,
+        "evidence_accessibility": 0.2733234974341035,
+        "evidence_utilisation": 0.39965136349008207
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.22541974270079337
+    },
+    {
+      "sample_id": "630153387270323434",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.26419432733264464,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7358056726673554
+    },
+    {
+      "sample_id": "6452376377434138504",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6481092559972753,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.22912311676577896,
+        "evidence_accessibility": 0.3551049467414562,
+        "evidence_utilisation": 0.4157719364927648
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2694656404248722
+    },
+    {
+      "sample_id": "6454311031309410150",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.15500598333551455,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8449940166644855
+    },
+    {
+      "sample_id": "647659679149316553",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5337348456970322,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.38877468346258665,
+        "evidence_accessibility": 0.20309797981759667,
+        "evidence_utilisation": 0.4081273367198167
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2178317810888921
+    },
+    {
+      "sample_id": "6497460116946232542",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3488806147911248,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6511193852088752
+    },
+    {
+      "sample_id": "6507459087595991641",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6369794822860438,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3649165644830191,
+        "evidence_accessibility": 0.28395692998438454,
+        "evidence_utilisation": 0.35112650553259633
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.23244436432199525
+    },
+    {
+      "sample_id": "6524766539964714821",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6272871545906039,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3299079957123463,
+        "evidence_accessibility": 0.31558722357205793,
+        "evidence_utilisation": 0.35450478071559577
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.22237629518385207
+    },
+    {
+      "sample_id": "6581085745347506584",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.409421036355271,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.590578963644729
+    },
+    {
+      "sample_id": "6657198138282369001",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.12566985471043152,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8743301452895684
+    },
+    {
+      "sample_id": "6792131858667468165",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2088332270912085,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7911667729087914
+    },
+    {
+      "sample_id": "6814522675159217341",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5328241687040332,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.31895006212494875,
+        "evidence_accessibility": 0.40133379189209084,
+        "evidence_utilisation": 0.27971614598296046
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.21384034403774074
+    },
+    {
+      "sample_id": "6859619293717253541",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.34165438844947343,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6583456115505266
+    },
+    {
+      "sample_id": "6882831655380911332",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4416096606183004,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5583903393816996
+    },
+    {
+      "sample_id": "6915606477668963399",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6725249425219464,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.4221631710813276,
+        "evidence_accessibility": 0.21720668158554496,
+        "evidence_utilisation": 0.3606301473331275
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.28391526236635245
+    },
+    {
+      "sample_id": "692757468233209793",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6986620069748964,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2649857372635351,
+        "evidence_accessibility": 0.3619488142736634,
+        "evidence_utilisation": 0.37306544846280154
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2606466549560107
+    },
+    {
+      "sample_id": "6931174159985320066",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3257195255052315,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6742804744947686
+    },
+    {
+      "sample_id": "6946792759880491067",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.16400645674616418,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8359935432538358
+    },
+    {
+      "sample_id": "700604097171850168",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6161655143385697,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2072162330070525,
+        "evidence_accessibility": 0.4161206447512185,
+        "evidence_utilisation": 0.376663122241729
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.2563991911000318
+    },
+    {
+      "sample_id": "7021313805354142751",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.23169110154446546,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7683088984555345
+    },
+    {
+      "sample_id": "7074317315274630741",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5529585577470655,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.16041060945089317,
+        "evidence_accessibility": 0.574860912573115,
+        "evidence_utilisation": 0.26472847797599186
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.31787426112159156
+    },
+    {
+      "sample_id": "7075559602853408649",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7269230310368386,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.28345078629801423,
+        "evidence_accessibility": 0.50136421788783,
+        "evidence_utilisation": 0.21518499581415562
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.3644531969204354
+    },
+    {
+      "sample_id": "7077932120680330360",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6138216305638207,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.32778480444309793,
+        "evidence_accessibility": 0.2712046293628079,
+        "evidence_utilisation": 0.40101056619409414
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2461489596145798
+    },
+    {
+      "sample_id": "71425964742321525",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6095518341742635,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.4838773367763781,
+        "evidence_accessibility": 0.322781768879017,
+        "evidence_utilisation": 0.193340894344605
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.2949483181473991
+    },
+    {
+      "sample_id": "7198381700174721586",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.36623161496540185,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6337683850345981
+    },
+    {
+      "sample_id": "7368254478874801356",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2436096771705971,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7563903228294029
+    },
+    {
+      "sample_id": "7402184777947527945",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.14498356191174747,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8550164380882526
+    },
+    {
+      "sample_id": "7410490453997997451",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6317242616918646,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.22677419430025458,
+        "evidence_accessibility": 0.48754500016015057,
+        "evidence_utilisation": 0.28568080553959496
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.30799400526773113
+    },
+    {
+      "sample_id": "7416298161166363032",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7103958414039387,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.33242711335558595,
+        "evidence_accessibility": 0.4066858117230928,
+        "evidence_utilisation": 0.26088707492132124
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.28890790940607036
+    },
+    {
+      "sample_id": "7429441805782246560",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6654749719634984,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.29787561190732825,
+        "evidence_accessibility": 0.2693666714648064,
+        "evidence_utilisation": 0.4327577166278653
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2879894293399162
+    },
+    {
+      "sample_id": "7437999823212589137",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.23991455372932044,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7600854462706795
+    },
+    {
+      "sample_id": "7527743041084411715",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6847933409965453,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.34815636075716727,
+        "evidence_accessibility": 0.3654074491693399,
+        "evidence_utilisation": 0.2864361900734929
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.2502285879416976
+    },
+    {
+      "sample_id": "7557481531404504255",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5519579012486726,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.31873671163052614,
+        "evidence_accessibility": 0.37320648349310004,
+        "evidence_utilisation": 0.30805680487637377
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.20599426736124887
+    },
+    {
+      "sample_id": "7566216024156722346",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5672644902529751,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3662295534755544,
+        "evidence_accessibility": 0.21947806526514954,
+        "evidence_utilisation": 0.4142923812592961
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.23501335647074584
+    },
+    {
+      "sample_id": "7640456808747041665",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.40978816191673606,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5902118380832639
+    },
+    {
+      "sample_id": "7640959384571480586",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.47370752001945365,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5262924799805464
+    },
+    {
+      "sample_id": "7663087575680980816",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.22237952553608992,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7776204744639101
+    },
+    {
+      "sample_id": "7711205805100670095",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5032862034471677,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2850805529800748,
+        "evidence_accessibility": 0.21844952301237636,
+        "evidence_utilisation": 0.49646992400754897
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.24986646317946318
+    },
+    {
+      "sample_id": "7749931351008827886",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.8375311108642991,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.31628252841175075,
+        "evidence_accessibility": 0.4153005183645624,
+        "evidence_utilisation": 0.26841695322368686
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.34782710448839116
+    },
+    {
+      "sample_id": "7808442793714993461",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.38985832209776916,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6101416779022308
+    },
+    {
+      "sample_id": "7886814539120386508",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.799116144601549,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3289790605150843,
+        "evidence_accessibility": 0.15987100835797163,
+        "evidence_utilisation": 0.5111499311269441
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.40846816227551086
+    },
+    {
+      "sample_id": "7901746249864619718",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.1636123891542512,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8363876108457489
+    },
+    {
+      "sample_id": "7926179542568614934",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.45706122802334886,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5429387719766512
+    },
+    {
+      "sample_id": "8002956316753524206",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7764885655855198,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3816118645714482,
+        "evidence_accessibility": 0.23688393377000877,
+        "evidence_utilisation": 0.38150420165854304
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.29631724933149944
+    },
+    {
+      "sample_id": "8004211080214154493",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3112953736822989,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.688704626317701
+    },
+    {
+      "sample_id": "8073898551734160319",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.4648840090302692,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5351159909697307
+    },
+    {
+      "sample_id": "8089219450279289059",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.14042518379676658,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8595748162032334
+    },
+    {
+      "sample_id": "8141707901667810848",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.23005885235404028,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7699411476459597
+    },
+    {
+      "sample_id": "8164301669866012157",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3276166541900795,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6723833458099204
+    },
+    {
+      "sample_id": "8174037572148648768",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.25894926148120373,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7410507385187963
+    },
+    {
+      "sample_id": "8177571930408806343",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6048080104482209,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3888709563335611,
+        "evidence_accessibility": 0.16621881766507499,
+        "evidence_utilisation": 0.44491022600136393
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.2690852686159532
+    },
+    {
+      "sample_id": "8188550931836037275",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3244923444049673,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6755076555950327
+    },
+    {
+      "sample_id": "8194342767714605563",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.46744192959693986,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5325580704030601
+    },
+    {
+      "sample_id": "8208347308009152764",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.36260888313780654,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6373911168621935
+    },
+    {
+      "sample_id": "8239463385147663167",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.307164861495594,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.692835138504406
+    },
+    {
+      "sample_id": "8308557182013290945",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.19947108905914537,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8005289109408547
+    },
+    {
+      "sample_id": "8376781281936431992",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.601790540623325,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.34376328183970545,
+        "evidence_accessibility": 0.2097003225173261,
+        "evidence_utilisation": 0.4465363956429685
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.26872137894197295
+    },
+    {
+      "sample_id": "837987629649092236",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.2728313396466719,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7271686603533281
+    },
+    {
+      "sample_id": "8484861530321103633",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6115774442461336,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.41566128257303075,
+        "evidence_accessibility": 0.3864036090151354,
+        "evidence_utilisation": 0.197935108411834
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.2542090648680841
+    },
+    {
+      "sample_id": "8494342737238168262",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.41472427113601806,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5852757288639819
+    },
+    {
+      "sample_id": "8565998783583575256",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.7642409292572985,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.27357468749542646,
+        "evidence_accessibility": 0.41937240924250874,
+        "evidence_utilisation": 0.3070529032620648
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.32050155974436695
+    },
+    {
+      "sample_id": "8770209312170080158",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.22818240499929449,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7718175950007056
+    },
+    {
+      "sample_id": "8783361206191889627",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.29593390809097303,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7040660919090269
+    },
+    {
+      "sample_id": "8894580648680250909",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.358547471267796,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6414525287322039
+    },
+    {
+      "sample_id": "8937378309480282220",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5511624980212199,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.2575021880682694,
+        "evidence_accessibility": 0.37540304084421244,
+        "evidence_utilisation": 0.3670947710875182
+      },
+      "final_label": "evidence_accessibility",
+      "confidence": 0.20690807775645817
+    },
+    {
+      "sample_id": "9033939387979817559",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.35159130952524253,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6484086904747575
+    },
+    {
+      "sample_id": "9078092620239351027",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.5470817102412991,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.3573468942270375,
+        "evidence_accessibility": 0.34313526740548556,
+        "evidence_utilisation": 0.2995178383674769
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.19549795004314433
+    },
+    {
+      "sample_id": "9093937969389320565",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3346930451109683,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6653069548890317
+    },
+    {
+      "sample_id": "9105761634910939930",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.29604892383534603,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7039510761646539
+    },
+    {
+      "sample_id": "9191821996395940885",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.6044711100023991,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.21632766220858884,
+        "evidence_accessibility": 0.33339046405978184,
+        "evidence_utilisation": 0.4502818737316294
+      },
+      "final_label": "evidence_utilisation",
+      "confidence": 0.27218238402851813
+    },
+    {
+      "sample_id": "950913319015411203",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.35448601702039756,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6455139829796024
+    },
+    {
+      "sample_id": "97369777493072047",
+      "dataset": "nq",
+      "stage1_failure_probability": 0.3714890264223944,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6285109735776055
+    },
+    {
+      "sample_id": "101111",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.07422610515668024,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9257738948433197
+    },
+    {
+      "sample_id": "102627",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.6262077161406905,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.8105725970935982,
+        "evidence_accessibility": 0.032669001425752714,
+        "evidence_utilisation": 0.1567584014806491
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.5075868147922102
+    },
+    {
+      "sample_id": "103098",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.6180010108358698,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.7892988801743348,
+        "evidence_accessibility": 0.027680441335853193,
+        "evidence_utilisation": 0.183020678489812
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.487787505799359
+    },
+    {
+      "sample_id": "107305",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.030455744842578677,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9695442551574214
+    },
+    {
+      "sample_id": "107699",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.5306430241703963,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.6204925530027219,
+        "evidence_accessibility": 0.09816417657857579,
+        "evidence_utilisation": 0.28134327041870244
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.32926004480057425
+    },
+    {
+      "sample_id": "110394",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.5033657185444154,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.47930224721357534,
+        "evidence_accessibility": 0.141731636591581,
+        "evidence_utilisation": 0.3789661161948436
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.24126432006861437
+    },
+    {
+      "sample_id": "114567",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.683909550638551,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.8190223351880765,
+        "evidence_accessibility": 0.02141108480044697,
+        "evidence_utilisation": 0.15956658001147642
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.5601371972214141
+    },
+    {
+      "sample_id": "114912",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.539656726176101,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.7448730246669472,
+        "evidence_accessibility": 0.03243035361760514,
+        "evidence_utilisation": 0.2226966217154478
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.4019757379086549
+    },
+    {
+      "sample_id": "119437",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.06295991042208895,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9370400895779111
+    },
+    {
+      "sample_id": "120983",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.5113817708295014,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.7077137542186756,
+        "evidence_accessibility": 0.055608731651578196,
+        "evidence_utilisation": 0.23667751412974625
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.3619119128727408
+    },
+    {
+      "sample_id": "121517",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.560801152710071,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.6998221400602788,
+        "evidence_accessibility": 0.06178897601443121,
+        "evidence_utilisation": 0.23838888392529006
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.3924610628378331
+    },
+    {
+      "sample_id": "121817",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.0421630455814914,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9578369544185086
+    },
+    {
+      "sample_id": "122614",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.6082887253640038,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.7380935928853809,
+        "evidence_accessibility": 0.049841950902103756,
+        "evidence_utilisation": 0.21206445621251535
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.4489740108155863
+    },
+    {
+      "sample_id": "127197",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.09426899047446381,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9057310095255362
+    },
+    {
+      "sample_id": "129441",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.5434525439253188,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.6027141793919655,
+        "evidence_accessibility": 0.08198575780869456,
+        "evidence_utilisation": 0.3153000627993398
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.3275465540504246
+    },
+    {
+      "sample_id": "13201",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.09140318017407464,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9085968198259253
+    },
+    {
+      "sample_id": "132990",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.3863200737750685,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6136799262249315
+    },
+    {
+      "sample_id": "137464",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.6310168472543193,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.7685535929287969,
+        "evidence_accessibility": 0.03543188335415474,
+        "evidence_utilisation": 0.19601452371704825
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.4849702651559089
+    },
+    {
+      "sample_id": "143905",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.039411535152016015,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.960588464847984
+    },
+    {
+      "sample_id": "146272",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.09038308325319265,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9096169167468073
+    },
+    {
+      "sample_id": "154494",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.4525425103805234,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5474574896194766
+    },
+    {
+      "sample_id": "156076",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.5954147081971407,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.6745134407026389,
+        "evidence_accessibility": 0.05946551021542995,
+        "evidence_utilisation": 0.2660210490819312
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.4016152234710111
+    },
+    {
+      "sample_id": "162041",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.5769198001724091,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.769649975594711,
+        "evidence_accessibility": 0.04403852278755942,
+        "evidence_utilisation": 0.18631150161772952
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.4440263101228002
+    },
+    {
+      "sample_id": "163988",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.4617242517551712,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5382757482448288
+    },
+    {
+      "sample_id": "165111",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.12729995281812492,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8727000471818751
+    },
+    {
+      "sample_id": "171509",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.6761352273051491,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.8107387940859383,
+        "evidence_accessibility": 0.027006340971085504,
+        "evidence_utilisation": 0.16225486494297614
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.5481690588243984
+    },
+    {
+      "sample_id": "175725",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.04050617528030829,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9594938247196917
+    },
+    {
+      "sample_id": "177152",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.3842571578031064,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6157428421968936
+    },
+    {
+      "sample_id": "178898",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.5498005615629343,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.7501346390478213,
+        "evidence_accessibility": 0.05020927941103919,
+        "evidence_utilisation": 0.19965608154113945
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.4124244457963012
+    },
+    {
+      "sample_id": "179340",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.5891521276911906,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.7897792869091559,
+        "evidence_accessibility": 0.033808302495243144,
+        "evidence_utilisation": 0.17641241059560095
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.46530014728896046
+    },
+    {
+      "sample_id": "187108",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.6523802471759006,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.7591286366903032,
+        "evidence_accessibility": 0.03032705171902417,
+        "evidence_utilisation": 0.2105443115906726
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.4952405276423244
+    },
+    {
+      "sample_id": "187324",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.048071893623765426,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9519281063762346
+    },
+    {
+      "sample_id": "192595",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.0469644062994604,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9530355937005396
+    },
+    {
+      "sample_id": "192837",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.5232403466622597,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.7061098056785615,
+        "evidence_accessibility": 0.05359222018343722,
+        "evidence_utilisation": 0.24029797413800122
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.36946513950487136
+    },
+    {
+      "sample_id": "194023",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.47283908797276186,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5271609120272381
+    },
+    {
+      "sample_id": "194183",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.45954407189024293,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5404559281097571
+    },
+    {
+      "sample_id": "199735",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.057171810905658996,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.942828189094341
+    },
+    {
+      "sample_id": "200042",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.6291537867235477,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.7716584760030711,
+        "evidence_accessibility": 0.03838739579224782,
+        "evidence_utilisation": 0.18995412820468088
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.4854918522346541
+    },
+    {
+      "sample_id": "201799",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.36462800684012986,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6353719931598701
+    },
+    {
+      "sample_id": "204651",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.5809458530307332,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.7210459660405347,
+        "evidence_accessibility": 0.055539969213892065,
+        "evidence_utilisation": 0.2234140647455732
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.41888866381578754
+    },
+    {
+      "sample_id": "206994",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.4924727540369644,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5075272459630356
+    },
+    {
+      "sample_id": "208427",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.4153956259782594,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5846043740217406
+    },
+    {
+      "sample_id": "21145",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.05286129137207444,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9471387086279256
+    },
+    {
+      "sample_id": "213436",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.37703475708130757,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6229652429186925
+    },
+    {
+      "sample_id": "213949",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.3598760095529232,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6401239904470768
+    },
+    {
+      "sample_id": "215853",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.6681353728365407,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.8132909497278572,
+        "evidence_accessibility": 0.026394217339293143,
+        "evidence_utilisation": 0.1603148329328497
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.5433884519210062
+    },
+    {
+      "sample_id": "219205",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.04287943143969147,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9571205685603086
+    },
+    {
+      "sample_id": "23147",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.06598775873349218,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9340122412665078
+    },
+    {
+      "sample_id": "26081",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.04330497478660695,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.956695025213393
+    },
+    {
+      "sample_id": "26836",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.04723277911551321,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9527672208844868
+    },
+    {
+      "sample_id": "27398",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.5226271360605773,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.7093712216926209,
+        "evidence_accessibility": 0.05365209471573328,
+        "evidence_utilisation": 0.2369766835916459
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.37073664999700734
+    },
+    {
+      "sample_id": "30962",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.3573473469554054,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.6426526530445946
+    },
+    {
+      "sample_id": "32233",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.7104774741126013,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.8276617403210984,
+        "evidence_accessibility": 0.027722766060951094,
+        "evidence_utilisation": 0.1446154936179505
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.5880350226829737
+    },
+    {
+      "sample_id": "35065",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.6495478861687366,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.7389000903901082,
+        "evidence_accessibility": 0.03923111000573245,
+        "evidence_utilisation": 0.22186879960415934
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.47995099180278317
+    },
+    {
+      "sample_id": "36425",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.6236342534083207,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.7125350027028182,
+        "evidence_accessibility": 0.059964219920532635,
+        "evidence_utilisation": 0.22750077737664925
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.4443612344378678
+    },
+    {
+      "sample_id": "40622",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.4806126307584136,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5193873692415865
+    },
+    {
+      "sample_id": "47317",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.5798390150904061,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.5235391188059216,
+        "evidence_accessibility": 0.13930681693961405,
+        "evidence_utilisation": 0.33715406425446437
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.3035684070097247
+    },
+    {
+      "sample_id": "48697",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.06786185331157422,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9321381466884258
+    },
+    {
+      "sample_id": "49775",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.460801565532848,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.539198434467152
+    },
+    {
+      "sample_id": "51239",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.7646911028674157,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.8067738926014613,
+        "evidence_accessibility": 0.024304447466033198,
+        "evidence_utilisation": 0.16892165993250552
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.6169328176980494
+    },
+    {
+      "sample_id": "60979",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.27259300731596164,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.7274069926840383
+    },
+    {
+      "sample_id": "66218",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.6953992495029767,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.7407202303730396,
+        "evidence_accessibility": 0.04515541526107787,
+        "evidence_utilisation": 0.21412435436588254
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.5150962922930837
+    },
+    {
+      "sample_id": "75267",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.5776683885512901,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.6083848356123953,
+        "evidence_accessibility": 0.0843203238846159,
+        "evidence_utilisation": 0.3072948405029889
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.35144468760725395
+    },
+    {
+      "sample_id": "79881",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.07157404213449908,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.928425957865501
+    },
+    {
+      "sample_id": "79984",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.4349066731749879,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5650933268250121
+    },
+    {
+      "sample_id": "83896",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.670260094574063,
+      "stage1_label": "failure",
+      "stage2_class_scores": {
+        "evidence_insufficiency": 0.8132880371617484,
+        "evidence_accessibility": 0.022044635479490735,
+        "evidence_utilisation": 0.16466732735876088
+      },
+      "final_label": "evidence_insufficiency",
+      "confidence": 0.5451145167039875
+    },
+    {
+      "sample_id": "91881",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.17943090285365068,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.8205690971463493
+    },
+    {
+      "sample_id": "92509",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.06801871359613398,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.931981286403866
+    },
+    {
+      "sample_id": "95417",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.04499958036626219,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.9550004196337378
+    },
+    {
+      "sample_id": "95673",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.43500604665478143,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5649939533452186
+    },
+    {
+      "sample_id": "98062",
+      "dataset": "fever",
+      "stage1_failure_probability": 0.45401130655089683,
+      "stage1_label": "correct",
+      "stage2_class_scores": null,
+      "final_label": "correct",
+      "confidence": 0.5459886934491032
+    }
+  ]
+}

@@ -59,10 +59,12 @@ NOTE = (
 )
 
 
-def load_records() -> dict[str, list[dict]]:
-    split = json.loads(SPLIT_PATH.read_text(encoding="utf-8"))
+def load_records(
+    split_path: Path = SPLIT_PATH, dataset_paths: dict[str, Path] = DATASET_PATHS
+) -> dict[str, list[dict]]:
+    split = json.loads(Path(split_path).read_text(encoding="utf-8"))
     by_split: dict[str, list[dict]] = {name: [] for name in USED_SPLITS}
-    for dataset, path in DATASET_PATHS.items():
+    for dataset, path in dataset_paths.items():
         by_id = {record["input"]["sample_id"]: record for record in load_jsonl(path)}
         for name in USED_SPLITS:
             for sample_id in split["splits"][dataset][name]:
@@ -157,8 +159,14 @@ def _fmt(value: float | None) -> str:
     return "  n/a" if value is None else f"{value:.3f}"
 
 
-def main() -> int:
-    splits = load_records()
+def train_and_evaluate(
+    splits: dict[str, list[dict]],
+    output_path: Path,
+    model_path: Path,
+    baselines: dict[str, dict],
+    note: str,
+) -> dict:
+    """Fit and select both stages on train/validation, save the model and the validation report."""
     print({name: len(records) for name, records in splits.items()})
     feature_names = feature_names_for(INCLUDE_REFUTES_PREDICTION)
     matrices = {
@@ -249,7 +257,6 @@ def main() -> int:
         pred = np.asarray([d.stage1_label == "failure" for d in diagnoses])
         stage1_by_dataset[dataset] = evaluate_binary(val_failures[idx], pred[idx])
 
-    baseline = baseline_summary()
     hierarchical = summarize_four_class(end_to_end["all"]) | {"configuration": "hierarchical"}
     print("\n== End-to-end validation ==")
     for subset, m in end_to_end.items():
@@ -262,11 +269,13 @@ def main() -> int:
     for dataset, m in stage1_by_dataset.items():
         print(f"Stage 1 [{dataset}] fail_R={_fmt(m['failure_recall'])} corr_R={_fmt(m['correct_recall'])} "
               f"FP={m['false_positives']} FN={m['false_negatives']}")
-    print(f"\nBaseline:     {baseline}\nHierarchical: {hierarchical}")
+    for name, baseline in baselines.items():
+        print(f"\n{name}: {baseline}")
+    print(f"hierarchical: {hierarchical}")
 
-    classifier.save(MODEL_PATH)
-    write_json(OUTPUT_PATH, {
-        "note": NOTE,
+    classifier.save(model_path)
+    report = {
+        "note": note,
         "split_sizes": {name: len(records) for name, records in splits.items()},
         "feature_names": list(feature_names),
         "include_refutes_prediction": INCLUDE_REFUTES_PREDICTION,
@@ -287,7 +296,7 @@ def main() -> int:
             "chosen": {"c": chosen_stage2["c"], "class_weight": "balanced"},
         },
         "end_to_end_validation": end_to_end,
-        "comparison": {"single_stage_baseline": baseline, "hierarchical": hierarchical},
+        "comparison": {**baselines, "hierarchical": hierarchical},
         "predictions": [
             {
                 "sample_id": r["input"]["sample_id"],
@@ -302,8 +311,16 @@ def main() -> int:
             }
             for r, d in zip(splits["validation"], diagnoses)
         ],
-    })
-    print(f"Wrote {OUTPUT_PATH.relative_to(ROOT)} and {MODEL_PATH.relative_to(ROOT)}")
+    }
+    write_json(output_path, report)
+    print(f"Wrote {output_path.relative_to(ROOT)} and {model_path.relative_to(ROOT)}")
+    return report
+
+
+def main() -> int:
+    train_and_evaluate(
+        load_records(), OUTPUT_PATH, MODEL_PATH, {"single_stage_baseline": baseline_summary()}, NOTE
+    )
     return 0
 
 
