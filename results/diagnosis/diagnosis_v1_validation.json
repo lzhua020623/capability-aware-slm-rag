@@ -1,0 +1,3770 @@
+{
+  "note": "Prototype: minority classes have very few samples, so per-class metrics are unstable. FEVER has no trusted evidence_accessibility samples; its accessibility recall/F1 are not computable and must not be read as good or bad performance.",
+  "split_sizes": {
+    "train": 635,
+    "validation": 138,
+    "test": 135
+  },
+  "selection_rule": "max validation macro_f1 (all); within 0.01 prefer fewer features, then smaller C, then higher failure_detection_recall. Test not used.",
+  "chosen_configuration": {
+    "configuration": "full",
+    "c": 10.0,
+    "include_refutes_prediction": true,
+    "feature_names": [
+      "top1_score",
+      "top2_score",
+      "score_gap_1_2",
+      "score_mean_top5",
+      "score_std_top5",
+      "score_range_top5",
+      "query_coverage_top1",
+      "query_coverage_max5",
+      "query_coverage_mean5",
+      "answer_in_top1",
+      "answer_in_any",
+      "answer_first_rank",
+      "answer_passage_count",
+      "answer_token_coverage_max",
+      "answer_length_tokens",
+      "answer_is_abstention",
+      "is_refutes_prediction",
+      "query_length_tokens",
+      "evidence_total_tokens",
+      "evidence_mean_tokens",
+      "evidence_max_tokens",
+      "is_fever",
+      "is_when",
+      "is_who",
+      "is_where",
+      "is_what",
+      "is_how_many"
+    ],
+    "random_state": 42
+  },
+  "configurations": [
+    {
+      "configuration": "full",
+      "include_refutes_prediction": true,
+      "c": 0.01,
+      "n_features": 27,
+      "n_iter": [
+        20
+      ],
+      "validation": {
+        "all": {
+          "n": 138,
+          "accuracy": 0.42028985507246375,
+          "macro_f1": 0.28368606701940036,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_accessibility",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.8518518518518519,
+          "failure_support": 27,
+          "per_class": {
+            "correct": {
+              "precision": 0.9215686274509803,
+              "recall": 0.42342342342342343,
+              "f1": 0.5802469135802469,
+              "support": 111,
+              "predicted": 51
+            },
+            "evidence_insufficiency": {
+              "precision": 0.25,
+              "recall": 0.4117647058823529,
+              "f1": 0.3111111111111111,
+              "support": 17,
+              "predicted": 28
+            },
+            "evidence_accessibility": {
+              "precision": 0.05128205128205128,
+              "recall": 0.6666666666666666,
+              "f1": 0.09523809523809523,
+              "support": 3,
+              "predicted": 39
+            },
+            "evidence_utilisation": {
+              "precision": 0.1,
+              "recall": 0.2857142857142857,
+              "f1": 0.14814814814814817,
+              "support": 7,
+              "predicted": 20
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                47,
+                20,
+                29,
+                15
+              ],
+              [
+                1,
+                7,
+                6,
+                3
+              ],
+              [
+                1,
+                0,
+                2,
+                0
+              ],
+              [
+                2,
+                1,
+                2,
+                2
+              ]
+            ]
+          }
+        },
+        "nq": {
+          "n": 67,
+          "accuracy": 0.11940298507462686,
+          "macro_f1": 0.10010452961672474,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_accessibility",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.9375,
+          "failure_support": 16,
+          "per_class": {
+            "correct": {
+              "precision": 0.8,
+              "recall": 0.0784313725490196,
+              "f1": 0.14285714285714285,
+              "support": 51,
+              "predicted": 5
+            },
+            "evidence_insufficiency": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 8,
+              "predicted": 4
+            },
+            "evidence_accessibility": {
+              "precision": 0.05263157894736842,
+              "recall": 0.6666666666666666,
+              "f1": 0.09756097560975609,
+              "support": 3,
+              "predicted": 38
+            },
+            "evidence_utilisation": {
+              "precision": 0.1,
+              "recall": 0.4,
+              "f1": 0.16000000000000003,
+              "support": 5,
+              "predicted": 20
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                4,
+                3,
+                29,
+                15
+              ],
+              [
+                0,
+                0,
+                5,
+                3
+              ],
+              [
+                1,
+                0,
+                2,
+                0
+              ],
+              [
+                0,
+                1,
+                2,
+                2
+              ]
+            ]
+          }
+        },
+        "fever": {
+          "n": 71,
+          "accuracy": 0.704225352112676,
+          "macro_f1": 0.4118543929864684,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.7272727272727273,
+          "failure_support": 11,
+          "per_class": {
+            "correct": {
+              "precision": 0.9347826086956522,
+              "recall": 0.7166666666666667,
+              "f1": 0.8113207547169811,
+              "support": 60,
+              "predicted": 46
+            },
+            "evidence_insufficiency": {
+              "precision": 0.2916666666666667,
+              "recall": 0.7777777777777778,
+              "f1": 0.42424242424242425,
+              "support": 9,
+              "predicted": 24
+            },
+            "evidence_accessibility": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 1
+            },
+            "evidence_utilisation": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted": 0
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                43,
+                17,
+                0,
+                0
+              ],
+              [
+                1,
+                7,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "configuration": "full",
+      "include_refutes_prediction": true,
+      "c": 0.1,
+      "n_features": 27,
+      "n_iter": [
+        33
+      ],
+      "validation": {
+        "all": {
+          "n": 138,
+          "accuracy": 0.463768115942029,
+          "macro_f1": 0.28923789388905663,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_accessibility",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.7407407407407407,
+          "failure_support": 27,
+          "per_class": {
+            "correct": {
+              "precision": 0.8852459016393442,
+              "recall": 0.4864864864864865,
+              "f1": 0.627906976744186,
+              "support": 111,
+              "predicted": 61
+            },
+            "evidence_insufficiency": {
+              "precision": 0.2692307692307692,
+              "recall": 0.4117647058823529,
+              "f1": 0.3255813953488372,
+              "support": 17,
+              "predicted": 26
+            },
+            "evidence_accessibility": {
+              "precision": 0.03333333333333333,
+              "recall": 0.3333333333333333,
+              "f1": 0.0606060606060606,
+              "support": 3,
+              "predicted": 30
+            },
+            "evidence_utilisation": {
+              "precision": 0.09523809523809523,
+              "recall": 0.2857142857142857,
+              "f1": 0.14285714285714285,
+              "support": 7,
+              "predicted": 21
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                54,
+                18,
+                22,
+                17
+              ],
+              [
+                4,
+                7,
+                5,
+                1
+              ],
+              [
+                1,
+                0,
+                1,
+                1
+              ],
+              [
+                2,
+                1,
+                2,
+                2
+              ]
+            ]
+          }
+        },
+        "nq": {
+          "n": 67,
+          "accuracy": 0.208955223880597,
+          "macro_f1": 0.12766981792717086,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_accessibility",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.6875,
+          "failure_support": 16,
+          "per_class": {
+            "correct": {
+              "precision": 0.7058823529411765,
+              "recall": 0.23529411764705882,
+              "f1": 0.35294117647058826,
+              "support": 51,
+              "predicted": 17
+            },
+            "evidence_insufficiency": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 8,
+              "predicted": 5
+            },
+            "evidence_accessibility": {
+              "precision": 0.034482758620689655,
+              "recall": 0.3333333333333333,
+              "f1": 0.0625,
+              "support": 3,
+              "predicted": 29
+            },
+            "evidence_utilisation": {
+              "precision": 0.0625,
+              "recall": 0.2,
+              "f1": 0.09523809523809523,
+              "support": 5,
+              "predicted": 16
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                12,
+                4,
+                22,
+                13
+              ],
+              [
+                3,
+                0,
+                4,
+                1
+              ],
+              [
+                1,
+                0,
+                1,
+                1
+              ],
+              [
+                1,
+                1,
+                2,
+                1
+              ]
+            ]
+          }
+        },
+        "fever": {
+          "n": 71,
+          "accuracy": 0.704225352112676,
+          "macro_f1": 0.5200244200244201,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.8181818181818182,
+          "failure_support": 11,
+          "per_class": {
+            "correct": {
+              "precision": 0.9545454545454546,
+              "recall": 0.7,
+              "f1": 0.8076923076923077,
+              "support": 60,
+              "predicted": 44
+            },
+            "evidence_insufficiency": {
+              "precision": 0.3333333333333333,
+              "recall": 0.7777777777777778,
+              "f1": 0.4666666666666666,
+              "support": 9,
+              "predicted": 21
+            },
+            "evidence_accessibility": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 1
+            },
+            "evidence_utilisation": {
+              "precision": 0.2,
+              "recall": 0.5,
+              "f1": 0.28571428571428575,
+              "support": 2,
+              "predicted": 5
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                42,
+                14,
+                0,
+                4
+              ],
+              [
+                1,
+                7,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0,
+                1
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "configuration": "full",
+      "include_refutes_prediction": true,
+      "c": 1.0,
+      "n_features": 27,
+      "n_iter": [
+        87
+      ],
+      "validation": {
+        "all": {
+          "n": 138,
+          "accuracy": 0.5,
+          "macro_f1": 0.28608102628824983,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_accessibility",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.7037037037037037,
+          "failure_support": 27,
+          "per_class": {
+            "correct": {
+              "precision": 0.8823529411764706,
+              "recall": 0.5405405405405406,
+              "f1": 0.6703910614525139,
+              "support": 111,
+              "predicted": 68
+            },
+            "evidence_insufficiency": {
+              "precision": 0.2692307692307692,
+              "recall": 0.4117647058823529,
+              "f1": 0.3255813953488372,
+              "support": 17,
+              "predicted": 26
+            },
+            "evidence_accessibility": {
+              "precision": 0.04,
+              "recall": 0.3333333333333333,
+              "f1": 0.07142857142857142,
+              "support": 3,
+              "predicted": 25
+            },
+            "evidence_utilisation": {
+              "precision": 0.05263157894736842,
+              "recall": 0.14285714285714285,
+              "f1": 0.07692307692307693,
+              "support": 7,
+              "predicted": 19
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                60,
+                17,
+                18,
+                16
+              ],
+              [
+                5,
+                7,
+                4,
+                1
+              ],
+              [
+                1,
+                0,
+                1,
+                1
+              ],
+              [
+                2,
+                2,
+                2,
+                1
+              ]
+            ]
+          }
+        },
+        "nq": {
+          "n": 67,
+          "accuracy": 0.26865671641791045,
+          "macro_f1": 0.13429549902152643,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_accessibility",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.6875,
+          "failure_support": 16,
+          "per_class": {
+            "correct": {
+              "precision": 0.7727272727272727,
+              "recall": 0.3333333333333333,
+              "f1": 0.4657534246575343,
+              "support": 51,
+              "predicted": 22
+            },
+            "evidence_insufficiency": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 8,
+              "predicted": 7
+            },
+            "evidence_accessibility": {
+              "precision": 0.04,
+              "recall": 0.3333333333333333,
+              "f1": 0.07142857142857142,
+              "support": 3,
+              "predicted": 25
+            },
+            "evidence_utilisation": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 5,
+              "predicted": 13
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                17,
+                5,
+                18,
+                11
+              ],
+              [
+                3,
+                0,
+                4,
+                1
+              ],
+              [
+                1,
+                0,
+                1,
+                1
+              ],
+              [
+                1,
+                2,
+                2,
+                0
+              ]
+            ]
+          }
+        },
+        "fever": {
+          "n": 71,
+          "accuracy": 0.7183098591549296,
+          "macro_f1": 0.5204402515723271,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.7272727272727273,
+          "failure_support": 11,
+          "per_class": {
+            "correct": {
+              "precision": 0.9347826086956522,
+              "recall": 0.7166666666666667,
+              "f1": 0.8113207547169811,
+              "support": 60,
+              "predicted": 46
+            },
+            "evidence_insufficiency": {
+              "precision": 0.3684210526315789,
+              "recall": 0.7777777777777778,
+              "f1": 0.5,
+              "support": 9,
+              "predicted": 19
+            },
+            "evidence_accessibility": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            },
+            "evidence_utilisation": {
+              "precision": 0.16666666666666666,
+              "recall": 0.5,
+              "f1": 0.25,
+              "support": 2,
+              "predicted": 6
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                43,
+                12,
+                0,
+                5
+              ],
+              [
+                2,
+                7,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0,
+                1
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "configuration": "full",
+      "include_refutes_prediction": true,
+      "c": 10.0,
+      "n_features": 27,
+      "n_iter": [
+        192
+      ],
+      "validation": {
+        "all": {
+          "n": 138,
+          "accuracy": 0.5072463768115942,
+          "macro_f1": 0.3032680080132393,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_accessibility",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.7407407407407407,
+          "failure_support": 27,
+          "per_class": {
+            "correct": {
+              "precision": 0.8955223880597015,
+              "recall": 0.5405405405405406,
+              "f1": 0.6741573033707865,
+              "support": 111,
+              "predicted": 67
+            },
+            "evidence_insufficiency": {
+              "precision": 0.2692307692307692,
+              "recall": 0.4117647058823529,
+              "f1": 0.3255813953488372,
+              "support": 17,
+              "predicted": 26
+            },
+            "evidence_accessibility": {
+              "precision": 0.045454545454545456,
+              "recall": 0.3333333333333333,
+              "f1": 0.08,
+              "support": 3,
+              "predicted": 22
+            },
+            "evidence_utilisation": {
+              "precision": 0.08695652173913043,
+              "recall": 0.2857142857142857,
+              "f1": 0.13333333333333333,
+              "support": 7,
+              "predicted": 23
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                60,
+                17,
+                15,
+                19
+              ],
+              [
+                4,
+                7,
+                4,
+                2
+              ],
+              [
+                2,
+                0,
+                1,
+                0
+              ],
+              [
+                1,
+                2,
+                2,
+                2
+              ]
+            ]
+          }
+        },
+        "nq": {
+          "n": 67,
+          "accuracy": 0.2835820895522388,
+          "macro_f1": 0.16143835616438357,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_accessibility",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.6875,
+          "failure_support": 16,
+          "per_class": {
+            "correct": {
+              "precision": 0.7727272727272727,
+              "recall": 0.3333333333333333,
+              "f1": 0.4657534246575343,
+              "support": 51,
+              "predicted": 22
+            },
+            "evidence_insufficiency": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 8,
+              "predicted": 8
+            },
+            "evidence_accessibility": {
+              "precision": 0.045454545454545456,
+              "recall": 0.3333333333333333,
+              "f1": 0.08,
+              "support": 3,
+              "predicted": 22
+            },
+            "evidence_utilisation": {
+              "precision": 0.06666666666666667,
+              "recall": 0.2,
+              "f1": 0.1,
+              "support": 5,
+              "predicted": 15
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                17,
+                6,
+                15,
+                13
+              ],
+              [
+                3,
+                0,
+                4,
+                1
+              ],
+              [
+                2,
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                2,
+                2,
+                1
+              ]
+            ]
+          }
+        },
+        "fever": {
+          "n": 71,
+          "accuracy": 0.7183098591549296,
+          "macro_f1": 0.5125220458553792,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.8181818181818182,
+          "failure_support": 11,
+          "per_class": {
+            "correct": {
+              "precision": 0.9555555555555556,
+              "recall": 0.7166666666666667,
+              "f1": 0.8190476190476191,
+              "support": 60,
+              "predicted": 45
+            },
+            "evidence_insufficiency": {
+              "precision": 0.3888888888888889,
+              "recall": 0.7777777777777778,
+              "f1": 0.5185185185185185,
+              "support": 9,
+              "predicted": 18
+            },
+            "evidence_accessibility": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            },
+            "evidence_utilisation": {
+              "precision": 0.125,
+              "recall": 0.5,
+              "f1": 0.2,
+              "support": 2,
+              "predicted": 8
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                43,
+                11,
+                0,
+                6
+              ],
+              [
+                1,
+                7,
+                0,
+                1
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0,
+                1
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "configuration": "no_refutes",
+      "include_refutes_prediction": false,
+      "c": 0.01,
+      "n_features": 26,
+      "n_iter": [
+        18
+      ],
+      "validation": {
+        "all": {
+          "n": 138,
+          "accuracy": 0.42028985507246375,
+          "macro_f1": 0.28368606701940036,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_accessibility",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.8518518518518519,
+          "failure_support": 27,
+          "per_class": {
+            "correct": {
+              "precision": 0.9215686274509803,
+              "recall": 0.42342342342342343,
+              "f1": 0.5802469135802469,
+              "support": 111,
+              "predicted": 51
+            },
+            "evidence_insufficiency": {
+              "precision": 0.25,
+              "recall": 0.4117647058823529,
+              "f1": 0.3111111111111111,
+              "support": 17,
+              "predicted": 28
+            },
+            "evidence_accessibility": {
+              "precision": 0.05128205128205128,
+              "recall": 0.6666666666666666,
+              "f1": 0.09523809523809523,
+              "support": 3,
+              "predicted": 39
+            },
+            "evidence_utilisation": {
+              "precision": 0.1,
+              "recall": 0.2857142857142857,
+              "f1": 0.14814814814814817,
+              "support": 7,
+              "predicted": 20
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                47,
+                20,
+                29,
+                15
+              ],
+              [
+                1,
+                7,
+                6,
+                3
+              ],
+              [
+                1,
+                0,
+                2,
+                0
+              ],
+              [
+                2,
+                1,
+                2,
+                2
+              ]
+            ]
+          }
+        },
+        "nq": {
+          "n": 67,
+          "accuracy": 0.11940298507462686,
+          "macro_f1": 0.10010452961672474,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_accessibility",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.9375,
+          "failure_support": 16,
+          "per_class": {
+            "correct": {
+              "precision": 0.8,
+              "recall": 0.0784313725490196,
+              "f1": 0.14285714285714285,
+              "support": 51,
+              "predicted": 5
+            },
+            "evidence_insufficiency": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 8,
+              "predicted": 4
+            },
+            "evidence_accessibility": {
+              "precision": 0.05263157894736842,
+              "recall": 0.6666666666666666,
+              "f1": 0.09756097560975609,
+              "support": 3,
+              "predicted": 38
+            },
+            "evidence_utilisation": {
+              "precision": 0.1,
+              "recall": 0.4,
+              "f1": 0.16000000000000003,
+              "support": 5,
+              "predicted": 20
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                4,
+                3,
+                29,
+                15
+              ],
+              [
+                0,
+                0,
+                5,
+                3
+              ],
+              [
+                1,
+                0,
+                2,
+                0
+              ],
+              [
+                0,
+                1,
+                2,
+                2
+              ]
+            ]
+          }
+        },
+        "fever": {
+          "n": 71,
+          "accuracy": 0.704225352112676,
+          "macro_f1": 0.4118543929864684,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.7272727272727273,
+          "failure_support": 11,
+          "per_class": {
+            "correct": {
+              "precision": 0.9347826086956522,
+              "recall": 0.7166666666666667,
+              "f1": 0.8113207547169811,
+              "support": 60,
+              "predicted": 46
+            },
+            "evidence_insufficiency": {
+              "precision": 0.2916666666666667,
+              "recall": 0.7777777777777778,
+              "f1": 0.42424242424242425,
+              "support": 9,
+              "predicted": 24
+            },
+            "evidence_accessibility": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 1
+            },
+            "evidence_utilisation": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted": 0
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                43,
+                17,
+                0,
+                0
+              ],
+              [
+                1,
+                7,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "configuration": "no_refutes",
+      "include_refutes_prediction": false,
+      "c": 0.1,
+      "n_features": 26,
+      "n_iter": [
+        33
+      ],
+      "validation": {
+        "all": {
+          "n": 138,
+          "accuracy": 0.4492753623188406,
+          "macro_f1": 0.25782296017766515,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_accessibility",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.6666666666666666,
+          "failure_support": 27,
+          "per_class": {
+            "correct": {
+              "precision": 0.8571428571428571,
+              "recall": 0.4864864864864865,
+              "f1": 0.6206896551724138,
+              "support": 111,
+              "predicted": 63
+            },
+            "evidence_insufficiency": {
+              "precision": 0.20689655172413793,
+              "recall": 0.35294117647058826,
+              "f1": 0.2608695652173913,
+              "support": 17,
+              "predicted": 29
+            },
+            "evidence_accessibility": {
+              "precision": 0.03225806451612903,
+              "recall": 0.3333333333333333,
+              "f1": 0.0588235294117647,
+              "support": 3,
+              "predicted": 31
+            },
+            "evidence_utilisation": {
+              "precision": 0.06666666666666667,
+              "recall": 0.14285714285714285,
+              "f1": 0.09090909090909091,
+              "support": 7,
+              "predicted": 15
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                54,
+                22,
+                23,
+                12
+              ],
+              [
+                5,
+                6,
+                5,
+                1
+              ],
+              [
+                1,
+                0,
+                1,
+                1
+              ],
+              [
+                3,
+                1,
+                2,
+                1
+              ]
+            ]
+          }
+        },
+        "nq": {
+          "n": 67,
+          "accuracy": 0.208955223880597,
+          "macro_f1": 0.1283868092691622,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_accessibility",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.6875,
+          "failure_support": 16,
+          "per_class": {
+            "correct": {
+              "precision": 0.7058823529411765,
+              "recall": 0.23529411764705882,
+              "f1": 0.35294117647058826,
+              "support": 51,
+              "predicted": 17
+            },
+            "evidence_insufficiency": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 8,
+              "predicted": 5
+            },
+            "evidence_accessibility": {
+              "precision": 0.03333333333333333,
+              "recall": 0.3333333333333333,
+              "f1": 0.0606060606060606,
+              "support": 3,
+              "predicted": 30
+            },
+            "evidence_utilisation": {
+              "precision": 0.06666666666666667,
+              "recall": 0.2,
+              "f1": 0.1,
+              "support": 5,
+              "predicted": 15
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                12,
+                4,
+                23,
+                12
+              ],
+              [
+                3,
+                0,
+                4,
+                1
+              ],
+              [
+                1,
+                0,
+                1,
+                1
+              ],
+              [
+                1,
+                1,
+                2,
+                1
+              ]
+            ]
+          }
+        },
+        "fever": {
+          "n": 71,
+          "accuracy": 0.676056338028169,
+          "macro_f1": 0.3853630646083476,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.6363636363636364,
+          "failure_support": 11,
+          "per_class": {
+            "correct": {
+              "precision": 0.9130434782608695,
+              "recall": 0.7,
+              "f1": 0.7924528301886793,
+              "support": 60,
+              "predicted": 46
+            },
+            "evidence_insufficiency": {
+              "precision": 0.25,
+              "recall": 0.6666666666666666,
+              "f1": 0.36363636363636365,
+              "support": 9,
+              "predicted": 24
+            },
+            "evidence_accessibility": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 1
+            },
+            "evidence_utilisation": {
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted": 0
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                42,
+                18,
+                0,
+                0
+              ],
+              [
+                2,
+                6,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "configuration": "no_refutes",
+      "include_refutes_prediction": false,
+      "c": 1.0,
+      "n_features": 26,
+      "n_iter": [
+        81
+      ],
+      "validation": {
+        "all": {
+          "n": 138,
+          "accuracy": 0.4927536231884058,
+          "macro_f1": 0.27324494177492253,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_accessibility",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.7037037037037037,
+          "failure_support": 27,
+          "per_class": {
+            "correct": {
+              "precision": 0.8823529411764706,
+              "recall": 0.5405405405405406,
+              "f1": 0.6703910614525139,
+              "support": 111,
+              "predicted": 68
+            },
+            "evidence_insufficiency": {
+              "precision": 0.21428571428571427,
+              "recall": 0.35294117647058826,
+              "f1": 0.26666666666666666,
+              "support": 17,
+              "predicted": 28
+            },
+            "evidence_accessibility": {
+              "precision": 0.038461538461538464,
+              "recall": 0.3333333333333333,
+              "f1": 0.06896551724137931,
+              "support": 3,
+              "predicted": 26
+            },
+            "evidence_utilisation": {
+              "precision": 0.0625,
+              "recall": 0.14285714285714285,
+              "f1": 0.08695652173913043,
+              "support": 7,
+              "predicted": 16
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                60,
+                20,
+                18,
+                13
+              ],
+              [
+                5,
+                6,
+                5,
+                1
+              ],
+              [
+                1,
+                0,
+                1,
+                1
+              ],
+              [
+                2,
+                2,
+                2,
+                1
+              ]
+            ]
+          }
+        },
+        "nq": {
+          "n": 67,
+          "accuracy": 0.26865671641791045,
+          "macro_f1": 0.155533199195171,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_accessibility",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.75,
+          "failure_support": 16,
+          "per_class": {
+            "correct": {
+              "precision": 0.8,
+              "recall": 0.3137254901960784,
+              "f1": 0.45070422535211263,
+              "support": 51,
+              "predicted": 20
+            },
+            "evidence_insufficiency": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 8,
+              "predicted": 7
+            },
+            "evidence_accessibility": {
+              "precision": 0.04,
+              "recall": 0.3333333333333333,
+              "f1": 0.07142857142857142,
+              "support": 3,
+              "predicted": 25
+            },
+            "evidence_utilisation": {
+              "precision": 0.06666666666666667,
+              "recall": 0.2,
+              "f1": 0.1,
+              "support": 5,
+              "predicted": 15
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                16,
+                5,
+                18,
+                12
+              ],
+              [
+                3,
+                0,
+                4,
+                1
+              ],
+              [
+                1,
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                2,
+                2,
+                1
+              ]
+            ]
+          }
+        },
+        "fever": {
+          "n": 71,
+          "accuracy": 0.704225352112676,
+          "macro_f1": 0.4049382716049383,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.6363636363636364,
+          "failure_support": 11,
+          "per_class": {
+            "correct": {
+              "precision": 0.9166666666666666,
+              "recall": 0.7333333333333333,
+              "f1": 0.8148148148148148,
+              "support": 60,
+              "predicted": 48
+            },
+            "evidence_insufficiency": {
+              "precision": 0.2857142857142857,
+              "recall": 0.6666666666666666,
+              "f1": 0.4,
+              "support": 9,
+              "predicted": 21
+            },
+            "evidence_accessibility": {
+              "precision": 0.0,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 1
+            },
+            "evidence_utilisation": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted": 1
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                44,
+                15,
+                0,
+                1
+              ],
+              [
+                2,
+                6,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "configuration": "no_refutes",
+      "include_refutes_prediction": false,
+      "c": 10.0,
+      "n_features": 26,
+      "n_iter": [
+        153
+      ],
+      "validation": {
+        "all": {
+          "n": 138,
+          "accuracy": 0.5217391304347826,
+          "macro_f1": 0.2909030100334448,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_accessibility",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.7037037037037037,
+          "failure_support": 27,
+          "per_class": {
+            "correct": {
+              "precision": 0.8873239436619719,
+              "recall": 0.5675675675675675,
+              "f1": 0.6923076923076923,
+              "support": 111,
+              "predicted": 71
+            },
+            "evidence_insufficiency": {
+              "precision": 0.2413793103448276,
+              "recall": 0.4117647058823529,
+              "f1": 0.3043478260869565,
+              "support": 17,
+              "predicted": 29
+            },
+            "evidence_accessibility": {
+              "precision": 0.045454545454545456,
+              "recall": 0.3333333333333333,
+              "f1": 0.08,
+              "support": 3,
+              "predicted": 22
+            },
+            "evidence_utilisation": {
+              "precision": 0.0625,
+              "recall": 0.14285714285714285,
+              "f1": 0.08695652173913043,
+              "support": 7,
+              "predicted": 16
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                63,
+                20,
+                15,
+                13
+              ],
+              [
+                5,
+                7,
+                4,
+                1
+              ],
+              [
+                1,
+                0,
+                1,
+                1
+              ],
+              [
+                2,
+                2,
+                2,
+                1
+              ]
+            ]
+          }
+        },
+        "nq": {
+          "n": 67,
+          "accuracy": 0.29850746268656714,
+          "macro_f1": 0.16828767123287672,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_accessibility",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.75,
+          "failure_support": 16,
+          "per_class": {
+            "correct": {
+              "precision": 0.8181818181818182,
+              "recall": 0.35294117647058826,
+              "f1": 0.49315068493150693,
+              "support": 51,
+              "predicted": 22
+            },
+            "evidence_insufficiency": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 8,
+              "predicted": 8
+            },
+            "evidence_accessibility": {
+              "precision": 0.045454545454545456,
+              "recall": 0.3333333333333333,
+              "f1": 0.08,
+              "support": 3,
+              "predicted": 22
+            },
+            "evidence_utilisation": {
+              "precision": 0.06666666666666667,
+              "recall": 0.2,
+              "f1": 0.1,
+              "support": 5,
+              "predicted": 15
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                18,
+                6,
+                15,
+                12
+              ],
+              [
+                3,
+                0,
+                4,
+                1
+              ],
+              [
+                1,
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                2,
+                2,
+                1
+              ]
+            ]
+          }
+        },
+        "fever": {
+          "n": 71,
+          "accuracy": 0.7323943661971831,
+          "macro_f1": 0.4307849133537207,
+          "macro_f1_classes": [
+            "correct",
+            "evidence_insufficiency",
+            "evidence_utilisation"
+          ],
+          "failure_detection_recall": 0.6363636363636364,
+          "failure_support": 11,
+          "per_class": {
+            "correct": {
+              "precision": 0.9183673469387755,
+              "recall": 0.75,
+              "f1": 0.8256880733944955,
+              "support": 60,
+              "predicted": 49
+            },
+            "evidence_insufficiency": {
+              "precision": 0.3333333333333333,
+              "recall": 0.7777777777777778,
+              "f1": 0.4666666666666666,
+              "support": 9,
+              "predicted": 21
+            },
+            "evidence_accessibility": {
+              "precision": null,
+              "recall": null,
+              "f1": null,
+              "support": 0,
+              "predicted": 0
+            },
+            "evidence_utilisation": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2,
+              "predicted": 1
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "correct",
+              "evidence_insufficiency",
+              "evidence_accessibility",
+              "evidence_utilisation"
+            ],
+            "rows_true_cols_pred": [
+              [
+                45,
+                14,
+                0,
+                1
+              ],
+              [
+                2,
+                7,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "chosen_predictions": [
+    {
+      "sample_id": "-1059932910092423631",
+      "dataset": "nq",
+      "target_label": "evidence_utilisation",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.48238954078533824,
+      "class_scores": {
+        "correct": 0.0315697078171901,
+        "evidence_insufficiency": 0.48238954078533824,
+        "evidence_accessibility": 0.07049458591553642,
+        "evidence_utilisation": 0.41554616548193535
+      }
+    },
+    {
+      "sample_id": "-1608173516669914422",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.5344751894202207,
+      "class_scores": {
+        "correct": 0.5344751894202207,
+        "evidence_insufficiency": 0.05841820486225366,
+        "evidence_accessibility": 0.06382801759785597,
+        "evidence_utilisation": 0.34327858811966955
+      }
+    },
+    {
+      "sample_id": "-1633243742828179624",
+      "dataset": "nq",
+      "target_label": "evidence_utilisation",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.9304413312642725,
+      "class_scores": {
+        "correct": 0.025290637769435093,
+        "evidence_insufficiency": 0.015828984179342247,
+        "evidence_accessibility": 0.9304413312642725,
+        "evidence_utilisation": 0.028439046786950223
+      }
+    },
+    {
+      "sample_id": "-204697481439605710",
+      "dataset": "nq",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "correct",
+      "confidence": 0.4895808892161223,
+      "class_scores": {
+        "correct": 0.4895808892161223,
+        "evidence_insufficiency": 0.0017521337937086566,
+        "evidence_accessibility": 0.24376649429049715,
+        "evidence_utilisation": 0.2649004826996719
+      }
+    },
+    {
+      "sample_id": "-252884797611335797",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.787587176171919,
+      "class_scores": {
+        "correct": 0.1648843106191747,
+        "evidence_insufficiency": 0.0026734253062152087,
+        "evidence_accessibility": 0.787587176171919,
+        "evidence_utilisation": 0.04485508790269117
+      }
+    },
+    {
+      "sample_id": "-3239096899891702759",
+      "dataset": "nq",
+      "target_label": "evidence_accessibility",
+      "predicted_label": "correct",
+      "confidence": 0.4015439838907266,
+      "class_scores": {
+        "correct": 0.4015439838907266,
+        "evidence_insufficiency": 0.2398976432492583,
+        "evidence_accessibility": 0.0015721107631724495,
+        "evidence_utilisation": 0.35698626209684264
+      }
+    },
+    {
+      "sample_id": "-3875958317236683310",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.38040033273383744,
+      "class_scores": {
+        "correct": 0.37387283420225487,
+        "evidence_insufficiency": 0.08207545671367747,
+        "evidence_accessibility": 0.16365137635023025,
+        "evidence_utilisation": 0.38040033273383744
+      }
+    },
+    {
+      "sample_id": "-3975410771448678514",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.47574381334840604,
+      "class_scores": {
+        "correct": 0.47574381334840604,
+        "evidence_insufficiency": 0.0802990160978639,
+        "evidence_accessibility": 0.31079425454403886,
+        "evidence_utilisation": 0.1331629160096912
+      }
+    },
+    {
+      "sample_id": "-4198273171611748168",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.6052090836738906,
+      "class_scores": {
+        "correct": 0.6052090836738906,
+        "evidence_insufficiency": 8.877445690973604e-07,
+        "evidence_accessibility": 2.0787231867097184e-07,
+        "evidence_utilisation": 0.39478982070922153
+      }
+    },
+    {
+      "sample_id": "-4229487256361712765",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.8655942229505458,
+      "class_scores": {
+        "correct": 0.13438825684501599,
+        "evidence_insufficiency": 1.752020292766175e-05,
+        "evidence_accessibility": 1.5104786385815943e-12,
+        "evidence_utilisation": 0.8655942229505458
+      }
+    },
+    {
+      "sample_id": "-4438649004875501807",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.39755158997731854,
+      "class_scores": {
+        "correct": 0.33180994639332356,
+        "evidence_insufficiency": 0.39755158997731854,
+        "evidence_accessibility": 0.005404950266339696,
+        "evidence_utilisation": 0.26523351336301815
+      }
+    },
+    {
+      "sample_id": "-5057857655271506779",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.7064790105870351,
+      "class_scores": {
+        "correct": 0.17866406093775494,
+        "evidence_insufficiency": 0.026134444080794173,
+        "evidence_accessibility": 0.7064790105870351,
+        "evidence_utilisation": 0.08872248439441584
+      }
+    },
+    {
+      "sample_id": "-5269403993925950076",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.9020535624777106,
+      "class_scores": {
+        "correct": 0.0729391762457274,
+        "evidence_insufficiency": 0.008291490085046191,
+        "evidence_accessibility": 0.9020535624777106,
+        "evidence_utilisation": 0.016715771191515794
+      }
+    },
+    {
+      "sample_id": "-5298560410953979569",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.9870638294039401,
+      "class_scores": {
+        "correct": 0.005573811675837566,
+        "evidence_insufficiency": 0.9870638294039401,
+        "evidence_accessibility": 0.0019556053050658237,
+        "evidence_utilisation": 0.005406753615156606
+      }
+    },
+    {
+      "sample_id": "-5489426796364143729",
+      "dataset": "nq",
+      "target_label": "evidence_accessibility",
+      "predicted_label": "correct",
+      "confidence": 0.6117202719666857,
+      "class_scores": {
+        "correct": 0.6117202719666857,
+        "evidence_insufficiency": 0.0013580419424228615,
+        "evidence_accessibility": 0.0013838385578643967,
+        "evidence_utilisation": 0.38553784753302706
+      }
+    },
+    {
+      "sample_id": "-6777951254123103749",
+      "dataset": "nq",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "correct",
+      "confidence": 0.6675614393786606,
+      "class_scores": {
+        "correct": 0.6675614393786606,
+        "evidence_insufficiency": 1.1224092181036065e-05,
+        "evidence_accessibility": 0.0032726764124225366,
+        "evidence_utilisation": 0.3291546601167358
+      }
+    },
+    {
+      "sample_id": "-7032694139181071944",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.36490517801582845,
+      "class_scores": {
+        "correct": 0.36490517801582845,
+        "evidence_insufficiency": 0.26790954941993705,
+        "evidence_accessibility": 0.19819551858432508,
+        "evidence_utilisation": 0.1689897539799093
+      }
+    },
+    {
+      "sample_id": "-7066978684275822190",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.5290776016191409,
+      "class_scores": {
+        "correct": 0.21037655191693386,
+        "evidence_insufficiency": 0.5290776016191409,
+        "evidence_accessibility": 0.1714849344967988,
+        "evidence_utilisation": 0.08906091196712645
+      }
+    },
+    {
+      "sample_id": "-7518405190999038417",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.5726068451684011,
+      "class_scores": {
+        "correct": 0.40545211086361216,
+        "evidence_insufficiency": 0.02194069727041503,
+        "evidence_accessibility": 3.466975716135447e-07,
+        "evidence_utilisation": 0.5726068451684011
+      }
+    },
+    {
+      "sample_id": "-7762777183448554957",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.8779367934756054,
+      "class_scores": {
+        "correct": 0.02425709517851425,
+        "evidence_insufficiency": 0.07191646802685753,
+        "evidence_accessibility": 0.8779367934756054,
+        "evidence_utilisation": 0.025889643319022732
+      }
+    },
+    {
+      "sample_id": "-8020717853576333901",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.8732263993843367,
+      "class_scores": {
+        "correct": 0.01569053923798654,
+        "evidence_insufficiency": 0.1037905193534807,
+        "evidence_accessibility": 0.8732263993843367,
+        "evidence_utilisation": 0.007292542024196236
+      }
+    },
+    {
+      "sample_id": "-8036273344877520260",
+      "dataset": "nq",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "correct",
+      "confidence": 0.8053984831724875,
+      "class_scores": {
+        "correct": 0.8053984831724875,
+        "evidence_insufficiency": 0.034180945093841876,
+        "evidence_accessibility": 0.00012487539025170526,
+        "evidence_utilisation": 0.16029569634341884
+      }
+    },
+    {
+      "sample_id": "-8081431644783557175",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.6656669841005044,
+      "class_scores": {
+        "correct": 0.6656669841005044,
+        "evidence_insufficiency": 4.572958878552138e-06,
+        "evidence_accessibility": 2.6238830720877455e-05,
+        "evidence_utilisation": 0.3343022041098963
+      }
+    },
+    {
+      "sample_id": "-8491993331568056625",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.4581686857759282,
+      "class_scores": {
+        "correct": 0.2860808827076307,
+        "evidence_insufficiency": 0.044702218734154926,
+        "evidence_accessibility": 0.4581686857759282,
+        "evidence_utilisation": 0.21104821278228617
+      }
+    },
+    {
+      "sample_id": "-8934076303964179830",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.5648916305363182,
+      "class_scores": {
+        "correct": 0.5648916305363182,
+        "evidence_insufficiency": 3.421021505430112e-07,
+        "evidence_accessibility": 0.0002486125665764633,
+        "evidence_utilisation": 0.4348594147949549
+      }
+    },
+    {
+      "sample_id": "-9054071723383098347",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.5076075950244686,
+      "class_scores": {
+        "correct": 0.2587290402985275,
+        "evidence_insufficiency": 0.004113022764620071,
+        "evidence_accessibility": 0.5076075950244686,
+        "evidence_utilisation": 0.22955034191238385
+      }
+    },
+    {
+      "sample_id": "-99722774431057184",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.514324277780885,
+      "class_scores": {
+        "correct": 0.047323788112386134,
+        "evidence_insufficiency": 0.3701352626785211,
+        "evidence_accessibility": 0.06821667142820777,
+        "evidence_utilisation": 0.514324277780885
+      }
+    },
+    {
+      "sample_id": "1002962494655967639",
+      "dataset": "nq",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.7273756939107902,
+      "class_scores": {
+        "correct": 0.017799556260485475,
+        "evidence_insufficiency": 0.24994852272902776,
+        "evidence_accessibility": 0.7273756939107902,
+        "evidence_utilisation": 0.004876227099696622
+      }
+    },
+    {
+      "sample_id": "112939521296080681",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.5715908483708174,
+      "class_scores": {
+        "correct": 0.5715908483708174,
+        "evidence_insufficiency": 0.06384229823070475,
+        "evidence_accessibility": 2.2076922282476432e-10,
+        "evidence_utilisation": 0.36456685317770854
+      }
+    },
+    {
+      "sample_id": "1823053967207989806",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.571747865191062,
+      "class_scores": {
+        "correct": 0.3925032846729109,
+        "evidence_insufficiency": 0.001801145092263583,
+        "evidence_accessibility": 0.033947705043763564,
+        "evidence_utilisation": 0.571747865191062
+      }
+    },
+    {
+      "sample_id": "1854394640394891866",
+      "dataset": "nq",
+      "target_label": "evidence_accessibility",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.5800395067822556,
+      "class_scores": {
+        "correct": 0.017018596474297782,
+        "evidence_insufficiency": 0.39285447600027623,
+        "evidence_accessibility": 0.5800395067822556,
+        "evidence_utilisation": 0.010087420743170322
+      }
+    },
+    {
+      "sample_id": "1875749308518572232",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.9194303020810115,
+      "class_scores": {
+        "correct": 0.028330920562512726,
+        "evidence_insufficiency": 0.04398639920654813,
+        "evidence_accessibility": 0.9194303020810115,
+        "evidence_utilisation": 0.008252378149927585
+      }
+    },
+    {
+      "sample_id": "2019544776477780298",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.6128064630795281,
+      "class_scores": {
+        "correct": 0.38468879243203624,
+        "evidence_insufficiency": 0.002504743097633679,
+        "evidence_accessibility": 1.3908018426612761e-09,
+        "evidence_utilisation": 0.6128064630795281
+      }
+    },
+    {
+      "sample_id": "206259850951848123",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.7479409884076993,
+      "class_scores": {
+        "correct": 0.7479409884076993,
+        "evidence_insufficiency": 0.01214940365735819,
+        "evidence_accessibility": 6.41910202531548e-05,
+        "evidence_utilisation": 0.23984541691468925
+      }
+    },
+    {
+      "sample_id": "224088321079691518",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.5701037632460411,
+      "class_scores": {
+        "correct": 0.5701037632460411,
+        "evidence_insufficiency": 0.07376246984493454,
+        "evidence_accessibility": 0.004588188452337408,
+        "evidence_utilisation": 0.351545578456687
+      }
+    },
+    {
+      "sample_id": "2370076891269438265",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.7585723568536624,
+      "class_scores": {
+        "correct": 0.20854200493770808,
+        "evidence_insufficiency": 0.03288554740447522,
+        "evidence_accessibility": 9.080415426980882e-08,
+        "evidence_utilisation": 0.7585723568536624
+      }
+    },
+    {
+      "sample_id": "2448678927070663694",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.39148677316617286,
+      "class_scores": {
+        "correct": 0.290177217804513,
+        "evidence_insufficiency": 0.0742830272226312,
+        "evidence_accessibility": 0.24405298180668292,
+        "evidence_utilisation": 0.39148677316617286
+      }
+    },
+    {
+      "sample_id": "2549898383395112074",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.3143209202208881,
+      "class_scores": {
+        "correct": 0.19160884116954635,
+        "evidence_insufficiency": 0.3143209202208881,
+        "evidence_accessibility": 0.2531102198719372,
+        "evidence_utilisation": 0.24096001873762835
+      }
+    },
+    {
+      "sample_id": "3182507307097242113",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.7969599540338725,
+      "class_scores": {
+        "correct": 0.19682035369521997,
+        "evidence_insufficiency": 0.0009618054328109674,
+        "evidence_accessibility": 0.005257886838096646,
+        "evidence_utilisation": 0.7969599540338725
+      }
+    },
+    {
+      "sample_id": "3282428170958535508",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.7559754718659976,
+      "class_scores": {
+        "correct": 0.7559754718659976,
+        "evidence_insufficiency": 0.01437606069872135,
+        "evidence_accessibility": 0.033735733868635306,
+        "evidence_utilisation": 0.19591273356664574
+      }
+    },
+    {
+      "sample_id": "3608725195627714280",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.44880635279586933,
+      "class_scores": {
+        "correct": 0.11651221122624467,
+        "evidence_insufficiency": 0.44880635279586933,
+        "evidence_accessibility": 0.3141068171304606,
+        "evidence_utilisation": 0.12057461884742533
+      }
+    },
+    {
+      "sample_id": "3673814853402336146",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.6133273797800514,
+      "class_scores": {
+        "correct": 0.22695907383425393,
+        "evidence_insufficiency": 0.07240675635939779,
+        "evidence_accessibility": 0.08730679002629695,
+        "evidence_utilisation": 0.6133273797800514
+      }
+    },
+    {
+      "sample_id": "3724356943291190911",
+      "dataset": "nq",
+      "target_label": "evidence_utilisation",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.4995632123380995,
+      "class_scores": {
+        "correct": 0.2777167444753586,
+        "evidence_insufficiency": 0.4995632123380995,
+        "evidence_accessibility": 0.04683743065456456,
+        "evidence_utilisation": 0.1758826125319772
+      }
+    },
+    {
+      "sample_id": "4005078879968270199",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.4641707422485904,
+      "class_scores": {
+        "correct": 0.43073571896785784,
+        "evidence_insufficiency": 0.10509353682027962,
+        "evidence_accessibility": 1.963272048197669e-09,
+        "evidence_utilisation": 0.4641707422485904
+      }
+    },
+    {
+      "sample_id": "4019335299699332844",
+      "dataset": "nq",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.7973917668971102,
+      "class_scores": {
+        "correct": 0.08708166836825731,
+        "evidence_insufficiency": 0.042110485597460244,
+        "evidence_accessibility": 0.7973917668971102,
+        "evidence_utilisation": 0.07341607913717221
+      }
+    },
+    {
+      "sample_id": "4235501567333822185",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.44547770111379553,
+      "class_scores": {
+        "correct": 0.38054005198174784,
+        "evidence_insufficiency": 0.02234983678459037,
+        "evidence_accessibility": 0.44547770111379553,
+        "evidence_utilisation": 0.15163241011986622
+      }
+    },
+    {
+      "sample_id": "432399360594227490",
+      "dataset": "nq",
+      "target_label": "evidence_utilisation",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.4794459597617548,
+      "class_scores": {
+        "correct": 0.4503710898508237,
+        "evidence_insufficiency": 0.05206967005515321,
+        "evidence_accessibility": 0.018113280332268212,
+        "evidence_utilisation": 0.4794459597617548
+      }
+    },
+    {
+      "sample_id": "440199079925036478",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.6342928568226988,
+      "class_scores": {
+        "correct": 0.36272314187357335,
+        "evidence_insufficiency": 0.0029840008825355686,
+        "evidence_accessibility": 4.211923004838639e-10,
+        "evidence_utilisation": 0.6342928568226988
+      }
+    },
+    {
+      "sample_id": "4510800290541730720",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.9237680176229891,
+      "class_scores": {
+        "correct": 0.0057422525299907915,
+        "evidence_insufficiency": 0.05986939265593686,
+        "evidence_accessibility": 0.9237680176229891,
+        "evidence_utilisation": 0.010620337191083351
+      }
+    },
+    {
+      "sample_id": "4793332266598034685",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.940725202008567,
+      "class_scores": {
+        "correct": 0.036130182772266664,
+        "evidence_insufficiency": 0.940725202008567,
+        "evidence_accessibility": 0.007049596914066181,
+        "evidence_utilisation": 0.016095018305100163
+      }
+    },
+    {
+      "sample_id": "5046802918953054509",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.5120451197438178,
+      "class_scores": {
+        "correct": 0.42975419656306174,
+        "evidence_insufficiency": 0.057563961550207064,
+        "evidence_accessibility": 0.0006367221429132556,
+        "evidence_utilisation": 0.5120451197438178
+      }
+    },
+    {
+      "sample_id": "6067202541314094683",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.6931297681073485,
+      "class_scores": {
+        "correct": 0.6931297681073485,
+        "evidence_insufficiency": 5.2231574030462895e-05,
+        "evidence_accessibility": 0.015918997562325378,
+        "evidence_utilisation": 0.29089900275629565
+      }
+    },
+    {
+      "sample_id": "6452376377434138504",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.8561450441109729,
+      "class_scores": {
+        "correct": 0.06648978927279338,
+        "evidence_insufficiency": 0.04948790462463902,
+        "evidence_accessibility": 0.8561450441109729,
+        "evidence_utilisation": 0.027877261991594737
+      }
+    },
+    {
+      "sample_id": "6455569855608254961",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.4043819894880762,
+      "class_scores": {
+        "correct": 0.3039162791778972,
+        "evidence_insufficiency": 0.09006108569045879,
+        "evidence_accessibility": 0.4043819894880762,
+        "evidence_utilisation": 0.20164064564356785
+      }
+    },
+    {
+      "sample_id": "6566044826284732272",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.5227534450541562,
+      "class_scores": {
+        "correct": 0.5227534450541562,
+        "evidence_insufficiency": 0.020289420627176098,
+        "evidence_accessibility": 0.0004238012483081011,
+        "evidence_utilisation": 0.45653333307035954
+      }
+    },
+    {
+      "sample_id": "7019297080476133879",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.3912559660371339,
+      "class_scores": {
+        "correct": 0.3912559660371339,
+        "evidence_insufficiency": 0.18257115363986348,
+        "evidence_accessibility": 0.14202509543487088,
+        "evidence_utilisation": 0.2841477848881317
+      }
+    },
+    {
+      "sample_id": "7410490453997997451",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.6395241531666838,
+      "class_scores": {
+        "correct": 0.05697044772689498,
+        "evidence_insufficiency": 0.28208247797305086,
+        "evidence_accessibility": 0.6395241531666838,
+        "evidence_utilisation": 0.021422921133370267
+      }
+    },
+    {
+      "sample_id": "7429441805782246560",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.7223885761659814,
+      "class_scores": {
+        "correct": 0.04994107673188878,
+        "evidence_insufficiency": 0.15970555797370323,
+        "evidence_accessibility": 0.7223885761659814,
+        "evidence_utilisation": 0.06796478912842668
+      }
+    },
+    {
+      "sample_id": "7522947951683718709",
+      "dataset": "nq",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.6141662262222536,
+      "class_scores": {
+        "correct": 0.2119369487434826,
+        "evidence_insufficiency": 0.07261938625976729,
+        "evidence_accessibility": 0.6141662262222536,
+        "evidence_utilisation": 0.1012774387744965
+      }
+    },
+    {
+      "sample_id": "7566216024156722346",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.7822381289551386,
+      "class_scores": {
+        "correct": 0.08694875751138806,
+        "evidence_insufficiency": 0.017187961307753342,
+        "evidence_accessibility": 0.7822381289551386,
+        "evidence_utilisation": 0.11362515222572003
+      }
+    },
+    {
+      "sample_id": "7674856553874797177",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.6325953929813808,
+      "class_scores": {
+        "correct": 0.6325953929813808,
+        "evidence_insufficiency": 0.07678580144199046,
+        "evidence_accessibility": 0.08542433144107753,
+        "evidence_utilisation": 0.20519447413555114
+      }
+    },
+    {
+      "sample_id": "8002956316753524206",
+      "dataset": "nq",
+      "target_label": "evidence_utilisation",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.6251721643651612,
+      "class_scores": {
+        "correct": 0.05840316811474726,
+        "evidence_insufficiency": 0.10361996674158305,
+        "evidence_accessibility": 0.6251721643651612,
+        "evidence_utilisation": 0.21280470077850858
+      }
+    },
+    {
+      "sample_id": "8620612587997496991",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.5625828219189243,
+      "class_scores": {
+        "correct": 0.5625828219189243,
+        "evidence_insufficiency": 0.07759318907858723,
+        "evidence_accessibility": 9.282022976716139e-05,
+        "evidence_utilisation": 0.3597311687727213
+      }
+    },
+    {
+      "sample_id": "8948147123900423867",
+      "dataset": "nq",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.5365537822234586,
+      "class_scores": {
+        "correct": 0.44682790279473905,
+        "evidence_insufficiency": 0.01660925006806042,
+        "evidence_accessibility": 9.064913741889573e-06,
+        "evidence_utilisation": 0.5365537822234586
+      }
+    },
+    {
+      "sample_id": "9021116085237545618",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.33552838892993436,
+      "class_scores": {
+        "correct": 0.33552838892993436,
+        "evidence_insufficiency": 0.2815247140120425,
+        "evidence_accessibility": 0.11872978991195175,
+        "evidence_utilisation": 0.2642171071460715
+      }
+    },
+    {
+      "sample_id": "9148233787183514779",
+      "dataset": "nq",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "evidence_accessibility",
+      "confidence": 0.4375316276343859,
+      "class_scores": {
+        "correct": 0.2793267390658012,
+        "evidence_insufficiency": 0.15552224677210644,
+        "evidence_accessibility": 0.4375316276343859,
+        "evidence_utilisation": 0.12761938652770638
+      }
+    },
+    {
+      "sample_id": "930703855764177846",
+      "dataset": "nq",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.6812585011535705,
+      "class_scores": {
+        "correct": 0.6812585011535705,
+        "evidence_insufficiency": 0.010901069091087715,
+        "evidence_accessibility": 0.07119742299015527,
+        "evidence_utilisation": 0.23664300676518654
+      }
+    },
+    {
+      "sample_id": "106078",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.35783079729209055,
+      "class_scores": {
+        "correct": 0.301780939318079,
+        "evidence_insufficiency": 0.33683870010040207,
+        "evidence_accessibility": 0.0035495632894284902,
+        "evidence_utilisation": 0.35783079729209055
+      }
+    },
+    {
+      "sample_id": "107438",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.883133880406877,
+      "class_scores": {
+        "correct": 0.883133880406877,
+        "evidence_insufficiency": 0.018083737931450718,
+        "evidence_accessibility": 2.666449125540736e-06,
+        "evidence_utilisation": 0.09877971521254669
+      }
+    },
+    {
+      "sample_id": "110571",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.7830805944109919,
+      "class_scores": {
+        "correct": 0.11336820241339333,
+        "evidence_insufficiency": 0.7830805944109919,
+        "evidence_accessibility": 1.1976916608062456e-06,
+        "evidence_utilisation": 0.10355000548395399
+      }
+    },
+    {
+      "sample_id": "111049",
+      "dataset": "fever",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.5270031070634362,
+      "class_scores": {
+        "correct": 0.2824210691212589,
+        "evidence_insufficiency": 0.5270031070634362,
+        "evidence_accessibility": 9.179244011787269e-06,
+        "evidence_utilisation": 0.19056664457129305
+      }
+    },
+    {
+      "sample_id": "111074",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.5170324326710475,
+      "class_scores": {
+        "correct": 0.5170324326710475,
+        "evidence_insufficiency": 0.4113391181708919,
+        "evidence_accessibility": 0.00016564186275555993,
+        "evidence_utilisation": 0.07146280729530508
+      }
+    },
+    {
+      "sample_id": "112394",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.4038234428716914,
+      "class_scores": {
+        "correct": 0.4038234428716914,
+        "evidence_insufficiency": 0.3205735603953982,
+        "evidence_accessibility": 8.6839538385497e-06,
+        "evidence_utilisation": 0.2755943127790718
+      }
+    },
+    {
+      "sample_id": "113613",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.475043489075239,
+      "class_scores": {
+        "correct": 0.3837017476382809,
+        "evidence_insufficiency": 0.14124615075510716,
+        "evidence_accessibility": 8.61253137276457e-06,
+        "evidence_utilisation": 0.475043489075239
+      }
+    },
+    {
+      "sample_id": "113664",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.47988742200486595,
+      "class_scores": {
+        "correct": 0.47988742200486595,
+        "evidence_insufficiency": 0.15028469161088193,
+        "evidence_accessibility": 1.9700063708572717e-05,
+        "evidence_utilisation": 0.3698081863205437
+      }
+    },
+    {
+      "sample_id": "118800",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.850423523043403,
+      "class_scores": {
+        "correct": 0.850423523043403,
+        "evidence_insufficiency": 0.05544269011735066,
+        "evidence_accessibility": 0.00014541350876821118,
+        "evidence_utilisation": 0.09398837333047809
+      }
+    },
+    {
+      "sample_id": "119519",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.8900899911950383,
+      "class_scores": {
+        "correct": 0.05652435201538377,
+        "evidence_insufficiency": 0.8900899911950383,
+        "evidence_accessibility": 8.830397256090379e-06,
+        "evidence_utilisation": 0.05337682639232177
+      }
+    },
+    {
+      "sample_id": "120364",
+      "dataset": "fever",
+      "target_label": "evidence_utilisation",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.6392959365749907,
+      "class_scores": {
+        "correct": 0.3511924559679228,
+        "evidence_insufficiency": 0.009511364735377194,
+        "evidence_accessibility": 2.4272170915787524e-07,
+        "evidence_utilisation": 0.6392959365749907
+      }
+    },
+    {
+      "sample_id": "121157",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.47226189447838895,
+      "class_scores": {
+        "correct": 0.47160742673164585,
+        "evidence_insufficiency": 0.056129825185314564,
+        "evidence_accessibility": 8.536046505276455e-07,
+        "evidence_utilisation": 0.47226189447838895
+      }
+    },
+    {
+      "sample_id": "123236",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8949406298107058,
+      "class_scores": {
+        "correct": 0.8949406298107058,
+        "evidence_insufficiency": 0.0014624493563886079,
+        "evidence_accessibility": 0.0022935352504594776,
+        "evidence_utilisation": 0.10130338558244606
+      }
+    },
+    {
+      "sample_id": "1233",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8083065924912167,
+      "class_scores": {
+        "correct": 0.8083065924912167,
+        "evidence_insufficiency": 0.12944423607734468,
+        "evidence_accessibility": 8.609878046374946e-06,
+        "evidence_utilisation": 0.0622405615533921
+      }
+    },
+    {
+      "sample_id": "128336",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8460617571670624,
+      "class_scores": {
+        "correct": 0.8460617571670624,
+        "evidence_insufficiency": 0.019711489886446675,
+        "evidence_accessibility": 4.975696334372516e-07,
+        "evidence_utilisation": 0.13422625537685748
+      }
+    },
+    {
+      "sample_id": "128415",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.5422394844676883,
+      "class_scores": {
+        "correct": 0.5422394844676883,
+        "evidence_insufficiency": 0.029072818260457833,
+        "evidence_accessibility": 3.1916789572964358e-06,
+        "evidence_utilisation": 0.42868450559289667
+      }
+    },
+    {
+      "sample_id": "131865",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.4823026283518189,
+      "class_scores": {
+        "correct": 0.4823026283518189,
+        "evidence_insufficiency": 0.22334083437089064,
+        "evidence_accessibility": 1.2906860509727029e-05,
+        "evidence_utilisation": 0.29434363041678074
+      }
+    },
+    {
+      "sample_id": "132762",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.9184542213666179,
+      "class_scores": {
+        "correct": 0.05558482152649184,
+        "evidence_insufficiency": 0.9184542213666179,
+        "evidence_accessibility": 6.416344910622633e-07,
+        "evidence_utilisation": 0.025960315472399156
+      }
+    },
+    {
+      "sample_id": "134950",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.3675105503904554,
+      "class_scores": {
+        "correct": 0.3675105503904554,
+        "evidence_insufficiency": 0.3524474895438166,
+        "evidence_accessibility": 8.747170617863185e-06,
+        "evidence_utilisation": 0.2800332128951102
+      }
+    },
+    {
+      "sample_id": "13515",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8790762871911958,
+      "class_scores": {
+        "correct": 0.8790762871911958,
+        "evidence_insufficiency": 0.0046484239035352905,
+        "evidence_accessibility": 4.711377326823102e-05,
+        "evidence_utilisation": 0.11622817513200077
+      }
+    },
+    {
+      "sample_id": "140316",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.7343121045815179,
+      "class_scores": {
+        "correct": 0.7343121045815179,
+        "evidence_insufficiency": 0.179237010117958,
+        "evidence_accessibility": 0.0002594053085447764,
+        "evidence_utilisation": 0.08619147999197922
+      }
+    },
+    {
+      "sample_id": "151579",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.5534294640175981,
+      "class_scores": {
+        "correct": 0.5534294640175981,
+        "evidence_insufficiency": 0.04712458414334674,
+        "evidence_accessibility": 0.0005367344557035909,
+        "evidence_utilisation": 0.3989092173833516
+      }
+    },
+    {
+      "sample_id": "153654",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.8902096838922587,
+      "class_scores": {
+        "correct": 0.06694638016317599,
+        "evidence_insufficiency": 0.8902096838922587,
+        "evidence_accessibility": 1.0184881992367664e-06,
+        "evidence_utilisation": 0.042842917456365905
+      }
+    },
+    {
+      "sample_id": "154940",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8991229021534014,
+      "class_scores": {
+        "correct": 0.8991229021534014,
+        "evidence_insufficiency": 0.020762368386483748,
+        "evidence_accessibility": 4.520138419204484e-05,
+        "evidence_utilisation": 0.08006952807592278
+      }
+    },
+    {
+      "sample_id": "160832",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.6437299991143738,
+      "class_scores": {
+        "correct": 0.6437299991143738,
+        "evidence_insufficiency": 0.10575376231861705,
+        "evidence_accessibility": 0.0007088558143977207,
+        "evidence_utilisation": 0.24980738275261133
+      }
+    },
+    {
+      "sample_id": "169011",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8864273352085936,
+      "class_scores": {
+        "correct": 0.8864273352085936,
+        "evidence_insufficiency": 0.007851519646754372,
+        "evidence_accessibility": 0.0013865489375775339,
+        "evidence_utilisation": 0.10433459620707458
+      }
+    },
+    {
+      "sample_id": "171614",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8530810701430248,
+      "class_scores": {
+        "correct": 0.8530810701430248,
+        "evidence_insufficiency": 0.034190511703694686,
+        "evidence_accessibility": 5.352909299101637e-06,
+        "evidence_utilisation": 0.11272306524398133
+      }
+    },
+    {
+      "sample_id": "172102",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.6205530005804903,
+      "class_scores": {
+        "correct": 0.6205530005804903,
+        "evidence_insufficiency": 0.047964993333457814,
+        "evidence_accessibility": 0.00020269711588606352,
+        "evidence_utilisation": 0.33127930897016594
+      }
+    },
+    {
+      "sample_id": "173501",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.8557658443512842,
+      "class_scores": {
+        "correct": 0.06130282500335428,
+        "evidence_insufficiency": 0.8557658443512842,
+        "evidence_accessibility": 9.014279434886494e-06,
+        "evidence_utilisation": 0.08292231636592666
+      }
+    },
+    {
+      "sample_id": "174878",
+      "dataset": "fever",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.5468247789102091,
+      "class_scores": {
+        "correct": 0.22953063404934831,
+        "evidence_insufficiency": 0.5468247789102091,
+        "evidence_accessibility": 1.4604170414116622e-05,
+        "evidence_utilisation": 0.2236299828700285
+      }
+    },
+    {
+      "sample_id": "182271",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.5290424922677267,
+      "class_scores": {
+        "correct": 0.5290424922677267,
+        "evidence_insufficiency": 0.007437047120352663,
+        "evidence_accessibility": 1.477590287015203e-05,
+        "evidence_utilisation": 0.4635056847090505
+      }
+    },
+    {
+      "sample_id": "182442",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.846010560658033,
+      "class_scores": {
+        "correct": 0.846010560658033,
+        "evidence_insufficiency": 0.015453045214170581,
+        "evidence_accessibility": 7.359968140471268e-06,
+        "evidence_utilisation": 0.13852903415965578
+      }
+    },
+    {
+      "sample_id": "183593",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.42280038485520155,
+      "class_scores": {
+        "correct": 0.342865307459987,
+        "evidence_insufficiency": 0.42280038485520155,
+        "evidence_accessibility": 2.2808040751226405e-06,
+        "evidence_utilisation": 0.23433202688073626
+      }
+    },
+    {
+      "sample_id": "183615",
+      "dataset": "fever",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.9538133374879239,
+      "class_scores": {
+        "correct": 0.025391627978353388,
+        "evidence_insufficiency": 0.9538133374879239,
+        "evidence_accessibility": 1.0482029623715857e-07,
+        "evidence_utilisation": 0.020794929713426398
+      }
+    },
+    {
+      "sample_id": "192910",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8033886194136659,
+      "class_scores": {
+        "correct": 0.8033886194136659,
+        "evidence_insufficiency": 0.1021313340089809,
+        "evidence_accessibility": 0.00010618636293330773,
+        "evidence_utilisation": 0.09437386021442006
+      }
+    },
+    {
+      "sample_id": "202773",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.6433453408406137,
+      "class_scores": {
+        "correct": 0.6433453408406137,
+        "evidence_insufficiency": 0.05701890677694124,
+        "evidence_accessibility": 1.1426834243961727e-05,
+        "evidence_utilisation": 0.2996243255482011
+      }
+    },
+    {
+      "sample_id": "204025",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8648747732018718,
+      "class_scores": {
+        "correct": 0.8648747732018718,
+        "evidence_insufficiency": 0.04077699975898799,
+        "evidence_accessibility": 1.2578872330465533e-05,
+        "evidence_utilisation": 0.0943356481668098
+      }
+    },
+    {
+      "sample_id": "205122",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.5614328477804059,
+      "class_scores": {
+        "correct": 0.24328010260589078,
+        "evidence_insufficiency": 0.5614328477804059,
+        "evidence_accessibility": 2.7243758990196063e-06,
+        "evidence_utilisation": 0.1952843252378043
+      }
+    },
+    {
+      "sample_id": "217672",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.6598203484050814,
+      "class_scores": {
+        "correct": 0.6598203484050814,
+        "evidence_insufficiency": 0.21316282575737053,
+        "evidence_accessibility": 4.987019576260139e-06,
+        "evidence_utilisation": 0.12701183881797173
+      }
+    },
+    {
+      "sample_id": "2197",
+      "dataset": "fever",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "correct",
+      "confidence": 0.47515199323118934,
+      "class_scores": {
+        "correct": 0.47515199323118934,
+        "evidence_insufficiency": 0.28408009344053986,
+        "evidence_accessibility": 2.1555741272967307e-05,
+        "evidence_utilisation": 0.24074635758699786
+      }
+    },
+    {
+      "sample_id": "222046",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.44618317750950093,
+      "class_scores": {
+        "correct": 0.20177885203098495,
+        "evidence_insufficiency": 0.3520364413208764,
+        "evidence_accessibility": 1.529138637798713e-06,
+        "evidence_utilisation": 0.44618317750950093
+      }
+    },
+    {
+      "sample_id": "223664",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8983360917846459,
+      "class_scores": {
+        "correct": 0.8983360917846459,
+        "evidence_insufficiency": 0.007504470287307747,
+        "evidence_accessibility": 7.89420853017588e-06,
+        "evidence_utilisation": 0.09415154371951608
+      }
+    },
+    {
+      "sample_id": "224369",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8899308210803601,
+      "class_scores": {
+        "correct": 0.8899308210803601,
+        "evidence_insufficiency": 0.007775150246141999,
+        "evidence_accessibility": 0.004494446144569872,
+        "evidence_utilisation": 0.09779958252892786
+      }
+    },
+    {
+      "sample_id": "228071",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.7432007625852325,
+      "class_scores": {
+        "correct": 0.7432007625852325,
+        "evidence_insufficiency": 0.19501097923533928,
+        "evidence_accessibility": 4.342993226600761e-06,
+        "evidence_utilisation": 0.061783915186201736
+      }
+    },
+    {
+      "sample_id": "3119",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.4809575145527274,
+      "class_scores": {
+        "correct": 0.2155787813301126,
+        "evidence_insufficiency": 0.4809575145527274,
+        "evidence_accessibility": 2.8760652217876026e-05,
+        "evidence_utilisation": 0.30343494346494226
+      }
+    },
+    {
+      "sample_id": "32535",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8609671106334313,
+      "class_scores": {
+        "correct": 0.8609671106334313,
+        "evidence_insufficiency": 0.026397166686604225,
+        "evidence_accessibility": 0.0009038764555152253,
+        "evidence_utilisation": 0.11173184622444908
+      }
+    },
+    {
+      "sample_id": "32959",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.5794290030077474,
+      "class_scores": {
+        "correct": 0.20484988283297637,
+        "evidence_insufficiency": 0.5794290030077474,
+        "evidence_accessibility": 2.5826511073942664e-06,
+        "evidence_utilisation": 0.21571853150816883
+      }
+    },
+    {
+      "sample_id": "33955",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.7453664966439694,
+      "class_scores": {
+        "correct": 0.7453664966439694,
+        "evidence_insufficiency": 0.1651892735455781,
+        "evidence_accessibility": 7.922373667123375e-06,
+        "evidence_utilisation": 0.08943630743678548
+      }
+    },
+    {
+      "sample_id": "34774",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8342362321978204,
+      "class_scores": {
+        "correct": 0.8342362321978204,
+        "evidence_insufficiency": 0.004641419215203924,
+        "evidence_accessibility": 5.358473293220729e-06,
+        "evidence_utilisation": 0.16111699011368252
+      }
+    },
+    {
+      "sample_id": "43378",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.5745060966829431,
+      "class_scores": {
+        "correct": 0.37565964540943025,
+        "evidence_insufficiency": 0.04983234547507664,
+        "evidence_accessibility": 1.912432550029891e-06,
+        "evidence_utilisation": 0.5745060966829431
+      }
+    },
+    {
+      "sample_id": "44703",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8056999735315149,
+      "class_scores": {
+        "correct": 0.8056999735315149,
+        "evidence_insufficiency": 0.020540592189554,
+        "evidence_accessibility": 2.4508598698630395e-06,
+        "evidence_utilisation": 0.1737569834190611
+      }
+    },
+    {
+      "sample_id": "47004",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.9408571808585087,
+      "class_scores": {
+        "correct": 0.9408571808585087,
+        "evidence_insufficiency": 0.00530707785592735,
+        "evidence_accessibility": 5.360284687115274e-05,
+        "evidence_utilisation": 0.053782138438692985
+      }
+    },
+    {
+      "sample_id": "47551",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.8699314486020397,
+      "class_scores": {
+        "correct": 0.07373262807296237,
+        "evidence_insufficiency": 0.8699314486020397,
+        "evidence_accessibility": 7.23022335865831e-07,
+        "evidence_utilisation": 0.05633520030266203
+      }
+    },
+    {
+      "sample_id": "48217",
+      "dataset": "fever",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.8516874344248606,
+      "class_scores": {
+        "correct": 0.06847445889967413,
+        "evidence_insufficiency": 0.8516874344248606,
+        "evidence_accessibility": 2.21873548541858e-06,
+        "evidence_utilisation": 0.07983588793997982
+      }
+    },
+    {
+      "sample_id": "48230",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.5301431452226444,
+      "class_scores": {
+        "correct": 0.5301431452226444,
+        "evidence_insufficiency": 0.09818032550551958,
+        "evidence_accessibility": 2.9740351258598313e-06,
+        "evidence_utilisation": 0.37167355523671003
+      }
+    },
+    {
+      "sample_id": "55703",
+      "dataset": "fever",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.9508673407533932,
+      "class_scores": {
+        "correct": 1.2775125906700527e-05,
+        "evidence_insufficiency": 0.9508673407533932,
+        "evidence_accessibility": 0.02601077408432501,
+        "evidence_utilisation": 0.023109110036375093
+      }
+    },
+    {
+      "sample_id": "6106",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8680655137464292,
+      "class_scores": {
+        "correct": 0.8680655137464292,
+        "evidence_insufficiency": 0.02925461263181266,
+        "evidence_accessibility": 4.189901929733153e-05,
+        "evidence_utilisation": 0.10263797460246096
+      }
+    },
+    {
+      "sample_id": "69562",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.43539144540357555,
+      "class_scores": {
+        "correct": 0.3610003952714611,
+        "evidence_insufficiency": 0.20360587702629176,
+        "evidence_accessibility": 2.2822986714604294e-06,
+        "evidence_utilisation": 0.43539144540357555
+      }
+    },
+    {
+      "sample_id": "70840",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8454431228676175,
+      "class_scores": {
+        "correct": 0.8454431228676175,
+        "evidence_insufficiency": 0.03759015851897882,
+        "evidence_accessibility": 8.253382993413032e-05,
+        "evidence_utilisation": 0.11688418478346965
+      }
+    },
+    {
+      "sample_id": "71120",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8702250574337732,
+      "class_scores": {
+        "correct": 0.8702250574337732,
+        "evidence_insufficiency": 0.022818243167754867,
+        "evidence_accessibility": 2.353178523044057e-05,
+        "evidence_utilisation": 0.1069331676132415
+      }
+    },
+    {
+      "sample_id": "7401",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8471220488223403,
+      "class_scores": {
+        "correct": 0.8471220488223403,
+        "evidence_insufficiency": 0.02285982765280743,
+        "evidence_accessibility": 7.199562544555664e-05,
+        "evidence_utilisation": 0.12994612789940685
+      }
+    },
+    {
+      "sample_id": "77126",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.5414423625952176,
+      "class_scores": {
+        "correct": 0.5414423625952176,
+        "evidence_insufficiency": 0.09977599381548939,
+        "evidence_accessibility": 0.0002871886826279285,
+        "evidence_utilisation": 0.35849445490666504
+      }
+    },
+    {
+      "sample_id": "78055",
+      "dataset": "fever",
+      "target_label": "evidence_utilisation",
+      "predicted_label": "correct",
+      "confidence": 0.6029117811541216,
+      "class_scores": {
+        "correct": 0.6029117811541216,
+        "evidence_insufficiency": 0.10029493853037667,
+        "evidence_accessibility": 9.91391542489275e-06,
+        "evidence_utilisation": 0.2967833664000769
+      }
+    },
+    {
+      "sample_id": "83425",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.5569793139103935,
+      "class_scores": {
+        "correct": 0.5569793139103935,
+        "evidence_insufficiency": 0.011216585440625938,
+        "evidence_accessibility": 5.58587388913714e-05,
+        "evidence_utilisation": 0.4317482419100892
+      }
+    },
+    {
+      "sample_id": "84701",
+      "dataset": "fever",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.5338155953478155,
+      "class_scores": {
+        "correct": 0.24528749135327255,
+        "evidence_insufficiency": 0.5338155953478155,
+        "evidence_accessibility": 8.306057832303033e-05,
+        "evidence_utilisation": 0.220813852720589
+      }
+    },
+    {
+      "sample_id": "849",
+      "dataset": "fever",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.6291511377686451,
+      "class_scores": {
+        "correct": 0.19278487610150738,
+        "evidence_insufficiency": 0.6291511377686451,
+        "evidence_accessibility": 3.1121761631985306e-05,
+        "evidence_utilisation": 0.17803286436821544
+      }
+    },
+    {
+      "sample_id": "91111",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.8354973032863309,
+      "class_scores": {
+        "correct": 0.8354973032863309,
+        "evidence_insufficiency": 0.016688866882347487,
+        "evidence_accessibility": 1.940839113878303e-05,
+        "evidence_utilisation": 0.14779442144018276
+      }
+    },
+    {
+      "sample_id": "92103",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.4770571918342747,
+      "class_scores": {
+        "correct": 0.4770571918342747,
+        "evidence_insufficiency": 0.0940390234852143,
+        "evidence_accessibility": 6.59029367203014e-06,
+        "evidence_utilisation": 0.428897194386839
+      }
+    },
+    {
+      "sample_id": "93739",
+      "dataset": "fever",
+      "target_label": "evidence_insufficiency",
+      "predicted_label": "evidence_utilisation",
+      "confidence": 0.4084936370437778,
+      "class_scores": {
+        "correct": 0.38155084572968606,
+        "evidence_insufficiency": 0.20992889507725018,
+        "evidence_accessibility": 2.6622149286049302e-05,
+        "evidence_utilisation": 0.4084936370437778
+      }
+    },
+    {
+      "sample_id": "98622",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "correct",
+      "confidence": 0.3665541986331926,
+      "class_scores": {
+        "correct": 0.3665541986331926,
+        "evidence_insufficiency": 0.2911647711285648,
+        "evidence_accessibility": 0.00022465616164685375,
+        "evidence_utilisation": 0.3420563740765959
+      }
+    },
+    {
+      "sample_id": "99465",
+      "dataset": "fever",
+      "target_label": "correct",
+      "predicted_label": "evidence_insufficiency",
+      "confidence": 0.6803140572078067,
+      "class_scores": {
+        "correct": 0.20867673446839524,
+        "evidence_insufficiency": 0.6803140572078067,
+        "evidence_accessibility": 2.7695550260276632e-05,
+        "evidence_utilisation": 0.11098151277353781
+      }
+    }
+  ]
+}
