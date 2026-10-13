@@ -29,7 +29,9 @@
 - Reference RAG engineering validation completed
 - primary SLM changed from 3B to 7B
 - Preliminary Recoverability Experiment configuration is frozen; the experiment has **not** started
-- see [docs/PRELIMINARY_EXPERIMENT.md](docs/PRELIMINARY_EXPERIMENT.md)
+- Diagnosis + Evidence Probe + Controller are frozen and handed off to the Enhancement owners
+- `evidence_refinement` (rerank for `evidence_accessibility`) implemented on this branch; evaluated on retrieval-side metrics only, no generator run yet
+- see [docs/PRELIMINARY_EXPERIMENT.md](docs/PRELIMINARY_EXPERIMENT.md), [docs/DIAGNOSIS_PROBE_CONTROLLER_HANDOFF.md](docs/DIAGNOSIS_PROBE_CONTROLLER_HANDOFF.md) and [docs/EVIDENCE_REFINEMENT_RERANK.md](docs/EVIDENCE_REFINEMENT_RERANK.md)
 
 ## Engineering Validation
 
