@@ -73,7 +73,7 @@ integrity = {{'transport': transport, 'expected_archive_sha256': EXPECTED_SHA256
              'verified_files': len(checksums), 'all_files_verified': True}}
 (OUTPUT / 'input_integrity.json').write_text(json.dumps(integrity, indent=2))
 print('输入校验通过:', integrity)
-print({{ds: r['groups'] for ds,r in manifest['datasets'].items()}})
+print({{ds: r['groups'] for ds,r in manifest.get('datasets', {{}}).items()}} or manifest.get('samples'))
 '''
     code_cells[1]['source'] = loader.splitlines(keepends=True)
     notebook['metadata']['colab']['name'] = args.out.name

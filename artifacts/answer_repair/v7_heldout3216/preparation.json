@@ -1,0 +1,11 @@
+{
+  "bundle": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/artifacts/answer_repair/v7_heldout3216/answer_repair_v7_heldout3216_gpu.tar.gz",
+  "bundle_sha256": "6f27757935128f3e04e2881e1fb832885b10d45ef55316fa425b889950651bde",
+  "notebook": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/notebooks/answer_repair_colab_v7_heldout3216.ipynb",
+  "samples": 300,
+  "baseline": {
+    "initial_correct": 63,
+    "initial_wrong": 237
+  },
+  "real_gpu_experiment_completed": false
+}

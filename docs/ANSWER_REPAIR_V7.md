@@ -59,7 +59,8 @@ ANSWER: <QUOTE 内最短的回答片段，≤20 词>
 2. `dev50`：v1 的固定 dev50 × 2，观察正确答案误修，与 v6r1 成对比较。
 3. `heldout`：E 从未看过的全部共享训练样本（Diagnosis v1/v2 训练交集 − dev50 − 37 条审核包）。FEVER 267 条，NQ 146 条。选样不读标签、正确性或参考答案。**只运行一次，不论结果如何都如实报告，不在它上面调任何阈值或提示词。**
 
-第 3 批的离线标签构成（只在这里说明，脚本不读）：FEVER 232 条 correct + 35 条 insufficiency，没有 utilisation 标注；NQ 126 条 correct、13 条 insufficiency、7 条 accessibility，也没有 utilisation 标注，但其中 75 条冻结 EM 为错。所以这一批主要回答“E 在误路由（本来就对）的样本上会不会改错”和“EM 判错但语义正确的答案会不会被改坏”，不能回答修复率。真正含 utilisation 标注、E 又没碰过的 NQ 样本在 Diagnosis v2 训练集的 3216 扩展池里（1587 条，含 120 条 utilisation），但它们的 gold 短答案只在 Diagnosis 负责人的本地工作簿 `NQ_C1_3216_initial_labels.xlsx` 里，仓库没有；拿到 gold 后用 `scripts/build_nq_heldout_from_diagnosis_inputs.py` 生成第 4 批，同样只跑一次。
+第 3 批的离线标签构成（只在这里说明，脚本不读）：FEVER 232 条 correct + 35 条 insufficiency，没有 utilisation 标注；NQ 126 条 correct、13 条 insufficiency、7 条 accessibility，也没有 utilisation 标注，但其中 75 条冻结 EM 为错。所以这一批主要回答“E 在误路由（本来就对）的样本上会不会改错”和“EM 判错但语义正确的答案会不会被改坏”，不能回答修复率。真正含 utilisation 标注、E 又没碰过的 NQ 样本在 Diagnosis v2 训练集的 3216 扩展池里（1587 条，含 120 条 utilisation）。
+4. `heldout3216`（仅 NQ，独立实验包）：从上述 1587 条按离线标签分层取 300 条：utilisation 全部 120、accessibility 全部 35、correct 100、insufficiency 45（seed 42 哈希排序，`configs/splits/answer_repair_nq_heldout_3216_v1.json`）。gold 短答案取自 Diagnosis 负责人提供的本地工作簿 `NQ_C1_3216_合并全量.xlsx`（SHA-256 `a82961a6…`，不入库）的 `gold_answer` 列，导出为 `data/annotations/gold/nq_heldout_3216_v1_gold.jsonl`（入库）；工作簿的 question、c1_prediction 与上游入库导出 300/300 一致，`em_reference` 与重算 EM 300/300 一致。冻结 EM 初始正确 63 / 错误 237。实验包 `artifacts/answer_repair/v7_heldout3216/answer_repair_v7_heldout3216_gpu.tar.gz`（SHA-256 `6f27757935128f3e04e2881e1fb832885b10d45ef55316fa425b889950651bde`），notebook `notebooks/answer_repair_colab_v7_heldout3216.ipynb` / `answer_repair_kaggle_v7_heldout3216.ipynb`。**同样只跑一次**，结果按四个层分别报告；这是按标签分层的 held-out，不代表部署分布，修复率只在 utilisation 层内解释。
 
 成本按 v6 协议分开记：Qwen 调用/生成秒数/输入 token 只计 NQ；NLI forward 批次/分类秒数/输入 token 只计 FEVER。
 
@@ -86,4 +87,8 @@ python3.11 -m unittest discover -s tests
 python3.11 scripts/prepare_reviewed_answer_repair.py --experiment v7 --manifest configs/splits/answer_repair_reviewed_v7.json --out-dir artifacts/answer_repair/v7_reviewed --bundle-name answer_repair_v7_reviewed_gpu
 python3.11 scripts/build_reviewed_answer_repair_notebook.py --experiment v7 --bundle artifacts/answer_repair/v7_reviewed/answer_repair_v7_reviewed_gpu.tar.gz --out notebooks/answer_repair_colab_v7_reviewed.ipynb
 python3.11 scripts/build_kaggle_answer_repair_notebook.py --notebook notebooks/answer_repair_colab_v7_reviewed.ipynb --bundle artifacts/answer_repair/v7_reviewed/answer_repair_v7_reviewed_gpu.tar.gz --out notebooks/answer_repair_kaggle_v7_reviewed.ipynb
+# 第 4 批（需要本地工作簿）
+.venv/bin/python scripts/build_nq_heldout_from_diagnosis_inputs.py --workbook "data/annotations/NQ_C1_3216_合并全量.xlsx"
+python3.11 scripts/prepare_nq_heldout3216_bundle.py --c1 artifacts/answer_repair/v7_reviewed/inputs_extra/nq_heldout3216_c1.jsonl
+python3.11 scripts/build_kaggle_answer_repair_notebook.py --notebook notebooks/answer_repair_colab_v7_heldout3216.ipynb --bundle artifacts/answer_repair/v7_heldout3216/answer_repair_v7_heldout3216_gpu.tar.gz --out notebooks/answer_repair_kaggle_v7_heldout3216.ipynb
 ```

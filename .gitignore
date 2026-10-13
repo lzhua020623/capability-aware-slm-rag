@@ -36,8 +36,10 @@ artifacts/answer_repair/**/*.pyc
 # v7 design-stage offline replays (CPU, no model).
 !artifacts/answer_repair/v7_design/**
 !artifacts/answer_repair/v7_reviewed/**
+!artifacts/answer_repair/v7_heldout3216/**
 # Re-assert after the whitelists above: unpacked bundle copies never enter Git.
 artifacts/answer_repair/**/gpu_bundle/
 
 # Team annotation workbooks stay local (upstream convention); only derived JSONL is versioned.
 data/annotations/*.xlsx
+.DS_Store

@@ -78,13 +78,21 @@ def main(argv=None):
     report = {'version': manifest['version'], 'cpu_replay_only': True,
               'semantic_correctness_verified': False, 'runs': {}, 'replayed_records': 0}
     queue, unique_ids = [], set()
+    # (cohort, dataset, manifest section with sample_ids/input_sha256)
+    targets = []
+    if manifest.get('cohort') == 'heldout3216':          # single-cohort run-once bundle
+        lines = (bundle / 'inputs/nq_heldout3216_c1.jsonl').read_bytes().decode('utf-8').splitlines()
+        targets.append(('heldout3216', manifest['dataset'],
+                        {'sample_ids': [json.loads(l)['sample_id'] for l in lines if l.strip()],
+                         'input_sha256': manifest['input_sha256']}))
     cohort_keys = {'reviewed': 'datasets', 'dev50': 'regression_dev50', 'heldout': 'heldout_prelim'}
-    cohorts = ['reviewed'] + [c for c in ('dev50', 'heldout') if cohort_keys[c] in manifest]
-    for cohort in cohorts:
+    for cohort in [c for c in ('reviewed', 'dev50', 'heldout') if cohort_keys[c] in manifest]:
+        section = manifest[cohort_keys[cohort]]
         for ds in ('fever', 'nq'):
+            targets.append((cohort, ds, (section['datasets'] if cohort == 'heldout' else section)[ds]))
+    for cohort, ds, source_manifest in targets:
+        if True:
             source = (bundle / f'inputs/{ds}_{cohort}_c1.jsonl').read_bytes()
-            section = manifest[cohort_keys[cohort]]
-            source_manifest = (section['datasets'] if cohort == 'heldout' else section)[ds]
             if sha256(source) != source_manifest['input_sha256']:
                 raise ValueError('Input checksum differs from manifest')
             prepared = prepare_records(read_jsonl(source, ds), DatasetName(ds))

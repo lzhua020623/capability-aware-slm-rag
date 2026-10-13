@@ -769,6 +769,26 @@
       "path": "artifacts/answer_repair/v7_reviewed/preparation.json",
       "bytes": 2129,
       "sha256": "3d72e9f7105f1c866a14a1496e6c21a363279480dcdb70cd75faf289ff359bc0"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/answer_repair_v7_heldout3216_gpu.tar.gz",
+      "bytes": 441193,
+      "sha256": "6f27757935128f3e04e2881e1fb832885b10d45ef55316fa425b889950651bde"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/preparation.json",
+      "bytes": 493,
+      "sha256": "cded7d44ab25e02ab79c94331bd0f506b36573c3a4a7cfb37dcadc31a8875e6c"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/inputs_extra/nq_heldout3216_c1.jsonl",
+      "bytes": 1052699,
+      "sha256": "321cf7525aacd35064c2dd0de3496dac2f8fb5e237eebe0d9b57d79820d49568"
+    },
+    {
+      "path": "data/annotations/gold/nq_heldout_3216_v1_gold.jsonl",
+      "bytes": 27208,
+      "sha256": "cf4a368eed87a1983f69c673fd7aab1b811595b34bffe939515d6f6438eec396"
     }
   ],
   "appended_20261014_v7": {
@@ -780,5 +800,15 @@
       "artifacts/answer_repair/v7_reviewed/preparation.json"
     ],
     "v7_bundle_sha256": "b8f995f164783244c5c94ad591ab0f8a9a00adb1ca86a9926b83e0c2b352282f"
+  },
+  "appended_20261014_v7_heldout3216": {
+    "note": "Run-once NQ held-out from the Diagnosis 3216 pool: frozen C1 inputs, gold exported from the owner's local workbook (workbook itself not versioned), and the GPU bundle (not yet executed).",
+    "workbook_sha256": "a82961a6d7bcdf7ea803a44b555cde24175391268e1375cc1bb4d3df876aec14",
+    "added_files": [
+      "artifacts/answer_repair/v7_heldout3216/answer_repair_v7_heldout3216_gpu.tar.gz",
+      "artifacts/answer_repair/v7_heldout3216/preparation.json",
+      "artifacts/answer_repair/v7_reviewed/inputs_extra/nq_heldout3216_c1.jsonl",
+      "data/annotations/gold/nq_heldout_3216_v1_gold.jsonl"
+    ]
   }
 }
