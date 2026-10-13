@@ -38,3 +38,6 @@ artifacts/answer_repair/**/*.pyc
 !artifacts/answer_repair/v7_reviewed/**
 # Re-assert after the whitelists above: unpacked bundle copies never enter Git.
 artifacts/answer_repair/**/gpu_bundle/
+
+# Team annotation workbooks stay local (upstream convention); only derived JSONL is versioned.
+data/annotations/*.xlsx

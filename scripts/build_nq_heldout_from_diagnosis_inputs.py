@@ -80,11 +80,68 @@ def c1_record(row: dict, golds: list[str]) -> dict:
             "provenance": "diagnosis_3216_inputs_export; retrieval scores rounded to 4 decimals upstream"}
 
 
+def parse_gold_cell(value) -> list[str]:
+    """A workbook gold cell may hold a string or a JSON list; empty cells are errors."""
+    if value is None:
+        return []
+    if isinstance(value, (int, float)):
+        value = str(value)
+    text = str(value).strip()
+    if text.startswith("["):
+        try:
+            parsed = json.loads(text)
+            if isinstance(parsed, list):
+                return [str(a).strip() for a in parsed if str(a).strip()]
+        except json.JSONDecodeError:
+            pass
+    return [text] if text else []
+
+
+def export_gold_from_workbook(workbook: Path, sheet: str, wanted: set[str], out: Path) -> Path:
+    """Read only sample_id and gold_answer from the local workbook for the selected IDs."""
+    from openpyxl import load_workbook
+    book = load_workbook(workbook, read_only=True, data_only=True)
+    try:
+        if sheet not in book.sheetnames:
+            raise ValueError(f"Sheet {sheet!r} not found; available: {book.sheetnames}")
+        rows = book[sheet].iter_rows(values_only=True)
+        header = [str(c).strip() if c is not None else "" for c in next(rows)]
+        if "sample_id" not in header or "gold_answer" not in header:
+            raise ValueError(f"Workbook header lacks sample_id/gold_answer: {header}")
+        id_col, gold_col = header.index("sample_id"), header.index("gold_answer")
+        golds = {}
+        for row in rows:
+            sid = row[id_col]
+            if sid is None:
+                continue
+            sid = str(sid).strip()
+            if sid in wanted:
+                golds[sid] = parse_gold_cell(row[gold_col])
+    finally:
+        book.close()
+    empty = sorted(sid for sid, g in golds.items() if not g)
+    if empty:
+        raise ValueError(f"Empty gold_answer for {len(empty)} selected IDs, e.g. {empty[:5]}")
+    missing = sorted(wanted - golds.keys())
+    if missing:
+        raise ValueError(f"Workbook lacks {len(missing)} selected IDs, e.g. {missing[:5]}")
+    raw = "".join(json.dumps({"sample_id": sid, "gold_answers": golds[sid]}, ensure_ascii=False) + "\n"
+                  for sid in sorted(golds)).encode()
+    write_frozen(out, raw)
+    print(json.dumps({"gold_out": str(out), "ids": len(golds), "sha256": sha256(raw),
+                      "workbook_sha256": sha256(workbook.read_bytes())}, indent=2))
+    return out
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--upstream-ref", default=UPSTREAM)
     parser.add_argument("--prelim", type=Path, default=ROOT / "configs/splits/preliminary_nq_500.json")
     parser.add_argument("--gold", type=Path, help="JSONL of {sample_id, gold_answers}; omit to freeze IDs only")
+    parser.add_argument("--workbook", type=Path, default=ROOT / "data/annotations/NQ_C1_3216_initial_labels.xlsx",
+                        help="Diagnosis owner's local workbook; its gold_answer column is exported to --gold-out when --gold is absent")
+    parser.add_argument("--gold-out", type=Path, default=ROOT / "data/annotations/gold/nq_heldout_3216_v1_gold.jsonl")
+    parser.add_argument("--sheet", default="NQ C1 Annotation")
     parser.add_argument("--manifest", type=Path, default=ROOT / "configs/splits/answer_repair_nq_heldout_3216_v1.json")
     parser.add_argument("--out", type=Path, default=ROOT / "artifacts/answer_repair/v7_reviewed/inputs_extra/nq_heldout3216_c1.jsonl")
     args = parser.parse_args(argv)
@@ -105,8 +162,10 @@ def main(argv=None):
                 "gold_required": "JSONL {sample_id, gold_answers}; not in the repository"}
     write_frozen(args.manifest, encode_json(manifest))
     print(json.dumps({"manifest": str(args.manifest), "selected": {k: len(v) for k, v in chosen.items()}}, indent=2))
+    if not args.gold and args.workbook.exists():
+        args.gold = export_gold_from_workbook(args.workbook, args.sheet, set(ordered), args.gold_out)
     if not args.gold:
-        print("No --gold given: ID manifest frozen only; request gold short answers for these IDs.")
+        print("No --gold given and no workbook found: ID manifest frozen only; request gold short answers for these IDs.")
         return 0
     golds = {}
     for line in args.gold.read_bytes().decode().splitlines():
