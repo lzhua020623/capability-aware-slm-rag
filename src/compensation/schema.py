@@ -27,7 +27,12 @@ from enum import StrEnum
 from src.diagnosis.schema import FORBIDDEN_RUNTIME_FIELDS, EvidenceItem
 from src.probe.schema import MAX_EVIDENCE_RANK
 
-DEFAULT_KEEP_K = 3
+# Reorder but keep every candidate. Pruning is opt-in: on the frozen 500 NQ C1
+# records it changed no rank-1 outcome and cost 14 samples their only
+# answer-bearing passage (results/compensation/rerank_frozen500_offline_keep3.json
+# vs _keep5.json). Its real benefit -- a shorter, less noisy prompt -- cannot be
+# measured without the generator, so it must be chosen there, not here.
+DEFAULT_KEEP_K = MAX_EVIDENCE_RANK
 DEFAULT_RERANKER_MODEL = "BAAI/bge-reranker-large"
 
 # Normalised answers that are treated as "the model declined to answer" and are
@@ -89,7 +94,10 @@ class RefinementConfig:
     keep_k
         How many passages to keep after reranking. Capped at
         MAX_EVIDENCE_RANK so the refined evidence stays shaped like the
-        frozen Reference RAG Top-5 context.
+        frozen Reference RAG Top-5 context. The default keeps all of them:
+        reranking alone cannot lose evidence, while pruning can, and the
+        offline retrieval-side metrics show no gain from it (see
+        DEFAULT_KEEP_K above).
     min_score
         Optional absolute reranker-score floor. A passage below it is dropped
         unless dropping it would leave nothing; `None` disables the floor,

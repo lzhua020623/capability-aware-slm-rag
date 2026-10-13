@@ -100,11 +100,12 @@ it); without it the pool is exactly the evidence the generator already saw.
 Extra candidates are appended after the original Top-5 and renumbered, so
 Probe rank hints keep pointing at the passages the Probe saw.
 
-`RefinementConfig`: `keep_k` (default 3, capped at 5), `min_score` (default
-`None`), `probe_hint_weight` (default 0.0), `require_grounded` (default
-`True`), `regenerate_when_unchanged` (default `False`), `reranker_model`
-(default `BAAI/bge-reranker-large`). These are the module's own defaults, not
-a frozen project setting.
+`RefinementConfig`: `keep_k` (default 5, i.e. reorder and keep everything;
+capped at 5), `min_score` (default `None`), `probe_hint_weight` (default 0.0),
+`require_grounded` (default `True`), `regenerate_when_unchanged` (default
+`False`), `reranker_model` (default `BAAI/bge-reranker-large`). These are the
+module's own defaults, not a frozen project setting; section 4 explains why
+pruning is opt-in.
 
 `RefinementResult` reports `status`, `initial_answer`, `final_answer`,
 `answer_changed`, the evidence before/after/dropped, `rerank_scores`,
@@ -154,9 +155,10 @@ containing the gold answer nearer the top, and does it survive pruning? It
 loads no generator, so it says nothing about final answer accuracy. Gold
 answers are used here strictly after the fact.
 
-`BAAI/bge-reranker-large`, `keep_k=3`, 500 samples
-(`results/compensation/rerank_frozen500_offline.json`; per-sample rows for the
-accessibility subset in `results/compensation/rerank_accessibility_offline.json`):
+`BAAI/bge-reranker-large`, `keep_k=3`, 500 samples, 182 s on an RTX 3060
+(`results/compensation/rerank_frozen500_offline_keep3.json`; per-sample rows
+for the accessibility subset in
+`results/compensation/rerank_accessibility_offline.json`):
 
 | Label | n | has answer-bearing passage | at rank 1 before → after | mean best rank before → after | promoted / demoted | lost to pruning |
 |---|---|---|---|---|---|---|
@@ -165,16 +167,37 @@ accessibility subset in `results/compensation/rerank_accessibility_offline.json`
 | `evidence_insufficiency` | 54 | 2 | 1 → 1 | 3.00 → 1.50 | 1 / 0 | 0 |
 | `evidence_utilisation` | 33 | 27 | 21 → 17 | 1.41 → 1.41 | 5 / 7 | 0 |
 
-Reading: on the target class the reranker does move the answer-bearing
-passage up (mean best rank 1.92 → 1.67, 10 promoted against 6 demoted), but on
-25 samples with an answer-bearing passage that is a small absolute gain, and
-`keep_k=3` costs one of them its only answer-bearing passage. The `correct`
-column is the harm column: reranking helps those samples too, yet pruning
-drops the answer-bearing passage of 13 of 311 — which is why the grounding
-gate in step 5 exists, so a pruned-away answer leaves the original answer in
-place instead of replacing it with an ungrounded one. On `utilisation` the
-reranker is slightly harmful, as expected for a class where the evidence was
-already clear.
+On the target class the reranker does move the answer-bearing passage up (mean
+best rank 1.92 → 1.67, 10 promoted against 6 demoted), though on only 25
+samples that is a small absolute gain. On `utilisation` it is slightly
+harmful, as expected for a class whose evidence was already clear. The
+`correct` row is the harm row.
+
+### Why pruning is not the default
+
+The same run with `keep_k=5` — reorder only, nothing dropped
+(`results/compensation/rerank_frozen500_offline_keep5.json`):
+
+| | `keep_k=3` | `keep_k=5` |
+|---|---|---|
+| answer-bearing passage at rank 1 (500 samples) | 272 | 272 |
+| accessibility at rank 1 | 11 | 11 |
+| answer-bearing passage lost | 14 | **0** |
+| mean best rank after | 1.27 | 1.38 |
+
+Pruning cannot change which passage ends up at rank 1, so it buys nothing on
+these metrics, and it costs 14 samples (13 of them already-correct ones) their
+only answer-bearing passage. The apparently better mean best rank under
+`keep_k=3` is survivorship: pruning removes exactly the samples whose answer
+sat deep in the list, so they drop out of the average instead of improving it.
+The default is therefore `keep_k=5` and pruning is opt-in. The one benefit
+pruning may still have — a shorter, less noisy prompt for the generator — is
+invisible to a retrieval-side metric and has to be decided on the generator
+run below.
+
+The grounding gate in step 5 remains the safeguard whenever pruning is turned
+on: if the answer-bearing passage was dropped, the regenerated answer will not
+be grounded in the kept evidence and the original answer stands.
 
 **Not yet measured:** whether a refined context actually changes the 7B's
 answer, and the EM/F1 gain or harm that follows. That needs a machine holding
@@ -185,7 +208,9 @@ The measurement to run there, on the routed samples only:
 * harm rate on routed samples whose initial answer was already correct;
 * `status` distribution and how often the grounding gate rejected a
   replacement;
-* generation calls spent (one per sample that was not `no_change`).
+* generation calls spent (one per sample that was not `no_change`);
+* `keep_k=5` against `keep_k=3`, to settle whether a shorter prompt helps
+  enough to pay for the dropped passages.
 
 ## 5. Files
 

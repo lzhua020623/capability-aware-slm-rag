@@ -45,7 +45,7 @@ def result(**overrides) -> RefinementResult:
 class RefinementConfigTest(unittest.TestCase):
     def test_defaults_are_conservative(self):
         config = DEFAULT_REFINEMENT_CONFIG
-        self.assertEqual(config.keep_k, 3)
+        self.assertEqual(config.keep_k, MAX_EVIDENCE_RANK)  # reorder only; pruning is opt-in
         self.assertIsNone(config.min_score)
         self.assertEqual(config.probe_hint_weight, 0.0)
         self.assertTrue(config.require_grounded)
