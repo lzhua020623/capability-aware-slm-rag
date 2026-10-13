@@ -28,8 +28,13 @@
 - retrieval pilot completed
 - Reference RAG engineering validation completed
 - primary SLM changed from 3B to 7B
-- Preliminary Recoverability Experiment configuration is frozen; the experiment has **not** started
-- see [docs/PRELIMINARY_EXPERIMENT.md](docs/PRELIMINARY_EXPERIMENT.md)
+- NQ and FEVER 7B C0/C1/C3 runs are complete across the experiment branches; frozen results and judge re-analysis are documented in [project status and direction](docs/PROJECT_STATUS_AND_DIRECTION.md).
+- Diagnosis v2-expanded, Probe, Safe Binary and Controller are frozen on `feature/diagnosis-probe-zheng` at `7c7863f`; project-sample annotations are published there. This E branch consumes the shared decision contract.
+- `reranking` at `338ff34` implements evidence refinement with offline retrieval evaluation; generator-level gains have not been measured there.
+- E implements Verification / Answer Repair with a Controller adapter, resumable experiments, provenance checks and paired evaluation. v4–v6r1 real T4 runs are archived. v6r1 completed 128 predictions (123 unique IDs), 81 cloud tests and frozen-code replay of all results. FEVER reviewed accuracy improves 4/14→7/14, but dev50 falls 45→44; NQ dev50 EM falls 20→7 with longer extracted answers and some irrelevant quotes. Neither new strategy is promoted. Human correctness/support review is deferred; the 42 changed pairs are prioritized. See [current handoff](docs/ANSWER_REPAIR_HANDOFF.md), [latest results](docs/ANSWER_REPAIR_RESULTS_20261014.md), and [Colab / Kaggle](docs/ANSWER_REPAIR_COLAB.md). Engineering and planned development experiments are complete; reliable repair gains and held-out acceptance remain unverified. The delivery branch is `feature/verification-answer-repair`; code, frozen archives, results and review records are versioned together.
+- The frozen preliminary protocol remains in [docs/PRELIMINARY_EXPERIMENT.md](docs/PRELIMINARY_EXPERIMENT.md).
+
+Agent-assisted semantic review now covers all 128 v6r1 results: 123 unique cases, provisional fixes/regressions and citation judgments with evidence anchors. Human confirmation remains pending; agent suggestions are not human gold. See the assisted-review section of the [latest results](docs/ANSWER_REPAIR_RESULTS_20261014.md), the [128-case review](artifacts/answer_repair/v6r1_reviewed/assisted_review_20261014/assisted_review.md), and the [archive inventory](artifacts/answer_repair/git_archive_manifest.json).
 
 ## Engineering Validation
 

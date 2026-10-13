@@ -1,0 +1,14 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "fever", "--c1", "/kaggle/working/e_reviewed_74d40b01c962/answer_repair_v6r1_reviewed_gpu/inputs/fever_reviewed_c1.jsonl", "--all", "--strategy", "fever_nli", "--max-new-tokens", "1", "--out", "/kaggle/working/answer_repair_v6r1_reviewed_outputs/fever_fever_nli.jsonl", "--check-only"]
+{
+  "source": "/kaggle/working/e_reviewed_74d40b01c962/answer_repair_v6r1_reviewed_gpu/inputs/fever_reviewed_c1.jsonl",
+  "dataset": "fever",
+  "strategy": "fever_nli",
+  "routing": "all",
+  "samples": 14,
+  "completed": 0,
+  "routed_samples": 14,
+  "remaining_call_upper_bound": 0,
+  "remaining_classifier_samples": 14,
+  "fingerprint": "8a23a24b72cc23cda1b1b48e0c278b034d2b9f600076499985c9c4cbbc0f1c73",
+  "output": "/kaggle/working/answer_repair_v6r1_reviewed_outputs/fever_fever_nli.jsonl"
+}

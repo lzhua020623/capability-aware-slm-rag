@@ -8,3 +8,27 @@ data/processed/*
 models/
 checkpoints/
 .env
+# Preserve selected E experiment archives, results and review records.
+# Model caches, unpacked source copies and partial downloads stay local.
+artifacts/answer_repair/**
+!artifacts/answer_repair/**/
+!artifacts/answer_repair/git_archive_manifest.json
+!artifacts/answer_repair/review_20261013/**
+!artifacts/answer_repair/session_20261013/E_answer_repair_20261013_results.zip
+!artifacts/answer_repair/session_20261013/archive_hashes.json
+!artifacts/answer_repair/session_20261013/export_validation.json
+!artifacts/answer_repair/v1/**/*.zip
+!artifacts/answer_repair/v1/answer_repair_v1_gpu.tar.gz
+!artifacts/answer_repair/v2/**/*.zip
+!artifacts/answer_repair/v2/answer_repair_v2_gpu.tar.gz
+!artifacts/answer_repair/v3/**/*.zip
+!artifacts/answer_repair/v3/answer_repair_v3_gpu.tar.gz
+!artifacts/answer_repair/v6_reviewed/answer_repair_v6_reviewed_gpu.tar.gz
+!artifacts/answer_repair/v6_reviewed/validation.json
+!artifacts/answer_repair/v5_reviewed/**
+!artifacts/answer_repair/v6r1_reviewed/**
+!artifacts/answer_repair/handoff_20261014/**
+artifacts/answer_repair/**/gpu_bundle/
+artifacts/answer_repair/**/partial_downloads/
+artifacts/answer_repair/**/__pycache__/
+artifacts/answer_repair/**/*.pyc

@@ -1,0 +1,57 @@
+{
+  "archive_sha256": "4f115e81d9698e60f3db6f29d2b018c0388f8daf6f3ca7ed4a3b74723485b9dd",
+  "packaged_files_checked": 41,
+  "cpu_tests_passed": 67,
+  "isolated_preflights": [
+    {
+      "dataset": "fever",
+      "strategy": "grounded_reanswer",
+      "samples": 14,
+      "remaining_call_upper_bound": 14
+    },
+    {
+      "dataset": "fever",
+      "strategy": "query_grounded",
+      "samples": 14,
+      "remaining_call_upper_bound": 14
+    },
+    {
+      "dataset": "fever",
+      "strategy": "guarded_reanswer",
+      "samples": 14,
+      "remaining_call_upper_bound": 28
+    },
+    {
+      "dataset": "fever",
+      "strategy": "reanswer",
+      "samples": 14,
+      "remaining_call_upper_bound": 14
+    },
+    {
+      "dataset": "nq",
+      "strategy": "grounded_reanswer",
+      "samples": 14,
+      "remaining_call_upper_bound": 14
+    },
+    {
+      "dataset": "nq",
+      "strategy": "query_grounded",
+      "samples": 14,
+      "remaining_call_upper_bound": 14
+    },
+    {
+      "dataset": "nq",
+      "strategy": "guarded_reanswer",
+      "samples": 14,
+      "remaining_call_upper_bound": 28
+    },
+    {
+      "dataset": "nq",
+      "strategy": "reanswer",
+      "samples": 14,
+      "remaining_call_upper_bound": 14
+    }
+  ],
+  "total_call_upper_bound": 140,
+  "real_gpu_run": false
+}

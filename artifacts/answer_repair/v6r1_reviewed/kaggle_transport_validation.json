@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "notebook_sha256": "b1d3b777de0feb7526a6f36288a36984aed4a15bef404d4fb752e4a5c3a6c1ee",
+  "frozen_bundle_sha256": "74d40b01c96245e1caf2ac8af786bf3b05394971863bddc81a75a2a2afa45ef5",
+  "scenarios": {
+    "archive": {
+      "transport": "archive_sha256",
+      "expected_archive_sha256": "74d40b01c96245e1caf2ac8af786bf3b05394971863bddc81a75a2a2afa45ef5",
+      "checksum_index_sha256": "1c095e9fb52077898e8eb85672f76ba4ac052e87b9e099da61df523be404d0bd",
+      "verified_files": 48,
+      "all_files_verified": true
+    },
+    "preextracted": {
+      "transport": "pinned_checksum_index_and_all_files",
+      "expected_archive_sha256": "74d40b01c96245e1caf2ac8af786bf3b05394971863bddc81a75a2a2afa45ef5",
+      "checksum_index_sha256": "1c095e9fb52077898e8eb85672f76ba4ac052e87b9e099da61df523be404d0bd",
+      "verified_files": 48,
+      "all_files_verified": true
+    },
+    "tampered_file": "correctly_rejected",
+    "tampered_index": "correctly_rejected"
+  },
+  "model_inference_performed": false
+}

@@ -1,0 +1,107 @@
+COMMAND ["/usr/bin/python3", "scripts/summarize_reviewed_answer_repair.py", "--manifest", "/content/e_reviewed_4f115e81d969/answer_repair_v5_reviewed_gpu/manifest.json", "--c1", "/content/e_reviewed_4f115e81d969/answer_repair_v5_reviewed_gpu/inputs/fever_reviewed_c1.jsonl", "--results", "/content/answer_repair_v5_reviewed_outputs/fever_reanswer.jsonl", "--out-prefix", "/content/answer_repair_v5_reviewed_outputs/fever_reanswer_reviewed"]
+{
+  "dataset": "fever",
+  "strategy": "reanswer",
+  "cohort_version": "answer_repair_reviewed_dev_v1",
+  "metric_warning": "Frozen-reference metrics are not semantic repair/regression counts. Paired review must score BOTH initial and final answers consistently.",
+  "frozen_metrics": {
+    "evaluated_samples": 14,
+    "initial_correct": 4,
+    "final_correct": 4,
+    "initial_accuracy": 0.2857142857142857,
+    "final_accuracy": 0.2857142857142857,
+    "fixed": 0,
+    "regressed": 0,
+    "net_correct_gain": 0,
+    "accuracy_gain": 0.0,
+    "mcnemar_exact_pvalue": 1.0,
+    "repair_success_rate": 0.0,
+    "regression_rate": 0.0,
+    "changed": 0,
+    "extra_calls": 14,
+    "extra_calls_per_sample": 1.0,
+    "extra_generation_latency_total": 84.23837663300014,
+    "extra_generation_latency_per_sample": 6.017026902357153,
+    "status_counts": {
+      "invalid_output": 8,
+      "reanswered": 6
+    },
+    "independent_support_checked": 0,
+    "same_model_support_check_counts": {},
+    "input_tokens_total": 21944,
+    "input_tokens_observed_calls": 14,
+    "output_tokens_estimate_total": 641,
+    "output_tokens_estimate_observed_calls": 14
+  },
+  "frozen_metrics_by_human_group": {
+    "include_e_core": {
+      "evaluated_samples": 10,
+      "initial_correct": 0,
+      "final_correct": 0,
+      "initial_accuracy": 0.0,
+      "final_accuracy": 0.0,
+      "fixed": 0,
+      "regressed": 0,
+      "net_correct_gain": 0,
+      "accuracy_gain": 0.0,
+      "mcnemar_exact_pvalue": 1.0,
+      "repair_success_rate": 0.0,
+      "regression_rate": null,
+      "changed": 0,
+      "extra_calls": 10,
+      "extra_calls_per_sample": 1.0,
+      "extra_generation_latency_total": 65.52693288699993,
+      "extra_generation_latency_per_sample": 6.552693288699993,
+      "status_counts": {
+        "invalid_output": 7,
+        "reanswered": 3
+      },
+      "independent_support_checked": 0,
+      "same_model_support_check_counts": {},
+      "input_tokens_total": 14851,
+      "input_tokens_observed_calls": 10,
+      "output_tokens_estimate_total": 545,
+      "output_tokens_estimate_observed_calls": 10
+    },
+    "correct_control": {
+      "evaluated_samples": 4,
+      "initial_correct": 4,
+      "final_correct": 4,
+      "initial_accuracy": 1.0,
+      "final_accuracy": 1.0,
+      "fixed": 0,
+      "regressed": 0,
+      "net_correct_gain": 0,
+      "accuracy_gain": 0.0,
+      "mcnemar_exact_pvalue": 1.0,
+      "repair_success_rate": null,
+      "regression_rate": 0.0,
+      "changed": 0,
+      "extra_calls": 4,
+      "extra_calls_per_sample": 1.0,
+      "extra_generation_latency_total": 18.711443746000214,
+      "extra_generation_latency_per_sample": 4.677860936500053,
+      "status_counts": {
+        "reanswered": 3,
+        "invalid_output": 1
+      },
+      "independent_support_checked": 0,
+      "same_model_support_check_counts": {},
+      "input_tokens_total": 7093,
+      "input_tokens_observed_calls": 4,
+      "output_tokens_estimate_total": 96,
+      "output_tokens_estimate_observed_calls": 4
+    }
+  },
+  "human_vs_frozen_metric_disagreement_ids": [],
+  "paired_semantic_review": {
+    "completed_pairs": 0,
+    "pending_pairs": 14,
+    "review_complete": false,
+    "fixed": null,
+    "grounded_fixed": null,
+    "regressed": null,
+    "repair_rate_reviewed_subset": null,
+    "regression_rate_reviewed_subset": null
+  }
+}

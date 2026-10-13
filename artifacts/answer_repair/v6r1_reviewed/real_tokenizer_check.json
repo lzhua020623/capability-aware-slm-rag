@@ -1,0 +1,22 @@
+{
+  "model_name": "microsoft/deberta-large-mnli",
+  "revision": "7296194b9009373def4f7c5dad292651e4b5cf4e",
+  "transformers": "5.18.0",
+  "tokenizer_class": "DebertaTokenizer",
+  "is_fast": true,
+  "model_inference_performed": false,
+  "cohorts": {
+    "reviewed": {
+      "samples": 14,
+      "windows": 84,
+      "max_windows_per_sample": 9,
+      "all_nonwhitespace_characters_covered": true
+    },
+    "dev50": {
+      "samples": 50,
+      "windows": 281,
+      "max_windows_per_sample": 9,
+      "all_nonwhitespace_characters_covered": true
+    }
+  }
+}

@@ -1,0 +1,5 @@
+# Install a CUDA-enabled PyTorch build for the GPU host separately.
+transformers
+accelerate
+bitsandbytes
+pyyaml

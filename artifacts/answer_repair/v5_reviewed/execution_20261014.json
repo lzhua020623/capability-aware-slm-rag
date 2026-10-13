@@ -1,0 +1,20 @@
+{
+  "client_date": "2026-10-14",
+  "timezone": "Australia/Sydney",
+  "status": "completed",
+  "platform": "Google Colab",
+  "gpu_observed": "Tesla T4",
+  "notebook_url": "https://colab.research.google.com/drive/1XI0qoiW0NIQHiD7iOX8ewqM07Y-snxMQ",
+  "execution_cells": [
+    15,
+    16
+  ],
+  "execution_method": "Native Chrome UI; uploaded checked bundle and generated notebook; preparation then real-run cells executed from the notebook via a separate appended bootstrap cell",
+  "bundle_sha256": "4f115e81d9698e60f3db6f29d2b018c0388f8daf6f3ca7ed4a3b74723485b9dd",
+  "notebook_sha256": "3024d24eb7605a655ca590dcc3d5f52c6cbbe919daa2d27393fd26e026632714",
+  "historical_cells_rerun": false,
+  "human_output_reviews_completed": 0,
+  "result_zip_sha256": "2a43425501468e666087fa26df4627ad648847ff673ff49156c8e3addc8e93d7",
+  "result_zip": "artifacts/answer_repair/v5_reviewed/answer_repair_v5_reviewed_outputs_export.zip",
+  "real_predictions": 112
+}

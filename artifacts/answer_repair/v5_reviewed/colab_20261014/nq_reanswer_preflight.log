@@ -1,0 +1,13 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "nq", "--c1", "/content/e_reviewed_4f115e81d969/answer_repair_v5_reviewed_gpu/inputs/nq_reviewed_c1.jsonl", "--all", "--strategy", "reanswer", "--max-new-tokens", "576", "--out", "/content/answer_repair_v5_reviewed_outputs/nq_reanswer.jsonl", "--check-only"]
+{
+  "source": "/content/e_reviewed_4f115e81d969/answer_repair_v5_reviewed_gpu/inputs/nq_reviewed_c1.jsonl",
+  "dataset": "nq",
+  "strategy": "reanswer",
+  "routing": "all",
+  "samples": 14,
+  "completed": 0,
+  "routed_samples": 14,
+  "remaining_call_upper_bound": 14,
+  "fingerprint": "3a25a90cff865f096f8ac98ad0492cdaab67e722f92ae0da8125cdae3d5281a3",
+  "output": "/content/answer_repair_v5_reviewed_outputs/nq_reanswer.jsonl"
+}

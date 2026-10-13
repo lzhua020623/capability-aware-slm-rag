@@ -1,0 +1,113 @@
+{
+  "dataset": "nq",
+  "strategy": "reanswer",
+  "cohort_version": "answer_repair_reviewed_dev_v1",
+  "metric_warning": "Frozen-reference metrics are not semantic repair/regression counts. Paired review must score BOTH initial and final answers consistently.",
+  "frozen_metrics": {
+    "evaluated_samples": 14,
+    "initial_correct": 2,
+    "final_correct": 2,
+    "initial_accuracy": 0.14285714285714285,
+    "final_accuracy": 0.14285714285714285,
+    "fixed": 0,
+    "regressed": 0,
+    "net_correct_gain": 0,
+    "accuracy_gain": 0.0,
+    "mcnemar_exact_pvalue": 1.0,
+    "repair_success_rate": 0.0,
+    "regression_rate": 0.0,
+    "changed": 2,
+    "extra_calls": 14,
+    "extra_calls_per_sample": 1.0,
+    "extra_generation_latency_total": 18.25940109900057,
+    "extra_generation_latency_per_sample": 1.304242935642898,
+    "status_counts": {
+      "reanswered": 14
+    },
+    "independent_support_checked": 0,
+    "same_model_support_check_counts": {},
+    "input_tokens_total": 8801,
+    "input_tokens_observed_calls": 14,
+    "output_tokens_estimate_total": 98,
+    "output_tokens_estimate_observed_calls": 14,
+    "initial_f1": 0.2920222634508349,
+    "final_f1": 0.2722943722943723
+  },
+  "frozen_metrics_by_human_group": {
+    "include_e_core": {
+      "evaluated_samples": 9,
+      "initial_correct": 0,
+      "final_correct": 0,
+      "initial_accuracy": 0.0,
+      "final_accuracy": 0.0,
+      "fixed": 0,
+      "regressed": 0,
+      "net_correct_gain": 0,
+      "accuracy_gain": 0.0,
+      "mcnemar_exact_pvalue": 1.0,
+      "repair_success_rate": 0.0,
+      "regression_rate": null,
+      "changed": 1,
+      "extra_calls": 9,
+      "extra_calls_per_sample": 1.0,
+      "extra_generation_latency_total": 12.031899352000437,
+      "extra_generation_latency_per_sample": 1.3368777057778263,
+      "status_counts": {
+        "reanswered": 9
+      },
+      "independent_support_checked": 0,
+      "same_model_support_check_counts": {},
+      "input_tokens_total": 5621,
+      "input_tokens_observed_calls": 9,
+      "output_tokens_estimate_total": 56,
+      "output_tokens_estimate_observed_calls": 9,
+      "initial_f1": 0.020202020202020204,
+      "final_f1": 0.020202020202020204
+    },
+    "correct_control": {
+      "evaluated_samples": 5,
+      "initial_correct": 2,
+      "final_correct": 2,
+      "initial_accuracy": 0.4,
+      "final_accuracy": 0.4,
+      "fixed": 0,
+      "regressed": 0,
+      "net_correct_gain": 0,
+      "accuracy_gain": 0.0,
+      "mcnemar_exact_pvalue": 1.0,
+      "repair_success_rate": 0.0,
+      "regression_rate": 0.0,
+      "changed": 1,
+      "extra_calls": 5,
+      "extra_calls_per_sample": 1.0,
+      "extra_generation_latency_total": 6.227501747000133,
+      "extra_generation_latency_per_sample": 1.2455003494000265,
+      "status_counts": {
+        "reanswered": 5
+      },
+      "independent_support_checked": 0,
+      "same_model_support_check_counts": {},
+      "input_tokens_total": 3180,
+      "input_tokens_observed_calls": 5,
+      "output_tokens_estimate_total": 42,
+      "output_tokens_estimate_observed_calls": 5,
+      "initial_f1": 0.7812987012987014,
+      "final_f1": 0.7260606060606061
+    }
+  },
+  "human_vs_frozen_metric_disagreement_ids": [
+    "-5471777320348063942",
+    "4534870872535404381",
+    "2326758035558088175"
+  ],
+  "paired_semantic_review": {
+    "completed_pairs": 0,
+    "pending_pairs": 14,
+    "review_complete": false,
+    "fixed": null,
+    "grounded_fixed": null,
+    "regressed": null,
+    "repair_rate_reviewed_subset": null,
+    "regression_rate_reviewed_subset": null
+  }
+}

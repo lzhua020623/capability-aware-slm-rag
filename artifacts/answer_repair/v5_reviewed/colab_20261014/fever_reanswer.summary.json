@@ -1,0 +1,32 @@
+{
+  "run_fingerprint": "1bde241431f6446b626fd23408849abaffd36a579e3be2c76d552b6d554e9377",
+  "routing": "all",
+  "strategy": "reanswer",
+  "evaluated_samples": 14,
+  "initial_correct": 4,
+  "final_correct": 4,
+  "initial_accuracy": 0.2857142857142857,
+  "final_accuracy": 0.2857142857142857,
+  "fixed": 0,
+  "regressed": 0,
+  "net_correct_gain": 0,
+  "accuracy_gain": 0.0,
+  "mcnemar_exact_pvalue": 1.0,
+  "repair_success_rate": 0.0,
+  "regression_rate": 0.0,
+  "changed": 0,
+  "extra_calls": 14,
+  "extra_calls_per_sample": 1.0,
+  "extra_generation_latency_total": 84.23837663300014,
+  "extra_generation_latency_per_sample": 6.017026902357153,
+  "status_counts": {
+    "invalid_output": 8,
+    "reanswered": 6
+  },
+  "independent_support_checked": 0,
+  "same_model_support_check_counts": {},
+  "input_tokens_total": 21944,
+  "input_tokens_observed_calls": 14,
+  "output_tokens_estimate_total": 641,
+  "output_tokens_estimate_observed_calls": 14
+}

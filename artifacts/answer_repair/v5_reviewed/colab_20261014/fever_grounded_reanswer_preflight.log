@@ -1,0 +1,13 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "fever", "--c1", "/content/e_reviewed_4f115e81d969/answer_repair_v5_reviewed_gpu/inputs/fever_reviewed_c1.jsonl", "--all", "--strategy", "grounded_reanswer", "--max-new-tokens", "384", "--out", "/content/answer_repair_v5_reviewed_outputs/fever_grounded_reanswer.jsonl", "--check-only"]
+{
+  "source": "/content/e_reviewed_4f115e81d969/answer_repair_v5_reviewed_gpu/inputs/fever_reviewed_c1.jsonl",
+  "dataset": "fever",
+  "strategy": "grounded_reanswer",
+  "routing": "all",
+  "samples": 14,
+  "completed": 0,
+  "routed_samples": 14,
+  "remaining_call_upper_bound": 14,
+  "fingerprint": "e4b4f4ac2d566706c77817fa16a2166322e05ba287b03f67778677d487bd8987",
+  "output": "/content/answer_repair_v5_reviewed_outputs/fever_grounded_reanswer.jsonl"
+}

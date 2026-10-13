@@ -1,0 +1,609 @@
+{
+  "version": "answer_repair_reviewed_v6",
+  "review_date": "2026-10-14",
+  "purpose": "label-selected, chat-assisted training development; not held-out or blind annotation",
+  "packet_id": "e_assisted_review_20261013_v1",
+  "packet_sha256": "c34c9602bf453be83f13b543f7261a451fcf9c31c6f1f22ee9b03405964b5fea",
+  "source_commits": {
+    "c1": "6f08f2fe2dc2dcf39b75177763207682b2890a31",
+    "annotation_and_split": "7c7863f98f87e892119481a79e23ca6dcebdced0"
+  },
+  "datasets": {
+    "fever": {
+      "sample_ids": [
+        "1251",
+        "146639",
+        "156493",
+        "161905",
+        "17973",
+        "193910",
+        "203615",
+        "34695",
+        "71180",
+        "72578",
+        "202297",
+        "9735",
+        "49650",
+        "32939"
+      ],
+      "groups": {
+        "include_e_core": 10,
+        "correct_control": 4
+      },
+      "frozen_metric_baseline": {
+        "samples": 14,
+        "initial_correct": 4,
+        "initial_wrong": 10
+      },
+      "human_vs_frozen_metric_disagreement_ids": [],
+      "previous_dev50_count": 1,
+      "reserved_overlap": 0,
+      "source_sha256": "4e3150e326f0b1dd1322f24faec3ba087da4b268a84cd0b9c636406706c23bd3",
+      "input_sha256": "ef543807a3cd87d3077fa7a48e7f92dd896033e99f0e86ec03f05e18bb602e13"
+    },
+    "nq": {
+      "sample_ids": [
+        "-2282501421613384225",
+        "-24536083689082297",
+        "-2495593332815009891",
+        "-2905696611778901658",
+        "-5471777320348063942",
+        "-5559132601887673008",
+        "2393389448844632496",
+        "6112920825267803506",
+        "7013168592046328137",
+        "7446684003786592114",
+        "970104939222709777",
+        "4534870872535404381",
+        "5259818422556035007",
+        "2326758035558088175"
+      ],
+      "groups": {
+        "include_e_core": 9,
+        "correct_control": 5
+      },
+      "frozen_metric_baseline": {
+        "samples": 14,
+        "initial_correct": 2,
+        "initial_wrong": 12
+      },
+      "human_vs_frozen_metric_disagreement_ids": [
+        "-5471777320348063942",
+        "4534870872535404381",
+        "2326758035558088175"
+      ],
+      "previous_dev50_count": 4,
+      "reserved_overlap": 0,
+      "source_sha256": "4528f9869e865c0ed9d55a2000d257052e481b2a7a534ee6d673c74e48227398",
+      "input_sha256": "dfefadbf3177faa9ab8fe53c8d01586fd344751d5a7f462c7b48d0821b579c85"
+    }
+  },
+  "included": [
+    {
+      "review_id": "fever:1251",
+      "sample_id": "1251",
+      "dataset": "fever",
+      "review_number": 1,
+      "use": "include_e_core",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "用户在聊天中确认该条辅助判断：R1 将 Watertown 定位在 Massachusetts，R2 明确该州是 New England 人口最多的州；两句可组成完整支持链，初始 REFUTES 与之相反。"
+    },
+    {
+      "review_id": "fever:146639",
+      "sample_id": "146639",
+      "dataset": "fever",
+      "review_number": 2,
+      "use": "include_e_core",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "用户在聊天中确认该条辅助判断：R1 直接写明 Eva Green 于 2003 年在 The Dreamers 首次出演电影；初始 REFUTES 错误。"
+    },
+    {
+      "review_id": "fever:156493",
+      "sample_id": "156493",
+      "dataset": "fever",
+      "review_number": 3,
+      "use": "include_e_core",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "用户在聊天中确认该条辅助判断：R1 首句明确 Daggering 是舞蹈；声明否认它是舞蹈，应该 REFUTES。后文 not a traditional dance 不等于 not a dance。"
+    },
+    {
+      "review_id": "fever:161905",
+      "sample_id": "161905",
+      "dataset": "fever",
+      "review_number": 4,
+      "use": "include_e_core",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "用户在聊天中确认该条辅助判断：R1 明确退休日期为 1974-08-01，且同时点名 United States Navy 与 NASA；支持声明中的年份和机构。"
+    },
+    {
+      "review_id": "fever:17973",
+      "sample_id": "17973",
+      "dataset": "fever",
+      "review_number": 5,
+      "use": "include_e_core",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "用户在聊天中确认该条辅助判断：R1 拍摄时间为 1994 年 9 月至 1995 年 8 月，支持部分拍摄发生在 August；不应把上映月份 October 当拍摄月份。"
+    },
+    {
+      "review_id": "fever:193910",
+      "sample_id": "193910",
+      "dataset": "fever",
+      "review_number": 6,
+      "use": "include_e_core",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "用户在聊天中确认该条辅助判断：证据明确给出出生姓名 Bernice Frankel，原 REFUTES 错误，应为 SUPPORTS。"
+    },
+    {
+      "review_id": "fever:203615",
+      "sample_id": "203615",
+      "dataset": "fever",
+      "review_number": 7,
+      "use": "include_e_core",
+      "previous_E_dev50": true,
+      "human_initial_status": "incorrect",
+      "reason": "用户在聊天中确认该条辅助判断：证据直接写明该片由 Steven Spielberg 共同编剧，原 REFUTES 错误，应为 SUPPORTS。"
+    },
+    {
+      "review_id": "fever:34695",
+      "sample_id": "34695",
+      "dataset": "fever",
+      "review_number": 8,
+      "use": "include_e_core",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "用户在聊天中确认该条辅助判断：按冻结语料时点，证据明确说 Johnny Van Zant 继续随乐队录音、演出，原 REFUTES 错误，应为 SUPPORTS。"
+    },
+    {
+      "review_id": "fever:71180",
+      "sample_id": "71180",
+      "dataset": "fever",
+      "review_number": 9,
+      "use": "include_e_core",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "用户在聊天中确认该条辅助判断：证据明确称 Babur 为第一位莫卧儿皇帝，原 REFUTES 错误，应为 SUPPORTS。"
+    },
+    {
+      "review_id": "fever:72578",
+      "sample_id": "72578",
+      "dataset": "fever",
+      "review_number": 10,
+      "use": "include_e_core",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "用户在聊天中确认该条辅助判断：证据明确描述希腊语在阿尔巴尼亚南部广泛使用，原 REFUTES 错误，应为 SUPPORTS。"
+    },
+    {
+      "review_id": "fever:202297",
+      "sample_id": "202297",
+      "dataset": "fever",
+      "review_number": 11,
+      "use": "correct_control",
+      "previous_E_dev50": false,
+      "human_initial_status": "correct",
+      "reason": "用户在聊天中确认该条辅助判断：New Jersey Turnpike 的证据明确列出路肩宽度，原 SUPPORTS 正确，保留正确对照。"
+    },
+    {
+      "review_id": "fever:9735",
+      "sample_id": "9735",
+      "dataset": "fever",
+      "review_number": 12,
+      "use": "correct_control",
+      "previous_E_dev50": false,
+      "human_initial_status": "correct",
+      "reason": "用户在聊天中确认该条辅助判断：挪用艺术的重要作用在证据中明确包含视觉艺术，原 SUPPORTS 正确，保留正确对照。"
+    },
+    {
+      "review_id": "fever:49650",
+      "sample_id": "49650",
+      "dataset": "fever",
+      "review_number": 13,
+      "use": "correct_control",
+      "previous_E_dev50": false,
+      "human_initial_status": "correct",
+      "reason": "用户在聊天中确认该条辅助判断：按 denies 表示否认领土主张理解，证据中的 claims 与之相反；原 REFUTES 合理，保留正确对照，同时保留原句措辞含混的备注。"
+    },
+    {
+      "review_id": "fever:32939",
+      "sample_id": "32939",
+      "dataset": "fever",
+      "review_number": 14,
+      "use": "correct_control",
+      "previous_E_dev50": false,
+      "human_initial_status": "correct",
+      "reason": "用户在聊天中确认该条辅助判断：证据明确 Louis Malle 制作过法语和英语电影，原 SUPPORTS 正确，保留正确对照。"
+    },
+    {
+      "review_id": "nq:-2282501421613384225",
+      "sample_id": "-2282501421613384225",
+      "dataset": "nq",
+      "review_number": 16,
+      "use": "include_e_core",
+      "previous_E_dev50": true,
+      "human_initial_status": "incorrect",
+      "reason": "原答案“在外侧”只描述相对位置，没有回答身体部位；证据支持腿部。归 utilisation，纳入 E 核心候选。"
+    },
+    {
+      "review_id": "nq:-24536083689082297",
+      "sample_id": "-24536083689082297",
+      "dataset": "nq",
+      "review_number": 17,
+      "use": "include_e_core",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "用户指出答案仅提地磁反转，未充分利用岩层记录所包含的信息。按用户对失败原因的复核，归 utilisation、纳入 E 核心候选；用户完整解释保存在 confirmation.user_text。"
+    },
+    {
+      "review_id": "nq:-2495593332815009891",
+      "sample_id": "-2495593332815009891",
+      "dataset": "nq",
+      "review_number": 18,
+      "use": "include_e_core",
+      "previous_E_dev50": true,
+      "human_initial_status": "incorrect",
+      "reason": "原答案只给动作名称，没有解释含义；证据提供无用、消磨时间等解释。归 utilisation，纳入 E 核心候选。"
+    },
+    {
+      "review_id": "nq:-2905696611778901658",
+      "sample_id": "-2905696611778901658",
+      "dataset": "nq",
+      "review_number": 20,
+      "use": "include_e_core",
+      "previous_E_dev50": true,
+      "human_initial_status": "incorrect",
+      "reason": "原答案给歌名，问题要求演唱者；证据明确给出 Kid Creole and the Coconuts。归 utilisation，纳入 E 核心候选。"
+    },
+    {
+      "review_id": "nq:-5471777320348063942",
+      "sample_id": "-5471777320348063942",
+      "dataset": "nq",
+      "review_number": 23,
+      "use": "correct_control",
+      "previous_E_dev50": false,
+      "human_initial_status": "correct",
+      "reason": "药学院专属证据支持第一学年结束时获得白大褂，原短答未明确宣称所有学校，保留为正确对照。按用户建议，完整表述补充“大多数药学院学生”的范围限定；参考答案的第一学年开始前来自泛指部分学校的段落。"
+    },
+    {
+      "review_id": "nq:-5559132601887673008",
+      "sample_id": "-5559132601887673008",
+      "dataset": "nq",
+      "review_number": 24,
+      "use": "include_e_core",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "问题问最初被选定出演 Indiana Jones 的人，证据区分最初建议 Harrison Ford 与实际先选定 Tom Selleck。原答案混淆 suggested 与 cast，归 utilisation，纳入 E 核心候选。"
+    },
+    {
+      "review_id": "nq:2393389448844632496",
+      "sample_id": "2393389448844632496",
+      "dataset": "nq",
+      "review_number": 26,
+      "use": "include_e_core",
+      "previous_E_dev50": true,
+      "human_initial_status": "incorrect",
+      "reason": "原答案只给名称；证据已经说明它是海底活火山，并给出夏威夷岛东南方向的位置。模型漏答了问题要求的信息，归 utilisation，纳入 E 核心候选。"
+    },
+    {
+      "review_id": "nq:6112920825267803506",
+      "sample_id": "6112920825267803506",
+      "dataset": "nq",
+      "review_number": 28,
+      "use": "include_e_core",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "原答案只换了一个名称，没有给出定义；现有证据已经提供定义，属于没有正确组织证据来回答问题，归 utilisation，纳入 E 核心候选。"
+    },
+    {
+      "review_id": "nq:7013168592046328137",
+      "sample_id": "7013168592046328137",
+      "dataset": "nq",
+      "review_number": 31,
+      "use": "include_e_core",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "按冻结语料时点，同一段证据明确区分 2005 年对阵白袜队、2017 年对阵道奇队。原答案选了较早的白袜队，没有处理好“上一次”的时间关系。归 utilisation，纳入 E 核心候选。"
+    },
+    {
+      "review_id": "nq:7446684003786592114",
+      "sample_id": "7446684003786592114",
+      "dataset": "nq",
+      "review_number": 32,
+      "use": "include_e_core",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "原答案“2012 年 10 月 16 日”是回归消息的报道日期；证据说 Jenny 在第六季最后一集回归。模型混淆了报道时间与事件时间，归 utilisation，纳入 E 核心候选。"
+    },
+    {
+      "review_id": "nq:970104939222709777",
+      "sample_id": "970104939222709777",
+      "dataset": "nq",
+      "review_number": 33,
+      "use": "correct_control",
+      "previous_E_dev50": false,
+      "human_initial_status": "correct",
+      "reason": "原答案 Abbot Suger 可接受。证据将哥特艺术起源与他所建的圣丹尼教堂联系起来，保留正确对照，同时记录回答包含一步关联推断，证据措辞并非直接断言他开创了整个艺术运动。"
+    },
+    {
+      "review_id": "nq:4534870872535404381",
+      "sample_id": "4534870872535404381",
+      "dataset": "nq",
+      "review_number": 34,
+      "use": "correct_control",
+      "previous_E_dev50": false,
+      "human_initial_status": "correct",
+      "reason": "原答案说明外部燃料箱的隔热泡沫脱落并损伤左翼，与证据中的核心事实一致。无需逐字复述参考答案，保留正确对照。"
+    },
+    {
+      "review_id": "nq:5259818422556035007",
+      "sample_id": "5259818422556035007",
+      "dataset": "nq",
+      "review_number": 36,
+      "use": "correct_control",
+      "previous_E_dev50": false,
+      "human_initial_status": "correct",
+      "reason": "冻结证据直接说明 White Album 中的 Good Night 由 Ringo Starr 演唱，支持原答案，保留正确对照。"
+    },
+    {
+      "review_id": "nq:2326758035558088175",
+      "sample_id": "2326758035558088175",
+      "dataset": "nq",
+      "review_number": 37,
+      "use": "correct_control",
+      "previous_E_dev50": false,
+      "human_initial_status": "correct",
+      "reason": "原答案给出 bias 的核心定义，即相对于其他对象，对某事物、个人或群体抱有支持或反对的偏见。省略通常被认为不公平的补充说明仍可接受，favor/favour 是拼写变体，保留正确对照。"
+    }
+  ],
+  "deferred": [
+    {
+      "review_id": "fever:55426",
+      "sample_id": "55426",
+      "dataset": "fever",
+      "review_number": 15,
+      "use": "boundary_case",
+      "previous_E_dev50": false,
+      "human_initial_status": "uncertain",
+      "reason": "用户在聊天中确认该条辅助判断：Firefox 同时指同名 Atari 游戏和 Mozilla 浏览器；声明未消歧，暂缓纳入干净正确对照，单独保存为实体歧义案例。"
+    },
+    {
+      "review_id": "nq:-288937641151618309",
+      "sample_id": "-288937641151618309",
+      "dataset": "nq",
+      "review_number": 19,
+      "use": "boundary_case",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "原日期来自另一节目的干扰段落，原答案错误；accessibility/utilisation 边界待统一，暂缓纳入，单独保存边界案例。"
+    },
+    {
+      "review_id": "nq:-3112358457025326292",
+      "sample_id": "-3112358457025326292",
+      "dataset": "nq",
+      "review_number": 21,
+      "use": "boundary_case",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "原答案给播出日期；问题更像问 TV 动画改编到小说何处。现有第六卷证据指电影，不直接说明 TV 动画终点，参考答案及问题指向有争议，暂缓纳入 E 核心。"
+    },
+    {
+      "review_id": "nq:-3751151608766304585",
+      "sample_id": "-3751151608766304585",
+      "dataset": "nq",
+      "review_number": 22,
+      "use": "boundary_case",
+      "previous_E_dev50": false,
+      "human_initial_status": "partial",
+      "reason": "原答案 in Christianity 只给来源语境，遗漏复活象征这一命名原因。是否已满足短答要求取决于答题粒度标准，暂缓纳入 E 核心，标签仍待统一口径。"
+    },
+    {
+      "review_id": "nq:-5670674709553776773",
+      "sample_id": "-5670674709553776773",
+      "dataset": "nq",
+      "review_number": 25,
+      "use": "boundary_case",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "原答案取了其他节目的主题曲演唱者，而目标节目证据给出 Solange Knowles 与 Destiny’s Child。原答案错误，但跨节目干扰应归 accessibility 还是 utilisation 尚需统一，暂缓纳入 E 核心。"
+    },
+    {
+      "review_id": "nq:4366713309044937565",
+      "sample_id": "4366713309044937565",
+      "dataset": "nq",
+      "review_number": 27,
+      "use": "boundary_case",
+      "previous_E_dev50": false,
+      "human_initial_status": "uncertain",
+      "reason": "原答案“俄罗斯”缺乏支持，但证据中存在多个符合条件的德国盟友。题目没有选项，需要先明确可接受答案范围，暂缓纳入 E 核心。"
+    },
+    {
+      "review_id": "nq:6680816286694593040",
+      "sample_id": "6680816286694593040",
+      "dataset": "nq",
+      "review_number": 29,
+      "use": "boundary_case",
+      "previous_E_dev50": false,
+      "human_initial_status": "uncertain",
+      "reason": "证据同时出现“9 次”和“10 次”，对应不同时点。原答案“9”有来源，而问题没给截止日期，不能直接判为利用错误，暂缓纳入 E 核心。"
+    },
+    {
+      "review_id": "nq:678930299284183680",
+      "sample_id": "678930299284183680",
+      "dataset": "nq",
+      "review_number": 30,
+      "use": "boundary_case",
+      "previous_E_dev50": false,
+      "human_initial_status": "incorrect",
+      "reason": "证据支持 1920 年，模型却答了其他冬奥内容中的 2018 年。答案明确错误，但这种跨项目干扰应归 Accessibility 还是 Utilisation，需要统一分类规则，暂缓纳入 E 核心。"
+    },
+    {
+      "review_id": "nq:-4595785795645617006",
+      "sample_id": "-4595785795645617006",
+      "dataset": "nq",
+      "review_number": 35,
+      "use": "boundary_case",
+      "previous_E_dev50": false,
+      "human_initial_status": "uncertain",
+      "reason": "原答案“第六季”对应证据中“出现更多暗示”的时间。但出现暗示与明确揭晓身份有区别，暂不足以作为没有争议的正确对照，暂缓纳入，标签仍待裁决。"
+    }
+  ],
+  "protocol": [
+    {
+      "dataset": "fever",
+      "strategy": "fever_nli",
+      "max_new_tokens": 1,
+      "max_calls": 0
+    },
+    {
+      "dataset": "nq",
+      "strategy": "extractive_reanswer",
+      "max_new_tokens": 384,
+      "max_calls": 1
+    }
+  ],
+  "metric_policy": "Unmodified frozen EM/F1 and FEVER accuracy; separate paired semantic review of BOTH initial/final answers; no automatic semantic truth from citations or same-model check.",
+  "human_review_sha256": "f0c3cc2400857a470f851c849075d08dc9c175e4409da729dfd3d2cd98190dd7",
+  "split_sources": {
+    "configs/splits/diagnosis_v1_split.json": "076667c7f283a3420824a1eb11201d4b7635a1105e15e654ce51397099af9827",
+    "configs/splits/diagnosis_v2_expanded_split.json": "b391ee91794208123dec5805bd3ac034aef0a0d8332c29f059f0cdd32afc62b2"
+  },
+  "parent_cohort": "answer_repair_reviewed_dev_v1",
+  "classifier_policy": "MNLI-only documented fine-tuning; FP32; threshold .90 fixed before this run; full overlapping windows; costs separate from Qwen",
+  "development_policy": "One v6 follow-up; do not tune on validation/test; semantic review deferred by user",
+  "regression_dev50": {
+    "fever": {
+      "sample_ids": [
+        "40755",
+        "40221",
+        "127233",
+        "178904",
+        "142942",
+        "121921",
+        "137498",
+        "219125",
+        "159932",
+        "59067",
+        "226143",
+        "98066",
+        "68132",
+        "28381",
+        "7811",
+        "174027",
+        "42213",
+        "140820",
+        "43698",
+        "217115",
+        "8483",
+        "16161",
+        "193411",
+        "69422",
+        "42998",
+        "137715",
+        "171625",
+        "174599",
+        "32338",
+        "3668",
+        "227357",
+        "203615",
+        "98655",
+        "181638",
+        "222031",
+        "151128",
+        "122252",
+        "108201",
+        "222650",
+        "35822",
+        "219030",
+        "33498",
+        "222662",
+        "33982",
+        "119422",
+        "211290",
+        "227361",
+        "101839",
+        "70359",
+        "222026"
+      ],
+      "input_sha256": "c1d273ec43fc742d623ac62c424d4e869d5101a5ad555640f94b76b6029de321",
+      "baseline": {
+        "samples": 50,
+        "initial_correct": 45,
+        "initial_wrong": 5
+      },
+      "overlap_with_reviewed": [
+        "203615"
+      ]
+    },
+    "nq": {
+      "sample_ids": [
+        "-564063817056958231",
+        "448742752032961281",
+        "1012541351190124000",
+        "-7843232313103404498",
+        "-3339006116507262453",
+        "4305916235259203400",
+        "-2282501421613384225",
+        "6248334821889299282",
+        "-7385216369542237810",
+        "-3089533754017582743",
+        "6645756083765359472",
+        "-5748368670037082784",
+        "-1680848497536972887",
+        "-1450346568093066821",
+        "-1814654291537702625",
+        "-4802566247754932209",
+        "-2743701347497238377",
+        "2435796066046322163",
+        "2393389448844632496",
+        "-8631190913794477985",
+        "-5973003791441271262",
+        "8003762008471695244",
+        "-2680244887428298888",
+        "-4111673090986081107",
+        "-4340755100872459608",
+        "-544805225908484128",
+        "-8209571805051987276",
+        "-2495593332815009891",
+        "970985133701043298",
+        "-1209334507323554133",
+        "6781489363263681689",
+        "8727688733894535817",
+        "1117400623925969758",
+        "-6453710656175111438",
+        "-8825841420882619284",
+        "-2454338314238497026",
+        "7804119988370766628",
+        "-5616003387330422581",
+        "-4393170176714354734",
+        "5898512601992001509",
+        "-2905696611778901658",
+        "-3064086919220674644",
+        "2178109984531253647",
+        "-3251366420482898925",
+        "165593163908150978",
+        "-6089464774983144695",
+        "5332616086855442086",
+        "5786357257547548864",
+        "7916191162136893139",
+        "7632941217874741929"
+      ],
+      "input_sha256": "f1967e4a58b515af8522ecdeabb1d563a9c20138abce8c255d91b2946c2892e8",
+      "baseline": {
+        "samples": 50,
+        "initial_correct": 20,
+        "initial_wrong": 30
+      },
+      "overlap_with_reviewed": [
+        "-2282501421613384225",
+        "-2495593332815009891",
+        "-2905696611778901658",
+        "2393389448844632496"
+      ]
+    }
+  }
+}

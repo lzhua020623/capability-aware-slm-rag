@@ -1,0 +1,63 @@
+{
+  "cpu_tests_passed": 81,
+  "isolated_bundle_tests_passed": 81,
+  "isolated_preflights": [
+    {
+      "source": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/artifacts/answer_repair/v6r1_reviewed/gpu_bundle/inputs/fever_reviewed_c1.jsonl",
+      "dataset": "fever",
+      "strategy": "fever_nli",
+      "routing": "all",
+      "samples": 14,
+      "completed": 0,
+      "routed_samples": 14,
+      "remaining_call_upper_bound": 0,
+      "remaining_classifier_samples": 14,
+      "fingerprint": "5d12693861e74b93448621c81df81d10294347c4fbd092e72c84829f0514bcc2",
+      "output": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/artifacts/answer_repair/v6r1_reviewed/gpu_bundle/results/answer_repair/fever_fever_nli_all.jsonl"
+    },
+    {
+      "source": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/artifacts/answer_repair/v6r1_reviewed/gpu_bundle/inputs/fever_dev50_c1.jsonl",
+      "dataset": "fever",
+      "strategy": "fever_nli",
+      "routing": "all",
+      "samples": 50,
+      "completed": 0,
+      "routed_samples": 50,
+      "remaining_call_upper_bound": 0,
+      "remaining_classifier_samples": 50,
+      "fingerprint": "ee07d17460fcaa1cb8024005f2c50537afff503955dc8a6f73eea5a169f971d3",
+      "output": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/artifacts/answer_repair/v6r1_reviewed/gpu_bundle/results/answer_repair/fever_fever_nli_all.jsonl"
+    },
+    {
+      "source": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/artifacts/answer_repair/v6r1_reviewed/gpu_bundle/inputs/nq_reviewed_c1.jsonl",
+      "dataset": "nq",
+      "strategy": "extractive_reanswer",
+      "routing": "all",
+      "samples": 14,
+      "completed": 0,
+      "routed_samples": 14,
+      "remaining_call_upper_bound": 14,
+      "remaining_classifier_samples": 0,
+      "fingerprint": "fffb3ccf5883e1138aea848a038410589f67c2ffea8625e251bec77aba9b898e",
+      "output": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/artifacts/answer_repair/v6r1_reviewed/gpu_bundle/results/answer_repair/nq_extractive_reanswer_all.jsonl"
+    },
+    {
+      "source": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/artifacts/answer_repair/v6r1_reviewed/gpu_bundle/inputs/nq_dev50_c1.jsonl",
+      "dataset": "nq",
+      "strategy": "extractive_reanswer",
+      "routing": "all",
+      "samples": 50,
+      "completed": 0,
+      "routed_samples": 50,
+      "remaining_call_upper_bound": 50,
+      "remaining_classifier_samples": 0,
+      "fingerprint": "66471bfd904323911e8a03a19cc511ca21dcce0f1aa06d81d37c0060e9fe8fdd",
+      "output": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/artifacts/answer_repair/v6r1_reviewed/gpu_bundle/results/answer_repair/nq_extractive_reanswer_all.jsonl"
+    }
+  ],
+  "bundle_files_verified": 48,
+  "notebook_code_cells_syntax_checked": 7,
+  "real_gpu_run": false,
+  "bundle_sha256": "74d40b01c96245e1caf2ac8af786bf3b05394971863bddc81a75a2a2afa45ef5",
+  "notebook_sha256": "ad675eb87a26479c0867acd0e943d2b470265b5412cd03d34360256868f7771c"
+}

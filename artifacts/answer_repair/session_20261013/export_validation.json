@@ -1,0 +1,13 @@
+{
+  "component_hash_matches": {
+    "answer_repair_v4_gpu.tar.gz": true,
+    "e_controller_gpu.tar.gz": true,
+    "answer_repair_v4_colab_smoke.zip": true,
+    "answer_repair_v4_colab_development.zip": true,
+    "e_controller_colab_results.zip": true
+  },
+  "combined_sha256_local": "cf8dfd42fc949e39bb4dfa66c1307149178565dc5c2ad9b1b126b560b8368e5a",
+  "combined_hash_observed_in_colab_ui": false,
+  "note": "Component archive hashes were observed in Colab and matched local downloads. The combined hash was computed locally; no claim of separate UI verification for it.",
+  "frozen_inference_archives_unchanged": true
+}

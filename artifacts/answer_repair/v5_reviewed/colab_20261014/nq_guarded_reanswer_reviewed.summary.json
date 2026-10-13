@@ -1,0 +1,130 @@
+{
+  "dataset": "nq",
+  "strategy": "guarded_reanswer",
+  "cohort_version": "answer_repair_reviewed_dev_v1",
+  "metric_warning": "Frozen-reference metrics are not semantic repair/regression counts. Paired review must score BOTH initial and final answers consistently.",
+  "frozen_metrics": {
+    "evaluated_samples": 14,
+    "initial_correct": 2,
+    "final_correct": 2,
+    "initial_accuracy": 0.14285714285714285,
+    "final_accuracy": 0.14285714285714285,
+    "fixed": 0,
+    "regressed": 0,
+    "net_correct_gain": 0,
+    "accuracy_gain": 0.0,
+    "mcnemar_exact_pvalue": 1.0,
+    "repair_success_rate": 0.0,
+    "regression_rate": 0.0,
+    "changed": 3,
+    "extra_calls": 19,
+    "extra_calls_per_sample": 1.3571428571428572,
+    "extra_generation_latency_total": 117.7380642760013,
+    "extra_generation_latency_per_sample": 8.409861734000092,
+    "status_counts": {
+      "repaired": 3,
+      "invalid_output": 8,
+      "insufficient_evidence": 1,
+      "kept": 1,
+      "support_check_rejected": 1
+    },
+    "independent_support_checked": 0,
+    "same_model_support_check_counts": {
+      "accepted": 4,
+      "rejected": 1
+    },
+    "input_tokens_total": 16854,
+    "input_tokens_observed_calls": 14,
+    "output_tokens_estimate_total": 1456,
+    "output_tokens_estimate_observed_calls": 14,
+    "initial_f1": 0.2920222634508349,
+    "final_f1": 0.2975117319655135
+  },
+  "frozen_metrics_by_human_group": {
+    "include_e_core": {
+      "evaluated_samples": 9,
+      "initial_correct": 0,
+      "final_correct": 0,
+      "initial_accuracy": 0.0,
+      "final_accuracy": 0.0,
+      "fixed": 0,
+      "regressed": 0,
+      "net_correct_gain": 0,
+      "accuracy_gain": 0.0,
+      "mcnemar_exact_pvalue": 1.0,
+      "repair_success_rate": 0.0,
+      "regression_rate": null,
+      "changed": 2,
+      "extra_calls": 12,
+      "extra_calls_per_sample": 1.3333333333333333,
+      "extra_generation_latency_total": 76.9767084400005,
+      "extra_generation_latency_per_sample": 8.552967604444499,
+      "status_counts": {
+        "repaired": 2,
+        "invalid_output": 5,
+        "insufficient_evidence": 1,
+        "kept": 1
+      },
+      "independent_support_checked": 0,
+      "same_model_support_check_counts": {
+        "accepted": 3
+      },
+      "input_tokens_total": 10313,
+      "input_tokens_observed_calls": 9,
+      "output_tokens_estimate_total": 964,
+      "output_tokens_estimate_observed_calls": 9,
+      "initial_f1": 0.020202020202020204,
+      "final_f1": 0.043001443001443006
+    },
+    "correct_control": {
+      "evaluated_samples": 5,
+      "initial_correct": 2,
+      "final_correct": 2,
+      "initial_accuracy": 0.4,
+      "final_accuracy": 0.4,
+      "fixed": 0,
+      "regressed": 0,
+      "net_correct_gain": 0,
+      "accuracy_gain": 0.0,
+      "mcnemar_exact_pvalue": 1.0,
+      "repair_success_rate": 0.0,
+      "regression_rate": 0.0,
+      "changed": 1,
+      "extra_calls": 7,
+      "extra_calls_per_sample": 1.4,
+      "extra_generation_latency_total": 40.7613558360008,
+      "extra_generation_latency_per_sample": 8.15227116720016,
+      "status_counts": {
+        "repaired": 1,
+        "support_check_rejected": 1,
+        "invalid_output": 3
+      },
+      "independent_support_checked": 0,
+      "same_model_support_check_counts": {
+        "accepted": 1,
+        "rejected": 1
+      },
+      "input_tokens_total": 6541,
+      "input_tokens_observed_calls": 5,
+      "output_tokens_estimate_total": 492,
+      "output_tokens_estimate_observed_calls": 5,
+      "initial_f1": 0.7812987012987014,
+      "final_f1": 0.7556302521008404
+    }
+  },
+  "human_vs_frozen_metric_disagreement_ids": [
+    "-5471777320348063942",
+    "4534870872535404381",
+    "2326758035558088175"
+  ],
+  "paired_semantic_review": {
+    "completed_pairs": 0,
+    "pending_pairs": 14,
+    "review_complete": false,
+    "fixed": null,
+    "grounded_fixed": null,
+    "regressed": null,
+    "repair_rate_reviewed_subset": null,
+    "regression_rate_reviewed_subset": null
+  }
+}

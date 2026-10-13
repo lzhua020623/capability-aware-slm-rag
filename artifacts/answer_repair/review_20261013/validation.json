@@ -1,0 +1,25 @@
+{
+  "total_records": 37,
+  "utilisation_candidates": 27,
+  "correct_controls": 10,
+  "new_to_E_development": 32,
+  "previously_used_dev50": 5,
+  "human_completed": 0,
+  "all_agent_assessments_present": true,
+  "exact_excerpts_checked": 52,
+  "reserved_overlap": {
+    "fever": 0,
+    "nq": 0
+  },
+  "original_labels_preserved": true,
+  "packet_sha256": "c34c9602bf453be83f13b543f7261a451fcf9c31c6f1f22ee9b03405964b5fea",
+  "html_embedded_packet_equal": true,
+  "javascript_syntax": "passed",
+  "agent_suggestions": {
+    "include_candidate": 18,
+    "retain_control_candidate": 9,
+    "hold_control": 1,
+    "hold_candidate": 8,
+    "dispute_source_label": 1
+  }
+}

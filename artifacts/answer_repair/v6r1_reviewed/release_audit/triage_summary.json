@@ -1,0 +1,16 @@
+{
+  "source_queue": "artifacts/answer_repair/v6r1_reviewed/release_audit/pending_semantic_pairs.jsonl",
+  "source_sha256": "0c1b215586c5432e2812807f803f345906bb3e537a2fa5443f6b8a5aa6b48b96",
+  "pairs": 128,
+  "unique_dataset_sample_ids": 123,
+  "changed_pairs": 42,
+  "priority_counts": {
+    "frozen_metric_regression": 17,
+    "frozen_metric_gain": 4,
+    "changed_without_frozen_correctness_gain": 21,
+    "unchanged": 86
+  },
+  "semantic_labels_assigned": false,
+  "manual_review_status": "deferred_by_user",
+  "warning": "Frozen-reference transitions are review priorities, not human semantic verdicts. Cohort overlaps are retained."
+}

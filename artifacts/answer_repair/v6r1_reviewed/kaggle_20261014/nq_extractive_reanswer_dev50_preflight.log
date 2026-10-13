@@ -1,0 +1,14 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "nq", "--c1", "/kaggle/working/e_reviewed_74d40b01c962/answer_repair_v6r1_reviewed_gpu/inputs/nq_dev50_c1.jsonl", "--all", "--strategy", "extractive_reanswer", "--max-new-tokens", "384", "--out", "/kaggle/working/answer_repair_v6r1_reviewed_outputs/nq_extractive_reanswer_dev50.jsonl", "--check-only"]
+{
+  "source": "/kaggle/working/e_reviewed_74d40b01c962/answer_repair_v6r1_reviewed_gpu/inputs/nq_dev50_c1.jsonl",
+  "dataset": "nq",
+  "strategy": "extractive_reanswer",
+  "routing": "all",
+  "samples": 50,
+  "completed": 0,
+  "routed_samples": 50,
+  "remaining_call_upper_bound": 50,
+  "remaining_classifier_samples": 0,
+  "fingerprint": "525cdcc20a3d5992540ae5dfbf954f0c6bb49a590732eca2a7369e3060ab968f",
+  "output": "/kaggle/working/answer_repair_v6r1_reviewed_outputs/nq_extractive_reanswer_dev50.jsonl"
+}

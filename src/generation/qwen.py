@@ -81,7 +81,7 @@ def _configured_model_name(requested: str | None = None) -> str:
     return configured
 
 
-def load_qwen_nf4(model_name: str | None = None):
+def load_qwen_nf4(model_name: str | None = None, *, revision: str | None = None):
     generator = load_generator_config()
     model_name = _configured_model_name(model_name)
     quant_type = str(generator.get("quantization") or "nf4")
@@ -100,12 +100,14 @@ def load_qwen_nf4(model_name: str | None = None):
         bnb_4bit_compute_dtype=torch.float16,
     )
     try:
-        tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+        revision_args = {"revision": revision} if revision is not None else {}
+        tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True, **revision_args)
         model = AutoModelForCausalLM.from_pretrained(
             model_name,
             quantization_config=quant_config,
             device_map="auto",
             trust_remote_code=True,
+            **revision_args,
         )
     except Exception as exc:
         if is_cuda_oom(exc):
@@ -171,6 +173,8 @@ def generate_greedy(
     model,
     prompt: str,
     max_new_tokens: int | None = None,
+    *,
+    stopping_criteria=None,
 ) -> tuple[str, float]:
     generator = load_generator_config()
     if max_new_tokens is None:
@@ -186,6 +190,7 @@ def generate_greedy(
             max_new_tokens=max_new_tokens,
             do_sample=False,
             pad_token_id=tokenizer.pad_token_id,
+            **({"stopping_criteria": stopping_criteria} if stopping_criteria is not None else {}),
         )
     except Exception as exc:
         if is_cuda_oom(exc):

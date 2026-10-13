@@ -1,0 +1,322 @@
+{
+  "agent_assistance_only": true,
+  "human_verified": false,
+  "review_blinded": false,
+  "source_queue_sha256": "a18f433a6f216b2c29ed8aa85e64f0302948d3f5a2c5d6a66a9709dc5b4cb0b9",
+  "decisions_sha256": "d8fb6fa5ae7bee24bf1c746e86039470d8505f09cdea27e3150fba2369d61e86",
+  "reviewed_result_pairs": 128,
+  "unique_review_materials": 123,
+  "duplicate_results": 5,
+  "all_human_fields_unchanged_pending": true,
+  "by_run": {
+    "fever/dev50/fever_nli": {
+      "records": 50,
+      "outcomes": {
+        "suggested_regression": 2,
+        "suggested_fix": 1,
+        "correct_preserved": 43,
+        "unresolved_error_or_abstention": 4
+      },
+      "initial_correct": {
+        "yes": 45,
+        "no": 5,
+        "unresolved": 0
+      },
+      "final_correct": {
+        "yes": 44,
+        "no": 6,
+        "unresolved": 0
+      },
+      "initial_supported": {
+        "yes": 32,
+        "no": 17,
+        "unresolved": 1
+      },
+      "final_supported": {
+        "yes": 33,
+        "no": 16,
+        "unresolved": 1
+      },
+      "citation_judgments": {
+        "unsupported": 15,
+        "supported": 22,
+        "partial": 1,
+        "none": 12
+      },
+      "flags": {
+        "wrong_entity_citation": 14,
+        "reference_dependent_correctness": 17,
+        "insufficient_c1": 14,
+        "ambiguous_support": 1,
+        "incomplete_temporal_comparison": 1,
+        "ambiguous_entity": 1,
+        "claim_wording": 2,
+        "entity_ambiguity": 1,
+        "taxonomy_inference": 1,
+        "irrelevant_citation_window": 1,
+        "relation_inference": 1,
+        "claim_scope": 1,
+        "corpus_time_scope": 1
+      }
+    },
+    "nq/reviewed/extractive_reanswer": {
+      "records": 14,
+      "outcomes": {
+        "correct_preserved": 5,
+        "suggested_fix": 6,
+        "unresolved_error_or_abstention": 3
+      },
+      "initial_correct": {
+        "yes": 5,
+        "no": 9,
+        "unresolved": 0
+      },
+      "final_correct": {
+        "yes": 11,
+        "no": 3,
+        "unresolved": 0
+      },
+      "initial_supported": {
+        "yes": 5,
+        "no": 9,
+        "unresolved": 0
+      },
+      "final_supported": {
+        "yes": 11,
+        "no": 3,
+        "unresolved": 0
+      },
+      "citation_judgments": {
+        "supported_in_context": 2,
+        "supported": 8,
+        "none": 4
+      },
+      "flags": {
+        "em_false_regression": 2,
+        "contextual_coreference": 2,
+        "relation_inference": 2,
+        "em_missed_repair": 6,
+        "answer_completeness_boundary": 1,
+        "acceptable_short_answer": 2,
+        "non_repair_expansion": 2,
+        "corpus_time_scope": 1,
+        "event_date_disambiguation": 1,
+        "prior_user_rationale": 2,
+        "missed_repair": 3,
+        "nonresponsive_initial": 1,
+        "population_scope": 1,
+        "reference_question_mismatch": 1,
+        "event_role_disambiguation": 1
+      }
+    },
+    "nq/dev50/extractive_reanswer": {
+      "records": 50,
+      "outcomes": {
+        "correct_preserved": 34,
+        "unresolved_error_or_abstention": 8,
+        "correctness_unresolved": 4,
+        "suggested_fix": 3,
+        "suggested_regression": 1
+      },
+      "initial_correct": {
+        "yes": 35,
+        "no": 11,
+        "unresolved": 4
+      },
+      "final_correct": {
+        "yes": 39,
+        "no": 9,
+        "unresolved": 2
+      },
+      "initial_supported": {
+        "yes": 37,
+        "no": 11,
+        "unresolved": 2
+      },
+      "final_supported": {
+        "yes": 38,
+        "no": 10,
+        "unresolved": 2
+      },
+      "citation_judgments": {
+        "supported": 16,
+        "supported_in_context": 6,
+        "unsupported": 4,
+        "none": 24
+      },
+      "flags": {
+        "em_false_regression": 13,
+        "contextual_coreference": 6,
+        "corpus_time_scope": 5,
+        "reference_question_mismatch": 3,
+        "justified_initial_abstention": 1,
+        "nonresponsive_final": 3,
+        "insufficient_c1": 7,
+        "answer_completeness_boundary": 3,
+        "em_missed_repair": 3,
+        "relation_inference": 1,
+        "acceptable_short_answer": 9,
+        "reference_granularity": 2,
+        "non_repair_expansion": 4,
+        "wrong_event_citation": 2,
+        "answer_scope": 1,
+        "reference_dependent_correctness": 2,
+        "em_missed_regression": 1,
+        "nonresponsive_initial": 1,
+        "missed_repair": 2,
+        "wrong_event_date": 2,
+        "missing_specific_context": 1,
+        "ambiguous_support": 2,
+        "concept_scope": 1,
+        "claim_wording": 1,
+        "geographic_scope": 1,
+        "league_scope": 1,
+        "justified_abstention": 1,
+        "original_vs_cover": 1,
+        "acceptable_long_answer": 1,
+        "scope_qualifier": 2,
+        "event_scope": 1,
+        "missing_query_link": 1,
+        "acceptable_specific_answer": 1
+      }
+    },
+    "fever/reviewed/fever_nli": {
+      "records": 14,
+      "outcomes": {
+        "suggested_fix": 3,
+        "unresolved_error_or_abstention": 7,
+        "correct_preserved": 4
+      },
+      "initial_correct": {
+        "yes": 4,
+        "no": 10,
+        "unresolved": 0
+      },
+      "final_correct": {
+        "yes": 7,
+        "no": 7,
+        "unresolved": 0
+      },
+      "initial_supported": {
+        "yes": 4,
+        "no": 10,
+        "unresolved": 0
+      },
+      "final_supported": {
+        "yes": 7,
+        "no": 7,
+        "unresolved": 0
+      },
+      "citation_judgments": {
+        "supported": 6,
+        "none": 7,
+        "unsupported": 1
+      },
+      "flags": {
+        "negation_scope": 1,
+        "multi_evidence_composition": 1,
+        "missed_repair": 7,
+        "time_interval": 1,
+        "wrong_entity_citation": 1,
+        "corpus_time_scope": 1,
+        "claim_wording": 1
+      }
+    }
+  },
+  "unique_samples": {
+    "records": 123,
+    "outcomes": {
+      "suggested_regression": 3,
+      "correct_preserved": 86,
+      "suggested_fix": 9,
+      "unresolved_error_or_abstention": 21,
+      "correctness_unresolved": 4
+    },
+    "initial_correct": {
+      "yes": 89,
+      "no": 30,
+      "unresolved": 4
+    },
+    "final_correct": {
+      "yes": 97,
+      "no": 24,
+      "unresolved": 2
+    },
+    "initial_supported": {
+      "yes": 78,
+      "no": 42,
+      "unresolved": 3
+    },
+    "final_supported": {
+      "yes": 85,
+      "no": 35,
+      "unresolved": 3
+    },
+    "citation_judgments": {
+      "unsupported": 20,
+      "supported_in_context": 8,
+      "supported": 48,
+      "none": 46,
+      "partial": 1
+    },
+    "flags": {
+      "wrong_entity_citation": 15,
+      "reference_dependent_correctness": 19,
+      "insufficient_c1": 21,
+      "em_false_regression": 15,
+      "contextual_coreference": 8,
+      "relation_inference": 3,
+      "corpus_time_scope": 8,
+      "negation_scope": 1,
+      "em_missed_repair": 6,
+      "answer_completeness_boundary": 3,
+      "acceptable_short_answer": 11,
+      "non_repair_expansion": 6,
+      "event_date_disambiguation": 1,
+      "reference_question_mismatch": 4,
+      "justified_initial_abstention": 1,
+      "nonresponsive_final": 3,
+      "reference_granularity": 2,
+      "wrong_event_citation": 2,
+      "answer_scope": 1,
+      "em_missed_regression": 1,
+      "multi_evidence_composition": 1,
+      "missed_repair": 11,
+      "time_interval": 1,
+      "claim_wording": 4,
+      "ambiguous_support": 3,
+      "incomplete_temporal_comparison": 1,
+      "ambiguous_entity": 1,
+      "entity_ambiguity": 1,
+      "taxonomy_inference": 1,
+      "irrelevant_citation_window": 1,
+      "claim_scope": 1,
+      "prior_user_rationale": 2,
+      "nonresponsive_initial": 1,
+      "population_scope": 1,
+      "event_role_disambiguation": 1,
+      "wrong_event_date": 2,
+      "missing_specific_context": 1,
+      "concept_scope": 1,
+      "geographic_scope": 1,
+      "league_scope": 1,
+      "justified_abstention": 1,
+      "original_vs_cover": 1,
+      "acceptable_long_answer": 1,
+      "scope_qualifier": 2,
+      "event_scope": 1,
+      "missing_query_link": 1,
+      "acceptable_specific_answer": 1
+    }
+  },
+  "unresolved_unique_review_numbers": [
+    31,
+    32,
+    54,
+    109,
+    113,
+    121,
+    125
+  ],
+  "warning": "Agent-assisted, reference-visible development review. Not human gold, independent evaluation, or held-out evidence."
+}

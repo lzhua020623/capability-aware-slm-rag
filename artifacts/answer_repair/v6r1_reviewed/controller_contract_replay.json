@@ -1,0 +1,16 @@
+{
+  "cpu_replay_only": true,
+  "frozen_controller_schema_sha256": "8c797a30c1f3926f0f1f0e3e17a0f60eab88effb98ef3c4675c39e8fc12b71f3",
+  "upstream_commit": "7c7863f98f87e892119481a79e23ca6dcebdced0",
+  "real_decisions_replayed": 100,
+  "actions": {
+    "no_action": 71,
+    "retrieval_enhancement": 26,
+    "generation_repair": 1,
+    "evidence_refinement": 2
+  },
+  "archived_qwen_calls_replayed": 1,
+  "fresh_gpu_calls": 0,
+  "new_strategy_quality_evaluated": false,
+  "legacy_behavior_preserved": true
+}

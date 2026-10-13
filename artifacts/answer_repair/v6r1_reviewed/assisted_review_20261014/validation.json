@@ -1,0 +1,11 @@
+{
+  "source_pairs": 128,
+  "unique_materials": 123,
+  "agent_decisions": 123,
+  "mapped_duplicate_results": 5,
+  "all_result_fingerprints_match": true,
+  "unchanged_human_fields": true,
+  "exact_evidence_anchors_verified": 168,
+  "original_archives_and_pending_queue_unchanged": true,
+  "semantic_judgments_are_agent_only": true
+}

@@ -1,0 +1,7 @@
+{
+  "transport": "pinned_checksum_index_and_all_files",
+  "expected_archive_sha256": "74d40b01c96245e1caf2ac8af786bf3b05394971863bddc81a75a2a2afa45ef5",
+  "checksum_index_sha256": "1c095e9fb52077898e8eb85672f76ba4ac052e87b9e099da61df523be404d0bd",
+  "verified_files": 48,
+  "all_files_verified": true
+}

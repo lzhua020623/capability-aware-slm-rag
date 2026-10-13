@@ -1,0 +1,14 @@
+{
+  "version": "answer_repair_v6r1_assisted_review_20261014_v1",
+  "human_verified": false,
+  "files": {
+    "artifacts/answer_repair/v6r1_reviewed/assisted_review_20261014/assisted_pairs.jsonl": "a42b83e73bb186f7977f42045ac88fbe4ecb5f572e06b7a9a75352ca2e900d94",
+    "artifacts/answer_repair/v6r1_reviewed/assisted_review_20261014/assisted_review.md": "0bab1d69bce3d73784696766301bd14674d27c527c4f92ffeb6b7ef845e18e3e",
+    "artifacts/answer_repair/v6r1_reviewed/assisted_review_20261014/decisions.json": "d8fb6fa5ae7bee24bf1c746e86039470d8505f09cdea27e3150fba2369d61e86",
+    "artifacts/answer_repair/v6r1_reviewed/assisted_review_20261014/summary.json": "3ac801c6aca2b4c0d24c0c869bb27c7dbdb53f686d03127a1ad8ebd751a78018",
+    "artifacts/answer_repair/v6r1_reviewed/assisted_review_20261014/validation.json": "fa560e43c0bd08df1dbec9e6f273d78c029b3d2948ad0c9e16ccf338e40e409d",
+    "data/annotations/assisted/answer_repair_v6r1_pairs_20261014.jsonl": "629540e43ee0d406e4dce91a562496d460de4e45dbe2f657f0f25a29d2b3fc0e",
+    "scripts/build_answer_repair_assisted_review.py": "45156bea217d739f221821df6bbb38377d5e6b6c87d1b36e6ed8a64f2afb45f2",
+    "docs/ANSWER_REPAIR_RESULTS_20261014.md": "b297b55ac21cbddd7a1baa1bbe59667366e36a61e7e10c5e3c0c1f5e3c95cc89"
+  }
+}

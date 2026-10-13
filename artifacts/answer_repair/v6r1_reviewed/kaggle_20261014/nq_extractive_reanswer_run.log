@@ -1,0 +1,139 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "nq", "--c1", "/kaggle/working/e_reviewed_74d40b01c962/answer_repair_v6r1_reviewed_gpu/inputs/nq_reviewed_c1.jsonl", "--all", "--strategy", "extractive_reanswer", "--max-new-tokens", "384", "--out", "/kaggle/working/answer_repair_v6r1_reviewed_outputs/nq_extractive_reanswer.jsonl"]
+{
+  "source": "/kaggle/working/e_reviewed_74d40b01c962/answer_repair_v6r1_reviewed_gpu/inputs/nq_reviewed_c1.jsonl",
+  "dataset": "nq",
+  "strategy": "extractive_reanswer",
+  "routing": "all",
+  "samples": 14,
+  "completed": 0,
+  "routed_samples": 14,
+  "remaining_call_upper_bound": 14,
+  "remaining_classifier_samples": 0,
+  "fingerprint": "e9d3500579606b8659d24280483f7d4780ac275685ec3099ce615ee80bd5a044",
+  "output": "/kaggle/working/answer_repair_v6r1_reviewed_outputs/nq_extractive_reanswer.jsonl"
+}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+Fetching 4 files:  25%|██▌       | 1/4 [00:58<02:55, 58.57s/it]
+Fetching 4 files: 100%|██████████| 4/4 [01:04<00:00, 12.58s/it]
+Fetching 4 files: 100%|██████████| 4/4 [01:04<00:00, 16.03s/it]
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:03<20:05,  3.57s/it]
+Loading weights:   1%|          | 2/339 [00:06<16:57,  3.02s/it]
+Loading weights:   1%|          | 4/339 [00:06<06:51,  1.23s/it]
+Loading weights:   5%|▍         | 16/339 [00:06<01:05,  4.94it/s]
+Loading weights:   8%|▊         | 26/339 [00:06<00:33,  9.43it/s]
+Loading weights:   9%|▉         | 32/339 [00:06<00:24, 12.48it/s]
+Loading weights:  12%|█▏        | 41/339 [00:07<00:16, 18.49it/s]
+Loading weights:  15%|█▌        | 52/339 [00:07<00:10, 27.90it/s]
+Loading weights:  18%|█▊        | 60/339 [00:07<00:08, 34.53it/s]
+Loading weights:  20%|██        | 68/339 [00:07<00:06, 39.95it/s]
+Loading weights:  23%|██▎       | 77/339 [00:07<00:05, 48.58it/s]
+Loading weights:  26%|██▌       | 88/339 [00:07<00:04, 60.80it/s]
+Loading weights:  29%|██▉       | 100/339 [00:07<00:03, 68.03it/s]
+Loading weights:  32%|███▏      | 110/339 [00:07<00:03, 75.21it/s]
+Loading weights:  35%|███▌      | 120/339 [00:07<00:02, 74.67it/s]
+Loading weights:  38%|███▊      | 129/339 [00:09<00:11, 18.22it/s]
+Loading weights:  40%|████      | 136/339 [00:10<00:13, 14.85it/s]
+Loading weights:  42%|████▏     | 141/339 [00:11<00:19, 10.35it/s]
+Loading weights:  43%|████▎     | 145/339 [00:11<00:17, 11.31it/s]
+Loading weights:  44%|████▎     | 148/339 [00:11<00:19,  9.57it/s]
+Loading weights:  45%|████▍     | 151/339 [00:12<00:27,  6.89it/s]
+Loading weights:  45%|████▌     | 154/339 [00:13<00:22,  8.19it/s]
+Loading weights:  46%|████▋     | 157/339 [00:13<00:18,  9.85it/s]
+Loading weights:  47%|████▋     | 160/339 [00:13<00:21,  8.18it/s]
+Loading weights:  48%|████▊     | 162/339 [00:14<00:24,  7.26it/s]
+Loading weights:  51%|█████     | 172/339 [00:14<00:14, 11.59it/s]
+Loading weights:  51%|█████▏    | 174/339 [00:15<00:18,  8.85it/s]
+Loading weights:  54%|█████▍    | 184/339 [00:15<00:11, 13.31it/s]
+Loading weights:  55%|█████▍    | 186/339 [00:16<00:19,  8.00it/s]
+Loading weights:  56%|█████▌    | 190/339 [00:16<00:14, 10.06it/s]
+Loading weights:  57%|█████▋    | 192/339 [00:16<00:13, 10.91it/s]
+Loading weights:  58%|█████▊    | 196/339 [00:17<00:15,  9.40it/s]
+Loading weights:  58%|█████▊    | 198/339 [00:18<00:26,  5.42it/s]
+Loading weights:  60%|█████▉    | 202/339 [00:18<00:17,  7.64it/s]
+Loading weights:  60%|██████    | 204/339 [00:18<00:15,  8.68it/s]
+Loading weights:  61%|██████▏   | 208/339 [00:19<00:15,  8.59it/s]
+Loading weights:  62%|██████▏   | 210/339 [00:20<00:25,  4.97it/s]
+Loading weights:  63%|██████▎   | 214/339 [00:20<00:17,  7.28it/s]
+Loading weights:  64%|██████▎   | 216/339 [00:20<00:14,  8.38it/s]
+Loading weights:  65%|██████▍   | 220/339 [00:20<00:15,  7.82it/s]
+Loading weights:  65%|██████▌   | 222/339 [00:21<00:25,  4.68it/s]
+Loading weights:  67%|██████▋   | 228/339 [00:22<00:14,  7.84it/s]
+Loading weights:  68%|██████▊   | 232/339 [00:22<00:11,  9.63it/s]
+Loading weights:  69%|██████▉   | 234/339 [00:22<00:10, 10.31it/s]
+Loading weights:  72%|███████▏  | 245/339 [00:22<00:04, 20.58it/s]
+Loading weights:  73%|███████▎  | 249/339 [00:22<00:03, 23.15it/s]
+Loading weights:  76%|███████▌  | 257/339 [00:22<00:02, 29.88it/s]
+Loading weights:  79%|███████▉  | 268/339 [00:23<00:02, 25.32it/s]
+Loading weights:  81%|████████  | 274/339 [00:23<00:02, 29.38it/s]
+Loading weights:  83%|████████▎ | 280/339 [00:23<00:02, 23.72it/s]
+Loading weights:  84%|████████▍ | 284/339 [00:24<00:04, 11.34it/s]
+Loading weights:  85%|████████▍ | 288/339 [00:25<00:03, 13.29it/s]
+Loading weights:  86%|████████▌ | 292/339 [00:25<00:04, 10.99it/s]
+Loading weights:  87%|████████▋ | 295/339 [00:26<00:06,  6.86it/s]
+Loading weights:  88%|████████▊ | 298/339 [00:26<00:04,  8.27it/s]
+Loading weights:  90%|████████▉ | 304/339 [00:27<00:03,  8.84it/s]
+Loading weights:  90%|█████████ | 306/339 [00:27<00:04,  7.76it/s]
+Loading weights:  93%|█████████▎| 316/339 [00:28<00:01, 13.74it/s]
+Loading weights:  94%|█████████▍| 319/339 [00:29<00:02,  7.99it/s]
+Loading weights:  95%|█████████▍| 322/339 [00:29<00:01,  9.36it/s]
+Loading weights:  96%|█████████▌| 324/339 [00:29<00:01, 10.24it/s]
+Loading weights:  97%|█████████▋| 328/339 [00:29<00:01,  9.00it/s]
+Loading weights:  97%|█████████▋| 330/339 [00:30<00:01,  6.90it/s]
+Loading weights: 100%|██████████| 339/339 [00:30<00:00, 11.10it/s]
+[1/14] -2282501421613384225: repaired
+[2/14] -24536083689082297: invalid_output
+[3/14] -2495593332815009891: invalid_output
+[4/14] -2905696611778901658: repaired
+[5/14] -5471777320348063942: invalid_output
+[6/14] -5559132601887673008: invalid_output
+[7/14] 2393389448844632496: repaired
+[8/14] 6112920825267803506: repaired
+[9/14] 7013168592046328137: repaired
+[10/14] 7446684003786592114: repaired
+[11/14] 970104939222709777: repaired
+[12/14] 4534870872535404381: repaired
+[13/14] 5259818422556035007: repaired
+[14/14] 2326758035558088175: repaired
+{
+  "run_fingerprint": "e9d3500579606b8659d24280483f7d4780ac275685ec3099ce615ee80bd5a044",
+  "routing": "all",
+  "strategy": "extractive_reanswer",
+  "evaluated_samples": 14,
+  "initial_correct": 2,
+  "final_correct": 0,
+  "initial_accuracy": 0.14285714285714285,
+  "final_accuracy": 0.0,
+  "fixed": 0,
+  "regressed": 2,
+  "net_correct_gain": -2,
+  "accuracy_gain": -0.14285714285714285,
+  "mcnemar_exact_pvalue": 0.5,
+  "repair_success_rate": 0.0,
+  "regression_rate": 1.0,
+  "changed": 10,
+  "verifier_calls": 0,
+  "verifier_latency_total": 0.0,
+  "verifier_input_tokens_total": 0,
+  "extra_calls": 14,
+  "extra_calls_per_sample": 1.0,
+  "extra_generation_latency_total": 73.58542983400025,
+  "extra_generation_latency_per_sample": 5.256102131000018,
+  "status_counts": {
+    "repaired": 10,
+    "invalid_output": 4
+  },
+  "independent_support_checked": 0,
+  "same_model_support_check_counts": {},
+  "input_tokens_total": 11797,
+  "input_tokens_observed_samples": 14,
+  "input_tokens_observed_calls": 14,
+  "output_tokens_estimate_total": 771,
+  "output_tokens_estimate_observed_samples": 14,
+  "output_tokens_estimate_observed_calls": 14,
+  "initial_f1": 0.2920222634508349,
+  "final_f1": 0.31641299498442355
+}
