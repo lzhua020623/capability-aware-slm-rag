@@ -5,6 +5,7 @@ data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+data/annotations/*.xlsx
 models/
 checkpoints/
 .env

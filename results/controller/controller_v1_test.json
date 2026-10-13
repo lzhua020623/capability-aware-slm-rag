@@ -1,0 +1,4756 @@
+{
+  "note": "Frozen final TEST runtime outputs; no target labels or gold fields are stored or were read. Routing only; no compensation is executed.",
+  "safe_binary": {
+    "max_stage1_failure_probability": 0.7,
+    "max_stage2_score": 0.5,
+    "override": "Diagnosis failure -> correct only if Probe says correct"
+  },
+  "mapping": {
+    "correct": "no_action",
+    "evidence_insufficiency": "retrieval_enhancement",
+    "evidence_accessibility": "evidence_refinement",
+    "evidence_utilisation": "generation_repair"
+  },
+  "decisions": [
+    {
+      "sample_id": "-1014091045618911654",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6754381531865458,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1045095421340178958",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7316432191456743,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-10654472505181277",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.2759504175346601,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-113853178908722264",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.276926792136734,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1176280233636154422",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.620874705242112,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1180168003678804636",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.3589780706656262,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1204722541964024977",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6181910585533106,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-120593119776464649",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8880133157918894,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1242596807633339159",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.23018204036977094,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-12824711872448438",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.22878815568667463,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1288756836147893929",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.2795710597270944,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1302735871169787915",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.28631754878239835,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1329195140453226437",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6157116663697092,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1344850267781439277",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.31341587032931234,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1377431887732785331",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.3091210404224137,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1403561686055024600",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8186216421250849,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1407747451197583708",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8355796305569549,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1591814844395063631",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6954845497582524,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1602445747694951824",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.18080736396285546,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1639393378146810331",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6121437688276976,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1667661819585085026",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7516941339460251,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1773607187248198254",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7540246339633144,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1833051064924762940",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6039206422852708,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1904757966771983046",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6508088768193301,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-1989085239392486277",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.2526240442507619,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-2033893527164697325",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7092532633040509,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-2040293408787954805",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7409477057238165,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-2055788643958254872",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6702227029535435,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-217684522847197793",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5530271326474976,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-2265968001577911109",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6481397858397487,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-2315980566643853836",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6716871086468599,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-232899194860976791",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5842041830177969,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-2419576910417046724",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7919975323392967,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-251770629620567718",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6158085217138565,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-252884797611335797",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.20718846676675015,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-2609190921911067088",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7900036676250493,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-2651390481836592629",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.26660589947865354,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-2659168512523622985",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5526314060013788,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-266038724951254114",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6477803503026243,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-2751908283042856030",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7481120792760485,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-2910111192739222653",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.2508617686077639,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-2928116638358297228",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5938483390971634,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-2931786986551528103",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6103372083112805,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-2976262139241480610",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6276692049975245,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-3015473067588310177",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.2678925624076266,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-3156792715420337745",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.735796914363058,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-3160944401519566327",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.3153250734134963,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-3422482453881148813",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.37051766876522974,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-3427566802943028712",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9042690790259519,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-3428106355897335676",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.26839759341701,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-3482256578135150392",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.27046272618878486,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-3556174730654201439",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5628270199394595,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-3632972835558527833",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6259056086216208,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-3763685644851446484",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.2905482101514109,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-3784260065793085301",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.27538075904973436,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-3875543356658910705",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.38675926559343254,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-3886770275251117853",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.27129357714266716,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-3946622065085295485",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.602635261124526,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-3970079294139411862",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7229224646743215,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4088294748246363182",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5197327010221464,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4092499579855624350",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.2610057789119278,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4221604869059375188",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.688618093408685,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4222512069603517522",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8207695808698955,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4227398832220654666",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6806078675354024,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4283216610904702043",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5707054356589132,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4292736993227486718",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.27187093970564513,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-43348669610522740",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.19674877397509485,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4364906616801702347",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7398768313682909,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4423551111496986075",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.3671645362594008,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4487724214437405890",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.616944765025087,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4507364608939813047",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.955229650049103,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4529708874973104813",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7062510032655749,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4565661977175862394",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5491735045020418,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4620078914335056493",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.36998301155604346,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4622532030074150432",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7252846497932184,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4627264087519762286",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7637392651356615,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4643939675634395319",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5319354790881139,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4722625208527212534",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.23284966455663436,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-474186399952989830",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5898021666808994,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4748546458506417454",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.2311071711335137,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-476336404126036031",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.717898118593852,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4842157801620760631",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6498141476858174,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4876736938910486341",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6857444237491472,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4882553194262710105",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7450046235752211,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-4954940607558097452",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.2652733870497222,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5127759950686598566",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.25333906696773506,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5156175277578141617",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.31087335013855294,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-525942396749510966",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8600456946336772,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5270061954035899369",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7944011581127857,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5289834111281891019",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.788077928835092,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-531947143811037748",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7622480063685997,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5372667077951673175",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.2596106717443164,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5406271458964804846",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.47704384123982974,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5462041699131391964",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.26973012087513937,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5471598133729816691",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7460414325678432,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5473444875466431416",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.2771282824980831,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5494234289594552874",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.25249901902806254,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5540073670385654363",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.3434945016684703,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5574999151866581512",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.4446198925323278,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5575610778325611586",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6167374964823087,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5653778591571381839",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.40763881921923273,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5667708502568925602",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.26415987174049227,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5738880170312599174",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.28095607754500346,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5757676728167190063",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6203966920199122,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5839630689334758403",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.2555171690848033,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-585297311370673041",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5198705841327367,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5893650412353024844",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7333284735315213,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5931088709249789625",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.797371334181099,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5935683210985272192",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.30079809181771755,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-5942357491167725852",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.2448163837426023,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6013821792423290372",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.19175889245564015,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6075869945949324935",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.825067021726519,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6115724697038263676",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.3013215566320235,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6115798499199649443",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.26327987303581846,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6137128706340485777",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.2388106097045811,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6159174402926036720",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6568228722182402,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6267746560439390778",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8994408359513999,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6268901707080208502",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.2885326806322601,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6311914778265000994",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.3099425602959449,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6339722844243759601",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.28251735241689424,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6413223102332441255",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.21426034465235022,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6612294468579893046",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.35650307661187935,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6618900434743562612",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6791508400441408,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6621623690879619950",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8307670105654358,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6630606102962013596",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6537063204089064,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-666438026258925606",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5695469172632124,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6705663232244508339",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.25254432497157653,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6745767529711751487",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6969261107225645,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6747120392723244868",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8239502608319805,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6762654750812139940",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.574932752816554,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-693847391395525804",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7769612670306982,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6944975865006468886",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6597518993318334,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-6969822882191683401",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.507853659007385,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-701619113953256261",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.3257460058723694,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7098436211686405768",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6982170526316096,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7119324654516311671",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8461135211515696,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7147339950013793632",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8534021214004319,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7170779167971049436",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7151779287072333,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-723195820759181666",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8465750331709481,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7243720341959076675",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.691632022607654,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7315704277534873222",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6007276251544877,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7320107493259542345",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5811957111290217,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7344445742524899311",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.4281903450856452,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-736666438111464162",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.46477370437107896,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7370925457649269027",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5633224708670561,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-745462523697378219",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.2831377983653734,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7483795661822231594",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.650181958319484,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7565739765702854010",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6637970817390775,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7581059872074630037",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.2446720612968568,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-76002262753102474",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.3031982481649405,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7607504458781868831",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.2047675915846226,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-764171144565980759",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.704715610810766,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7657379080399040683",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.22997697848299378,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7741502514105511395",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5337972419517452,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7751936485586885299",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.2785451475111482,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7796046651025876055",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6361990581660011,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7876488844834691314",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6423808873814654,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7891787418755685108",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.2925192402104111,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7910863565090217321",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7396230814620569,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-793935713894199451",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6244207514012157,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7989535213092054347",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.831541560975295,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7994495557308141403",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6426740917706675,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-7996848750766210292",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6816218675886973,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8036273344877520260",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6497430722561195,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8049695851713697163",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7258213422880319,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8081431644783557175",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8664544517618,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8111631832195028942",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5365027271000931,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8143736059759034639",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.710601751892354,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8160637999448921796",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7431514371895507,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8161584049610727037",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7656248155426256,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-81929067993816692",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6492104621708965,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-822810697742332337",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.3171232599528958,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8233386764121986360",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5377296721678031,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8247901781841476685",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.3751718476195694,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8306492276515645379",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.25695032094331827,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8381009484419676852",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.19406174838733306,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8392081634321923269",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.31600882756369164,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8424688964238112177",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8354798712675858,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-844607040165108603",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.2162955696256266,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8518155586522600846",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.2971315232760264,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8521826207096650014",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8081107670972516,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8544960023313580012",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6751209061788016,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8573099532306102698",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6618214039524324,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-864239359964960011",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5680430618083412,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8652687492451572522",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.26489496809020635,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8659305167311182035",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.29365511650594356,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8671238223451151584",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.5943473755294877,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8812057354438162118",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.875061386573177,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8853360627511483976",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7764737627960954,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-892126850374165642",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.2600941520220253,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8951937367079407640",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.21455119922851723,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-8967537755972066133",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5442086237636328,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-9012928126702403111",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7848261575412814,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-9044766538067253255",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.609558406871662,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-9151459252301477194",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.2598711593410155,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-9210099757513379343",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7895530840651138,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "-9217396003551875690",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.3539068724580437,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "101283134098691894",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6114956102184524,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1039102546557940080",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5029705828296926,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "112939521296080681",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7739422852525356,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1174522695577165411",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5826090943957793,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1331101156591334824",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.22708093133672266,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "134587584998146088",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.27391265593125524,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1379169289505958111",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5975828728579957,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "143358760627476379",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.3060122047244392,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1453227198324349389",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7017187297306741,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1469150137425764076",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.4666207789491736,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1471380661271996166",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6305462777887947,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1471601930209559051",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.3037285026063982,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1547647803339899015",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5986522314939677,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1550607712450089106",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6371243451549875,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1586691717504133123",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.31553966717155796,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1589792771853651113",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6638716406748137,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1590057314624809928",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.541414606371796,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1615626468308135253",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6669267465549725,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1624012912518696153",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.24257098393992355,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1645929395978122645",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5304464153568031,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1656636013570720778",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.2760124675150526,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1735766792677422630",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.20444861506188383,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1760961066899651429",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.2214141445965407,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1823053967207989806",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6541478546301752,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1838851770314085590",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8368754258859805,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1848006246448298349",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.5742176845741322,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1851594182842213971",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5628513549501781,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1915885935757407192",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.23871015243804572,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "1988662011276832086",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6206940282811361,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "212435016090205927",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.3612186442396077,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "213833303613621065",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6403399926816271,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2247250807557083996",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.5987207245751341,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "22732644474650367",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.2827839229922541,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2352051038192309240",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5596603129532328,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2370076891269438265",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7771242599154662,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2417467680631356371",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7067497988485433,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "24224390922062302",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.27439202427688814,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2444419494447200668",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7022331787515679,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2494339783007699672",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5414938620313454,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2503275827954984607",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.23989465457438208,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2536150218240275989",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7850814771501936,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2702301543069387295",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.28144478034395515,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2722525402856944570",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7060827927503271,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2741826828451174428",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.20214822922662531,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2836265093692765955",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.2858020037738596,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2851585794686488659",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7089980618349694,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2862391704407185252",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6047688750894189,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2864099969295435495",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.22752087471163754,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2885278237105070353",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5288156516733526,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "2978504262848357235",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7030200292090691,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3017786305624129255",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8577503808656427,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3028343500075334931",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7239366762115248,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "306074923032581824",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6281718959019744,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3062778689902618642",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.32552149037822775,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3133023570425583704",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7527471458325217,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3152334139132359350",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7221007150312531,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3178522985375895008",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5825915464653608,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3182507307097242113",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.2456247095181217,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3197263819650216852",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6128057408273146,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3216644197084568934",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.31899167980497634,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3217872438894951101",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.22067506251722876,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "324460096927819590",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8910617272107799,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3249143050053167368",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.6778448323920235,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3262882280361419647",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6818334999355335,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3297310095043146275",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8095294180459771,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3311962143974666464",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8417990598296391,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3329484920776215448",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.45178235255945687,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3368186292408394314",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6367904408175273,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3421591493369976475",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6415811194752216,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "343386192639661502",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8496403995317512,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3497042947752645554",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.6195936853236179,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3515985474543482606",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.31661599736502566,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3521334647073967978",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6448268532353714,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3593786118993246315",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.30671871965583464,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3639746340952270790",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6110265426667506,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3644312111851521034",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6079148570109822,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3673814853402336146",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.26029343999190435,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3724356943291190911",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.56217353919362,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3864930130255054488",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5774266118904083,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "390660943990140780",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7774436624911043,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3929376598998928646",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.33054549626616064,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3941543233938260280",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.2722165867870046,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3971602566853823038",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5176587342407175,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "397204824317594616",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.3306351265259077,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "3977993332190439710",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7203492290310316,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4003112133897014732",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6602640572277221,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4019335299699332844",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.2923359915597588,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4125353610319729657",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5800242509019646,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4160617673481105517",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5461192617007795,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4161460381563799831",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6339170576412061,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4186485631454362041",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.32385824771238036,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4220294884897994209",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9427457033153589,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4324390011980361975",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.748112723346628,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4333514272418210636",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7107659174110977,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4344803622779505142",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8058834707516891,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4349358961724018214",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7094235395115464,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4361512494258228555",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.25880096330885316,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4430099317862304778",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.2319840251977742,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4477102041223186075",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5449260392239706,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4480034477137973992",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7892902735411904,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4545658360788980127",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5518762294956172,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4590422471265833514",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.2225627129636359,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4614639925949581519",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6798801803280596,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4674269357266381610",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.24045548562702324,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4705803842367216340",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5326170015646877,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4721622231665415813",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6435894458582408,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4768125604454612756",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.25898159898769985,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4803203223743199668",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6096042732165013,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4826133206438959478",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6308829226687586,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4884658732028049316",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6681184526292684,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "4943207042321394497",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6663001024632228,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "5046330903295447703",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.3618577855316464,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "5078709962400196312",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.23830515868707106,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "5117748440024890059",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5079798717451169,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "525023656480961403",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5005823368747344,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "5255969991136559330",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5486452675554483,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "5364680911815100032",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.500966420667855,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "5372631738578000712",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5697964069966936,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "5404116173326600628",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6411242383584439,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "5465903250853475905",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.2710934180289579,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "549545544241578743",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8612734846023077,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "5591916631811807548",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7270648156167541,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "5658693752461141407",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.23811885195968296,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "5758694170037504500",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8610824779071338,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "5772493760731282819",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5249537359171093,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "583026970021621830",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5362829224276819,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "5964804974616776960",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7375123819502142,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6021153026631234929",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.3316750659018431,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6059963286717890517",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7705016637322585,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6069686966346900698",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6256742981217658,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6077371157930183398",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5218764553255073,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "608940495852211528",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6728023241619715,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6117400998512150504",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.26641050415856615,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6207806205046746204",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.24546228727839672,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6255051608078138794",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.22541974270079337,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "630153387270323434",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7358056726673554,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6452376377434138504",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.2694656404248722,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6454311031309410150",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8449940166644855,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "647659679149316553",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.2178317810888921,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6497460116946232542",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6511193852088752,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6507459087595991641",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.23244436432199525,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6524766539964714821",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.22237629518385207,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6581085745347506584",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.590578963644729,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6657198138282369001",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8743301452895684,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6792131858667468165",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7911667729087914,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6814522675159217341",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.21384034403774074,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6859619293717253541",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6583456115505266,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6882831655380911332",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5583903393816996,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6915606477668963399",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.28391526236635245,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "692757468233209793",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.2606466549560107,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6931174159985320066",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6742804744947686,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "6946792759880491067",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8359935432538358,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "700604097171850168",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.2563991911000318,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7021313805354142751",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7683088984555345,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7074317315274630741",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.31787426112159156,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7075559602853408649",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.3644531969204354,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7077932120680330360",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.2461489596145798,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "71425964742321525",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.2949483181473991,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7198381700174721586",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6337683850345981,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7368254478874801356",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7563903228294029,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7402184777947527945",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8550164380882526,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7410490453997997451",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.30799400526773113,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7416298161166363032",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.28890790940607036,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7429441805782246560",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.2879894293399162,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7437999823212589137",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7600854462706795,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7527743041084411715",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.2502285879416976,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7557481531404504255",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.20599426736124887,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7566216024156722346",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.23501335647074584,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7640456808747041665",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5902118380832639,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7640959384571480586",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5262924799805464,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7663087575680980816",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7776204744639101,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7711205805100670095",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.24986646317946318,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7749931351008827886",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.34782710448839116,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7808442793714993461",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6101416779022308,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7886814539120386508",
+      "action": "generation_repair",
+      "diagnosis_label": "evidence_utilisation",
+      "diagnosis_confidence": 0.40846816227551086,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7901746249864619718",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8363876108457489,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "7926179542568614934",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5429387719766512,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8002956316753524206",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.29631724933149944,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8004211080214154493",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.688704626317701,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8073898551734160319",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5351159909697307,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8089219450279289059",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8595748162032334,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8141707901667810848",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7699411476459597,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8164301669866012157",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6723833458099204,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8174037572148648768",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7410507385187963,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8177571930408806343",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.2690852686159532,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8188550931836037275",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6755076555950327,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8194342767714605563",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5325580704030601,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8208347308009152764",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6373911168621935,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8239463385147663167",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.692835138504406,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8308557182013290945",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8005289109408547,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8376781281936431992",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.26872137894197295,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "837987629649092236",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7271686603533281,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8484861530321103633",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.2542090648680841,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8494342737238168262",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5852757288639819,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8565998783583575256",
+      "action": "evidence_refinement",
+      "diagnosis_label": "evidence_accessibility",
+      "diagnosis_confidence": 0.32050155974436695,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8770209312170080158",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7718175950007056,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8783361206191889627",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7040660919090269,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8894580648680250909",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6414525287322039,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "8937378309480282220",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.20690807775645817,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "9033939387979817559",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6484086904747575,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "9078092620239351027",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.19549795004314433,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "9093937969389320565",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6653069548890317,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "9105761634910939930",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7039510761646539,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "9191821996395940885",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.27218238402851813,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "950913319015411203",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6455139829796024,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "97369777493072047",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6285109735776055,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "nq"
+    },
+    {
+      "sample_id": "101111",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9257738948433197,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "102627",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.5075868147922102,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "103098",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.487787505799359,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "107305",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9695442551574214,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "107699",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.32926004480057425,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "110394",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.24126432006861437,
+      "used_probe": true,
+      "probe_overrode_diagnosis": true,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "114567",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.5601371972214141,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "114912",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.4019757379086549,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "119437",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9370400895779111,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "120983",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.3619119128727408,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "121517",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.3924610628378331,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "121817",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9578369544185086,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "122614",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.4489740108155863,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "127197",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9057310095255362,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "129441",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.3275465540504246,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "13201",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9085968198259253,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "132990",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6136799262249315,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "137464",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.4849702651559089,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "143905",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.960588464847984,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "146272",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9096169167468073,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "154494",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5474574896194766,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "156076",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.4016152234710111,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "162041",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.4440263101228002,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "163988",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5382757482448288,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "165111",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8727000471818751,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "171509",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.5481690588243984,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "175725",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9594938247196917,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "177152",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6157428421968936,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "178898",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.4124244457963012,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "179340",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.46530014728896046,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "187108",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.4952405276423244,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "187324",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9519281063762346,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "192595",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9530355937005396,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "192837",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.36946513950487136,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "194023",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5271609120272381,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "194183",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5404559281097571,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "199735",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.942828189094341,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "200042",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.4854918522346541,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "201799",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6353719931598701,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "204651",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.41888866381578754,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "206994",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5075272459630356,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "208427",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5846043740217406,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "21145",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9471387086279256,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "213436",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6229652429186925,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "213949",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6401239904470768,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "215853",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.5433884519210062,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "219205",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9571205685603086,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "23147",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9340122412665078,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "26081",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.956695025213393,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "26836",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9527672208844868,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "27398",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.37073664999700734,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "30962",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.6426526530445946,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "32233",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.5880350226829737,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "35065",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.47995099180278317,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "36425",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.4443612344378678,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "40622",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5193873692415865,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "47317",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.3035684070097247,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "48697",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9321381466884258,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "49775",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.539198434467152,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "51239",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.6169328176980494,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "60979",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.7274069926840383,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "66218",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.5150962922930837,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "75267",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.35144468760725395,
+      "used_probe": true,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "79881",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.928425957865501,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "79984",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5650933268250121,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "83896",
+      "action": "retrieval_enhancement",
+      "diagnosis_label": "evidence_insufficiency",
+      "diagnosis_confidence": 0.5451145167039875,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": true,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "91881",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.8205690971463493,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "92509",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.931981286403866,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "95417",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.9550004196337378,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "95673",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5649939533452186,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    },
+    {
+      "sample_id": "98062",
+      "action": "no_action",
+      "diagnosis_label": "correct",
+      "diagnosis_confidence": 0.5459886934491032,
+      "used_probe": false,
+      "probe_overrode_diagnosis": false,
+      "needs_compensation": false,
+      "dataset": "fever"
+    }
+  ]
+}
