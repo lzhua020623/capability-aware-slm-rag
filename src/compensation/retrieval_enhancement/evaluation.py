@@ -71,7 +71,9 @@ def evaluate_nq(records: Sequence[dict], annotations: Sequence[dict]) -> dict:
 
     Required runtime fields: sample_id, base_evidence, enhanced_evidence,
     candidates, base_latency and trace (retrieval_calls, llm_calls, latency,
-    status). Annotations need only id and gold_passage_id; answers/text are never
+    status). Replay uses base_retrieval_calls=0 and base_latency=None: historical
+    Baseline cost is unknown, and total latency describes only this current run.
+    Annotations need only id and gold_passage_id; answers/text are never
     read. Missing labels, duplicate IDs and malformed runs fail explicitly rather
     than silently changing the denominator. Extra unselected annotations are OK.
     """
@@ -121,9 +123,19 @@ def evaluate_nq(records: Sequence[dict], annotations: Sequence[dict]) -> dict:
         statuses[status] += 1
         for field in ("retrieval_calls", "llm_calls"):
             totals[field] += _nonnegative(trace[field], field, integer=True)
-        base_latency = _nonnegative(record["base_latency"], "base_latency")
+        base_calls = _nonnegative(record.get("base_retrieval_calls", 1), "base_retrieval_calls", integer=True)
+        if base_calls not in (0, 1):
+            raise ValueError("base_retrieval_calls must be 0 (Replay) or 1 (Live)")
+        base_latency = record["base_latency"]
+        if base_latency is None:
+            if base_calls != 0:
+                raise ValueError("unknown base_latency is allowed only without current Base retrieval")
+        else:
+            base_latency = _nonnegative(base_latency, "base_latency")
+            totals["base_latency_observed_samples"] += 1
+            totals["base_latency"] += base_latency
+        totals["base_retrieval_calls"] += base_calls
         extra_latency = _nonnegative(trace["latency"], "enhancement latency")
-        totals["base_latency"] += base_latency
         totals["enhancement_latency"] += extra_latency
         per_sample.append(row)
     n = len(per_sample)
@@ -144,10 +156,11 @@ def evaluate_nq(records: Sequence[dict], annotations: Sequence[dict]) -> dict:
             "evidence_loss_rate": _rate(counts["evidence_lost"], base_hits),
         }
     metrics["cost"] = {
-        "base_retrieval_calls": n, "additional_retrieval_calls": totals["retrieval_calls"],
-        "total_retrieval_calls": n + totals["retrieval_calls"], "llm_calls": totals["llm_calls"],
+        "base_retrieval_calls": totals["base_retrieval_calls"], "additional_retrieval_calls": totals["retrieval_calls"],
+        "total_retrieval_calls": totals["base_retrieval_calls"] + totals["retrieval_calls"], "llm_calls": totals["llm_calls"],
         "mean_additional_retrieval_calls": _rate(totals["retrieval_calls"], n),
-        "mean_base_latency_seconds": _rate(totals["base_latency"], n),
+        "base_latency_observed_samples": totals["base_latency_observed_samples"],
+        "mean_base_latency_seconds": _rate(totals["base_latency"], totals["base_latency_observed_samples"]),
         "mean_enhancement_latency_seconds": _rate(totals["enhancement_latency"], n),
         "mean_total_latency_seconds": _rate(totals["base_latency"] + totals["enhancement_latency"], n),
     }

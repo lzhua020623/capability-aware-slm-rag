@@ -1,10 +1,12 @@
-"""Phase 4A: paired NQ retrieval evaluation, no Generator/Diagnosis/Controller.
+"""NQ retrieval evaluation and C1 Baseline Replay; no shared team logic.
 
 Default mode only checks local resource structure; --run explicitly retrieves.
 Always uses the frozen NQ manifest order (a --limit prefix is a smoke subset).
 Gold is joined only by the offline scorer after traces.jsonl has been saved.
 --evaluate-only can rescore saved traces without loading BGE or FAISS.
 Output directories must be new and outside the frozen results/preliminary tree.
+--baseline-replay uses saved C1 evidence; zero budget needs no model or Index.
+Replay does not automatically score Gold; use --evaluate-only separately later.
 """
 
 from __future__ import annotations
@@ -27,6 +29,7 @@ if str(ROOT) not in sys.path:
 from src.compensation.retrieval_enhancement import EnhancementBudget, NQFaissBackend, RetrievalEnhancer
 from src.compensation.retrieval_enhancement.adapters import BGE_MODEL_NAME, BGE_QUERY_INSTRUCTION
 from src.compensation.retrieval_enhancement.evaluation import evaluate_nq, sample_id
+from src.compensation.retrieval_enhancement.replay import select_replay, validate_replay
 
 
 def load_jsonl(path: Path) -> list[dict]:
@@ -84,6 +87,32 @@ def run_query(sample_id: str, question: str, backend, budget: EnhancementBudget)
             "base_latency": base_latency}
 
 
+class _NoRetrieval:
+    def retrieve(self, *args, **kwargs):
+        raise RuntimeError("No Backend: only zero-budget Replay is permitted")
+
+
+def run_replay_query(record, backend, budget, *, provenance=None):
+    """Enhance saved Top-5; only rewritten queries may call the Backend.
+
+    Base latency is unknown historical information, not zero. No Base retrieval
+    or score recomputation occurs. Strict validation rejects extra runtime fields.
+    """
+    validated, _ = validate_replay([record])
+    item = validated[0]
+    if backend is None and budget.max_retrieval_calls:
+        raise ValueError("Additional Retrieval requires a loaded Backend; use zero budget otherwise")
+    result = RetrievalEnhancer(backend if backend is not None else _NoRetrieval()).enhance(
+        item["question"], "nq", item["base_evidence"], budget)
+    return {"sample_id": item["sample_id"], "dataset": "nq", "question": item["question"],
+            "base_evidence": deepcopy(item["base_evidence"]), "enhanced_evidence": result["evidence"],
+            "candidates": result["candidates"], "trace": result["trace"],
+            "baseline_mode": "replay", "base_retrieval_calls": 0, "base_latency": None,
+            "baseline_provenance": {"status": "unverified", "source": deepcopy(provenance)},
+            "retriever_backend": "disabled" if backend is None else
+                "nq_faiss" if isinstance(backend, NQFaissBackend) else "injected"}
+
+
 def default_cache_dir() -> Path:
     configured = (os.environ.get("SENTENCE_TRANSFORMERS_HOME") or os.environ.get("HF_HUB_CACHE")
                   or os.environ.get("HUGGINGFACE_HUB_CACHE") or os.environ.get("TRANSFORMERS_CACHE"))
@@ -130,12 +159,12 @@ def check_model_cache(cache_dir: Path) -> dict:
             "errors": errors, "weights_loaded": False}
 
 
-def preflight(args) -> dict:
+def _retrieval_preflight(args, *, include_queries=True) -> dict:
     """No torch/FAISS/model import, download, index build or query encoding."""
     model = check_model_cache(args.cache_dir)
     errors = list(model["errors"])
     resources = {}
-    for name in ("index", "metadata", "queries", "manifest"):
+    for name in (("index", "metadata", "queries", "manifest") if include_queries else ("index", "metadata")):
         path = getattr(args, name)
         exists = path.is_file()
         resources[name] = {"path": str(path.resolve()), "exists": exists}
@@ -143,7 +172,7 @@ def preflight(args) -> dict:
             errors.append(f"missing {name}: {path}")
     selected_count = metadata_count = None
     try:
-        if resources["queries"]["exists"] and resources["manifest"]["exists"]:
+        if include_queries and resources["queries"]["exists"] and resources["manifest"]["exists"]:
             manifest = json.loads(args.manifest.read_text())
             selected_count = len(select_queries(load_jsonl(args.queries), manifest, args.limit))
         if resources["metadata"]["exists"]:
@@ -163,6 +192,59 @@ def preflight(args) -> dict:
             "selected_count": selected_count, "metadata_count": metadata_count,
             "dependencies": dependencies, "errors": errors, "index_loaded": False,
             "note": "File structure only; matching artifacts and real retrieval are not yet validated."}
+
+
+def load_replay(args):
+    def unique_object(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError(f"duplicate JSON field: {key}")
+            result[key] = value
+        return result
+
+    raw = args.baseline_replay.read_bytes()
+    records, audit = validate_replay([
+        json.loads(line, object_pairs_hook=unique_object) for line in raw.decode("utf-8").splitlines() if line.strip()])
+    manifest = json.loads(args.manifest.read_text())
+    selected = select_replay(records, manifest, scope=args.replay_scope, limit=args.limit)
+    source = {"path": str(args.baseline_replay.resolve()), "sha256": hashlib.sha256(raw).hexdigest(), "bytes": len(raw)}
+    audit["source"] = source
+    # An optional prior conversion audit supplies warnings, not trusted model or
+    # experiment provenance. It must refer to this exact JSONL byte stream.
+    if args.baseline_audit:
+        prior = json.loads(args.baseline_audit.read_text())
+        if not isinstance(prior, dict) or not isinstance(prior.get("outputs"), dict):
+            raise ValueError("Baseline audit requires an outputs dictionary")
+        if not any(isinstance(item, dict) and item.get("sha256") == source["sha256"] for item in prior["outputs"].values()):
+            raise ValueError("Baseline audit does not match Replay input SHA-256")
+        evidence_audit = prior.get("evidence", {})
+        if not isinstance(evidence_audit, dict):
+            raise ValueError("Baseline audit evidence must be a dictionary")
+        declared = evidence_audit.get("conflicting_ids", [])
+        if not isinstance(declared, list) or any(not isinstance(pid, str) for pid in declared):
+            raise ValueError("Baseline audit has invalid conflicting_ids")
+        audit["conversion_audit"] = fingerprint(args.baseline_audit)
+        audit["conversion_audit_conflicting_ids"] = declared
+        if declared:
+            audit["warnings"].append("Prior conversion audit reports passage text variants; original Metadata verification is pending.")
+    audit["warnings"].append("Baseline provenance unverified: original C1 config, model revisions and matching Metadata are pending.")
+    return records, selected, manifest, audit
+
+
+def preflight(args) -> dict:
+    if not args.baseline_replay:
+        return _retrieval_preflight(args)
+    try:
+        _, selected, _, audit = load_replay(args)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return {"structure_ready": False, "replay_format_ready": False, "errors": [str(exc)]}
+    needs_backend = args.max_retrieval_calls > 0
+    resources = _retrieval_preflight(args, include_queries=False) if needs_backend else {
+        "structure_ready": True, "errors": [], "model": {"snapshot": None, "weights_loaded": False},
+        "index_loaded": False, "note": "Backend resource checks skipped for zero-budget Replay."}
+    return {**resources, "replay_format_ready": True, "baseline_mode": "replay",
+            "additional_retrieval_required": needs_backend, "selected_count": len(selected), "baseline_audit": audit}
 
 
 def load_backend(args):
@@ -226,6 +308,9 @@ def parser():
     cli.add_argument("--metadata", type=Path, default=ROOT / "data/processed/indexes/nq_bge_base_meta.jsonl")
     cli.add_argument("--queries", type=Path, default=ROOT / "data/processed/retrieval/nq_dev.jsonl")
     cli.add_argument("--manifest", type=Path, default=ROOT / "configs/splits/preliminary_nq_500.json")
+    cli.add_argument("--baseline-replay", type=Path, help="Strict C1 Replay JSONL; skip Base retrieval")
+    cli.add_argument("--baseline-audit", type=Path, help="Optional conversion audit matched by JSONL SHA-256")
+    cli.add_argument("--replay-scope", choices=("frozen", "development"), default="frozen")
     cli.add_argument("--limit", type=int, help="Prefix of manifest IDs; omit for all 500")
     cli.add_argument("--max-retrieval-calls", type=int, choices=(0, 1, 2), default=1)
     cli.add_argument("--device", default="cpu", choices=("cpu", "cuda"))
@@ -236,6 +321,10 @@ def parser():
 def main(argv=None) -> int:
     cli = parser()
     args = cli.parse_args(argv)
+    if args.baseline_replay and args.evaluate_only:
+        cli.error("--baseline-replay cannot be combined with --evaluate-only")
+    if not args.baseline_replay and (args.baseline_audit or args.replay_scope != "frozen"):
+        cli.error("Replay scope/audit require --baseline-replay")
     if (args.run or args.evaluate_only) and args.output_dir is None:
         cli.error("--output-dir is required for --run / --evaluate-only")
     try:
@@ -250,19 +339,40 @@ def main(argv=None) -> int:
             return 0
         report = preflight(args)
         print(json.dumps(report, ensure_ascii=False, indent=2))
+        if args.baseline_replay and not args.run:
+            return 0 if report["replay_format_ready"] else 2
         if not report["structure_ready"]:
             return 2
         if not args.run:
             return 0
-        manifest = json.loads(args.manifest.read_text())
-        queries = select_queries(load_jsonl(args.queries), manifest, args.limit)
+        replay_audit = None
+        if args.baseline_replay:
+            _, queries, manifest, replay_audit = load_replay(args)
+            if replay_audit["source"] != report["baseline_audit"]["source"]:
+                raise ValueError("Replay input changed after preflight")
+        else:
+            manifest = json.loads(args.manifest.read_text())
+            queries = select_queries(load_jsonl(args.queries), manifest, args.limit)
         output = new_output_dir(args.output_dir)
         budget = EnhancementBudget(max_retrieval_calls=args.max_retrieval_calls)
         git = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True)
         dirty = subprocess.run(["git", "status", "--porcelain"], cwd=ROOT, capture_output=True, text=True, check=True)
+        inputs = {"manifest": fingerprint(args.manifest)}
+        if args.baseline_replay:
+            inputs["baseline_replay"] = replay_audit["source"]
+            if args.max_retrieval_calls:
+                inputs.update({name: fingerprint(getattr(args, name)) for name in ("index", "metadata")})
+            scope = "development_engineering" if args.replay_scope == "development" else (
+                "frozen_manifest_full" if len(queries) == manifest["n"] else "frozen_manifest_smoke")
+            write_json(output / "baseline_audit.json", replay_audit)
+        else:
+            inputs.update({name: fingerprint(getattr(args, name)) for name in ("index", "metadata", "queries")})
+            scope = "full_manifest" if len(queries) == manifest["n"] else "smoke_subset"
         write_json(output / "run_config.json", {
-            "experiment": "nq_retrieval_enhancement_phase4a", "dataset": "nq",
-            "scope": "full_manifest" if len(queries) == manifest["n"] else "smoke_subset",
+            "experiment": "nq_retrieval_enhancement_replay_phase4b1" if args.baseline_replay else "nq_retrieval_enhancement_phase4a",
+            "dataset": "nq",
+            "scope": scope, "baseline_mode": "replay" if args.baseline_replay else "live",
+            "baseline_provenance_status": "unverified" if args.baseline_replay else "live_retrieval",
             "sample_ids": [item["sample_id"] for item in queries], "manifest_seed": manifest.get("seed"),
             "model": BGE_MODEL_NAME, "model_cache_snapshot": report["model"]["snapshot"],
             "query_instruction": BGE_QUERY_INSTRUCTION, "device": args.device,
@@ -270,21 +380,23 @@ def main(argv=None) -> int:
             "max_retrieval_calls": budget.max_retrieval_calls, "rounds": 1,
             "rewriter": "RuleQueryRewriter", "llm_calls": 0,
             "git_commit": git.stdout.strip(), "git_dirty": bool(dirty.stdout.strip()),
-            "inputs": {name: fingerprint(getattr(args, name)) for name in ("index", "metadata", "queries", "manifest")},
+            "inputs": inputs,
             "implementation": {str(path.relative_to(ROOT)): fingerprint(path)
                                for path in sorted((ROOT / "src/compensation/retrieval_enhancement").glob("*.py"))
                                + [Path(__file__)]},
             "note": "Every query receives the same operation budget; Base-miss strata are computed only offline. No QA generation."
         })
-        owner = None
+        owner, backend = None, None
         records = []
         load_start = perf_counter()
         try:
-            owner, backend = load_backend(args)
-            load_latency = perf_counter() - load_start
+            if not args.baseline_replay or args.max_retrieval_calls:
+                owner, backend = load_backend(args)
+            load_latency = perf_counter() - load_start if owner is not None else 0.0
             with (output / "traces.jsonl").open("x", encoding="utf-8") as handle:
                 for query in queries:
-                    record = run_query(query["sample_id"], query["question"], backend, budget)
+                    record = (run_replay_query(query, backend, budget, provenance=replay_audit["source"])
+                              if args.baseline_replay else run_query(query["sample_id"], query["question"], backend, budget))
                     records.append(record)
                     handle.write(json.dumps(record, ensure_ascii=False, allow_nan=False) + "\n")
                     handle.flush()
@@ -293,9 +405,22 @@ def main(argv=None) -> int:
             if owner is not None:
                 owner.unload()
         # Gold annotation access begins here, after all runtime output is saved.
-        metrics = write_metrics(output, records, load_jsonl(args.queries))
-        write_json(output / "completion.json", {"complete": True, "records": len(records), "resource_load_latency_seconds": load_latency})
-        print(json.dumps(metrics, indent=2))
+        if args.baseline_replay:
+            # Replay annotations cannot enter execution. Gold scoring is a later,
+            # explicit --evaluate-only step with separate offline labels.
+            statuses = {}
+            for record in records:
+                status = record["trace"]["status"]
+                statuses[status] = statuses.get(status, 0) + 1
+            print(json.dumps({"records": len(records), "statuses": statuses,
+                              "gold_evaluation": "not_run", "base_retrieval_calls": 0,
+                              "additional_retrieval_calls": sum(record["trace"]["retrieval_calls"] for record in records)}, indent=2))
+        else:
+            metrics = write_metrics(output, records, load_jsonl(args.queries))
+            print(json.dumps(metrics, indent=2))
+        write_json(output / "completion.json", {"complete": True, "records": len(records),
+                   "resource_load_latency_seconds": load_latency,
+                   "gold_evaluation": "not_run" if args.baseline_replay else "completed"})
         return 0
     except (OSError, ValueError, KeyError, TypeError, RuntimeError, ImportError) as exc:
         print(f"Phase 4A stopped: {type(exc).__name__}: {exc}", file=sys.stderr)
