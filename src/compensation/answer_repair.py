@@ -24,6 +24,13 @@ QUERY_GROUNDED_PROMPT_VERSION = "v5_query_complete"
 GUARDED_REANSWER_PROMPT_VERSION = "v5_query_complete_then_support_check"
 SUPPORT_CHECK_MAX_NEW_TOKENS = 192
 DEFAULT_MAX_NEW_TOKENS = 384
+NQ_ONLY_STRATEGIES = frozenset({"extractive_reanswer", "short_answer_quote"})
+FEVER_ONLY_STRATEGIES = frozenset({"fever_nli", "fever_nli_anchored"})
+NLI_STRATEGIES = FEVER_ONLY_STRATEGIES
+STRATEGIES = ("verify_repair", "grounded_reanswer", "query_grounded", "guarded_reanswer", "reanswer",
+              "extractive_reanswer", "fever_nli", "short_answer_quote", "fever_nli_anchored")
+# Strategies whose output is not a JSON object; the generator must not use the JSON stop.
+LINE_OUTPUT_STRATEGIES = frozenset({"reanswer", "short_answer_quote"})
 
 
 @dataclass(frozen=True)
@@ -77,6 +84,7 @@ class RepairResult:
     verifier_latency: float = 0.0
     verifier_input_tokens: int | None = None
     verifier_trace: dict | None = None
+    anchor_filter: dict | None = None
 
     @property
     def changed(self) -> bool:
@@ -337,29 +345,31 @@ def repair_answer(
     Backend exceptions propagate so callers can stop and resume rather than
     silently count an infrastructure failure as a model keep decision.
     """
-    if strategy not in ("verify_repair", "grounded_reanswer", "query_grounded", "guarded_reanswer", "reanswer", "extractive_reanswer", "fever_nli"):
+    if strategy not in STRATEGIES:
         raise ValueError("Unknown repair strategy")
     if isinstance(max_new_tokens, bool) or not isinstance(max_new_tokens, int) or max_new_tokens < 1:
         raise ValueError("max_new_tokens must be a positive int")
-    if strategy == "extractive_reanswer" and request.dataset != DatasetName.NQ:
-        raise ValueError("extractive_reanswer supports NQ only")
-    if strategy == "fever_nli" and request.dataset != DatasetName.FEVER:
-        raise ValueError("fever_nli supports FEVER only")
+    if strategy in NQ_ONLY_STRATEGIES and request.dataset != DatasetName.NQ:
+        raise ValueError(f"{strategy} supports NQ only")
+    if strategy in FEVER_ONLY_STRATEGIES and request.dataset != DatasetName.FEVER:
+        raise ValueError(f"{strategy} supports FEVER only")
     if not any(item.text.strip() for item in request.evidence):
         return RepairResult(request.initial_answer, request.initial_answer, "skipped_no_evidence")
-    if strategy == "fever_nli":
-        from src.compensation.nli_repair import repair_fever
+    if strategy in NLI_STRATEGIES:
+        from src.compensation.nli_repair import repair_fever, repair_fever_anchored
         if verifier is None:
-            raise ValueError("fever_nli requires an explicit independent verifier")
-        return repair_fever(request, verifier)
+            raise ValueError(f"{strategy} requires an explicit independent verifier")
+        return (repair_fever if strategy == "fever_nli" else repair_fever_anchored)(request, verifier)
     if generator is None:
         raise ValueError("This strategy requires a generator")
     if strategy == "guarded_reanswer":
         from src.compensation.support_check import guarded_reanswer
         return guarded_reanswer(request, generator, max_new_tokens=max_new_tokens)
     from src.compensation.extractive_repair import build_extractive_prompt, validate_extractive
+    from src.compensation.short_answer_repair import build_short_answer_prompt, resolve_short_answer
     prompt = {"extractive_reanswer": build_extractive_prompt, "verify_repair": build_repair_prompt, "grounded_reanswer": build_grounded_reanswer_prompt,
-              "query_grounded": build_query_grounded_prompt, "reanswer": build_reanswer_prompt}[strategy](request)
+              "query_grounded": build_query_grounded_prompt, "reanswer": build_reanswer_prompt,
+              "short_answer_quote": build_short_answer_prompt}[strategy](request)
     generated = generator.generate(prompt, max_new_tokens)
     if not isinstance(generated.text, str) or not math.isfinite(generated.latency) or generated.latency < 0:
         raise ValueError("Backend returned invalid text or latency")
@@ -371,6 +381,11 @@ def repair_answer(
         input_tokens=generated.input_tokens,
         output_tokens_estimate=generated.output_tokens_estimate,
     )
+    if strategy == "short_answer_quote":
+        outcome = resolve_short_answer(generated.text, request)
+        return RepairResult(request.initial_answer, outcome.final_answer, outcome.status, verdict=outcome.verdict,
+                            citations=outcome.citations, validation_error=outcome.validation_error,
+                            anchor_filter=outcome.anchor_filter, **common)
     try:
         if strategy == "reanswer":
             answer = generated.text.strip()

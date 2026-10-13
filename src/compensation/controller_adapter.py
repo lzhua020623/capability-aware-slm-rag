@@ -9,8 +9,15 @@ from __future__ import annotations
 import math
 from typing import Protocol
 
-from src.compensation.answer_repair import DEFAULT_MAX_NEW_TOKENS, RepairGenerator, RepairResult, repair_answer
+from src.compensation.answer_repair import (
+    DEFAULT_MAX_NEW_TOKENS, FEVER_ONLY_STRATEGIES, LINE_OUTPUT_STRATEGIES, NLI_STRATEGIES, NQ_ONLY_STRATEGIES,
+    RepairGenerator, RepairResult, repair_answer,
+)
 from src.diagnosis import DatasetName, DiagnosisInput
+
+
+RUNTIME_STRATEGIES = ("verify_repair", "grounded_reanswer", "query_grounded", "guarded_reanswer",
+                      "extractive_reanswer", "fever_nli", "short_answer_quote", "fever_nli_anchored")
 
 
 class ResolvedDecision(Protocol):
@@ -63,21 +70,21 @@ def generation_repair(
     status = controller_route_status(request, decision)
     if status is not None:
         return RepairResult(request.initial_answer, request.initial_answer, status)
-    if strategy not in ("verify_repair", "grounded_reanswer", "query_grounded", "guarded_reanswer", "extractive_reanswer", "fever_nli"):
+    if strategy not in RUNTIME_STRATEGIES:
         raise ValueError("Unknown E runtime strategy")
     if isinstance(max_new_tokens, bool) or not isinstance(max_new_tokens, int) or max_new_tokens < 1:
         raise ValueError("max_new_tokens must be a positive int")
-    if (strategy == "fever_nli" and request.dataset != DatasetName.FEVER or
-            strategy == "extractive_reanswer" and request.dataset != DatasetName.NQ):
+    if (strategy in FEVER_ONLY_STRATEGIES and request.dataset != DatasetName.FEVER or
+            strategy in NQ_ONLY_STRATEGIES and request.dataset != DatasetName.NQ):
         raise ValueError("The selected strategy does not support this dataset")
     if not any(item.text.strip() for item in request.evidence):
         return RepairResult(request.initial_answer, request.initial_answer, "skipped_no_evidence")
-    if strategy == "fever_nli":
+    if strategy in NLI_STRATEGIES:
         if verifier is None:
             from src.compensation.nli_repair import MNLIVerifier
             verifier = MNLIVerifier()
         return repair_answer(request, strategy=strategy, verifier=verifier)
     if generator is None:
         from src.compensation.qwen_repair import QwenRepairGenerator
-        generator = QwenRepairGenerator(json_output=True)
+        generator = QwenRepairGenerator(json_output=strategy not in LINE_OUTPUT_STRATEGIES)
     return repair_answer(request, generator, strategy=strategy, max_new_tokens=max_new_tokens)

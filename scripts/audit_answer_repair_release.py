@@ -78,11 +78,13 @@ def main(argv=None):
     report = {'version': manifest['version'], 'cpu_replay_only': True,
               'semantic_correctness_verified': False, 'runs': {}, 'replayed_records': 0}
     queue, unique_ids = [], set()
-    cohorts = ['reviewed'] + (['dev50'] if 'regression_dev50' in manifest else [])
+    cohort_keys = {'reviewed': 'datasets', 'dev50': 'regression_dev50', 'heldout': 'heldout_prelim'}
+    cohorts = ['reviewed'] + [c for c in ('dev50', 'heldout') if cohort_keys[c] in manifest]
     for cohort in cohorts:
         for ds in ('fever', 'nq'):
             source = (bundle / f'inputs/{ds}_{cohort}_c1.jsonl').read_bytes()
-            source_manifest = manifest['datasets' if cohort == 'reviewed' else 'regression_dev50'][ds]
+            section = manifest[cohort_keys[cohort]]
+            source_manifest = (section['datasets'] if cohort == 'heldout' else section)[ds]
             if sha256(source) != source_manifest['input_sha256']:
                 raise ValueError('Input checksum differs from manifest')
             prepared = prepare_records(read_jsonl(source, ds), DatasetName(ds))
@@ -90,7 +92,7 @@ def main(argv=None):
                 if arm.get('dataset', ds) != ds:
                     continue
                 strategy = arm['strategy']
-                stem = f'{ds}_{strategy}' + ('_dev50' if cohort == 'dev50' else '')
+                stem = f'{ds}_{strategy}' + ('' if cohort == 'reviewed' else f'_{cohort}')
                 path = results / (stem + '.jsonl')
                 rows = read_jsonl(path.read_bytes(), str(path))
                 if not rows or [r['sample_id'] for r in rows] != source_manifest['sample_ids']:
@@ -102,7 +104,7 @@ def main(argv=None):
                     raise ValueError('Result settings differ from frozen protocol')
                 read_existing(path, prepared, run_fingerprint(source, b'', settings))
                 for row, (original, request) in zip(rows, prepared):
-                    if strategy == 'fever_nli':
+                    if strategy in ('fever_nli', 'fever_nli_anchored'):
                         replay = repair_answer(request, strategy=strategy,
                             verifier=SimpleNamespace(score=lambda data: row['verifier_trace']))
                     else:

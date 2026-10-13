@@ -100,7 +100,7 @@ def main(argv=None):
     parser.add_argument("--manifest", type=Path, default=ROOT / "configs/splits/answer_repair_reviewed_dev_v1.json")
     parser.add_argument("--out-dir", type=Path, default=ROOT / "artifacts/answer_repair/v5_reviewed")
     parser.add_argument("--bundle-name", default="answer_repair_v5_reviewed_gpu")
-    parser.add_argument("--experiment", choices=("v5", "v6"), default="v5")
+    parser.add_argument("--experiment", choices=("v5", "v6", "v7"), default="v5")
     args = parser.parse_args(argv)
     if not args.bundle_name.replace("_", "").isalnum():
         parser.error("Bundle name must contain letters, numbers and underscores only")
@@ -117,12 +117,18 @@ def main(argv=None):
     manifest, inputs = build_cohort(packet, reviews, [json.loads(r) for r in split_raw.values()], sources)
     manifest.update(human_review_sha256=sha256(reviews_raw),
                     split_sources={p: sha256(r) for p, r in split_raw.items()})
-    if args.experiment == "v6":
-        manifest.update(version="answer_repair_reviewed_v6", parent_cohort="answer_repair_reviewed_dev_v1",
-                        protocol=[{"dataset": "fever", "strategy": "fever_nli", "max_new_tokens": 1, "max_calls": 0},
-                                  {"dataset": "nq", "strategy": "extractive_reanswer", "max_new_tokens": 384, "max_calls": 1}],
-                        classifier_policy="MNLI-only documented fine-tuning; FP32; threshold .90 fixed before this run; full overlapping windows; costs separate from Qwen",
-                        development_policy="One v6 follow-up; do not tune on validation/test; semantic review deferred by user")
+    if args.experiment in ("v6", "v7"):
+        protocol = {"v6": [{"dataset": "fever", "strategy": "fever_nli", "max_new_tokens": 1, "max_calls": 0},
+                           {"dataset": "nq", "strategy": "extractive_reanswer", "max_new_tokens": 384, "max_calls": 1}],
+                    "v7": [{"dataset": "fever", "strategy": "fever_nli_anchored", "max_new_tokens": 1, "max_calls": 0},
+                           {"dataset": "nq", "strategy": "short_answer_quote", "max_new_tokens": 384, "max_calls": 1}]}
+        policy = {"v6": "One v6 follow-up; do not tune on validation/test; semantic review deferred by user",
+                  "v7": "v7 frozen before the GPU run (docs/ANSWER_REPAIR_V7.md); reviewed and dev50 are paired with v6r1; heldout is run once and reported regardless; no threshold or prompt tuning on any cohort"}
+        manifest.update(version=f"answer_repair_reviewed_{args.experiment}", parent_cohort="answer_repair_reviewed_dev_v1",
+                        protocol=protocol[args.experiment],
+                        classifier_policy="MNLI-only documented fine-tuning; FP32; threshold .90 fixed before this run; full overlapping windows; costs separate from Qwen"
+                        + ("; v7: only windows containing the claim's subject chunk may vote" if args.experiment == "v7" else ""),
+                        development_policy=policy[args.experiment])
         old = json.loads((ROOT / "configs/splits/answer_repair_v1_dev.json").read_bytes())
         regression = {}
         for ds in ("fever", "nq"):
@@ -135,6 +141,25 @@ def main(argv=None):
             regression[ds] = {"sample_ids": ids, "input_sha256": sha256(raw), "baseline": stats,
                               "overlap_with_reviewed": sorted(set(ids) & set(manifest["datasets"][ds]["sample_ids"]))}
         manifest["regression_dev50"] = regression
+    if args.experiment == "v7":
+        # Every shared-training ID E has never touched: no labels, correctness or references are read.
+        used_sha = {"answer_repair_v1_dev": sha256((ROOT / "configs/splits/answer_repair_v1_dev.json").read_bytes()),
+                    "review_packet": sha256(args.packet.read_bytes())}
+        heldout = {}
+        for ds in ("fever", "nq"):
+            eligible, reserved = shared_training([json.loads(r) for r in split_raw.values()], ds)
+            used = set(old["datasets"][ds]["sample_ids"]) | {p["sample_id"] for p in packet["records"] if p["dataset"] == ds}
+            ids = sorted(eligible - used, key=lambda sid: (sha256(f"heldout:42:{ds}:{sid}".encode()), sid))
+            if set(ids) & reserved or set(ids) & used:
+                raise ValueError("Held-out cohort overlaps reserved or previously used IDs")
+            raw, stats = select_c1(sources[ds], ds, ids)
+            inputs[f"inputs/{ds}_heldout_c1.jsonl"] = raw
+            heldout[ds] = {"sample_ids": ids, "input_sha256": sha256(raw), "baseline": stats,
+                           "excluded_used_ids": len(used & eligible), "eligible_shared_training": len(eligible)}
+        manifest["heldout_prelim"] = {
+            "purpose": "E-untouched shared-training IDs; run once, report regardless; harm/abstention evidence, not a repair-rate estimate",
+            "selection": "all shared-training IDs minus answer_repair_v1_dev dev50 and the 37-sample review packet; ordered by SHA256(heldout:42:dataset:sample_id)",
+            "exclusion_sources_sha256": used_sha, "datasets": heldout}
     write_frozen(args.manifest, encode_json(manifest))
     files = {**inputs, "manifest.json": encode_json(manifest), "offline/human_reviews.jsonl": reviews_raw,
              "offline/review_packet.json": args.packet.read_bytes()}
@@ -146,8 +171,11 @@ def main(argv=None):
         "scripts/prepare_reviewed_answer_repair.py", "scripts/summarize_reviewed_answer_repair.py",
         "configs/base.yaml", "requirements-answer-repair.txt", "docs/ANSWER_REPAIR_V5.md",
     )]
-    if args.experiment == "v6":
+    if args.experiment in ("v6", "v7"):
         source_files += [ROOT / "docs/ANSWER_REPAIR_V6.md", ROOT / "scripts/audit_answer_repair_release.py"]
+    if args.experiment == "v7":
+        source_files += [ROOT / "docs/ANSWER_REPAIR_V7.md", ROOT / "scripts/replay_fever_nli_anchored.py",
+                         ROOT / "artifacts/answer_repair/v7_design/fever_anchored_replay.md"]
     files.update({p.relative_to(ROOT).as_posix(): p.read_bytes() for p in source_files})
     files["bundle_checksums.json"] = encode_json({p: sha256(r) for p, r in sorted(files.items())})
     staging = args.out_dir / "gpu_bundle"

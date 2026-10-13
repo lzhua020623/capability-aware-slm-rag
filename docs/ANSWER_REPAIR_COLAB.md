@@ -1,5 +1,7 @@
 # E 的 Colab / Kaggle 实验
 
+2026-10-14（v7，尚未运行）：[Colab v7](../notebooks/answer_repair_colab_v7_reviewed.ipynb) / [Kaggle v7](../notebooks/answer_repair_kaggle_v7_reviewed.ipynb)，配套 `artifacts/answer_repair/v7_reviewed/answer_repair_v7_reviewed_gpu.tar.gz`（SHA-256 `b8f995f164783244c5c94ad591ab0f8a9a00adb1ca86a9926b83e0c2b352282f`，校验清单索引 `f421fd5378b9ac419714de51905aaa65769457b4231195eb53cc6995de67dc12`）。协议见 [v7](ANSWER_REPAIR_V7.md)。7 个代码单元格：校验、依赖与 99 项测试、28 条审核后样本预检、审核后样本运行、dev50 与 held-out 运行、汇总、导出。held-out 只运行一次。预计 Qwen 生成 14+50+146=210 次（T4 约 25 分钟），NLI 331 条。运行后用 `scripts/audit_answer_repair_release.py --bundle-dir <解压目录> --results-dir <结果目录> --out-dir <审计目录>` 回放三个批次。
+
 2026-10-14：v5 的 112 条和 v6r1 的 128 条真实预测均已归档并通过冻结代码回放，见 [结果报告](ANSWER_REPAIR_RESULTS_20261014.md)。最新可复现版本是 [Colab v6r1](../notebooks/answer_repair_colab_v6r1_reviewed.ipynb) 或 [Kaggle v6r1](../notebooks/answer_repair_kaggle_v6r1_reviewed.ipynb)，配套 `artifacts/answer_repair/v6r1_reviewed/answer_repair_v6r1_reviewed_gpu.tar.gz`。运行协议见 [v6](ANSWER_REPAIR_V6.md)。Colab GPU 配额耗尽后，已在 [Kaggle 私有草稿](https://www.kaggle.com/code/yearo111/e-answer-repair-v6r1-reviewed/edit) 完成所有单元格，48 文件校验、81 项云端测试及四组推断通过。输出 30 文件已下载，GPU 会话已释放。
 
 最新结果目录：`artifacts/answer_repair/v6r1_reviewed/kaggle_20261014/`；ZIP SHA-256 `3e9cd5eec2a658cf9ff5146c2b7322c9166d35367b9af34696439847589df684`。人工队列为 `v6r1_reviewed/release_audit/review_priority.md`（阅读）与 `review_priority.jsonl`（可编辑），均未完成人工判断。无需为已有结果重新推断。

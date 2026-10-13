@@ -1,0 +1,75 @@
+{
+  "bundle": "artifacts/answer_repair/v7_reviewed/answer_repair_v7_reviewed_gpu.tar.gz",
+  "bundle_sha256": "b8f995f164783244c5c94ad591ab0f8a9a00adb1ca86a9926b83e0c2b352282f",
+  "datasets": {
+    "fever": {
+      "sample_ids": [
+        "1251",
+        "146639",
+        "156493",
+        "161905",
+        "17973",
+        "193910",
+        "203615",
+        "34695",
+        "71180",
+        "72578",
+        "202297",
+        "9735",
+        "49650",
+        "32939"
+      ],
+      "groups": {
+        "include_e_core": 10,
+        "correct_control": 4
+      },
+      "frozen_metric_baseline": {
+        "samples": 14,
+        "initial_correct": 4,
+        "initial_wrong": 10
+      },
+      "human_vs_frozen_metric_disagreement_ids": [],
+      "previous_dev50_count": 1,
+      "reserved_overlap": 0,
+      "source_sha256": "4e3150e326f0b1dd1322f24faec3ba087da4b268a84cd0b9c636406706c23bd3",
+      "input_sha256": "ef543807a3cd87d3077fa7a48e7f92dd896033e99f0e86ec03f05e18bb602e13"
+    },
+    "nq": {
+      "sample_ids": [
+        "-2282501421613384225",
+        "-24536083689082297",
+        "-2495593332815009891",
+        "-2905696611778901658",
+        "-5471777320348063942",
+        "-5559132601887673008",
+        "2393389448844632496",
+        "6112920825267803506",
+        "7013168592046328137",
+        "7446684003786592114",
+        "970104939222709777",
+        "4534870872535404381",
+        "5259818422556035007",
+        "2326758035558088175"
+      ],
+      "groups": {
+        "include_e_core": 9,
+        "correct_control": 5
+      },
+      "frozen_metric_baseline": {
+        "samples": 14,
+        "initial_correct": 2,
+        "initial_wrong": 12
+      },
+      "human_vs_frozen_metric_disagreement_ids": [
+        "-5471777320348063942",
+        "4534870872535404381",
+        "2326758035558088175"
+      ],
+      "previous_dev50_count": 4,
+      "reserved_overlap": 0,
+      "source_sha256": "4528f9869e865c0ed9d55a2000d257052e481b2a7a534ee6d673c74e48227398",
+      "input_sha256": "dfefadbf3177faa9ab8fe53c8d01586fd344751d5a7f462c7b48d0821b579c85"
+    }
+  },
+  "real_gpu_experiment_completed": false
+}

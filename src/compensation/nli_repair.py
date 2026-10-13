@@ -2,18 +2,26 @@
 
 This changes the model budget and is not an equal-Qwen-budget comparison.
 Threshold is fixed before this experiment; no FEVER labels enter inference.
+
+Two decision rules share the same classifier scores:
+- fever_nli (v6): any window may decide the label.
+- fever_nli_anchored (v7): only windows that mention the claim's anchors
+  (src.compensation.anchors) may decide; the rest are logged and ignored.
+The v6 rule is kept byte-for-byte so archived v6r1 results replay unchanged.
 """
 from __future__ import annotations
 
 import math
 import time
 
+from src.compensation.anchors import ANCHOR_VERSION, FEVER_POLICY, fever_window_anchored
 from src.compensation.answer_repair import Citation, RepairResult
 from src.diagnosis import DatasetName, DiagnosisInput
 
 NLI_MODEL = "microsoft/deberta-large-mnli"
 NLI_REVISION = "7296194b9009373def4f7c5dad292651e4b5cf4e"
 NLI_VERSION = "v6_mnli_windows_threshold_090"
+NLI_ANCHORED_VERSION = "v7_mnli_windows_threshold_090_subject_anchor"
 NLI_THRESHOLD = 0.90
 NLI_OVERLAP = 64
 NLI_BATCH_SIZE = 4
@@ -102,8 +110,7 @@ class MNLIVerifier:
                 "input_tokens": sum(w["input_tokens"] for w in windows)}
 
 
-def repair_from_nli_trace(request: DiagnosisInput, trace: dict) -> RepairResult:
-    """Deterministic decision/replay; never equate a classifier score with truth."""
+def _validate_trace(request: DiagnosisInput, trace: dict) -> None:
     if request.dataset != DatasetName.FEVER:
         raise ValueError("fever_nli supports FEVER only")
     if (trace["model_name"] != NLI_MODEL or trace["model_revision"] != NLI_REVISION
@@ -127,14 +134,18 @@ def repair_from_nli_trace(request: DiagnosisInput, trace: dict) -> RepairResult:
                                        or not 0 <= p <= 1 for p in probs.values())
                 or not math.isclose(sum(probs.values()), 1.0, abs_tol=1e-5)):
             raise ValueError("Invalid NLI probabilities")
-    supported = [w for w in trace["windows"] if w["probabilities"]["ENTAILMENT"] >= NLI_THRESHOLD]
-    refuted = [w for w in trace["windows"] if w["probabilities"]["CONTRADICTION"] >= NLI_THRESHOLD]
+
+
+def _decide(request: DiagnosisInput, trace: dict, eligible: list[dict], status: str, **extra) -> RepairResult:
+    supported = [w for w in eligible if w["probabilities"]["ENTAILMENT"] >= NLI_THRESHOLD]
+    refuted = [w for w in eligible if w["probabilities"]["CONTRADICTION"] >= NLI_THRESHOLD]
     common = dict(verifier_calls=trace["calls"], verifier_latency=trace["latency"],
-                  verifier_input_tokens=trace["input_tokens"], verifier_trace=trace)
+                  verifier_input_tokens=trace["input_tokens"], verifier_trace=trace,
+                  independent_support_status=status, **extra)
     if bool(supported) == bool(refuted):
         state = "conflict" if supported else "uncertain"
         return RepairResult(request.initial_answer, request.initial_answer, "nli_" + state,
-                            independent_support_status="nli_" + state, **common)
+                            **{**common, "independent_support_status": "nli_" + state})
     label, dimension, candidates = (("SUPPORTS", "ENTAILMENT", supported) if supported else
                                      ("REFUTES", "CONTRADICTION", refuted))
     best = max(candidates, key=lambda w: w["probabilities"][dimension])
@@ -142,10 +153,48 @@ def repair_from_nli_trace(request: DiagnosisInput, trace: dict) -> RepairResult:
     return RepairResult(request.initial_answer, request.initial_answer if kept else label,
                         "kept" if kept else "repaired", verdict="keep" if kept else "repair",
                         citations=[Citation(best["rank"], best["passage_id"], best["quote"])],
-                        independent_support_status="nli_" + dimension.lower(), **common)
+                        **{**common, "independent_support_status": "nli_" + dimension.lower()})
+
+
+def repair_from_nli_trace(request: DiagnosisInput, trace: dict) -> RepairResult:
+    """v6 deterministic decision/replay; never equate a classifier score with truth."""
+    _validate_trace(request, trace)
+    return _decide(request, trace, trace["windows"], "not_checked")
+
+
+def anchor_filter_report(request: DiagnosisInput, windows: list[dict]) -> dict:
+    """Per-window anchor coverage; windows failing the guard cannot decide the label."""
+    reports = []
+    for index, w in enumerate(windows):
+        report = fever_window_anchored(request.query, w["quote"])
+        reports.append({"window": index, "rank": w["rank"], "passage_id": w["passage_id"],
+                        "coverage": report["coverage"], "present": report["present"],
+                        "missing": report["missing"], "subject_missing": report["subject_missing"],
+                        "anchored": report["anchored"]})
+    empty = fever_window_anchored(request.query, "")
+    return {"version": ANCHOR_VERSION, "policy": FEVER_POLICY,
+            "anchors": empty["anchors"], "subject": empty["subject"],
+            "windows": reports,
+            "excluded_decisive_windows": [r["window"] for r, w in zip(reports, windows)
+                                          if not r["anchored"] and max(w["probabilities"]["ENTAILMENT"],
+                                                                      w["probabilities"]["CONTRADICTION"]) >= NLI_THRESHOLD]}
+
+
+def repair_from_nli_trace_anchored(request: DiagnosisInput, trace: dict) -> RepairResult:
+    """v7: same scores, but only anchored windows may support or refute."""
+    _validate_trace(request, trace)
+    report = anchor_filter_report(request, trace["windows"])
+    eligible = [w for w, r in zip(trace["windows"], report["windows"]) if r["anchored"]]
+    return _decide(request, trace, eligible, "not_checked", anchor_filter=report)
 
 
 def repair_fever(request: DiagnosisInput, verifier) -> RepairResult:
     if request.dataset != DatasetName.FEVER:
         raise ValueError("fever_nli supports FEVER only")
     return repair_from_nli_trace(request, verifier.score(request))
+
+
+def repair_fever_anchored(request: DiagnosisInput, verifier) -> RepairResult:
+    if request.dataset != DatasetName.FEVER:
+        raise ValueError("fever_nli_anchored supports FEVER only")
+    return repair_from_nli_trace_anchored(request, verifier.score(request))

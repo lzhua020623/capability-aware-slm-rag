@@ -27,9 +27,12 @@ from src.compensation.answer_repair import (
     build_repair_prompt, repair_answer,
     QUERY_GROUNDED_PROMPT_VERSION, GUARDED_REANSWER_PROMPT_VERSION,
     SUPPORT_CHECK_MAX_NEW_TOKENS, build_query_grounded_prompt,
+    LINE_OUTPUT_STRATEGIES, NLI_STRATEGIES, STRATEGIES,
 )
+from src.compensation.anchors import ANCHOR_VERSION, FEVER_POLICY, NQ_MIN_COVERAGE
 from src.compensation.extractive_repair import EXTRACTIVE_PROMPT_VERSION, build_extractive_prompt
-from src.compensation.nli_repair import NLI_MODEL, NLI_REVISION, NLI_VERSION, NLI_THRESHOLD
+from src.compensation.nli_repair import NLI_ANCHORED_VERSION, NLI_MODEL, NLI_REVISION, NLI_VERSION, NLI_THRESHOLD
+from src.compensation.short_answer_repair import SHORT_ANSWER_PROMPT_VERSION, build_short_answer_prompt
 from src.diagnosis import DatasetName, DiagnosisInput, DiagnosisLabel, DiagnosisOutput, EvidenceItem
 from src.evaluation.answer_repair import score_answer, summarize_repairs
 from src.compensation.controller_adapter import controller_route_status
@@ -144,6 +147,7 @@ def run_fingerprint(source: bytes, diagnosis_source: bytes, settings: dict) -> s
         "src/compensation/controller_adapter.py",
         "src/compensation/support_check.py",
         "src/compensation/extractive_repair.py", "src/compensation/nli_repair.py",
+        "src/compensation/anchors.py", "src/compensation/short_answer_repair.py",
     ):
         h.update(path.encode())
         h.update((ROOT / path).read_bytes())
@@ -185,11 +189,13 @@ def read_existing(path: Path, prepared: list[tuple[dict, DiagnosisInput]], finge
             raise ValueError("Invalid saved cost record")
         if (row.get("support_check") is not None) != (row["extra_calls"] == 2):
             raise ValueError("Saved support check and call count disagree")
-        if row.get("settings", {}).get("strategy") == "fever_nli":
+        strategy = row.get("settings", {}).get("strategy")
+        if strategy in NLI_STRATEGIES:
             trace = row.get("verifier_trace")
             if trace is not None:
-                from src.compensation.nli_repair import repair_from_nli_trace
-                expected = asdict(repair_from_nli_trace(request, trace))
+                from src.compensation.nli_repair import repair_from_nli_trace, repair_from_nli_trace_anchored
+                decide = repair_from_nli_trace if strategy == "fever_nli" else repair_from_nli_trace_anchored
+                expected = asdict(decide(request, trace))
                 if any(row.get(k) != v for k, v in expected.items()):
                     raise ValueError("Saved NLI decision/trace/cost mismatch")
             elif row.get("verifier_calls", 0) != 0 or not row["status"].startswith("skipped_"):
@@ -230,7 +236,7 @@ def main(argv: list[str] | None = None) -> int:
     route_args.add_argument("--all", action="store_true", help="Explicit development ablation; no diagnosis")
     route_args.add_argument("--diagnoses", type=Path, help="Legacy diagnosis-only development ablation; not final Controller routing")
     route_args.add_argument("--controller-decisions", type=Path, help="Resolved ControllerDecision.to_dict() JSONL, covering evaluated IDs")
-    parser.add_argument("--strategy", choices=("verify_repair", "grounded_reanswer", "query_grounded", "guarded_reanswer", "reanswer", "extractive_reanswer", "fever_nli"), default="verify_repair")
+    parser.add_argument("--strategy", choices=STRATEGIES, default="verify_repair")
     parser.add_argument("--max-new-tokens", type=int, default=DEFAULT_MAX_NEW_TOKENS)
     parser.add_argument("--limit", type=int, help="Evaluate a fixed prefix; use a separate output for each cohort")
     parser.add_argument("--out", type=Path)
@@ -240,9 +246,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.max_new_tokens < 1 or (args.limit is not None and args.limit < 1):
         parser.error("Token budget and limit must be positive")
     dataset = DatasetName(args.dataset)
-    is_nli = args.strategy == "fever_nli"
+    is_nli = args.strategy in NLI_STRATEGIES
     if (is_nli and dataset != DatasetName.FEVER or
-            args.strategy == "extractive_reanswer" and dataset != DatasetName.NQ):
+            args.strategy in ("extractive_reanswer", "short_answer_quote") and dataset != DatasetName.NQ):
         parser.error("The selected strategy does not support this dataset")
     if args.c1:
         raw, source_name = args.c1.read_bytes(), str(args.c1.resolve())
@@ -275,16 +281,24 @@ def main(argv: list[str] | None = None) -> int:
                            "query_grounded": QUERY_GROUNDED_PROMPT_VERSION,
                            "guarded_reanswer": GUARDED_REANSWER_PROMPT_VERSION,
                            "reanswer": "c1_reanswer", "extractive_reanswer": EXTRACTIVE_PROMPT_VERSION,
-                           "fever_nli": NLI_VERSION}[args.strategy],
+                           "fever_nli": NLI_VERSION, "short_answer_quote": SHORT_ANSWER_PROMPT_VERSION,
+                           "fever_nli_anchored": NLI_ANCHORED_VERSION}[args.strategy],
         "support_check_max_new_tokens": SUPPORT_CHECK_MAX_NEW_TOKENS if args.strategy == "guarded_reanswer" else 0,
         "max_calls_per_sample": 0 if is_nli else (2 if args.strategy == "guarded_reanswer" else 1),
         "nli_threshold": NLI_THRESHOLD if is_nli else None,
         "cost_policy": "separate_classifier_forward_batches" if is_nli else "qwen_generation_calls",
-        "json_stop": "complete_object_final_token_framing" if args.strategy not in ("reanswer", "fever_nli") else None,
-        "citation_matching": "exact_source_character_window" if is_nli else "whole_words_and_punctuation_ignore_spacing",
+        "json_stop": None if is_nli or args.strategy in LINE_OUTPUT_STRATEGIES else "complete_object_final_token_framing",
+        "citation_matching": ("exact_source_character_window" if is_nli else
+                              "whitespace_insensitive_quote_normalised_token_boundaries" if args.strategy == "short_answer_quote"
+                              else "whole_words_and_punctuation_ignore_spacing"),
         "answer_span_matching": ("canonical_source_slices" if args.strategy == "extractive_reanswer" else
+                                "whitespace_insensitive_slice_inside_quote" if args.strategy == "short_answer_quote" else
                                 None if is_nli else "whole_words_and_punctuation_ignore_spacing" if args.strategy in
                                 ("query_grounded", "guarded_reanswer") else "legacy_whitespace_casefold"),
+        "anchor_policy": ({"version": ANCHOR_VERSION, "fever": FEVER_POLICY}
+                          if args.strategy == "fever_nli_anchored" else
+                          {"version": ANCHOR_VERSION, "nq_min_coverage_inclusive": NQ_MIN_COVERAGE}
+                          if args.strategy == "short_answer_quote" else None),
         "sample_count": len(prepared),
         "sample_ids_sha256": hashlib.sha256(json.dumps([r.sample_id for _, r in prepared]).encode()).hexdigest(),
         "source_sha256": hashlib.sha256(raw).hexdigest(),
@@ -311,9 +325,10 @@ def main(argv: list[str] | None = None) -> int:
     print(json.dumps(plan, ensure_ascii=False, indent=2))
     if args.check_only or args.dry_run:
         if args.dry_run:
-            build = {"extractive_reanswer": build_extractive_prompt, "fever_nli": None, "verify_repair": build_repair_prompt, "grounded_reanswer": build_grounded_reanswer_prompt,
+            build = {"extractive_reanswer": build_extractive_prompt, "fever_nli": None, "fever_nli_anchored": None,
+                     "verify_repair": build_repair_prompt, "grounded_reanswer": build_grounded_reanswer_prompt,
                      "query_grounded": build_query_grounded_prompt, "guarded_reanswer": build_query_grounded_prompt,
-                     "reanswer": build_reanswer_prompt}[args.strategy]
+                     "reanswer": build_reanswer_prompt, "short_answer_quote": build_short_answer_prompt}[args.strategy]
             print(build(prepared[0][1]) if build else "NLI: full evidence windows as premises; unmodified claim as hypothesis.")
         return 0
     # Lock before rereading output or loading a model. One writer per file.
@@ -341,7 +356,7 @@ def main(argv: list[str] | None = None) -> int:
                         validate_runtime_environment(saved, verifier.runtime_environment)
                 elif generator is None:
                     from src.compensation.qwen_repair import QwenRepairGenerator
-                    generator = QwenRepairGenerator(json_output=args.strategy != "reanswer")
+                    generator = QwenRepairGenerator(json_output=args.strategy not in LINE_OUTPUT_STRATEGIES)
                     validate_runtime_environment(saved, getattr(generator, "runtime_environment", None))
                 result = repair_answer(request, generator, verifier=verifier, strategy=args.strategy, max_new_tokens=args.max_new_tokens)
             row = result_record(source, request, result, fingerprint, settings)

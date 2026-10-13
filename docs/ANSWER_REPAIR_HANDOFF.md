@@ -2,6 +2,8 @@
 
 E 负责 Evidence Utilisation 的 Verification / Answer Repair：接受 query、C1 Top-5 和初始答案，按 Controller 的最终 generation_repair 决策运行，返回最终答案、引用、处理状态及成本。Diagnosis/Probe/Controller 阈值仍由上游负责人维护。
 
+2026-10-14 晚更新：关键案例已完成第二次独立盲评（与辅助审核一致），确认清单见 `ANSWER_REPAIR_CONFIRMATION_20261014.md`；v7 已冻结打包但未运行，见本文末尾“v7 交接”。
+
 当前状态：工程实现、本轮计划的真实 GPU 实验、自动验收、归档和文档交接已完成。v6r1 的 128 条输出已通过冻结代码回放；可靠算法收益尚未验收，不能把整体研究验收标成完成。人工审核按用户指令暂缓，所有新输出的人工字段保持 pending/null。交付分支为 `feature/verification-answer-repair`，实现、冻结实验归档、结果和辅助审核一并纳入版本控制；最新提交以该分支的 Git 记录为准。
 
 | 内容 | 状态 | 入口或依据 |
@@ -20,6 +22,10 @@ E 负责 Evidence Utilisation 的 Verification / Answer Repair：接受 query、
 | 新输出前后答案成对人工验收 | 用户要求暂缓 | v5 112 条、v6r1 128 条待审核；新版 42 条改动优先 |
 | 9 条初始边界样本 | 用户要求暂缓 | cohort manifest 的 deferred |
 | 全框架 held-out 与三补偿操作比较 | 团队后续 | 不属于本次 E 单模块完成证明 |
+| 关键案例独立盲评二读 | 已完成，待用户确认 | `ANSWER_REPAIR_CONFIRMATION_20261014.md`；9 修复 / 3 误修两读一致 |
+| v7 策略、测试、离线回放、冻结包与 notebook | 已完成，未跑 GPU | `ANSWER_REPAIR_V7.md`；99 项测试；`artifacts/answer_repair/v7_design/`、`v7_reviewed/` |
+| E 未触碰的 held-out（FEVER 267 / NQ 146） | 已冻结在 v7 包内 | 只跑一次；无 utilisation 标注，用于误修与 EM 假退步评估 |
+| NQ 3216 池 held-out（含 120 条 utilisation） | ID 已冻结，缺 gold | `configs/splits/answer_repair_nq_heldout_3216_v1.json`；gold 需向 Diagnosis 负责人索取 |
 
 ## 运行和结果入口
 
@@ -71,3 +77,12 @@ result = generation_repair(request, decision, strategy="fever_nli",
 v5 同模型复核增加成本但没有提高冻结正确数；不能把六个 yes 当作语义支持证明。v4 在审核后的 FEVER 14 条上 4→6，NQ 的 2→4 来自已确认正确对照的措辞变化。v6r1 FEVER 审核后 4→7，但 dev50 45→44；NQ 审核后 EM 2→0、dev50 20→7。引文来源合法和 NLI 高分都不足以保证支持结论。保留全部负结果，两种新策略均未晋升默认。完整成本及案例见最新结果报告。
 
 工程与本轮开发实验已经可交接；人工复评完成后再决定下一版方案，团队的共同 held-out 与三个补偿操作整合另行验收。不会继续在这批开发材料上追调阈值来宣称 E 已有效。
+
+## v7 交接（2026-10-14 冻结，未运行）
+
+- 协议：`ANSWER_REPAIR_V7.md`。策略 `short_answer_quote`（NQ）与 `fever_nli_anchored`（FEVER），模型、量化、阈值与 v6 相同。
+- 实验包：`artifacts/answer_repair/v7_reviewed/answer_repair_v7_reviewed_gpu.tar.gz`，SHA-256 `b8f995f164783244c5c94ad591ab0f8a9a00adb1ca86a9926b83e0c2b352282f`；manifest `configs/splits/answer_repair_reviewed_v7.json`。三个批次：reviewed 28、dev50 ×2、heldout（FEVER 267、NQ 146，E 从未看过，只跑一次）。
+- Notebook：`notebooks/answer_repair_colab_v7_reviewed.ipynb`、`notebooks/answer_repair_kaggle_v7_reviewed.ipynb`。本地已在解包副本中通过 99 项测试和 6 组预检。
+- 设计阶段证据：`artifacts/answer_repair/v7_design/fever_anchored_replay.md`，用 v6r1 的窗口概率回放 v7 规则，FEVER 审核后 4→10、dev50 45→46、无误修。这是看着样本设计的规则在同批样本上的结果，不能当效果证据。
+- 运行后：`scripts/audit_answer_repair_release.py` 回放三个批次；NQ 的有/无锚点对比可由 `raw_output` 离线重算；成对语义审核沿用 v6r1 的四项与确认清单的完整性口径。
+- 未完成：NQ 3216 池 held-out 需要 gold 短答案（`scripts/build_nq_heldout_from_diagnosis_inputs.py --gold ...`），拿到后另出一包、只跑一次。

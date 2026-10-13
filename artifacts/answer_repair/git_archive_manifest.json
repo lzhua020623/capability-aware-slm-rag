@@ -749,6 +749,36 @@
       "path": "artifacts/answer_repair/v6r1_reviewed/validation.json",
       "bytes": 3017,
       "sha256": "62ae8054e4890e4f7b4b7633982286ad242cbf601eee8c7e5517d104ad121b21"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_design/fever_anchored_replay.json",
+      "bytes": 61495,
+      "sha256": "6dca1a3b19a34e152569ce9f9c1b45a824d918295d7a24326767b4dc6d07d74b"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_design/fever_anchored_replay.md",
+      "bytes": 5630,
+      "sha256": "e9537326ac44dfcf684c8e6787780b1fcc6066ded2c616865fdf6e1a9b77014e"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/answer_repair_v7_reviewed_gpu.tar.gz",
+      "bytes": 1168350,
+      "sha256": "b8f995f164783244c5c94ad591ab0f8a9a00adb1ca86a9926b83e0c2b352282f"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/preparation.json",
+      "bytes": 2129,
+      "sha256": "3d72e9f7105f1c866a14a1496e6c21a363279480dcdb70cd75faf289ff359bc0"
     }
-  ]
+  ],
+  "appended_20261014_v7": {
+    "note": "v7 design-stage additions: offline replay of v6r1 NLI traces under the subject-anchor rule, and the frozen v7 GPU bundle (not yet executed). Historical entries unchanged.",
+    "added_files": [
+      "artifacts/answer_repair/v7_design/fever_anchored_replay.json",
+      "artifacts/answer_repair/v7_design/fever_anchored_replay.md",
+      "artifacts/answer_repair/v7_reviewed/answer_repair_v7_reviewed_gpu.tar.gz",
+      "artifacts/answer_repair/v7_reviewed/preparation.json"
+    ],
+    "v7_bundle_sha256": "b8f995f164783244c5c94ad591ab0f8a9a00adb1ca86a9926b83e0c2b352282f"
+  }
 }

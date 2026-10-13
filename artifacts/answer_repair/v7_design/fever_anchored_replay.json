@@ -1,0 +1,2432 @@
+{
+  "rule": "v7_mnli_windows_threshold_090_subject_anchor",
+  "threshold": 0.9,
+  "development_evidence_only": true,
+  "bundle_sha256": "74d40b01c96245e1caf2ac8af786bf3b05394971863bddc81a75a2a2afa45ef5",
+  "cohorts": {
+    "reviewed": {
+      "samples": 14,
+      "initial_correct": 4,
+      "v6_final_correct": 7,
+      "v7_final_correct": 10,
+      "v6": {
+        "fixed": 3,
+        "regressed": 0
+      },
+      "v7": {
+        "fixed": 6,
+        "regressed": 0
+      },
+      "v6_to_v7_changed_final": 3,
+      "v7_excluded_decisive_windows": 7,
+      "v6_status_counts": {
+        "nli_uncertain": 3,
+        "nli_conflict": 4,
+        "repaired": 3,
+        "kept": 4
+      },
+      "v7_status_counts": {
+        "nli_uncertain": 4,
+        "repaired": 6,
+        "nli_conflict": 1,
+        "kept": 3
+      }
+    },
+    "dev50": {
+      "samples": 50,
+      "initial_correct": 45,
+      "v6_final_correct": 44,
+      "v7_final_correct": 46,
+      "v6": {
+        "fixed": 1,
+        "regressed": 2
+      },
+      "v7": {
+        "fixed": 1,
+        "regressed": 0
+      },
+      "v6_to_v7_changed_final": 2,
+      "v7_excluded_decisive_windows": 45,
+      "v6_status_counts": {
+        "kept": 35,
+        "nli_uncertain": 7,
+        "repaired": 3,
+        "nli_conflict": 5
+      },
+      "v7_status_counts": {
+        "kept": 30,
+        "nli_uncertain": 18,
+        "repaired": 1,
+        "nli_conflict": 1
+      }
+    }
+  },
+  "rows": [
+    {
+      "cohort": "reviewed",
+      "sample_id": "1251",
+      "claim": "Watertown, Massachusetts is in the most populous state in New England.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "REFUTES",
+      "v6_status": "nli_uncertain",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": false,
+      "v6_correct": false,
+      "v7_correct": false,
+      "v6_transition": "still_wrong",
+      "v7_transition": "still_wrong",
+      "anchors": [
+        "watertown",
+        "massachusetts",
+        "new",
+        "england"
+      ],
+      "v6_citation": [],
+      "v7_citation": [],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "reviewed",
+      "sample_id": "146639",
+      "claim": "In 2003, Eva Green debuted in film.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "REFUTES",
+      "v6_status": "nli_conflict",
+      "v7_final": "SUPPORTS",
+      "v7_status": "repaired",
+      "initial_correct": false,
+      "v6_correct": false,
+      "v7_correct": true,
+      "v6_transition": "still_wrong",
+      "v7_transition": "fixed",
+      "anchors": [
+        "2003",
+        "eva",
+        "green"
+      ],
+      "v6_citation": [],
+      "v7_citation": [
+        "Eva_Green"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 4,
+          "passage_id": "The_Big_Green",
+          "entailment": 0.0003,
+          "contradiction": 0.9972,
+          "present": [
+            "green"
+          ],
+          "missing": [
+            "2003",
+            "eva"
+          ]
+        },
+        {
+          "rank": 5,
+          "passage_id": "Adam_Green's_Aladdin",
+          "entailment": 0.0046,
+          "contradiction": 0.9449,
+          "present": [
+            "green"
+          ],
+          "missing": [
+            "2003",
+            "eva"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "reviewed",
+      "sample_id": "156493",
+      "claim": "Daggering is not a type of dance.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "repaired",
+      "v7_final": "REFUTES",
+      "v7_status": "repaired",
+      "initial_correct": false,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "fixed",
+      "v7_transition": "fixed",
+      "anchors": [
+        "daggering"
+      ],
+      "v6_citation": [
+        "Daggering"
+      ],
+      "v7_citation": [
+        "Daggering"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 4,
+          "passage_id": "Ceremonial_dance",
+          "entailment": 0.0041,
+          "contradiction": 0.9271,
+          "present": [],
+          "missing": [
+            "daggering"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "reviewed",
+      "sample_id": "161905",
+      "claim": "In 1974 Alan Shepard retired from the US Navy.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "REFUTES",
+      "v6_status": "nli_conflict",
+      "v7_final": "SUPPORTS",
+      "v7_status": "repaired",
+      "initial_correct": false,
+      "v6_correct": false,
+      "v7_correct": true,
+      "v6_transition": "still_wrong",
+      "v7_transition": "fixed",
+      "anchors": [
+        "1974",
+        "alan",
+        "shepard",
+        "navy"
+      ],
+      "v6_citation": [],
+      "v7_citation": [
+        "Alan_Shepard"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 4,
+          "passage_id": "John_P._Weinel",
+          "entailment": 0.0051,
+          "contradiction": 0.9828,
+          "present": [
+            "1974",
+            "navy"
+          ],
+          "missing": [
+            "alan",
+            "shepard"
+          ]
+        },
+        {
+          "rank": 5,
+          "passage_id": "Timothy_A._Kinnan",
+          "entailment": 0.0011,
+          "contradiction": 0.9952,
+          "present": [
+            "alan"
+          ],
+          "missing": [
+            "1974",
+            "shepard",
+            "navy"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "reviewed",
+      "sample_id": "17973",
+      "claim": "Part of Dilwale Dulhania Le Jayenge was shot in August.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "REFUTES",
+      "v6_status": "nli_uncertain",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": false,
+      "v6_correct": false,
+      "v7_correct": false,
+      "v6_transition": "still_wrong",
+      "v7_transition": "still_wrong",
+      "anchors": [
+        "dilwale",
+        "dulhania",
+        "le",
+        "jayenge",
+        "august"
+      ],
+      "v6_citation": [],
+      "v7_citation": [],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "reviewed",
+      "sample_id": "193910",
+      "claim": "Bea Arthur was born under a different name.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": false,
+      "v6_correct": false,
+      "v7_correct": false,
+      "v6_transition": "still_wrong",
+      "v7_transition": "still_wrong",
+      "anchors": [
+        "bea",
+        "arthur"
+      ],
+      "v6_citation": [
+        "Bea_Wain"
+      ],
+      "v7_citation": [],
+      "excluded_decisive_windows": [
+        {
+          "rank": 4,
+          "passage_id": "Bea_Wain",
+          "entailment": 0.0094,
+          "contradiction": 0.9787,
+          "present": [
+            "bea"
+          ],
+          "missing": [
+            "arthur"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "reviewed",
+      "sample_id": "203615",
+      "claim": "The 1974 crime film The Sugarland Express was co-written by Steven Spielberg.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "repaired",
+      "v7_final": "SUPPORTS",
+      "v7_status": "repaired",
+      "initial_correct": false,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "fixed",
+      "v7_transition": "fixed",
+      "anchors": [
+        "1974",
+        "sugarland",
+        "express",
+        "steven",
+        "spielberg"
+      ],
+      "v6_citation": [
+        "The_Sugarland_Express"
+      ],
+      "v7_citation": [
+        "The_Sugarland_Express"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "reviewed",
+      "sample_id": "34695",
+      "claim": "Johnny Van Zant still performs with Lynyrd Skynyrd.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "REFUTES",
+      "v6_status": "nli_conflict",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_conflict",
+      "initial_correct": false,
+      "v6_correct": false,
+      "v7_correct": false,
+      "v6_transition": "still_wrong",
+      "v7_transition": "still_wrong",
+      "anchors": [
+        "johnny",
+        "van",
+        "zant",
+        "lynyrd",
+        "skynyrd"
+      ],
+      "v6_citation": [],
+      "v7_citation": [],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "reviewed",
+      "sample_id": "71180",
+      "claim": "Babur was a Mughal emperor.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "REFUTES",
+      "v6_status": "nli_conflict",
+      "v7_final": "SUPPORTS",
+      "v7_status": "repaired",
+      "initial_correct": false,
+      "v6_correct": false,
+      "v7_correct": true,
+      "v6_transition": "still_wrong",
+      "v7_transition": "fixed",
+      "anchors": [
+        "babur",
+        "mughal"
+      ],
+      "v6_citation": [],
+      "v7_citation": [
+        "Mughal_Empire"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 4,
+          "passage_id": "Bidar_Bakht",
+          "entailment": 0.0082,
+          "contradiction": 0.9822,
+          "present": [
+            "mughal"
+          ],
+          "missing": [
+            "babur"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "reviewed",
+      "sample_id": "72578",
+      "claim": "The Greek language has speakers in Albania.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "repaired",
+      "v7_final": "SUPPORTS",
+      "v7_status": "repaired",
+      "initial_correct": false,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "fixed",
+      "v7_transition": "fixed",
+      "anchors": [
+        "greek",
+        "albania"
+      ],
+      "v6_citation": [
+        "Languages_of_Albania"
+      ],
+      "v7_citation": [
+        "Languages_of_Albania"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "reviewed",
+      "sample_id": "202297",
+      "claim": "The New Jersey Turnpike has shoulders.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "nli_uncertain",
+      "v7_final": "SUPPORTS",
+      "v7_status": "nli_uncertain",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "new",
+        "jersey",
+        "turnpike"
+      ],
+      "v6_citation": [],
+      "v7_citation": [],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "reviewed",
+      "sample_id": "9735",
+      "claim": "Appropriation (art) played a significant role in visual arts.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "kept",
+      "v7_final": "SUPPORTS",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "appropriation"
+      ],
+      "v6_citation": [
+        "Appropriation_-LRB-art-RRB-"
+      ],
+      "v7_citation": [
+        "Appropriation_-LRB-art-RRB-"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "reviewed",
+      "sample_id": "49650",
+      "claim": "The State of Palestine denies the Gaza Strip.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "state",
+        "palestine",
+        "gaza",
+        "strip"
+      ],
+      "v6_citation": [
+        "State_of_Palestine"
+      ],
+      "v7_citation": [
+        "State_of_Palestine"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "reviewed",
+      "sample_id": "32939",
+      "claim": "Louis Malle produced films.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "kept",
+      "v7_final": "SUPPORTS",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "louis",
+        "malle"
+      ],
+      "v6_citation": [
+        "Louis_Malle"
+      ],
+      "v7_citation": [
+        "Louis_Malle"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "40755",
+      "claim": "Touchscreens are only used in computers.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "touchscreens"
+      ],
+      "v6_citation": [
+        "Dual-touchscreen"
+      ],
+      "v7_citation": [
+        "Dual-touchscreen"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 5,
+          "passage_id": "Handheld_PC",
+          "entailment": 0.0011,
+          "contradiction": 0.9711,
+          "present": [],
+          "missing": [
+            "touchscreens"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "40221",
+      "claim": "Benzodiazepine is a genre of music.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "benzodiazepine"
+      ],
+      "v6_citation": [
+        "Psycholeptic"
+      ],
+      "v7_citation": [
+        "Psycholeptic"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "127233",
+      "claim": "Alvin and the Chipmunks is exclusively audio.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "alvin",
+        "chipmunks"
+      ],
+      "v6_citation": [
+        "Alvin_and_the_Chipmunks-COLON-_The_Squeakquel"
+      ],
+      "v7_citation": [
+        "Alvin_and_the_Chipmunks-COLON-_The_Squeakquel"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "178904",
+      "claim": "Dawood Ibrahim was born in the nineteen fifties.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "REFUTES",
+      "v6_status": "nli_uncertain",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": false,
+      "v6_correct": false,
+      "v7_correct": false,
+      "v6_transition": "still_wrong",
+      "v7_transition": "still_wrong",
+      "anchors": [
+        "dawood",
+        "ibrahim"
+      ],
+      "v6_citation": [],
+      "v7_citation": [],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "142942",
+      "claim": "Henry Cavill did not star in two Superman films.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "nli_uncertain",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "henry",
+        "cavill",
+        "superman"
+      ],
+      "v6_citation": [],
+      "v7_citation": [],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "121921",
+      "claim": "The WWE was founded after the creation of the NXT Tag Team Championship.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "wwe",
+        "nxt",
+        "tag",
+        "team",
+        "championship"
+      ],
+      "v6_citation": [
+        "WWE_Championship"
+      ],
+      "v7_citation": [
+        "WWE_Championship"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "137498",
+      "claim": "Danger UXB is from 1980.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "danger",
+        "uxb",
+        "1980"
+      ],
+      "v6_citation": [
+        "UN_-LRB-band-RRB-"
+      ],
+      "v7_citation": [],
+      "excluded_decisive_windows": [
+        {
+          "rank": 2,
+          "passage_id": "UN_-LRB-band-RRB-",
+          "entailment": 0.0009,
+          "contradiction": 0.9952,
+          "present": [],
+          "missing": [
+            "danger",
+            "uxb",
+            "1980"
+          ]
+        },
+        {
+          "rank": 3,
+          "passage_id": "Blast_-LRB-American_band-RRB-",
+          "entailment": 0.0044,
+          "contradiction": 0.9643,
+          "present": [],
+          "missing": [
+            "danger",
+            "uxb",
+            "1980"
+          ]
+        },
+        {
+          "rank": 4,
+          "passage_id": "Con_Brio,_Inc.",
+          "entailment": 0.0057,
+          "contradiction": 0.9237,
+          "present": [],
+          "missing": [
+            "danger",
+            "uxb",
+            "1980"
+          ]
+        },
+        {
+          "rank": 5,
+          "passage_id": "UXUS",
+          "entailment": 0.0006,
+          "contradiction": 0.9904,
+          "present": [],
+          "missing": [
+            "danger",
+            "uxb",
+            "1980"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "219125",
+      "claim": "Valencia has about 800,000 inhabitants in the administrative centre.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "REFUTES",
+      "v6_status": "nli_uncertain",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": false,
+      "v6_correct": false,
+      "v7_correct": false,
+      "v6_transition": "still_wrong",
+      "v7_transition": "still_wrong",
+      "anchors": [
+        "valencia",
+        "800",
+        "000"
+      ],
+      "v6_citation": [],
+      "v7_citation": [],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "159932",
+      "claim": "Christa McAuliffe taught social studies.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": false,
+      "v6_correct": false,
+      "v7_correct": false,
+      "v6_transition": "still_wrong",
+      "v7_transition": "still_wrong",
+      "anchors": [
+        "christa",
+        "mcauliffe"
+      ],
+      "v6_citation": [
+        "Mary_Mackenzie_-LRB-mezzo-soprano-RRB-"
+      ],
+      "v7_citation": [],
+      "excluded_decisive_windows": [
+        {
+          "rank": 4,
+          "passage_id": "Mary_Mackenzie_-LRB-mezzo-soprano-RRB-",
+          "entailment": 0.0038,
+          "contradiction": 0.9485,
+          "present": [],
+          "missing": [
+            "christa",
+            "mcauliffe"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "59067",
+      "claim": "Tatum O'Neal spent her whole life single.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "tatum",
+        "neal"
+      ],
+      "v6_citation": [
+        "Shaunie_O'Neal"
+      ],
+      "v7_citation": [],
+      "excluded_decisive_windows": [
+        {
+          "rank": 1,
+          "passage_id": "Singles_-LRB-1992_film-RRB-",
+          "entailment": 0.001,
+          "contradiction": 0.9318,
+          "present": [],
+          "missing": [
+            "tatum",
+            "neal"
+          ]
+        },
+        {
+          "rank": 2,
+          "passage_id": "Shaunie_O'Neal",
+          "entailment": 0.0001,
+          "contradiction": 0.9985,
+          "present": [
+            "neal"
+          ],
+          "missing": [
+            "tatum"
+          ]
+        },
+        {
+          "rank": 5,
+          "passage_id": "Beyoncé_discography",
+          "entailment": 0.0028,
+          "contradiction": 0.9118,
+          "present": [],
+          "missing": [
+            "tatum",
+            "neal"
+          ]
+        },
+        {
+          "rank": 5,
+          "passage_id": "Beyoncé_discography",
+          "entailment": 0.0004,
+          "contradiction": 0.9684,
+          "present": [],
+          "missing": [
+            "tatum",
+            "neal"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "226143",
+      "claim": "Richard Dawkins has yet to appear on the radio.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "richard",
+        "dawkins"
+      ],
+      "v6_citation": [
+        "Richard_Dawkins"
+      ],
+      "v7_citation": [
+        "Richard_Dawkins"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 3,
+          "passage_id": "Peter_Dawkins_-LRB-writer-RRB-",
+          "entailment": 0.0003,
+          "contradiction": 0.9878,
+          "present": [
+            "dawkins"
+          ],
+          "missing": [
+            "richard"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "98066",
+      "claim": "Marco Polo was a person.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "kept",
+      "v7_final": "SUPPORTS",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "marco",
+        "polo"
+      ],
+      "v6_citation": [
+        "Marco_Polo"
+      ],
+      "v7_citation": [
+        "Marco_Polo"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "68132",
+      "claim": "Jens Stoltenberg served as Prime Minister.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "kept",
+      "v7_final": "SUPPORTS",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "jens",
+        "stoltenberg",
+        "prime",
+        "minister"
+      ],
+      "v6_citation": [
+        "Stoltenberg_I_Cabinet"
+      ],
+      "v7_citation": [
+        "Stoltenberg_I_Cabinet"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "28381",
+      "claim": "Justine Bateman is a poet.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "justine",
+        "bateman"
+      ],
+      "v6_citation": [
+        "Sarah_Holland-Batt"
+      ],
+      "v7_citation": [],
+      "excluded_decisive_windows": [
+        {
+          "rank": 1,
+          "passage_id": "Sarah_Holland-Batt",
+          "entailment": 0.0013,
+          "contradiction": 0.9942,
+          "present": [],
+          "missing": [
+            "justine",
+            "bateman"
+          ]
+        },
+        {
+          "rank": 3,
+          "passage_id": "Citizen-COLON-_An_American_Lyric",
+          "entailment": 0.0158,
+          "contradiction": 0.9625,
+          "present": [],
+          "missing": [
+            "justine",
+            "bateman"
+          ]
+        },
+        {
+          "rank": 5,
+          "passage_id": "Beth_Bachmann",
+          "entailment": 0.0032,
+          "contradiction": 0.9776,
+          "present": [],
+          "missing": [
+            "justine",
+            "bateman"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "7811",
+      "claim": "Adobe Photoshop is incapable of being part of the Adobe Systems.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "adobe",
+        "photoshop",
+        "systems"
+      ],
+      "v6_citation": [
+        "Photoshop_-LRB-disambiguation-RRB-"
+      ],
+      "v7_citation": [
+        "Photoshop_-LRB-disambiguation-RRB-"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "174027",
+      "claim": "The Endless River is Pink Floyd's reunion tour.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "endless",
+        "river",
+        "pink",
+        "floyd"
+      ],
+      "v6_citation": [
+        "Pink_Floyd"
+      ],
+      "v7_citation": [
+        "Pink_Floyd"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 4,
+          "passage_id": "The_Wall_Tour_-LRB-1980–81-RRB-",
+          "entailment": 0.0007,
+          "contradiction": 0.9759,
+          "present": [
+            "pink",
+            "floyd"
+          ],
+          "missing": [
+            "endless",
+            "river"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "42213",
+      "claim": "John Deighton had no choice but to pursue other lines of work.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": false,
+      "v6_correct": false,
+      "v7_correct": false,
+      "v6_transition": "still_wrong",
+      "v7_transition": "still_wrong",
+      "anchors": [
+        "john",
+        "deighton"
+      ],
+      "v6_citation": [
+        "John_Bowdler"
+      ],
+      "v7_citation": [],
+      "excluded_decisive_windows": [
+        {
+          "rank": 2,
+          "passage_id": "John_Bowdler",
+          "entailment": 0.0018,
+          "contradiction": 0.927,
+          "present": [
+            "john"
+          ],
+          "missing": [
+            "deighton"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "140820",
+      "claim": "Men in Black II is a film from America.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "REFUTES",
+      "v6_status": "repaired",
+      "v7_final": "SUPPORTS",
+      "v7_status": "nli_uncertain",
+      "initial_correct": true,
+      "v6_correct": false,
+      "v7_correct": true,
+      "v6_transition": "regressed",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "men",
+        "black",
+        "ii",
+        "america"
+      ],
+      "v6_citation": [
+        "Black_-LRB-2015_Belgian_film-RRB-"
+      ],
+      "v7_citation": [],
+      "excluded_decisive_windows": [
+        {
+          "rank": 2,
+          "passage_id": "Black_-LRB-2015_Belgian_film-RRB-",
+          "entailment": 0.0005,
+          "contradiction": 0.9792,
+          "present": [
+            "black"
+          ],
+          "missing": [
+            "men",
+            "ii",
+            "america"
+          ]
+        },
+        {
+          "rank": 4,
+          "passage_id": "In_America_-LRB-film-RRB-",
+          "entailment": 0.0057,
+          "contradiction": 0.9592,
+          "present": [
+            "america"
+          ],
+          "missing": [
+            "men",
+            "black",
+            "ii"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "43698",
+      "claim": "Younger did not air on TV Land.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "younger",
+        "tv",
+        "land"
+      ],
+      "v6_citation": [
+        "List_of_Younger_episodes"
+      ],
+      "v7_citation": [
+        "List_of_Younger_episodes"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "217115",
+      "claim": "Innovation is often also ignored as the application of better solutions that meet existing market needs.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "nli_uncertain",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "innovation"
+      ],
+      "v6_citation": [],
+      "v7_citation": [],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "8483",
+      "claim": "The 2003 NCAA Division I Men's Basketball Tournament was single-elimination.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "kept",
+      "v7_final": "SUPPORTS",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "2003",
+        "ncaa",
+        "division",
+        "men",
+        "basketball",
+        "tournament"
+      ],
+      "v6_citation": [
+        "2003_NCAA_Division_I_Men's_Basketball_Tournament"
+      ],
+      "v7_citation": [
+        "2003_NCAA_Division_I_Men's_Basketball_Tournament"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "16161",
+      "claim": "Gin derives its main flavour from juniper berries.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "kept",
+      "v7_final": "SUPPORTS",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "gin"
+      ],
+      "v6_citation": [
+        "Gin"
+      ],
+      "v7_citation": [
+        "Gin"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "193411",
+      "claim": "The Eighth Doctor is a BBC science fiction character.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "kept",
+      "v7_final": "SUPPORTS",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "eighth",
+        "doctor",
+        "bbc"
+      ],
+      "v6_citation": [
+        "Eighth_Doctor"
+      ],
+      "v7_citation": [
+        "Eighth_Doctor"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "69422",
+      "claim": "Rick Ross founded the Maybach Music Group in 2009.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "kept",
+      "v7_final": "SUPPORTS",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "rick",
+        "ross",
+        "maybach",
+        "music",
+        "group",
+        "2009"
+      ],
+      "v6_citation": [
+        "Rick_Ross"
+      ],
+      "v7_citation": [
+        "Rick_Ross"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "42998",
+      "claim": "Richard Fortus is a Guns N' Roses member.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "nli_conflict",
+      "v7_final": "SUPPORTS",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "richard",
+        "fortus",
+        "guns",
+        "roses"
+      ],
+      "v6_citation": [],
+      "v7_citation": [
+        "Richard_Fortus"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 5,
+          "passage_id": "List_of_Guns_N'_Roses_members",
+          "entailment": 0.0034,
+          "contradiction": 0.9827,
+          "present": [
+            "guns",
+            "roses"
+          ],
+          "missing": [
+            "richard",
+            "fortus"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "137715",
+      "claim": "Winter's Tale was published in 1970.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "winter",
+        "tale",
+        "1970"
+      ],
+      "v6_citation": [
+        "Winter's_Tale_-LRB-novel-RRB-"
+      ],
+      "v7_citation": [
+        "Winter's_Tale_-LRB-novel-RRB-"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 4,
+          "passage_id": "The_Winter_King_-LRB-novel-RRB-",
+          "entailment": 0.0023,
+          "contradiction": 0.9839,
+          "present": [
+            "winter"
+          ],
+          "missing": [
+            "tale",
+            "1970"
+          ]
+        },
+        {
+          "rank": 5,
+          "passage_id": "The_Snowman",
+          "entailment": 0.0161,
+          "contradiction": 0.9112,
+          "present": [],
+          "missing": [
+            "winter",
+            "tale",
+            "1970"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "171625",
+      "claim": "Dave Gibbons was born at a Planet Fitness.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "dave",
+        "gibbons",
+        "planet",
+        "fitness"
+      ],
+      "v6_citation": [
+        "Marcus_Antebi"
+      ],
+      "v7_citation": [],
+      "excluded_decisive_windows": [
+        {
+          "rank": 1,
+          "passage_id": "World_Gym",
+          "entailment": 0.0007,
+          "contradiction": 0.9487,
+          "present": [
+            "dave",
+            "fitness"
+          ],
+          "missing": [
+            "gibbons",
+            "planet"
+          ]
+        },
+        {
+          "rank": 2,
+          "passage_id": "Dave_Palumbo",
+          "entailment": 0.0008,
+          "contradiction": 0.9924,
+          "present": [
+            "dave",
+            "fitness"
+          ],
+          "missing": [
+            "gibbons",
+            "planet"
+          ]
+        },
+        {
+          "rank": 3,
+          "passage_id": "Mark_Holyoake",
+          "entailment": 0.0002,
+          "contradiction": 0.9951,
+          "present": [
+            "fitness"
+          ],
+          "missing": [
+            "dave",
+            "gibbons",
+            "planet"
+          ]
+        },
+        {
+          "rank": 4,
+          "passage_id": "Marcus_Antebi",
+          "entailment": 0.0005,
+          "contradiction": 0.9955,
+          "present": [],
+          "missing": [
+            "dave",
+            "gibbons",
+            "planet",
+            "fitness"
+          ]
+        },
+        {
+          "rank": 5,
+          "passage_id": "Dave_Schultz_-LRB-wrestling-RRB-",
+          "entailment": 0.0012,
+          "contradiction": 0.9824,
+          "present": [
+            "dave"
+          ],
+          "missing": [
+            "gibbons",
+            "planet",
+            "fitness"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "174599",
+      "claim": "Artpop had first-week sales of about 258,000 copies in 1999.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "nli_uncertain",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "artpop",
+        "258",
+        "000",
+        "1999"
+      ],
+      "v6_citation": [],
+      "v7_citation": [],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "32338",
+      "claim": "Dissociative identity disorder is known as dementia.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "dissociative"
+      ],
+      "v6_citation": [
+        "Dissociative_disorder"
+      ],
+      "v7_citation": [
+        "Dissociative_disorder"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "3668",
+      "claim": "Andrew Moray refused to cede the territory he gained to John Balliol.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "nli_uncertain",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "andrew",
+        "moray",
+        "john",
+        "balliol"
+      ],
+      "v6_citation": [],
+      "v7_citation": [],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "227357",
+      "claim": "Giada at Home aired on a TV channel.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "kept",
+      "v7_final": "SUPPORTS",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "giada",
+        "home",
+        "tv"
+      ],
+      "v6_citation": [
+        "Giada_De_Laurentiis"
+      ],
+      "v7_citation": [
+        "Giada_De_Laurentiis"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "203615",
+      "claim": "The 1974 crime film The Sugarland Express was co-written by Steven Spielberg.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "repaired",
+      "v7_final": "SUPPORTS",
+      "v7_status": "repaired",
+      "initial_correct": false,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "fixed",
+      "v7_transition": "fixed",
+      "anchors": [
+        "1974",
+        "sugarland",
+        "express",
+        "steven",
+        "spielberg"
+      ],
+      "v6_citation": [
+        "The_Sugarland_Express"
+      ],
+      "v7_citation": [
+        "The_Sugarland_Express"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "98655",
+      "claim": "Faye Resnick is a person.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "nli_conflict",
+      "v7_final": "SUPPORTS",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "faye",
+        "resnick"
+      ],
+      "v6_citation": [],
+      "v7_citation": [
+        "Faye_Resnick"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 2,
+          "passage_id": "Faye_Grant",
+          "entailment": 0.0185,
+          "contradiction": 0.9755,
+          "present": [
+            "faye"
+          ],
+          "missing": [
+            "resnick"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "181638",
+      "claim": "Mogadishu is only a business.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "mogadishu"
+      ],
+      "v6_citation": [
+        "Port_of_Mogadishu"
+      ],
+      "v7_citation": [
+        "Port_of_Mogadishu"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "222031",
+      "claim": "Stuart Rosenberg refused to direct Brubaker.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "stuart",
+        "rosenberg",
+        "brubaker"
+      ],
+      "v6_citation": [
+        "Brubaker"
+      ],
+      "v7_citation": [
+        "Brubaker"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 3,
+          "passage_id": "Betrayed_-LRB-1988_film-RRB-",
+          "entailment": 0.0004,
+          "contradiction": 0.9948,
+          "present": [],
+          "missing": [
+            "stuart",
+            "rosenberg",
+            "brubaker"
+          ]
+        },
+        {
+          "rank": 4,
+          "passage_id": "The_Black_Gestapo",
+          "entailment": 0.0018,
+          "contradiction": 0.9727,
+          "present": [],
+          "missing": [
+            "stuart",
+            "rosenberg",
+            "brubaker"
+          ]
+        },
+        {
+          "rank": 5,
+          "passage_id": "Scott_Rosenberg",
+          "entailment": 0.0021,
+          "contradiction": 0.9822,
+          "present": [
+            "rosenberg"
+          ],
+          "missing": [
+            "stuart",
+            "brubaker"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "151128",
+      "claim": "Quay premiered in 2017.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "nli_uncertain",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "quay",
+        "2017"
+      ],
+      "v6_citation": [],
+      "v7_citation": [],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "122252",
+      "claim": "The Mirny (sloop-of-war) was in expedition.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "nli_conflict",
+      "v7_final": "SUPPORTS",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "mirny"
+      ],
+      "v6_citation": [],
+      "v7_citation": [
+        "Mirny_-LRB-sloop-of-war-RRB-"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 2,
+          "passage_id": "Conflict-class_sloop",
+          "entailment": 0.0211,
+          "contradiction": 0.936,
+          "present": [],
+          "missing": [
+            "mirny"
+          ]
+        },
+        {
+          "rank": 3,
+          "passage_id": "HMS_Royal_George_-LRB-1809-RRB-",
+          "entailment": 0.0343,
+          "contradiction": 0.9158,
+          "present": [],
+          "missing": [
+            "mirny"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "108201",
+      "claim": "Kate Walsh was on a tour of duty in 1947.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "kate",
+        "walsh",
+        "1947"
+      ],
+      "v6_citation": [
+        "Judy_Walsh"
+      ],
+      "v7_citation": [],
+      "excluded_decisive_windows": [
+        {
+          "rank": 2,
+          "passage_id": "Judy_Walsh",
+          "entailment": 0.0028,
+          "contradiction": 0.9867,
+          "present": [
+            "walsh"
+          ],
+          "missing": [
+            "kate",
+            "1947"
+          ]
+        },
+        {
+          "rank": 4,
+          "passage_id": "Monica_Milne",
+          "entailment": 0.0011,
+          "contradiction": 0.9718,
+          "present": [],
+          "missing": [
+            "kate",
+            "walsh",
+            "1947"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "222650",
+      "claim": "A United Kingdom was directed by Amma Asante.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "nli_conflict",
+      "v7_final": "SUPPORTS",
+      "v7_status": "nli_conflict",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "united",
+        "kingdom",
+        "amma",
+        "asante"
+      ],
+      "v6_citation": [],
+      "v7_citation": [],
+      "excluded_decisive_windows": [
+        {
+          "rank": 3,
+          "passage_id": "This_Is_England",
+          "entailment": 0.0006,
+          "contradiction": 0.9915,
+          "present": [],
+          "missing": [
+            "united",
+            "kingdom",
+            "amma",
+            "asante"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "35822",
+      "claim": "The Icelandic Coast Guard is responsible for Iceland's maritime search and destroy.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "icelandic",
+        "coast",
+        "guard",
+        "iceland"
+      ],
+      "v6_citation": [
+        "Greenland_Patrol"
+      ],
+      "v7_citation": [],
+      "excluded_decisive_windows": [
+        {
+          "rank": 4,
+          "passage_id": "Greenland_Patrol",
+          "entailment": 0.0009,
+          "contradiction": 0.969,
+          "present": [
+            "coast",
+            "guard"
+          ],
+          "missing": [
+            "icelandic",
+            "iceland"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "219030",
+      "claim": "Savages was exclusively a German film.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "savages",
+        "german"
+      ],
+      "v6_citation": [
+        "The_Savage_Innocents"
+      ],
+      "v7_citation": [
+        "The_Savage_Innocents"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "33498",
+      "claim": "Ares is not a God.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "ares",
+        "god"
+      ],
+      "v6_citation": [
+        "Ares_-LRB-disambiguation-RRB-"
+      ],
+      "v7_citation": [
+        "Ares_-LRB-disambiguation-RRB-"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "222662",
+      "claim": "A United Kingdom is a biographical romantic drama play.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "nli_uncertain",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "united",
+        "kingdom"
+      ],
+      "v6_citation": [
+        "Great_Britain_-LRB-play-RRB-"
+      ],
+      "v7_citation": [],
+      "excluded_decisive_windows": [
+        {
+          "rank": 2,
+          "passage_id": "Great_Britain_-LRB-play-RRB-",
+          "entailment": 0.0004,
+          "contradiction": 0.9975,
+          "present": [],
+          "missing": [
+            "united",
+            "kingdom"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "33982",
+      "claim": "Henry Cavill starred in two Superman films.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "REFUTES",
+      "v6_status": "repaired",
+      "v7_final": "SUPPORTS",
+      "v7_status": "nli_uncertain",
+      "initial_correct": true,
+      "v6_correct": false,
+      "v7_correct": true,
+      "v6_transition": "regressed",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "henry",
+        "cavill",
+        "superman"
+      ],
+      "v6_citation": [
+        "Henry's_Crime"
+      ],
+      "v7_citation": [],
+      "excluded_decisive_windows": [
+        {
+          "rank": 5,
+          "passage_id": "Henry's_Crime",
+          "entailment": 0.0071,
+          "contradiction": 0.9253,
+          "present": [
+            "henry"
+          ],
+          "missing": [
+            "cavill",
+            "superman"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "119422",
+      "claim": "The Punisher is exclusively a comic book.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "punisher"
+      ],
+      "v6_citation": [
+        "Punisher"
+      ],
+      "v7_citation": [
+        "Punisher"
+      ],
+      "excluded_decisive_windows": []
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "211290",
+      "claim": "The Closer was a cable comedy.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "closer"
+      ],
+      "v6_citation": [
+        "The_Closer_-LRB-1998_TV_series-RRB-"
+      ],
+      "v7_citation": [
+        "The_Closer_-LRB-1998_TV_series-RRB-"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 4,
+          "passage_id": "The_Cable_Guy",
+          "entailment": 0.0061,
+          "contradiction": 0.9685,
+          "present": [],
+          "missing": [
+            "closer"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "227361",
+      "claim": "Giada at Home aired on the Food Network beginning in 2008.",
+      "initial_answer": "SUPPORTS",
+      "frozen_reference": "SUPPORTS",
+      "v6_final": "SUPPORTS",
+      "v6_status": "nli_conflict",
+      "v7_final": "SUPPORTS",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "giada",
+        "home",
+        "food",
+        "network",
+        "2008"
+      ],
+      "v6_citation": [],
+      "v7_citation": [
+        "Giada_at_Home"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 5,
+          "passage_id": "Guerrilla_Gourmet",
+          "entailment": 0.0056,
+          "contradiction": 0.9181,
+          "present": [
+            "food",
+            "2008"
+          ],
+          "missing": [
+            "giada",
+            "home",
+            "network"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "101839",
+      "claim": "The Mighty Ducks was only produced by a Canadian film producer.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "mighty",
+        "ducks",
+        "canadian"
+      ],
+      "v6_citation": [
+        "D3-COLON-_The_Mighty_Ducks"
+      ],
+      "v7_citation": [
+        "D3-COLON-_The_Mighty_Ducks"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 5,
+          "passage_id": "Duck_Studios",
+          "entailment": 0.0003,
+          "contradiction": 0.9823,
+          "present": [
+            "ducks"
+          ],
+          "missing": [
+            "mighty",
+            "canadian"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "70359",
+      "claim": "Guns N' Roses started in 1995.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "guns",
+        "roses",
+        "1995"
+      ],
+      "v6_citation": [
+        "Guns_N'_Roses_discography"
+      ],
+      "v7_citation": [
+        "Guns_N'_Roses_discography"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 5,
+          "passage_id": "List_of_Guns_N'_Roses_members",
+          "entailment": 0.0018,
+          "contradiction": 0.9895,
+          "present": [
+            "roses"
+          ],
+          "missing": [
+            "guns",
+            "1995"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "dev50",
+      "sample_id": "222026",
+      "claim": "Brubaker is a solely Australian film.",
+      "initial_answer": "REFUTES",
+      "frozen_reference": "REFUTES",
+      "v6_final": "REFUTES",
+      "v6_status": "kept",
+      "v7_final": "REFUTES",
+      "v7_status": "kept",
+      "initial_correct": true,
+      "v6_correct": true,
+      "v7_correct": true,
+      "v6_transition": "correct_preserved",
+      "v7_transition": "correct_preserved",
+      "anchors": [
+        "brubaker",
+        "australian"
+      ],
+      "v6_citation": [
+        "Brubaker"
+      ],
+      "v7_citation": [
+        "Brubaker"
+      ],
+      "excluded_decisive_windows": [
+        {
+          "rank": 1,
+          "passage_id": "Australia_-LRB-2008_film-RRB-",
+          "entailment": 0.0004,
+          "contradiction": 0.9944,
+          "present": [
+            "australian"
+          ],
+          "missing": [
+            "brubaker"
+          ]
+        },
+        {
+          "rank": 4,
+          "passage_id": "Mortdecai_-LRB-film-RRB-",
+          "entailment": 0.0004,
+          "contradiction": 0.9976,
+          "present": [],
+          "missing": [
+            "brubaker",
+            "australian"
+          ]
+        },
+        {
+          "rank": 5,
+          "passage_id": "Ned_Kelly_-LRB-2003_film-RRB-",
+          "entailment": 0.0005,
+          "contradiction": 0.9934,
+          "present": [
+            "australian"
+          ],
+          "missing": [
+            "brubaker"
+          ]
+        }
+      ]
+    }
+  ]
+}

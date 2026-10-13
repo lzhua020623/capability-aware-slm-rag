@@ -1,5 +1,7 @@
 # 项目进度与研究方向
 
+> 2026-10-14 晚 E 更新：128 条辅助审核的 28 个关键案例由独立盲评二读，9 个修复、3 个误修完全一致，7 个未决项给出默认建议，确认清单在 [ANSWER_REPAIR_CONFIRMATION_20261014.md](ANSWER_REPAIR_CONFIRMATION_20261014.md)。v7 已冻结打包未运行（[ANSWER_REPAIR_V7.md](ANSWER_REPAIR_V7.md)）：NQ 短答案与引文分离，FEVER 只允许含声明主体的窗口投票；用 v6r1 轨迹离线回放，FEVER 审核后 4→10、dev50 45→46、无误修（设计阶段证据）。E 未触碰的共享训练样本已全部冻结为 held-out（FEVER 267、NQ 146），但其中没有 utilisation 标注；含 120 条 utilisation 的 NQ 3216 池 held-out 已冻结 ID，等 Diagnosis 负责人提供 gold。另注意：冻结 Controller 在 PRIMARY test 上从不把 FEVER 路由到 generation_repair，所以 E 的 FEVER 结果只用于 Always-Verify 基线和失败类型 × 操作矩阵，不进入自适应系统的 FEVER 路径。
+
 > 2026-10-14 E 本地更新：37 条聊天辅助初始样本审核已确认，纳入 19 条 utilisation 核心候选 + 9 条正确对照，9 条暂缓。v5 的 112 条真实 T4 输出已归档并回放；同模型复核没有改善结果。v6r1 在 Kaggle 完成 128 条真实预测（123 个唯一 ID）、81 项云端检查及全部冻结代码回放，GPU 会话已释放。FEVER 审核后 4→7，但 dev50 45→44；NQ dev50 EM 20→7，包含长答案与无关片段问题。两种新策略均未晋升默认。工程和本轮开发实验已交接，人工正确性/支持性与团队 held-out 验收仍待完成；新版 42 条改动已优先排序。本次未重新同步远端。见 [当前交接](ANSWER_REPAIR_HANDOFF.md) 和 [最新结果](ANSWER_REPAIR_RESULTS_20261014.md)。
 
 > 2026-10-13 更新：已重新 fetch 所有远端分支。Diagnosis / Probe / Controller 有冻结交接；新增 `reranking` 分支有检索侧评估；E 已完成真实 T4 开发对照及冻结 Controller→E 整合。E 工程可运行，但可靠算法收益尚未通过验收，见 [实测报告](ANSWER_REPAIR_RESULTS_20261013.md)。本地仍没有 CUDA。

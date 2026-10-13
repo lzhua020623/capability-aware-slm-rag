@@ -4,6 +4,8 @@ E 对应 Evidence Utilisation：模型已经看到可用证据，初始回答却
 
 当前是可执行的研究原型，工程、本轮开发实验及自动验收已完成。v4–v6r1 真实 T4 输出均已归档；v5 同模型二次复核无冻结指标增益。v6r1 的 NQ 单次原文抽取和 FEVER 独立 MNLI 完成 128 条真实预测、81 项云端检查及全部冻结代码回放。FEVER 审核后 4→7，但 dev50 45→44；NQ dev50 EM 20→7，可靠净收益仍未验收。两种新策略未晋升默认，人工正确性/支持性审核按用户要求暂缓。当前交付与剩余项见 [交接清单](ANSWER_REPAIR_HANDOFF.md)，实验结论见 [10 月 14 日报告](ANSWER_REPAIR_RESULTS_20261014.md)。
 
+2026-10-14 晚：128 条辅助审核的 28 个关键案例经独立盲评二读，9 个修复、3 个误修两读一致，待你按 [确认清单](ANSWER_REPAIR_CONFIRMATION_20261014.md) 逐号确认。下一版 [v7](ANSWER_REPAIR_V7.md) 已冻结并打包：`short_answer_quote`（NQ 短答案 + 引文分离、空白/引号归一化定位、内容词锚点）与 `fever_nli_anchored`（只允许含声明主体实体的窗口投票）。v6r1 轨迹的离线回放显示 FEVER 审核后 4→10、dev50 45→46 且无误修，但规则是看着这些样本设计的，效果以 held-out 为准。
+
 2026-10-14 已完成 [37 条训练内样本的聊天辅助审核](ANSWER_REPAIR_REVIEW_20261013.md)：确认 19 条 utilisation 核心候选、9 条正确对照、9 条暂缓。源标签未改写。基于前两组准备 [v5 的固定 28 条开发实验](ANSWER_REPAIR_V5.md)，新增完整答题 prompt 与可选同模型第二次语义复核；CPU 检查通过，尚未完成真实 GPU 验证。下文的单次调用约束描述 v4 基线；v5 复核策略最多两次调用，成本单独记录。
 
 以下保留版本历史：v1 的 FEVER 10 条真实 smoke 出现 8 条 `invalid_output`、2 条 `insufficient_evidence`，正确数仍为 7/10，无答案变化，随后停止扩大该版本。
