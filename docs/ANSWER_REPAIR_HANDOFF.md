@@ -19,10 +19,10 @@ E 负责 Evidence Utilisation 的 Verification / Answer Repair：接受 query、
 | 真实 tokenizer 分窗完整性 | 64 输入通过 | 365 窗口，未执行模型推断 |
 | v5 原始输出和冻结代码 CPU 回放 | 112 条通过 | `v5_reviewed/release_audit/cpu_replay.json` |
 | v6r1 28 条 + 原 dev100 GPU 实验 | 已完成、128 条回放通过 | 123 个唯一 ID；两批分别报告 |
-| 新输出前后答案成对人工验收 | 用户要求暂缓 | v5 112 条、v6r1 128 条待审核；新版 42 条改动优先 |
+| 新输出前后答案成对人工验收 | 部分完成 | v6r1 关键 28 案例（含重复共 30 条记录）已确认；其余 98 条记录与 v5 112 条待审核 |
 | 9 条初始边界样本 | 用户要求暂缓 | cohort manifest 的 deferred |
 | 全框架 held-out 与三补偿操作比较 | 团队后续 | 不属于本次 E 单模块完成证明 |
-| 关键案例独立盲评二读 | 已完成，待用户确认 | `ANSWER_REPAIR_CONFIRMATION_20261014.md`；9 修复 / 3 误修两读一致 |
+| 关键案例独立盲评二读与用户确认 | 已完成 | `ANSWER_REPAIR_CONFIRMATION_20261014.md`；去重后 9 修复 / 3 误修 / 2 暂缓已人工确认（聊天摘要确认），其余 97 个唯一样本待批量确认 |
 | v7 策略、测试、离线回放、冻结包与 notebook | 已完成，未跑 GPU | `ANSWER_REPAIR_V7.md`；99 项测试；`artifacts/answer_repair/v7_design/`、`v7_reviewed/` |
 | E 未触碰的 held-out（FEVER 267 / NQ 146） | 已冻结在 v7 包内 | 只跑一次；无 utilisation 标注，用于误修与 EM 假退步评估 |
 | NQ 3216 池 held-out（含 120 条 utilisation） | 已冻结打包，未跑 GPU | gold 来自 Diagnosis 负责人工作簿；`artifacts/answer_repair/v7_heldout3216/`，只跑一次 |

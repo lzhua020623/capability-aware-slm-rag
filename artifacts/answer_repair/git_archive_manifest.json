@@ -2,7 +2,7 @@
   "date": "2026-10-14",
   "branch": "feature/verification-answer-repair",
   "purpose": "Versioned E development inputs, outputs, provenance, deferred human review and agent-assisted judgments. Historical frozen bytes remain unchanged.",
-  "human_confirmation": "All 128 new v6r1 result pairs remain pending. Agent judgments are not human gold.",
+  "human_confirmation": "28 key v6r1 cases (30 records incl. duplicates) confirmed by the user on 2026-10-14 via chat summary confirmation: 9 fixes, 3 regressions, 2 deferred after de-duplication. 98 records remain pending. Agent judgments on pending records are not human gold.",
   "dataset_scope": "Frozen development subsets only; not full FEVER/NQ datasets.",
   "excluded_generated_copies": [
     "gpu_bundle/",
@@ -789,6 +789,21 @@
       "path": "data/annotations/gold/nq_heldout_3216_v1_gold.jsonl",
       "bytes": 27208,
       "sha256": "cf4a368eed87a1983f69c673fd7aab1b811595b34bffe939515d6f6438eec396"
+    },
+    {
+      "path": "data/annotations/human/answer_repair_v6r1_confirmations_20261014.json",
+      "bytes": 1841,
+      "sha256": "5a6ac817797f75e993a6d191ba833e5cf8e24283179fe6cf55ef18315560c8a0"
+    },
+    {
+      "path": "data/annotations/human/answer_repair_v6r1_pairs_20261014.jsonl",
+      "bytes": 105137,
+      "sha256": "2f0dc68b577e426fee2d7c1396f2f89ea5d1d431fe0aba43f23c3bc61067cee3"
+    },
+    {
+      "path": "data/annotations/human/answer_repair_v6r1_pairs_20261014.summary.json",
+      "bytes": 1196,
+      "sha256": "864d42c0df76c003bcb74bee6e4174f0788d4bb535e457d1f06318730d8f91e7"
     }
   ],
   "appended_20261014_v7": {
@@ -809,6 +824,13 @@
       "artifacts/answer_repair/v7_heldout3216/preparation.json",
       "artifacts/answer_repair/v7_reviewed/inputs_extra/nq_heldout3216_c1.jsonl",
       "data/annotations/gold/nq_heldout_3216_v1_gold.jsonl"
+    ]
+  },
+  "appended_20261014_confirmations": {
+    "added_files": [
+      "data/annotations/human/answer_repair_v6r1_confirmations_20261014.json",
+      "data/annotations/human/answer_repair_v6r1_pairs_20261014.jsonl",
+      "data/annotations/human/answer_repair_v6r1_pairs_20261014.summary.json"
     ]
   }
 }

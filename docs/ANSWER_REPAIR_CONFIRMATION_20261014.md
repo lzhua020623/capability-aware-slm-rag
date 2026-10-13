@@ -1,5 +1,7 @@
 # E v6r1 关键人工确认清单（2026-10-14）
 
+> **状态：已确认（2026-10-14，用户回复“同意”）。** A、B 按两读结论确认；C 按下文建议改判（113、121 暂缓）；D 按记录方式处理。记录见 `data/annotations/human/answer_repair_v6r1_confirmations_20261014.json` 与 `answer_repair_v6r1_pairs_20261014.jsonl`；去重后语义修复 9、误修 3、暂缓 2。其余 97 个唯一样本待批量确认。
+
 给 E 负责人逐条确认用。编号沿用 `artifacts/answer_repair/v6r1_reviewed/assisted_review_20261014/assisted_review.md` 的 1–128。每条给出两份独立读法：Codex 辅助审核（2026-10-14，参考可见）和独立盲评（Claude，2026-10-14，只看问题、初始/最终答案、模型实际引用、Top-5 原文和冻结参考，**没有看 Codex 结论**）。两读都不是人工真值；确认后用 `scripts/apply_answer_repair_confirmations.py` 写入人工记录，再汇总语义修复/误修。
 
 两读在 28 个关键案例的四项布尔上有 22 条完全一致；6 条差异全部落在 Codex 标为“待定”的字段上（盲评给了明确判断），以及 #30 的“初始是否有支持”（合理拒答算不算有支持）。没有任何一条两读方向相反。

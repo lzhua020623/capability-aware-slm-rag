@@ -1,0 +1,48 @@
+{
+  "human_verified_mode": "chat_assisted_summary_confirmation",
+  "blind": false,
+  "by_run": {
+    "fever/dev50/fever_nli": {
+      "completed": 4,
+      "pending": 46,
+      "fixed": 1,
+      "regressed": 2,
+      "grounded_fixed": 1,
+      "initial_wrong": 1,
+      "initial_correct": 3
+    },
+    "nq/reviewed/extractive_reanswer": {
+      "completed": 12,
+      "pending": 2,
+      "fixed": 6,
+      "regressed": 0,
+      "grounded_fixed": 6,
+      "initial_wrong": 8,
+      "initial_correct": 4
+    },
+    "nq/dev50/extractive_reanswer": {
+      "completed": 11,
+      "pending": 39,
+      "fixed": 3,
+      "regressed": 1,
+      "grounded_fixed": 3,
+      "initial_wrong": 6,
+      "initial_correct": 5
+    },
+    "fever/reviewed/fever_nli": {
+      "completed": 3,
+      "pending": 11,
+      "fixed": 3,
+      "regressed": 0,
+      "grounded_fixed": 3,
+      "initial_wrong": 3,
+      "initial_correct": 0
+    }
+  },
+  "unique_completed": 26,
+  "unique_fixed": 9,
+  "unique_regressed": 3,
+  "unique_pending": 97,
+  "output_sha256": "2f0dc68b577e426fee2d7c1396f2f89ea5d1d431fe0aba43f23c3bc61067cee3",
+  "pairs_sha256": "a42b83e73bb186f7977f42045ac88fbe4ecb5f572e06b7a9a75352ca2e900d94"
+}
