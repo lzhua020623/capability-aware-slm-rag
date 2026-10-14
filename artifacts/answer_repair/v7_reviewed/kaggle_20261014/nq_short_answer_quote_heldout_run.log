@@ -1,0 +1,240 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "nq", "--c1", "/kaggle/working/e_reviewed_b8f995f16478/answer_repair_v7_reviewed_gpu/inputs/nq_heldout_c1.jsonl", "--all", "--strategy", "short_answer_quote", "--max-new-tokens", "384", "--out", "/kaggle/working/answer_repair_v7_reviewed_outputs/nq_short_answer_quote_heldout.jsonl"]
+{
+  "source": "/kaggle/working/e_reviewed_b8f995f16478/answer_repair_v7_reviewed_gpu/inputs/nq_heldout_c1.jsonl",
+  "dataset": "nq",
+  "strategy": "short_answer_quote",
+  "routing": "all",
+  "samples": 146,
+  "completed": 0,
+  "routed_samples": 146,
+  "remaining_call_upper_bound": 146,
+  "remaining_classifier_samples": 0,
+  "fingerprint": "c7ea465c3235c48783fe11fef60e4ca3be7189102e2ac756c9faae150b179ee8",
+  "output": "/kaggle/working/answer_repair_v7_reviewed_outputs/nq_short_answer_quote_heldout.jsonl"
+}
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<01:45,  3.21it/s]
+Loading weights:   1%|          | 2/339 [00:00<01:41,  3.33it/s]
+Loading weights:   1%|          | 4/339 [00:00<00:49,  6.81it/s]
+Loading weights:   4%|▍         | 14/339 [00:00<00:11, 28.59it/s]
+Loading weights:   6%|▌         | 19/339 [00:00<00:09, 32.68it/s]
+Loading weights:   9%|▉         | 30/339 [00:01<00:06, 48.26it/s]
+Loading weights:  12%|█▏        | 41/339 [00:01<00:04, 60.26it/s]
+Loading weights:  15%|█▌        | 52/339 [00:01<00:03, 72.57it/s]
+Loading weights:  18%|█▊        | 62/339 [00:01<00:03, 79.43it/s]
+Loading weights:  21%|██        | 71/339 [00:01<00:03, 76.05it/s]
+Loading weights:  24%|██▎       | 80/339 [00:01<00:03, 73.97it/s]
+Loading weights:  26%|██▋       | 89/339 [00:01<00:03, 78.00it/s]
+Loading weights:  29%|██▉       | 100/339 [00:01<00:02, 86.37it/s]
+Loading weights:  32%|███▏      | 109/339 [00:01<00:02, 85.65it/s]
+Loading weights:  35%|███▍      | 118/339 [00:02<00:02, 78.36it/s]
+Loading weights:  37%|███▋      | 127/339 [00:02<00:02, 75.49it/s]
+Loading weights:  40%|████      | 137/339 [00:02<00:02, 81.36it/s]
+Loading weights:  44%|████▎     | 148/339 [00:02<00:02, 88.83it/s]
+Loading weights:  47%|████▋     | 160/339 [00:02<00:02, 88.49it/s]
+Loading weights:  50%|█████     | 170/339 [00:02<00:01, 89.55it/s]
+Loading weights:  53%|█████▎    | 180/339 [00:02<00:01, 82.86it/s]
+Loading weights:  56%|█████▌    | 189/339 [00:02<00:01, 79.30it/s]
+Loading weights:  58%|█████▊    | 198/339 [00:03<00:01, 74.37it/s]
+Loading weights:  62%|██████▏   | 209/339 [00:03<00:01, 79.75it/s]
+Loading weights:  65%|██████▌   | 221/339 [00:03<00:01, 82.09it/s]
+Loading weights:  69%|██████▊   | 233/339 [00:03<00:01, 83.82it/s]
+Loading weights:  72%|███████▏  | 244/339 [00:03<00:01, 87.24it/s]
+Loading weights:  75%|███████▍  | 253/339 [00:03<00:01, 83.12it/s]
+Loading weights:  77%|███████▋  | 262/339 [00:03<00:00, 79.72it/s]
+Loading weights:  80%|███████▉  | 271/339 [00:03<00:00, 76.93it/s]
+Loading weights:  83%|████████▎ | 281/339 [00:04<00:00, 82.17it/s]
+Loading weights:  86%|████████▌ | 292/339 [00:04<00:00, 89.41it/s]
+Loading weights:  89%|████████▉ | 302/339 [00:04<00:00, 91.20it/s]
+Loading weights:  92%|█████████▏| 312/339 [00:04<00:00, 75.01it/s]
+Loading weights:  95%|█████████▍| 321/339 [00:04<00:00, 71.70it/s]
+Loading weights:  97%|█████████▋| 330/339 [00:04<00:00, 70.01it/s]
+Loading weights: 100%|██████████| 339/339 [00:04<00:00, 71.17it/s]
+[1/146] 2190194517181431024: invalid_output
+[2/146] -421424649960143649: invalid_output
+[3/146] -5550418359037039165: invalid_output
+[4/146] 2353810359858824661: invalid_output
+[5/146] -497599261993763142: invalid_output
+[6/146] 3333632246774892382: kept
+[7/146] 4111832413661656986: invalid_output
+[8/146] 7783998591337616877: invalid_output
+[9/146] 6147805135339932603: kept
+[10/146] -8377790186896289772: invalid_output
+[11/146] 1714431500025501946: invalid_output
+[12/146] -3814898166370130166: kept
+[13/146] -2531986732227033629: invalid_output
+[14/146] 6185099521013996598: invalid_output
+[15/146] -1636103814308578967: invalid_output
+[16/146] 3181001754120908131: repaired
+[17/146] -1887125945743715549: kept
+[18/146] 7735703748660141931: invalid_output
+[19/146] 1080890781259710062: invalid_output
+[20/146] 2183758121122899992: invalid_output
+[21/146] 3630714342371225513: repaired
+[22/146] 2673329117028914160: invalid_output
+[23/146] 8858875894589622078: invalid_output
+[24/146] 5751999721029016250: kept
+[25/146] -2520046502679470257: invalid_output
+[26/146] 3602256045094949542: kept
+[27/146] -1145193137828819774: repaired
+[28/146] 2162587275527723755: invalid_output
+[29/146] -8026170650461141114: kept
+[30/146] -3344403727454433038: invalid_output
+[31/146] -5789423858312767304: invalid_output
+[32/146] -5788046732019278353: repaired
+[33/146] -5248648953323441399: repaired
+[34/146] -8834996069938989383: invalid_output
+[35/146] 1724755303330589440: unanchored_candidate
+[36/146] 7639529212077881462: invalid_output
+[37/146] 5937783205336895627: kept
+[38/146] 2879480778972019439: invalid_output
+[39/146] -7088737664341110606: kept
+[40/146] 5697099865585973167: invalid_output
+[41/146] -8185754991042790824: invalid_output
+[42/146] 3229334577759874370: invalid_output
+[43/146] -9199561147097898525: kept
+[44/146] -1371280038813337042: invalid_output
+[45/146] 426530127367719144: invalid_output
+[46/146] 5487540490957673313: invalid_output
+[47/146] 3019927337208082386: invalid_output
+[48/146] 886131320590126673: kept
+[49/146] 7119887147544272496: invalid_output
+[50/146] 2142753216627246962: invalid_output
+[51/146] 6299363353334329511: invalid_output
+[52/146] -8421690753817748624: repaired
+[53/146] -227349815410103996: kept
+[54/146] 3797700825907085260: invalid_output
+[55/146] -7892904540301629325: kept
+[56/146] -3395327864419725898: invalid_output
+[57/146] 5009255319596563516: invalid_output
+[58/146] -576490417021141590: invalid_output
+[59/146] -7848107192827858958: invalid_output
+[60/146] 4103271350467608333: invalid_output
+[61/146] -3617870338472078590: invalid_output
+[62/146] 2482628942817165629: kept
+[63/146] -7524627393810362735: repaired
+[64/146] 5778837082213981907: kept
+[65/146] -6670763525071174086: invalid_output
+[66/146] -1356405650810931451: invalid_output
+[67/146] 21380148666835147: invalid_output
+[68/146] -4636354580839411970: invalid_output
+[69/146] 1742175800641553404: invalid_output
+[70/146] -1570489268362749053: kept
+[71/146] -4170119894384300076: repaired
+[72/146] -6933377434468493740: kept
+[73/146] 5848606121024203154: invalid_output
+[74/146] -7003699755554448542: invalid_output
+[75/146] 6453011233363353306: repaired
+[76/146] -7583855073136179893: repaired
+[77/146] -6741482021872247759: invalid_output
+[78/146] -7419926784062257102: invalid_output
+[79/146] -145926233057232882: invalid_output
+[80/146] -5407234157766859145: invalid_output
+[81/146] 850563670386330666: invalid_output
+[82/146] -8091827725710740081: invalid_output
+[83/146] -7778233237890403173: repaired
+[84/146] -7306805811512692008: invalid_output
+[85/146] 1595476768245534437: invalid_output
+[86/146] -3719623571078658627: repaired
+[87/146] 8986775680996674901: invalid_output
+[88/146] 5685325490242203626: invalid_output
+[89/146] 1446099047596356015: invalid_output
+[90/146] -1368633715963532113: invalid_output
+[91/146] 4395517906465074470: invalid_output
+[92/146] -3310154792386934413: invalid_output
+[93/146] 8222114783349850286: repaired
+[94/146] -1107672282215619263: invalid_output
+[95/146] -6531366728667964971: invalid_output
+[96/146] -2324904500814145665: repaired
+[97/146] 5479417599174868120: invalid_output
+[98/146] 5512430372146118253: invalid_output
+[99/146] 4835361556991861440: repaired
+[100/146] -5266947057771511513: kept
+[101/146] -19630582826733372: repaired
+[102/146] 572852451712299990: invalid_output
+[103/146] -1665528830781573810: invalid_output
+[104/146] 5315333565609466244: kept
+[105/146] -6081006991734955423: repaired
+[106/146] -5677169355193962977: invalid_output
+[107/146] 6989804983941668854: invalid_output
+[108/146] 2776741854318333179: repaired
+[109/146] 4375682753291546963: invalid_output
+[110/146] -7008368888638493698: invalid_output
+[111/146] -6123014232033685918: invalid_output
+[112/146] 6233359758440471982: invalid_output
+[113/146] 9140154657058392803: kept
+[114/146] -1342189058950802702: invalid_output
+[115/146] 8928073773307888946: kept
+[116/146] 4075061692712596480: invalid_output
+[117/146] 5560309333336506479: kept
+[118/146] 3901449849688793844: invalid_output
+[119/146] -953849400724466906: invalid_output
+[120/146] -5173210463405593309: invalid_output
+[121/146] -4234103220698127642: invalid_output
+[122/146] -5595863516648138721: invalid_output
+[123/146] 2541316470469570888: invalid_output
+[124/146] 5320268832129970522: repaired
+[125/146] -9060700279419447020: invalid_output
+[126/146] -8299469566867123031: repaired
+[127/146] 3702181325439415449: invalid_output
+[128/146] 7369861182720043754: invalid_output
+[129/146] 5458457305393794764: invalid_output
+[130/146] 2111104686354457698: invalid_output
+[131/146] -8490085242981497626: invalid_output
+[132/146] -6890646582782903047: invalid_output
+[133/146] -5410471527866417159: kept
+[134/146] 3754228815172092796: invalid_output
+[135/146] 7596628080391120719: invalid_output
+[136/146] -4481086743458136206: invalid_output
+[137/146] 221756811657202124: invalid_output
+[138/146] -7670053174241082821: invalid_output
+[139/146] -1418750656649473638: kept
+[140/146] -7478789317953347820: invalid_output
+[141/146] -4196407015282160487: invalid_output
+[142/146] -3039386069198797209: kept
+[143/146] -6649599371685719288: invalid_output
+[144/146] -6796740151009194942: unanchored_candidate
+[145/146] 1982612949029580872: invalid_output
+[146/146] -5255735265739582707: invalid_output
+{
+  "run_fingerprint": "c7ea465c3235c48783fe11fef60e4ca3be7189102e2ac756c9faae150b179ee8",
+  "routing": "all",
+  "strategy": "short_answer_quote",
+  "evaluated_samples": 146,
+  "initial_correct": 71,
+  "final_correct": 62,
+  "initial_accuracy": 0.4863013698630137,
+  "final_accuracy": 0.4246575342465753,
+  "fixed": 2,
+  "regressed": 11,
+  "net_correct_gain": -9,
+  "accuracy_gain": -0.06164383561643835,
+  "mcnemar_exact_pvalue": 0.0224609375,
+  "repair_success_rate": 0.02666666666666667,
+  "regression_rate": 0.15492957746478872,
+  "changed": 20,
+  "verifier_calls": 0,
+  "verifier_latency_total": 0.0,
+  "verifier_input_tokens_total": 0,
+  "extra_calls": 146,
+  "extra_calls_per_sample": 1.0,
+  "extra_generation_latency_total": 878.4611829849996,
+  "extra_generation_latency_per_sample": 6.016857417705476,
+  "status_counts": {
+    "invalid_output": 99,
+    "kept": 25,
+    "repaired": 20,
+    "unanchored_candidate": 2
+  },
+  "independent_support_checked": 0,
+  "same_model_support_check_counts": {},
+  "input_tokens_total": 132829,
+  "input_tokens_observed_samples": 146,
+  "input_tokens_observed_calls": 146,
+  "output_tokens_estimate_total": 9696,
+  "output_tokens_estimate_observed_samples": 146,
+  "output_tokens_estimate_observed_calls": 146,
+  "initial_f1": 0.6320257828718747,
+  "final_f1": 0.5859908392140463
+}

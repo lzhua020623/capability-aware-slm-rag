@@ -1,0 +1,115 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "fever", "--c1", "/kaggle/working/e_reviewed_b8f995f16478/answer_repair_v7_reviewed_gpu/inputs/fever_dev50_c1.jsonl", "--all", "--strategy", "fever_nli_anchored", "--max-new-tokens", "1", "--out", "/kaggle/working/answer_repair_v7_reviewed_outputs/fever_fever_nli_anchored_dev50.jsonl"]
+{
+  "source": "/kaggle/working/e_reviewed_b8f995f16478/answer_repair_v7_reviewed_gpu/inputs/fever_dev50_c1.jsonl",
+  "dataset": "fever",
+  "strategy": "fever_nli_anchored",
+  "routing": "all",
+  "samples": 50,
+  "completed": 0,
+  "routed_samples": 50,
+  "remaining_call_upper_bound": 0,
+  "remaining_classifier_samples": 50,
+  "fingerprint": "69ad3534e28612e54a33ae540c79061f4878ccf2efa3a2d4454f1cd0ccfb4a69",
+  "output": "/kaggle/working/answer_repair_v7_reviewed_outputs/fever_fever_nli_anchored_dev50.jsonl"
+}
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Loading weights:   0%|          | 0/392 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 392/392 [00:00<00:00, 12412.56it/s]
+[transformers] [1mDebertaForSequenceClassification LOAD REPORT[0m from: microsoft/deberta-large-mnli
+Key    | Status     |  | 
+-------+------------+--+-
+config | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[1/50] 40755: kept
+[2/50] 40221: kept
+[3/50] 127233: kept
+[4/50] 178904: nli_uncertain
+[5/50] 142942: nli_uncertain
+[6/50] 121921: kept
+[7/50] 137498: nli_uncertain
+[8/50] 219125: nli_uncertain
+[9/50] 159932: nli_uncertain
+[10/50] 59067: nli_uncertain
+[11/50] 226143: kept
+[12/50] 98066: kept
+[13/50] 68132: kept
+[14/50] 28381: nli_uncertain
+[15/50] 7811: kept
+[16/50] 174027: kept
+[17/50] 42213: nli_uncertain
+[18/50] 140820: nli_uncertain
+[19/50] 43698: kept
+[20/50] 217115: nli_uncertain
+[21/50] 8483: kept
+[22/50] 16161: kept
+[23/50] 193411: kept
+[24/50] 69422: kept
+[25/50] 42998: kept
+[26/50] 137715: kept
+[27/50] 171625: nli_uncertain
+[28/50] 174599: nli_uncertain
+[29/50] 32338: kept
+[30/50] 3668: nli_uncertain
+[31/50] 227357: kept
+[32/50] 203615: repaired
+[33/50] 98655: kept
+[34/50] 181638: kept
+[35/50] 222031: kept
+[36/50] 151128: nli_uncertain
+[37/50] 122252: kept
+[38/50] 108201: nli_uncertain
+[39/50] 222650: nli_conflict
+[40/50] 35822: nli_uncertain
+[41/50] 219030: kept
+[42/50] 33498: kept
+[43/50] 222662: nli_uncertain
+[44/50] 33982: nli_uncertain
+[45/50] 119422: kept
+[46/50] 211290: kept
+[47/50] 227361: kept
+[48/50] 101839: kept
+[49/50] 70359: kept
+[50/50] 222026: kept
+{
+  "run_fingerprint": "69ad3534e28612e54a33ae540c79061f4878ccf2efa3a2d4454f1cd0ccfb4a69",
+  "routing": "all",
+  "strategy": "fever_nli_anchored",
+  "evaluated_samples": 50,
+  "initial_correct": 45,
+  "final_correct": 46,
+  "initial_accuracy": 0.9,
+  "final_accuracy": 0.92,
+  "fixed": 1,
+  "regressed": 0,
+  "net_correct_gain": 1,
+  "accuracy_gain": 0.02,
+  "mcnemar_exact_pvalue": 1.0,
+  "repair_success_rate": 0.2,
+  "regression_rate": 0.0,
+  "changed": 1,
+  "verifier_calls": 101,
+  "verifier_latency_total": 30.629206876000126,
+  "verifier_input_tokens_total": 62352,
+  "extra_calls": 0,
+  "extra_calls_per_sample": 0.0,
+  "extra_generation_latency_total": 0.0,
+  "extra_generation_latency_per_sample": 0.0,
+  "status_counts": {
+    "kept": 30,
+    "nli_uncertain": 18,
+    "repaired": 1,
+    "nli_conflict": 1
+  },
+  "independent_support_checked": 50,
+  "same_model_support_check_counts": {},
+  "input_tokens_total": null,
+  "input_tokens_observed_samples": 0,
+  "input_tokens_observed_calls": 0,
+  "output_tokens_estimate_total": null,
+  "output_tokens_estimate_observed_samples": 0,
+  "output_tokens_estimate_observed_calls": 0
+}

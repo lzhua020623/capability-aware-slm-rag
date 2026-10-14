@@ -1,0 +1,397 @@
+{
+  "post_hoc_analysis_only": true,
+  "promoted": false,
+  "tolerances": [
+    "RANK may be written as [n]",
+    "QUOTE/ANSWER may be wrapped in quotation marks",
+    "ANSWER: INSUFFICIENT counts as abstention"
+  ],
+  "cohorts": {
+    "reviewed": {
+      "samples": 14,
+      "frozen_v7_status_counts": {
+        "invalid_output": 11,
+        "repaired": 2,
+        "kept": 1
+      },
+      "frozen_v7_em": {
+        "initial": 2,
+        "final": 3
+      },
+      "lenient_status_counts": {
+        "repaired": 4,
+        "invalid": 7,
+        "kept": 3
+      },
+      "lenient_remaining_rejections": {
+        "quote_not_located": 4,
+        "answer_not_in_quote": 3
+      },
+      "lenient_em": {
+        "initial": 2,
+        "final": 3,
+        "fixed": 1,
+        "regressed": 0
+      },
+      "f1": {
+        "initial": 0.292,
+        "lenient_final": 0.3675
+      },
+      "answers_newly_changed_by_lenient_parse": [
+        {
+          "sample_id": "-2282501421613384225",
+          "query": "where is the tibia and fibula bone located",
+          "initial": "on the lateral side",
+          "frozen_v7_final": "on the lateral side",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "on the lateral side of the tibia",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "7013168592046328137",
+          "query": "who did the astros play last time they were in the world series",
+          "initial": "Chicago White Sox",
+          "frozen_v7_final": "Chicago White Sox",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "the New York Yankees",
+          "em_initial": 0,
+          "em_lenient": 0
+        }
+      ]
+    },
+    "dev50": {
+      "samples": 50,
+      "frozen_v7_status_counts": {
+        "invalid_output": 32,
+        "repaired": 9,
+        "kept": 9
+      },
+      "frozen_v7_em": {
+        "initial": 20,
+        "final": 19
+      },
+      "lenient_status_counts": {
+        "insufficient": 4,
+        "repaired": 14,
+        "kept": 15,
+        "invalid": 17
+      },
+      "lenient_remaining_rejections": {
+        "answer_not_in_quote": 9,
+        "quote_too_long": 3,
+        "quote_not_located": 5
+      },
+      "lenient_em": {
+        "initial": 20,
+        "final": 20,
+        "fixed": 3,
+        "regressed": 3
+      },
+      "f1": {
+        "initial": 0.5489,
+        "lenient_final": 0.5252
+      },
+      "answers_newly_changed_by_lenient_parse": [
+        {
+          "sample_id": "-7843232313103404498",
+          "query": "what was the united states foreign policy after ww1 started",
+          "initial": "proclaimed neutrality despite president woodrow wilson's antipathies against germany",
+          "frozen_v7_final": "proclaimed neutrality despite president woodrow wilson's antipathies against germany",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "United States proclaimed a policy of neutrality",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-2282501421613384225",
+          "query": "where is the tibia and fibula bone located",
+          "initial": "on the lateral side",
+          "frozen_v7_final": "on the lateral side",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "on the lateral side of the tibia",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-1680848497536972887",
+          "query": "what is property of a system in thermodynamics",
+          "initial": "any property that describes a state of a physical system",
+          "frozen_v7_final": "any property that describes a state of a physical system",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "any property that is measurable , and whose value describes a state of a physical system",
+          "em_initial": 0,
+          "em_lenient": 1
+        },
+        {
+          "sample_id": "-4802566247754932209",
+          "query": "art of learning from text objects or speech",
+          "initial": "machine learning",
+          "frozen_v7_final": "machine learning",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "introduced the use of hidden Markov models",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-5973003791441271262",
+          "query": "where does the last name andersen originate from",
+          "initial": "Danish-Norwegian",
+          "frozen_v7_final": "Danish-Norwegian",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "son of Anders",
+          "em_initial": 0,
+          "em_lenient": 0
+        }
+      ]
+    },
+    "heldout": {
+      "samples": 146,
+      "frozen_v7_status_counts": {
+        "invalid_output": 99,
+        "kept": 25,
+        "repaired": 20,
+        "unanchored_candidate": 2
+      },
+      "frozen_v7_em": {
+        "initial": 71,
+        "final": 62
+      },
+      "lenient_status_counts": {
+        "invalid": 59,
+        "repaired": 41,
+        "kept": 38,
+        "insufficient": 4,
+        "unanchored": 4
+      },
+      "lenient_remaining_rejections": {
+        "quote_too_long": 15,
+        "quote_not_located": 22,
+        "answer_not_in_quote": 21,
+        "answer_too_long": 1
+      },
+      "lenient_em": {
+        "initial": 71,
+        "final": 58,
+        "fixed": 4,
+        "regressed": 17
+      },
+      "f1": {
+        "initial": 0.632,
+        "lenient_final": 0.559
+      },
+      "answers_newly_changed_by_lenient_parse": [
+        {
+          "sample_id": "-5550418359037039165",
+          "query": "who plays noah newman on the young and the restless",
+          "initial": "Robert Gillespie Adamson IV",
+          "frozen_v7_final": "Robert Gillespie Adamson IV",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "Adamson",
+          "em_initial": 1,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "2353810359858824661",
+          "query": "who sang the song one of these nights",
+          "initial": "Eagles",
+          "frozen_v7_final": "Eagles",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "Don Felder",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-497599261993763142",
+          "query": "the duluth model is an intervention program that emphasizes",
+          "initial": "re-education",
+          "frozen_v7_final": "re-education",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "the most common batterer intervention program",
+          "em_initial": 1,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "4111832413661656986",
+          "query": "how many customers does edf have in the uk",
+          "initial": "5.7 million",
+          "frozen_v7_final": "5.7 million",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "5.7 million customer accounts",
+          "em_initial": 0,
+          "em_lenient": 1
+        },
+        {
+          "sample_id": "2183758121122899992",
+          "query": "when was the debating club established in almora",
+          "initial": "1871",
+          "frozen_v7_final": "1871",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "1871 A.D.",
+          "em_initial": 1,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-8834996069938989383",
+          "query": "when did clifford the big red dog first air on tv",
+          "initial": "November 19, 1959",
+          "frozen_v7_final": "November 19, 1959",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "September 4 , 2000",
+          "em_initial": 0,
+          "em_lenient": 1
+        },
+        {
+          "sample_id": "-8185754991042790824",
+          "query": "what is the most fundamental unit of life according to the cell theory",
+          "initial": "cell",
+          "frozen_v7_final": "cell",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "the most basic unit of life",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "3229334577759874370",
+          "query": "what is the account number of airtel payment bank",
+          "initial": "Airtel mobile number",
+          "frozen_v7_final": "Airtel mobile number",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "Your Airtel mobile number is also your account number .",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-3395327864419725898",
+          "query": "jonny cash one piece at a time car",
+          "initial": "Tennessee Three",
+          "frozen_v7_final": "Tennessee Three",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "Johnny Cash and the Tennessee Three",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-7848107192827858958",
+          "query": "where do the events in the story take place geographically",
+          "initial": "New England",
+          "frozen_v7_final": "New England",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "New England community",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-6741482021872247759",
+          "query": "what is the first basic process in the light reaction of photosynthesis",
+          "initial": "not specified",
+          "frozen_v7_final": "not specified",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "light - dependent reactions or light reactions",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-7419926784062257102",
+          "query": "where is the condenser located on a microscope",
+          "initial": "above the light source and under the sample in an upright microscope, above the stage and below the light source in an inverted microscope",
+          "frozen_v7_final": "above the light source and under the sample in an upright microscope, above the stage and below the light source in an inverted microscope",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "above the light source and under the sample in an upright microscope",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-1368633715963532113",
+          "query": "where can carbon be found in the biosphere",
+          "initial": "in plants and other living organisms",
+          "frozen_v7_final": "in plants and other living organisms",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "in all land - living organisms , both alive and dead",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-6531366728667964971",
+          "query": "what is the inner core of the earth made from",
+          "initial": "nickel-iron alloy",
+          "frozen_v7_final": "nickel-iron alloy",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "nickel - iron alloy",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "572852451712299990",
+          "query": "what is non controlling interest on balance sheet",
+          "initial": "minority interest",
+          "frozen_v7_final": "minority interest",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "at the very bottom of the Equity section",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "4375682753291546963",
+          "query": "does reaching base on an error count as an at bat",
+          "initial": "yes",
+          "frozen_v7_final": "yes",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "still counts as an at bat",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "6233359758440471982",
+          "query": "what is the source of electrons during photosynthesis",
+          "initial": "water",
+          "frozen_v7_final": "water",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "water molecules",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-953849400724466906",
+          "query": "where did huntington's disease get its name",
+          "initial": "Huntington",
+          "frozen_v7_final": "Huntington",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "HD has also been called `` hereditary chorea ''",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-5173210463405593309",
+          "query": "when did to kill a mockingbird become popular",
+          "initial": "1960",
+          "frozen_v7_final": "1960",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "1961",
+          "em_initial": 1,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-8490085242981497626",
+          "query": "who sang gonna sit right down and write myself a letter",
+          "initial": "Fats Waller",
+          "frozen_v7_final": "Fats Waller",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "Billy Williams",
+          "em_initial": 1,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "221756811657202124",
+          "query": "when do replays become available on nfl game pass",
+          "initial": "after their original live broadcasts end",
+          "frozen_v7_final": "after their original live broadcasts end",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "full replays of all the games become available on demand after their original live broadcasts end",
+          "em_initial": 1,
+          "em_lenient": 0
+        }
+      ]
+    }
+  }
+}

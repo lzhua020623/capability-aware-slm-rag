@@ -1,5 +1,7 @@
 # 项目进度与研究方向
 
+> 2026-10-14 夜 E 更新：v7 已在 Kaggle 跑完一次（[结果](ANSWER_REPAIR_RESULTS_20261014_V7.md)）。FEVER 主体实体约束在开发批次与离线回放一致（4→10、45→46、无误修），held-out 267 条 1 修复 / 4 误修（误修都是 NLI 在实体正确窗口上的误判）；NQ 短答案策略冻结 EM 在 held-out 146 条上 71→62（p=0.0225），放宽解析后更差（71→58），改动里约 5 条真实语义误修。两种策略均不晋升。候选优先的 NQ 设计会改坏正确答案，若做 v8 应回到 verify-first 并用 3216 池剩余 1,287 条未用 ID 做新 held-out。`heldout3216`（含 120 条 utilisation）包已冻结未跑，是否运行由负责人决定。
+
 > 2026-10-14 晚 E 更新：128 条辅助审核的 28 个关键案例由独立盲评二读，9 个修复、3 个误修完全一致，7 个未决项给出默认建议并已由用户确认（去重后 9 修复 / 3 误修 / 2 暂缓；其余 97 个唯一样本待批量确认），确认清单在 [ANSWER_REPAIR_CONFIRMATION_20261014.md](ANSWER_REPAIR_CONFIRMATION_20261014.md)。v7 已冻结打包未运行（[ANSWER_REPAIR_V7.md](ANSWER_REPAIR_V7.md)）：NQ 短答案与引文分离，FEVER 只允许含声明主体的窗口投票；用 v6r1 轨迹离线回放，FEVER 审核后 4→10、dev50 45→46、无误修（设计阶段证据）。E 未触碰的共享训练样本已全部冻结为 held-out（FEVER 267、NQ 146），但其中没有 utilisation 标注；含 120 条 utilisation 的 NQ 3216 池 held-out 已冻结 ID，等 Diagnosis 负责人提供 gold。另注意：冻结 Controller 在 PRIMARY test 上从不把 FEVER 路由到 generation_repair，所以 E 的 FEVER 结果只用于 Always-Verify 基线和失败类型 × 操作矩阵，不进入自适应系统的 FEVER 路径。
 
 > 2026-10-14 E 本地更新：37 条聊天辅助初始样本审核已确认，纳入 19 条 utilisation 核心候选 + 9 条正确对照，9 条暂缓。v5 的 112 条真实 T4 输出已归档并回放；同模型复核没有改善结果。v6r1 在 Kaggle 完成 128 条真实预测（123 个唯一 ID）、81 项云端检查及全部冻结代码回放，GPU 会话已释放。FEVER 审核后 4→7，但 dev50 45→44；NQ dev50 EM 20→7，包含长答案与无关片段问题。两种新策略均未晋升默认。工程和本轮开发实验已交接，人工正确性/支持性与团队 held-out 验收仍待完成；新版 42 条改动已优先排序。本次未重新同步远端。见 [当前交接](ANSWER_REPAIR_HANDOFF.md) 和 [最新结果](ANSWER_REPAIR_RESULTS_20261014.md)。

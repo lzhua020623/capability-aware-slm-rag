@@ -804,6 +804,231 @@
       "path": "data/annotations/human/answer_repair_v6r1_pairs_20261014.summary.json",
       "bytes": 1196,
       "sha256": "864d42c0df76c003bcb74bee6e4174f0788d4bb535e457d1f06318730d8f91e7"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/answer_repair_v7_reviewed_outputs_export.zip",
+      "bytes": 1085217,
+      "sha256": "48e82e600f189b2b5e7f98063883ffa3b14574c26debfc50d011170f7308d5d1"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/bundle_checksums.json",
+      "bytes": 5765,
+      "sha256": "f421fd5378b9ac419714de51905aaa65769457b4231195eb53cc6995de67dc12"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/candidate_comparison.json",
+      "bytes": 2,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/environment.json",
+      "bytes": 605,
+      "sha256": "716b7c3a9e172520d76fca9ce25294f5d5271d7a7f33d74c80c638a77cb364c8"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/environment.log",
+      "bytes": 777,
+      "sha256": "f7dc5769549c784fb1a4f598da37f7708e2fdbb2188157e4fcb5c58e2e5198d7"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/fever_fever_nli_anchored.jsonl",
+      "bytes": 180614,
+      "sha256": "882a50519c38b74908b15427cf4edb7ddb93e5f1c2223a3a0686bf6c33e78f28"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/fever_fever_nli_anchored.summary.json",
+      "bytes": 1182,
+      "sha256": "4bb4cea7fd91afbe3b8879c7474036bf6507b9ef7c806ea0646b2c1980100eab"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/fever_fever_nli_anchored_dev50.jsonl",
+      "bytes": 560365,
+      "sha256": "dea34e44a44b1e2c416f696faf72febd17435c088c7e951f2d22ff477413d487"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/fever_fever_nli_anchored_dev50.summary.json",
+      "bytes": 1138,
+      "sha256": "2c6e1fe6f68653df2c7e69b32d9ffb9e2170f256827fc887bb70ebf456d97124"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/fever_fever_nli_anchored_dev50_preflight.log",
+      "bytes": 896,
+      "sha256": "46ec38b429aa4117e0eb4ea9d28c745ab5dce7b7c9578bfce3fdeb4f4971af12"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/fever_fever_nli_anchored_dev50_run.log",
+      "bytes": 3863,
+      "sha256": "dc1b12ffbf9219a220c448a6024854070bc44a326803744bec9c311ce09067a0"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/fever_fever_nli_anchored_heldout.jsonl",
+      "bytes": 3019364,
+      "sha256": "d66004c141e8671c463726903bbfcf875f57c742ee3c80e56306011773c0ea04"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/fever_fever_nli_anchored_heldout.summary.json",
+      "bytes": 1225,
+      "sha256": "59b664b0bb47cb767e47f0947268897447801b8c5b8ab3668cd5a3615f353afc"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/fever_fever_nli_anchored_heldout_preflight.log",
+      "bytes": 907,
+      "sha256": "a535e5cb6eb91aa96b98d552745a5530e9272bcda03a65ea59c32e4a6d2559cc"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/fever_fever_nli_anchored_heldout_run.log",
+      "bytes": 9590,
+      "sha256": "f95596a228dba365210219d255a7d715d3111e1c1052d95d8f1ad8a10a2acbc1"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/fever_fever_nli_anchored_preflight.log",
+      "bytes": 890,
+      "sha256": "f09080909cb526960c0e790410ba75135bef004e8c2b879d4919e0e936779474"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/fever_fever_nli_anchored_reviewed.review.jsonl",
+      "bytes": 288942,
+      "sha256": "8e9df4f4843d884f84af526cef6d52d8691b04efba9683167f58f4bf9204a8ef"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/fever_fever_nli_anchored_reviewed.summary.json",
+      "bytes": 3990,
+      "sha256": "3a5f2fe25c5452851e8bb6ac6e8e3da0847380d7883bf60a34b0e4ac20d1944c"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/fever_fever_nli_anchored_run.log",
+      "bytes": 3051,
+      "sha256": "1b24952862d0d7914fbb403d4e3c21274b45912bfc97b6c144a8289f016008f6"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/fever_fever_nli_anchored_summary.log",
+      "bytes": 4479,
+      "sha256": "53c21549d88c7605e2a821a16923a8bbafefb35db05d5548dcaee98b2444ab58"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/input_integrity.json",
+      "bytes": 302,
+      "sha256": "54337e681055a81790472b65b5d82851a483f86cfaddf1f0473ed84f587f0443"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/install.log",
+      "bytes": 12167,
+      "sha256": "fe52d19832799c692c793bb73f8d0d5cf55d12a695daf62f0d3cf7c492298631"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/manifest.json",
+      "bytes": 34859,
+      "sha256": "dbcb1967830f7466c9d8c99f771bf3d3615b4d7d34939d4251325fab03fca883"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/nq_short_answer_quote.jsonl",
+      "bytes": 60438,
+      "sha256": "a79c0111fbfb778237f1f547fbc87c2a21401756672c3b84e908dc0ed83b835d"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/nq_short_answer_quote.summary.json",
+      "bytes": 1256,
+      "sha256": "6f82674853f1a38afd8a87ca9654b5b8a120a93a25f7cd01a841020ab9ca62cd"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/nq_short_answer_quote_dev50.jsonl",
+      "bytes": 219079,
+      "sha256": "0b2f7b32a0b2cbda6d843b0236cbef76a7c471fc3d12e031b688f9c69b5bed70"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/nq_short_answer_quote_dev50.summary.json",
+      "bytes": 1207,
+      "sha256": "58b7675874801d04b598793357922902222ae8f47db779887556d8e49bf2e038"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/nq_short_answer_quote_dev50_preflight.log",
+      "bytes": 880,
+      "sha256": "cde1f9016cd2499d5af6678cdd6a6bd37bd47bbe60bf3221ac93c7a1db24b50a"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/nq_short_answer_quote_dev50_run.log",
+      "bytes": 9813,
+      "sha256": "6c8f7eeaae6cb5cfc7eefa82c7577f6e3f8ddfa4954d219b9be682615330fdf9"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/nq_short_answer_quote_heldout.jsonl",
+      "bytes": 637603,
+      "sha256": "0b2bd5bfdffd175064a0879a0f91e8dde887b0282514108fa9ff46d7f035651c"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/nq_short_answer_quote_heldout.summary.json",
+      "bytes": 1326,
+      "sha256": "7af9c323c18fe8d7827e22351d69c74cdc6a05c38f5f02803f404197a0e8b68d"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/nq_short_answer_quote_heldout_preflight.log",
+      "bytes": 891,
+      "sha256": "fe55cc04b0488161683e860d286e6fd5fbdd9bc012225cd374ae58a2f5a48bae"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/nq_short_answer_quote_heldout_run.log",
+      "bytes": 11411,
+      "sha256": "b89b1caff6deaab8a13c0d037f4118a95a65b4dc6aec5b2540c835ac1b8440c4"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/nq_short_answer_quote_preflight.log",
+      "bytes": 874,
+      "sha256": "8d242bba141135b5ef4bd08c37b78612253c1a4d5c1aaf8ad5330ebc6aa33b05"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/nq_short_answer_quote_reviewed.review.jsonl",
+      "bytes": 114901,
+      "sha256": "e350549adc61158c5743aeccb1ef3426905bf64b70d08e0800a4cb1a64af4719"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/nq_short_answer_quote_reviewed.summary.json",
+      "bytes": 4361,
+      "sha256": "1a6b6d00c4c0db89f6e9c8a9299c357fcda7aec2f3d5d137e58001d9f8ea6d30"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/nq_short_answer_quote_run.log",
+      "bytes": 8645,
+      "sha256": "ff0088d1bffb4446b37ea1541a06a48b537c24e68888e518a3f183b650c1e32b"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/nq_short_answer_quote_summary.log",
+      "bytes": 4841,
+      "sha256": "f6f0c6d9213f6595142002f4317d01083a966bb5dd1608135626e78fc8b3a61e"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/tests.log",
+      "bytes": 272,
+      "sha256": "db5a266050701fe524ab56833a6b0f8c5adb054567f3e4bb69c4c5bdf3916510"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/release_audit/cpu_replay.json",
+      "bytes": 8749,
+      "sha256": "1b2a7d830c0729f684c3f9bb23936f9b3e86978832446c2adf554c37c9434f65"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/release_audit/lenient_parser_replay.json",
+      "bytes": 14074,
+      "sha256": "90dc7e6af5b7a58fc15c0c7899b32eb83f3faf4502de96c50c358d575334ffcd"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/release_audit/pending_semantic_pairs.jsonl",
+      "bytes": 7627605,
+      "sha256": "280d8b68d564a4269a7f53a5efebc1128b90cbc138fb63ef21056423d8c41da3"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/release_audit/review_priority.jsonl",
+      "bytes": 7667737,
+      "sha256": "8de73ca2f0e8b3a48d15982c781485d829e5dc7107f209ce8d2945fe9e6b8187"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/release_audit/review_priority.md",
+      "bytes": 16252,
+      "sha256": "8b65302aa08aca78b7c5daa5085047bc6d928e6f2a57571b1c69287f8dceddec"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/release_audit/triage_summary.json",
+      "bytes": 641,
+      "sha256": "f67999182c627eea1c6e1cac315133f00b8b503ead1cc3d6aa22cf99dad4c397"
     }
   ],
   "appended_20261014_v7": {
@@ -832,5 +1057,10 @@
       "data/annotations/human/answer_repair_v6r1_pairs_20261014.jsonl",
       "data/annotations/human/answer_repair_v6r1_pairs_20261014.summary.json"
     ]
+  },
+  "appended_20261014_v7_results": {
+    "note": "v7 Kaggle run (38 raw files), frozen-code replay, triage queue and the post-hoc lenient-parser replay. Human fields pending.",
+    "results_zip_sha256": "48e82e600f189b2b5e7f98063883ffa3b14574c26debfc50d011170f7308d5d1",
+    "added_files": 45
   }
 }

@@ -23,8 +23,8 @@ E 负责 Evidence Utilisation 的 Verification / Answer Repair：接受 query、
 | 9 条初始边界样本 | 用户要求暂缓 | cohort manifest 的 deferred |
 | 全框架 held-out 与三补偿操作比较 | 团队后续 | 不属于本次 E 单模块完成证明 |
 | 关键案例独立盲评二读与用户确认 | 已完成 | `ANSWER_REPAIR_CONFIRMATION_20261014.md`；去重后 9 修复 / 3 误修 / 2 暂缓已人工确认（聊天摘要确认），其余 97 个唯一样本待批量确认 |
-| v7 策略、测试、离线回放、冻结包与 notebook | 已完成，未跑 GPU | `ANSWER_REPAIR_V7.md`；99 项测试；`artifacts/answer_repair/v7_design/`、`v7_reviewed/` |
-| E 未触碰的 held-out（FEVER 267 / NQ 146） | 已冻结在 v7 包内 | 只跑一次；无 utilisation 标注，用于误修与 EM 假退步评估 |
+| v7 策略、测试、离线回放、冻结包与 notebook | 已完成并在 Kaggle 运行一次 | `ANSWER_REPAIR_RESULTS_20261014_V7.md`；541 条记录冻结代码回放通过；FEVER held-out 1/4，NQ held-out EM 71→62；均不晋升 |
+| E 未触碰的 held-out（FEVER 267 / NQ 146） | 已跑一次 | FEVER 误修 4/232；NQ EM 误修 11/71（约 5 条真实语义误修）；不再在其上调整 |
 | NQ 3216 池 held-out（含 120 条 utilisation） | 已冻结打包，未跑 GPU | gold 来自 Diagnosis 负责人工作簿；`artifacts/answer_repair/v7_heldout3216/`，只跑一次 |
 
 ## 运行和结果入口
@@ -84,5 +84,5 @@ v5 同模型复核增加成本但没有提高冻结正确数；不能把六个 y
 - 实验包：`artifacts/answer_repair/v7_reviewed/answer_repair_v7_reviewed_gpu.tar.gz`，SHA-256 `b8f995f164783244c5c94ad591ab0f8a9a00adb1ca86a9926b83e0c2b352282f`；manifest `configs/splits/answer_repair_reviewed_v7.json`。三个批次：reviewed 28、dev50 ×2、heldout（FEVER 267、NQ 146，E 从未看过，只跑一次）。
 - Notebook：`notebooks/answer_repair_colab_v7_reviewed.ipynb`、`notebooks/answer_repair_kaggle_v7_reviewed.ipynb`。本地已在解包副本中通过 99 项测试和 6 组预检。
 - 设计阶段证据：`artifacts/answer_repair/v7_design/fever_anchored_replay.md`，用 v6r1 的窗口概率回放 v7 规则，FEVER 审核后 4→10、dev50 45→46、无误修。这是看着样本设计的规则在同批样本上的结果，不能当效果证据。
-- 运行后：`scripts/audit_answer_repair_release.py` 回放三个批次；NQ 的有/无锚点对比可由 `raw_output` 离线重算；成对语义审核沿用 v6r1 的四项与确认清单的完整性口径。
+- 已运行：`artifacts/answer_repair/v7_reviewed/kaggle_20261014/`（38 文件）与 `release_audit/`（回放、543 条待审队列中 43 条改动优先、放宽解析事后回放）。结论与案例见 `ANSWER_REPAIR_RESULTS_20261014_V7.md`。
 - 第 4 批 `heldout3216`：300 条 NQ（120 utilisation / 35 accessibility / 100 correct / 45 insufficiency），gold 取自工作簿 `NQ_C1_3216_合并全量.xlsx`（本地、不入库），导出文件 `data/annotations/gold/nq_heldout_3216_v1_gold.jsonl`。实验包 `artifacts/answer_repair/v7_heldout3216/answer_repair_v7_heldout3216_gpu.tar.gz`（SHA-256 `6f277579…`），notebook `answer_repair_colab_v7_heldout3216.ipynb` / `answer_repair_kaggle_v7_heldout3216.ipynb`；约 300 次 Qwen 生成。只跑一次，结果用 `audit_answer_repair_release.py` 回放后按层报告。

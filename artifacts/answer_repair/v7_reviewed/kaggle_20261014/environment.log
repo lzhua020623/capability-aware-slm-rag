@@ -1,0 +1,29 @@
+COMMAND ["/usr/bin/python3", "scripts/check_answer_repair_environment.py", "--require-cuda", "--out", "/kaggle/working/answer_repair_v7_reviewed_outputs/environment.json"]
+{
+  "checked_at_utc": "2026-10-13T23:21:58.590550+00:00",
+  "python": "3.13.15",
+  "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+  "packages": {
+    "torch": "2.11.0+cu128",
+    "transformers": "5.16.1",
+    "accelerate": "1.14.0",
+    "bitsandbytes": "0.50.2",
+    "PyYAML": "6.0.3"
+  },
+  "cuda_available": true,
+  "cuda_version": "12.8",
+  "gpus": [
+    {
+      "index": 0,
+      "name": "Tesla T4",
+      "total_memory_bytes": 15636037632
+    },
+    {
+      "index": 1,
+      "name": "Tesla T4",
+      "total_memory_bytes": 15636037632
+    }
+  ],
+  "errors": [],
+  "ready_for_nf4_smoke": true
+}
