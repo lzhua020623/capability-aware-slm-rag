@@ -1,0 +1,350 @@
+{
+  "post_hoc_analysis_only": true,
+  "promoted": false,
+  "tolerances": [
+    "RANK may be written as [n]",
+    "QUOTE/ANSWER may be wrapped in quotation marks",
+    "ANSWER: INSUFFICIENT counts as abstention"
+  ],
+  "cohorts": {
+    "heldout3216": {
+      "samples": 300,
+      "frozen_v7_status_counts": {
+        "invalid_output": 192,
+        "repaired": 52,
+        "kept": 44,
+        "unanchored_candidate": 9,
+        "insufficient_evidence": 3
+      },
+      "frozen_v7_em": {
+        "initial": 63,
+        "final": 67
+      },
+      "lenient_status_counts": {
+        "invalid": 112,
+        "repaired": 82,
+        "insufficient": 39,
+        "unanchored": 13,
+        "kept": 54
+      },
+      "lenient_remaining_rejections": {
+        "quote_too_long": 19,
+        "answer_not_in_quote": 51,
+        "quote_not_located": 41,
+        "answer_too_long": 1
+      },
+      "lenient_em": {
+        "initial": 63,
+        "final": 67,
+        "fixed": 16,
+        "regressed": 12
+      },
+      "f1": {
+        "initial": 0.3036,
+        "lenient_final": 0.3433
+      },
+      "answers_newly_changed_by_lenient_parse": [
+        {
+          "sample_id": "-7243039856764979249",
+          "query": "where does the un security council get troops for military actions",
+          "initial": "not from UN itself",
+          "frozen_v7_final": "not from UN itself",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "the United Nations itself",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "1653574612763270615",
+          "query": "where is thank you for your service based",
+          "initial": "Iraq",
+          "frozen_v7_final": "Iraq",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "2017 American biographical war drama",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-3310624671723052836",
+          "query": "what is the definition of glory in the bible",
+          "initial": "fame, luminosity",
+          "frozen_v7_final": "fame, luminosity",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "the manifestation of God 's presence",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "4941105400369114094",
+          "query": "why was hong kong important to the british empire",
+          "initial": "key source of government funds",
+          "frozen_v7_final": "key source of government funds",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "stability , security , and predictability of British law and government",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "8956254432652172705",
+          "query": "what state courts can order a new trial",
+          "initial": "Missouri",
+          "frozen_v7_final": "Missouri",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "Judge Hamilton",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "4436726845003723762",
+          "query": "when does season 3 of strnger things come out",
+          "initial": "September 6 to November 1, 2016",
+          "frozen_v7_final": "September 6 to November 1, 2016",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "late 2018 or early 2019",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-5519267321423308172",
+          "query": "who won the men's single title of australia open on 1 february 2015",
+          "initial": "Adam Scott",
+          "frozen_v7_final": "Adam Scott",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "Roger Federer",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "8881606849310681343",
+          "query": "what kind of fish live in the salton sea",
+          "initial": "threadfin shad, carp, red shiner, channel catfish, white catfish, largemouth bass, mosquitofish, sailfin molly, desert pupfish",
+          "frozen_v7_final": "threadfin shad, carp, red shiner, channel catfish, white catfish, largemouth bass, mosquitofish, sailfin molly, desert pupfish",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "Introduced tilapia",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-510179348025098787",
+          "query": "what does the board of directors consist of",
+          "initial": "an IB Board of Governors and six committees",
+          "frozen_v7_final": "an IB Board of Governors and six committees",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "a recognized group of people",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "575501437401429947",
+          "query": "how many episodes in season 2 of fargo",
+          "initial": "24",
+          "frozen_v7_final": "24",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "24 episodes",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-838090964585984539",
+          "query": "what was the name of darth vader star destroyer",
+          "initial": "Darth Vader's Star Destroyer",
+          "frozen_v7_final": "Darth Vader's Star Destroyer",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "Darth Vader 's Star Destroyer",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "307455002465526783",
+          "query": "how many seasons are there for lost girl",
+          "initial": "3",
+          "frozen_v7_final": "3",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "five seasons",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-154783694579651082",
+          "query": "what is a dropped pin on google maps for",
+          "initial": "teardrop-shaped marker icon",
+          "frozen_v7_final": "teardrop-shaped marker icon",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "marks locations in Google Maps",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-1602885085222027775",
+          "query": "what does the sun represent on the uruguay flag",
+          "initial": "Inti",
+          "frozen_v7_final": "Inti",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "the May Revolution of 1810",
+          "em_initial": 0,
+          "em_lenient": 1
+        },
+        {
+          "sample_id": "6160560751326098110",
+          "query": "who sang how long has this been going on song",
+          "initial": "Cotone Cooke",
+          "frozen_v7_final": "Cotone Cooke",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "Syesha Mercado",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-3130775636464914942",
+          "query": "where did the peanut butter jelly time song come from",
+          "initial": "Internet",
+          "frozen_v7_final": "Internet",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "From this self - titled album",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "8957581015190486025",
+          "query": "what does the application of contract of adhesion mean",
+          "initial": "special scrutiny",
+          "frozen_v7_final": "special scrutiny",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "subject to special scrutiny",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-3933902576274996149",
+          "query": "who decides the number of judges in the high court",
+          "initial": "Act",
+          "frozen_v7_final": "Act",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "up to 15 judges",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-9020887890441881523",
+          "query": "what the role of the protein encoded by the lacz gene",
+          "initial": "\\u03b2-galactosidase",
+          "frozen_v7_final": "\\u03b2-galactosidase",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "\\u03b2 - galactosidase",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-1100776571922066473",
+          "query": "when did reba mcentire record back to god",
+          "initial": "2008",
+          "frozen_v7_final": "2008",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "On January 17 , 2008",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-2321556715412254267",
+          "query": "locations for the film an englishman who went up a hill",
+          "initial": "Great Britain and Ireland",
+          "frozen_v7_final": "Great Britain and Ireland",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "various locations in Great Britain and Ireland",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-6190173184813176768",
+          "query": "number of films in lord of the rings",
+          "initial": "3",
+          "frozen_v7_final": "3",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "three",
+          "em_initial": 0,
+          "em_lenient": 1
+        },
+        {
+          "sample_id": "6598465593542733817",
+          "query": "which is the largest great lake in north america",
+          "initial": "Lake Superior",
+          "frozen_v7_final": "Lake Superior",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "Lake Huron",
+          "em_initial": 1,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-6544639991517260033",
+          "query": "what parts make up the peripheral nervous system",
+          "initial": "somatic nervous system, autonomic nervous system",
+          "frozen_v7_final": "somatic nervous system, autonomic nervous system",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "the nerves and ganglia outside the brain and spinal cord",
+          "em_initial": 0,
+          "em_lenient": 1
+        },
+        {
+          "sample_id": "8653383319877139807",
+          "query": "what does a yellow 35 mph sign mean",
+          "initial": "advisory speed limit",
+          "frozen_v7_final": "advisory speed limit",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "a small yellow sign under the main warning sign",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "3725000672240774747",
+          "query": "where did the allies go after north africa",
+          "initial": "Italy",
+          "frozen_v7_final": "Italy",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "British , American and French forces advanced east to engage the German - Italian forces in the Tunisia Campaign .",
+          "em_initial": 1,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-3339535652354050061",
+          "query": "what was the goal of the civilian conservation corps",
+          "initial": "to provide jobs for young men and to relieve families during the Great Depression",
+          "frozen_v7_final": "to provide jobs for young men and to relieve families during the Great Depression",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "to provide jobs for young men and to relieve families",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-928229760699185795",
+          "query": "what do mobile numbers start with in the uk",
+          "initial": "0",
+          "frozen_v7_final": "0",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "10 national ( significant ) numbers",
+          "em_initial": 1,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-6578934935048896147",
+          "query": "what is the name of the restaurant in seinfeld",
+          "initial": "Monk's",
+          "frozen_v7_final": "Monk's",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "Monk 's",
+          "em_initial": 0,
+          "em_lenient": 0
+        },
+        {
+          "sample_id": "-5822969537905676368",
+          "query": "what year is the deer hunter set in",
+          "initial": "1975",
+          "frozen_v7_final": "1975",
+          "frozen_v7_status": "invalid_output",
+          "lenient_final": "1977",
+          "em_initial": 0,
+          "em_lenient": 0
+        }
+      ]
+    }
+  }
+}

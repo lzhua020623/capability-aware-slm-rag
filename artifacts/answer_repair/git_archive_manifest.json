@@ -1029,6 +1029,96 @@
       "path": "artifacts/answer_repair/v7_reviewed/release_audit/triage_summary.json",
       "bytes": 641,
       "sha256": "f67999182c627eea1c6e1cac315133f00b8b503ead1cc3d6aa22cf99dad4c397"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/answer_repair_v7_heldout3216_outputs_export.zip",
+      "bytes": 101120,
+      "sha256": "91ee085bb38c8ee05220b71e5b547978871d84635261d8034a177370a8b927fd"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/kaggle_20261014/bundle_checksums.json",
+      "bytes": 5215,
+      "sha256": "05e42ff1904bdd8364c9b2969762787cf568f8cce5539ee2ed4390a5c3e92c06"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/kaggle_20261014/environment.json",
+      "bytes": 605,
+      "sha256": "19e9fff78ce8a90bb5d224da61ed6c989781c47cb094c232c4366f5dbab4ea1e"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/kaggle_20261014/environment.log",
+      "bytes": 780,
+      "sha256": "672a22e298cc2a03e088051bb08a698522b14d985922e28109f82fc1d15dd648"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/kaggle_20261014/input_integrity.json",
+      "bytes": 302,
+      "sha256": "8ff23af7178ce15df2cbd2f9d11cf6209d8102c06f50dd5f770a004e70704695"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/kaggle_20261014/install.log",
+      "bytes": 12167,
+      "sha256": "90ba325442d31a8ff7a63f4fbd5c550eb74647a80bedba8ed69526a426fd9add"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/kaggle_20261014/manifest.json",
+      "bytes": 1223,
+      "sha256": "d725771ba4e385d6ae34043157b2b7ddedb5451a2e55b6cd8ce2747871bbf303"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/kaggle_20261014/nq_short_answer_quote_heldout3216.jsonl",
+      "bytes": 1310860,
+      "sha256": "d05fc7fd4bfd6e077d6c73299dba5a59016ca549dafc9cd6a583ea48533248b7"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/kaggle_20261014/nq_short_answer_quote_heldout3216.summary.json",
+      "bytes": 1355,
+      "sha256": "aa929f84a76bc8daaea9294e540bfe2b077a3e5da02717fcb65373051d104285"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/kaggle_20261014/nq_short_answer_quote_heldout3216_preflight.log",
+      "bytes": 919,
+      "sha256": "e05da893ece9fbfbb59a845f3b73d3e357e1d9abfefe0c0b7406cc2a51b07be9"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/kaggle_20261014/nq_short_answer_quote_heldout3216_run.log",
+      "bytes": 21275,
+      "sha256": "649de89a059ed458945b2898af833e5463a6562384f6ef215442efd4fd712122"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/kaggle_20261014/tests.log",
+      "bytes": 276,
+      "sha256": "b115b1c7991bff2ea12c645ea3efbefa4b11d361d22748d663fd5e08ff73d8dc"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/release_audit/cpu_replay.json",
+      "bytes": 1832,
+      "sha256": "c7f918e11f31f776952bcaec25a6e168c957751c2d9a9e1705623d5894b5c385"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/release_audit/lenient_parser_replay.json",
+      "bytes": 13052,
+      "sha256": "d20576ae8191a819a36b78d06b1549b168d955c8489871cd2cd05f51e9c317e8"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/release_audit/pending_semantic_pairs.jsonl",
+      "bytes": 2469923,
+      "sha256": "a944d06a65a4400e517d37c07a515bcde19f2e41bee79d2fce2243c7415db0b8"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/release_audit/review_priority.jsonl",
+      "bytes": 2492867,
+      "sha256": "7bc94183216a778a03985219f414ce977026bb0597e2b07f73ec80520e9cfb75"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/release_audit/review_priority.md",
+      "bytes": 20230,
+      "sha256": "0ad411e365ffee9f40674a5230275002797e7358632145a8374ece89ac20b94c"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/release_audit/triage_summary.json",
+      "bytes": 643,
+      "sha256": "7193b46e17b0c8b2b9bfc91b38e520c355f70e79b8860b640d439d6977b1320f"
     }
   ],
   "appended_20261014_v7": {
@@ -1062,5 +1152,10 @@
     "note": "v7 Kaggle run (38 raw files), frozen-code replay, triage queue and the post-hoc lenient-parser replay. Human fields pending.",
     "results_zip_sha256": "48e82e600f189b2b5e7f98063883ffa3b14574c26debfc50d011170f7308d5d1",
     "added_files": 45
+  },
+  "appended_20261014_heldout3216_results": {
+    "note": "Run-once NQ 3216-pool held-out: 11 raw files, frozen-code replay, triage queue, lenient-parser replay (analysis only).",
+    "results_zip_sha256": "91ee085bb38c8ee05220b71e5b547978871d84635261d8034a177370a8b927fd",
+    "added_files": 18
   }
 }

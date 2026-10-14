@@ -25,7 +25,7 @@ E 负责 Evidence Utilisation 的 Verification / Answer Repair：接受 query、
 | 关键案例独立盲评二读与用户确认 | 已完成 | `ANSWER_REPAIR_CONFIRMATION_20261014.md`；去重后 9 修复 / 3 误修 / 2 暂缓已人工确认（聊天摘要确认），其余 97 个唯一样本待批量确认 |
 | v7 策略、测试、离线回放、冻结包与 notebook | 已完成并在 Kaggle 运行一次 | `ANSWER_REPAIR_RESULTS_20261014_V7.md`；541 条记录冻结代码回放通过；FEVER held-out 1/4，NQ held-out EM 71→62；均不晋升 |
 | E 未触碰的 held-out（FEVER 267 / NQ 146） | 已跑一次 | FEVER 误修 4/232；NQ EM 误修 11/71（约 5 条真实语义误修）；不再在其上调整 |
-| NQ 3216 池 held-out（含 120 条 utilisation） | 已冻结打包，未跑 GPU | gold 来自 Diagnosis 负责人工作簿；`artifacts/answer_repair/v7_heldout3216/`，只跑一次 |
+| NQ 3216 池 held-out（含 120 条 utilisation） | 已跑一次 | utilisation 层 EM 0→10（语义约 13/120），correct 层 63→54（真实误修 1–2/63）；`artifacts/answer_repair/v7_heldout3216/`，不晋升 |
 
 ## 运行和结果入口
 
@@ -85,4 +85,4 @@ v5 同模型复核增加成本但没有提高冻结正确数；不能把六个 y
 - Notebook：`notebooks/answer_repair_colab_v7_reviewed.ipynb`、`notebooks/answer_repair_kaggle_v7_reviewed.ipynb`。本地已在解包副本中通过 99 项测试和 6 组预检。
 - 设计阶段证据：`artifacts/answer_repair/v7_design/fever_anchored_replay.md`，用 v6r1 的窗口概率回放 v7 规则，FEVER 审核后 4→10、dev50 45→46、无误修。这是看着样本设计的规则在同批样本上的结果，不能当效果证据。
 - 已运行：`artifacts/answer_repair/v7_reviewed/kaggle_20261014/`（38 文件）与 `release_audit/`（回放、543 条待审队列中 43 条改动优先、放宽解析事后回放）。结论与案例见 `ANSWER_REPAIR_RESULTS_20261014_V7.md`。
-- 第 4 批 `heldout3216`：300 条 NQ（120 utilisation / 35 accessibility / 100 correct / 45 insufficiency），gold 取自工作簿 `NQ_C1_3216_合并全量.xlsx`（本地、不入库），导出文件 `data/annotations/gold/nq_heldout_3216_v1_gold.jsonl`。实验包 `artifacts/answer_repair/v7_heldout3216/answer_repair_v7_heldout3216_gpu.tar.gz`（SHA-256 `6f277579…`），notebook `answer_repair_colab_v7_heldout3216.ipynb` / `answer_repair_kaggle_v7_heldout3216.ipynb`；约 300 次 Qwen 生成。只跑一次，结果用 `audit_answer_repair_release.py` 回放后按层报告。
+- 第 4 批 `heldout3216`：300 条 NQ（120 utilisation / 35 accessibility / 100 correct / 45 insufficiency），gold 取自工作簿 `NQ_C1_3216_合并全量.xlsx`（本地、不入库），导出文件 `data/annotations/gold/nq_heldout_3216_v1_gold.jsonl`。实验包 `artifacts/answer_repair/v7_heldout3216/answer_repair_v7_heldout3216_gpu.tar.gz`（SHA-256 `6f277579…`）已在 Kaggle 跑完一次，结果 ZIP SHA-256 `91ee085b…`，300 条冻结代码回放通过，分层结果与案例见 `ANSWER_REPAIR_RESULTS_20261014_V7.md` 第 4 批一节。

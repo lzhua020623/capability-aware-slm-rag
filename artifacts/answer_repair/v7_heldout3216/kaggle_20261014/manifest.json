@@ -1,0 +1,36 @@
+{
+  "version": "answer_repair_v7_heldout3216",
+  "cohort": "heldout3216",
+  "dataset": "nq",
+  "purpose": "E-untouched, oracle-label stratified held-out from Diagnosis v2-expanded TRAIN outside the preliminary 500; run once; report by stratum",
+  "ids_manifest": {
+    "path": "configs/splits/answer_repair_nq_heldout_3216_v1.json",
+    "sha256": "45e9519bc24c7ec7fe0e833301f1fce5d6c2cb9c685b98a76c0a1738e1007f7e"
+  },
+  "gold_source": {
+    "path": "data/annotations/gold/nq_heldout_3216_v1_gold.jsonl",
+    "sha256": "cf4a368eed87a1983f69c673fd7aab1b811595b34bffe939515d6f6438eec396"
+  },
+  "samples": 300,
+  "frozen_metric_baseline": {
+    "initial_correct": 63,
+    "initial_wrong": 237
+  },
+  "strata_sizes": {
+    "evidence_utilisation": 120,
+    "evidence_accessibility": 35,
+    "correct": 100,
+    "evidence_insufficiency": 45
+  },
+  "protocol": [
+    {
+      "dataset": "nq",
+      "strategy": "short_answer_quote",
+      "max_new_tokens": 384,
+      "max_calls": 1
+    }
+  ],
+  "prompt_version": "v7_short_answer_in_quote_lines",
+  "run_policy": "run once; report by stratum using offline labels after inference; no tuning",
+  "input_sha256": "321cf7525aacd35064c2dd0de3496dac2f8fb5e237eebe0d9b57d79820d49568"
+}

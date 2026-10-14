@@ -1,6 +1,6 @@
 # E v7：短答案与引文分离、FEVER 主体实体约束
 
-> **已运行（2026-10-14，Kaggle T4 x2）**：结果见 [ANSWER_REPAIR_RESULTS_20261014_V7.md](ANSWER_REPAIR_RESULTS_20261014_V7.md)。FEVER 开发批次与离线回放一致，held-out 1 修复 / 4 误修；NQ 各批次冻结 EM 净负或持平，held-out 显著为负。两种策略均不晋升；本文是运行前协议，不随结果回改。第 4 批 `heldout3216` 尚未运行。
+> **已运行（2026-10-14，Kaggle T4 x2）**：结果见 [ANSWER_REPAIR_RESULTS_20261014_V7.md](ANSWER_REPAIR_RESULTS_20261014_V7.md)。FEVER 开发批次与离线回放一致，held-out 1 修复 / 4 误修；NQ 各批次冻结 EM 净负或持平，held-out 显著为负。两种策略均不晋升；本文是运行前协议，不随结果回改。第 4 批 `heldout3216` 也已运行一次：utilisation 层 EM 0→10、correct 层 63→54，见同一结果报告。
 
 2026-10-14 设计并冻结。v7 是 v6r1 辅助审核后的下一版，修改范围只有两点：NQ 把“答案”和“支持引文”分成两个字段；FEVER 的 NLI 判定只允许提到声明主体实体的窗口投票。模型、量化、greedy、seed、NLI 模型版本与 0.90 阈值全部沿用 v6，不新增模型调用。GPU 运行前的协议即本文；结果另写报告，不回改本文。
 

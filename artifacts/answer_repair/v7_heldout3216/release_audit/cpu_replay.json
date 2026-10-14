@@ -1,0 +1,53 @@
+{
+  "version": "answer_repair_v7_heldout3216",
+  "cpu_replay_only": true,
+  "semantic_correctness_verified": false,
+  "runs": {
+    "nq_short_answer_quote_heldout3216": {
+      "run_fingerprint": "192eec62106920d36c8910f4f49e3b73a05b6d8de7dccceede6896c455a3d02a",
+      "routing": "all",
+      "strategy": "short_answer_quote",
+      "evaluated_samples": 300,
+      "initial_correct": 63,
+      "final_correct": 67,
+      "initial_accuracy": 0.21,
+      "final_accuracy": 0.22333333333333333,
+      "fixed": 13,
+      "regressed": 9,
+      "net_correct_gain": 4,
+      "accuracy_gain": 0.013333333333333334,
+      "mcnemar_exact_pvalue": 0.5234670639038086,
+      "repair_success_rate": 0.05485232067510549,
+      "regression_rate": 0.14285714285714285,
+      "changed": 52,
+      "verifier_calls": 0,
+      "verifier_latency_total": 0.0,
+      "verifier_input_tokens_total": 0,
+      "extra_calls": 300,
+      "extra_calls_per_sample": 1.0,
+      "extra_generation_latency_total": 1618.4168410870002,
+      "extra_generation_latency_per_sample": 5.394722803623334,
+      "status_counts": {
+        "invalid_output": 192,
+        "repaired": 52,
+        "kept": 44,
+        "unanchored_candidate": 9,
+        "insufficient_evidence": 3
+      },
+      "independent_support_checked": 0,
+      "same_model_support_check_counts": {},
+      "input_tokens_total": 272962,
+      "input_tokens_observed_samples": 300,
+      "input_tokens_observed_calls": 300,
+      "output_tokens_estimate_total": 18980,
+      "output_tokens_estimate_observed_samples": 300,
+      "output_tokens_estimate_observed_calls": 300,
+      "initial_f1": 0.3035502183546907,
+      "final_f1": 0.3340286297899987
+    }
+  },
+  "replayed_records": 300,
+  "unique_dataset_sample_ids": 300,
+  "manual_review_status": "deferred_by_user",
+  "pending_result_pairs": 300
+}

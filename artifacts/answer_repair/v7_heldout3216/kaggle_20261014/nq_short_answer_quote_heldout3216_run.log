@@ -1,0 +1,432 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "nq", "--c1", "/kaggle/working/e_reviewed_6f2775793512/answer_repair_v7_heldout3216_gpu/inputs/nq_heldout3216_c1.jsonl", "--all", "--strategy", "short_answer_quote", "--max-new-tokens", "384", "--out", "/kaggle/working/answer_repair_v7_heldout3216_outputs/nq_short_answer_quote_heldout3216.jsonl"]
+{
+  "source": "/kaggle/working/e_reviewed_6f2775793512/answer_repair_v7_heldout3216_gpu/inputs/nq_heldout3216_c1.jsonl",
+  "dataset": "nq",
+  "strategy": "short_answer_quote",
+  "routing": "all",
+  "samples": 300,
+  "completed": 0,
+  "routed_samples": 300,
+  "remaining_call_upper_bound": 300,
+  "remaining_classifier_samples": 0,
+  "fingerprint": "192eec62106920d36c8910f4f49e3b73a05b6d8de7dccceede6896c455a3d02a",
+  "output": "/kaggle/working/answer_repair_v7_heldout3216_outputs/nq_short_answer_quote_heldout3216.jsonl"
+}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+Fetching 4 files:  25%|██▌       | 1/4 [00:41<02:03, 41.14s/it]
+Fetching 4 files:  50%|█████     | 2/4 [00:56<00:51, 25.94s/it]
+Fetching 4 files: 100%|██████████| 4/4 [01:01<00:00, 11.16s/it]
+Fetching 4 files: 100%|██████████| 4/4 [01:01<00:00, 15.29s/it]
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:03<21:24,  3.80s/it]
+Loading weights:   1%|          | 2/339 [00:07<20:41,  3.68s/it]
+Loading weights:   1%|          | 4/339 [00:07<08:01,  1.44s/it]
+Loading weights:   4%|▎         | 12/339 [00:07<01:45,  3.09it/s]
+Loading weights:   5%|▌         | 18/339 [00:07<00:59,  5.39it/s]
+Loading weights:   9%|▊         | 29/339 [00:07<00:27, 11.18it/s]
+Loading weights:  12%|█▏        | 40/339 [00:08<00:16, 17.98it/s]
+Loading weights:  15%|█▍        | 50/339 [00:08<00:11, 25.58it/s]
+Loading weights:  17%|█▋        | 58/339 [00:08<00:09, 30.92it/s]
+Loading weights:  19%|█▉        | 66/339 [00:08<00:07, 36.36it/s]
+Loading weights:  23%|██▎       | 77/339 [00:08<00:05, 47.91it/s]
+Loading weights:  26%|██▋       | 89/339 [00:08<00:04, 57.31it/s]
+Loading weights:  29%|██▉       | 100/339 [00:08<00:03, 67.77it/s]
+Loading weights:  32%|███▏      | 110/339 [00:08<00:03, 74.64it/s]
+Loading weights:  35%|███▌      | 120/339 [00:08<00:02, 74.39it/s]
+Loading weights:  38%|███▊      | 129/339 [00:10<00:10, 19.25it/s]
+Loading weights:  40%|████      | 136/339 [00:11<00:12, 16.32it/s]
+Loading weights:  42%|████▏     | 141/339 [00:11<00:16, 11.80it/s]
+Loading weights:  43%|████▎     | 145/339 [00:12<00:15, 12.71it/s]
+Loading weights:  44%|████▍     | 149/339 [00:13<00:22,  8.53it/s]
+Loading weights:  45%|████▍     | 152/339 [00:13<00:23,  7.82it/s]
+Loading weights:  45%|████▌     | 154/339 [00:13<00:21,  8.48it/s]
+Loading weights:  46%|████▌     | 156/339 [00:13<00:19,  9.34it/s]
+Loading weights:  47%|████▋     | 160/339 [00:14<00:21,  8.49it/s]
+Loading weights:  48%|████▊     | 162/339 [00:14<00:18,  9.38it/s]
+Loading weights:  51%|█████     | 172/339 [00:15<00:11, 14.16it/s]
+Loading weights:  51%|█████▏    | 174/339 [00:15<00:15, 10.40it/s]
+Loading weights:  54%|█████▍    | 184/339 [00:16<00:10, 14.45it/s]
+Loading weights:  55%|█████▍    | 186/339 [00:16<00:17,  8.66it/s]
+Loading weights:  57%|█████▋    | 192/339 [00:17<00:12, 11.98it/s]
+Loading weights:  58%|█████▊    | 196/339 [00:17<00:13, 10.68it/s]
+Loading weights:  58%|█████▊    | 198/339 [00:18<00:22,  6.38it/s]
+Loading weights:  60%|█████▉    | 203/339 [00:18<00:14,  9.20it/s]
+Loading weights:  61%|██████▏   | 208/339 [00:19<00:14,  8.84it/s]
+Loading weights:  62%|██████▏   | 210/339 [00:20<00:23,  5.49it/s]
+Loading weights:  63%|██████▎   | 214/339 [00:20<00:16,  7.45it/s]
+Loading weights:  64%|██████▎   | 216/339 [00:20<00:14,  8.38it/s]
+Loading weights:  65%|██████▍   | 220/339 [00:21<00:15,  7.74it/s]
+Loading weights:  65%|██████▌   | 222/339 [00:22<00:25,  4.67it/s]
+Loading weights:  68%|██████▊   | 232/339 [00:22<00:10, 10.25it/s]
+Loading weights:  69%|██████▉   | 235/339 [00:22<00:08, 11.67it/s]
+Loading weights:  72%|███████▏  | 245/339 [00:22<00:04, 19.01it/s]
+Loading weights:  75%|███████▍  | 254/339 [00:22<00:03, 27.25it/s]
+Loading weights:  77%|███████▋  | 260/339 [00:23<00:02, 28.11it/s]
+Loading weights:  79%|███████▉  | 268/339 [00:23<00:02, 24.09it/s]
+Loading weights:  80%|████████  | 272/339 [00:23<00:02, 25.85it/s]
+Loading weights:  83%|████████▎ | 280/339 [00:23<00:02, 22.55it/s]
+Loading weights:  84%|████████▍ | 284/339 [00:25<00:04, 11.29it/s]
+Loading weights:  85%|████████▍ | 287/339 [00:25<00:04, 12.62it/s]
+Loading weights:  86%|████████▌ | 290/339 [00:25<00:03, 14.12it/s]
+Loading weights:  86%|████████▋ | 293/339 [00:26<00:06,  7.41it/s]
+Loading weights:  87%|████████▋ | 295/339 [00:26<00:07,  6.24it/s]
+Loading weights:  88%|████████▊ | 298/339 [00:26<00:05,  7.88it/s]
+Loading weights:  88%|████████▊ | 300/339 [00:27<00:04,  8.97it/s]
+Loading weights:  90%|████████▉ | 304/339 [00:27<00:04,  8.15it/s]
+Loading weights:  90%|█████████ | 306/339 [00:28<00:06,  4.86it/s]
+Loading weights:  91%|█████████▏| 310/339 [00:28<00:04,  7.20it/s]
+Loading weights:  92%|█████████▏| 313/339 [00:28<00:02,  9.21it/s]
+Loading weights:  93%|█████████▎| 316/339 [00:29<00:02,  7.70it/s]
+Loading weights:  94%|█████████▍| 318/339 [00:30<00:04,  4.65it/s]
+Loading weights:  95%|█████████▍| 322/339 [00:30<00:02,  6.97it/s]
+Loading weights:  96%|█████████▌| 324/339 [00:30<00:01,  8.09it/s]
+Loading weights:  97%|█████████▋| 328/339 [00:31<00:01,  7.71it/s]
+Loading weights:  97%|█████████▋| 330/339 [00:32<00:01,  4.67it/s]
+Loading weights:  99%|█████████▊| 334/339 [00:32<00:00,  6.96it/s]
+Loading weights:  99%|█████████▉| 336/339 [00:32<00:00,  8.08it/s]
+Loading weights: 100%|██████████| 339/339 [00:32<00:00, 10.41it/s]
+[1/300] 4015175761191110741: invalid_output
+[2/300] 1747539378277902434: repaired
+[3/300] -7243039856764979249: invalid_output
+[4/300] -6751220433242447969: repaired
+[5/300] -8883866849303680195: invalid_output
+[6/300] -5702657710806575402: repaired
+[7/300] -6395885127392955720: invalid_output
+[8/300] 595996307760943345: invalid_output
+[9/300] 1653574612763270615: invalid_output
+[10/300] 5575695503847666333: invalid_output
+[11/300] -7311149600272472027: invalid_output
+[12/300] -752729428506071643: invalid_output
+[13/300] 6964081620281133819: invalid_output
+[14/300] -8933992738561325454: invalid_output
+[15/300] -5327690920099764097: repaired
+[16/300] -3310624671723052836: invalid_output
+[17/300] 4941105400369114094: invalid_output
+[18/300] -2812597164906272385: invalid_output
+[19/300] 4140332518759407550: repaired
+[20/300] 8201122484810466598: invalid_output
+[21/300] -8229490686742200210: invalid_output
+[22/300] -6147777366028203410: invalid_output
+[23/300] -845091588828084337: invalid_output
+[24/300] 6276969298797177537: repaired
+[25/300] -1123449784666821676: kept
+[26/300] 9165137471708587191: invalid_output
+[27/300] -6216202368088666946: invalid_output
+[28/300] 8956254432652172705: invalid_output
+[29/300] 3271852979242251966: kept
+[30/300] 4436726845003723762: invalid_output
+[31/300] 9087528790356333569: invalid_output
+[32/300] 6965345213102068647: invalid_output
+[33/300] -3259277719781782681: invalid_output
+[34/300] 3400990959340670350: invalid_output
+[35/300] -4826242047055818326: invalid_output
+[36/300] 6486446244503815045: invalid_output
+[37/300] -1043054449143427368: invalid_output
+[38/300] -1106714590515566575: kept
+[39/300] -4448626369539370337: invalid_output
+[40/300] 8105649011802805070: kept
+[41/300] -5519267321423308172: invalid_output
+[42/300] -6655692357261534837: repaired
+[43/300] 6948592513354589991: invalid_output
+[44/300] 7217222058435937287: repaired
+[45/300] 6405015309290964923: invalid_output
+[46/300] -3884651026012756707: invalid_output
+[47/300] 4411139568251991249: invalid_output
+[48/300] -283793683772083530: invalid_output
+[49/300] -8330817496218308239: invalid_output
+[50/300] -3723975912451069736: invalid_output
+[51/300] -8696133314731800801: repaired
+[52/300] 8881606849310681343: invalid_output
+[53/300] -5869834741419224491: invalid_output
+[54/300] -8462578313793667601: invalid_output
+[55/300] -964116613551607138: invalid_output
+[56/300] -2622805360660993548: kept
+[57/300] 6888371277899654085: invalid_output
+[58/300] -510179348025098787: invalid_output
+[59/300] 4320121429794432668: kept
+[60/300] -4224988278104010320: invalid_output
+[61/300] 647605647914971565: invalid_output
+[62/300] 575501437401429947: invalid_output
+[63/300] -838090964585984539: invalid_output
+[64/300] -1388143263608839064: invalid_output
+[65/300] -4450680238419666813: invalid_output
+[66/300] 4860670634595834038: invalid_output
+[67/300] 307455002465526783: invalid_output
+[68/300] -4904421095603646590: invalid_output
+[69/300] -5551039786517755042: repaired
+[70/300] 1940948246143068868: invalid_output
+[71/300] -154783694579651082: invalid_output
+[72/300] -58163792752112756: invalid_output
+[73/300] -1602885085222027775: invalid_output
+[74/300] 5191402605768653295: unanchored_candidate
+[75/300] 2918354452051217435: repaired
+[76/300] 8576065768686847484: invalid_output
+[77/300] -5602712022648831329: invalid_output
+[78/300] -6020718793311054865: invalid_output
+[79/300] -1458772187885221091: invalid_output
+[80/300] -8610553732217816182: insufficient_evidence
+[81/300] 6160560751326098110: invalid_output
+[82/300] -5444320457991187484: unanchored_candidate
+[83/300] 795441882608131318: repaired
+[84/300] -3130775636464914942: invalid_output
+[85/300] 8466196474705624263: kept
+[86/300] -8488338195071516656: invalid_output
+[87/300] -5640132611260516163: invalid_output
+[88/300] -8463303168185775472: kept
+[89/300] 9050098303086371705: invalid_output
+[90/300] -4822862932182551070: repaired
+[91/300] -6910541884247739685: invalid_output
+[92/300] -4617061014284277068: invalid_output
+[93/300] 3826862253571581938: invalid_output
+[94/300] 5775133890125619778: invalid_output
+[95/300] -1577046769595264411: invalid_output
+[96/300] -7828774753633774412: invalid_output
+[97/300] -1626541047372980132: repaired
+[98/300] -1390827316169461656: invalid_output
+[99/300] 6628623363853146747: invalid_output
+[100/300] 7273651277313451649: repaired
+[101/300] -8318566750800003943: invalid_output
+[102/300] 7206245989456268244: repaired
+[103/300] -1237541127242374338: invalid_output
+[104/300] -8006002028754190814: repaired
+[105/300] -3276477249293599145: repaired
+[106/300] -4809486218828226485: invalid_output
+[107/300] -1317942101497986450: repaired
+[108/300] -8588049058110544544: invalid_output
+[109/300] 1321443496772706078: invalid_output
+[110/300] 6339911987422116455: repaired
+[111/300] 275718753854271176: repaired
+[112/300] -1206653570097564556: invalid_output
+[113/300] -8405340280474501734: unanchored_candidate
+[114/300] -4372303580533025030: invalid_output
+[115/300] 5546821905435239058: kept
+[116/300] 5328438809332726480: repaired
+[117/300] 2495228512593253768: repaired
+[118/300] 551385218565928061: invalid_output
+[119/300] -912566739828114526: invalid_output
+[120/300] 6419695748325791865: repaired
+[121/300] -1861449238368733677: invalid_output
+[122/300] -8590084884830548313: repaired
+[123/300] 4385138898390124428: invalid_output
+[124/300] -2349691009719617713: invalid_output
+[125/300] -3861600461320109083: invalid_output
+[126/300] 6221261718898168815: kept
+[127/300] 5482109430613356344: repaired
+[128/300] -3587434056219625939: invalid_output
+[129/300] -547131849699096681: kept
+[130/300] 8957581015190486025: invalid_output
+[131/300] 5890236133057512627: invalid_output
+[132/300] -3933902576274996149: invalid_output
+[133/300] -9020887890441881523: invalid_output
+[134/300] 5282900600065989761: invalid_output
+[135/300] -5579812134939807145: unanchored_candidate
+[136/300] 2401915830495655749: repaired
+[137/300] 5639549384591145661: kept
+[138/300] -7887767352328217785: invalid_output
+[139/300] 2845443756485516190: invalid_output
+[140/300] 1150760456533790667: invalid_output
+[141/300] 6648524536408285205: kept
+[142/300] 2261647777274969201: invalid_output
+[143/300] -1100776571922066473: invalid_output
+[144/300] 6379798071561314250: kept
+[145/300] 8803717720023296980: repaired
+[146/300] -5765931546365345480: repaired
+[147/300] 2567803341516865697: invalid_output
+[148/300] -2321556715412254267: invalid_output
+[149/300] -9141276525854297532: invalid_output
+[150/300] -4546405080702371934: repaired
+[151/300] 3886074985605209321: repaired
+[152/300] -4769385456939034988: kept
+[153/300] 2991709613727685350: kept
+[154/300] -8767841388599751671: repaired
+[155/300] 3786291662182153375: repaired
+[156/300] 8044909700499569711: invalid_output
+[157/300] 246927435436425337: invalid_output
+[158/300] 7009068190782581211: unanchored_candidate
+[159/300] 761079737280110147: invalid_output
+[160/300] -6190173184813176768: invalid_output
+[161/300] 6147480559877930832: kept
+[162/300] 6598465593542733817: invalid_output
+[163/300] -1425049791898563664: invalid_output
+[164/300] 1311019403755331535: invalid_output
+[165/300] -6544639991517260033: invalid_output
+[166/300] 6475776155210751728: invalid_output
+[167/300] -1569810426787618729: kept
+[168/300] -6798333581715575431: invalid_output
+[169/300] -7441549111767247071: invalid_output
+[170/300] -9206476979262793581: kept
+[171/300] 8911390210346559626: repaired
+[172/300] -9125298319026314215: invalid_output
+[173/300] -311518210106653803: invalid_output
+[174/300] 8653383319877139807: invalid_output
+[175/300] 4492033271398413517: kept
+[176/300] 191024324280973989: kept
+[177/300] 3812228515775986713: kept
+[178/300] 2254570797818322097: kept
+[179/300] 3725000672240774747: invalid_output
+[180/300] -3828702383571778476: repaired
+[181/300] 1560261279486353160: kept
+[182/300] 95636137517606056: repaired
+[183/300] -4461484002255201500: kept
+[184/300] 737118727843422688: kept
+[185/300] 1019325920722273987: invalid_output
+[186/300] -6223025678147948803: kept
+[187/300] -8394122729758879464: invalid_output
+[188/300] 734309880189507498: invalid_output
+[189/300] -86061704964093180: repaired
+[190/300] 297857577311545840: kept
+[191/300] -8812023770401780881: invalid_output
+[192/300] -8283850019251231694: invalid_output
+[193/300] -599106694350296477: invalid_output
+[194/300] -5623229691925051533: repaired
+[195/300] 5828164811839577668: repaired
+[196/300] -7784467847733894276: kept
+[197/300] 3859333644530986186: kept
+[198/300] 8470589279684607467: invalid_output
+[199/300] -5962834986971381510: invalid_output
+[200/300] 2024305852899809276: kept
+[201/300] -9186689755642837558: invalid_output
+[202/300] 5095072412884368843: unanchored_candidate
+[203/300] -3339535652354050061: invalid_output
+[204/300] -7254388745571129306: invalid_output
+[205/300] -3025860077242026236: invalid_output
+[206/300] -6140048837740392599: invalid_output
+[207/300] -873221229677720991: kept
+[208/300] -3164262024794615071: kept
+[209/300] -3155226362713137364: kept
+[210/300] -2912534651218543566: kept
+[211/300] 915505794914759228: invalid_output
+[212/300] 2963242422999718442: repaired
+[213/300] -1163524811252371834: invalid_output
+[214/300] -6795993389625830349: kept
+[215/300] 7538504132348604924: invalid_output
+[216/300] -8863981073729330572: kept
+[217/300] 5753281635295092532: invalid_output
+[218/300] -928229760699185795: invalid_output
+[219/300] 3804439895665223862: unanchored_candidate
+[220/300] -7311294886604391994: invalid_output
+[221/300] -3654809363614635590: invalid_output
+[222/300] 1065612251914840415: invalid_output
+[223/300] -4282172075713153249: invalid_output
+[224/300] 230959716107194709: invalid_output
+[225/300] -6578934935048896147: invalid_output
+[226/300] 5120140343063798145: invalid_output
+[227/300] 4326992806019599297: invalid_output
+[228/300] -7168867178928877609: kept
+[229/300] -7052052953885262396: invalid_output
+[230/300] -782889873546878660: kept
+[231/300] 6403936039868410763: invalid_output
+[232/300] 3227997019205769806: invalid_output
+[233/300] 4765382874642215145: invalid_output
+[234/300] -3159460576929919105: kept
+[235/300] -6053488055478960702: kept
+[236/300] 3630480194417653112: repaired
+[237/300] -4159010968122813872: invalid_output
+[238/300] -86997217831791339: kept
+[239/300] -3513582807303361660: repaired
+[240/300] -8488975200279464488: invalid_output
+[241/300] 3671645670833821755: invalid_output
+[242/300] -9148038057513811621: invalid_output
+[243/300] -7900537827363346667: repaired
+[244/300] -3984706621862511717: repaired
+[245/300] 8324017764283655875: repaired
+[246/300] -1609362606908546787: invalid_output
+[247/300] 4684008146287743969: invalid_output
+[248/300] -5805368237608313439: invalid_output
+[249/300] -2630525064809360052: invalid_output
+[250/300] 6366355994259775888: kept
+[251/300] 5591012279983312305: invalid_output
+[252/300] -220898254038111873: invalid_output
+[253/300] 7225785319983716635: invalid_output
+[254/300] 6466066334172447213: repaired
+[255/300] -7958414179887081456: repaired
+[256/300] 5101639460405472653: kept
+[257/300] 8594412932547864460: invalid_output
+[258/300] 1996292107460275608: invalid_output
+[259/300] 4974429461066436469: invalid_output
+[260/300] -5741796887997028481: invalid_output
+[261/300] 3935460856147254218: invalid_output
+[262/300] -5822969537905676368: invalid_output
+[263/300] -4974831750077564519: invalid_output
+[264/300] -1910743846708408775: repaired
+[265/300] 2304123337731564294: repaired
+[266/300] -2339353670444421139: invalid_output
+[267/300] -9097447514182117784: invalid_output
+[268/300] 2560216129822101996: invalid_output
+[269/300] -8846507630412060967: invalid_output
+[270/300] -6778756826280337917: invalid_output
+[271/300] -9217530809637354083: insufficient_evidence
+[272/300] -7721509949632484180: repaired
+[273/300] 6378606982206312510: invalid_output
+[274/300] -2245890438325852492: invalid_output
+[275/300] -1109521761207576670: invalid_output
+[276/300] -7733962091461103034: invalid_output
+[277/300] -7594272775521933661: invalid_output
+[278/300] -7003244893871973796: invalid_output
+[279/300] 4842545652440215325: invalid_output
+[280/300] 7824942145194220912: invalid_output
+[281/300] 6969539427365218166: invalid_output
+[282/300] 175824256524792922: unanchored_candidate
+[283/300] -1532176139689397674: insufficient_evidence
+[284/300] -2671536703857490095: invalid_output
+[285/300] 7520402739582397133: repaired
+[286/300] -5936687429785576174: invalid_output
+[287/300] 2312273655863950790: invalid_output
+[288/300] -6729136649709789995: invalid_output
+[289/300] 7957769978849181497: invalid_output
+[290/300] 3228081808286540919: invalid_output
+[291/300] -720512252272678238: unanchored_candidate
+[292/300] 4869593212087031152: invalid_output
+[293/300] -2666014283344944039: invalid_output
+[294/300] -1514464247537659362: repaired
+[295/300] -2362041234838636399: invalid_output
+[296/300] 3695813920971622504: invalid_output
+[297/300] -2788043399971738134: invalid_output
+[298/300] 4699864784059462605: invalid_output
+[299/300] 9213513858961887775: invalid_output
+[300/300] -7692927607953263226: invalid_output
+{
+  "run_fingerprint": "192eec62106920d36c8910f4f49e3b73a05b6d8de7dccceede6896c455a3d02a",
+  "routing": "all",
+  "strategy": "short_answer_quote",
+  "evaluated_samples": 300,
+  "initial_correct": 63,
+  "final_correct": 67,
+  "initial_accuracy": 0.21,
+  "final_accuracy": 0.22333333333333333,
+  "fixed": 13,
+  "regressed": 9,
+  "net_correct_gain": 4,
+  "accuracy_gain": 0.013333333333333334,
+  "mcnemar_exact_pvalue": 0.5234670639038086,
+  "repair_success_rate": 0.05485232067510549,
+  "regression_rate": 0.14285714285714285,
+  "changed": 52,
+  "verifier_calls": 0,
+  "verifier_latency_total": 0.0,
+  "verifier_input_tokens_total": 0,
+  "extra_calls": 300,
+  "extra_calls_per_sample": 1.0,
+  "extra_generation_latency_total": 1618.4168410870002,
+  "extra_generation_latency_per_sample": 5.394722803623334,
+  "status_counts": {
+    "invalid_output": 192,
+    "repaired": 52,
+    "kept": 44,
+    "unanchored_candidate": 9,
+    "insufficient_evidence": 3
+  },
+  "independent_support_checked": 0,
+  "same_model_support_check_counts": {},
+  "input_tokens_total": 272962,
+  "input_tokens_observed_samples": 300,
+  "input_tokens_observed_calls": 300,
+  "output_tokens_estimate_total": 18980,
+  "output_tokens_estimate_observed_samples": 300,
+  "output_tokens_estimate_observed_calls": 300,
+  "initial_f1": 0.30355021835469065,
+  "final_f1": 0.33402862978999864
+}

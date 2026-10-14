@@ -90,13 +90,22 @@ def main(argv=None):
     parser.add_argument("--bundle-dir", type=Path, required=True)
     parser.add_argument("--results-dir", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--cohort-spec", action="append", default=[],
+                        help="name=inputs/<c1>.jsonl=<result>.jsonl; overrides the default three cohorts")
     args = parser.parse_args(argv)
+    cohorts = dict(COHORTS)
+    inputs = {name: f"inputs/nq_{name}_c1.jsonl" for name in COHORTS}
+    if args.cohort_spec:
+        cohorts, inputs = {}, {}
+        for spec in args.cohort_spec:
+            name, input_path, result_name = spec.split("=")
+            cohorts[name], inputs[name] = result_name, input_path
     report = {"post_hoc_analysis_only": True, "promoted": False,
               "tolerances": ["RANK may be written as [n]", "QUOTE/ANSWER may be wrapped in quotation marks",
                              "ANSWER: INSUFFICIENT counts as abstention"], "cohorts": {}}
-    for cohort, result_name in COHORTS.items():
+    for cohort, result_name in cohorts.items():
         source = {json.loads(l)["sample_id"]: json.loads(l)
-                  for l in (args.bundle_dir / f"inputs/nq_{cohort}_c1.jsonl").read_text().splitlines() if l.strip()}
+                  for l in (args.bundle_dir / inputs[cohort]).read_text().splitlines() if l.strip()}
         rows = [json.loads(l) for l in (args.results_dir / result_name).read_text().splitlines() if l.strip()]
         frozen = collections.Counter(r["status"] for r in rows)
         statuses, reasons = collections.Counter(), collections.Counter()

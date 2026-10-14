@@ -69,3 +69,26 @@ dev50 的 9 条改动中，Greenland→"an autonomous constituent country within
 ## 人工审核队列
 
 `release_audit/review_priority.md`：43 条改动结果优先（18 条冻结指标退步、13 条改善、12 条其他改动），其余 498 条保留答案。沿用确认清单的 7 条完整性口径；代理初读不是人工真值。
+
+## 第 4 批 `heldout3216`：含 utilisation 标注的 NQ held-out（只跑一次）
+
+结果 ZIP `answer_repair_v7_heldout3216_outputs_export.zip`（SHA-256 `91ee085bb38c8ee05220b71e5b547978871d84635261d8034a177370a8b927fd`），原始 11 文件在 `artifacts/answer_repair/v7_heldout3216/kaggle_20261014/`；输入 50 文件校验通过，云端 102 项测试通过，本地冻结代码回放 300 条一致。300 次 Qwen 调用，生成 1618.4 秒，输入 272,962 tokens，输出估计 18,980 tokens。
+
+这是唯一一批 E 从未见过、又含可修复样本的数据（按离线标签分层选取，不代表部署分布）。整体冻结 EM 63→67（13 修复 / 9 误修，McNemar p=0.52），F1 0.304→0.334；按层：
+
+| 层 | n | EM 前→后 | 修复 / 误修 | 改答案 | invalid | F1 前→后 |
+|---|---:|---:|---:|---:|---:|---:|
+| evidence_utilisation | 120 | 0→10 | 10 / 0 | 24 | 83 | 0.063→0.146 |
+| evidence_accessibility | 35 | 0→3 | 3 / 0 | 9 | 18 | 0.076→0.164 |
+| correct | 100 | 63→54 | 0 / 9 | 14 | 56 | 0.801→0.759 |
+| evidence_insufficiency | 45 | 0→0 | 0 / 0 | 5 | 35 | 0.018→0.023 |
+
+utilisation 层的 10 条 EM 修复（Tamara Drasin、Billy Idol、Davos、Astros 2017、Hasmukh Adhia、Planet of the Apes 7 月 14 日、脱欧公投 6 月 23 日、AGT 第 13 季、红卫兵 1966–1967、十字架 4 世纪）都是把错误实体/日期换成证据里的正确值；另有 elevator pitch（F1 0.09→0.90）、迪士尼乐园地点（→0.89）、Bastard Executioner "one season"、贫困率 13.5% 等 EM=0 但明显改善的案例，代理初读下 utilisation 层的语义修复约 13–14/120。改错的方向也有：Spock 手势→犹太祭司祝福（证据里的词源，参考要 Nimoy）、hairpin、criminal law、Home Alone 2 New York→New York City（参考 Florida）均为错→错，不计误修。
+
+correct 层 9 条 EM 退步里 7 条是加字/加日期/空格（"Hal ( Bryan Cranston )"、"Burj Khalifa in Dubai…"、"March 18, 2005"、"the volume of a gas"、"more in the wintertime"、"1980 summer Olympics"、"pulse - width"），1 条有争议（"RMS Titanic"→"Titanic"，题问全名，应算退步），1 条真实误修（菲律宾最老街道 Colon Street→费城 Elfreth's Alley，实体错误）。语义误修率约 1–2/63。
+
+放宽解析的事后回放（`release_audit/lenient_parser_replay.json`，不晋升）：整体仍 63→67（16 修复 / 12 误修）；utilisation 0→11，correct 63→53。和主包 held-out 一致：放宽格式只多换来 1 个修复，多付 3 个 EM 误修。192 条无效输出里 126 条是引文非逐字、53 条 `RANK: [n]`、13 条超长。
+
+**这一批改变什么**：它证明 v7 的短答案策略在 utilisation 样本上有真实修复能力（EM 8.3%，语义约 11%），且在这批 correct 样本上的真实误修很少（1–2/63）；但主包 held-out 146 条上的 5 条真实误修（演员→角色、原唱→翻唱、年份→日期）没有被这批抵消，两批加起来 correct 样本的真实误修约 6–7/134 ≈ 5%，而修复只在 utilisation 样本上出现。在冻结 Controller 把 48 条 generation_repair 里 32 条本来正确的样本路由给 E 的现实下，这个误修率仍然太高，结论不变：**不晋升**；下一版应让初始答案可见、只在证据明确更强时替换，并在 3216 池剩余的 1,287 条未用 ID 上重新验证。
+
+人工审核队列：`artifacts/answer_repair/v7_heldout3216/release_audit/review_priority.md`，52 条改动优先（9 条 EM 退步、13 条改善、30 条其他）。
