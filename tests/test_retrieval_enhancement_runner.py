@@ -155,6 +155,20 @@ class NQRunnerTests(unittest.TestCase):
         self.assertFalse(report["structure_ready"])
         self.assertTrue(any("duplicate IDs" in error for error in report["errors"]))
 
+    def test_official_bge_stateless_normalize_needs_no_module_config(self):
+        modules = json.loads((self.snapshot / "modules.json").read_text())
+        modules.append({"idx": 2, "name": "2", "path": "2_Normalize",
+                        "type": "sentence_transformers.models.Normalize"})
+        (self.snapshot / "modules.json").write_text(json.dumps(modules))
+        self.assertEqual(runner.check_model_cache(self.cache)["errors"], [])
+
+    def test_stateful_pooling_still_requires_module_config(self):
+        (self.snapshot / "1_Pooling/config.json").unlink()
+        (self.snapshot / "modules.json").write_text(json.dumps([
+            {"path": "1_Pooling", "type": "sentence_transformers.models.Pooling"}]))
+        self.assertIn("missing BGE module config: 1_Pooling",
+                      runner.check_model_cache(self.cache)["errors"])
+
     def test_runner_writes_traces_then_offline_labels_and_releases_resources(self):
         output = self.root / "run"
         owner, backend = Owner(), Backend()

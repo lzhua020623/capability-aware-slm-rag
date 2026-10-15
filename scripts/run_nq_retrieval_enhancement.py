@@ -142,7 +142,10 @@ def check_model_cache(cache_dir: Path) -> dict:
                 module_path = module["path"]
                 if not isinstance(module_path, str) or Path(module_path).is_absolute() or ".." in Path(module_path).parts:
                     raise ValueError("invalid BGE module path")
-                if module_path and not (snapshot / module_path / "config.json").is_file():
+                # Official BGE includes a stateless Normalize module with no
+                # saved directory/config. Stateful modules still need theirs.
+                stateless_normalize = module.get("type") == "sentence_transformers.models.Normalize"
+                if module_path and not stateless_normalize and not (snapshot / module_path / "config.json").is_file():
                     errors.append(f"missing BGE module config: {module_path}")
         if not any((snapshot / name).is_file() for name in ("model.safetensors", "pytorch_model.bin")):
             shard_index = next((snapshot / name for name in ("model.safetensors.index.json", "pytorch_model.bin.index.json")
