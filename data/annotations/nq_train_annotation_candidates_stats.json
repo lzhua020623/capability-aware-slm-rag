@@ -1,0 +1,40 @@
+{
+  "raw_nq_train_count": 307373,
+  "controlled_count": 74097,
+  "retrieval_corpus_count": 1224119,
+  "retrieval_recall_at_1": 0.3122528577405293,
+  "retrieval_recall_at_3": 0.537012294694792,
+  "retrieval_recall_at_5": 0.6293507159534124,
+  "c1_generated_count": 74097,
+  "generation_model": "Qwen/Qwen2.5-7B-Instruct",
+  "quantization": "nf4",
+  "decoding": "greedy do_sample=False",
+  "max_new_tokens": 64,
+  "mean_generation_latency": 0.9195857726048295,
+  "total_generation_time": 68138.54699270005,
+  "failed_count": 0,
+  "annotation_candidate_count": 74097,
+  "empty_answer_count": 0,
+  "very_long_output_count_gt_200_chars": 94,
+  "exact_duplicate_prediction_groups": 9032,
+  "c1_output_path": "data/processed/diagnosis/nq_train_c1_outputs.jsonl",
+  "annotation_path": "data/annotations/nq_train_annotation_candidates.jsonl",
+  "diagnosis_input_compatible_fields": [
+    "sample_id",
+    "dataset",
+    "query",
+    "initial_answer",
+    "evidence.rank",
+    "evidence.passage_id",
+    "evidence.text",
+    "evidence.score"
+  ],
+  "annotation_reference_fields": [
+    "gold_answer",
+    "gold_evidence_text",
+    "gold_passage_id",
+    "gold_in_top1",
+    "gold_in_top3",
+    "gold_in_top5"
+  ]
+}
