@@ -46,6 +46,8 @@ artifacts/answer_repair/**/*.pyc
 !artifacts/answer_repair/nq_train_dev_v1/inputs/nq_train_review_runtime.jsonl
 !artifacts/answer_repair/nq_train_dev_v1/review/review_queue.jsonl
 !artifacts/answer_repair/nq_train_dev_v1/review/review_queue.txt
+!artifacts/answer_repair/nq_train_dev_v1/review/NQ_train_pending_92.html
+!artifacts/answer_repair/nq_train_dev_v1/review/NQ_train_pending_92.manifest.json
 !artifacts/answer_repair/nq_train_dev_v1/confirmed/batch01_c1.jsonl
 !artifacts/answer_repair/nq_train_dev_v1/confirmed/batch01_runtime.jsonl
 # Re-assert after the whitelists above: unpacked bundle copies never enter Git.

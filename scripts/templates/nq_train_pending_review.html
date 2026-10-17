@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="review-builder" content="nq-train-pending-v1">
+<title>E · NQ Train 待审核</title>
+<style>__BASE_REVIEW_CSS__
+.jump{display:flex;gap:6px;margin-bottom:9px}.jump input{min-width:0;flex:1;margin:0}.jump button{white-space:nowrap}
+.reference{margin-top:12px}.reference summary{cursor:pointer;color:var(--muted);font-size:13px}
+.reference .answer{border-color:#b89b5d;background:#fcf8ef;margin-top:6px}.form .secondary{width:100%;margin-top:8px}
+.form .adopt{margin:0 0 6px;font-size:13px;width:100%}.button-row{display:flex;gap:8px;flex-wrap:wrap}
+.subhead{margin-top:10px;color:#d8e9e8;font-size:13px}#jumpError{font-size:12px;color:#982921;margin-bottom:8px}
+.sample .number{font-weight:700;color:var(--accent);margin-right:5px}.flag{font-size:12px;color:var(--muted)}
+.form .hint{font-size:12px;color:var(--muted);margin:7px 0}.quote{font-size:13px}#reviewState{white-space:pre-wrap}
+dialog{max-width:440px;border:1px solid var(--line);border-radius:10px;padding:24px;color:var(--ink)}dialog::backdrop{background:#102e3a66}
+dialog p{margin-top:0}dialog .button-row{justify-content:flex-end}#fileError:empty{display:none}#fileError{margin-top:8px;color:#ffe1a6}
+@media(min-width:1051px){.grid{grid-template-columns:minmax(0,1.35fr) minmax(320px,1fr)}}
+</style>
+</head>
+<body>
+<header>
+ <h1>E · NQ Train 待审核</h1>
+ <p id="scope">正在读取审核材料…</p>
+ <div class="topbar"><span class="stats" id="stats"></span><progress id="progress" value="0" aria-label="本页人工确认进度"></progress>
+  <button id="export">导出审核 JSON</button><button id="import">导入已有审核</button>
+  <input id="file" type="file" accept=".json,application/json" hidden>
+ </div>
+ <div class="save-status" id="saveStatus" role="status">正在读取本机草稿…</div>
+ <div id="fileError" role="alert"></div>
+</header>
+<div class="layout">
+ <aside>
+  <div class="jump"><input class="filter" id="jumpNumber" aria-label="跳转到原审核编号" placeholder="原编号，如 N63"><button id="jump">跳转</button></div>
+  <div id="jumpError" role="alert"></div>
+  <input class="filter" id="search" aria-label="搜索问题、编号、ID 或证据" placeholder="搜索题目、N 编号、证据关键词">
+  <select class="filter" id="filter" aria-label="筛选样本">
+   <option value="all">全部待审样本</option><option value="disputed">争议样本优先</option>
+   <option value="acceptable">建议语义可接受</option><option value="pending">尚未人工确认</option>
+   <option value="draft">草稿</option><option value="deferred">已标记暂缓</option><option value="completed">本页已确认</option>
+  </select>
+  <div class="sample-list" id="list"></div>
+ </aside>
+ <main class="main">
+  <details class="guide card"><summary>审核说明与标签标准</summary>
+   <p id="guideScope"></p>
+   <p><b>Correct：</b>原答案在题目要求下语义正确，不要求与 gold 逐字一致。<b>Utilisation：</b>原答案有实质错误，而 Top-5 支持充分且清楚。<b>Accessibility：</b>所需信息存在，但冲突、噪声或呈现使其难以使用。<b>Insufficiency：</b>Top-5 缺少回答所需信息。</p>
+   <p>时间题按冻结语料时点审核。参考有疑问可单独标记；无法裁定时保存为暂缓。暂缓只是审核状态，不是第五种运行时主标签。</p>
+   <p>人工结论初始留空。“采用辅助建议为草稿”需要你主动点击，并不会完成确认。修改已确认记录后会恢复草稿。浏览器草稿仅保存在当前浏览器，审核一批后请导出 JSON 备份；换浏览器或电脑可导入同一版本文件。</p>
+   <p>本页无需联网，不会自动修改 main 数据、gold、评分规则或仓库标注。下载的审核文件交回后再核对入库。</p>
+  </details>
+  <div class="navigation"><span id="position"></span><button id="previous">← 上一条</button><button id="next">下一条 →</button></div>
+  <div id="content">
+   <section class="card">
+    <div class="eyebrow" id="identity"></div><h2 id="query"></h2><div id="tags"></div>
+    <div class="subtle">原始 C1 回答</div><div class="answer" id="initial"></div>
+    <details class="reference" id="reference"><summary>展开冻结参考答案 · 仅离线审核</summary><div class="answer" id="gold"></div><div class="subtle" id="metrics"></div></details>
+   </section>
+   <div class="grid">
+    <section><h3>原始 Top-5 · 保持原顺序</h3><div class="evidence-actions"><button id="expand">展开全部证据</button><button id="collapse">收起全部证据</button></div><div id="evidence"></div></section>
+    <section>
+     <form class="card form" id="reviewForm">
+      <h3>你的人工判断</h3><div class="notice">先判断问题、原回答与证据。人工字段留空，确认只作用于当前一条。</div>
+      <button class="adopt" id="adopt" type="button">采用辅助建议为草稿</button>
+      <label for="reviewer">审核人</label><input id="reviewer" autocomplete="off" placeholder="姓名或组内代号">
+      <div class="two">
+       <div><label for="answerStatus">原始答案</label><select id="answerStatus"><option value="">请选择</option><option value="correct">语义正确</option><option value="incorrect">有实质错误</option><option value="partial">部分正确／不完整</option><option value="uncertain">无法确定</option></select></div>
+       <div><label for="evidenceStatus">Top-5 证据</label><select id="evidenceStatus"><option value="">请选择</option><option value="sufficient_clear">充分且清楚</option><option value="sufficient_difficult">信息存在但有干扰／冲突</option><option value="insufficient">缺少必要信息</option><option value="uncertain">无法确定</option></select></div>
+      </div>
+      <label for="label">主标签</label><select id="label"><option value="">请选择</option><option value="correct">Correct</option><option value="evidence_utilisation">Evidence Utilisation</option><option value="evidence_accessibility">Evidence Accessibility</option><option value="evidence_insufficiency">Evidence Insufficiency</option><option value="uncertain">存在争议／暂不定类</option></select>
+      <label for="use">开发用途</label><select id="use"><option value="">请选择</option><option value="correct_control">保留为正确对照</option><option value="include_e_core">纳入 E utilisation 核心开发</option><option value="boundary_case">保留为边界案例</option><option value="hold">暂缓纳入</option></select>
+      <label for="referenceIssue">参考答案是否有疑问（可选）</label><select id="referenceIssue"><option value="">尚未判断</option><option value="false">未发现问题</option><option value="true">有疑问，见理由</option></select>
+      <label for="ranks">支持判断的证据编号（可选）</label><input id="ranks" placeholder="例如 1, 2">
+      <label for="reason">判断理由或暂缓原因</label><textarea id="reason" placeholder="说明答案是否回答所求事实；疑似参考问题也写在这里。"></textarea>
+      <div class="error" id="formError" role="alert"></div>
+      <button class="primary" type="submit">确认本条人工审核</button>
+      <button class="secondary" id="defer" type="button">保存为暂缓</button>
+      <div class="review-state" id="reviewState"></div>
+     </form>
+     <details class="card assist" id="assist"><summary>展开 Codex 辅助判断 · 供你核对</summary><div id="assistantContent"></div></details>
+     <details class="card" id="original"><summary>来源与冻结信息</summary><div class="source" id="sourceContent"></div></details>
+    </section>
+   </div>
+  </div>
+  <div class="empty hidden" id="empty">没有匹配的样本。</div>
+  <footer>原题、C1、参考和完整 Top-5 都保存在本文件内。审核结果由你导出，不会自动上传。<button id="reset" type="button">清空本页本机草稿</button></footer>
+ </main>
+</div>
+<dialog id="confirmDialog" aria-label="确认草稿操作"><p id="confirmMessage"></p><div class="button-row"><button id="cancelConfirm" type="button">取消</button><button class="primary" id="acceptConfirm" type="button">继续</button></div></dialog>
+<script id="packet" type="application/json">__REVIEW_PACKET_JSON__</script>
+<script>__REVIEW_SCRIPT__</script>
+</body></html>
