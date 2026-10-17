@@ -1,10 +1,12 @@
 # NQ Train 开发样本辅助审核：2026-10-17
 
-已完成固定首批 100 条的代理辅助审核，所有人工确认仍为 pending。原始数据以 `origin/main@058f10baa47083220f95edb39db8f106aa7e85d6` 为准；本轮重新取得远程引用，未发现该提交之后的新 main 提交。
+已完成固定首批 100 条的代理辅助审核。随后用户在阅读 8 条目标候选的原题、C1、冻结参考和完整 Top-5 后回复“判断可以”，确认 N6/N29/N31/N48/N49/N74/N81/N96 的判断。当前 **8 条人工确认、92 条待审**；待审包括 69 条建议可接受和 23 条争议。原始数据以 `origin/main@058f10baa47083220f95edb39db8f106aa7e85d6` 为准；核对时未发现该提交之后的新 main 提交。
+
+确认记录见 [用户原话与明确范围](../data/annotations/human/answer_repair_nq_train_dev_v1_batch01_20261017.confirmations.json)、[8 条人工记录](../data/annotations/human/answer_repair_nq_train_dev_v1_batch01_20261017.jsonl) 和 [当前计数](../data/annotations/human/answer_repair_nq_train_dev_v1_batch01_20261017.summary.json)。这是查看代理分析及完整证据后的对话确认，不是独立盲标；没有确认任何 E 新输出正确。
 
 本轮核对 main 新增的 11 个交付/流水线文件与本地版本，均逐字节一致；Google 下载的 15 个原始分片均与 main 清单的 SHA-256 一致。74,097 条源记录及其 gold 未修改。E 的转换文件、内部划分与审核建议均为派生产物；如与 main 后续正式协议或团队共同划分冲突，应按上游重建新的派生版本。
 
-## 本批结果
+## 辅助初审分组
 
 | 原筛查组 | 建议语义可接受 | utilisation 候选 | 暂缓 | 合计 |
 |---|---:|---:|---:|---:|
@@ -12,7 +14,7 @@
 | EM=1 对照 | 20 | 0 | 0 | 20 |
 | 合计 | 69 | 8 | 23 | 100 |
 
-这些是 **agent 建议，不是人工金标准**，不能覆盖 main 的标签、修改冻结 scorer，或用作已确认训练目标。逐条理由依据全部 C1 Top-5 和离线参考，未查询外部事实，未使用 C2/C3 或新的 E 生成结果。引用均保留 passage_id、原文字符位置与证据哈希，100 条都在内部 development 部分。
+上表保留初次 **agent 建议** 的分组。其中 8 个 utilisation 候选现已得到用户确认，可用于 E 开发；其余 92 条不能用作已确认目标。逐条理由依据全部 C1 Top-5 和离线参考，未查询外部事实，未使用 C2/C3 或新的 E 生成结果。引用均保留 passage_id、原文字符位置与证据哈希，100 条都在内部 development 部分。main 原始标签和冻结 scorer 均未覆盖。
 
 `initial_correct` 表示是否回答了所求事实；`initial_supported` 表示证据能否支持它作为本题回答，不是文字是否出现。歧义案例中也会记录某一种解释有支持并保留正确性为 null，具体解释见理由。不能单独把这个辅助字段当作对脱离问题的陈述所做的 faithfulness 评分。
 
@@ -20,7 +22,7 @@
 
 本批刻意按 80:20 筛选，且只来自开发部分，不能把 8/80 或 69/100 外推为 NQ Train 的类别比例、语义正确率或总体收益。它支持的开发判断是：**EM=0 且命中 gold passage 只能提供候选，不能自动定义 utilisation。**
 
-## 优先确认的 8 个目标候选
+## 已确认的 8 个目标错误
 
 下列答案方向是代理阅读现有证据后的建议，不是 E 已生成的修复结果。N 编号属于 `answer_repair_nq_train_dev_v1`，与旧 v7 审核编号分开。
 
@@ -30,12 +32,14 @@
 | N29 | Han 何时死亡；Han | Tokyo Drift | 人物名没有回答事件所在作品 |
 | N31 | The Most Beautiful Girl in the World 歌手；Charlie Rich | Prince | 混淆近似但不同的歌名 |
 | N48 | 印度最大人工湖；Dhebar Lake | Govind Ballabh Pant Sagar | 忽略 second-largest / after 的比较关系 |
-| N49 | 亲吻青蛙使其变成王子的是谁；Princess Emma | 现代 Frog Prince 故事中的公主 | 所引改编版本中 Emma 自己变青蛙，转变结果不同；中等置信，需确认版本边界 |
+| N49 | 亲吻青蛙使其变成王子的是谁；Princess Emma | 现代 Frog Prince 故事中的公主 | 所引改编版本中 Emma 自己变青蛙，转变结果不同；原代理置信度中等，用户已确认该判断 |
 | N74 | Matrix Reloaded 的 Twins 是谁；fictional characters | Merovingian 的手下 | 类别过于笼统，没有回答具体身份 |
 | N81 | True Blood 第七季集数；16 | 10 | 取了其他剧集第七季计数 |
 | N96 | monkey bread 名称来源；Hungarian literature | 像猴子一样用手掰开食用 | 把菜肴传播史当作名称由来 |
 
-建议优先确认这些目标候选，同时保留正确对照检查误修。全部 8 条仍待用户确认；不因表中有建议就写入正式 diagnosis 标签。
+用户已确认以上 8 条原答案错误、现有证据充分且清楚，按 utilisation 记录在 E 的人类审核层。原始 main 交付的 label 仍为 null，未冒充全量 Diagnosis 标注完成；表中的答案方向仍是人工/代理阅读后的建议，不是模型修复成功记录。
+
+已固定 [8 条确认开发清单](../configs/splits/answer_repair_nq_train_confirmed_dev_v1.json)，并导出 [C1 输入](../artifacts/answer_repair/nq_train_dev_v1/confirmed/batch01_c1.jsonl) 和 [纯运行时输入](../artifacts/answer_repair/nq_train_dev_v1/confirmed/batch01_runtime.jsonl)。逐条匹配原始冻结 C1，仅从 development 选取，校准和评测预留重合均为 0，现有 E runner 接口校验通过。该批只有错误，没有已确认正确对照，不能用于估计总体净收益或误修率。
 
 ## 23 条暂缓
 
@@ -87,4 +91,4 @@
 - [计数、优先编号与来源校验](../data/annotations/assisted/answer_repair_nq_train_dev_v1_20261017.summary.json)
 - [原始冻结审核材料与接入方法](ANSWER_REPAIR_NQ_TRAIN.md)
 
-本轮完整性检查通过：100 个 ID 与冻结清单顺序一致、均在 development；所有原记录哈希和逐字引用位置一致；人工字段保持 pending；main 交付文件、源分片、gold、冻结 scorer 和 v7 结果未改。辅助记录 SHA-256：`920ea1c56f1b9512346e0d84fcd1d8e9e8e6abe9e62478e7ba2392378dece389`。
+初次辅助审核的完整性检查通过：100 个 ID 与冻结清单顺序一致、均在 development；所有原记录哈希和逐字引用位置一致。原始审核包、代理判断、原文展示文件保留当时 pending 的冻结快照；当前状态以人类审核层为准。确认记录严格只包含上述 8 个 ID，其他 92 条未改变。main 交付文件、源分片、gold、冻结 scorer 和 v7 结果未改。辅助记录 SHA-256：`920ea1c56f1b9512346e0d84fcd1d8e9e8e6abe9e62478e7ba2392378dece389`。

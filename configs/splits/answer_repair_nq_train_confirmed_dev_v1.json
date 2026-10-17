@@ -1,0 +1,69 @@
+{
+  "version": "answer_repair_nq_train_confirmed_dev_v1",
+  "review_set_id": "answer_repair_nq_train_dev_v1",
+  "purpose": "Eight human-confirmed natural utilisation errors for E development; label-selected, not a benchmark or unseen test.",
+  "source_main_commit": "058f10baa47083220f95edb39db8f106aa7e85d6",
+  "source_model_revision": null,
+  "source_model_revision_status": "not_exported_by_upstream",
+  "review_numbers": [
+    6,
+    29,
+    31,
+    48,
+    49,
+    74,
+    81,
+    96
+  ],
+  "sample_ids": [
+    "2847980457887203111",
+    "1739926213792453012",
+    "5822180296105627301",
+    "-1981506712537073428",
+    "-564035461981251695",
+    "-5016482629216613272",
+    "-5223755550735908441",
+    "3252643664278412553"
+  ],
+  "human_confirmed": 8,
+  "correct_controls_in_this_batch": 0,
+  "partition": "development",
+  "calibration_overlap": 0,
+  "reserved_evaluation_overlap": 0,
+  "sources": {
+    "original_split": {
+      "path": "configs/splits/answer_repair_nq_train_dev_v1.json",
+      "sha256": "17c62371c36eb624323f0ec23d1c147a63010ebf69e21aae5f77f4de4e2b020e"
+    },
+    "partition_ids_local": {
+      "path": "data/processed/answer_repair/nq_train_v1/partition_ids.json",
+      "sha256": "4bfaf449b099037df509a874c69946bb79038428ff33a1b844c3356cdf429115"
+    },
+    "frozen_c1": {
+      "path": "artifacts/answer_repair/nq_train_dev_v1/inputs/nq_train_review_c1.jsonl",
+      "sha256": "98dd55636c9c00011db72796827ddb7f1377f214386a6d6fe2b49a90fbde20ba"
+    },
+    "human_reviews": {
+      "path": "data/annotations/human/answer_repair_nq_train_dev_v1_batch01_20261017.jsonl",
+      "sha256": "09e4a049c143e27b71f1b9e4feb11b14a30cd7f68c6005e58d6073597683b149"
+    },
+    "confirmation": {
+      "path": "data/annotations/human/answer_repair_nq_train_dev_v1_batch01_20261017.confirmations.json",
+      "sha256": "413ac3a56911b0b08a55d80527581adc122915a05a8c252afff10cf589d44046"
+    }
+  },
+  "inputs": {
+    "scored_c1": {
+      "path": "artifacts/answer_repair/nq_train_dev_v1/confirmed/batch01_c1.jsonl",
+      "sha256": "0d1f2e055250d2c5b0854c14fca2cecb2e02d9b03a2fe0eb6420c55110a1751a"
+    },
+    "runtime": {
+      "path": "artifacts/answer_repair/nq_train_dev_v1/confirmed/batch01_runtime.jsonl",
+      "sha256": "9ff39befea38d73bf6af6f19eb94f92468afa2a3d41831831f984610f2969dc9"
+    }
+  },
+  "metric_policy": "Frozen gold and EM/F1 unchanged; semantic labels are a separate human overlay. No E final-answer correctness has been confirmed.",
+  "evaluation_limit": "Error-only development cannot measure harm to correct answers or population net improvement. Correct controls and final paired output review are required.",
+  "v8_algorithm_implemented": false,
+  "gpu_inference_run": false
+}
