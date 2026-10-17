@@ -1,0 +1,861 @@
+NQ Train E 开发材料：100 条代理辅助审核（全部待人工确认）
+以 main@058f10baa47083220f95edb39db8f106aa7e85d6 交付为准；原始数据、gold、EM 和正式人工标签未改。
+建议可接受 69；utilisation 候选 8；暂缓 23。此为筛查开发批次，不代表全量分布或 E 改善。
+优先目标候选：N6, N29, N31, N48, N49, N74, N81, N96
+暂缓：N3, N7, N8, N19, N28, N33, N44, N52, N56, N57, N59, N62, N63, N67, N78, N79, N82, N84, N89, N91, N94, N98, N99
+
+N1 | 8045087486700792769 | 建议 correct | 置信 medium
+问题：where was john mccrae when he wrote in flanders fields
+C1：near an advance dressing post at Essex Farm
+冻结参考：the back of a medical field ambulance near an advance dressing post at Essex Farm, just north of Ypres
+辅助理由：R3 将写作地点明确为 Essex Farm 附近的救护车后部。C1 给出的 near an advance dressing post at Essex Farm 是真实且直接的位置描述；问题未指定必须精确到车上，建议语义正确，保留位置粒度争议供确认。
+R3 nq_p_0968108: The poem was written as he sat upon the back of a medical field ambulance near an advance dressing post at Essex Farm , just north of Ypres .
+人工确认：待审
+
+N2 | 6935740157411537788 | 建议 correct | 置信 high
+问题：where is big bear lake located in california
+C1：San Bernardino Mountains
+冻结参考：San Bernardino County, California, located in the San Bernardino Mountains along the south shore of Big Bear Lake, and surrounded by the San Bernardino National Forest
+辅助理由：R2 的城市和 R3 的湖泊均位于 San Bernardino Mountains；C1 是问题所求的有效地点。gold 拼入县、山脉、湖岸及森林的长描述，不应要求短答案逐字复现整段。
+R2 nq_p_0925120: Big Bear Lake is a small city in San Bernardino County , California , located in the San Bernardino Mountains along the south shore of Big Bear Lake
+R3 nq_p_1050450: Big Bear Lake is a reservoir in the San Bernardino Mountains , in San Bernardino County , California , United States .
+人工确认：待审
+
+N3 | 840698384509679882 | 建议 暂缓 | 置信 low
+问题：the us food stamp program which provides coupons
+C1：Food Stamp Program
+冻结参考：Supplemental Nutrition Assistance Program
+辅助理由：问题是残缺片段，没有明确要求旧名还是新名。R4 明确 SNAP 原称 Food Stamp Program，C1 是真实旧称，不能仅因 gold 是新名判错。暂缓，需确认问题意图与可接受别名。
+R4 nq_p_0477340: The Supplemental Nutrition Assistance Program ( SNAP ) , formerly known as the Food Stamp Program , provides food - purchasing assistance for low - and no - income people living in the United States .
+人工确认：待审
+
+N4 | 3873185573437128094 | 建议 correct | 置信 high
+问题：who played nova in the planet of the apes
+C1：Linda Harrison
+冻结参考：Linda Melson Harrison
+辅助理由：R1 直接说前两部影片的 Nova 由 Linda Harrison 饰演；R4 的 Linda Melson Harrison 是同一人的全名。省略中间名仍正确，不应修复为另一位新版演员。
+R1 nq_p_0272417: In the first two Planet of the Apes films , she is played by Linda Harrison .
+R4 nq_p_0146257: Linda Melson Harrison ( born July 26 , 1945 )
+人工确认：待审
+
+N5 | -2862660005729156072 | 建议 correct | 置信 high
+问题：who played guitar in while my guitar gently weeps
+C1：Eric Clapton
+冻结参考：Eric Clapton
+辅助理由：R1 直接注明原录音的主音吉他由 Eric Clapton 演奏，C1 与问题、证据及参考一致。
+R1 nq_p_0144727: The recording includes a lead guitar part played by Eric Clapton , although he was not formally credited for his contribution .
+人工确认：待审
+
+N6 | 2847980457887203111 | 建议 evidence_utilisation | 置信 high
+问题：who plays harry from harry and the hendersons
+C1：Graham Greene
+冻结参考：Kevin Peter Hall
+辅助理由：R1/R2 直接给出 Harry and the Hendersons 的 Harry 由 Kevin Peter Hall 饰演。C1 采用 R3 中 Twilight 的同名 Harry 演员 Graham Greene，作品实体不一致；目标作品的支持在高排名且清楚，建议 utilisation 候选。
+R1 nq_p_0196025: Kevin Peter Hall ( May 9 , 1955 -- April 10 , 1991 ) was an American actor best known for his roles as the title character in the first two films in the Predator franchise and the title character of Harry in the film and television series , Harry and the Hendersons .
+R3 nq_p_0112225: Harry is portrayed by Graham Greene in The Twilight Saga : New Moon .
+人工确认：待审
+
+N7 | -7478903804748756717 | 建议 暂缓 | 置信 low
+问题：equity of us companies can be purchased by
+C1：private investors
+冻结参考：buying and holding of shares of stock
+辅助理由：残缺问题 purchased by 可以接购买者，也可以接购买方式。C1 private investors 对应 R2 的购买者，gold 则采用 R5 的买入持有股票方式；两种续写都可能成立，不能直接判定 utilisation，建议暂缓。
+R2 nq_p_0540023: A group of private investors or another company that is privately held can buy out the shareholders of a public company , taking the company private .
+R5 nq_p_1180005: An equity investment generally refers to the buying and holding of shares of stock on a stock market by individuals and firms
+人工确认：待审
+
+N8 | -6909798989883244156 | 建议 暂缓 | 置信 medium
+问题：who sang breakfast at tiffany's the original
+C1：Audrey Hepburn
+冻结参考：Deep Blue Something
+辅助理由：按歌名 Breakfast at Tiffany's 理解，R2 的答案是 Deep Blue Something；Audrey Hepburn 在 R3/R4 唱的是电影中的 Moon River。C1 可能混淆歌名与电影配乐，但题目也可能口语省略电影主题曲，暂缓主标签，优先确认歌曲意图。
+R2 nq_p_0084322: `` Breakfast at Tiffany 's '' is a 1995 song recorded by American alternative rock band Deep Blue Something .
+R4 nq_p_0200449: `` Moon River '' is a song composed by Henry Mancini with lyrics by Johnny Mercer . It was originally performed by Audrey Hepburn in the 1961 movie Breakfast at Tiffany 's
+人工确认：待审
+
+N9 | 5772936311107312940 | 建议 correct | 置信 high
+问题：where is hindu kush located on a map
+C1：central Afghanistan to northern Pakistan
+冻结参考：near the Afghan-Pakistan border,[2][3] from central Afghanistan to northern Pakistan
+辅助理由：R1 直接把 Hindu Kush 的位置描述为从阿富汗中部到巴基斯坦北部，C1 完整回答地理范围。gold 的额外边境说明和 [2][3] 引用标记不应使其成为语义错误；只标记参考格式问题，不修改 main 的 gold。
+R1 nq_p_1071209: mountain range that stretches near the Afghan - Pakistan border , from central Afghanistan to northern Pakistan .
+人工确认：待审
+
+N10 | 3253525630861841717 | 建议 correct | 置信 high
+问题：machine learning task of inferring a function from labelled training data is known as
+C1：Supervised learning
+冻结参考：Supervised learning
+辅助理由：R1 直接定义 Supervised learning 并说明从 labeled training data 推断函数，C1 正确且有直接支持。
+R1 nq_p_1006046: Supervised learning is the machine learning task of learning a function that maps an input to an output based on example input - output pairs . It infers a function from labeled training data consisting of a set of training examples .
+人工确认：待审
+
+N11 | -7993122396287347186 | 建议 correct | 置信 high
+问题：when did the government start giving student loans
+C1：1958
+冻结参考：in 1958
+辅助理由：R1 明确学生贷款首次于 1958 年提供，C1 与 gold 仅差介词 in，属于语义正确。
+R1 nq_p_0346819: United States Government - backed student loans were first offered in 1958 under the National Defense Education Act
+人工确认：待审
+
+N12 | -1178549234723633450 | 建议 correct | 置信 high
+问题：where was total eclipse of the heart filmed
+C1：Holloway Sanatorium
+冻结参考：Surrey, England
+辅助理由：R1 直接给出音乐录影带实地拍摄地 Holloway Sanatorium，并说明其在 Surrey, England。问题未限定行政区域，C1 提供更具体的正确地点。
+R1 nq_p_0473639: was filmed on location at the Holloway Sanatorium , a large Victorian Gothic hospital near Virginia Water , Surrey , England .
+人工确认：待审
+
+N13 | -432828482421557656 | 建议 correct | 置信 high
+问题：how to make a snow angel in the snow
+C1：lie on back, move arms up and down, legs side to side
+冻结参考：lying on one's back and moving one's arms up and down, and one's legs from side to side
+辅助理由：C1 完整包含仰卧、手臂上下移动和双腿左右移动三个核心动作，与 R2 和 gold 意义一致，文字改写造成 EM 不匹配。
+R2 nq_p_0930183: by lying on one 's back and moving one 's arms up and down , and one 's legs from side to side
+人工确认：待审
+
+N14 | -5462248607427716715 | 建议 correct | 置信 high
+问题：who won the gold medal in ice dancing 2014
+C1：Meryl Davis and Charlie White
+冻结参考：Meryl Davis and Charlie White from the United States
+辅助理由：R1 明确冠军是 Meryl Davis 和 Charlie White，C1 两位姓名齐全；问题问谁，未要求附国籍，省略 from the United States 不影响正确性。
+R1 nq_p_0802240: The competition was won by Meryl Davis and Charlie White from the United States .
+人工确认：待审
+
+N15 | -3869689776609561239 | 建议 correct | 置信 high
+问题：an increase in the average level of prices is called
+C1：inflation
+冻结参考：inflation
+辅助理由：R5 直接定义全经济一般价格上涨为 inflation，R2/R3 也支持，C1 正确。
+R5 nq_p_0130510: A general price increase across the entire economy is called inflation .
+人工确认：待审
+
+N16 | -8545550343341719460 | 建议 correct | 置信 high
+问题：3. the drakensberg has the 2nd highest waterfall in africa. what’s it called
+C1：Tugela Falls
+冻结参考：the Tugela Falls (Thukela Falls)
+辅助理由：R1 点名 Tugela Falls (Thukela Falls)，C1 是有效主名称。题目将排名范围写成非洲，而证据写世界，需记录题干范围问题，但不影响所指瀑布的名称回答。
+R1 nq_p_0157936: These mountains also have the world 's second - highest waterfall , the Tugela Falls ( Thukela Falls ) , which has a total drop of 947 m ( 3,107 ft ) .
+人工确认：待审
+
+N17 | -5155812282345038008 | 建议 correct | 置信 high
+问题：when did sweet dreams are made of this come out
+C1：early 1983
+冻结参考：1983
+辅助理由：R1 明确该单曲在 early 1983 发行，C1 比 gold 的 1983 更具体且有直接支持，不能因多 early 判语义错。
+R1 nq_p_0003647: was released as the fourth and final single from the album in early 1983 .
+人工确认：待审
+
+N18 | 3105967149118897589 | 建议 correct | 置信 medium
+问题：what is the meaning of physics in science
+C1：natural science involving study of matter and its motion through spacetime
+冻结参考：the study of matter[4] and its motion and behavior through space and time, along with related concepts such as energy and force
+辅助理由：R2 直接定义 physics 为研究物质及其在时空中运动的自然科学，C1 抓住这一核心定义。未展开能量和力等相关概念，建议视为可接受简答，完整性供用户确认；gold 含 [4] 引用标记，另记格式问题。
+R2 nq_p_1143565: Physics ( from Ancient Greek : φύσις physis `` nature '' ) is a natural science that involves the study of matter and its motion through spacetime , along with related concepts such as energy and force .
+人工确认：待审
+
+N19 | -8572418612439458772 | 建议 暂缓 | 置信 medium
+问题：who sings gran torino at the end of the movie
+C1：Enrique Iglesias
+冻结参考：Kyle Eastwood
+辅助理由：R5 只说另一段未指明片名的 Bailamos 由 Enrique Iglesias 演唱，不能支持 Gran Torino 的演唱者。R1 混列作曲、作词与 Eastwood performed，未清楚区分 Kyle/Clint，也没有明确片尾演唱者，无法据此独立确认 gold Kyle Eastwood；暂缓而非直接纳入清楚证据下的 utilisation。
+R1 nq_p_0160878: The music is Jamie Cullum , Kyle Eastwood , and Michael Stevens , with Cullum penning the lyrics , although Eastwood composed and performed the title track to the film .
+R5 nq_p_0677978: The song `` Bailamos '' , sung by Enrique Iglesias , is also heard during the film 's end titles .
+人工确认：待审
+
+N20 | -2668077822681514653 | 建议 correct | 置信 high
+问题：legal educator and founder director of national law school of india university
+C1：Neelakanta Ramakrishna Madhava Menon
+冻结参考：Neelakanta Ramakrishna Madhava Menon
+辅助理由：R1 明确该人全名、法律教育者身份及 NLSIU founder Director 职务，C1 完整正确。
+R1 nq_p_0213900: Neelakanta Ramakrishna Madhava Menon ( born 4 May 1935 ) is an Indian legal educator
+R1 nq_p_0213900: He is the founder Director of the National Law School of India University ( NLSIU )
+人工确认：待审
+
+N21 | -2374000572693790398 | 建议 correct | 置信 high
+问题：the process of peristalsis is best described as the
+C1：radially symmetrical contraction and relaxation of muscles that propagates in a wave down a tube, in an anterograde direction.
+冻结参考：contraction and relaxation of muscles that propagates in a wave down a tube, in an anterograde direction
+辅助理由：R2 与 C1 的定义一致，C1 只是比 gold 多出 radially symmetrical，且有原文直接支持，不能视为错误。
+R2 nq_p_0318912: Peristalsis is a radially symmetrical contraction and relaxation of muscles that propagates in a wave down a tube , in an anterograde direction .
+人工确认：待审
+
+N22 | -460657482644890117 | 建议 correct | 置信 high
+问题：what's in an irish car bomb drink
+C1：a shot of Irish cream and whiskey dropped into a glass of stout
+冻结参考：a cocktail, similar to a boilermaker, made by dropping a shot of Irish cream and whiskey into a glass of stout
+辅助理由：问题问饮料包含什么，C1 已列齐 Irish cream、whiskey 和 stout；R1 直接支持，不需要补入 gold 的鸡尾酒类别和比较说明。
+R1 nq_p_0721176: made by dropping a shot of Irish cream and whiskey into a glass of stout .
+人工确认：待审
+
+N23 | 8807212559725492691 | 建议 correct | 置信 high
+问题：which amendment to the us constitution abolished slavery
+C1：Thirteenth Amendment
+冻结参考：The Thirteenth
+辅助理由：C1 的 Thirteenth Amendment 与 gold The Thirteenth 指同一修正案；R3 直接说明其废除奴隶制。
+R3 nq_p_0041356: The Thirteenth Amendment ( Amendment XIII ) to the United States Constitution abolished slavery and involuntary servitude , except as punishment for a crime .
+人工确认：待审
+
+N24 | 7243818178627473072 | 建议 correct | 置信 high
+问题：who led raids to hunt down suspected communists socialists and anarchists
+C1：A. Mitchell Palmer
+冻结参考：Attorney General A. Mitchell Palmer
+辅助理由：R1 明确领导者是 Attorney General A. Mitchell Palmer；问题问谁，C1 省略职衔但人名正确。
+R1 nq_p_0790966: The raids and arrests occurred in November 1919 and January 1920 under the leadership of Attorney General A. Mitchell Palmer .
+人工确认：待审
+
+N25 | 3297321773729700265 | 建议 correct | 置信 high
+问题：who sang the original song the sound of silence
+C1：Simon & Garfunkel
+冻结参考：Simon & Garfunkel
+辅助理由：R1 给出原曲属于 Simon & Garfunkel 并描述最初录制，C1 正确且有支持。
+R1 nq_p_0132891: `` The Sound of Silence '' , originally `` The Sounds of Silence '' , is a song by the American music duo Simon & Garfunkel .
+人工确认：待审
+
+N26 | -4660048733997517029 | 建议 correct | 置信 high
+问题：what is the baby's name in the incredibles
+C1：Jack-Jack
+冻结参考：John Jackson "Jack-Jack" Parr
+辅助理由：R2 明确 John Jackson 的昵称 Jack-Jack 及其婴儿身份；问题未要求全名，C1 用熟知昵称回答正确，连字符分词差异也不改变实体。
+R2 nq_p_1222159: John Jackson `` Jack - Jack '' Parr
+R2 nq_p_1222159: is the Parrs ' infant son , the youngest of the Parr children .
+人工确认：待审
+
+N27 | -4893882152565259225 | 建议 correct | 置信 high
+问题：which law in india regulates the business contracts
+C1：Indian Contract Act, 1872
+冻结参考：Indian contract law
+辅助理由：R1 明确印度合同法主要编入 Indian Contract Act 1872，R3 直接说明该法规定印度合同事务。C1 给具体法律名称，可接受；此处按冻结证据审核，不推断现行法律适用范围。
+R1 nq_p_0146023: The main contract law in India is codified in the Indian Contract Act 1872
+R3 nq_p_0754635: The Indian Contract Act , 1872 prescribes the law relating to contracts in India .
+人工确认：待审
+
+N28 | 9101034110241732780 | 建议 暂缓 | 置信 medium
+问题：the boy billionaire is based on which famous personality
+C1：Ron Galotti
+冻结参考：Joe Spud
+辅助理由：Ron Galotti 在 R2 是 Mr. Big 的原型，与 Billionaire Boy 不同。R1/R3 只说明小说讲 Joe Spud，并未证明依据哪位真实 famous personality 创作；gold 是故事人物而题干问原型，建议暂缓核对题意及参考，不能直接当成证据清楚的 utilisation。
+R1 nq_p_1120447: The story follows Joe Spud who is the richest boy in the country
+R2 nq_p_0253722: the Mr. Big character was based on publishing executive Ron Galotti
+R3 nq_p_0098362: telling the story of Joe Spud , the richest 12 - year - old in the country .
+人工确认：待审
+
+N29 | 1739926213792453012 | 建议 evidence_utilisation | 置信 high
+问题：when does asian guy die in fast and furious
+C1：Han
+冻结参考：Tokyo Drift
+辅助理由：问题问何时/在哪部电影死亡，R1/R2/R3 均把死亡关联 Tokyo Drift。C1 Han 只给人物身份，没有回答事件时间或作品，属于所求槽位错误。
+R2 nq_p_0429507: Han 's death from The Fast and the Furious : Tokyo Drift is shown
+R3 nq_p_0605928: In Tokyo Drift , Han hires Sean Boswell as a delivery driver
+R3 nq_p_0605928: a silver Mercedes crashes into his car , causing it to flip over and then explode .
+人工确认：待审
+
+N30 | -3375552100711015909 | 建议 correct | 置信 high
+问题：when did work on the transcontinental railroad begin
+C1：1863
+冻结参考：1863
+辅助理由：R5 明确铁路于 1863 至 1869 年建造，起始年 1863 与 C1 和 gold 一致。
+R5 nq_p_0015076: continuous railroad line constructed between 1863 and 1869
+人工确认：待审
+
+N31 | 5822180296105627301 | 建议 evidence_utilisation | 置信 high
+问题：who sings the most beautiful girl in the world
+C1：Charlie Rich
+冻结参考：Prince
+辅助理由：R1/R2 的完整歌名 The Most Beautiful Girl in the World 对应 Prince；R3/R4 的 Charlie Rich 对应较短且不同的歌名 The Most Beautiful Girl。C1 把近似标题当同一首歌，目标答案在前两段清楚，建议 utilisation。
+R1 nq_p_0597721: `` The Most Beautiful Girl in the World '' is the lead single from the 1994 EP The Beautiful Experience by Prince
+R3 nq_p_0687833: `` The Most Beautiful Girl '' is a song recorded by Charlie Rich
+人工确认：待审
+
+N32 | -5476828546252817553 | 建议 correct | 置信 high
+问题：who played ron swanson on parks and recreation
+C1：Nick Offerman
+冻结参考：Nicholas Offerman
+辅助理由：R2/R3 直接写 Ron Swanson 由 Nick Offerman 饰演；R1 的 Nicholas 是对应全名，C1 别名有效。
+R2 nq_p_0453628: Ron Swanson ( Nick Offerman ) is the parks and recreation director
+R1 nq_p_0366710: Nicholas Offerman ( born June 26 , 1970 )
+人工确认：待审
+
+N33 | -3169716056891969228 | 建议 暂缓 | 置信 medium
+问题：where did 3 doors down get their name
+C1：Foley, Alabama
+冻结参考：When the three men were walking through the town, they saw a building where some letters had fallen off its sign, and it read "Doors Down". Since at the time they consisted of three people, they added the "3" to create "3 Doors Down".
+辅助理由：R1 说明取名发生在 Foley, Alabama，也说明取自掉字招牌并加上三位成员的 3。C1 对字面地点解读正确，但没有回答常见的名称由来解读；问题用 where did ... get their name，需确认预期粒度后再判，不强行记 utilisation。supported 仅指该地点确实是取名地点，未证明名称由来已答完整。
+R1 nq_p_0785999: it was during a trip to Foley , Alabama that they came up with their official name .
+R1 nq_p_0785999: they saw a building where some letters had fallen off its sign , and it read `` Doors Down '' .
+人工确认：待审
+
+N34 | -3954878209346763094 | 建议 correct | 置信 high
+问题：what year did us land on the moon
+C1：1969
+冻结参考：20 July 1969
+辅助理由：题目明确问 what year，R1 的 20 July 1969 支持 C1 1969；gold 更长并不表示回答缺失所求信息。
+R1 nq_p_0261593: The United States ' Apollo 11 was the first manned mission to land on the Moon , on 20 July 1969 .
+人工确认：待审
+
+N35 | 2095868851000293874 | 建议 correct | 置信 medium
+问题：which of the following windows does not have start button
+C1：Windows 8
+冻结参考：Windows 8
+辅助理由：按传统任务栏 Start 按钮理解，R4 明确 Windows 8 移除该按钮，支持 C1。题目没有附 following 选项，且 charms 仍有 Start 功能，保留作用范围限定供确认。
+R4 nq_p_0328146: Aside from the removal of the Start button and the replacement of the Aero Glass theme with a flatter and solid - colored design , the desktop interface on Windows 8 is similar to that of Windows 7 .
+人工确认：待审
+
+N36 | 4090393036850137417 | 建议 correct | 置信 high
+问题：what is the function of the center for tropical forest science (ctfs)
+C1：pursue long-term research on tree populations
+冻结参考：consortium of forest researchers who pursue long-term research on tree populations using comparable census method
+辅助理由：R1 明确 CTFS 的工作是长期研究树木种群，C1 直接回答功能。问题未要求组织定义及普查方法，省略这些信息仍可接受。
+R1 nq_p_0430420: The Center for Tropical Forest Science , or CTFS , is a consortium of forest researchers who pursue long - term research on tree populations using comparable census method .
+人工确认：待审
+
+N37 | -1837440648407770655 | 建议 correct | 置信 high
+问题：how long does it take for a kitten's eyes to open after birth
+C1：seven to ten days
+冻结参考：after seven to ten days
+辅助理由：R3/R4 直接写出生后约七到十天睁眼，C1 时长正确；gold 多 after 不构成语义差异。
+R3 nq_p_0851948: Kittens open their eyes about seven to ten days after birth .
+人工确认：待审
+
+N38 | -2477693809305952311 | 建议 correct | 置信 high
+问题：broken lines that are wider and closer together
+C1：are called continuity lines
+冻结参考：continuity lines
+辅助理由：R1 与 C1 相同，只是 C1 带 are called 的句式外壳，所给名称 continuity lines 正确。
+R1 nq_p_0041072: Broken lines that are wider and closer together than regular broken lines are called continuity lines .
+人工确认：待审
+
+N39 | 6098465629713582210 | 建议 correct | 置信 high
+问题：where did the name quarter horse come from
+C1：races of a quarter mile or less
+冻结参考：its ability to outdistance other horse breeds in races of a quarter mile or less
+辅助理由：R1 明确名称来自四分之一英里赛程，支持 C1；R2 进一步解释其短距离超越其他马的能力，C1 已交代名字 Quarter 的来源，建议可接受。
+R1 nq_p_0749223: The Quarter Horse received its name due to the length of the race . The races were indeed `` a quarter '' of a mile , or 400 meters .
+人工确认：待审
+
+N40 | 2714282365828041450 | 建议 correct | 置信 high
+问题：who came up with the plan to win the trojan war
+C1：Odysseus
+冻结参考：Odysseus
+辅助理由：R1/R2 明确木马计由 Odysseus 提出，C1 回答策划者而非建造者 Epeius，正确。
+R2 nq_p_0204212: Odysseus devised a new ruse -- a giant hollow wooden horse
+人工确认：待审
+
+N41 | -5596488726190102840 | 建议 correct | 置信 high
+问题：where did the math symbol pi come from
+C1：Greek letter π
+冻结参考：the lowercase Greek letter π
+辅助理由：R1 说明符号是小写希腊字母 π；C1 已给希腊字母及小写字形 π，省略 lowercase 不造成实体或含义错误。
+R1 nq_p_0028937: is the lowercase Greek letter π , sometimes spelled out as pi
+人工确认：待审
+
+N42 | 8542075949294420082 | 建议 correct | 置信 high
+问题：in the cno cycle which of the following acts as a catalyst
+C1：carbon, nitrogen and oxygen isotopes
+冻结参考：using carbon, nitrogen and oxygen isotopes as catalysts
+辅助理由：R2 直接列出碳、氮和氧同位素作催化剂，C1 列全所求实体。gold 多 using 和 as catalysts 的句式成分不应影响语义正确性。
+R2 nq_p_0217873: using carbon , nitrogen and oxygen isotopes as catalysts
+人工确认：待审
+
+N43 | 1704380880039099855 | 建议 correct | 置信 high
+问题：where is the central arid zone research located in india
+C1：Jodhpur
+冻结参考：Jodhpur, a city in the state of Rajasthan
+辅助理由：R1 明确研究所建立在 Jodhpur，C1 城市名称正确；gold 附带 Rajasthan 的描述不是问题要求的必要补充。
+R1 nq_p_0649583: The Central Arid Zone Research Institute was established by the Government of India in 1952 in Jodhpur , a city in the state of Rajasthan .
+人工确认：待审
+
+N44 | 7162334026625697981 | 建议 暂缓 | 置信 medium
+问题：when will it start getting warmer in sydney
+C1：October 2015
+冻结参考：summer
+辅助理由：R2 的 October 2015 是历史暖夜纪录，不是相对当前提问时间的升温起点。R4 支持夏季温暖这一常年气候事实，但题干 when will it start 没有起算日期，gold summer 也未必唯一解释；暂缓核对时间意图，不用当前天气替换冻结证据。
+R2 nq_p_0790397: October 2015 had the warmest nights on record
+R4 nq_p_0790375: shifting from mild and cool in winter to warm and hot in the summer
+人工确认：待审
+
+N45 | 8854896567380520932 | 建议 correct | 置信 high
+问题：1994 movie that started a sci fi franchise
+C1：Stargate
+冻结参考：Stargate
+辅助理由：R1 明确 Stargate 为 1994 年科幻电影且是该系列首部，满足年份、类型和开启系列的关系。
+R1 nq_p_0199634: Stargate is a 1994 science fiction adventure film
+R1 nq_p_0199634: the film is the first release in the Stargate franchise .
+人工确认：待审
+
+N46 | -5028227845229715599 | 建议 correct | 置信 high
+问题：what time period is the tudors set in
+C1：1500s England
+冻结参考：primarily in the 16th-century
+辅助理由：R1 用 1500s England，R2 用 16th-century Kingdom of England 描述同一背景，C1 与证据及 gold 对应。
+R1 nq_p_0796313: The Tudors is a historical fiction television series set primarily in 1500s England
+R2 nq_p_0620565: set primarily in the 16th - century Kingdom of England
+人工确认：待审
+
+N47 | -8389494065836841182 | 建议 correct | 置信 high
+问题：in what city did the 1988 olympics take place
+C1：Seoul
+冻结参考：Seoul, South Korea
+辅助理由：问题只问城市，R1/R5 直接给 Seoul；C1 不附 South Korea 仍完整回答所求。
+R5 nq_p_1142277: In 1988 , Seoul hosted the 1988 Summer Olympics .
+人工确认：待审
+
+N48 | -1981506712537073428 | 建议 evidence_utilisation | 置信 high
+问题：which is the largest artificial lake in india
+C1：Dhebar Lake
+冻结参考：Govind Ballabh Pant Sagar
+辅助理由：按冻结语料口径，R1 首句明确 Dhebar 是第二大，最大在其后的 after Govind Ballabh Pant Sagar。C1 取了段落主语或历史曾最大事实，忽略排名关系，建议 utilisation 候选。
+R1 nq_p_0410889: Dhebar Lake ( also known as Jaisamand Lake ) is India 's second - largest artificial lake , after Govind Ballabh Pant Sagar .
+R1 nq_p_0410889: When first built , it was the largest artificial lake in the world .
+人工确认：待审
+
+N49 | -564035461981251695 | 建议 evidence_utilisation | 置信 medium
+问题：who kissed the frog that turned into a prince
+C1：Princess Emma
+冻结参考：spoiled princess
+辅助理由：R1 的现代青蛙王子故事中公主亲吻后青蛙变王子；R4 的 Princess Emma 则亲吻后自己变成青蛙，未满足题目给定变成王子的结果。目标信息在 R1 清楚，但故事版本边界供确认。
+R1 nq_p_0501114: a spoiled princess reluctantly befriends the Frog Prince
+R1 nq_p_0501114: in modern versions the transformation is invariably triggered by the princess kissing the frog
+R4 nq_p_0070225: Princess Emma ) kisses a prince turned frog ( Prince Eadric ) , only to become a frog herself .
+人工确认：待审
+
+N50 | -4431827520967666941 | 建议 correct | 置信 high
+问题：where is the estate used in magnum pi
+C1：Waimānalo
+冻结参考：Waimānalo
+辅助理由：R2 明确真实拍摄庄园位于 Waimānalo，且说明同剧客房和庄园关系，C1 正确。
+R2 nq_p_0531328: In reality located in Waimānalo
+R2 nq_p_0531328: which in the series appears as the guest house that Magnum occupies
+人工确认：待审
+
+N51 | -547285585922035520 | 建议 correct | 置信 high
+问题：current diagnostic and statistical manual of mental disorders
+C1：DSM-5
+冻结参考：Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-5)
+辅助理由：按本批冻结语料及 gold 的时间口径，R1 明确完整名称与缩写 DSM-5 对应，C1 只用缩写正确。题干 current 不解释为今天的最新版本，不据此更新参考。
+R1 nq_p_0576389: The Diagnostic and Statistical Manual of Mental Disorders , Fifth Edition ( DSM - 5 ) is the 2013 update
+人工确认：待审
+
+N52 | -703872651120117348 | 建议 暂缓 | 置信 medium
+问题：when was lindsey stirling on dancing with the stars
+C1：September 2017
+冻结参考：season 25
+辅助理由：R1 清楚给出 season 25，同时 September 2017 修饰 announced，未直接给出实际参赛起止日期。C1 用宣布月份回答 when，可能可接受但不能从此句严格等同参加时间，暂缓确认。
+R1 nq_p_0669365: In September 2017 , Stirling was announced as one of the celebrities to compete on season 25 of Dancing with the Stars .
+人工确认：待审
+
+N53 | 2517363209257675065 | 建议 correct | 置信 high
+问题：where did the name montgomery biscuits come from
+C1：name the team contest
+冻结参考：from over 4,000 entries in a "name the team" contest, due in part to tying into indigenous affiliation and potential marketing and pun possibilities (for example, "Hey, Butter, Butter, Butter" or the team's souvenir store, the "Biscuit Basket")
+辅助理由：R1 明确昵称选自 name the team contest 的投稿，C1 直接回答来源。题目未要求投稿数量及营销理由，建议接受简答。
+R1 nq_p_0152515: Myers and Dickson selected the team 's nickname from over 4,000 entries in a `` name the team '' contest
+人工确认：待审
+
+N54 | 3898710090334906649 | 建议 correct | 置信 high
+问题：who did we get the statue of liberty from
+C1：France
+冻结参考：the people of France
+辅助理由：R1/R3 都说明礼物来自法国人民；C1 France 是来源国的常见简答，未错误指定其他赠送者，建议语义正确。
+R3 nq_p_0016462: a gift from the people of France to the people of the United States
+人工确认：待审
+
+N55 | 6471608951128519572 | 建议 correct | 置信 high
+问题：who took the photo of the flag raising on iwo jima
+C1：Joe Rosenthal
+冻结参考：Joe Rosenthal
+辅助理由：R1/R2 直接点名照片由 Joe Rosenthal 拍摄，C1 正确。
+R1 nq_p_0387597: Raising the Flag on Iwo Jima is an iconic photograph taken by Joe Rosenthal on February 23 , 1945
+人工确认：待审
+
+N56 | -3181101556031284606 | 建议 暂缓 | 置信 medium
+问题：when does boruto the next generation come out
+C1：2016
+冻结参考：April 5, 2017
+辅助理由：R1 动画首播是 April 5, 2017，而 R2 漫画于 2016 启动；题目未明说 anime 或 manga。C1 2016 可对应漫画，按 gold 意图则指动画。暂缓媒介意图，不能仅凭 gold 日期把另一媒介日期自动判 utilisation。
+R1 nq_p_0691354: An anime television series adaptation directed by Noriyuki Abe started airing on TV Tokyo on April 5 , 2017 .
+R2 nq_p_0691360: Boruto : Naruto Next Generations launched in the twenty - third issue of Shueisha 's manga magazine Weekly Shōnen Jump on May 9 , 2016 .
+人工确认：待审
+
+N57 | 7760609859570217617 | 建议 暂缓 | 置信 medium
+问题：how many times bigger is saturn than earth
+C1：9
+冻结参考：over 95 times
+辅助理由：R2 明确半径约九倍、质量超过九十五倍。题干 bigger 没有指定半径、质量或体积；C1 9 对半径成立，gold 95 对质量成立。需先确认计量维度，暂缓主标签；supported 只指九倍半径这项事实有支持。
+R2 nq_p_0227287: It is a gas giant with an average radius about nine times that of Earth .
+R2 nq_p_0227287: Saturn is over 95 times more massive .
+人工确认：待审
+
+N58 | 8748373647137023318 | 建议 correct | 置信 medium
+问题：how old do you have to be to buy a gun in arizona
+C1：18
+冻结参考：18 years
+辅助理由：按冻结问题的一般年龄门槛及 gold，18 与 18 years 等价，R1 直接支持。R1 另有限定持牌商手枪购买为 21，不能把此简答扩展为所有类型、来源均适用；这里只审核冻结样本。
+R1 nq_p_1058526: a person must be 18 years of age to purchase any non-NFA firearm from any source ; however , there is a federal age limit of 21 years on handgun purchases from federal firearms licensees .
+人工确认：待审
+
+N59 | -8480487982704561767 | 建议 暂缓 | 置信 medium
+问题：how many atp molecules are produced during the electron transport chain
+C1：28
+冻结参考：around 29 to 30 ATP per glucose
+辅助理由：R2 明确电子传递链最多 28；R1、R3、R5 的计量不同且相互不一致。gold 的约 29-30 在 R4 位于整套细胞呼吸总产量讨论，未清楚对应仅电子传递链。C1 有局部支持但省略最多，参考也可能混淆阶段与总量，暂缓而非判为清楚证据下 utilisation。
+R2 nq_p_0271073: the electron transport chain contributes , at most , twenty - eight ATP molecules .
+R4 nq_p_0053040: 38 ATP molecules can be made per oxidised glucose molecule during cellular respiration
+R4 nq_p_0053040: current estimates range around 29 to 30 ATP per glucose .
+人工确认：待审
+
+N60 | -1904111941153300402 | 建议 correct | 置信 high
+问题：who plays young fiona in american horror story coven
+C1：Riley Voelkel
+冻结参考：Riley Voelkel
+辅助理由：R2 明确 Riley Voelkel 饰演 Fiona Goode 的年轻版本，C1 与所问 young Fiona 对应。
+R2 nq_p_0567098: Riley Voelkel ( born April 26 , 1990 )
+R2 nq_p_0567098: she played the younger version of Jessica Lange 's character , the witch Fiona Goode in the FX series American Horror Story : Coven .
+人工确认：待审
+
+N61 | 1886755777018557601 | 建议 correct | 置信 medium
+问题：where is the university of southern queensland located
+C1：Toowoomba, Springfield, Ipswich
+冻结参考：Toowoomba, Queensland, Australia
+辅助理由：R1 明确以 Toowoomba 为基地，并有 Toowoomba、Springfield、Ipswich 三校区。C1 给出的都是该校真实所在地，且包含主要所在地，问题未限定总部，建议接受；须保留校本部与校区范围区别。
+R1 nq_p_0255851: based in Toowoomba , Queensland , Australia , with three university campuses at Toowoomba , Springfield and Ipswich .
+人工确认：待审
+
+N62 | 3219108291257004958 | 建议 暂缓 | 置信 medium
+问题：who plays president petrov in house of cards
+C1：Lars Dittmann
+冻结参考：Lars Dittmann Mikkelsen
+辅助理由：R5 清楚给出 Lars Dittmann Mikkelsen 饰演 Viktor Petrov；C1 只保留 Lars Dittmann，漏掉主要姓氏 Mikkelsen。不同于已被证据直接使用的别名，不能因是全名的前缀就自动判正确，需人工确认可接受姓名粒度。
+R5 nq_p_0602439: Lars Dittmann Mikkelsen
+R5 nq_p_0602439: the Russian President Viktor Petrov in House of Cards on Netflix
+人工确认：待审
+
+N63 | 4805262687691570399 | 建议 暂缓 | 置信 high
+问题：who was indias president when first nuclear test was done
+C1：Zakir Hussain
+冻结参考：Indira Gandhi
+辅助理由：题目问首次核试验时的 President，R2 明确 Indira Gandhi 的职务是 Prime Minister，并给出首次试验 1974。Top-5 未给当年总统；R3 提到 Zakir Hussain 也未对应 1974。gold 与题干职务存在可见错位，暂缓，不把改成 gold 当作正确修复。
+R2 nq_p_0014517: After Indira Gandhi became Prime Minister in 1966
+R2 nq_p_0014517: conducted its first nuclear test , Smiling Buddha , in 1974 .
+R3 nq_p_0657257: Dr Zakir Hussain ( 1963 ) were the earlier recipients of Bharat Ratna who later became the President of India .
+人工确认：待审
+
+N64 | 1457639279894856450 | 建议 correct | 置信 high
+问题：what do you call someone from czech republic
+C1：Czech
+冻结参考：Czechs
+辅助理由：问题问 someone 的单数称呼，C1 Czech 与 gold Czechs 的复数属于同一称谓。R4 说明 Czech people 与该国民族对应，单复数不应导致语义错。
+R4 nq_p_1011613: The Czechs
+R4 nq_p_1011613: or the Czech people
+R4 nq_p_1011613: a nation native to the Czech Republic in Central Europe
+人工确认：待审
+
+N65 | 7643377925242908266 | 建议 correct | 置信 high
+问题：who wrote the hymn for all the saints
+C1：William Walsham How
+冻结参考：William Walsham How
+辅助理由：R1 明确 For All the Saints 由 William Walsham How 写作，C1 回答作者，未混淆 R2 的旋律作曲者。
+R1 nq_p_0270843: `` For All the Saints '' was written as a processional hymn by the Anglican Bishop of Wakefield , William Walsham How .
+人工确认：待审
+
+N66 | -8942709420542468525 | 建议 correct | 置信 high
+问题：when did i dream of jeannie come out
+C1：September 18, 1965
+冻结参考：September 18, 1965 to May 26, 1970
+辅助理由：问题问 come out，R5 直接给出首播日期 September 18, 1965，C1 正确。gold 把停播日期一并选入，非此问题所必需。
+R5 nq_p_0723008: The show debuted at 8 pm , Saturday , September 18 , 1965 , on NBC .
+人工确认：待审
+
+N67 | -5753551957569410893 | 建议 暂缓 | 置信 medium
+问题：the nature of electronics as a branch of physics
+C1：Electronics is considered a branch of physics and electrical engineering.
+冻结参考：The study of semiconductor devices and related technology is considered a branch of solid-state physics
+辅助理由：R1 逐字支持 C1 所说电子学属于物理及电气工程，但题目残缺，可能要具体研究性质，也可能要领域归属。gold 选择 R2 的半导体研究属于固体物理，不能直接确定哪种解读。暂缓完整性判断；supported 仅指该概述本身有证据。
+R1 nq_p_0856178: Electronics is considered to be a branch of physics and electrical engineering .
+R2 nq_p_0856181: The study of semiconductor devices and related technology is considered a branch of solid - state physics
+人工确认：待审
+
+N68 | 7659680993559844629 | 建议 correct | 置信 high
+问题：who won in the battle of the marne
+C1：Allied Powers
+冻结参考：Allied victory
+辅助理由：R1 明确胜利属于 Allied Powers，C1 回答获胜方，gold Allied victory 是同一事实的另一种表述。
+R1 nq_p_0048888: The battle was a victory for the Allied Powers
+人工确认：待审
+
+N69 | 3473298008288621013 | 建议 correct | 置信 high
+问题：where is the great sand dunes national park located
+C1：in Saguache and Alamosa Counties, Colorado
+冻结参考：Saguache and Alamosa Counties, Colorado
+辅助理由：R1 地点与 C1 完全对应，C1 仅比 gold 多介词 in，语义正确。
+R1 nq_p_0344204: Great Sand Dunes National Park and Preserve is located in Saguache and Alamosa Counties , Colorado
+人工确认：待审
+
+N70 | -455522481629941063 | 建议 correct | 置信 high
+问题：who is the actor cat in the hat
+C1：Mike Myers
+冻结参考：Mike Myers
+辅助理由：R2 直接说明 2003 真人电影主角由 Mike Myers 饰演，C1 与 gold 及证据一致。
+R2 nq_p_0479619: The film stars Mike Myers in the title role of the Cat in the Hat
+人工确认：待审
+
+N71 | -7534977440550994951 | 建议 correct | 置信 high
+问题：the hardness of minerals is measured on the ____ scale
+C1：Mohs
+冻结参考：Mohs scale
+辅助理由：题干已给 ____ scale，填 Mohs 恰当；R1 明确矿物硬度的 Mohs scale，C1 不需重复 scale。
+R1 nq_p_1178482: The Mohs scale of mineral hardness is a qualitative ordinal scale
+人工确认：待审
+
+N72 | -787222857578843686 | 建议 correct | 置信 high
+问题：where is the name phoebe found in the bible
+C1：Romans 16:1-2
+冻结参考：Epistle to the Romans, verses 16:1-2
+辅助理由：R1 把 Phoebe 定位于 Romans 16:1-2，C1 是相同书卷章节的常见简写，语义正确。
+R1 nq_p_0304259: mentioned by the Apostle Paul in his Epistle to the Romans , verses 16 : 1 - 2 .
+人工确认：待审
+
+N73 | 3133601013091477200 | 建议 correct | 置信 medium
+问题：sheets of colored glass joined together with strips of lead is called
+C1：stained glass
+冻结参考：stained glass windows
+辅助理由：R4 说明这些玻璃组装成 stained glass windows，也明确 stained glass 一词用于这些窗；C1 使用通用术语可接受，物料与成品的精确命名粒度供确认。
+R4 nq_p_1002874: The coloured glass is crafted into stained glass windows
+R4 nq_p_1002874: held together ( traditionally ) by strips of lead
+R4 nq_p_1002874: The term stained glass is also applied to windows
+人工确认：待审
+
+N74 | -5016482629216613272 | 建议 evidence_utilisation | 置信 high
+问题：who are the twins in the matrix reloaded
+C1：fictional characters
+冻结参考：henchmen of the Merovingian who are believed to be an old version of Agents in a previous iteration of the Matrix before becoming "Exiles", or rogue programs
+辅助理由：fictional characters 虽是真实类别，却不能说明这两个角色是谁或其身份关系；R1 已清楚说明他们是 Merovingian 手下、被认为是旧版 Agents/流亡程序。C1 未回答身份核心，建议 utilisation 候选。supported=False 指作为问题答案缺少足够身份支持，非否定其为虚构角色。
+R1 nq_p_0411750: They are the henchmen of the Merovingian who are believed to be an old version of Agents in a previous iteration of the Matrix before becoming `` Exiles '' , or rogue programs .
+人工确认：待审
+
+N75 | -2794432552733964922 | 建议 correct | 置信 high
+问题：who is the actor that plays brick heck
+C1：Atticus Shaffer
+冻结参考：Atticus Shaffer
+辅助理由：R1 直接说明 Atticus Shaffer 饰演 Brick Heck，C1 正确。R3 的出生日期冲突不影响所问演员身份。
+R1 nq_p_0061619: Atticus Shaffer ( born June 19 , 1998 ) is an American actor best known for portraying Brick Heck
+人工确认：待审
+
+N76 | 7728406136919122642 | 建议 correct | 置信 medium
+问题：where did the tradition of santa clause come from
+C1：Dutch Sinterklaas
+冻结参考：traditions surrounding the historical Saint Nicholas (a fourth-century Greek bishop and gift-giver of Myra), the British figure of Father Christmas and the Dutch figure of Sinterklaas (himself also based on Saint Nicholas)
+辅助理由：R2/R3 直接说明现代 Santa 来自荷兰 Sinterklaas，C1 提供有效来源。R4 还列 Saint Nicholas 与 Father Christmas 等共同传统；问题未要求穷尽，建议接受简答，完整性边界供确认。
+R2 nq_p_0947441: The Dutch Sinterklaas was Americanized into `` Santa Claus ''
+R3 nq_p_0876872: The modern figure of Santa Claus was derived from the Dutch figure , Sinterklaas
+人工确认：待审
+
+N77 | 676364825758831059 | 建议 correct | 置信 high
+问题：when did the battle of fort sumter happen
+C1：April 12 -- 13, 1861
+冻结参考：April 12–13, 1861
+辅助理由：日期均为 1861 年 4 月 12 至 13 日，差异仅在 -- 与 en dash 及空白；C1 有 R1 直接支持，应保留冻结 EM 同时另记语义正确。
+R1 nq_p_0006994: The Battle of Fort Sumter ( April 12 -- 13 , 1861 )
+人工确认：待审
+
+N78 | 7659917870644642145 | 建议 暂缓 | 置信 medium
+问题：what's the cats name from alice and wonderland
+C1：Dinah
+冻结参考：Cheshire Cat
+辅助理由：R1/R2 支持 Cheshire Cat，R5 也明确 Dinah 是 Alice's Adventures in Wonderland 中 Alice 的猫。题干没有笑容、消失等限定，the cat 不能唯一指 Cheshire；C1 有真实角色支持但与 gold 意图不同，暂缓消歧，不能直接判错误实体。
+R1 nq_p_0093662: The Cheshire Cat
+R1 nq_p_0093662: popularised by Lewis Carroll in Alice 's Adventures in Wonderland
+R5 nq_p_0876503: the offspring of Dinah , Alice 's cat in Alice 's Adventures in Wonderland
+人工确认：待审
+
+N79 | 4809920436462128496 | 建议 暂缓 | 置信 medium
+问题：how many tiles can you have in scrabble
+C1：106
+冻结参考：100
+辅助理由：Top-5 全部讨论不同语言整套棋子数：106 属 Bambara，100 属英语版。但 how many tiles can you have 也可能问手中可持数量，题干未指定语言或整套。C1 对默认英语整套意图不合，但需先确认计数对象；暂缓，不能靠 gold 100 自动定义问题。
+R4 nq_p_0599480: Bambara - language Scrabble sets use these 106 tiles :
+R5 nq_p_0599466: English - language editions of Scrabble contain 100 letter tiles , in the following distribution :
+人工确认：待审
+
+N80 | -5283919567456439969 | 建议 correct | 置信 high
+问题：who is the new leader of the ontario conservative party
+C1：Doug Ford
+冻结参考：Doug Ford
+辅助理由：按本批语料的 2018 领导选举时间口径，R1 明确 Ontario 省党领袖选举由 Doug Ford 获胜。C1 正确，未混淆 R3/R5 的联邦 Conservative Party。
+R1 nq_p_0538280: The 2018 Progressive Conservative Party of Ontario leadership election was held on March 10 , 2018
+R1 nq_p_0538280: Winner Doug Ford narrowly defeated runner - up Christine Elliott
+人工确认：待审
+
+N81 | -5223755550735908441 | 建议 evidence_utilisation | 置信 high
+问题：how many episodes in season 7 of true blood
+C1：16
+冻结参考：ten
+辅助理由：R1 首句明确 True Blood 第七季有十集；R2 的 16 集没有该剧名称且播出年份不同。C1 取了另一个第七季计数，目标实体约束失效，建议 utilisation。
+R1 nq_p_1050814: The seventh and final season of the HBO supernatural drama series True Blood premiered on June 22 , 2014 and contained ten episodes .
+R2 nq_p_1115210: The seventh season contains a total of 16 episodes which broadcast from June 10 , 2015 to January 6 , 2016 .
+人工确认：待审
+
+N82 | -3974857324122521549 | 建议 暂缓 | 置信 medium
+问题：dry ice (solid co2) is which type of solid
+C1：refrigerant
+冻结参考：molecule
+辅助理由：题目问固体类型，C1 refrigerant 是用途而非固体分类，未回答所求。R1 只说明 CO2 是 molecule，没有明确给出 molecular solid 的分类及依据；gold molecule 也只是片段。先确认足够证据的标准与分类表述，暂不强行归 utilisation。
+R1 nq_p_0646228: Dry ice is the solid form of carbon dioxide
+R1 nq_p_0646228: a molecule consisting of a single carbon atom bonded to two oxygen atoms .
+R3 nq_p_0955862: Liquid and solid carbon dioxide are important refrigerants
+人工确认：待审
+
+N83 | -3127624242927084600 | 建议 correct | 置信 high
+问题：who has most number of followers on instagram
+C1：Instagram's own account
+冻结参考：Instagram
+辅助理由：按冻结语料的 2018 时间口径，R1 明确最多粉丝账户是 Instagram 自己的账户，C1 比 gold 更明确地表达同一实体。不能混同 most followed individual 或今天的排名。
+R1 nq_p_0179715: As of July 2018 , the most followed user is Instagram 's own account , with over 241 million followers .
+人工确认：待审
+
+N84 | -7971666984412271711 | 建议 暂缓 | 置信 high
+问题：where did the state of maryland get its name
+C1：Maryland was named after the English queen Henrietta Maria of France.
+冻结参考：named after Mary, the mother of Jesus Christ.
+辅助理由：R1/R2 直接支持 C1 的 Henrietta Maria，R3 也将其称为官方命名理由，再提出 Mary 的替代解释。gold 只保留另一解释，不足以使 C1 自动成为语义错误；需人工裁定可接受答案或参考争议，保持原始 gold 不变。
+R1 nq_p_0915441: The state is named after the English queen Henrietta Maria of France .
+R3 nq_p_0543181: Officially , the new `` Maryland Colony '' was named in honor of Henrietta Maria of France
+R3 nq_p_0543181: Maryland may have been named after Mary , the mother of Jesus
+人工确认：待审
+
+N85 | 5607341441683614186 | 建议 correct | 置信 high
+问题：who sings the song if it makes you happy
+C1：Sheryl Crow
+冻结参考：Sheryl Crow
+辅助理由：R1 把 If It Makes You Happy 明确关联 Sheryl Crow 的专辑和女声演唱奖，C1 正确且有对应作品支持。
+R1 nq_p_0329479: `` If It Makes You Happy '' is the lead single from Sheryl Crow 's 1996 eponymous album .
+人工确认：待审
+
+N86 | -3785663679516475986 | 建议 correct | 置信 high
+问题：who played eddard stark in game of thrones
+C1：Sean Bean
+冻结参考：Bean
+辅助理由：R1/R3 清楚说明 Sean Bean 饰演 Eddard Stark，gold 的 Bean 是同一人的姓氏，C1 全名更完整。
+R3 nq_p_0107044: Lord Eddard `` Ned '' Stark ( Sean Bean )
+人工确认：待审
+
+N87 | -1941458279715717945 | 建议 correct | 置信 medium
+问题：advantages of introducing negative feedback in an amplifier circuit
+C1：improves performance, reduces sensitivity to parameter variations
+冻结参考：can improve its performance (gain stability, linearity, frequency response, step response) and reduces sensitivity to parameter variations due to manufacturing or environment
+辅助理由：R1 直接列出改善性能并减小参数变化敏感性，C1 覆盖这两个主方向。未展开增益稳定、线性及响应等性能例项，建议简答可接受，但充分具体程度需人工确认；不把改善理解为所有设计条件下绝对保证。
+R1 nq_p_0718937: The applied negative feedback can improve its performance ( gain stability , linearity , frequency response , step response ) and reduces sensitivity to parameter variations due to manufacturing or environment .
+人工确认：待审
+
+N88 | 258078115163430675 | 建议 correct | 置信 medium
+问题：defines the formats and rules for exchanging information via a network
+C1：communications protocol specifications
+冻结参考：communication protocol
+辅助理由：R1 明确通信协议规范规定交换信息的规则及行为，R4 定义 communication protocol。C1 提供该规则体系的规范表述，建议语义可接受，协议与文档层级差异留给人工确认。
+R1 nq_p_0284970: rules and conventions that can be set out in communications protocol specifications .
+R4 nq_p_0284966: a communication protocol is a system of rules
+人工确认：待审
+
+N89 | -5315618206818489317 | 建议 暂缓 | 置信 medium
+问题：what was the price of oil in 1980
+C1：US $35 per barrel
+冻结参考：over US$35 per barrel (equivalent to $104 per barrel in 2008 dollars, when adjusted for inflation)
+辅助理由：R1/R2 都说峰值 over US$35，C1 去掉 over 后若按精确价格理解不被蕴含；若作为约数则可能接受。题目未指定峰值、均值或近似容差，优先人工确认数值限定词与评分标准，不自动当作 utilisation。
+R2 nq_p_0561781: The world price of oil , which had peaked in 1980 at over US $ 35 per barrel
+人工确认：待审
+
+N90 | 40482195487920200 | 建议 correct | 置信 high
+问题：where does the narrator live in war of the worlds
+C1：Surrey
+冻结参考：Surrey
+辅助理由：R3 明确小说为 Surrey 的无名主人公及其伦敦弟弟的第一人称叙事，C1 对主人公叙述者的居住地区回答正确，未用作者住址代替。
+R3 nq_p_0120504: The novel is the first - person narrative of both an unnamed protagonist in Surrey and of his younger brother in London
+人工确认：待审
+
+N91 | -5409628047568925289 | 建议 暂缓 | 置信 medium
+问题：when is the angular momentum of a system conserved
+C1：in any closed system
+冻结参考：the total angular momentum of a system remains constant unless acted on by an external torque
+辅助理由：R3 明确守恒条件是无外力矩；R4 讨论封闭系统内部物体之间交换角动量。C1 in any closed system 是否已排除外力矩取决于 closed 的定义，不能用内部交换的守恒直接推出任意封闭系统均守恒，暂缓条件完整性判断。
+R3 nq_p_0895349: the total angular momentum of a system remains constant unless acted on by an external torque .
+R4 nq_p_0895391: angular momentum can be exchanged between objects in a closed system , but total angular momentum before and after an exchange remains constant
+人工确认：待审
+
+N92 | 3326691068650840908 | 建议 correct | 置信 high
+问题：how many episodes are in season 4 of nikita
+C1：6
+冻结参考：six
+辅助理由：R1 直接说 Nikita 第四季六集，C1 6 与 gold six 是同一计数，属于数字形式差异。
+R1 nq_p_1182167: The fourth and final season of Nikita
+R1 nq_p_1182167: containing six episodes .
+人工确认：待审
+
+N93 | 2576360884323654666 | 建议 correct | 置信 high
+问题：when did the battle of san jacinto start and end
+C1：April 21, 1836, lasted just 18 minutes
+冻结参考：April 21, 1836
+辅助理由：R1 明确战斗在 April 21, 1836 进行且仅持续 18 分钟，C1 给出日期及持续时长，足以表明起止均在该日；额外时长有证据支持。
+R1 nq_p_0222549: The Battle of San Jacinto , fought on April 21 , 1836
+R1 nq_p_0222549: in a fight that lasted just 18 minutes .
+人工确认：待审
+
+N94 | -7203695625159603076 | 建议 暂缓 | 置信 medium
+问题：what is the role of australian human rights commission
+C1：investigating alleged infringements under Australia's anti-discrimination legislation
+冻结参考：investigating alleged infringements under Australia's anti-discrimination legislation in relation to Commonwealth Agencies
+辅助理由：R1 的调查职责带 in relation to Commonwealth Agencies 范围限定，C1 删去后是概述还是扩大适用范围需确认。R2/R3 另列其他权限，不能机械要求复现所有职责，也不能自动认可删除法律范围。暂缓语义完整性。
+R1 nq_p_0300402: It has the responsibility for investigating alleged infringements under Australia 's anti-discrimination legislation in relation to Commonwealth Agencies .
+人工确认：待审
+
+N95 | -3805777236251722390 | 建议 correct | 置信 high
+问题：when one or single gene control more than one character
+C1：pleiotropy
+冻结参考：Pleiotropy
+辅助理由：R5 直接定义一个基因影响两个或更多表型为 Pleiotropy，C1 正确且仅有大小写差异。
+R5 nq_p_0843290: Pleiotropy
+R5 nq_p_0843290: occurs when one gene influences two or more seemingly unrelated phenotypic traits .
+人工确认：待审
+
+N96 | 3252643664278412553 | 建议 evidence_utilisation | 置信 high
+问题：where did the name of monkey bread come from
+C1：Hungarian literature
+冻结参考：being a finger food: the consumer would pick apart the bread as a monkey would
+辅助理由：R1 明确 monkey bread 的名称来自像猴子一样用手掰食。R2 的 Hungarian literature 讨论甜点及 aranygaluska 的历史，未解释 monkey 词源；C1 把菜肴传播史当名称由来，建议 utilisation 候选。
+R1 nq_p_0756250: The origin of the term `` monkey bread '' comes from the pastry being a finger food : the consumer would pick apart the bread as a monkey would .
+R2 nq_p_0756251: by the 1880s , this dessert was being referred to in Hungarian literature .
+人工确认：待审
+
+N97 | -1848647332780502367 | 建议 correct | 置信 high
+问题：who was the state of louisiana named after
+C1：Louis XIV
+冻结参考：Louis XIV, King of France from 1643 to 1715
+辅助理由：R1 直接说命名纪念 Louis XIV，C1 人名完整，gold 的王位与在位年份并非问题所需。
+R1 nq_p_0570323: Louisiana was named after Louis XIV , King of France from 1643 to 1715 .
+人工确认：待审
+
+N98 | -304374813935559525 | 建议 暂缓 | 置信 medium
+问题：when did lucille ball start i love lucy
+C1：March 1951
+冻结参考：October 15, 1951
+辅助理由：R5 的 March 1951 是试播集制作，R1/R3 的 October 15, 1951 是正式播出起始。题目说 Lucille Ball start，未明确首播还是开始制作；C1 有对应事件支持但和 gold 不同，暂缓事件消歧。
+R5 nq_p_0287156: A pilot was ordered and kinescoped in Hollywood in March 1951
+R1 nq_p_0705581: The black - and - white series originally ran from October 15 , 1951 , to May 6 , 1957
+人工确认：待审
+
+N99 | 1121606053642679155 | 建议 暂缓 | 置信 high
+问题：what is the name of the african nationalist movement that started in the 1950s
+C1：African Nationalist Movement
+冻结参考：Back-to-Africa movement
+辅助理由：R1 说明 1950s 多个民族主义政党且 African nationalism 从非单一运动；R4 把 Back-to-Africa 作为更早期思想来源，没有证据说其始于 1950s。C1 是泛称，gold 也未满足题目时间条件；应暂缓参考和问题意图，不拿 gold 替换来制造修复。
+R1 nq_p_0524917: Nationalist political parties were established in almost all African colonies during the 1950s
+R1 nq_p_0524917: African nationalism was never a single movement
+R4 nq_p_0524916: Nationalist ideas in Sub-Saharan Africa emerged during the mid-19th century
+R4 nq_p_0524916: In its earliest period , it was inspired by African - American and Afro - Caribbean intellectuals from the Back - to - Africa movement
+人工确认：待审
+
+N100 | -3270371413280430670 | 建议 correct | 置信 high
+问题：jack and the beanstalk folktale or fairy tale
+C1：fairy tale
+冻结参考：fairy tale
+辅助理由：R1 首句直接定义 Jack and the Beanstalk 为 English fairy tale，C1 与所选类别及 gold 一致。
+R1 nq_p_0094094: `` Jack and the Beanstalk '' is an English fairy tale .
+人工确认：待审

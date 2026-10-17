@@ -2,6 +2,8 @@
 
 2026-10-17 已接入 Google Drive 的全部 15 个分片，共 74,097 条 NQ Train C1 记录。全量已转换为 E 兼容输入，首批 100 条开发审核材料已固定。人工字段全部待审，尚未运行 E GPU 实验，v8 策略尚未实现。
 
+后续已完成这 100 条的代理辅助审核：建议 69 条可接受、8 条 utilisation 候选、23 条暂缓，仍全部待人工确认。见 [审核结果、优先编号及下一轮约束](ANSWER_REPAIR_NQ_TRAIN_REVIEW_20261017.md)。main 的原始数据及 gold 作为来源基准保持原样；本地审核与适配为派生产物。
+
 ## 来源与检查
 
 上游代码与交付清单来自 `main@058f10baa47083220f95edb39db8f106aa7e85d6`，已合入 E 分支。原始分片来自 [Google Drive 的 nq_train_annotation](https://drive.google.com/drive/u/0/folders/1GRWOjia-PXfYh7YfvC1f3JzdjJqtJNDU)。15 个文件的 SHA-256 均与 [交付清单](../data/annotations/nq_train_delivery/manifest.json) 一致，逐条字段检查无异常；见 [完整审计](../data/annotations/nq_train_delivery/drive_audit_20261017.json)。

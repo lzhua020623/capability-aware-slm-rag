@@ -1,0 +1,252 @@
+{
+  "date": "2026-10-17",
+  "review_set_id": "answer_repair_nq_train_dev_v1",
+  "source_authority": {
+    "branch": "origin/main",
+    "commit": "058f10baa47083220f95edb39db8f106aa7e85d6",
+    "policy": "main delivery is authoritative; E adapters and reviews are derived; source and gold unchanged",
+    "all_11_main_delivery_files_identical": true,
+    "all_15_raw_shards_match_main_manifest": true,
+    "source_samples": 74097,
+    "shards": [
+      {
+        "file": "nq_train_annotation_000.jsonl",
+        "sha256": "60a03259a7275284b4585755dbbc83138f6abb46ba94dd47c4c08064babe7a87",
+        "matches_main": true
+      },
+      {
+        "file": "nq_train_annotation_001.jsonl",
+        "sha256": "a5ccfca2af087d0fcd236274dad57e3613b0546fae8caff366c2d2391396581b",
+        "matches_main": true
+      },
+      {
+        "file": "nq_train_annotation_002.jsonl",
+        "sha256": "4885214758f18b1071c9a0860ac07c9e2f39f5c7b68be23dfe3720ff26e71b78",
+        "matches_main": true
+      },
+      {
+        "file": "nq_train_annotation_003.jsonl",
+        "sha256": "2726bac8fa09dd89c09fdc4533dccdc339275ceae98df5baa0c41b07eba96930",
+        "matches_main": true
+      },
+      {
+        "file": "nq_train_annotation_004.jsonl",
+        "sha256": "f7b65012f5a66217e3642d20eaefbe332326fc2b0e267280457164b9c6af7fd0",
+        "matches_main": true
+      },
+      {
+        "file": "nq_train_annotation_005.jsonl",
+        "sha256": "e1aef80b2fd26f3d3d832a0819a68dfc9277f967faf105b8caaf49eb3a8ca4d7",
+        "matches_main": true
+      },
+      {
+        "file": "nq_train_annotation_006.jsonl",
+        "sha256": "0975f945d254ca4a3983490b5d0c4e163a032ab61e981fc8c09cd9efedc10ef4",
+        "matches_main": true
+      },
+      {
+        "file": "nq_train_annotation_007.jsonl",
+        "sha256": "51630aff40c605944c14672421fae9467e7577b65a1117744cac97fd20566f7c",
+        "matches_main": true
+      },
+      {
+        "file": "nq_train_annotation_008.jsonl",
+        "sha256": "3c1f6a36e6f9b496afccda47d46d3fd4a2298019d4684f02f95265cdb377c320",
+        "matches_main": true
+      },
+      {
+        "file": "nq_train_annotation_009.jsonl",
+        "sha256": "21ffd6f6eb7580bb0f048589b6f4b1b76ec2a70780379e118e7d5e9ea50ee0a4",
+        "matches_main": true
+      },
+      {
+        "file": "nq_train_annotation_010.jsonl",
+        "sha256": "7344529c38013296d8d3bc2641a1635a03f666ea89d1069a729a957e0f322c54",
+        "matches_main": true
+      },
+      {
+        "file": "nq_train_annotation_011.jsonl",
+        "sha256": "7849329a19e380c66eb65a67de75defd4fce5c3f15786698d0a4e85d92ae8fba",
+        "matches_main": true
+      },
+      {
+        "file": "nq_train_annotation_012.jsonl",
+        "sha256": "302908930121240d6b28773c05c0e84bbaa835223eccf6d6e3e17d4b550c2988",
+        "matches_main": true
+      },
+      {
+        "file": "nq_train_annotation_013.jsonl",
+        "sha256": "25ffa3fe664d8c118064f986eda10de2e635a49ac95053f7e0729927ca300903",
+        "matches_main": true
+      },
+      {
+        "file": "nq_train_annotation_014.jsonl",
+        "sha256": "cf67526be016dbf1e697f4513cb5bb8c79de649b2271baeb32e5fb2fae1451f7",
+        "matches_main": true
+      }
+    ]
+  },
+  "source_review_file": "artifacts/answer_repair/nq_train_dev_v1/review/review_queue.jsonl",
+  "source_review_sha256": "a7807984201905627cf2bb4b2f368c1eb7eaee7223dc8ef8beafea081392238c",
+  "assisted_review_file": "data/annotations/assisted/answer_repair_nq_train_dev_v1_20261017.jsonl",
+  "assisted_review_sha256": "920ea1c56f1b9512346e0d84fcd1d8e9e8e6abe9e62478e7ba2392378dece389",
+  "records": 100,
+  "suggested_label_counts": {
+    "correct": 69,
+    "deferred": 23,
+    "evidence_utilisation": 8
+  },
+  "counts_by_screening_group": {
+    "screen_candidate": {
+      "correct": 49,
+      "deferred": 23,
+      "evidence_utilisation": 8
+    },
+    "em_match_control": {
+      "correct": 20
+    }
+  },
+  "confidence_counts": {
+    "medium": 28,
+    "high": 70,
+    "low": 2
+  },
+  "priority_utilisation_review_numbers": [
+    6,
+    29,
+    31,
+    48,
+    49,
+    74,
+    81,
+    96
+  ],
+  "priority_utilisation_ids": [
+    "2847980457887203111",
+    "1739926213792453012",
+    "5822180296105627301",
+    "-1981506712537073428",
+    "-564035461981251695",
+    "-5016482629216613272",
+    "-5223755550735908441",
+    "3252643664278412553"
+  ],
+  "deferred_review_numbers": [
+    3,
+    7,
+    8,
+    19,
+    28,
+    33,
+    44,
+    52,
+    56,
+    57,
+    59,
+    62,
+    63,
+    67,
+    78,
+    79,
+    82,
+    84,
+    89,
+    91,
+    94,
+    98,
+    99
+  ],
+  "correct_suggestion_review_numbers": [
+    1,
+    2,
+    4,
+    5,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    30,
+    32,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    45,
+    46,
+    47,
+    50,
+    51,
+    53,
+    54,
+    55,
+    58,
+    60,
+    61,
+    64,
+    65,
+    66,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    75,
+    76,
+    77,
+    80,
+    83,
+    85,
+    86,
+    87,
+    88,
+    90,
+    92,
+    93,
+    95,
+    97,
+    100
+  ],
+  "reference_issue_review_numbers": [
+    9,
+    18,
+    59,
+    63,
+    84,
+    99
+  ],
+  "human_confirmed": 0,
+  "human_review_status": "all_pending",
+  "raw_delivery_labels_changed": false,
+  "scorer_changed": false,
+  "v7_results_changed": false,
+  "v8_algorithm_implemented": false,
+  "gpu_inference_run": false,
+  "interpretation": "Agent suggestions only. 80 EM-mismatch/gold-hit rows and 20 EM-match controls were deliberately screened from E development; counts are not representative of all NQ Train and do not measure E improvement.",
+  "validation": {
+    "all_100_ids_in_development": true,
+    "all_source_record_hashes_match": true,
+    "all_quotes_match_exact_source_offsets": true,
+    "all_human_fields_unchanged": true
+  }
+}

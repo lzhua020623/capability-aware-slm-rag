@@ -11,6 +11,7 @@
 | 最新完成的 v7 实验 | [冻结协议](docs/ANSWER_REPAIR_V7.md) / [结果及问题分析](docs/ANSWER_REPAIR_RESULTS_20261014_V7.md) |
 | v7 统一人工审核 | [可读总表](artifacts/answer_repair/v7_combined_review/review_all.txt) / [结构化记录](artifacts/answer_repair/v7_combined_review/review_all.jsonl) |
 | 新 NQ Train 数据与开发审核 | [接入说明](docs/ANSWER_REPAIR_NQ_TRAIN.md) / [100 条审核索引](artifacts/answer_repair/nq_train_dev_v1/review/review_queue.txt) |
+| 新 NQ Train 的辅助审核结果 | [100 条判断与优先确认清单](docs/ANSWER_REPAIR_NQ_TRAIN_REVIEW_20261017.md)，人工确认全部待审 |
 | 已完成实验的运行和离线回放 | [Colab / Kaggle](docs/ANSWER_REPAIR_COLAB.md) |
 | 环境、数据与预实验 | [安装](docs/SETUP.md) / [数据目录](data/README.md) / [预实验协议](docs/PRELIMINARY_EXPERIMENT.md) |
 | 旧版文档与 Notebook | [历史归档](docs/history/answer_repair/README.md) |

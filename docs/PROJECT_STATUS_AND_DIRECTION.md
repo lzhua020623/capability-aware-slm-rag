@@ -6,6 +6,8 @@ E 当前以 v7 为工作基础，下一轮新修改重新使用 v8 名称，尚�
 
 main 已新增 NQ Train C1 流水线（`058f10b`），并合入 E 分支。Drive 全部 74,097 条已核对并接入 E，原始 diagnosis 标签均为 null；内部用途划分与首批 100 条开发审核材料已固定，见 [接入说明](ANSWER_REPAIR_NQ_TRAIN.md)。有 23,745 条满足 EM=0 且参考段落命中，但这不是 utilisation 标签，需审核确认。新批次无 E GPU 结果，内部评测预留尚需与团队用途协调。
 
+首批 100 条的代理辅助审核已完成：69 条建议可接受、8 条 utilisation 候选、23 条暂缓；人工确认仍为 0，见 [审核结果](ANSWER_REPAIR_NQ_TRAIN_REVIEW_20261017.md)。其中 49 条来自原 EM 不匹配候选，说明当前筛查混有大量语义等价答案。main 来源字段、gold 和冻结评分均未修改，也没有把辅助复核计数当成 E 提升。
+
 统一审核入口为 [v7 总表](../artifacts/answer_repair/v7_combined_review/review_all.txt)，全部人工字段仍 pending，先审 95 条变化记录（93 个唯一 ID）。第 4 批的诊断分层全部来自上游 AI 初标；其正确性和 failure 类型需与输出语义审核分开确认。
 
 FEVER 预实验池留出集正确数 232→229，NQ 同池留出 EM 71→62；第 4 批 NQ EM 63→67，其中 utilisation 标签层 0→10/120、correct 标签层 63→54/100。冻结指标和代理初读均不能替代人工结论，完整口径见 [v7 结果与路线](ANSWER_REPAIR_RESULTS_20261014_V7.md)。
