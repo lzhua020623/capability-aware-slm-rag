@@ -20,7 +20,7 @@ def cell(kind, source):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--bundle', type=Path, default=ROOT / 'artifacts/answer_repair/v5_reviewed/answer_repair_v5_reviewed_gpu.tar.gz')
-    parser.add_argument('--out', type=Path, default=ROOT / 'notebooks/answer_repair_colab_v5_reviewed.ipynb')
+    parser.add_argument('--out', type=Path, default=ROOT / 'notebooks/history/answer_repair/answer_repair_colab_v5_reviewed.ipynb')
     parser.add_argument('--experiment', choices=('v5', 'v6', 'v7'), default='v5')
     args = parser.parse_args()
     digest = hashlib.sha256(args.bundle.read_bytes()).hexdigest()

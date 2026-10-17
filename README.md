@@ -1,53 +1,47 @@
 # capability-aware-slm-rag
 
-本项目是一个针对 Small-Model RAG 的 diagnostic and adaptive enhancement layer。当前 repository 中的 Reference RAG 用于开发和实验验证，不代表项目创新点本身。
+本项目研究小参数模型 RAG 的诊断与动态增强：先用固定检索和生成模型产生 C1 答案，再由 Diagnosis、可选 Probe 和 Controller 选择补检索、重排过滤或答案核验与修复。Reference RAG 是共同实验底座。
 
-## Reference RAG
+## 当前入口
 
-- Primary SLM: Qwen2.5-7B-Instruct
-- Retriever embedding: BAAI/bge-base-en-v1.5
-- Vector search: FAISS
-- Top-k: 5
-- Quantization: 4-bit NF4
-- Generation: deterministic (`do_sample=false`)
+| 需要了解的内容 | 入口 |
+|---|---|
+| 项目进度、分支分工与下一轮方向 | [项目进度](docs/PROJECT_STATUS_AND_DIRECTION.md) |
+| E 的职责、接口与交接 | [E 说明](docs/ANSWER_REPAIR.md) / [当前交接](docs/ANSWER_REPAIR_HANDOFF.md) |
+| 最新完成的 v7 实验 | [冻结协议](docs/ANSWER_REPAIR_V7.md) / [结果及问题分析](docs/ANSWER_REPAIR_RESULTS_20261014_V7.md) |
+| v7 统一人工审核 | [可读总表](artifacts/answer_repair/v7_combined_review/review_all.txt) / [结构化记录](artifacts/answer_repair/v7_combined_review/review_all.jsonl) |
+| 已完成实验的运行和离线回放 | [Colab / Kaggle](docs/ANSWER_REPAIR_COLAB.md) |
+| 环境、数据与预实验 | [安装](docs/SETUP.md) / [数据目录](data/README.md) / [预实验协议](docs/PRELIMINARY_EXPERIMENT.md) |
+| 旧版文档与 Notebook | [历史归档](docs/history/answer_repair/README.md) |
+| 每个文件的用途与保留建议 | [文件清单](docs/REPOSITORY_INVENTORY_20261016.html) |
 
-## Data
+## 当前状态
 
-- Natural Questions validation: 7830
-- NQ controlled subset: 3216
-- NQ retrieval corpus: 99,922 passages
-- FEVER train: 145,449
-- FEVER dev: 19,998
-- processed FEVER dev: 6666 SUPPORTS + 6666 REFUTES
-- FEVER valid gold-evidence samples: 13,229 / 13,332
-- FEVER retrieval corpus: 5,396,106 passages
+截至 2026-10-16，E 以 v7 为工作基础，下一轮新实现将使用 v8 名称，尚未实现。v7 主包和第 4 批均已在 Kaggle 运行一次，并通过各自冻结代码回放，共 841 条结果、836 个唯一数据集/样本 ID。两种 v7 策略均未晋升默认策略，可靠净收益与人工语义验收仍待完成。
 
-## Status
+当前统一审核队列含 95 条答案变化记录，对应 93 个唯一样本，优先审核这些记录；全部 v7 人工字段仍为 pending。已确认的早期开发样本可用于工程开发，无需等待全量审核。第 4 批的诊断分层来自上游 AI 初标，不能视为全量人工标签。
 
-- data preparation completed
-- retrieval pilot completed
-- Reference RAG engineering validation completed
-- primary SLM changed from 3B to 7B
-- NQ and FEVER 7B C0/C1/C3 runs are complete across the experiment branches; frozen results and judge re-analysis are documented in [project status and direction](docs/PROJECT_STATUS_AND_DIRECTION.md).
-- Diagnosis v2-expanded, Probe, Safe Binary and Controller are frozen on `feature/diagnosis-probe-zheng` at `7c7863f`; project-sample annotations are published there. This E branch consumes the shared decision contract.
-- `reranking` at `338ff34` implements evidence refinement with offline retrieval evaluation; generator-level gains have not been measured there.
-- E implements Verification / Answer Repair with a Controller adapter, resumable experiments, provenance checks and paired evaluation. v4–v6r1 real T4 runs are archived. v6r1 completed 128 predictions (123 unique IDs), 81 cloud tests and frozen-code replay of all results. FEVER reviewed accuracy improves 4/14→7/14, but dev50 falls 45→44; NQ dev50 EM falls 20→7 with longer extracted answers and some irrelevant quotes. Neither new strategy is promoted. Human correctness/support review is deferred; the 42 changed pairs are prioritized. See [current handoff](docs/ANSWER_REPAIR_HANDOFF.md), [latest results](docs/ANSWER_REPAIR_RESULTS_20261014.md), and [Colab / Kaggle](docs/ANSWER_REPAIR_COLAB.md). Engineering and planned development experiments are complete; reliable repair gains and held-out acceptance remain unverified. The delivery branch is `feature/verification-answer-repair`; code, frozen archives, results and review records are versioned together.
-- The frozen preliminary protocol remains in [docs/PRELIMINARY_EXPERIMENT.md](docs/PRELIMINARY_EXPERIMENT.md).
+NQ、FEVER 各 500 条 C0/C1/C3 预实验结果已分散保存在实验分支。Diagnosis、Probe、Safe Binary 和 Controller 冻结在 `feature/diagnosis-probe-zheng` 的 `7c7863f`；重排增强在 `reranking` 的 `338ff34`，尚未完成生成质量验证。当前 E 分支未合并这些模块的全部实现，分支记录见项目进度。
 
-2026-10-14 (later): a second, blind read of the 28 key v6r1 cases agrees with the assisted review on all 9 fixes and 3 regressions, and the user confirmed the sheet (9 fixes / 3 regressions / 2 deferred after de-duplication; 97 unique samples still pending batch confirmation); the confirmation sheet is [docs/ANSWER_REPAIR_CONFIRMATION_20261014.md](docs/ANSWER_REPAIR_CONFIRMATION_20261014.md). E v7 is frozen before any GPU run ([docs/ANSWER_REPAIR_V7.md](docs/ANSWER_REPAIR_V7.md)): NQ returns a short answer inside a located quote; FEVER lets only windows naming the claim's subject vote. Replaying v6r1's stored NLI scores under the v7 rule gives FEVER reviewed 4→10 and dev50 45→46 with no regression (design-stage evidence, not held-out). The v7 bundle's E-untouched held-out cohort (FEVER 267, NQ 146) was run once on Kaggle ([results](docs/ANSWER_REPAIR_RESULTS_20261014_V7.md)): FEVER 1 fix / 4 regressions, NQ frozen EM 71→62 with real semantic regressions; neither v7 strategy is promoted. The 300-sample NQ held-out from the Diagnosis 3216 pool was also run once: utilisation stratum EM 0→10 (first repair evidence on unseen data), correct stratum 63→54 with one real semantic regression; still not promoted because of the harm rate under Controller misrouting. The NQ 3216-pool held-out (120 utilisation labels) is frozen as an ID list and waits for gold answers.
+## 冻结 Reference RAG
 
-Agent-assisted semantic review now covers all 128 v6r1 results: 123 unique cases, provisional fixes/regressions and citation judgments with evidence anchors. Human confirmation remains pending; agent suggestions are not human gold. See the assisted-review section of the [latest results](docs/ANSWER_REPAIR_RESULTS_20261014.md), the [128-case review](artifacts/answer_repair/v6r1_reviewed/assisted_review_20261014/assisted_review.md), and the [archive inventory](artifacts/answer_repair/git_archive_manifest.json).
+- 生成模型：Qwen2.5-7B-Instruct，4-bit NF4，确定性生成。
+- 检索：BAAI/bge-base-en-v1.5 + FAISS，Top-5。
+- 基准：Natural Questions 与 FEVER；固定样本、提示和评分见预实验协议及 `configs/`。
 
-## Engineering Validation
+| 数据 | 处理规模 |
+|---|---:|
+| NQ validation / controlled 子集 | 7,830 / 3,216 |
+| NQ 检索 corpus | 99,922 passages |
+| FEVER train / dev | 145,449 / 19,998 |
+| FEVER 处理后 dev | 6,666 SUPPORTS + 6,666 REFUTES |
+| FEVER 有有效 gold evidence 的处理样本 | 13,229 / 13,332 |
+| FEVER 检索 corpus | 5,396,106 passages |
 
-These are **engineering smoke tests** only. They do **not** answer the Preliminary Recoverability Experiment research questions.
+以上为处理流程的规模，不表示当前机器保存了全部数据，也不表示这些样本全部完成人工诊断。原始数据和索引按需下载或重建；E 可直接使用冻结 C1 输入开发。
 
-**NQ 3B historical smoke test v2** (`results/base_rag/nq_smoke_test_v2.jsonl`): 20 samples; EM = 0.3000; Average F1 = 0.3460; gold evidence in Top-5 = 17/20; retrieval miss = 3/20; gold in Top-5 but wrong = 11/20.
+## 历史与复现
 
-**NQ 7B smoke test** (`results/base_rag/nq_smoke_test_7b.jsonl`): 20 samples; EM = 0.4000; Average F1 = 0.4770; gold evidence in Top-5 = 17/20; retrieval miss = 3/20; gold in Top-5 but wrong = 9/20.
+旧版报告、设计和 Notebook 已移入历史目录；原始实验包、预测、人工记录和 [SHA-256 清单](artifacts/answer_repair/git_archive_manifest.json) 保持原位置及原字节。历史包自带冻结代码，复现已有结果时使用该包，不用当前代码重新解释旧输出。
 
-**FEVER 3B smoke test** (`results/base_rag/fever_smoke_test.jsonl`): 20 samples; classification accuracy = 0.8000; gold evidence in Top-5 = 20/20; retrieval miss = 0; gold in Top-5 but prediction wrong = 4. This run used a reduced controlled candidate corpus, so 20/20 retrieval hit is **not** a formal retrieval result.
-
-## Quick Start
-
-See [docs/SETUP.md](docs/SETUP.md).
+早期 20 条 smoke 只验证工程连通性，不能代替正式 benchmark。其结果与版本记录见 [历史归档](docs/history/answer_repair/README.md)。

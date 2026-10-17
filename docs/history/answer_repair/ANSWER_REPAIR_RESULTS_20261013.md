@@ -67,7 +67,7 @@ FEVER 无效输出：2 条引用不匹配、1 条缺引用。NQ 无效输出：7
 
 已用冻结归档内的代码在 CPU 逐条重放 v4 的 240 条输出（40 smoke + 200 development），核对输入 ID/顺序、代码和数据指纹、解析/citations、评分、成本和汇总；Controller 的 100 条另外重放实际 classifier、Probe parser、Safe Binary、decision 和 E fallback。汇总浮点误差容差为 `1e-12`。主代码 54 项测试通过。上述校验验证实现与记录一致，不证明语义支持。
 
-完整结果包：[E_answer_repair_20261013_results.zip](../artifacts/answer_repair/session_20261013/E_answer_repair_20261013_results.zip)。原始数据、代码归档、日志、环境及 checksums 已下载到本机。`artifacts/` 被 Git 忽略；代码和文档修改尚未提交或推送。组合包 SHA-256（本地计算）：`cf8dfd42fc949e39bb4dfa66c1307149178565dc5c2ad9b1b126b560b8368e5a`。
+完整结果包：[E_answer_repair_20261013_results.zip](../../../artifacts/answer_repair/session_20261013/E_answer_repair_20261013_results.zip)。原始数据、代码归档、日志、环境及 checksums 已下载到本机。`artifacts/` 被 Git 忽略；代码和文档修改尚未提交或推送。组合包 SHA-256（本地计算）：`cf8dfd42fc949e39bb4dfa66c1307149178565dc5c2ad9b1b126b560b8368e5a`。
 
 | 包 | SHA-256 |
 |---|---|
@@ -79,10 +79,10 @@ FEVER 无效输出：2 条引用不匹配、1 条缺引用。NQ 无效输出：7
 
 可读本地记录：
 
-- [Always-E / Reanswer 输出与校验](../artifacts/answer_repair/v4/colab_20261013_development/)
-- [真实 Controller→E 输出与校验](../artifacts/answer_repair/controller_20261013/)
-- [Colab / Kaggle 执行方法](ANSWER_REPAIR_COLAB.md) 与 [v4 notebook](../notebooks/answer_repair_colab_v4.ipynb)
-- [E 协议](ANSWER_REPAIR.md)、[引用与输出检查](../src/compensation/answer_repair.py)、[模型生成与 prompt](../src/compensation/qwen_repair.py)、[Controller adapter](../src/compensation/controller_adapter.py)
+- [Always-E / Reanswer 输出与校验](../../../artifacts/answer_repair/v4/colab_20261013_development)
+- [真实 Controller→E 输出与校验](../../../artifacts/answer_repair/controller_20261013)
+- [Colab / Kaggle 执行方法](../../ANSWER_REPAIR_COLAB.md) 与 [v4 notebook](../../../notebooks/history/answer_repair/answer_repair_colab_v4.ipynb)
+- [E 协议](../../ANSWER_REPAIR.md)、[引用与输出检查](../../../src/compensation/answer_repair.py)、[模型生成与 prompt](../../../src/compensation/qwen_repair.py)、[Controller adapter](../../../src/compensation/controller_adapter.py)
 
 ## 下一步与验收条件
 

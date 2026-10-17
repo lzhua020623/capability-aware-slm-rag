@@ -1119,6 +1119,21 @@
       "path": "artifacts/answer_repair/v7_heldout3216/release_audit/triage_summary.json",
       "bytes": 643,
       "sha256": "7193b46e17b0c8b2b9bfc91b38e520c355f70e79b8860b640d439d6977b1320f"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_combined_review/merge_manifest.json",
+      "bytes": 1046,
+      "sha256": "0af836fba3f28d96133483c98dd22fc3f5ad3a9f60aacb2a1ae87dfcd126d20c"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_combined_review/review_all.jsonl",
+      "bytes": 10266521,
+      "sha256": "36b491d5c170298f3611640654fcbeec242ec69db970f8a50a31fcf34447e7dc"
+    },
+    {
+      "path": "artifacts/answer_repair/v7_combined_review/review_all.txt",
+      "bytes": 442060,
+      "sha256": "defd0075f5af3d056dd8045a53e272e6efae9fecae5a678ecf9721a7a30f653d"
     }
   ],
   "appended_20261014_v7": {
@@ -1157,5 +1172,13 @@
     "note": "Run-once NQ 3216-pool held-out: 11 raw files, frozen-code replay, triage queue, lenient-parser replay (analysis only).",
     "results_zip_sha256": "91ee085bb38c8ee05220b71e5b547978871d84635261d8034a177370a8b927fd",
     "added_files": 18
+  },
+  "appended_20261016_v7_review": {
+    "note": "Combined v7-only human review queue. 841 records / 836 unique samples; 95 changed records / 93 unique changed samples. No human semantic labels assigned.",
+    "added_files": [
+      "artifacts/answer_repair/v7_combined_review/merge_manifest.json",
+      "artifacts/answer_repair/v7_combined_review/review_all.jsonl",
+      "artifacts/answer_repair/v7_combined_review/review_all.txt"
+    ]
   }
 }

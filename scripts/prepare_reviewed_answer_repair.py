@@ -169,10 +169,10 @@ def main(argv=None):
         "scripts/run_answer_repair.py", "scripts/check_answer_repair_environment.py",
         "scripts/prepare_answer_repair_experiment.py", "scripts/prepare_answer_repair_review.py",
         "scripts/prepare_reviewed_answer_repair.py", "scripts/summarize_reviewed_answer_repair.py",
-        "configs/base.yaml", "requirements-answer-repair.txt", "docs/ANSWER_REPAIR_V5.md",
+        "configs/base.yaml", "requirements-answer-repair.txt", "docs/history/answer_repair/ANSWER_REPAIR_V5.md",
     )]
     if args.experiment in ("v6", "v7"):
-        source_files += [ROOT / "docs/ANSWER_REPAIR_V6.md", ROOT / "scripts/audit_answer_repair_release.py"]
+        source_files += [ROOT / "docs/history/answer_repair/ANSWER_REPAIR_V6.md", ROOT / "scripts/audit_answer_repair_release.py"]
     if args.experiment == "v7":
         source_files += [ROOT / "docs/ANSWER_REPAIR_V7.md", ROOT / "scripts/replay_fever_nli_anchored.py",
                          ROOT / "artifacts/answer_repair/v7_design/fever_anchored_replay.md"]

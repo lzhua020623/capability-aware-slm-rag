@@ -1,0 +1,33 @@
+{
+  "created_date": "2026-10-16",
+  "sources": [
+    {
+      "path": "artifacts/answer_repair/v7_reviewed/release_audit/review_priority.jsonl",
+      "sha256": "8de73ca2f0e8b3a48d15982c781485d829e5dc7107f209ce8d2945fe9e6b8187",
+      "records": 541
+    },
+    {
+      "path": "artifacts/answer_repair/v7_heldout3216/release_audit/review_priority.jsonl",
+      "sha256": "7bc94183216a778a03985219f414ce977026bb0597e2b07f73ec80520e9cfb75",
+      "records": 300
+    }
+  ],
+  "records": 841,
+  "unique_dataset_sample_ids": 836,
+  "changed_records": 95,
+  "changed_unique_dataset_sample_ids": 93,
+  "priority_counts": {
+    "frozen_metric_regression": 27,
+    "frozen_metric_gain": 26,
+    "changed_without_frozen_correctness_gain": 42,
+    "unchanged": 746
+  },
+  "human_labels_assigned": false,
+  "review_status_counts": {
+    "pending": 841
+  },
+  "outputs": {
+    "review_all.jsonl": "36b491d5c170298f3611640654fcbeec242ec69db970f8a50a31fcf34447e7dc",
+    "review_all.txt": "defd0075f5af3d056dd8045a53e272e6efae9fecae5a678ecf9721a7a30f653d"
+  }
+}

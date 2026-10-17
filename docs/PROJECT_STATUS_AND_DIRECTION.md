@@ -1,28 +1,16 @@
 # 项目进度与研究方向
 
-> 2026-10-14 夜 E 更新：v7 已在 Kaggle 跑完一次（[结果](ANSWER_REPAIR_RESULTS_20261014_V7.md)）。FEVER 主体实体约束在开发批次与离线回放一致（4→10、45→46、无误修），held-out 267 条 1 修复 / 4 误修（误修都是 NLI 在实体正确窗口上的误判）；NQ 短答案策略冻结 EM 在 held-out 146 条上 71→62（p=0.0225），放宽解析后更差（71→58），改动里约 5 条真实语义误修。两种策略均不晋升。候选优先的 NQ 设计会改坏正确答案，若做 v8 应回到 verify-first 并用 3216 池剩余 1,287 条未用 ID 做新 held-out。`heldout3216`（300 条，含 120 条 utilisation）也已跑一次：utilisation 层 EM 0→10（语义约 13/120）、accessibility 0→3、correct 层 63→54（7 条假退步、1 条争议、1 条真实误修），整体 63→67（p=0.52）。这是 E 首次在未见数据上证明对 utilisation 失败有修复能力，但两批 held-out 合计 correct 样本真实误修约 5%，在 Controller 误路由（48 条 generation_repair 中 32 条本来正确）下仍不可接受，结论不变。
+## 当前状态 2026年10月16日
 
-> 2026-10-14 晚 E 更新：128 条辅助审核的 28 个关键案例由独立盲评二读，9 个修复、3 个误修完全一致，7 个未决项给出默认建议并已由用户确认（去重后 9 修复 / 3 误修 / 2 暂缓；其余 97 个唯一样本待批量确认），确认清单在 [ANSWER_REPAIR_CONFIRMATION_20261014.md](ANSWER_REPAIR_CONFIRMATION_20261014.md)。v7 已冻结打包未运行（[ANSWER_REPAIR_V7.md](ANSWER_REPAIR_V7.md)）：NQ 短答案与引文分离，FEVER 只允许含声明主体的窗口投票；用 v6r1 轨迹离线回放，FEVER 审核后 4→10、dev50 45→46、无误修（设计阶段证据）。E 未触碰的共享训练样本已全部冻结为 held-out（FEVER 267、NQ 146），但其中没有 utilisation 标注；含 120 条 utilisation 的 NQ 3216 池 held-out 已冻结 ID，等 Diagnosis 负责人提供 gold。另注意：冻结 Controller 在 PRIMARY test 上从不把 FEVER 路由到 generation_repair，所以 E 的 FEVER 结果只用于 Always-Verify 基线和失败类型 × 操作矩阵，不进入自适应系统的 FEVER 路径。
+E 当前以 v7 为工作基础，下一轮新修改重新使用 v8 名称，尚未实现。v7 主包 541 条和第 4 批 300 条均已运行一次并通过各自冻结代码回放，合计 836 个唯一 ID；两种策略未晋升默认，可靠净收益及人工语义验收仍待完成。
 
-> 2026-10-14 E 本地更新：37 条聊天辅助初始样本审核已确认，纳入 19 条 utilisation 核心候选 + 9 条正确对照，9 条暂缓。v5 的 112 条真实 T4 输出已归档并回放；同模型复核没有改善结果。v6r1 在 Kaggle 完成 128 条真实预测（123 个唯一 ID）、81 项云端检查及全部冻结代码回放，GPU 会话已释放。FEVER 审核后 4→7，但 dev50 45→44；NQ dev50 EM 20→7，包含长答案与无关片段问题。两种新策略均未晋升默认。工程和本轮开发实验已交接，人工正确性/支持性与团队 held-out 验收仍待完成；新版 42 条改动已优先排序。本次未重新同步远端。见 [当前交接](ANSWER_REPAIR_HANDOFF.md) 和 [最新结果](ANSWER_REPAIR_RESULTS_20261014.md)。
+统一审核入口为 [v7 总表](../artifacts/answer_repair/v7_combined_review/review_all.txt)，全部人工字段仍 pending，先审 95 条变化记录（93 个唯一 ID）。第 4 批的诊断分层全部来自上游 AI 初标；其正确性和 failure 类型需与输出语义审核分开确认。
 
-> 2026-10-13 更新：已重新 fetch 所有远端分支。Diagnosis / Probe / Controller 有冻结交接；新增 `reranking` 分支有检索侧评估；E 已完成真实 T4 开发对照及冻结 Controller→E 整合。E 工程可运行，但可靠算法收益尚未通过验收，见 [实测报告](ANSWER_REPAIR_RESULTS_20261013.md)。本地仍没有 CUDA。
+FEVER 预实验池留出集正确数 232→229，NQ 同池留出 EM 71→62；第 4 批 NQ EM 63→67，其中 utilisation 标签层 0→10/120、correct 标签层 63→54/100。冻结指标和代理初读均不能替代人工结论，完整口径见 [v7 结果与路线](ANSWER_REPAIR_RESULTS_20261014_V7.md)。
 
-2026-10-14 辅助审核补充：已审阅新版全部 128 条结果（123 个唯一样本），逐条记录前后正确性、Top-5 支持性、实际引用判断及理由。去重后代理暂判 9 个修复、3 个误修；7 个样本存在未决字段。NQ 的 15 条 EM 退步暂判均为有据扩写，并发现 6 个 EM 漏掉的唯一修复候选和 1 个漏掉的误修。判断使用可见参考及 C1，尚未人工确认；这改变对 NQ EM 下降的解释，不改变冻结指标或默认策略。见最新结果报告中的代理辅助审核部分。
+下一轮使用已有人工确认开发样本进行工程修正，同时审核一小批 v7 关键误修和争议案例；不需要等待全量审核。候选方向为原答案核验、最小修复、候选核验，并做受控消融。需补充新的自然目标错误及正确对照，保留共同未用于选策略的系统测试集；不优先更换主数据集。
 
-## 10 月 13 日当前交接状态
-
-Diagnosis、Probe、Safe Binary 和 Controller 已有冻结实现及验证/测试产物，负责人交接文件为远端分支的 `docs/DIAGNOSIS_PROBE_CONTROLLER_HANDOFF.md`。E 消费其最终 `ControllerDecision`，不重训或调整上述模块。已有 FEVER/NQ 各 500 条的 normalized diagnosis 标注，以及 NQ 扩展标注；这属于项目固定实验样本，不是 FEVER/NQ 原始数据集全量的四类 failure 标注。
-
-E 的 `generation_repair` 接口与上游真实 `ControllerDecision` 类已完成 CPU 契约验证：四种 action 只在 E 路由时产生一次调用，Safe Binary 改回 correct 后零调用。代码及协议测试共 54 项通过。另在 T4 实际运行冻结 classifier、27 次 Probe 和 1 次 E；100 条开发样本没有净收益，其他两类补偿尚未在这次整合中执行。
-
-E 的固定开发 cohort 使用训练划分交集，排除 Diagnosis 两版 validation/test。v1–v3 暂无正确率增益；v4 隐藏原答案的带引用候选生成在 FEVER 50 条上 45→46，但新增正确引用了错误实体；NQ 50 条为 20→20，改对 1 条、改错 1 条，F1 略降。相同额外预算的直接 Reanswer 对照无增益。10 条 smoke 包含在 50 条中，不能重复计数。工程接口可交接，算法有效性和整个 adaptive 系统尚未完成。
-
-`reranking` 默认 keep5（只重排），因为 keep3 的 frozen500 检索侧比较丢失了 14 条含答案证据；该分支尚未测生成质量。其 500 条比较包含 Diagnosis v2 的 65 个 validation、68 个 test ID，选择默认策略后，这批数据不宜再作为完整 adaptive framework 未见测试集。这个问题不改写已冻结的 Diagnosis 自身指标。
-
-下一步：冻结 v4 负结果 → 训练内新 utilisation 分层 cohort 与语义核验 → 分别验证 E 能力和冻结路由覆盖 → 汇合三个补偿操作 → 用共同未用于选策略的数据评测质量和完整成本。引用来源合法不代表支持结论，独立 faithfulness/verifier 仍需另行评估。E 的最终完成标准见 [ANSWER_REPAIR.md](ANSWER_REPAIR.md)。
-
-初次核对日期：2026-10-11，最近同步：2026-10-13。方向依据为团队的 `ELEC5623_Group12_Proposal_v21.pdf`，实际实验配置以冻结配置及结果文件为准。当前阶段应从 recoverability 预实验转入补偿操作验证及自适应系统评测。E 的当前分工按本次讨论确定为 Verification / Answer Repair；diagnosis 由其他成员负责。Proposal 第 10.2 节的旧人员分工不覆盖这次新分工。
+早期 10 月 13—14 日的逐次进度、旧路由试跑与阶段性判断已移至 [历史进度](history/answer_repair/PROGRESS_UPDATES_20261013_14.md)。下面保留项目定义、冻结分支和预实验事实；分支表依据本地已有引用，本轮未联网刷新。当前交付见 [E 交接](ANSWER_REPAIR_HANDOFF.md)。
 
 ## 项目要解决什么
 
@@ -123,7 +111,7 @@ Diagnosis v2-expanded 使用 NQ 1889/406/403、FEVER 331/71/71 的 train/validat
 
 第四步：端到端比较 Vanilla RAG、Always-Rerank、Always-Verify、Full Enhancement 和 adaptive framework；另比较无 Probe 与选择性 Probe。记录包括 diagnosis 特征提取在内的全部模型调用、token、延迟，不能只计补偿操作的成本。
 
-E 的交付和执行方法见 [ANSWER_REPAIR.md](ANSWER_REPAIR.md)，最新真实结果见 [10 月 14 日报告](ANSWER_REPAIR_RESULTS_20261014.md)。81 项检查、v6r1 全部 128 条真实 GPU 结果回放及 100 条历史 Controller 契约回放通过；可靠净收益与人工 faithfulness 验收尚未完成。后续先完成成对语义复评，再决定短答案/独立引文与实体约束的下一版，随后由团队开展三个操作的共同 held-out 比较。
+E 的交付和执行方法见 [ANSWER_REPAIR.md](ANSWER_REPAIR.md)，最新真实结果见 [v7 报告](ANSWER_REPAIR_RESULTS_20261014_V7.md)。v7 两批合计 841 条已通过冻结代码回放；可靠净收益与人工 faithfulness 验收尚未完成。后续结合已有开发样本与关键人工复核设计下一轮，再由团队开展三个操作的共同未见评测。
 
 ## 方法依据
 

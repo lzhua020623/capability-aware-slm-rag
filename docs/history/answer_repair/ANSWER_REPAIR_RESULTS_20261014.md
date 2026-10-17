@@ -97,7 +97,7 @@ FEVER 63 个唯一样本中，15 个实际引用涉及错误实体，另 1 个�
 
 ## 关键案例人工确认（2026-10-14）
 
-用户按 [确认清单](ANSWER_REPAIR_CONFIRMATION_20261014.md) 整体同意（原话“同意”），范围是 28 个关键案例及其重复记录；其余 97 个唯一样本仍为辅助审核结论、待批量确认。确认方式是聊天辅助摘要确认，不是独立盲评；另有一次不看 Codex 结论的独立盲评二读，在 9 个修复、3 个误修上与辅助审核一致。记录文件：`data/annotations/human/answer_repair_v6r1_confirmations_20261014.json`（用户确认与改判）、`data/annotations/human/answer_repair_v6r1_pairs_20261014.jsonl`（逐条 pair_review，绑定结果 SHA-256，输出 SHA-256 `2f0dc68b…`）。
+用户按 [确认清单](../../ANSWER_REPAIR_CONFIRMATION_20261014.md) 整体同意（原话“同意”），范围是 28 个关键案例及其重复记录；其余 97 个唯一样本仍为辅助审核结论、待批量确认。确认方式是聊天辅助摘要确认，不是独立盲评；另有一次不看 Codex 结论的独立盲评二读，在 9 个修复、3 个误修上与辅助审核一致。记录文件：`data/annotations/human/answer_repair_v6r1_confirmations_20261014.json`（用户确认与改判）、`data/annotations/human/answer_repair_v6r1_pairs_20261014.jsonl`（逐条 pair_review，绑定结果 SHA-256，输出 SHA-256 `2f0dc68b…`）。
 
 | 批次 | 已确认 | 待确认 | 语义修复 | 语义误修 |
 |---|---:|---:|---:|---:|

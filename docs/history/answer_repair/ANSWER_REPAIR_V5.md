@@ -61,7 +61,7 @@ python3.11 scripts/build_reviewed_answer_repair_notebook.py
 ```
 
 实验包：`artifacts/answer_repair/v5_reviewed/answer_repair_v5_reviewed_gpu.tar.gz`。
-Notebook：`notebooks/answer_repair_colab_v5_reviewed.ipynb`。
+Notebook：`notebooks/history/answer_repair/answer_repair_colab_v5_reviewed.ipynb`。
 在 Colab 上传 notebook 和实验包，选择 T4，依次执行。Kaggle 可导入 notebook，并将包添加为私有输入。无需 clone、重建检索或下载原始数据；首次模型加载仍需下载模型权重。
 
 Notebook 校验归档和各文件哈希，运行环境检查与 CPU 测试，预检八组数据集/策略命令，然后执行整套开发实验并导出 ZIP。不自动挂载 Drive，也不上传仓库或提交代码。已完成结果可在同一环境续跑。

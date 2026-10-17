@@ -37,6 +37,7 @@ artifacts/answer_repair/**/*.pyc
 !artifacts/answer_repair/v7_design/**
 !artifacts/answer_repair/v7_reviewed/**
 !artifacts/answer_repair/v7_heldout3216/**
+!artifacts/answer_repair/v7_combined_review/**
 # Re-assert after the whitelists above: unpacked bundle copies never enter Git.
 artifacts/answer_repair/**/gpu_bundle/
 

@@ -22,7 +22,7 @@ def code(text: str) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--bundle", type=Path, default=ROOT / "artifacts/answer_repair/v4/answer_repair_v4_gpu.tar.gz")
-    parser.add_argument("--out", type=Path, default=ROOT / "notebooks/answer_repair_colab_v4.ipynb")
+    parser.add_argument("--out", type=Path, default=ROOT / "notebooks/history/answer_repair/answer_repair_colab_v4.ipynb")
     parser.add_argument("--strategy", choices=("verify_repair", "grounded_reanswer"), default="verify_repair",
                         help="E strategy for the optional 50-sample development comparison")
     args = parser.parse_args()

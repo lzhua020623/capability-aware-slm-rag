@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-16",
+  "scope": "Historical documentation and notebooks only; frozen artifacts, sample manifests and human records stay in place.",
+  "moved_files": [
+    {
+      "old_path": "docs/ANSWER_REPAIR_RESULTS_20261013.md",
+      "new_path": "docs/history/answer_repair/ANSWER_REPAIR_RESULTS_20261013.md",
+      "sha256_before": "83be7a359769cbe5686ca13e09286ff96bacd52c3e4068d9743640ead6d00ae5",
+      "sha256_after": "2e3c5ecb5c1f30a35babbd5afed28589edf26b0a59ece6ed5c0622c1c7276f63",
+      "change": "relative documentation links and reproduction paths updated"
+    },
+    {
+      "old_path": "docs/ANSWER_REPAIR_RESULTS_20261014.md",
+      "new_path": "docs/history/answer_repair/ANSWER_REPAIR_RESULTS_20261014.md",
+      "sha256_before": "fd71073613b3515225411cf26affde1fb20e6890f2bd11788b22a690744240d7",
+      "sha256_after": "67b87f76b7f9df04626828efd7a4aed9b49c2466f2857604340ae399aaa4e257",
+      "change": "relative documentation links and reproduction paths updated"
+    },
+    {
+      "old_path": "docs/ANSWER_REPAIR_REVIEW_20261013.md",
+      "new_path": "docs/history/answer_repair/ANSWER_REPAIR_REVIEW_20261013.md",
+      "sha256_before": "56addcffcfc54517899077ae708a55b0c89ca78a17b2da46158b523ff1bf87f0",
+      "sha256_after": "0473d5ca24404d15c0920a432bdec36e3bb2dc7906c2904a391db75ba3193ad4",
+      "change": "relative documentation links and reproduction paths updated"
+    },
+    {
+      "old_path": "docs/ANSWER_REPAIR_V5.md",
+      "new_path": "docs/history/answer_repair/ANSWER_REPAIR_V5.md",
+      "sha256_before": "e98f863f454c0ac24fd870085ad3ca45f0c60f55f0056f0fdf802fde0e72dd90",
+      "sha256_after": "e128133c53e69014c62f3697f7a504fb5d8e4a162a519882fbc664252498456f",
+      "change": "relative documentation links and reproduction paths updated"
+    },
+    {
+      "old_path": "docs/ANSWER_REPAIR_V6.md",
+      "new_path": "docs/history/answer_repair/ANSWER_REPAIR_V6.md",
+      "sha256_before": "da12a1f512612ad888640809c5a4aa36194dd5b121d8865fc866511cb388358f",
+      "sha256_after": "e8a8b5e86b81673d1ab34ea59510032844aca4346c1e9cbea3004fa717a6c73f",
+      "change": "relative documentation links and reproduction paths updated"
+    },
+    {
+      "old_path": "notebooks/answer_repair_kaggle_v6r1_reviewed.ipynb",
+      "new_path": "notebooks/history/answer_repair/answer_repair_kaggle_v6r1_reviewed.ipynb",
+      "sha256_before": "b1d3b777de0feb7526a6f36288a36984aed4a15bef404d4fb752e4a5c3a6c1ee",
+      "sha256_after": "b1d3b777de0feb7526a6f36288a36984aed4a15bef404d4fb752e4a5c3a6c1ee",
+      "change": "path only"
+    },
+    {
+      "old_path": "notebooks/answer_repair_colab_v6_reviewed.ipynb",
+      "new_path": "notebooks/history/answer_repair/answer_repair_colab_v6_reviewed.ipynb",
+      "sha256_before": "fbe5dee68b061bc9aae0f47208483a7007ad3fce5f9ee680cee5bc14cefc23c6",
+      "sha256_after": "fbe5dee68b061bc9aae0f47208483a7007ad3fce5f9ee680cee5bc14cefc23c6",
+      "change": "path only"
+    },
+    {
+      "old_path": "notebooks/answer_repair_colab_v5_reviewed.ipynb",
+      "new_path": "notebooks/history/answer_repair/answer_repair_colab_v5_reviewed.ipynb",
+      "sha256_before": "3024d24eb7605a655ca590dcc3d5f52c6cbbe919daa2d27393fd26e026632714",
+      "sha256_after": "3024d24eb7605a655ca590dcc3d5f52c6cbbe919daa2d27393fd26e026632714",
+      "change": "path only"
+    },
+    {
+      "old_path": "notebooks/answer_repair_colab_v4.ipynb",
+      "new_path": "notebooks/history/answer_repair/answer_repair_colab_v4.ipynb",
+      "sha256_before": "fa0849ff3cab92f75617d5a7b2cdda857899a787531c284aa62b8d41a045e2b1",
+      "sha256_after": "fa0849ff3cab92f75617d5a7b2cdda857899a787531c284aa62b8d41a045e2b1",
+      "change": "path only"
+    },
+    {
+      "old_path": "notebooks/answer_repair_colab_v2.ipynb",
+      "new_path": "notebooks/history/answer_repair/answer_repair_colab_v2.ipynb",
+      "sha256_before": "d23d817d3c28edf2374fa5da5f7a2cda6dfcc081c96a595a1c25df248c889cbb",
+      "sha256_after": "d23d817d3c28edf2374fa5da5f7a2cda6dfcc081c96a595a1c25df248c889cbb",
+      "change": "path only"
+    },
+    {
+      "old_path": "notebooks/answer_repair_colab_v6r1_reviewed.ipynb",
+      "new_path": "notebooks/history/answer_repair/answer_repair_colab_v6r1_reviewed.ipynb",
+      "sha256_before": "ad675eb87a26479c0867acd0e943d2b470265b5412cd03d34360256868f7771c",
+      "sha256_after": "ad675eb87a26479c0867acd0e943d2b470265b5412cd03d34360256868f7771c",
+      "change": "path only"
+    },
+    {
+      "old_path": "notebooks/answer_repair_colab.ipynb",
+      "new_path": "notebooks/history/answer_repair/answer_repair_colab.ipynb",
+      "sha256_before": "2504d695d8db1a8e67b4a14d5ec01f505bfbd018f164cca7a9ab4042bda47a90",
+      "sha256_after": "2504d695d8db1a8e67b4a14d5ec01f505bfbd018f164cca7a9ab4042bda47a90",
+      "change": "path only"
+    },
+    {
+      "old_path": "notebooks/answer_repair_colab_v3.ipynb",
+      "new_path": "notebooks/history/answer_repair/answer_repair_colab_v3.ipynb",
+      "sha256_before": "e1e341388c14e5f523bdffdc54e935259c2ed4fde543413b4def449124b09517",
+      "sha256_after": "e1e341388c14e5f523bdffdc54e935259c2ed4fde543413b4def449124b09517",
+      "change": "path only"
+    }
+  ],
+  "verification": {
+    "unit_tests_passed": 102,
+    "moved_notebooks_byte_identical": 8,
+    "all_notebooks_syntax_valid": 12,
+    "frozen_archive_sha256_verified": 225,
+    "protected_existing_files_unchanged": 269,
+    "broken_local_markdown_links": 0
+  }
+}

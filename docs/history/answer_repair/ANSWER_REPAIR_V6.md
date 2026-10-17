@@ -30,7 +30,7 @@ NLI 是增加独立模型的实验，不是相同 SLM 预算的公平替代对�
 ```sh
 python3.11 -m unittest discover -s tests
 python3.11 scripts/prepare_reviewed_answer_repair.py --experiment v6 --manifest configs/splits/answer_repair_reviewed_v6.json --out-dir artifacts/answer_repair/v6r1_reviewed --bundle-name answer_repair_v6r1_reviewed_gpu
-python3.11 scripts/build_reviewed_answer_repair_notebook.py --experiment v6 --bundle artifacts/answer_repair/v6r1_reviewed/answer_repair_v6r1_reviewed_gpu.tar.gz --out notebooks/answer_repair_colab_v6r1_reviewed.ipynb
+python3.11 scripts/build_reviewed_answer_repair_notebook.py --experiment v6 --bundle artifacts/answer_repair/v6r1_reviewed/answer_repair_v6r1_reviewed_gpu.tar.gz --out notebooks/history/answer_repair/answer_repair_colab_v6r1_reviewed.ipynb
 ```
 
 运行状态与结论见 `ANSWER_REPAIR_RESULTS_20261014.md`；归档包中的本文是运行前协议，不随之后结果重写。

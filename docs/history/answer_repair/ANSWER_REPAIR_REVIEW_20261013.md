@@ -2,11 +2,11 @@
 
 本批已完成 **37 条 Codex 辅助审核意见**，10 月 13 日出包时人工确认数为 **0**。每条保留原问题、初始 C1 答案、完整且原顺序的 Top-5、原 diagnosis 标签、离线参考答案、证据摘录、建议和一项待人工确认的问题。辅助意见不是人工标签、独立 verifier 输出或新的实验效果。
 
-2026-10-14 进度：累计 **37/37 条处理意见已确认**。第 1–10、16–18、20、24、26、28、31、32 条纳入 E utilisation 核心开发候选（19 条）；第 11–14、23、33、34、36、37 条保留正确对照（9 条）；第 15、19、21、22、25、27、29、30、35 条暂缓纳入并单独保存歧义/标签边界案例（9 条，标签仍未解决）。可用于下一轮开发的候选共 28 条；全部处理意见已确认不等于全部标签争议已解决。第 17 条由用户补充失败原因后，从 agent 的暂缓建议调整为 utilisation；用户原始解释及 agent 对表述的限定分别记录。第 23 条保留正确对照，并按用户建议记录“大多数药学院学生在第一学年结束时”的范围限定，未改写原答案。第 33 条保留关联推断备注；第 35 条因“出现暗示”不等于“明确揭晓”，按聊天中修订的建议暂缓作为正确对照。第 36–37 条由用户主动明确表示支持，记录为对既有正确对照建议的确认，不声称此前已展示单独的最后一组表格。记录见 [聊天确认文件](../data/annotations/human/answer_repair_review_20261014.jsonl)，保留用户原回复及对应确认范围。审核方式是聊天辅助确认，不能描述为独立逐条原文复核或盲评。原审核包保持不变，另有 [兼容页面导入的审核结果](../artifacts/answer_repair/review_20261013/E_human_reviews_chat_20261014.json)。
+2026-10-14 进度：累计 **37/37 条处理意见已确认**。第 1–10、16–18、20、24、26、28、31、32 条纳入 E utilisation 核心开发候选（19 条）；第 11–14、23、33、34、36、37 条保留正确对照（9 条）；第 15、19、21、22、25、27、29、30、35 条暂缓纳入并单独保存歧义/标签边界案例（9 条，标签仍未解决）。可用于下一轮开发的候选共 28 条；全部处理意见已确认不等于全部标签争议已解决。第 17 条由用户补充失败原因后，从 agent 的暂缓建议调整为 utilisation；用户原始解释及 agent 对表述的限定分别记录。第 23 条保留正确对照，并按用户建议记录“大多数药学院学生在第一学年结束时”的范围限定，未改写原答案。第 33 条保留关联推断备注；第 35 条因“出现暗示”不等于“明确揭晓”，按聊天中修订的建议暂缓作为正确对照。第 36–37 条由用户主动明确表示支持，记录为对既有正确对照建议的确认，不声称此前已展示单独的最后一组表格。记录见 [聊天确认文件](../../../data/annotations/human/answer_repair_review_20261014.jsonl)，保留用户原回复及对应确认范围。审核方式是聊天辅助确认，不能描述为独立逐条原文复核或盲评。原审核包保持不变，另有 [兼容页面导入的审核结果](../../../artifacts/answer_repair/review_20261013/E_human_reviews_chat_20261014.json)。
 
-打开 [本地审核页面](../artifacts/answer_repair/review_20261013/E_assisted_review.html) 即可开始，不需要 GPU、服务器或联网。源 diagnosis 标签、gold 和上一轮实验结果均未改写。
+打开 [本地审核页面](../../../artifacts/answer_repair/review_20261013/E_assisted_review.html) 即可开始，不需要 GPU、服务器或联网。源 diagnosis 标签、gold 和上一轮实验结果均未改写。
 
-审核后的 28 条已用于准备 [v5 开发实验](ANSWER_REPAIR_V5.md)，名单另存为 [固定开发 manifest](../configs/splits/answer_repair_reviewed_dev_v1.json)。原页面内的 packet 仍保留出包时状态；查看聊天确认结果需导入上述审核 JSON。人工输出复评将在真实模型运行后另做，不混入这次初始样本审核。
+审核后的 28 条已用于准备 [v5 开发实验](ANSWER_REPAIR_V5.md)，名单另存为 [固定开发 manifest](../../../configs/splits/answer_repair_reviewed_dev_v1.json)。原页面内的 packet 仍保留出包时状态；查看聊天确认结果需导入上述审核 JSON。人工输出复评将在真实模型运行后另做，不混入这次初始样本审核。
 
 ## 样本范围
 
@@ -22,7 +22,7 @@
 
 - C1 commit：`6f08f2fe2dc2dcf39b75177763207682b2890a31`
 - 标签和划分 commit：`7c7863f98f87e892119481a79e23ca6dcebdced0`
-- 完整来源路径、哈希及选中 ID：[review_packet.json](../artifacts/answer_repair/review_20261013/review_packet.json)
+- 完整来源路径、哈希及选中 ID：[review_packet.json](../../../artifacts/answer_repair/review_20261013/review_packet.json)
 
 ## 辅助审核结论
 
@@ -64,6 +64,6 @@
 python3.11 scripts/prepare_answer_repair_review.py
 ```
 
-[准备脚本](../scripts/prepare_answer_repair_review.py) 读取固定 Git commits、上一轮 manifest 和 [独立保存的辅助意见](../data/annotations/assisted/answer_repair_review_20261013.jsonl)。输出写入被 Git 忽略的 `artifacts/answer_repair/review_20261013/`，不会修改源标注或运行模型。
+[准备脚本](../../../scripts/prepare_answer_repair_review.py) 读取固定 Git commits、上一轮 manifest 和 [独立保存的辅助意见](../../../data/annotations/assisted/answer_repair_review_20261013.jsonl)。输出写入被 Git 忽略的 `artifacts/answer_repair/review_20261013/`，不会修改源标注或运行模型。
 
-已验证：37 个唯一 ID、185 段原证据完整保留、两版保留划分零重叠、37 条 agent-only 意见、52 段摘录逐字匹配、HTML 内嵌数据与 JSON 一致。页面已在 Chrome 打开检查；人工确认逻辑检查了缺字段、错误引用编号和不一致纳入条件，未产生任何模拟人工结论。详细 [校验记录](../artifacts/answer_repair/review_20261013/validation.json) 随包保存。
+已验证：37 个唯一 ID、185 段原证据完整保留、两版保留划分零重叠、37 条 agent-only 意见、52 段摘录逐字匹配、HTML 内嵌数据与 JSON 一致。页面已在 Chrome 打开检查；人工确认逻辑检查了缺字段、错误引用编号和不一致纳入条件，未产生任何模拟人工结论。详细 [校验记录](../../../artifacts/answer_repair/review_20261013/validation.json) 随包保存。
