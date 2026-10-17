@@ -1,0 +1,30 @@
+{
+  "version": "answer_repair_nq_train_dev_v1",
+  "source_samples": 74097,
+  "source_label_counts": {
+    "null": 74097
+  },
+  "review_samples": 100,
+  "review_human_status": "all_pending",
+  "partition_counts": {
+    "development": 59188,
+    "calibration": 7345,
+    "reserved_evaluation": 7564,
+    "excluded_by_team": 0
+  },
+  "full_scored_c1": "data/processed/answer_repair/nq_train_v1/c1_scored.jsonl",
+  "full_scored_c1_sha256": "803487b53003be751c69ce48b7a8654b1503f8bc2ec68f4256596d2e55091caa",
+  "full_scored_c1_bytes": 282902408,
+  "partition_ids_local": "data/processed/answer_repair/nq_train_v1/partition_ids.json",
+  "outputs_sha256": {
+    "inputs/nq_train_review_c1.jsonl": "98dd55636c9c00011db72796827ddb7f1377f214386a6d6fe2b49a90fbde20ba",
+    "inputs/nq_train_review_runtime.jsonl": "7008689b6cc1ec13769c112bbefa2cedc47fcd2c98c51046f9a837a2300ba4bf",
+    "review/review_queue.jsonl": "a7807984201905627cf2bb4b2f368c1eb7eaee7223dc8ef8beafea081392238c",
+    "review/review_queue.txt": "c6a98e0a5c635a264ea61c0e672b698a32950dda3814d48c5531065c1b5503a7"
+  },
+  "manifest": "configs/splits/answer_repair_nq_train_dev_v1.json",
+  "manifest_sha256": "17c62371c36eb624323f0ec23d1c147a63010ebf69e21aae5f77f4de4e2b020e",
+  "gpu_inference_run": false,
+  "runtime_gold_fields": false,
+  "v8_algorithm_implemented": false
+}

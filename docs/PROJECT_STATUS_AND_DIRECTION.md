@@ -1,8 +1,10 @@
 # 项目进度与研究方向
 
-## 当前状态 2026年10月16日
+## 当前状态 2026年10月17日
 
 E 当前以 v7 为工作基础，下一轮新修改重新使用 v8 名称，尚未实现。v7 主包 541 条和第 4 批 300 条均已运行一次并通过各自冻结代码回放，合计 836 个唯一 ID；两种策略未晋升默认，可靠净收益及人工语义验收仍待完成。
+
+main 已新增 NQ Train C1 流水线（`058f10b`），并合入 E 分支。Drive 全部 74,097 条已核对并接入 E，原始 diagnosis 标签均为 null；内部用途划分与首批 100 条开发审核材料已固定，见 [接入说明](ANSWER_REPAIR_NQ_TRAIN.md)。有 23,745 条满足 EM=0 且参考段落命中，但这不是 utilisation 标签，需审核确认。新批次无 E GPU 结果，内部评测预留尚需与团队用途协调。
 
 统一审核入口为 [v7 总表](../artifacts/answer_repair/v7_combined_review/review_all.txt)，全部人工字段仍 pending，先审 95 条变化记录（93 个唯一 ID）。第 4 批的诊断分层全部来自上游 AI 初标；其正确性和 failure 类型需与输出语义审核分开确认。
 
@@ -10,7 +12,7 @@ FEVER 预实验池留出集正确数 232→229，NQ 同池留出 EM 71→62；�
 
 下一轮使用已有人工确认开发样本进行工程修正，同时审核一小批 v7 关键误修和争议案例；不需要等待全量审核。候选方向为原答案核验、最小修复、候选核验，并做受控消融。需补充新的自然目标错误及正确对照，保留共同未用于选策略的系统测试集；不优先更换主数据集。
 
-早期 10 月 13—14 日的逐次进度、旧路由试跑与阶段性判断已移至 [历史进度](history/answer_repair/PROGRESS_UPDATES_20261013_14.md)。下面保留项目定义、冻结分支和预实验事实；分支表依据本地已有引用，本轮未联网刷新。当前交付见 [E 交接](ANSWER_REPAIR_HANDOFF.md)。
+早期 10 月 13—14 日的逐次进度、旧路由试跑与阶段性判断已移至 [历史进度](history/answer_repair/PROGRESS_UPDATES_20261013_14.md)。下面保留项目定义、冻结分支和预实验事实；main 更新到 10 月 17 日取得的引用，其余分支仍按原冻结记录。当前交付见 [E 交接](ANSWER_REPAIR_HANDOFF.md)。
 
 ## 项目要解决什么
 
@@ -40,7 +42,7 @@ Reference RAG 提供共同实验底座。项目的主要贡献需要来自诊断
 
 | 分支 | 核对提交 | 已有产物 | 当前限制 |
 |---|---|---|---|
-| `main` | `c15977c` | Reference RAG、数据处理、冻结预实验协议 | README 仍写预实验未开始；没有汇合后续成果 |
+| `main` | `058f10b` | Reference RAG、预实验协议、新 NQ Train 检索/C1/标注交付流水线 | 新 Train 交付标签全 null；未汇合全部后续模块 |
 | `feature/nq-c0-c1` | `bcb248c` | NQ C0/C1 各 500 条、续跑脚本 | 没有 NQ C3 |
 | `feature/nq-c3` | `8b03009` | 汇合 NQ C0/C1/C3、recoverability cohorts | 没有 FEVER C1 |
 | `feature/fever-c1` | `6ebdfc9` | 全量 FEVER 索引 C1 500 条、检索 checkpoint、FEVER 配对分析；包含 NQ 分支成果 | 没有本次 FEVER C0 runner 及其结果 |

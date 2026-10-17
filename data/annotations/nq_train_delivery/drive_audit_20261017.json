@@ -1,0 +1,230 @@
+{
+  "audit_date": "2026-10-17",
+  "source_drive_folder_url": "https://drive.google.com/drive/u/0/folders/1GRWOjia-PXfYh7YfvC1f3JzdjJqtJNDU",
+  "download_zip": "/Users/leaf/Downloads/nq_train_annotation-20261017T093340Z-1-001.zip",
+  "download_zip_bytes": 82723898,
+  "download_zip_sha256": "7c0e860824838f6a6a3ae6593c409da23000c9c2a3f32ae12813092e16bbcfa7",
+  "local_raw_shards": "data/processed/external/nq_train_delivery_20261017",
+  "raw_shards_git_ignored": true,
+  "repository_delivery_manifest": "data/annotations/nq_train_delivery/manifest.json",
+  "repository_manifest_sha256": "565b694d1caae3e3c22b47f3be90ca68a944196a641a6d15a5306252b4df7346",
+  "upstream_main_commit": "058f10baa47083220f95edb39db8f106aa7e85d6",
+  "shards": [
+    {
+      "file": "nq_train_annotation_000.jsonl",
+      "records": 5000,
+      "bytes": 19470371,
+      "sha256": "60a03259a7275284b4585755dbbc83138f6abb46ba94dd47c4c08064babe7a87",
+      "matches_repository_manifest": true
+    },
+    {
+      "file": "nq_train_annotation_001.jsonl",
+      "records": 5000,
+      "bytes": 19642206,
+      "sha256": "a5ccfca2af087d0fcd236274dad57e3613b0546fae8caff366c2d2391396581b",
+      "matches_repository_manifest": true
+    },
+    {
+      "file": "nq_train_annotation_002.jsonl",
+      "records": 5000,
+      "bytes": 19655506,
+      "sha256": "4885214758f18b1071c9a0860ac07c9e2f39f5c7b68be23dfe3720ff26e71b78",
+      "matches_repository_manifest": true
+    },
+    {
+      "file": "nq_train_annotation_003.jsonl",
+      "records": 5000,
+      "bytes": 19617920,
+      "sha256": "2726bac8fa09dd89c09fdc4533dccdc339275ceae98df5baa0c41b07eba96930",
+      "matches_repository_manifest": true
+    },
+    {
+      "file": "nq_train_annotation_004.jsonl",
+      "records": 5000,
+      "bytes": 19619735,
+      "sha256": "f7b65012f5a66217e3642d20eaefbe332326fc2b0e267280457164b9c6af7fd0",
+      "matches_repository_manifest": true
+    },
+    {
+      "file": "nq_train_annotation_005.jsonl",
+      "records": 5000,
+      "bytes": 19653679,
+      "sha256": "e1aef80b2fd26f3d3d832a0819a68dfc9277f967faf105b8caaf49eb3a8ca4d7",
+      "matches_repository_manifest": true
+    },
+    {
+      "file": "nq_train_annotation_006.jsonl",
+      "records": 5000,
+      "bytes": 19601692,
+      "sha256": "0975f945d254ca4a3983490b5d0c4e163a032ab61e981fc8c09cd9efedc10ef4",
+      "matches_repository_manifest": true
+    },
+    {
+      "file": "nq_train_annotation_007.jsonl",
+      "records": 5000,
+      "bytes": 19800625,
+      "sha256": "51630aff40c605944c14672421fae9467e7577b65a1117744cac97fd20566f7c",
+      "matches_repository_manifest": true
+    },
+    {
+      "file": "nq_train_annotation_008.jsonl",
+      "records": 5000,
+      "bytes": 19529723,
+      "sha256": "3c1f6a36e6f9b496afccda47d46d3fd4a2298019d4684f02f95265cdb377c320",
+      "matches_repository_manifest": true
+    },
+    {
+      "file": "nq_train_annotation_009.jsonl",
+      "records": 5000,
+      "bytes": 19514059,
+      "sha256": "21ffd6f6eb7580bb0f048589b6f4b1b76ec2a70780379e118e7d5e9ea50ee0a4",
+      "matches_repository_manifest": true
+    },
+    {
+      "file": "nq_train_annotation_010.jsonl",
+      "records": 5000,
+      "bytes": 19683594,
+      "sha256": "7344529c38013296d8d3bc2641a1635a03f666ea89d1069a729a957e0f322c54",
+      "matches_repository_manifest": true
+    },
+    {
+      "file": "nq_train_annotation_011.jsonl",
+      "records": 5000,
+      "bytes": 19634214,
+      "sha256": "7849329a19e380c66eb65a67de75defd4fce5c3f15786698d0a4e85d92ae8fba",
+      "matches_repository_manifest": true
+    },
+    {
+      "file": "nq_train_annotation_012.jsonl",
+      "records": 5000,
+      "bytes": 19669599,
+      "sha256": "302908930121240d6b28773c05c0e84bbaa835223eccf6d6e3e17d4b550c2988",
+      "matches_repository_manifest": true
+    },
+    {
+      "file": "nq_train_annotation_013.jsonl",
+      "records": 5000,
+      "bytes": 19564581,
+      "sha256": "25ffa3fe664d8c118064f986eda10de2e635a49ac95053f7e0729927ca300903",
+      "matches_repository_manifest": true
+    },
+    {
+      "file": "nq_train_annotation_014.jsonl",
+      "records": 4097,
+      "bytes": 16166271,
+      "sha256": "cf67526be016dbf1e697f4513cb5bb8c79de649b2271baeb32e5fb2fae1451f7",
+      "matches_repository_manifest": true
+    }
+  ],
+  "total_samples": 74097,
+  "all_shard_hashes_match": true,
+  "label_counts": {
+    "null": 74097
+  },
+  "schema_issue_counts": {},
+  "schema_issue_examples": [],
+  "retrieval_gold_passage_hits": {
+    "1": 23137,
+    "3": 39791,
+    "5": 46633
+  },
+  "retrieval_gold_passage_recall": {
+    "1": 0.3122528577405293,
+    "3": 0.537012294694792,
+    "5": 0.6293507159534124
+  },
+  "frozen_string_metrics_only": {
+    "em_correct": 28501,
+    "em": 0.3846444525419383,
+    "mean_token_f1": 0.5340662320745038,
+    "note": "Automatic string metrics are not human correctness or failure-type labels. No labels assigned.",
+    "em_gold_passage_quadrants": {
+      "em=0,gold_in_top5=True": 23745,
+      "em=1,gold_in_top5=False": 5613,
+      "em=1,gold_in_top5=True": 22888,
+      "em=0,gold_in_top5=False": 21851
+    }
+  },
+  "gold_answer_types": {
+    "str": 74097
+  },
+  "within_train": {
+    "unique_normalized_queries": 74097,
+    "duplicate_query_groups": 0,
+    "extra_records_with_repeated_query": 0,
+    "exact_duplicate_prediction_groups": 9032,
+    "note": "Repeated answer strings are not necessarily duplicate questions."
+  },
+  "overlap_checks": {
+    "nq_dev3216": {
+      "old_ids": 3216,
+      "old_unique_queries": 3216,
+      "id_overlap_new_ids": [],
+      "query_overlap_new_ids": [],
+      "id_overlap_count": 0,
+      "query_overlap_record_count": 0,
+      "query_overlap_unique_query_count": 0
+    },
+    "nq_preliminary500": {
+      "old_ids": 500,
+      "old_unique_queries": 500,
+      "id_overlap_new_ids": [],
+      "query_overlap_new_ids": [],
+      "id_overlap_count": 0,
+      "query_overlap_record_count": 0,
+      "query_overlap_unique_query_count": 0
+    },
+    "previous_E_review_and_v7": {
+      "old_ids": 514,
+      "old_unique_queries": 514,
+      "id_overlap_new_ids": [],
+      "query_overlap_new_ids": [],
+      "id_overlap_count": 0,
+      "query_overlap_record_count": 0,
+      "query_overlap_unique_query_count": 0
+    }
+  },
+  "semantically_previewed_sample_ids": [
+    "-1000144997787636808"
+  ],
+  "source_page_group_overlap_checked": false,
+  "source_page_group_overlap_note": "Delivery rows omit a stable Wikipedia page/document id; page-level grouping needs corpus metadata.",
+  "delivery_rows_without_generation_metadata": 74097,
+  "runtime_compatibility": {
+    "diagnosis_input_schema_valid": true,
+    "e_runner_accepts_delivery_directly": false,
+    "note": "Current E runner requires C1 condition/model provenance/prediction/question_or_claim and frozen-score fields. Add an explicit adapter; do not put annotation_reference in runtime inputs."
+  },
+  "human_labels_assigned": false,
+  "gpu_inference_run": false,
+  "old_results_modified": false,
+  "query_normalization": "strip, lower-case, collapse whitespace; punctuation retained; no semantic/paraphrase matching",
+  "comparison_sources": [
+    {
+      "name": "nq_dev3216",
+      "commit": "7c7863f98f87e892119481a79e23ca6dcebdced0",
+      "path": "data/annotations/normalized/nq_3216_diagnosis_inputs.jsonl"
+    },
+    {
+      "name": "nq_preliminary500",
+      "commit": "6f08f2fe2dc2dcf39b75177763207682b2890a31",
+      "path": "results/preliminary/nq_c1_7b.jsonl"
+    },
+    {
+      "name": "previous_E_review_and_v7",
+      "paths": [
+        "artifacts/answer_repair/v7_combined_review/review_all.jsonl",
+        "artifacts/answer_repair/review_20261013/review_packet.json"
+      ]
+    }
+  ],
+  "metric_implementation": {
+    "path": "src/evaluation/qa.py",
+    "sha256": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+    "precision_note": "EM/F1 computed from saved C1 answers and annotation_reference.gold_answer; no semantic labels inferred."
+  },
+  "target_screening_only": {
+    "em_zero_and_gold_passage_in_top5": 23745,
+    "note": "A screening pool only: EM=0 can still be semantically correct and gold passage inclusion does not distinguish accessibility/utilisation."
+  }
+}

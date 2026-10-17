@@ -1,0 +1,502 @@
+NQ Train E 首批开发审核
+筛查分组不是诊断标签；所有人工字段待审。
+
+1. 8045087486700792769 [screen_candidate]
+where was john mccrae when he wrote in flanders fields
+C1: near an advance dressing post at Essex Farm
+人工判断：待审
+
+2. 6935740157411537788 [screen_candidate]
+where is big bear lake located in california
+C1: San Bernardino Mountains
+人工判断：待审
+
+3. 840698384509679882 [screen_candidate]
+the us food stamp program which provides coupons
+C1: Food Stamp Program
+人工判断：待审
+
+4. 3873185573437128094 [screen_candidate]
+who played nova in the planet of the apes
+C1: Linda Harrison
+人工判断：待审
+
+5. -2862660005729156072 [em_match_control]
+who played guitar in while my guitar gently weeps
+C1: Eric Clapton
+人工判断：待审
+
+6. 2847980457887203111 [screen_candidate]
+who plays harry from harry and the hendersons
+C1: Graham Greene
+人工判断：待审
+
+7. -7478903804748756717 [screen_candidate]
+equity of us companies can be purchased by
+C1: private investors
+人工判断：待审
+
+8. -6909798989883244156 [screen_candidate]
+who sang breakfast at tiffany's the original
+C1: Audrey Hepburn
+人工判断：待审
+
+9. 5772936311107312940 [screen_candidate]
+where is hindu kush located on a map
+C1: central Afghanistan to northern Pakistan
+人工判断：待审
+
+10. 3253525630861841717 [em_match_control]
+machine learning task of inferring a function from labelled training data is known as
+C1: Supervised learning
+人工判断：待审
+
+11. -7993122396287347186 [screen_candidate]
+when did the government start giving student loans
+C1: 1958
+人工判断：待审
+
+12. -1178549234723633450 [screen_candidate]
+where was total eclipse of the heart filmed
+C1: Holloway Sanatorium
+人工判断：待审
+
+13. -432828482421557656 [screen_candidate]
+how to make a snow angel in the snow
+C1: lie on back, move arms up and down, legs side to side
+人工判断：待审
+
+14. -5462248607427716715 [screen_candidate]
+who won the gold medal in ice dancing 2014
+C1: Meryl Davis and Charlie White
+人工判断：待审
+
+15. -3869689776609561239 [em_match_control]
+an increase in the average level of prices is called
+C1: inflation
+人工判断：待审
+
+16. -8545550343341719460 [screen_candidate]
+3. the drakensberg has the 2nd highest waterfall in africa. what’s it called
+C1: Tugela Falls
+人工判断：待审
+
+17. -5155812282345038008 [screen_candidate]
+when did sweet dreams are made of this come out
+C1: early 1983
+人工判断：待审
+
+18. 3105967149118897589 [screen_candidate]
+what is the meaning of physics in science
+C1: natural science involving study of matter and its motion through spacetime
+人工判断：待审
+
+19. -8572418612439458772 [screen_candidate]
+who sings gran torino at the end of the movie
+C1: Enrique Iglesias
+人工判断：待审
+
+20. -2668077822681514653 [em_match_control]
+legal educator and founder director of national law school of india university
+C1: Neelakanta Ramakrishna Madhava Menon
+人工判断：待审
+
+21. -2374000572693790398 [screen_candidate]
+the process of peristalsis is best described as the
+C1: radially symmetrical contraction and relaxation of muscles that propagates in a wave down a tube, in an anterograde direction.
+人工判断：待审
+
+22. -460657482644890117 [screen_candidate]
+what's in an irish car bomb drink
+C1: a shot of Irish cream and whiskey dropped into a glass of stout
+人工判断：待审
+
+23. 8807212559725492691 [screen_candidate]
+which amendment to the us constitution abolished slavery
+C1: Thirteenth Amendment
+人工判断：待审
+
+24. 7243818178627473072 [screen_candidate]
+who led raids to hunt down suspected communists socialists and anarchists
+C1: A. Mitchell Palmer
+人工判断：待审
+
+25. 3297321773729700265 [em_match_control]
+who sang the original song the sound of silence
+C1: Simon & Garfunkel
+人工判断：待审
+
+26. -4660048733997517029 [screen_candidate]
+what is the baby's name in the incredibles
+C1: Jack-Jack
+人工判断：待审
+
+27. -4893882152565259225 [screen_candidate]
+which law in india regulates the business contracts
+C1: Indian Contract Act, 1872
+人工判断：待审
+
+28. 9101034110241732780 [screen_candidate]
+the boy billionaire is based on which famous personality
+C1: Ron Galotti
+人工判断：待审
+
+29. 1739926213792453012 [screen_candidate]
+when does asian guy die in fast and furious
+C1: Han
+人工判断：待审
+
+30. -3375552100711015909 [em_match_control]
+when did work on the transcontinental railroad begin
+C1: 1863
+人工判断：待审
+
+31. 5822180296105627301 [screen_candidate]
+who sings the most beautiful girl in the world
+C1: Charlie Rich
+人工判断：待审
+
+32. -5476828546252817553 [screen_candidate]
+who played ron swanson on parks and recreation
+C1: Nick Offerman
+人工判断：待审
+
+33. -3169716056891969228 [screen_candidate]
+where did 3 doors down get their name
+C1: Foley, Alabama
+人工判断：待审
+
+34. -3954878209346763094 [screen_candidate]
+what year did us land on the moon
+C1: 1969
+人工判断：待审
+
+35. 2095868851000293874 [em_match_control]
+which of the following windows does not have start button
+C1: Windows 8
+人工判断：待审
+
+36. 4090393036850137417 [screen_candidate]
+what is the function of the center for tropical forest science (ctfs)
+C1: pursue long-term research on tree populations
+人工判断：待审
+
+37. -1837440648407770655 [screen_candidate]
+how long does it take for a kitten's eyes to open after birth
+C1: seven to ten days
+人工判断：待审
+
+38. -2477693809305952311 [screen_candidate]
+broken lines that are wider and closer together
+C1: are called continuity lines
+人工判断：待审
+
+39. 6098465629713582210 [screen_candidate]
+where did the name quarter horse come from
+C1: races of a quarter mile or less
+人工判断：待审
+
+40. 2714282365828041450 [em_match_control]
+who came up with the plan to win the trojan war
+C1: Odysseus
+人工判断：待审
+
+41. -5596488726190102840 [screen_candidate]
+where did the math symbol pi come from
+C1: Greek letter π
+人工判断：待审
+
+42. 8542075949294420082 [screen_candidate]
+in the cno cycle which of the following acts as a catalyst
+C1: carbon, nitrogen and oxygen isotopes
+人工判断：待审
+
+43. 1704380880039099855 [screen_candidate]
+where is the central arid zone research located in india
+C1: Jodhpur
+人工判断：待审
+
+44. 7162334026625697981 [screen_candidate]
+when will it start getting warmer in sydney
+C1: October 2015
+人工判断：待审
+
+45. 8854896567380520932 [em_match_control]
+1994 movie that started a sci fi franchise
+C1: Stargate
+人工判断：待审
+
+46. -5028227845229715599 [screen_candidate]
+what time period is the tudors set in
+C1: 1500s England
+人工判断：待审
+
+47. -8389494065836841182 [screen_candidate]
+in what city did the 1988 olympics take place
+C1: Seoul
+人工判断：待审
+
+48. -1981506712537073428 [screen_candidate]
+which is the largest artificial lake in india
+C1: Dhebar Lake
+人工判断：待审
+
+49. -564035461981251695 [screen_candidate]
+who kissed the frog that turned into a prince
+C1: Princess Emma
+人工判断：待审
+
+50. -4431827520967666941 [em_match_control]
+where is the estate used in magnum pi
+C1: Waimānalo
+人工判断：待审
+
+51. -547285585922035520 [screen_candidate]
+current diagnostic and statistical manual of mental disorders
+C1: DSM-5
+人工判断：待审
+
+52. -703872651120117348 [screen_candidate]
+when was lindsey stirling on dancing with the stars
+C1: September 2017
+人工判断：待审
+
+53. 2517363209257675065 [screen_candidate]
+where did the name montgomery biscuits come from
+C1: name the team contest
+人工判断：待审
+
+54. 3898710090334906649 [screen_candidate]
+who did we get the statue of liberty from
+C1: France
+人工判断：待审
+
+55. 6471608951128519572 [em_match_control]
+who took the photo of the flag raising on iwo jima
+C1: Joe Rosenthal
+人工判断：待审
+
+56. -3181101556031284606 [screen_candidate]
+when does boruto the next generation come out
+C1: 2016
+人工判断：待审
+
+57. 7760609859570217617 [screen_candidate]
+how many times bigger is saturn than earth
+C1: 9
+人工判断：待审
+
+58. 8748373647137023318 [screen_candidate]
+how old do you have to be to buy a gun in arizona
+C1: 18
+人工判断：待审
+
+59. -8480487982704561767 [screen_candidate]
+how many atp molecules are produced during the electron transport chain
+C1: 28
+人工判断：待审
+
+60. -1904111941153300402 [em_match_control]
+who plays young fiona in american horror story coven
+C1: Riley Voelkel
+人工判断：待审
+
+61. 1886755777018557601 [screen_candidate]
+where is the university of southern queensland located
+C1: Toowoomba, Springfield, Ipswich
+人工判断：待审
+
+62. 3219108291257004958 [screen_candidate]
+who plays president petrov in house of cards
+C1: Lars Dittmann
+人工判断：待审
+
+63. 4805262687691570399 [screen_candidate]
+who was indias president when first nuclear test was done
+C1: Zakir Hussain
+人工判断：待审
+
+64. 1457639279894856450 [screen_candidate]
+what do you call someone from czech republic
+C1: Czech
+人工判断：待审
+
+65. 7643377925242908266 [em_match_control]
+who wrote the hymn for all the saints
+C1: William Walsham How
+人工判断：待审
+
+66. -8942709420542468525 [screen_candidate]
+when did i dream of jeannie come out
+C1: September 18, 1965
+人工判断：待审
+
+67. -5753551957569410893 [screen_candidate]
+the nature of electronics as a branch of physics
+C1: Electronics is considered a branch of physics and electrical engineering.
+人工判断：待审
+
+68. 7659680993559844629 [screen_candidate]
+who won in the battle of the marne
+C1: Allied Powers
+人工判断：待审
+
+69. 3473298008288621013 [screen_candidate]
+where is the great sand dunes national park located
+C1: in Saguache and Alamosa Counties, Colorado
+人工判断：待审
+
+70. -455522481629941063 [em_match_control]
+who is the actor cat in the hat
+C1: Mike Myers
+人工判断：待审
+
+71. -7534977440550994951 [screen_candidate]
+the hardness of minerals is measured on the ____ scale
+C1: Mohs
+人工判断：待审
+
+72. -787222857578843686 [screen_candidate]
+where is the name phoebe found in the bible
+C1: Romans 16:1-2
+人工判断：待审
+
+73. 3133601013091477200 [screen_candidate]
+sheets of colored glass joined together with strips of lead is called
+C1: stained glass
+人工判断：待审
+
+74. -5016482629216613272 [screen_candidate]
+who are the twins in the matrix reloaded
+C1: fictional characters
+人工判断：待审
+
+75. -2794432552733964922 [em_match_control]
+who is the actor that plays brick heck
+C1: Atticus Shaffer
+人工判断：待审
+
+76. 7728406136919122642 [screen_candidate]
+where did the tradition of santa clause come from
+C1: Dutch Sinterklaas
+人工判断：待审
+
+77. 676364825758831059 [screen_candidate]
+when did the battle of fort sumter happen
+C1: April 12 -- 13, 1861
+人工判断：待审
+
+78. 7659917870644642145 [screen_candidate]
+what's the cats name from alice and wonderland
+C1: Dinah
+人工判断：待审
+
+79. 4809920436462128496 [screen_candidate]
+how many tiles can you have in scrabble
+C1: 106
+人工判断：待审
+
+80. -5283919567456439969 [em_match_control]
+who is the new leader of the ontario conservative party
+C1: Doug Ford
+人工判断：待审
+
+81. -5223755550735908441 [screen_candidate]
+how many episodes in season 7 of true blood
+C1: 16
+人工判断：待审
+
+82. -3974857324122521549 [screen_candidate]
+dry ice (solid co2) is which type of solid
+C1: refrigerant
+人工判断：待审
+
+83. -3127624242927084600 [screen_candidate]
+who has most number of followers on instagram
+C1: Instagram's own account
+人工判断：待审
+
+84. -7971666984412271711 [screen_candidate]
+where did the state of maryland get its name
+C1: Maryland was named after the English queen Henrietta Maria of France.
+人工判断：待审
+
+85. 5607341441683614186 [em_match_control]
+who sings the song if it makes you happy
+C1: Sheryl Crow
+人工判断：待审
+
+86. -3785663679516475986 [screen_candidate]
+who played eddard stark in game of thrones
+C1: Sean Bean
+人工判断：待审
+
+87. -1941458279715717945 [screen_candidate]
+advantages of introducing negative feedback in an amplifier circuit
+C1: improves performance, reduces sensitivity to parameter variations
+人工判断：待审
+
+88. 258078115163430675 [screen_candidate]
+defines the formats and rules for exchanging information via a network
+C1: communications protocol specifications
+人工判断：待审
+
+89. -5315618206818489317 [screen_candidate]
+what was the price of oil in 1980
+C1: US $35 per barrel
+人工判断：待审
+
+90. 40482195487920200 [em_match_control]
+where does the narrator live in war of the worlds
+C1: Surrey
+人工判断：待审
+
+91. -5409628047568925289 [screen_candidate]
+when is the angular momentum of a system conserved
+C1: in any closed system
+人工判断：待审
+
+92. 3326691068650840908 [screen_candidate]
+how many episodes are in season 4 of nikita
+C1: 6
+人工判断：待审
+
+93. 2576360884323654666 [screen_candidate]
+when did the battle of san jacinto start and end
+C1: April 21, 1836, lasted just 18 minutes
+人工判断：待审
+
+94. -7203695625159603076 [screen_candidate]
+what is the role of australian human rights commission
+C1: investigating alleged infringements under Australia's anti-discrimination legislation
+人工判断：待审
+
+95. -3805777236251722390 [em_match_control]
+when one or single gene control more than one character
+C1: pleiotropy
+人工判断：待审
+
+96. 3252643664278412553 [screen_candidate]
+where did the name of monkey bread come from
+C1: Hungarian literature
+人工判断：待审
+
+97. -1848647332780502367 [screen_candidate]
+who was the state of louisiana named after
+C1: Louis XIV
+人工判断：待审
+
+98. -304374813935559525 [screen_candidate]
+when did lucille ball start i love lucy
+C1: March 1951
+人工判断：待审
+
+99. 1121606053642679155 [screen_candidate]
+what is the name of the african nationalist movement that started in the 1950s
+C1: African Nationalist Movement
+人工判断：待审
+
+100. -3270371413280430670 [em_match_control]
+jack and the beanstalk folktale or fairy tale
+C1: fairy tale
+人工判断：待审

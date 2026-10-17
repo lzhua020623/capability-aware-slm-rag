@@ -1,0 +1,13 @@
+{
+  "source": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/artifacts/answer_repair/nq_train_dev_v1/inputs/nq_train_review_c1.jsonl",
+  "dataset": "nq",
+  "strategy": "short_answer_quote",
+  "routing": "all",
+  "samples": 100,
+  "completed": 0,
+  "routed_samples": 100,
+  "remaining_call_upper_bound": 100,
+  "remaining_classifier_samples": 0,
+  "fingerprint": "a9ea296678ede362977635a711c1dd28463e31e1daff14b9d5d2e39a2a93342e",
+  "output": "results/answer_repair/nq_train_dev_v1_preflight_only.jsonl"
+}

@@ -10,6 +10,7 @@
 | E 的职责、接口与交接 | [E 说明](docs/ANSWER_REPAIR.md) / [当前交接](docs/ANSWER_REPAIR_HANDOFF.md) |
 | 最新完成的 v7 实验 | [冻结协议](docs/ANSWER_REPAIR_V7.md) / [结果及问题分析](docs/ANSWER_REPAIR_RESULTS_20261014_V7.md) |
 | v7 统一人工审核 | [可读总表](artifacts/answer_repair/v7_combined_review/review_all.txt) / [结构化记录](artifacts/answer_repair/v7_combined_review/review_all.jsonl) |
+| 新 NQ Train 数据与开发审核 | [接入说明](docs/ANSWER_REPAIR_NQ_TRAIN.md) / [100 条审核索引](artifacts/answer_repair/nq_train_dev_v1/review/review_queue.txt) |
 | 已完成实验的运行和离线回放 | [Colab / Kaggle](docs/ANSWER_REPAIR_COLAB.md) |
 | 环境、数据与预实验 | [安装](docs/SETUP.md) / [数据目录](data/README.md) / [预实验协议](docs/PRELIMINARY_EXPERIMENT.md) |
 | 旧版文档与 Notebook | [历史归档](docs/history/answer_repair/README.md) |
@@ -17,7 +18,9 @@
 
 ## 当前状态
 
-截至 2026-10-16，E 以 v7 为工作基础，下一轮新实现将使用 v8 名称，尚未实现。v7 主包和第 4 批均已在 Kaggle 运行一次，并通过各自冻结代码回放，共 841 条结果、836 个唯一数据集/样本 ID。两种 v7 策略均未晋升默认策略，可靠净收益与人工语义验收仍待完成。
+截至 2026-10-17，E 以 v7 为工作基础，下一轮新实现将使用 v8 名称，尚未实现。v7 主包和第 4 批均已在 Kaggle 运行一次，并通过各自冻结代码回放，共 841 条结果、836 个唯一数据集/样本 ID。两种 v7 策略均未晋升默认策略，可靠净收益与人工语义验收仍待完成。
+
+已合入 main 的 NQ Train C1 流水线，并核对 Drive 全部 74,097 条数据，完成 E 格式适配、内部用途划分及首批 100 条待审材料。原始 diagnosis 标签全为 null，没有运行新 GPU 修复实验。新增 Train 检索库有 1,224,119 passages，其指标与旧 dev 分别报告，详见接入说明。
 
 当前统一审核队列含 95 条答案变化记录，对应 93 个唯一样本，优先审核这些记录；全部 v7 人工字段仍为 pending。已确认的早期开发样本可用于工程开发，无需等待全量审核。第 4 批的诊断分层来自上游 AI 初标，不能视为全量人工标签。
 
