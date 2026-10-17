@@ -82,6 +82,7 @@
 ## 保存与校验
 
 - [100 条可读判断](../data/annotations/assisted/answer_repair_nq_train_dev_v1_20261017.txt)
+- [100 条原题、C1、冻结参考与完整 Top-5](../data/annotations/assisted/answer_repair_nq_train_dev_v1_20261017.full_evidence.txt)，先列 8 条目标候选，再列 23 条争议，N 编号不变
 - [100 条结构化判断](../data/annotations/assisted/answer_repair_nq_train_dev_v1_20261017.jsonl)
 - [计数、优先编号与来源校验](../data/annotations/assisted/answer_repair_nq_train_dev_v1_20261017.summary.json)
 - [原始冻结审核材料与接入方法](ANSWER_REPAIR_NQ_TRAIN.md)
