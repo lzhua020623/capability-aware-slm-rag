@@ -98,18 +98,35 @@ import contextlib, io, json, sys
 from pathlib import Path
 from unittest.mock import patch
 sys.path.insert(0, sys.argv[1])
-from scripts.run_answer_repair import main
+from scripts.run_answer_repair import main, prepare_records, read_jsonl
 from src.compensation.answer_repair import Generation
+from src.diagnosis import DatasetName
 bundle, results = Path(sys.argv[1]), Path(sys.argv[2])
+prepared = prepare_records(read_jsonl((bundle / "inputs/nq75_c1.jsonl").read_bytes(), "fixture"), DatasetName.NQ)
 class TestGenerator:
     runtime_environment = {"fixture": "CPU stub; not inference"}
     def __init__(self, output): self.output = output
     def generate(self, prompt, max_new_tokens): return Generation(self.output, .01, 10, 5)
+class ThreeStageGenerator:
+    runtime_environment = {"fixture": "CPU stub; not inference"}
+    index = -1
+    def generate(self, prompt, max_new_tokens):
+        original = prompt.startswith("Audit the original answer.")
+        if original: self.index += 1
+        quote = " ".join(prepared[self.index][1].evidence[0].text.split()[:30])
+        keys = ("ENTITY", "RELATION", "TYPE", "COVERAGE", "SUPPORT", "CONFLICT_FREE")
+        if prompt.startswith("Propose the smallest"):
+            output = "RANK: 1\nQUOTE: " + quote + "\nANSWER: " + quote
+        else:
+            output = "\n".join(k + (": no" if original and k == "SUPPORT" else ": yes") for k in keys)
+            output += "\nRANK: 1\nQUOTE: " + quote + "\nREASON: Synthetic test, no correctness claim."
+        return Generation(output, .01, 10, 5)
 uncertain = "\n".join(k + ": uncertain" for k in ("ENTITY", "RELATION", "TYPE", "COVERAGE", "SUPPORT", "CONFLICT_FREE")) + "\nRANK: 0\nQUOTE: NONE\nREASON: Test fixture only, no model inference."
 for arm in json.loads((bundle / "manifest.json").read_text())["protocol"]:
     strategy = arm["strategy"]
     output = "INSUFFICIENT" if strategy in ("short_answer_quote", "conservative_no_original_gate") else uncertain
-    with contextlib.redirect_stdout(io.StringIO()), patch("src.compensation.qwen_repair.QwenRepairGenerator", return_value=TestGenerator(output)):
+    generator = ThreeStageGenerator() if strategy == "conservative_repair" else TestGenerator(output)
+    with contextlib.redirect_stdout(io.StringIO()), patch("src.compensation.qwen_repair.QwenRepairGenerator", return_value=generator):
         main(["--dataset", "nq", "--c1", str(bundle / "inputs/nq75_c1.jsonl"), "--all", "--strategy", strategy, "--out", str(results / (strategy + ".jsonl"))])
 for name in ("manifest.json", "bundle_checksums.json"):
     (results / name).write_bytes((bundle / name).read_bytes())
@@ -130,6 +147,8 @@ for name in ("manifest.json", "bundle_checksums.json"):
         # A forged final status must not survive deterministic trace replay.
         path = results / "conservative_repair.jsonl"
         records = [json.loads(line) for line in path.read_text().splitlines()]
+        self.assertEqual(records[0]["extra_calls"], 3)
+        self.assertIsInstance(records[0]["repair_trace"]["stages"][0]["parsed"]["source_offsets"], list)
         records[0]["status"] = "original_supported"
         path.write_text("".join(json.dumps(row) + "\n" for row in records))
         rejected = subprocess.run(cmd, capture_output=True, text=True, timeout=60)

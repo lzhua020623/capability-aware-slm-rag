@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-10-19T08:59:36.144254+11:00",
+  "observed_at": "2026-10-19T09:09:08.207152+11:00",
   "notebook_url": "https://www.kaggle.com/code/yearo111/e-v8-nq75-conservative-gates-20261019",
   "private_dataset_url": "https://www.kaggle.com/datasets/yearo111/e-v8-nq75-conservative-gates-frozen-20261019",
   "notebook_version": 2,
@@ -7,9 +7,9 @@
   "submission": "Save & Run All (Commit)",
   "accelerator": "GPU T4 x2",
   "internet_enabled": true,
-  "status_observed": "Running (version 2 Logs page)",
+  "status_observed": "Running; Qwen prediction rows observed in version 2 Logs",
   "gpu_execution_confirmed": true,
-  "predictions_completed_confirmed": 0,
+  "predictions_completed_confirmed": 15,
   "gpu_results_received": false,
   "bundle_sha256": "906f096f78e36a4f272cdd863ce2e7383d62acb638c1e480a06c5d3f75daa7a3",
   "next_action": "Inspect version 2 logs; obtain result export after completion; audit with the original frozen algorithm code. Do not submit another version while this one runs.",
@@ -17,7 +17,20 @@
   "logs_url": "https://www.kaggle.com/code/yearo111/e-v8-nq75-conservative-gates-20261019?scriptVersionId=359843897",
   "output_bytes_observed": 0,
   "local_implementation_commit": "3e0a0fb",
-  "model_inference_started_confirmed": false,
+  "model_inference_started_confirmed": true,
   "transport_revision": "r1_auto_extracted_input",
-  "prior_failed_version": 1
+  "prior_failed_version": 1,
+  "progress_count_is_lower_bound": true,
+  "arm_progress_observed": {
+    "short_answer_quote": {
+      "completed_at_least": 15,
+      "total": 75
+    },
+    "conservative_repair": null,
+    "conservative_no_original_gate": null,
+    "conservative_no_candidate_gate": null
+  },
+  "payload_hash_checked_files_cloud": 85,
+  "full_result_zip_received": false,
+  "repository_tests_passed": 136
 }

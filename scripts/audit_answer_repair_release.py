@@ -21,7 +21,7 @@ def equal(a, b):
         return isinstance(a, (int, float)) and isinstance(b, (int, float)) and math.isclose(a, b, abs_tol=1e-10, rel_tol=1e-12)
     if isinstance(a, dict) and isinstance(b, dict):
         return a.keys() == b.keys() and all(equal(a[k], b[k]) for k in a)
-    if isinstance(a, list) and isinstance(b, list):
+    if isinstance(a, (list, tuple)) and isinstance(b, (list, tuple)):
         return len(a) == len(b) and all(equal(x, y) for x, y in zip(a, b))
     return a == b
 
