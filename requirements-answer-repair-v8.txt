@@ -1,0 +1,6 @@
+# Direct dependencies pinned to the archived v7 Kaggle environment.
+# Keep the host CUDA-enabled PyTorch; record its version and full pip freeze.
+transformers==5.16.1
+accelerate==1.14.0
+bitsandbytes==0.50.2
+PyYAML==6.0.3

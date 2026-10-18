@@ -1,0 +1,16 @@
+{
+  "observed_at": "2026-10-19T01:16:16.939735+11:00",
+  "notebook_url": "https://www.kaggle.com/code/yearo111/e-v8-nq75-conservative-gates-20261019",
+  "private_dataset_url": "https://www.kaggle.com/datasets/yearo111/e-v8-nq75-conservative-gates-frozen-20261019",
+  "notebook_version": 1,
+  "version_name": "v8 NQ75 four arms frozen 906f096f",
+  "submission": "Save & Run All (Commit)",
+  "accelerator": "GPU T4 x2",
+  "internet_enabled": true,
+  "status_observed": "Queued / Starting; fetching worker",
+  "gpu_execution_confirmed": false,
+  "predictions_completed_confirmed": 0,
+  "gpu_results_received": false,
+  "bundle_sha256": "906f096f78e36a4f272cdd863ce2e7383d62acb638c1e480a06c5d3f75daa7a3",
+  "next_action": "Inspect this submitted version for worker allocation/logs; download exported ZIP after all arms complete; use frozen bundle for audit and review changed outputs. Do not resubmit while queued."
+}

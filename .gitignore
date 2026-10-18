@@ -71,3 +71,12 @@ artifacts/answer_repair/**/gpu_bundle/
 # Team annotation workbooks stay local (upstream convention); only derived JSONL is versioned.
 data/annotations/*.xlsx
 .DS_Store
+
+# v8: new algorithm and frozen 75-case development comparison.
+!artifacts/answer_repair/v8_nq75/README.md
+!artifacts/answer_repair/v8_nq75/manifest.json
+!artifacts/answer_repair/v8_nq75/preparation.json
+!artifacts/answer_repair/v8_nq75/validation.json
+!artifacts/answer_repair/v8_nq75/cloud_status.json
+!artifacts/answer_repair/v8_nq75/answer_repair_v8_nq75_gpu.tar.gz
+!notebooks/answer_repair_v8_nq75.ipynb

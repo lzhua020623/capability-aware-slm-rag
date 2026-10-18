@@ -11,13 +11,13 @@ from typing import Protocol
 
 from src.compensation.answer_repair import (
     DEFAULT_MAX_NEW_TOKENS, FEVER_ONLY_STRATEGIES, LINE_OUTPUT_STRATEGIES, NLI_STRATEGIES, NQ_ONLY_STRATEGIES,
-    RepairGenerator, RepairResult, repair_answer,
+    RepairGenerator, RepairResult, repair_answer, V8_STRATEGIES,
 )
 from src.diagnosis import DatasetName, DiagnosisInput
 
 
 RUNTIME_STRATEGIES = ("verify_repair", "grounded_reanswer", "query_grounded", "guarded_reanswer",
-                      "extractive_reanswer", "fever_nli", "short_answer_quote", "fever_nli_anchored")
+                      "extractive_reanswer", "fever_nli", "short_answer_quote", "fever_nli_anchored", *V8_STRATEGIES)
 
 
 class ResolvedDecision(Protocol):

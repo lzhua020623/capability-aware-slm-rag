@@ -1,0 +1,56 @@
+{
+  "bundle_sha256": "906f096f78e36a4f272cdd863ce2e7383d62acb638c1e480a06c5d3f75daa7a3",
+  "hash_checked_files": 85,
+  "portable_tests": [
+    "----------------------------------------------------------------------",
+    "Ran 96 tests in 0.346s",
+    "",
+    "OK"
+  ],
+  "preflights": [
+    {
+      "strategy": "short_answer_quote",
+      "samples": 75,
+      "completed": 0,
+      "remaining_call_upper_bound": 75,
+      "fingerprint": "a99de632861152e79eb2c81ba17a8eb5d5ecb900cc63e7aaed7569d641942ee7"
+    },
+    {
+      "strategy": "conservative_repair",
+      "samples": 75,
+      "completed": 0,
+      "remaining_call_upper_bound": 225,
+      "fingerprint": "e718b631e75ce679d031fceecd5e436388eea2ab7a899e0da6c91dc21fcca02e"
+    },
+    {
+      "strategy": "conservative_no_original_gate",
+      "samples": 75,
+      "completed": 0,
+      "remaining_call_upper_bound": 150,
+      "fingerprint": "5ad5800b2a797a7d8d0be755032a7e7ea7e5b75c8363b33f75d47683aa175ebf"
+    },
+    {
+      "strategy": "conservative_no_candidate_gate",
+      "samples": 75,
+      "completed": 0,
+      "remaining_call_upper_bound": 150,
+      "fingerprint": "3c081bd7741bd172463afdbbf9731a52dcf98e4024cbcf9999457d1a119be9e0"
+    }
+  ],
+  "pure_runtime_fields": [
+    "sample_id",
+    "dataset",
+    "query",
+    "evidence",
+    "initial_answer"
+  ],
+  "excluded_deferred_count": 25,
+  "gpu_inference_completed": false,
+  "validation_kind": "CPU-only real frozen-package extraction, tests and preflight; no model inference",
+  "repository_regression_tests": {
+    "count": 129,
+    "passed": true,
+    "new_v8_tests": 14
+  },
+  "git_diff_check_passed": true
+}

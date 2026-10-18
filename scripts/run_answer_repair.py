@@ -27,12 +27,15 @@ from src.compensation.answer_repair import (
     build_repair_prompt, repair_answer,
     QUERY_GROUNDED_PROMPT_VERSION, GUARDED_REANSWER_PROMPT_VERSION,
     SUPPORT_CHECK_MAX_NEW_TOKENS, build_query_grounded_prompt,
-    LINE_OUTPUT_STRATEGIES, NLI_STRATEGIES, STRATEGIES,
+    LINE_OUTPUT_STRATEGIES, NLI_STRATEGIES, STRATEGIES, V8_STRATEGIES, NQ_ONLY_STRATEGIES,
 )
 from src.compensation.anchors import ANCHOR_VERSION, FEVER_POLICY, NQ_MIN_COVERAGE
 from src.compensation.extractive_repair import EXTRACTIVE_PROMPT_VERSION, build_extractive_prompt
 from src.compensation.nli_repair import NLI_ANCHORED_VERSION, NLI_MODEL, NLI_REVISION, NLI_VERSION, NLI_THRESHOLD
 from src.compensation.short_answer_repair import SHORT_ANSWER_PROMPT_VERSION, build_short_answer_prompt
+from src.compensation.conservative_repair import (
+    V8_VERSION, build_check_prompt, build_minimal_repair_prompt, max_calls, repair_from_v8_trace,
+)
 from src.diagnosis import DatasetName, DiagnosisInput, DiagnosisLabel, DiagnosisOutput, EvidenceItem
 from src.evaluation.answer_repair import score_answer, summarize_repairs
 from src.compensation.controller_adapter import controller_route_status
@@ -148,6 +151,7 @@ def run_fingerprint(source: bytes, diagnosis_source: bytes, settings: dict) -> s
         "src/compensation/support_check.py",
         "src/compensation/extractive_repair.py", "src/compensation/nli_repair.py",
         "src/compensation/anchors.py", "src/compensation/short_answer_repair.py",
+        "src/compensation/conservative_repair.py",
     ):
         h.update(path.encode())
         h.update((ROOT / path).read_bytes())
@@ -183,13 +187,23 @@ def read_existing(path: Path, prepared: list[tuple[dict, DiagnosisInput]], finge
                 or row.get("final_metrics") != score_answer(row["final_answer"], source, request.dataset)
                 or row.get("changed") != (row["final_answer"] != request.initial_answer)):
             raise ValueError("Saved output metrics are inconsistent; original file preserved")
-        max_calls = 2 if row.get("settings", {}).get("strategy") == "guarded_reanswer" else 1
-        if (type(row.get("extra_calls")) is not int or not 0 <= row["extra_calls"] <= max_calls
+        strategy = row.get("settings", {}).get("strategy")
+        call_limit = max_calls(strategy) if strategy in V8_STRATEGIES else (2 if strategy == "guarded_reanswer" else 1)
+        if (type(row.get("extra_calls")) is not int or not 0 <= row["extra_calls"] <= call_limit
                 or not math.isfinite(row["latency"]) or row["latency"] < 0):
             raise ValueError("Invalid saved cost record")
-        if (row.get("support_check") is not None) != (row["extra_calls"] == 2):
+        if strategy not in V8_STRATEGIES and (row.get("support_check") is not None) != (row["extra_calls"] == 2):
             raise ValueError("Saved support check and call count disagree")
-        strategy = row.get("settings", {}).get("strategy")
+        if strategy in V8_STRATEGIES:
+            trace = row.get("repair_trace")
+            if trace is not None:
+                if trace.get("strategy") != strategy or trace.get("max_new_tokens") != row["settings"]["max_new_tokens"]:
+                    raise ValueError("Saved v8 settings/trace mismatch")
+                expected = asdict(repair_from_v8_trace(request, trace))
+                if any(row.get(k) != v for k, v in json.loads(json.dumps(expected)).items()):
+                    raise ValueError("Saved v8 decision/trace/cost mismatch")
+            elif row["extra_calls"] or not row["status"].startswith("skipped_"):
+                raise ValueError("Missing v8 trace")
         if strategy in NLI_STRATEGIES:
             trace = row.get("verifier_trace")
             if trace is not None:
@@ -248,7 +262,7 @@ def main(argv: list[str] | None = None) -> int:
     dataset = DatasetName(args.dataset)
     is_nli = args.strategy in NLI_STRATEGIES
     if (is_nli and dataset != DatasetName.FEVER or
-            args.strategy in ("extractive_reanswer", "short_answer_quote") and dataset != DatasetName.NQ):
+            args.strategy in NQ_ONLY_STRATEGIES and dataset != DatasetName.NQ):
         parser.error("The selected strategy does not support this dataset")
     if args.c1:
         raw, source_name = args.c1.read_bytes(), str(args.c1.resolve())
@@ -282,17 +296,19 @@ def main(argv: list[str] | None = None) -> int:
                            "guarded_reanswer": GUARDED_REANSWER_PROMPT_VERSION,
                            "reanswer": "c1_reanswer", "extractive_reanswer": EXTRACTIVE_PROMPT_VERSION,
                            "fever_nli": NLI_VERSION, "short_answer_quote": SHORT_ANSWER_PROMPT_VERSION,
-                           "fever_nli_anchored": NLI_ANCHORED_VERSION}[args.strategy],
+                           "fever_nli_anchored": NLI_ANCHORED_VERSION,
+                           **{strategy: V8_VERSION for strategy in V8_STRATEGIES}}[args.strategy],
         "support_check_max_new_tokens": SUPPORT_CHECK_MAX_NEW_TOKENS if args.strategy == "guarded_reanswer" else 0,
-        "max_calls_per_sample": 0 if is_nli else (2 if args.strategy == "guarded_reanswer" else 1),
+        "max_calls_per_sample": (max_calls(args.strategy) if args.strategy in V8_STRATEGIES else
+                                 0 if is_nli else (2 if args.strategy == "guarded_reanswer" else 1)),
         "nli_threshold": NLI_THRESHOLD if is_nli else None,
         "cost_policy": "separate_classifier_forward_batches" if is_nli else "qwen_generation_calls",
         "json_stop": None if is_nli or args.strategy in LINE_OUTPUT_STRATEGIES else "complete_object_final_token_framing",
         "citation_matching": ("exact_source_character_window" if is_nli else
-                              "whitespace_insensitive_quote_normalised_token_boundaries" if args.strategy == "short_answer_quote"
+                              "whitespace_insensitive_quote_normalised_token_boundaries" if args.strategy in ("short_answer_quote", *V8_STRATEGIES)
                               else "whole_words_and_punctuation_ignore_spacing"),
         "answer_span_matching": ("canonical_source_slices" if args.strategy == "extractive_reanswer" else
-                                "whitespace_insensitive_slice_inside_quote" if args.strategy == "short_answer_quote" else
+                                "whitespace_insensitive_slice_inside_quote" if args.strategy in ("short_answer_quote", *V8_STRATEGIES) else
                                 None if is_nli else "whole_words_and_punctuation_ignore_spacing" if args.strategy in
                                 ("query_grounded", "guarded_reanswer") else "legacy_whitespace_casefold"),
         "anchor_policy": ({"version": ANCHOR_VERSION, "fever": FEVER_POLICY}
@@ -328,7 +344,9 @@ def main(argv: list[str] | None = None) -> int:
             build = {"extractive_reanswer": build_extractive_prompt, "fever_nli": None, "fever_nli_anchored": None,
                      "verify_repair": build_repair_prompt, "grounded_reanswer": build_grounded_reanswer_prompt,
                      "query_grounded": build_query_grounded_prompt, "guarded_reanswer": build_query_grounded_prompt,
-                     "reanswer": build_reanswer_prompt, "short_answer_quote": build_short_answer_prompt}[args.strategy]
+                     "reanswer": build_reanswer_prompt, "short_answer_quote": build_short_answer_prompt,
+                     **{strategy: (build_minimal_repair_prompt if strategy == "conservative_no_original_gate"
+                                    else build_check_prompt) for strategy in V8_STRATEGIES}}[args.strategy]
             print(build(prepared[0][1]) if build else "NLI: full evidence windows as premises; unmodified claim as hypothesis.")
         return 0
     # Lock before rereading output or loading a model. One writer per file.

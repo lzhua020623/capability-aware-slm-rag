@@ -24,13 +24,14 @@ QUERY_GROUNDED_PROMPT_VERSION = "v5_query_complete"
 GUARDED_REANSWER_PROMPT_VERSION = "v5_query_complete_then_support_check"
 SUPPORT_CHECK_MAX_NEW_TOKENS = 192
 DEFAULT_MAX_NEW_TOKENS = 384
-NQ_ONLY_STRATEGIES = frozenset({"extractive_reanswer", "short_answer_quote"})
+V8_STRATEGIES = ("conservative_repair", "conservative_no_original_gate", "conservative_no_candidate_gate")
+NQ_ONLY_STRATEGIES = frozenset({"extractive_reanswer", "short_answer_quote", *V8_STRATEGIES})
 FEVER_ONLY_STRATEGIES = frozenset({"fever_nli", "fever_nli_anchored"})
 NLI_STRATEGIES = FEVER_ONLY_STRATEGIES
 STRATEGIES = ("verify_repair", "grounded_reanswer", "query_grounded", "guarded_reanswer", "reanswer",
-              "extractive_reanswer", "fever_nli", "short_answer_quote", "fever_nli_anchored")
+              "extractive_reanswer", "fever_nli", "short_answer_quote", "fever_nli_anchored", *V8_STRATEGIES)
 # Strategies whose output is not a JSON object; the generator must not use the JSON stop.
-LINE_OUTPUT_STRATEGIES = frozenset({"reanswer", "short_answer_quote"})
+LINE_OUTPUT_STRATEGIES = frozenset({"reanswer", "short_answer_quote", *V8_STRATEGIES})
 
 
 @dataclass(frozen=True)
@@ -85,6 +86,7 @@ class RepairResult:
     verifier_input_tokens: int | None = None
     verifier_trace: dict | None = None
     anchor_filter: dict | None = None
+    repair_trace: dict | None = None
 
     @property
     def changed(self) -> bool:
@@ -362,6 +364,9 @@ def repair_answer(
         return (repair_fever if strategy == "fever_nli" else repair_fever_anchored)(request, verifier)
     if generator is None:
         raise ValueError("This strategy requires a generator")
+    if strategy in V8_STRATEGIES:
+        from src.compensation.conservative_repair import conservative_repair
+        return conservative_repair(request, generator, strategy=strategy, max_new_tokens=max_new_tokens)
     if strategy == "guarded_reanswer":
         from src.compensation.support_check import guarded_reanswer
         return guarded_reanswer(request, generator, max_new_tokens=max_new_tokens)

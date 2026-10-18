@@ -1,0 +1,36 @@
+{
+  "version": "answer_repair_v8_nq75_v1",
+  "frozen_on": "2026-10-19",
+  "purpose": "Selected, chat-assisted NQ Train development comparison; not unseen or population evaluation.",
+  "cohort": {
+    "path": "configs/splits/answer_repair_nq_train_confirmed_dev_v6.json",
+    "sha256": "458514002adfc1d25a1635093125198be853d4618e5633f7d987ee774942b46e"
+  },
+  "protocol": [
+    {
+      "strategy": "short_answer_quote",
+      "max_new_tokens": 384,
+      "max_calls": 1
+    },
+    {
+      "strategy": "conservative_repair",
+      "max_new_tokens": 384,
+      "max_calls": 3
+    },
+    {
+      "strategy": "conservative_no_original_gate",
+      "max_new_tokens": 384,
+      "max_calls": 2
+    },
+    {
+      "strategy": "conservative_no_candidate_gate",
+      "max_new_tokens": 384,
+      "max_calls": 2
+    }
+  ],
+  "routing": "all_development_ablation",
+  "max_generation_calls": 600,
+  "expected_predictions": 300,
+  "reference_policy": "Original C1, gold and frozen EM/F1 unchanged; initial human labels offline only; new output labels pending.",
+  "acceptance_policy": "Report all arms, regressions and costs. No population or unseen benefit claim from these 75; no strategy promotion before output review and independent evaluation."
+}
