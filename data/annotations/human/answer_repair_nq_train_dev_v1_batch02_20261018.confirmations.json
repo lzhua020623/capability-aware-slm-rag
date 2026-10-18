@@ -1,0 +1,112 @@
+{
+  "reviewer": "用户（本对话）",
+  "confirmed_at": "2026-10-18",
+  "timezone": "Australia/Sydney",
+  "user_text": "N3同意你的判断 N7同意你的判断 N8答案回答了问题 但是主体认识错误 N19同意你的判断 N28同意 N33的R1已经清楚回答了问题 但是原始C1回答只回答了一个地点，而没有回答具体的内容 N44同意你的判断 N52答对了 N56同意你的判断 N57同意你的判断 N59同意你的判断 N62应该答全名",
+  "review_set_id": "answer_repair_nq_train_dev_v1",
+  "review_numbers": [
+    3,
+    7,
+    8,
+    19,
+    28,
+    33,
+    44,
+    52,
+    56,
+    57,
+    59,
+    62
+  ],
+  "accepted_sample_ids": {
+    "3": "840698384509679882",
+    "7": "-7478903804748756717",
+    "8": "-6909798989883244156",
+    "19": "-8572418612439458772",
+    "28": "9101034110241732780",
+    "33": "-3169716056891969228",
+    "44": "7162334026625697981",
+    "52": "-703872651120117348",
+    "56": "-3181101556031284606",
+    "57": "7760609859570217617",
+    "59": "-8480487982704561767",
+    "62": "3219108291257004958"
+  },
+  "accept_agent_deferral": [
+    3,
+    7,
+    19,
+    28,
+    44,
+    56,
+    57,
+    59
+  ],
+  "case_decisions": {
+    "8": {
+      "initial_answer_status": "incorrect",
+      "initial_correct": false,
+      "primary_label": "evidence_utilisation",
+      "e_development_use": "include_e_core",
+      "supporting_ranks": [
+        2,
+        3,
+        4
+      ],
+      "subtype": "wrong_work_entity",
+      "user_statement": "N8答案回答了问题 但是主体认识错误",
+      "reason": "用户确认回答的主体识别错误。本例按歌名 Breakfast at Tiffany's 解读：R2 给出 Deep Blue Something；R3/R4 说明 Audrey Hepburn 唱的是电影中的 Moon River。C1 给出了演唱者形式的答案，却指向另一首歌。歌曲意图按本例人审确定；明确的目标歌名与演唱者关系位于 R2，内部 E 开发映射为 utilisation。"
+    },
+    "33": {
+      "initial_answer_status": "partial",
+      "initial_correct": false,
+      "primary_label": "evidence_utilisation",
+      "e_development_use": "include_e_core",
+      "supporting_ranks": [
+        1
+      ],
+      "subtype": "missing_name_origin",
+      "user_statement": "N33的R1已经清楚回答了问题 但是原始C1回答只回答了一个地点，而没有回答具体的内容",
+      "reason": "用户确认 R1 已清楚回答名称由来，但 C1 仅给地点，没有回答具体内容。Foley, Alabama 作为地点事实有支持；本题按名称来源审核，缺少掉字招牌上 Doors Down 以及三位成员加上 3 的关键解释。记录为部分正确、未完整回答所求事实，内部 E 开发映射为 utilisation；保留地点事实本身正确这一细节。"
+    },
+    "52": {
+      "initial_answer_status": "correct",
+      "initial_correct": true,
+      "primary_label": "correct",
+      "e_development_use": "correct_control",
+      "supporting_ranks": [
+        1
+      ],
+      "subtype": "accepted_temporal_granularity",
+      "user_statement": "N52答对了",
+      "reason": "用户明确确认 September 2017 在本例答对，作为正确对照。R1 直接描述 September 2017 宣布参加 season 25；用户接受该月份对 when 问题的回答粒度。本次未进一步确认实际参赛起止日期，也不推导宣布时间总能替代事件发生时间。冻结 gold 仍为 season 25，原 EM/F1 不改。"
+    },
+    "62": {
+      "initial_answer_status": "partial",
+      "initial_correct": false,
+      "primary_label": "evidence_utilisation",
+      "e_development_use": "include_e_core",
+      "supporting_ranks": [
+        5
+      ],
+      "subtype": "missing_identifying_surname",
+      "user_statement": "N62应该答全名",
+      "reason": "用户要求本例回答全名。R5 明确给出 Lars Dittmann Mikkelsen 与 Viktor Petrov 的演员关系；C1 只回答 Lars Dittmann，缺少主要姓氏 Mikkelsen。按本例记录为姓名信息不完整，内部 E 开发映射为 utilisation。此裁决不建立所有人名都必须输出完整法定姓名的全局规则。"
+    }
+  },
+  "confirmation_mode": "chat_assisted_review_with_case_overrides",
+  "independent_blind_annotation": false,
+  "source_review_file": "artifacts/answer_repair/nq_train_dev_v1/review/review_queue.jsonl",
+  "source_review_sha256": "a7807984201905627cf2bb4b2f368c1eb7eaee7223dc8ef8beafea081392238c",
+  "assisted_review_file": "data/annotations/assisted/answer_repair_nq_train_dev_v1_20261017.jsonl",
+  "assisted_review_sha256": "920ea1c56f1b9512346e0d84fcd1d8e9e8e6abe9e62478e7ba2392378dece389",
+  "review_packet_sha256": "c9f2230dda81b660b3ace5bbbcb7618db39dfbe2bfe6e3bd44c44d7a8a19c6b9",
+  "review_page_at_confirmation": {
+    "path": "artifacts/answer_repair/nq_train_dev_v1/review/NQ_train_pending_92.html",
+    "git_commit": "d910fbe",
+    "html_sha256": "59328beae359753d67234c8c08877ed926b74ba241604812e1781aa9b18241a1"
+  },
+  "scope": "Only the 12 named samples. Agreeing to defer does not resolve correctness or assign a diagnosis label.",
+  "field_policy": "User decides correctness, intended referent and answer completeness for these cases. Evidence sufficiency/accessibility and E labels for the four resolved records are reviewer mappings from frozen passages, not upstream Diagnosis gold. initial_supported is unconfirmed for these four records.",
+  "not_confirmed": "No remaining sample, E final output, model improvement, global name/date rubric, new gold answer or upstream Diagnosis label is confirmed."
+}

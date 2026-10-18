@@ -1,10 +1,31 @@
 # NQ Train 开发样本辅助审核：2026-10-17
 
-已完成固定首批 100 条的代理辅助审核。随后用户在阅读 8 条目标候选的原题、C1、冻结参考和完整 Top-5 后回复“判断可以”，确认 N6/N29/N31/N48/N49/N74/N81/N96 的判断。当前 **8 条人工确认、92 条待审**；待审包括 69 条建议可接受和 23 条争议。原始数据以 `origin/main@058f10baa47083220f95edb39db8f106aa7e85d6` 为准；核对时未发现该提交之后的新 main 提交。
+已完成固定首批 100 条的代理辅助审核。截至 2026-10-18，用户已审核 20 条：**12 条已定案（11 条 E utilisation 目标、1 条正确对照）、8 条明确暂缓，另有 80 条尚未审核**。仍未定案共 88 条，包含上述 8 条暂缓。原始数据以 `origin/main@058f10baa47083220f95edb39db8f106aa7e85d6` 为准；此前核对时未发现该提交之后的新 main 提交，本轮未重新查询远端。
 
-确认记录见 [用户原话与明确范围](../data/annotations/human/answer_repair_nq_train_dev_v1_batch01_20261017.confirmations.json)、[8 条人工记录](../data/annotations/human/answer_repair_nq_train_dev_v1_batch01_20261017.jsonl) 和 [当前计数](../data/annotations/human/answer_repair_nq_train_dev_v1_batch01_20261017.summary.json)。这是查看代理分析及完整证据后的对话确认，不是独立盲标；没有确认任何 E 新输出正确。
+当前状态见 [累计 20 条人工审核记录](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch02_20261018.jsonl) 和 [累计计数](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch02_20261018.summary.json)。首批 [用户原话与明确范围](../data/annotations/human/answer_repair_nq_train_dev_v1_batch01_20261017.confirmations.json)、[8 条人工记录](../data/annotations/human/answer_repair_nq_train_dev_v1_batch01_20261017.jsonl) 和 [首批历史计数](../data/annotations/human/answer_repair_nq_train_dev_v1_batch01_20261017.summary.json) 保留原样。这些是查看辅助分析和证据后的对话确认，不是独立盲标；没有确认任何 E 新输出正确。
 
 本轮核对 main 新增的 11 个交付/流水线文件与本地版本，均逐字节一致；Google 下载的 15 个原始分片均与 main 清单的 SHA-256 一致。74,097 条源记录及其 gold 未修改。E 的转换文件、内部划分与审核建议均为派生产物；如与 main 后续正式协议或团队共同划分冲突，应按上游重建新的派生版本。
+
+## 第二批人工意见：2026-10-18
+
+本批只记录用户明确提及的 12 条。完整原话及逐条裁决见 [第二批确认](../data/annotations/human/answer_repair_nq_train_dev_v1_batch02_20261018.confirmations.json)，逐条状态见 [第二批人工记录](../data/annotations/human/answer_repair_nq_train_dev_v1_batch02_20261018.jsonl)。同意暂缓表示接受暂缓处理，未把正确性或主标签从 null 自动补齐。
+
+| 编号 | 用户裁决与落实 |
+|---|---|
+| N3、N7 | 同意暂缓：题意与新旧名称／购买者和购买方式不明确 |
+| N8 | 主体识别错误；本例按歌曲理解，R2 为 Deep Blue Something，C1 的 Audrey Hepburn 对应电影中的 Moon River；内部 E 映射为 utilisation |
+| N19、N28 | 同意暂缓：证据关系与题意／参考仍有问题 |
+| N33 | R1 清楚解释名称来源；C1 的地点事实有支持，但遗漏掉字招牌和三位成员加 3 的由来。保留 `partial`，内部 E 映射为 utilisation |
+| N44 | 同意暂缓：相对时间未给起算点 |
+| N52 | 用户确认答对；接受 September 2017 的本例时间粒度，作为正确对照。原文说宣布参赛月份，不据此扩展为所有宣布时间都等于实际事件时间 |
+| N56、N57、N59 | 同意暂缓：媒介、计量维度及 ATP 计算口径等仍未决 |
+| N62 | 本例应答全名 Lars Dittmann Mikkelsen；缺失主要姓氏 Mikkelsen，记录 `partial`，内部 E 映射为 utilisation |
+
+本批新增 3 个 E 目标和 1 个正确对照，另 8 条明确暂缓。针对 N8/N33/N62 的 E 分类是依据用户对具体错误的确认和冻结证据作出的内部映射，未冒充上游 Diagnosis 正式标签。四条定案记录的 `initial_supported` 保留 null，用户没有单独确认这一评分；N33 的地点事实有支持与完整回答不足分别保留。N62 的裁决仅适用于本例缺少关键姓氏，不能推导所有人名都必须输出完整法定姓名。
+
+已导出 [累计 12 条开发清单 v2](../configs/splits/answer_repair_nq_train_confirmed_dev_v2.json)、[冻结 C1 子集](../artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch02_c1.jsonl) 和 [纯运行时子集](../artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch02_runtime.jsonl)。均来自 development，与校准／预留评测交集为 0，runner 的冻结评分预检通过。N52 的原 EM=0 和 gold 保留，人审语义正确性另计。只有 1 条正确对照仍不足以可靠估计误修率；没有新 GPU 结果，也没有算法提升结论。
+
+原网页保留同一 92 条材料和数据包哈希，避免使浏览器已有导出失效。更新页面校验以允许“部分正确但遗漏关键内容”的逐条人工 utilisation 裁决；不会自动把部分正确归为 utilisation。网页当前状态通过 [本次意见的导入 JSON](../artifacts/answer_repair/nq_train_dev_v1/review/NQ_train_pending_92.chat_confirmations_20261018.json) 同步：4 条已确认、8 条暂缓、80 条空白。需先重新打开／刷新更新后的 HTML，再点击“导入已有审核”。导入会替换该页面本机草稿；若浏览器还有其他审核，先导出备份。本文件只反映这次对话意见，不读取或覆盖任何浏览器草稿。
 
 ## 辅助初审分组
 
@@ -14,7 +35,7 @@
 | EM=1 对照 | 20 | 0 | 0 | 20 |
 | 合计 | 69 | 8 | 23 | 100 |
 
-上表保留初次 **agent 建议** 的分组。其中 8 个 utilisation 候选现已得到用户确认，可用于 E 开发；其余 92 条不能用作已确认目标。逐条理由依据全部 C1 Top-5 和离线参考，未查询外部事实，未使用 C2/C3 或新的 E 生成结果。引用均保留 passage_id、原文字符位置与证据哈希，100 条都在内部 development 部分。main 原始标签和冻结 scorer 均未覆盖。
+上表保留初次 **agent 建议** 的分组。第一批 8 个 utilisation 候选得到用户确认后，原来剩余 92 条进入网页审核；第二批又对其中 12 条作出上述意见。逐条辅助理由依据全部 C1 Top-5 和离线参考，未查询外部事实，未使用 C2/C3 或新的 E 生成结果。引用均保留 passage_id、原文字符位置与证据哈希，100 条都在内部 development 部分。main 原始标签和冻结 scorer 均未覆盖。
 
 `initial_correct` 表示是否回答了所求事实；`initial_supported` 表示证据能否支持它作为本题回答，不是文字是否出现。歧义案例中也会记录某一种解释有支持并保留正确性为 null，具体解释见理由。不能单独把这个辅助字段当作对脱离问题的陈述所做的 faithfulness 评分。
 
@@ -22,7 +43,7 @@
 
 本批刻意按 80:20 筛选，且只来自开发部分，不能把 8/80 或 69/100 外推为 NQ Train 的类别比例、语义正确率或总体收益。它支持的开发判断是：**EM=0 且命中 gold passage 只能提供候选，不能自动定义 utilisation。**
 
-## 已确认的 8 个目标错误
+## 第一批已确认的 8 个目标错误（历史）
 
 下列答案方向是代理阅读现有证据后的建议，不是 E 已生成的修复结果。N 编号属于 `answer_repair_nq_train_dev_v1`，与旧 v7 审核编号分开。
 
@@ -41,7 +62,7 @@
 
 已固定 [8 条确认开发清单](../configs/splits/answer_repair_nq_train_confirmed_dev_v1.json)，并导出 [C1 输入](../artifacts/answer_repair/nq_train_dev_v1/confirmed/batch01_c1.jsonl) 和 [纯运行时输入](../artifacts/answer_repair/nq_train_dev_v1/confirmed/batch01_runtime.jsonl)。逐条匹配原始冻结 C1，仅从 development 选取，校准和评测预留重合均为 0，现有 E runner 接口校验通过。该批只有错误，没有已确认正确对照，不能用于估计总体净收益或误修率。
 
-## 23 条暂缓
+## 初次辅助审核的 23 条暂缓建议（历史）
 
 | 编号 | 暂缓原因 |
 |---|---|
@@ -93,7 +114,7 @@
 - [计数、优先编号与来源校验](../data/annotations/assisted/answer_repair_nq_train_dev_v1_20261017.summary.json)
 - [原始冻结审核材料与接入方法](ANSWER_REPAIR_NQ_TRAIN.md)
 
-初次辅助审核的完整性检查通过：100 个 ID 与冻结清单顺序一致、均在 development；所有原记录哈希和逐字引用位置一致。原始审核包、代理判断、原文展示文件保留当时 pending 的冻结快照；当前状态以人类审核层为准。确认记录严格只包含上述 8 个 ID，其他 92 条未改变。main 交付文件、源分片、gold、冻结 scorer 和 v7 结果未改。辅助记录 SHA-256：`920ea1c56f1b9512346e0d84fcd1d8e9e8e6abe9e62478e7ba2392378dece389`。
+初次辅助审核的完整性检查通过：100 个 ID 与冻结清单顺序一致、均在 development；所有原记录哈希和逐字引用位置一致。原始审核包、代理判断、原文展示文件保留当时 pending 的冻结快照；当前状态以累计人类审核层为准。第一批确认文件严格保留上述 8 个 ID，第二批另存，原始 92 条网页材料范围保持不变。main 交付文件、源分片、gold、冻结 scorer 和 v7 结果未改。辅助记录 SHA-256：`920ea1c56f1b9512346e0d84fcd1d8e9e8e6abe9e62478e7ba2392378dece389`。
 
 ## 网页审核方法
 
@@ -105,6 +126,6 @@
 
 导出文件交回后再按逐条明确的人工操作核对入库。网页不会自动修改仓库；旧 v6/v7 审核导入器不适用于本页的 `nq_train_e_human_review_v1` 格式。页面、辅助建议和界面测试均不增加任何人工确认。
 
-可复现构建：`.venv/bin/python scripts/build_nq_train_pending_review.py`。构建器先校验冻结 100 条、辅助判断和 8 条确认的来源及剩余范围，再生成 HTML 与同名 manifest；后者记录 HTML、输入和构建源码的 SHA-256。UI 更改不改变审核数据包哈希，便于继续导入已有草稿。针对范围完整性、原文保留、导入身份校验、确认条件和草稿状态的 3 项 Python 检查及 5 项 Node 检查通过。
+可复现构建：`.venv/bin/python scripts/build_nq_train_pending_review.py`。构建器先校验冻结 100 条、辅助判断和首批 8 条确认的来源及 92 条原始范围，再生成 HTML 与同名 manifest；后者记录 HTML、输入和构建源码的 SHA-256。UI 更改不改变审核数据包哈希，便于继续导入已有草稿。针对范围完整性、原文保留、导入身份校验、确认条件和草稿状态的 3 项 Python 检查及 6 项 Node 检查通过。
 
 预览中已核对显示范围、证据展开、跳转、筛选、草稿持久化、导出和同包导入。最后一轮预览的点击操作未响应，因此新增的页面内清空／覆盖确认弹窗未完成浏览器复核；不把这一项记为通过。界面测试仅产生未确认草稿，没有导入仓库标注。

@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-18",
+  "review_set_id": "answer_repair_nq_train_dev_v1",
+  "reviewed": 12,
+  "human_confirmed": 4,
+  "human_deferred": 8,
+  "review_numbers": [
+    3,
+    7,
+    8,
+    19,
+    28,
+    33,
+    44,
+    52,
+    56,
+    57,
+    59,
+    62
+  ],
+  "new_e_target_numbers": [
+    8,
+    33,
+    62
+  ],
+  "correct_control_numbers": [
+    52
+  ],
+  "deferred_numbers": [
+    3,
+    7,
+    19,
+    28,
+    44,
+    56,
+    57,
+    59
+  ],
+  "human_file": {
+    "path": "data/annotations/human/answer_repair_nq_train_dev_v1_batch02_20261018.jsonl",
+    "sha256": "ff4e8abb1cf9a52be5d59b12e947432d2bfa378f9ce1f157a4b91d2701a36fcc"
+  },
+  "confirmation": {
+    "path": "data/annotations/human/answer_repair_nq_train_dev_v1_batch02_20261018.confirmations.json",
+    "sha256": "6b46baec949d062f136914c7b3731166a06da9e23101f6b78e6f59ec5a9ae032"
+  },
+  "cumulative_summary": "data/annotations/human/answer_repair_nq_train_dev_v1_through_batch02_20261018.summary.json"
+}

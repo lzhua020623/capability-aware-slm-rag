@@ -29,6 +29,15 @@ test('deferral is distinct from a confirmed diagnosis',()=>{
   assert.equal(validateHumanReview(deferred).status,'deferred');
   assert.throws(()=>validateHumanReview({...deferred,status:'completed'}));
 });
+test('human-reviewed omission of key content can be utilisation while remaining partial',()=>{
+  const partial={...confirmed(),initial_answer_status:'partial',primary_label:'evidence_utilisation',
+    use:'include_e_core',reason:'Location alone omits the requested name origin; R1 states it clearly.'};
+  assert.equal(validateHumanReview(partial).initial_answer_status,'partial');
+  for(const evidence_status of ['insufficient','sufficient_difficult','uncertain']){
+    assert.throws(()=>validateHumanReview({...partial,evidence_status}));
+  }
+  assert.throws(()=>validateHumanReview({...partial,primary_label:'correct'}));
+});
 test('imports require the exact packet, record identity and source hash',()=>{
   assert.equal(Object.values(readImportedReviews(exported(),packet))[0].status,'pending');
   for(const key of ['packet_sha256','review_set_id']){

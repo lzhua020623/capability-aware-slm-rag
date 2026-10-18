@@ -1,0 +1,88 @@
+{
+  "version": "answer_repair_nq_train_confirmed_dev_v2",
+  "review_set_id": "answer_repair_nq_train_dev_v1",
+  "purpose": "12 resolved development cases: 11 internal E utilisation targets and one human-accepted correct control. Label-selected; not a benchmark or unseen test.",
+  "source_main_commit": "058f10baa47083220f95edb39db8f106aa7e85d6",
+  "partition": "development",
+  "review_numbers": [
+    6,
+    8,
+    29,
+    31,
+    33,
+    48,
+    49,
+    52,
+    62,
+    74,
+    81,
+    96
+  ],
+  "sample_ids": [
+    "2847980457887203111",
+    "-6909798989883244156",
+    "1739926213792453012",
+    "5822180296105627301",
+    "-3169716056891969228",
+    "-1981506712537073428",
+    "-564035461981251695",
+    "-703872651120117348",
+    "3219108291257004958",
+    "-5016482629216613272",
+    "-5223755550735908441",
+    "3252643664278412553"
+  ],
+  "human_confirmed": 12,
+  "e_core_review_numbers": [
+    6,
+    8,
+    29,
+    31,
+    33,
+    48,
+    49,
+    62,
+    74,
+    81,
+    96
+  ],
+  "correct_control_review_numbers": [
+    52
+  ],
+  "correct_controls_in_this_batch": 1,
+  "calibration_overlap": 0,
+  "reserved_evaluation_overlap": 0,
+  "sources": {
+    "human_reviews": {
+      "path": "data/annotations/human/answer_repair_nq_train_dev_v1_through_batch02_20261018.jsonl",
+      "sha256": "bb4b697b86a4191a67b08946c265e590e84fd30bd0d1022cbb3a0c910377f0eb"
+    },
+    "batch02_confirmation": {
+      "path": "data/annotations/human/answer_repair_nq_train_dev_v1_batch02_20261018.confirmations.json",
+      "sha256": "6b46baec949d062f136914c7b3731166a06da9e23101f6b78e6f59ec5a9ae032"
+    },
+    "batch01_reviews": {
+      "path": "data/annotations/human/answer_repair_nq_train_dev_v1_batch01_20261017.jsonl",
+      "sha256": "09e4a049c143e27b71f1b9e4feb11b14a30cd7f68c6005e58d6073597683b149"
+    },
+    "frozen_c1": {
+      "path": "artifacts/answer_repair/nq_train_dev_v1/inputs/nq_train_review_c1.jsonl",
+      "sha256": "98dd55636c9c00011db72796827ddb7f1377f214386a6d6fe2b49a90fbde20ba"
+    }
+  },
+  "inputs": {
+    "scored_c1": {
+      "path": "artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch02_c1.jsonl",
+      "sha256": "93ca2c5f7b421947233972c33b7c317e3442da3adb49091466c6be0e16b5047c"
+    },
+    "runtime": {
+      "path": "artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch02_runtime.jsonl",
+      "sha256": "697fd29ea0a963edad3a1e43532d9deeee5e554ba10821a68d3b02631820c336"
+    }
+  },
+  "metric_policy": "Frozen gold and EM/F1 unchanged. N52 remains EM=0 but is human-accepted semantically correct; report separately.",
+  "evaluation_limit": "One correct control cannot estimate a reliable regression rate; this small selected development set cannot establish population improvement.",
+  "diagnosis_policy": "Case-specific internal E labels; upstream Diagnosis labels remain null.",
+  "gpu_inference_run": false,
+  "v8_algorithm_implemented": false
+}

@@ -46,7 +46,7 @@ dialog p{margin-top:0}dialog .button-row{justify-content:flex-end}#fileError:emp
  <main class="main">
   <details class="guide card"><summary>审核说明与标签标准</summary>
    <p id="guideScope"></p>
-   <p><b>Correct：</b>原答案在题目要求下语义正确，不要求与 gold 逐字一致。<b>Utilisation：</b>原答案有实质错误，而 Top-5 支持充分且清楚。<b>Accessibility：</b>所需信息存在，但冲突、噪声或呈现使其难以使用。<b>Insufficiency：</b>Top-5 缺少回答所需信息。</p>
+   <p><b>Correct：</b>原答案在题目要求下语义正确，不要求与 gold 逐字一致。<b>Utilisation：</b>原答案有实质错误，或遗漏回答问题所需的关键内容，而 Top-5 支持充分且清楚。<b>Accessibility：</b>所需信息存在，但冲突、噪声或呈现使其难以使用。<b>Insufficiency：</b>Top-5 缺少回答所需信息。部分正确不自动算 Utilisation，仍须逐条确认缺失内容是否关键。</p>
    <p>时间题按冻结语料时点审核。参考有疑问可单独标记；无法裁定时保存为暂缓。暂缓只是审核状态，不是第五种运行时主标签。</p>
    <p>人工结论初始留空。“采用辅助建议为草稿”需要你主动点击，并不会完成确认。修改已确认记录后会恢复草稿。浏览器草稿仅保存在当前浏览器，审核一批后请导出 JSON 备份；换浏览器或电脑可导入同一版本文件。</p>
    <p>本页无需联网，不会自动修改 main 数据、gold、评分规则或仓库标注。下载的审核文件交回后再核对入库。</p>
@@ -135,8 +135,8 @@ dialog p{margin-top:0}dialog .button-row{justify-content:flex-end}#fileError:emp
       }
       if (value.use === 'correct_control' && value.primary_label !== 'correct') throw Error('正确对照需要 Correct 标签');
       if (value.primary_label === 'evidence_utilisation' &&
-          (value.initial_answer_status !== 'incorrect' || value.evidence_status !== 'sufficient_clear')) {
-        throw Error('Utilisation 需要原答案有实质错误、证据充分且清楚');
+          (!['incorrect', 'partial'].includes(value.initial_answer_status) || value.evidence_status !== 'sufficient_clear')) {
+        throw Error('Utilisation 需要原答案有实质错误或遗漏关键内容、证据充分且清楚');
       }
       if (value.use === 'include_e_core' && value.primary_label !== 'evidence_utilisation') {
         throw Error('E 核心开发需要 Utilisation 标签');

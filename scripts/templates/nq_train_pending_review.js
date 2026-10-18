@@ -43,8 +43,8 @@
       }
       if (value.use === 'correct_control' && value.primary_label !== 'correct') throw Error('正确对照需要 Correct 标签');
       if (value.primary_label === 'evidence_utilisation' &&
-          (value.initial_answer_status !== 'incorrect' || value.evidence_status !== 'sufficient_clear')) {
-        throw Error('Utilisation 需要原答案有实质错误、证据充分且清楚');
+          (!['incorrect', 'partial'].includes(value.initial_answer_status) || value.evidence_status !== 'sufficient_clear')) {
+        throw Error('Utilisation 需要原答案有实质错误或遗漏关键内容、证据充分且清楚');
       }
       if (value.use === 'include_e_core' && value.primary_label !== 'evidence_utilisation') {
         throw Error('E 核心开发需要 Utilisation 标签');
