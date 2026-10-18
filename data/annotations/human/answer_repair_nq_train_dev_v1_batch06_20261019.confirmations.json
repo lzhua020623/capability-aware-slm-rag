@@ -1,0 +1,51 @@
+{
+  "reviewer": "用户（本对话）",
+  "confirmed_at": "2026-10-19",
+  "timezone": "Australia/Sydney",
+  "user_text": "N86对 N87对 N88对 N90对 N92对 N93对 N95对 N97对 N100对",
+  "review_set_id": "answer_repair_nq_train_dev_v1",
+  "review_numbers": [
+    86,
+    87,
+    88,
+    90,
+    92,
+    93,
+    95,
+    97,
+    100
+  ],
+  "accept_correctness": [
+    86,
+    87,
+    88,
+    90,
+    92,
+    93,
+    95,
+    97,
+    100
+  ],
+  "accepted_sample_ids": {
+    "86": "-3785663679516475986",
+    "87": "-1941458279715717945",
+    "88": "258078115163430675",
+    "90": "40482195487920200",
+    "92": "3326691068650840908",
+    "93": "2576360884323654666",
+    "95": "-3805777236251722390",
+    "97": "-1848647332780502367",
+    "100": "-3270371413280430670"
+  },
+  "confirmation_mode": "chat_assisted_explicit_correctness_confirmation",
+  "independent_blind_annotation": false,
+  "source_review_file": "artifacts/answer_repair/nq_train_dev_v1/review/review_queue.jsonl",
+  "source_review_sha256": "a7807984201905627cf2bb4b2f368c1eb7eaee7223dc8ef8beafea081392238c",
+  "assisted_review_file": "data/annotations/assisted/answer_repair_nq_train_dev_v1_20261017.jsonl",
+  "assisted_review_sha256": "920ea1c56f1b9512346e0d84fcd1d8e9e8e6abe9e62478e7ba2392378dece389",
+  "review_packet_sha256": "c9f2230dda81b660b3ace5bbbcb7618db39dfbe2bfe6e3bd44c44d7a8a19c6b9",
+  "prior_human_file": "data/annotations/human/answer_repair_nq_train_dev_v1_through_batch05_20261019.jsonl",
+  "prior_human_sha256": "9ae9432a6c4c6498b1e8179ddd68ca517a6c9cb5b45de6a6917eed6402c9c5fd",
+  "scope": "Only the last nine explicitly named correct judgements. This completes a first review pass over all 100, without resolving the 25 held records.",
+  "not_confirmed": "No prior rubric or scope disagreement resolved; no independent support score, E final output, model improvement, replacement gold or global completeness rubric confirmed."
+}

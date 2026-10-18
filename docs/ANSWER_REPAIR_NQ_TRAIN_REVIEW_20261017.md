@@ -1,12 +1,35 @@
 # NQ Train 开发样本辅助审核：2026-10-17
 
-已完成固定首批 100 条的代理辅助审核。截至 2026-10-19 第五批意见，用户已对 91 条给出意见：**66 条定案（11 条 E utilisation 目标、55 条正确对照）、25 条待定，另有 9 条尚未审核**。25 条包括最初 17 条暂缓、第四批 5 条完整性／表达口径分歧及本批 N58/N61/N83 条件或补充要求；用户原话与代理复核分别保留，不自动当作事实错误。55 条对照含 N76 的同实体来源表述核对，已单独标明。仍未定案共 34 条。原始数据以 `origin/main@058f10baa47083220f95edb39db8f106aa7e85d6` 为准；此前核对时未发现该提交之后的新 main 提交，本轮未重新查询远端。
+截至 2026-10-19 第六批意见，固定首批 **100 条均已有一轮人工意见；75 条定案（11 条 E utilisation 目标、64 条正确对照），25 条待定，未过目为 0**。第一轮过目完成不等于所有主标签定案，更不表示全量 74,097 条已标注。25 条包括最初 17 条暂缓、第四批 5 条完整性／表达口径分歧及 N58/N61/N83 条件或补充要求；用户原话与代理复核分别保留，不自动当作事实错误。64 条对照含 N76 的同实体来源表述核对，已单独标明。原始数据以 `origin/main@058f10baa47083220f95edb39db8f106aa7e85d6` 为准；此前核对时未发现该提交之后的新 main 提交，本轮未重新查询远端。
 
-当前状态见 [累计 91 条审核记录](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch05_20261019.jsonl) 和 [累计计数](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch05_20261019.summary.json)。前四批记录及 [第四批累计历史计数](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch04_20261019.summary.json) 保留原样。这些是查看辅助分析和证据后的对话意见，不是独立盲标；没有确认任何 E 新输出正确。
+当前状态见 [累计 100 条审核记录](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch06_20261019.jsonl) 和 [累计计数及待定分组](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch06_20261019.summary.json)。前五批记录及 [第五批累计历史计数](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch05_20261019.summary.json) 保留原样。这些是查看辅助分析和证据后的对话意见，不是独立盲标；没有确认任何 E 新输出正确。
 
 2026-10-17 接入时核对 main 新增的 11 个交付/流水线文件与本地版本，均逐字节一致；Google 下载的 15 个原始分片均与 main 清单的 SHA-256 一致。74,097 条源记录及其 gold 未修改。E 的转换文件、内部划分与审核建议均为派生产物；如与 main 后续正式协议或团队共同划分冲突，应按上游重建新的派生版本。
 
-## 第五批人工意见：2026-10-19
+## 第六批人工意见与首轮收口：2026-10-19
+
+用户明确确认 N86/N87/N88/N90/N92/N93/N95/N97/N100 均正确，9 条全部加入正确对照。原话及范围见 [第六批确认](../data/annotations/human/answer_repair_nq_train_dev_v1_batch06_20261019.confirmations.json)，逐条记录见 [第六批人工记录](../data/annotations/human/answer_repair_nq_train_dev_v1_batch06_20261019.jsonl)。全部来源记录、段落引用及字符位置校验通过；N87 的优势概述与 N88 的协议／规范表述只按本例接受，不推导全局简答规则。
+
+| 首轮处理结果 | 数量 | 用途 |
+|---|---:|---|
+| 内部 E utilisation 目标 | 11 | 开发时检查是否修复原错误 |
+| 正确对照 | 64 | 开发时检查是否误修已有正确回答 |
+| 待定 | 25 | 隔离，不用于当前修复收益统计 |
+| 尚未过目 | 0 | 100 条均已收到人工意见 |
+
+当前可用开发输入为 [75 条清单](../configs/splits/answer_repair_nq_train_confirmed_dev_v6.json)、[冻结 C1 子集](../artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch06_c1.jsonl) 和 [纯运行时子集](../artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch06_runtime.jsonl)。75 条全部来自 development，校准／预留交集为 0，runner 冻结评分预检通过。25 条旧待定记录逐条及原字节内容保持一致，不因首轮结束自动解禁。gold、原 C1、冻结 scorer、上游 Diagnosis 标签、v7 结果和 E 算法均未改，未运行新 GPU 实验。
+
+待定清单按来源分为三组：
+
+- 原争议未解决 17 条：N3/N7/N19/N28/N44/N56/N57/N59/N63/N67/N78/N79/N82/N89/N91/N98/N99。
+- 完整性／表达口径 5 条：N13/N18/N22/N41/N43。
+- 购买条件、地点范围或时间限定 3 条：N58/N61/N83。
+
+下一轮可使用 11 个目标和 64 个正确对照推进原答案核验、最小修复及候选核验的受控开发，25 条继续隔离，不要求先强行定类。需要分别记录改对、误修、无变化、解析失败及调用成本；该子集经过人审选择且不是未见测试集，不能直接外推总体增益。本轮只完成审核整理与输入准备，不代表 v8 已实现或有效。
+
+网页最新导入文件为 [第六批累计状态](../artifacts/answer_repair/nq_train_dev_v1/review/NQ_train_pending_92.chat_confirmations_batch06_20261019.json)，原 92 条包显示 67 条确认、25 条待定、0 条未审；另 8 条最早确认的 E 目标本就不在该页。导入前先备份其他浏览器草稿，文件包含前几批意见，原数据包哈希不变。
+
+## 第五批人工意见：2026-10-19（历史）
 
 本批共 22 条，18 条明确判对：N51/N53/N54/N55/N60/N64/N65/N66/N68/N69/N70/N71/N72/N73/N75/N77/N80/N85。逐条引用位置、段落及来源哈希均通过核对；按冻结语料时点记录，N51 的 current 和 N80 的 new 均不解释为今天的最新版本或人物状态。
 

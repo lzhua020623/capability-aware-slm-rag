@@ -1,0 +1,2087 @@
+{
+  "schema_version": "nq_train_e_human_review_v1",
+  "packet_id": "nq_train_dev_v1_pending_after_batch01",
+  "packet_sha256": "c9f2230dda81b660b3ace5bbbcb7618db39dfbe2bfe6e3bd44c44d7a8a19c6b9",
+  "review_set_id": "answer_repair_nq_train_dev_v1",
+  "source_main_commit": "058f10baa47083220f95edb39db8f106aa7e85d6",
+  "sources_sha256": {
+    "queue": "a7807984201905627cf2bb4b2f368c1eb7eaee7223dc8ef8beafea081392238c",
+    "assisted": "920ea1c56f1b9512346e0d84fcd1d8e9e8e6abe9e62478e7ba2392378dece389",
+    "human": "09e4a049c143e27b71f1b9e4feb11b14a30cd7f68c6005e58d6073597683b149",
+    "human_summary": "03c54fd00622cc1c2edffc97c0b3acad2b16201ef310ec35921caef4773f997c"
+  },
+  "exported_at": "2026-10-19",
+  "reviewer_default": "",
+  "reviews": [
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:840698384509679882",
+      "review_number": 3,
+      "dataset": "nq",
+      "sample_id": "840698384509679882",
+      "source_record_sha256": "742b3ba0b31fc810882f9eaac502ca6dc492d52c0e80415a4de13c9dda94b7c8",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "uncertain",
+        "evidence_status": "uncertain",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          4
+        ],
+        "reference_issue": null,
+        "reason": "用户逐条同意 N3 的暂缓判断。辅助理由：问题是残缺片段，没有明确要求旧名还是新名。R4 明确 SNAP 原称 Food Stamp Program，C1 是真实旧称，不能仅因 gold 是新名判错。暂缓，需确认问题意图与可接受别名。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-7478903804748756717",
+      "review_number": 7,
+      "dataset": "nq",
+      "sample_id": "-7478903804748756717",
+      "source_record_sha256": "e5b2ea1f9db54fa646c2e820ec75057b605ab6ef05ee5a69b5d0e762f1110e43",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "uncertain",
+        "evidence_status": "uncertain",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          2,
+          5
+        ],
+        "reference_issue": null,
+        "reason": "用户逐条同意 N7 的暂缓判断。辅助理由：残缺问题 purchased by 可以接购买者，也可以接购买方式。C1 private investors 对应 R2 的购买者，gold 则采用 R5 的买入持有股票方式；两种续写都可能成立，不能直接判定 utilisation，建议暂缓。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-6909798989883244156",
+      "review_number": 8,
+      "dataset": "nq",
+      "sample_id": "-6909798989883244156",
+      "source_record_sha256": "2460c4ffd8c40b2ec0f17c4215ee567bfec29fffee7e1fe8c92ae9f1004f4844",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "incorrect",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "evidence_utilisation",
+        "use": "include_e_core",
+        "supporting_ranks": [
+          2,
+          3,
+          4
+        ],
+        "reference_issue": null,
+        "reason": "用户确认回答的主体识别错误。本例按歌名 Breakfast at Tiffany's 解读：R2 给出 Deep Blue Something；R3/R4 说明 Audrey Hepburn 唱的是电影中的 Moon River。C1 给出了演唱者形式的答案，却指向另一首歌。歌曲意图按本例人审确定；明确的目标歌名与演唱者关系位于 R2，内部 E 开发映射为 utilisation。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-8572418612439458772",
+      "review_number": 19,
+      "dataset": "nq",
+      "sample_id": "-8572418612439458772",
+      "source_record_sha256": "573b4c1049975ccd7e768d13ad7e4ebc3487507fee193d55b1aa35fdd1adda35",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "uncertain",
+        "evidence_status": "uncertain",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          1,
+          5
+        ],
+        "reference_issue": null,
+        "reason": "用户逐条同意 N19 的暂缓判断。辅助理由：R5 只说另一段未指明片名的 Bailamos 由 Enrique Iglesias 演唱，不能支持 Gran Torino 的演唱者。R1 混列作曲、作词与 Eastwood performed，未清楚区分 Kyle/Clint，也没有明确片尾演唱者，无法据此独立确认 gold Kyle Eastwood；暂缓而非直接纳入清楚证据下的 utilisation。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:9101034110241732780",
+      "review_number": 28,
+      "dataset": "nq",
+      "sample_id": "9101034110241732780",
+      "source_record_sha256": "bdb5ec00894f9ae1cc9e9a55a9d1da1b7d9ac209adba3ba8297e762bc840199e",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "uncertain",
+        "evidence_status": "uncertain",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          1,
+          2,
+          3
+        ],
+        "reference_issue": null,
+        "reason": "用户逐条同意 N28 的暂缓判断。辅助理由：Ron Galotti 在 R2 是 Mr. Big 的原型，与 Billionaire Boy 不同。R1/R3 只说明小说讲 Joe Spud，并未证明依据哪位真实 famous personality 创作；gold 是故事人物而题干问原型，建议暂缓核对题意及参考，不能直接当成证据清楚的 utilisation。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-3169716056891969228",
+      "review_number": 33,
+      "dataset": "nq",
+      "sample_id": "-3169716056891969228",
+      "source_record_sha256": "d5de0f5489b1072eead5561f4d492c8c33a168c65b2f9a02968e2d4ee26b69a1",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "partial",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "evidence_utilisation",
+        "use": "include_e_core",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户确认 R1 已清楚回答名称由来，但 C1 仅给地点，没有回答具体内容。Foley, Alabama 作为地点事实有支持；本题按名称来源审核，缺少掉字招牌上 Doors Down 以及三位成员加上 3 的关键解释。记录为部分正确、未完整回答所求事实，内部 E 开发映射为 utilisation；保留地点事实本身正确这一细节。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:7162334026625697981",
+      "review_number": 44,
+      "dataset": "nq",
+      "sample_id": "7162334026625697981",
+      "source_record_sha256": "f827ad87602700dce09f202d212b564b359ab3cb461b649531d15086c547aef4",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "uncertain",
+        "evidence_status": "uncertain",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          2,
+          4
+        ],
+        "reference_issue": null,
+        "reason": "用户逐条同意 N44 的暂缓判断。辅助理由：R2 的 October 2015 是历史暖夜纪录，不是相对当前提问时间的升温起点。R4 支持夏季温暖这一常年气候事实，但题干 when will it start 没有起算日期，gold summer 也未必唯一解释；暂缓核对时间意图，不用当前天气替换冻结证据。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-703872651120117348",
+      "review_number": 52,
+      "dataset": "nq",
+      "sample_id": "-703872651120117348",
+      "source_record_sha256": "99fc18a0c9da48668b7217c6fc336869c851fd3c46fa5008f42e55431229fcd5",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 September 2017 在本例答对，作为正确对照。R1 直接描述 September 2017 宣布参加 season 25；用户接受该月份对 when 问题的回答粒度。本次未进一步确认实际参赛起止日期，也不推导宣布时间总能替代事件发生时间。冻结 gold 仍为 season 25，原 EM/F1 不改。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-3181101556031284606",
+      "review_number": 56,
+      "dataset": "nq",
+      "sample_id": "-3181101556031284606",
+      "source_record_sha256": "42a8239d5243aefc068326cfe9f2b32690e896131317d316fa9f32f67d4071fd",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "uncertain",
+        "evidence_status": "uncertain",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          1,
+          2
+        ],
+        "reference_issue": false,
+        "reason": "用户逐条同意 N56 的暂缓判断。辅助理由：R1 动画首播是 April 5, 2017，而 R2 漫画于 2016 启动；题目未明说 anime 或 manga。C1 2016 可对应漫画，按 gold 意图则指动画。暂缓媒介意图，不能仅凭 gold 日期把另一媒介日期自动判 utilisation。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:7760609859570217617",
+      "review_number": 57,
+      "dataset": "nq",
+      "sample_id": "7760609859570217617",
+      "source_record_sha256": "ee5ce65faf36bab386cb7f5e0cc1fcc7a49a188227f21b9547404e906b9d614e",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "uncertain",
+        "evidence_status": "uncertain",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          2
+        ],
+        "reference_issue": null,
+        "reason": "用户逐条同意 N57 的暂缓判断。辅助理由：R2 明确半径约九倍、质量超过九十五倍。题干 bigger 没有指定半径、质量或体积；C1 9 对半径成立，gold 95 对质量成立。需先确认计量维度，暂缓主标签；supported 只指九倍半径这项事实有支持。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-8480487982704561767",
+      "review_number": 59,
+      "dataset": "nq",
+      "sample_id": "-8480487982704561767",
+      "source_record_sha256": "97dcfd7c4df80f35a93bf17f1f7c93b420a040c65306926f0923544c19b0cb82",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "uncertain",
+        "evidence_status": "uncertain",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          2,
+          4
+        ],
+        "reference_issue": true,
+        "reason": "用户逐条同意 N59 的暂缓判断。辅助理由：R2 明确电子传递链最多 28；R1、R3、R5 的计量不同且相互不一致。gold 的约 29-30 在 R4 位于整套细胞呼吸总产量讨论，未清楚对应仅电子传递链。C1 有局部支持但省略最多，参考也可能混淆阶段与总量，暂缓而非判为清楚证据下 utilisation。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:3219108291257004958",
+      "review_number": 62,
+      "dataset": "nq",
+      "sample_id": "3219108291257004958",
+      "source_record_sha256": "cd5c4ab0be7909c68aa485e29ddf9f181dc853b99d4ad004c4c3e427d5c2f7ab",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "partial",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "evidence_utilisation",
+        "use": "include_e_core",
+        "supporting_ranks": [
+          5
+        ],
+        "reference_issue": null,
+        "reason": "用户要求本例回答全名。R5 明确给出 Lars Dittmann Mikkelsen 与 Viktor Petrov 的演员关系；C1 只回答 Lars Dittmann，缺少主要姓氏 Mikkelsen。按本例记录为姓名信息不完整，内部 E 开发映射为 utilisation。此裁决不建立所有人名都必须输出完整法定姓名的全局规则。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:4805262687691570399",
+      "review_number": 63,
+      "dataset": "nq",
+      "sample_id": "4805262687691570399",
+      "source_record_sha256": "73fda9c310aa652074ec60d4b47ec5197145e90fefd8e50c33b0bff50044e8ca",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "uncertain",
+        "evidence_status": "insufficient",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          2,
+          3
+        ],
+        "reference_issue": true,
+        "reason": "用户同意 N63 的暂缓判断。辅助理由：题目问首次核试验时的 President，R2 明确 Indira Gandhi 的职务是 Prime Minister，并给出首次试验 1974。Top-5 未给当年总统；R3 提到 Zakir Hussain 也未对应 1974。gold 与题干职务存在可见错位，暂缓，不把改成 gold 当作正确修复。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-5753551957569410893",
+      "review_number": 67,
+      "dataset": "nq",
+      "sample_id": "-5753551957569410893",
+      "source_record_sha256": "e78f6eb99889c3fec947cc8207aa1c56558c1d6f7609c85ccf3249ddb18727e4",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "uncertain",
+        "evidence_status": "uncertain",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          1,
+          2
+        ],
+        "reference_issue": false,
+        "reason": "用户同意 N67 的暂缓判断。辅助理由：R1 逐字支持 C1 所说电子学属于物理及电气工程，但题目残缺，可能要具体研究性质，也可能要领域归属。gold 选择 R2 的半导体研究属于固体物理，不能直接确定哪种解读。暂缓完整性判断；supported 仅指该概述本身有证据。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:7659917870644642145",
+      "review_number": 78,
+      "dataset": "nq",
+      "sample_id": "7659917870644642145",
+      "source_record_sha256": "304997b0ceab0178c8bb1459da50b782def698d1808f7ec1b329eb67e42c44ae",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "uncertain",
+        "evidence_status": "uncertain",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          1,
+          5
+        ],
+        "reference_issue": false,
+        "reason": "用户同意 N78 的暂缓判断。辅助理由：R1/R2 支持 Cheshire Cat，R5 也明确 Dinah 是 Alice's Adventures in Wonderland 中 Alice 的猫。题干没有笑容、消失等限定，the cat 不能唯一指 Cheshire；C1 有真实角色支持但与 gold 意图不同，暂缓消歧，不能直接判错误实体。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:4809920436462128496",
+      "review_number": 79,
+      "dataset": "nq",
+      "sample_id": "4809920436462128496",
+      "source_record_sha256": "aba7a3bfe83ae381ffa28d4799e829c29c6d4a25725b7ffe20707301dc023865",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "uncertain",
+        "evidence_status": "uncertain",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          4,
+          5
+        ],
+        "reference_issue": null,
+        "reason": "用户同意 N79 的暂缓判断。辅助理由：Top-5 全部讨论不同语言整套棋子数：106 属 Bambara，100 属英语版。但 how many tiles can you have 也可能问手中可持数量，题干未指定语言或整套。C1 对默认英语整套意图不合，但需先确认计数对象；暂缓，不能靠 gold 100 自动定义问题。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-3974857324122521549",
+      "review_number": 82,
+      "dataset": "nq",
+      "sample_id": "-3974857324122521549",
+      "source_record_sha256": "ba75a27dd4dd13f7d9e079de0e59885ab3514ed69f714a970195a2f714998a7b",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "incorrect",
+        "evidence_status": "uncertain",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          1,
+          3
+        ],
+        "reference_issue": null,
+        "reason": "用户同意 N82 的暂缓判断。辅助理由：题目问固体类型，C1 refrigerant 是用途而非固体分类，未回答所求。R1 只说明 CO2 是 molecule，没有明确给出 molecular solid 的分类及依据；gold molecule 也只是片段。先确认足够证据的标准与分类表述，暂不强行归 utilisation。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-7971666984412271711",
+      "review_number": 84,
+      "dataset": "nq",
+      "sample_id": "-7971666984412271711",
+      "source_record_sha256": "7b34c98ee4bc5d45016b94fd03620f37c923d9217d1cb79761ff2b3b20285d79",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_difficult",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1,
+          2,
+          3
+        ],
+        "reference_issue": null,
+        "reason": "用户确认本例答对。R1/R2 直接支持州名源于 Henrietta Maria，R3 亦称该说法为官方命名理由。将 C1 作为语义正确对照；原 gold 选择 Mary 的另一解释，保留原参考及评分，不将 gold 的单一说法作为唯一可接受答案。此结论不裁决命名史的全部争议。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-5315618206818489317",
+      "review_number": 89,
+      "dataset": "nq",
+      "sample_id": "-5315618206818489317",
+      "source_record_sha256": "1bbec168999013635b2ca73ef4b48ac2a393cfa4ec6bbce9f325a3a32f555c97",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "uncertain",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          2
+        ],
+        "reference_issue": false,
+        "reason": "用户同意 N89 的暂缓判断。辅助理由：R1/R2 都说峰值 over US$35，C1 去掉 over 后若按精确价格理解不被蕴含；若作为约数则可能接受。题目未指定峰值、均值或近似容差，优先人工确认数值限定词与评分标准，不自动当作 utilisation。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-5409628047568925289",
+      "review_number": 91,
+      "dataset": "nq",
+      "sample_id": "-5409628047568925289",
+      "source_record_sha256": "1f626ecbd6b1b4555bb3eb5ffa574e162bb93ed92e5ac880faa9036a54d78204",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "uncertain",
+        "evidence_status": "uncertain",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          3,
+          4
+        ],
+        "reference_issue": false,
+        "reason": "用户同意 N91 的暂缓判断。辅助理由：R3 明确守恒条件是无外力矩；R4 讨论封闭系统内部物体之间交换角动量。C1 in any closed system 是否已排除外力矩取决于 closed 的定义，不能用内部交换的守恒直接推出任意封闭系统均守恒，暂缓条件完整性判断。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-7203695625159603076",
+      "review_number": 94,
+      "dataset": "nq",
+      "sample_id": "-7203695625159603076",
+      "source_record_sha256": "88a4ac233c8900ffeb97feeb33b393467d8570c6da5f9125bf0f43e373ffcab7",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户接受本例对委员会调查反歧视立法相关侵权指控职责的简要概述，判原答案正确，作为正确对照。R1 给出该职责并带 Commonwealth Agencies 限定。本次只接受本题概述粒度，不建立法律范围限定均可省略的全局规则；原 gold 和冻结 EM/F1 保留。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-304374813935559525",
+      "review_number": 98,
+      "dataset": "nq",
+      "sample_id": "-304374813935559525",
+      "source_record_sha256": "055fb5f1cf980c037dc7ed1a645852ab306df3bf8487dd85ce04dcb837b1bd6d",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "uncertain",
+        "evidence_status": "uncertain",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          1,
+          5
+        ],
+        "reference_issue": false,
+        "reason": "用户同意 N98 的暂缓判断。辅助理由：R5 的 March 1951 是试播集制作，R1/R3 的 October 15, 1951 是正式播出起始。题目说 Lucille Ball start，未明确首播还是开始制作；C1 有对应事件支持但和 gold 不同，暂缓事件消歧。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:1121606053642679155",
+      "review_number": 99,
+      "dataset": "nq",
+      "sample_id": "1121606053642679155",
+      "source_record_sha256": "f2b0ba931c961d854c9a2a92d811b7e16ebfdde2e366320caa4bc53b254b90bf",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "uncertain",
+        "evidence_status": "insufficient",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          1,
+          4
+        ],
+        "reference_issue": true,
+        "reason": "用户指出检索证据没有提到题目所求内容。核对全部 Top-5：R4 虽出现 Back-to-Africa movement 名称，但位于早期思想来源叙述，未支持该运动始于 1950s；R1 则说明 1950s 出现多个民族主义政党，并非单一运动。记录必要关系证据不足，保留参考时间／题意疑点，候选方向为 Insufficiency，排除 E utilisation 核心。用户未单独确认 C1 的正确性，也未最终裁决该问题的唯一答案，所以完整主标签继续暂缓。",
+        "reviewed_at": "2026-10-18",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:8045087486700792769",
+      "review_number": 1,
+      "dataset": "nq",
+      "sample_id": "8045087486700792769",
+      "source_record_sha256": "169636b8184d2f764a79d9340ace66569acd7d85a769c02fe3feff702496b9cc",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          3
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N1 答对。辅助证据说明：R3 将写作地点明确为 Essex Farm 附近的救护车后部。C1 给出的 near an advance dressing post at Essex Farm 是真实且直接的位置描述；问题未指定必须精确到车上，建议语义正确，保留位置粒度争议供确认。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:6935740157411537788",
+      "review_number": 2,
+      "dataset": "nq",
+      "sample_id": "6935740157411537788",
+      "source_record_sha256": "c13947223b0d623b53d4f6427f789799715e692f48bdffcd864211a4f67ca839",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          2,
+          3
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N2 答对。辅助证据说明：R2 的城市和 R3 的湖泊均位于 San Bernardino Mountains；C1 是问题所求的有效地点。gold 拼入县、山脉、湖岸及森林的长描述，不应要求短答案逐字复现整段。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:3873185573437128094",
+      "review_number": 4,
+      "dataset": "nq",
+      "sample_id": "3873185573437128094",
+      "source_record_sha256": "439dbb6b63c10145d65003c599aa940c0458cdcba7030978adf9627692ee67b6",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1,
+          4
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N4 答对。辅助证据说明：R1 直接说前两部影片的 Nova 由 Linda Harrison 饰演；R4 的 Linda Melson Harrison 是同一人的全名。省略中间名仍正确，不应修复为另一位新版演员。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-2862660005729156072",
+      "review_number": 5,
+      "dataset": "nq",
+      "sample_id": "-2862660005729156072",
+      "source_record_sha256": "c187f1e6602213ba03ceb31d9c4330388fb0c03b5565877e0d8ffb7eb8f1a71d",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N5 答对。辅助证据说明：R1 直接注明原录音的主音吉他由 Eric Clapton 演奏，C1 与问题、证据及参考一致。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:5772936311107312940",
+      "review_number": 9,
+      "dataset": "nq",
+      "sample_id": "5772936311107312940",
+      "source_record_sha256": "3280183e5d1b86ada0ab127d4f5a8857b23940079a34d0146b68cabab07f7d7a",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N9 答对。辅助证据说明：R1 直接把 Hindu Kush 的位置描述为从阿富汗中部到巴基斯坦北部，C1 完整回答地理范围。gold 的额外边境说明和 [2][3] 引用标记不应使其成为语义错误；只标记参考格式问题，不修改 main 的 gold。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:3253525630861841717",
+      "review_number": 10,
+      "dataset": "nq",
+      "sample_id": "3253525630861841717",
+      "source_record_sha256": "cbee5c910467eda10b01396f14c0c6b8f6f7ca1c676daef5a6a9a7ceee422d09",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N10 答对。辅助证据说明：R1 直接定义 Supervised learning 并说明从 labeled training data 推断函数，C1 正确且有直接支持。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-7993122396287347186",
+      "review_number": 11,
+      "dataset": "nq",
+      "sample_id": "-7993122396287347186",
+      "source_record_sha256": "15a98513190fb063e60e2a97cc4e3cea0d10cf3da407b5c23393385939dba766",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N11 答对。辅助证据说明：R1 明确学生贷款首次于 1958 年提供，C1 与 gold 仅差介词 in，属于语义正确。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-1178549234723633450",
+      "review_number": 12,
+      "dataset": "nq",
+      "sample_id": "-1178549234723633450",
+      "source_record_sha256": "ba5efd34882f6de068d3799adc61a75a8d5d4dd63cedfd7335adf902e857a9cf",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N12 答对。辅助证据说明：R1 直接给出音乐录影带实地拍摄地 Holloway Sanatorium，并说明其在 Surrey, England。问题未限定行政区域，C1 提供更具体的正确地点。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-432828482421557656",
+      "review_number": 13,
+      "dataset": "nq",
+      "sample_id": "-432828482421557656",
+      "source_record_sha256": "57331b59a6aedf41ca1b71fec86205a43a59288aa3550574ce80a342d2cf2a6f",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "partial",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          1,
+          2
+        ],
+        "reference_issue": null,
+        "reason": "用户原话：13没答出来在雪地上。复核说明：题干已写 in the snow，C1 包含仰卧与手臂／双腿动作，冻结 gold 也未重复雪地条件。可补充 on fresh snow 使操作说明独立完整；仅缺少重复题干条件是否构成语义错误尚待口径确认。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-5462248607427716715",
+      "review_number": 14,
+      "dataset": "nq",
+      "sample_id": "-5462248607427716715",
+      "source_record_sha256": "1705d9ec58e7d4f508866d2b7642458cb874c048dd88be1fb2a9470729d77997",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N14 答对。辅助证据说明：R1 明确冠军是 Meryl Davis 和 Charlie White，C1 两位姓名齐全；问题问谁，未要求附国籍，省略 from the United States 不影响正确性。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-3869689776609561239",
+      "review_number": 15,
+      "dataset": "nq",
+      "sample_id": "-3869689776609561239",
+      "source_record_sha256": "02905b4589af62970af17361c553499accf063ce97b416e547bcff51fbaeb1d4",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          5
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N15 答对。辅助证据说明：R5 直接定义全经济一般价格上涨为 inflation，R2/R3 也支持，C1 正确。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-8545550343341719460",
+      "review_number": 16,
+      "dataset": "nq",
+      "sample_id": "-8545550343341719460",
+      "source_record_sha256": "97af33c6ccf3cb38173421043d91d0834bee71f904619876eca52cfd15cd9565",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N16 答对。辅助证据说明：R1 点名 Tugela Falls (Thukela Falls)，C1 是有效主名称。题目将排名范围写成非洲，而证据写世界，需记录题干范围问题，但不影响所指瀑布的名称回答。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-5155812282345038008",
+      "review_number": 17,
+      "dataset": "nq",
+      "sample_id": "-5155812282345038008",
+      "source_record_sha256": "c0d188494f3ab4da5fe6575a90314d46084c59b820e4aa7e5c9995f775db4c43",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N17 答对。辅助证据说明：R1 明确该单曲在 early 1983 发行，C1 比 gold 的 1983 更具体且有直接支持，不能因多 early 判语义错。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:3105967149118897589",
+      "review_number": 18,
+      "dataset": "nq",
+      "sample_id": "3105967149118897589",
+      "source_record_sha256": "0c846e95e71f5e234bcfde6484d6dd8d03e0412fc9e222aaf33e0247c9de1988",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "partial",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          1,
+          2,
+          4
+        ],
+        "reference_issue": null,
+        "reason": "用户原话：18不太全面 应该答goal或者作用。复核说明：用户希望增加目标／作用。题干问 meaning，C1 给出物理学的核心定义，R1/R2 另给 understand how the universe behaves 的目标。定义回答是否必须附目标尚待口径确认；不把新增目标要求直接映射为确定 utilisation。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-2668077822681514653",
+      "review_number": 20,
+      "dataset": "nq",
+      "sample_id": "-2668077822681514653",
+      "source_record_sha256": "706190613aa34aadb858a27aa852a2eb6c3ab6c27476549b3bfd187119b55b1c",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N20 答对。辅助证据说明：R1 明确该人全名、法律教育者身份及 NLSIU founder Director 职务，C1 完整正确。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-2374000572693790398",
+      "review_number": 21,
+      "dataset": "nq",
+      "sample_id": "-2374000572693790398",
+      "source_record_sha256": "1f83f114023527450334cc17aa0cdb0d46915977dd0a820f485ffeb74cefa1e6",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          2
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N21 答对。辅助证据说明：R2 与 C1 的定义一致，C1 只是比 gold 多出 radially symmetrical，且有原文直接支持，不能视为错误。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-460657482644890117",
+      "review_number": 22,
+      "dataset": "nq",
+      "sample_id": "-460657482644890117",
+      "source_record_sha256": "3ad62783bbec1ed026f66b046f39f068b1382270aef252300800d7693e10a24e",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "incorrect",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          1,
+          2
+        ],
+        "reference_issue": null,
+        "reason": "用户原话：N22不算对 答的是动作 应该答名词。复核说明：完整保留用户“不算对”的形式裁决。C1 实际是带 dropped 分词修饰的名词短语，已列出 Irish cream、whiskey、stout；R1/R2 支持成分。按 what is in 问题，它包含所求成分。拒绝该句式是否属于语义错误或独立格式标准尚待澄清；不将这一形式裁决自动计为事实错误。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:8807212559725492691",
+      "review_number": 23,
+      "dataset": "nq",
+      "sample_id": "8807212559725492691",
+      "source_record_sha256": "c9e926f780416b61d2329d7724414bde0ab03608bab91e0ffd94cdcf22ddce11",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          3
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N23 答对。辅助证据说明：C1 的 Thirteenth Amendment 与 gold The Thirteenth 指同一修正案；R3 直接说明其废除奴隶制。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:7243818178627473072",
+      "review_number": 24,
+      "dataset": "nq",
+      "sample_id": "7243818178627473072",
+      "source_record_sha256": "f87f40b75a49d0a258aad79b88b8b140a60443ae2fe0f2cd32408aaaa4ccd39e",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N24 答对。辅助证据说明：R1 明确领导者是 Attorney General A. Mitchell Palmer；问题问谁，C1 省略职衔但人名正确。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:3297321773729700265",
+      "review_number": 25,
+      "dataset": "nq",
+      "sample_id": "3297321773729700265",
+      "source_record_sha256": "4fa69f87161d9756417cceeb63356c8b1461d836bc42d8b3dce89ef31ce0d909",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N25 答对。辅助证据说明：R1 给出原曲属于 Simon & Garfunkel 并描述最初录制，C1 正确且有支持。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-4660048733997517029",
+      "review_number": 26,
+      "dataset": "nq",
+      "sample_id": "-4660048733997517029",
+      "source_record_sha256": "79147db1cc602e177fffab0765b13a87f0901a809dd0dc202b2519316cd2b95c",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          2
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N26 答对。辅助证据说明：R2 明确 John Jackson 的昵称 Jack-Jack 及其婴儿身份；问题未要求全名，C1 用熟知昵称回答正确，连字符分词差异也不改变实体。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-4893882152565259225",
+      "review_number": 27,
+      "dataset": "nq",
+      "sample_id": "-4893882152565259225",
+      "source_record_sha256": "88b278577242a60a0dc49899414a47088693a45e31c19a246e8c4c92e5d2d5d3",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1,
+          3
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N27 答对。辅助证据说明：R1 明确印度合同法主要编入 Indian Contract Act 1872，R3 直接说明该法规定印度合同事务。C1 给具体法律名称，可接受；此处按冻结证据审核，不推断现行法律适用范围。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-3375552100711015909",
+      "review_number": 30,
+      "dataset": "nq",
+      "sample_id": "-3375552100711015909",
+      "source_record_sha256": "6a0e4c4a9b8359929c02c502145f8d701b50fa34a3f19f35c32bf7a56cfd254f",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          5
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N30 答对。辅助证据说明：R5 明确铁路于 1863 至 1869 年建造，起始年 1863 与 C1 和 gold 一致。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-5476828546252817553",
+      "review_number": 32,
+      "dataset": "nq",
+      "sample_id": "-5476828546252817553",
+      "source_record_sha256": "65ece8597c20216c5fd229a8d79b08ebebb72f590894d8a985f51f6fe8e76318",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1,
+          2
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N32 答对。辅助证据说明：R2/R3 直接写 Ron Swanson 由 Nick Offerman 饰演；R1 的 Nicholas 是对应全名，C1 别名有效。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-3954878209346763094",
+      "review_number": 34,
+      "dataset": "nq",
+      "sample_id": "-3954878209346763094",
+      "source_record_sha256": "d12e242e35cf993c32495766bdbbe44b0afee9994461db631c64d43bf168e018",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N34 答对。辅助证据说明：题目明确问 what year，R1 的 20 July 1969 支持 C1 1969；gold 更长并不表示回答缺失所求信息。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:2095868851000293874",
+      "review_number": 35,
+      "dataset": "nq",
+      "sample_id": "2095868851000293874",
+      "source_record_sha256": "12915c92b90af773b71d01448b11a198aa3cd87e9f96cd670e9a403a44624b0f",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          4
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N35 答对。辅助证据说明：按传统任务栏 Start 按钮理解，R4 明确 Windows 8 移除该按钮，支持 C1。题目没有附 following 选项，且 charms 仍有 Start 功能，保留作用范围限定供确认。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:4090393036850137417",
+      "review_number": 36,
+      "dataset": "nq",
+      "sample_id": "4090393036850137417",
+      "source_record_sha256": "85210de5891d3f9bbd308d15250793cb314840d6485e48b304bd1965b208f8cc",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N36 答对。辅助证据说明：R1 明确 CTFS 的工作是长期研究树木种群，C1 直接回答功能。问题未要求组织定义及普查方法，省略这些信息仍可接受。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-1837440648407770655",
+      "review_number": 37,
+      "dataset": "nq",
+      "sample_id": "-1837440648407770655",
+      "source_record_sha256": "7a8d9562a92994843b5fc1598aa28e7eb58028b5f43ca8d8b9c400c9681fca34",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          3
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N37 答对。辅助证据说明：R3/R4 直接写出生后约七到十天睁眼，C1 时长正确；gold 多 after 不构成语义差异。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-2477693809305952311",
+      "review_number": 38,
+      "dataset": "nq",
+      "sample_id": "-2477693809305952311",
+      "source_record_sha256": "3033b344fe5f4ba25613bfb6638c764a561ec6739470f4f2e0deee883a68f176",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N38 答对。辅助证据说明：R1 与 C1 相同，只是 C1 带 are called 的句式外壳，所给名称 continuity lines 正确。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:6098465629713582210",
+      "review_number": 39,
+      "dataset": "nq",
+      "sample_id": "6098465629713582210",
+      "source_record_sha256": "6e4fd5af5b6866399eeaa06979574ae8989f0efb65fbc549474290946a1497b9",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N39 答对。辅助证据说明：R1 明确名称来自四分之一英里赛程，支持 C1；R2 进一步解释其短距离超越其他马的能力，C1 已交代名字 Quarter 的来源，建议可接受。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:2714282365828041450",
+      "review_number": 40,
+      "dataset": "nq",
+      "sample_id": "2714282365828041450",
+      "source_record_sha256": "416a525ae87e410683f690cfe8cf0881eaba68d9c3dcaa6b1862b1ce2dee27e0",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          2
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N40 答对。辅助证据说明：R1/R2 明确木马计由 Odysseus 提出，C1 回答策划者而非建造者 Epeius，正确。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-5596488726190102840",
+      "review_number": 41,
+      "dataset": "nq",
+      "sample_id": "-5596488726190102840",
+      "source_record_sha256": "25942f4d35de116c7df403c776053b768620fbf49913a8074deb39adacc4154e",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "partial",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          1,
+          2
+        ],
+        "reference_issue": null,
+        "reason": "用户原话：N41没说是小写。复核说明：用户希望明确写 lowercase。C1 的实际字符 π 已是小写希腊字母，区别于大写 Π；省略 lowercase 一词没有抹去字形所表达的信息。将该修饰词列为表达补充，语义错误判据尚待口径确认。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:8542075949294420082",
+      "review_number": 42,
+      "dataset": "nq",
+      "sample_id": "8542075949294420082",
+      "source_record_sha256": "f41260124a8f658e281e12cadabf19a844fdc7b4f74ad8c3e7df73bcdde18042",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          2
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N42 答对。辅助证据说明：R2 直接列出碳、氮和氧同位素作催化剂，C1 列全所求实体。gold 多 using 和 as catalysts 的句式成分不应影响语义正确性。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:1704380880039099855",
+      "review_number": 43,
+      "dataset": "nq",
+      "sample_id": "1704380880039099855",
+      "source_record_sha256": "fc37ac227913a651c29a79e8ce5e85c8b5e6b25b051ce596907623d481682d0d",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "partial",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户原话：N43要写拉贾斯坦邦焦特布尔市。复核说明：按用户要求可写 Jodhpur, Rajasthan（拉贾斯坦邦焦特布尔市），R1 直接支持。C1 的 Jodhpur 已指明正确城市；该题必须附邦名还是可接受城市粒度尚待口径确认，避免与其他已接受的地点简答产生未声明的评分差异。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:8854896567380520932",
+      "review_number": 45,
+      "dataset": "nq",
+      "sample_id": "8854896567380520932",
+      "source_record_sha256": "238ee6b329a28ac29b496e64be5a9594f9e250df7961df1d77ed44b0253ced48",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N45 答对。辅助证据说明：R1 明确 Stargate 为 1994 年科幻电影且是该系列首部，满足年份、类型和开启系列的关系。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-5028227845229715599",
+      "review_number": 46,
+      "dataset": "nq",
+      "sample_id": "-5028227845229715599",
+      "source_record_sha256": "d7f269e25b5cf27c399807322f529e2070a0f366165a85b9eb93166c7b9bec8e",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1,
+          2
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N46 答对。辅助证据说明：R1 用 1500s England，R2 用 16th-century Kingdom of England 描述同一背景，C1 与证据及 gold 对应。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-8389494065836841182",
+      "review_number": 47,
+      "dataset": "nq",
+      "sample_id": "-8389494065836841182",
+      "source_record_sha256": "239c2c0f59f640d27ddd054700f16edd90d501c63f24afc85cf0a261a0dd3d04",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          5
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N47 答对。辅助证据说明：问题只问城市，R1/R5 直接给 Seoul；C1 不附 South Korea 仍完整回答所求。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-4431827520967666941",
+      "review_number": 50,
+      "dataset": "nq",
+      "sample_id": "-4431827520967666941",
+      "source_record_sha256": "4f1aecf6bb3be358d9d8815285a62fb5fac3729ef10088b11a96b03ead991adb",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          2
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N50 答对。辅助证据说明：R2 明确真实拍摄庄园位于 Waimānalo，且说明同剧客房和庄园关系，C1 正确。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-547285585922035520",
+      "review_number": 51,
+      "dataset": "nq",
+      "sample_id": "-547285585922035520",
+      "source_record_sha256": "51d7b69bda022a4cf809826706e40800f79d6fdbb44eec8955e65eb13cde995e",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N51 答对。冻结证据辅助理由：按本批冻结语料及 gold 的时间口径，R1 明确完整名称与缩写 DSM-5 对应，C1 只用缩写正确。题干 current 不解释为今天的最新版本，不据此更新参考。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:2517363209257675065",
+      "review_number": 53,
+      "dataset": "nq",
+      "sample_id": "2517363209257675065",
+      "source_record_sha256": "fc272b9b08c1cc9dfd3def88bb47b386f41c73cc146ed2e82b76c324c8d16f26",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N53 答对。冻结证据辅助理由：R1 明确昵称选自 name the team contest 的投稿，C1 直接回答来源。题目未要求投稿数量及营销理由，建议接受简答。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:3898710090334906649",
+      "review_number": 54,
+      "dataset": "nq",
+      "sample_id": "3898710090334906649",
+      "source_record_sha256": "d0e1b5890c28b59d4659a5b18ade5046367111cd8bcb8ae14161ca62e60bff05",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          3
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N54 答对。冻结证据辅助理由：R1/R3 都说明礼物来自法国人民；C1 France 是来源国的常见简答，未错误指定其他赠送者，建议语义正确。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:6471608951128519572",
+      "review_number": 55,
+      "dataset": "nq",
+      "sample_id": "6471608951128519572",
+      "source_record_sha256": "1adf183b0d3f7df5ad08a3321d7d583116d3acc0550651e7713567b3754ff3e0",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N55 答对。冻结证据辅助理由：R1/R2 直接点名照片由 Joe Rosenthal 拍摄，C1 正确。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:8748373647137023318",
+      "review_number": 58,
+      "dataset": "nq",
+      "sample_id": "8748373647137023318",
+      "source_record_sha256": "bb9359d4e4cc8fd2cbdc8b344aa03c085b478e2937fbf4c692cbb8d30a4896f3",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "incorrect",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户原话：N58错了21。冻结证据复核：原样保留用户将 18 判错并提出 21 的意见。冻结 R1 同时写一般 non-NFA 枪械购买年龄为 18，以及从 federal firearms licensees 购买 handgun 为 21；原题未限定枪种或渠道，gold 仍为 18 years。21 仅在该段限定条件下得到支持，不能将这一条件数值自动改为所有购买场景的答案。购买条件待明确，暂不作为 E 核心事实错误，也不更新 gold。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-1904111941153300402",
+      "review_number": 60,
+      "dataset": "nq",
+      "sample_id": "-1904111941153300402",
+      "source_record_sha256": "f37afb46087064ad9380807bf074821fc8622c24bf6fbd488ef6bbadff1c5152",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          2
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N60 答对。冻结证据辅助理由：R2 明确 Riley Voelkel 饰演 Fiona Goode 的年轻版本，C1 与所问 young Fiona 对应。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:1886755777018557601",
+      "review_number": 61,
+      "dataset": "nq",
+      "sample_id": "1886755777018557601",
+      "source_record_sha256": "287839af118fb646ea98a255abbcec6a4aea9260cc74a71148aa26ba979efdaa",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "partial",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          1,
+          3,
+          5
+        ],
+        "reference_issue": null,
+        "reason": "用户原话：N61应该说位于澳大利亚昆士兰州图文巴市。冻结证据复核：用户希望回答校本部的完整所在地 Toowoomba, Queensland, Australia。R1 直接给出这一基地位置，也明确列出 Toowoomba、Springfield、Ipswich 三个校区；C1 列出这三个真实校区，并包含 Toowoomba。保留用户偏好，不把多校区来源误记为虚构地点；题目未限定 headquarters，完整性与回答范围待定，暂不加入 E 核心。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:1457639279894856450",
+      "review_number": 64,
+      "dataset": "nq",
+      "sample_id": "1457639279894856450",
+      "source_record_sha256": "bbba81994cb48ff711463879a97772f85f82445d0d6f2b8bafb0cac420c4feb7",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          4
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N64 答对。冻结证据辅助理由：问题问 someone 的单数称呼，C1 Czech 与 gold Czechs 的复数属于同一称谓。R4 说明 Czech people 与该国民族对应，单复数不应导致语义错。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:7643377925242908266",
+      "review_number": 65,
+      "dataset": "nq",
+      "sample_id": "7643377925242908266",
+      "source_record_sha256": "37967dbb6f1b1f4cae99932896a1be5a531ce744e75b910efe4b13599b2c5406",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N65 答对。冻结证据辅助理由：R1 明确 For All the Saints 由 William Walsham How 写作，C1 回答作者，未混淆 R2 的旋律作曲者。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-8942709420542468525",
+      "review_number": 66,
+      "dataset": "nq",
+      "sample_id": "-8942709420542468525",
+      "source_record_sha256": "6b2e6d85ecb857ac319a099fe100fb81f7ef742c7da50123a2a535ab3a0926af",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          5
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N66 答对。冻结证据辅助理由：问题问 come out，R5 直接给出首播日期 September 18, 1965，C1 正确。gold 把停播日期一并选入，非此问题所必需。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:7659680993559844629",
+      "review_number": 68,
+      "dataset": "nq",
+      "sample_id": "7659680993559844629",
+      "source_record_sha256": "c4c2882c90ed926e138bb96c9c47b247d06c0933af2235f42d4ddd004dc832d1",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N68 答对。冻结证据辅助理由：R1 明确胜利属于 Allied Powers，C1 回答获胜方，gold Allied victory 是同一事实的另一种表述。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:3473298008288621013",
+      "review_number": 69,
+      "dataset": "nq",
+      "sample_id": "3473298008288621013",
+      "source_record_sha256": "e33dcb9770fe07b94a5716470a827083a2d8f1aebfb1493484c629b3931d616c",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N69 答对。冻结证据辅助理由：R1 地点与 C1 完全对应，C1 仅比 gold 多介词 in，语义正确。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-455522481629941063",
+      "review_number": 70,
+      "dataset": "nq",
+      "sample_id": "-455522481629941063",
+      "source_record_sha256": "e7a26fabcda41b95bd226bfdff6a0bce199851bd2d4a23b278273389f1de881d",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          2
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N70 答对。冻结证据辅助理由：R2 直接说明 2003 真人电影主角由 Mike Myers 饰演，C1 与 gold 及证据一致。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-7534977440550994951",
+      "review_number": 71,
+      "dataset": "nq",
+      "sample_id": "-7534977440550994951",
+      "source_record_sha256": "6a7c55aa54530d4043b71cdca91c5646d4a8e9d0ac380ba39b49ac6fc58bd0f9",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N71 答对。冻结证据辅助理由：题干已给 ____ scale，填 Mohs 恰当；R1 明确矿物硬度的 Mohs scale，C1 不需重复 scale。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-787222857578843686",
+      "review_number": 72,
+      "dataset": "nq",
+      "sample_id": "-787222857578843686",
+      "source_record_sha256": "d52c6a3e2a1b7966184acdcbc8ff396a69504bd736a9a045a0f2adafc59d2ba4",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N72 答对。冻结证据辅助理由：R1 把 Phoebe 定位于 Romans 16:1-2，C1 是相同书卷章节的常见简写，语义正确。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:3133601013091477200",
+      "review_number": 73,
+      "dataset": "nq",
+      "sample_id": "3133601013091477200",
+      "source_record_sha256": "64e25ed150206e214a25a5a7d1127d358ea6b84833d88bf78761113dab382a62",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          4
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N73 答对。冻结证据辅助理由：R4 说明这些玻璃组装成 stained glass windows，也明确 stained glass 一词用于这些窗；C1 使用通用术语可接受，物料与成品的精确命名粒度供确认。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-2794432552733964922",
+      "review_number": 75,
+      "dataset": "nq",
+      "sample_id": "-2794432552733964922",
+      "source_record_sha256": "edd64b515cf5afdfaa630cd0bb8294b478ecd75d7d22c35304aae5d8b9346ed2",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N75 答对。冻结证据辅助理由：R1 直接说明 Atticus Shaffer 饰演 Brick Heck，C1 正确。R3 的出生日期冲突不影响所问演员身份。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:7728406136919122642",
+      "review_number": 76,
+      "dataset": "nq",
+      "sample_id": "7728406136919122642",
+      "source_record_sha256": "38755f5097691fc2149ddc2475e91aa1fe63b14f6cc0b04b80069b3eea85ea36",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "reference_issue": null,
+        "reason": "用户给出“荷兰的圣尼古拉斯”这一来源说明。按 R1 的 Dutch St Nicolas traditions 及 R2/R3 的 Dutch Sinterklaas 对应核对，解释为同一荷兰传统来源的中文表述，原 C1 保留为正确对照。本解释不将 R4 中历史上的希腊主教认作荷兰人，也不要求列尽所有共同来源。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:676364825758831059",
+      "review_number": 77,
+      "dataset": "nq",
+      "sample_id": "676364825758831059",
+      "source_record_sha256": "ef9325c2843014f1c89c7957a30e2aa932cecddbc81e6842591fd80313028276",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N77 答对。冻结证据辅助理由：日期均为 1861 年 4 月 12 至 13 日，差异仅在 -- 与 en dash 及空白；C1 有 R1 直接支持，应保留冻结 EM 同时另记语义正确。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-5283919567456439969",
+      "review_number": 80,
+      "dataset": "nq",
+      "sample_id": "-5283919567456439969",
+      "source_record_sha256": "3f261a2d82fffc0626c5ade4987e31077e02a6e9ca84faeb422a6e6f062679cb",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N80 答对。冻结证据辅助理由：按本批语料的 2018 领导选举时间口径，R1 明确 Ontario 省党领袖选举由 Doug Ford 获胜。C1 正确，未混淆 R3/R5 的联邦 Conservative Party。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-3127624242927084600",
+      "review_number": 83,
+      "dataset": "nq",
+      "sample_id": "-3127624242927084600",
+      "source_record_sha256": "1076d25ff3f25fbe4e925391574187e0f310531b36a8a7bdafcaa5705b793f02",
+      "human_review": {
+        "status": "deferred",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "partial",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "uncertain",
+        "use": "hold",
+        "supporting_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "reference_issue": null,
+        "reason": "用户原话：N83要加时间限制。冻结证据复核：用户要求给动态粉丝排名加时间限定。R1 明确 as of July 2018，最多粉丝账户是 Instagram 自己的账户；其余证据是同年其他月份的快照。建议表达为截至 2018 年 7 月，Instagram 自己的账户。实体在冻结语料口径下有支持，未补时间是否判原答案错误尚未得到明确二元裁决；先记录时间完整性要求，不查询或替换为当前排名，不加入 E 核心。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:5607341441683614186",
+      "review_number": 85,
+      "dataset": "nq",
+      "sample_id": "5607341441683614186",
+      "source_record_sha256": "c9ece9fa9896a203a2dd43117249af50ccbc95e86dd9b8b74a0dc082235e5d69",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N85 答对。冻结证据辅助理由：R1 把 If It Makes You Happy 明确关联 Sheryl Crow 的专辑和女声演唱奖，C1 正确且有对应作品支持。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-3785663679516475986",
+      "review_number": 86,
+      "dataset": "nq",
+      "sample_id": "-3785663679516475986",
+      "source_record_sha256": "71f714dc4d8190e797328ba7b068602050d3a25f38fc50a960812d3d90e5c6c2",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          3
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N86 答对。冻结证据辅助理由：R1/R3 清楚说明 Sean Bean 饰演 Eddard Stark，gold 的 Bean 是同一人的姓氏，C1 全名更完整。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-1941458279715717945",
+      "review_number": 87,
+      "dataset": "nq",
+      "sample_id": "-1941458279715717945",
+      "source_record_sha256": "992eab1d9392bd4206f51a8d06c2350eca2b3c2a9adaca8344f9ea881f37fa8c",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N87 答对。冻结证据辅助理由：R1 直接列出改善性能并减小参数变化敏感性，C1 覆盖这两个主方向。未展开增益稳定、线性及响应等性能例项，建议简答可接受，但充分具体程度需人工确认；不把改善理解为所有设计条件下绝对保证。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:258078115163430675",
+      "review_number": 88,
+      "dataset": "nq",
+      "sample_id": "258078115163430675",
+      "source_record_sha256": "601716b8f3ca1a43ee5f66ceeef2afd13abba247ef9c075e9c057c0fd1e99353",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1,
+          4
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N88 答对。冻结证据辅助理由：R1 明确通信协议规范规定交换信息的规则及行为，R4 定义 communication protocol。C1 提供该规则体系的规范表述，建议语义可接受，协议与文档层级差异留给人工确认。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:40482195487920200",
+      "review_number": 90,
+      "dataset": "nq",
+      "sample_id": "40482195487920200",
+      "source_record_sha256": "8f9e96f5e98edb9e6d4ac1bc9e88924a6692f731640664f90bd28c690dc804e3",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          3
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N90 答对。冻结证据辅助理由：R3 明确小说为 Surrey 的无名主人公及其伦敦弟弟的第一人称叙事，C1 对主人公叙述者的居住地区回答正确，未用作者住址代替。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:3326691068650840908",
+      "review_number": 92,
+      "dataset": "nq",
+      "sample_id": "3326691068650840908",
+      "source_record_sha256": "06c04f986bc8fe5fa9c434e37b45887c4b675845a41fc4bfed037e0f28dda074",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N92 答对。冻结证据辅助理由：R1 直接说 Nikita 第四季六集，C1 6 与 gold six 是同一计数，属于数字形式差异。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:2576360884323654666",
+      "review_number": 93,
+      "dataset": "nq",
+      "sample_id": "2576360884323654666",
+      "source_record_sha256": "f2e1a28e74f9cbe4c76daf4602d6a4c16033f4ec0c0ebfa72a6f1e623c9bf6bc",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N93 答对。冻结证据辅助理由：R1 明确战斗在 April 21, 1836 进行且仅持续 18 分钟，C1 给出日期及持续时长，足以表明起止均在该日；额外时长有证据支持。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-3805777236251722390",
+      "review_number": 95,
+      "dataset": "nq",
+      "sample_id": "-3805777236251722390",
+      "source_record_sha256": "2366be838eb97853f78e138ba881fb29b8e75058a0de0fe9b4eb7b5ee36ee638",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          5
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N95 答对。冻结证据辅助理由：R5 直接定义一个基因影响两个或更多表型为 Pleiotropy，C1 正确且仅有大小写差异。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-1848647332780502367",
+      "review_number": 97,
+      "dataset": "nq",
+      "sample_id": "-1848647332780502367",
+      "source_record_sha256": "28c2c783650018b6220af750c886ea9806091490c8c1434415bdad60d89f4ca9",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N97 答对。冻结证据辅助理由：R1 直接说命名纪念 Louis XIV，C1 人名完整，gold 的王位与在位年份并非问题所需。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    },
+    {
+      "review_id": "answer_repair_nq_train_dev_v1:nq:-3270371413280430670",
+      "review_number": 100,
+      "dataset": "nq",
+      "sample_id": "-3270371413280430670",
+      "source_record_sha256": "8f0edccda6ce6e3f555a1710eab1ec03e17b552fbfa628a5306ed46ee4ffb748",
+      "human_review": {
+        "status": "completed",
+        "reviewer": "用户（本对话）",
+        "initial_answer_status": "correct",
+        "evidence_status": "sufficient_clear",
+        "primary_label": "correct",
+        "use": "correct_control",
+        "supporting_ranks": [
+          1
+        ],
+        "reference_issue": null,
+        "reason": "用户明确确认 N100 答对。冻结证据辅助理由：R1 首句直接定义 Jack and the Beanstalk 为 English fairy tale，C1 与所选类别及 gold 一致。",
+        "reviewed_at": "2026-10-19",
+        "review_mode": "manual"
+      }
+    }
+  ],
+  "review_basis": "First pass complete over 100 records; page excludes initial eight confirmed targets. 67 resolved, 25 held, none untouched on this page. Not blind annotation.",
+  "agent_assessments_are_not_human_labels": true,
+  "confirmation_source": {
+    "path": "data/annotations/human/answer_repair_nq_train_dev_v1_batch06_20261019.confirmations.json",
+    "sha256": "b08ebc06c295bf8cb42f720d5f5974589da7502e1da0c687c04e7ee83e077a24"
+  },
+  "import_notice": "Import replaces local page drafts after confirmation. Export separate browser work first; 25 held cases are not complete diagnoses."
+}
