@@ -1,0 +1,94 @@
+{
+  "version": "answer_repair_nq_train_confirmed_dev_v3",
+  "review_set_id": "answer_repair_nq_train_dev_v1",
+  "purpose": "14 resolved development cases: 11 internal E utilisation targets and 3 human-accepted correct controls; label-selected, not a benchmark or unseen test.",
+  "source_main_commit": "058f10baa47083220f95edb39db8f106aa7e85d6",
+  "partition": "development",
+  "review_numbers": [
+    6,
+    8,
+    29,
+    31,
+    33,
+    48,
+    49,
+    52,
+    62,
+    74,
+    81,
+    84,
+    94,
+    96
+  ],
+  "sample_ids": [
+    "2847980457887203111",
+    "-6909798989883244156",
+    "1739926213792453012",
+    "5822180296105627301",
+    "-3169716056891969228",
+    "-1981506712537073428",
+    "-564035461981251695",
+    "-703872651120117348",
+    "3219108291257004958",
+    "-5016482629216613272",
+    "-5223755550735908441",
+    "-7971666984412271711",
+    "-7203695625159603076",
+    "3252643664278412553"
+  ],
+  "human_confirmed": 14,
+  "e_core_review_numbers": [
+    6,
+    8,
+    29,
+    31,
+    33,
+    48,
+    49,
+    62,
+    74,
+    81,
+    96
+  ],
+  "correct_control_review_numbers": [
+    52,
+    84,
+    94
+  ],
+  "correct_control_count": 3,
+  "calibration_overlap": 0,
+  "reserved_evaluation_overlap": 0,
+  "sources": {
+    "human_reviews": {
+      "path": "data/annotations/human/answer_repair_nq_train_dev_v1_through_batch03_20261018.jsonl",
+      "sha256": "8a2ee9a03953d4b430177853ad65e6fc85f68c62dd4ed12816d3d1976d8898d3"
+    },
+    "batch03_confirmation": {
+      "path": "data/annotations/human/answer_repair_nq_train_dev_v1_batch03_20261018.confirmations.json",
+      "sha256": "4007b6a709b041b9f926232c97e95caa6860114ed4bd13358ddd7843bc969740"
+    },
+    "prior_reviews": {
+      "path": "data/annotations/human/answer_repair_nq_train_dev_v1_through_batch02_20261018.jsonl",
+      "sha256": "bb4b697b86a4191a67b08946c265e590e84fd30bd0d1022cbb3a0c910377f0eb"
+    },
+    "frozen_c1": {
+      "path": "artifacts/answer_repair/nq_train_dev_v1/inputs/nq_train_review_c1.jsonl",
+      "sha256": "98dd55636c9c00011db72796827ddb7f1377f214386a6d6fe2b49a90fbde20ba"
+    }
+  },
+  "inputs": {
+    "scored_c1": {
+      "path": "artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch03_c1.jsonl",
+      "sha256": "750debc639a751a6a3b26c74fd2351b5308b1bf95d896a802efecf13ef5286e2"
+    },
+    "runtime": {
+      "path": "artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch03_runtime.jsonl",
+      "sha256": "fceba436d259c11581397f8111d9d553e061fde1800d1b5fe23f82a95b66dd8a"
+    }
+  },
+  "metric_policy": "Gold and EM/F1 unchanged. N52/N84/N94 remain frozen EM=0 but are human-accepted semantically correct, reported separately.",
+  "evaluation_limit": "Three selected correct controls cannot reliably establish population regression or net benefit.",
+  "diagnosis_policy": "Internal E mappings, not upstream Diagnosis gold. N99 remains deferred and excluded, with evidence insufficiency separately confirmed.",
+  "gpu_inference_run": false,
+  "v8_algorithm_implemented": false
+}

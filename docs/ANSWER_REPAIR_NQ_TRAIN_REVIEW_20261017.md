@@ -1,12 +1,29 @@
 # NQ Train 开发样本辅助审核：2026-10-17
 
-已完成固定首批 100 条的代理辅助审核。截至 2026-10-18，用户已审核 20 条：**12 条已定案（11 条 E utilisation 目标、1 条正确对照）、8 条明确暂缓，另有 80 条尚未审核**。仍未定案共 88 条，包含上述 8 条暂缓。原始数据以 `origin/main@058f10baa47083220f95edb39db8f106aa7e85d6` 为准；此前核对时未发现该提交之后的新 main 提交，本轮未重新查询远端。
+已完成固定首批 100 条的代理辅助审核。截至 2026-10-18 第三批意见，用户已审核 31 条：**14 条已定案（11 条 E utilisation 目标、3 条正确对照）、17 条明确暂缓，另有 69 条尚未审核**。仍未定案共 86 条，包含上述 17 条暂缓。初次标记的 23 条争议均已有人工处理意见，69 条未审恰为原来建议可接受的样本；暂缓不等于已完成主标签裁决。原始数据以 `origin/main@058f10baa47083220f95edb39db8f106aa7e85d6` 为准；此前核对时未发现该提交之后的新 main 提交，本轮未重新查询远端。
 
-当前状态见 [累计 20 条人工审核记录](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch02_20261018.jsonl) 和 [累计计数](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch02_20261018.summary.json)。首批 [用户原话与明确范围](../data/annotations/human/answer_repair_nq_train_dev_v1_batch01_20261017.confirmations.json)、[8 条人工记录](../data/annotations/human/answer_repair_nq_train_dev_v1_batch01_20261017.jsonl) 和 [首批历史计数](../data/annotations/human/answer_repair_nq_train_dev_v1_batch01_20261017.summary.json) 保留原样。这些是查看辅助分析和证据后的对话确认，不是独立盲标；没有确认任何 E 新输出正确。
+当前状态见 [累计 31 条人工审核记录](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch03_20261018.jsonl) 和 [累计计数](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch03_20261018.summary.json)。前两批记录及 [第二批累计历史计数](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch02_20261018.summary.json) 保留原样。这些是查看辅助分析和证据后的对话确认，不是独立盲标；没有确认任何 E 新输出正确。
 
-本轮核对 main 新增的 11 个交付/流水线文件与本地版本，均逐字节一致；Google 下载的 15 个原始分片均与 main 清单的 SHA-256 一致。74,097 条源记录及其 gold 未修改。E 的转换文件、内部划分与审核建议均为派生产物；如与 main 后续正式协议或团队共同划分冲突，应按上游重建新的派生版本。
+2026-10-17 接入时核对 main 新增的 11 个交付/流水线文件与本地版本，均逐字节一致；Google 下载的 15 个原始分片均与 main 清单的 SHA-256 一致。74,097 条源记录及其 gold 未修改。E 的转换文件、内部划分与审核建议均为派生产物；如与 main 后续正式协议或团队共同划分冲突，应按上游重建新的派生版本。
 
-## 第二批人工意见：2026-10-18
+## 第三批人工意见：2026-10-18
+
+本批严格只记录 N63/N67/N78/N79/N82/N84/N89/N91/N94/N98/N99 共 11 条。原话及范围见 [第三批确认](../data/annotations/human/answer_repair_nq_train_dev_v1_batch03_20261018.confirmations.json)，逐条结论见 [第三批人工记录](../data/annotations/human/answer_repair_nq_train_dev_v1_batch03_20261018.jsonl)。
+
+| 编号 | 记录结果 |
+|---|---|
+| N63、N67、N78、N79、N82、N89、N91、N98 | 用户同意原暂缓意见，保留已知事实及未定字段，不自动归类；N82 已知原答案未回答固体分类，但证据是否足够仍未定 |
+| N84 | 用户判对；R1/R2 直接支持 Henrietta Maria，R3 亦列为官方命名说法。加入正确对照，参考的替代说法不覆盖原答案 |
+| N94 | 用户判对；接受本题职责概述粒度，加入正确对照。该个案不建立管辖范围限定普遍可省略的规则 |
+| N99 | 用户确认题目所需内容没有在检索证据中给出。R4 有 Back-to-Africa 名称，却未支持“始于 1950s”的关系。单独确认 `evidence_sufficient=false`；参考的时间／题意疑点仍在，C1 正确性和完整主标签继续暂缓，候选方向为 Insufficiency，不纳入 E 核心 |
+
+本批新增 2 条正确对照，无新增 utilisation 目标；其余 9 条保持暂缓，其中 N99 的证据缺失判断已单独记录。累计为 11 个 E 目标、3 个正确对照、17 条暂缓、69 条未审。原来的 23 条争议已全部收到人工意见，结果是 3 个 E 目标、3 个正确对照和 17 条暂缓；这是审核处理进度，不是 E 模型效果。
+
+已导出 [累计 14 条开发清单 v3](../configs/splits/answer_repair_nq_train_confirmed_dev_v3.json)、[冻结 C1 子集](../artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch03_c1.jsonl) 和 [纯运行时子集](../artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch03_runtime.jsonl)，校准／预留交集均为 0。N52/N84/N94 仍保留原 EM=0，人审语义正确性另计；3 个有选择的正确对照仍不足以可靠估计总体误修率。N99 不进入这份可修复子集，没有重写 gold、补入外部事实或运行 GPU。
+
+网页最新状态文件为 [第三批累计导入 JSON](../artifacts/answer_repair/nq_train_dev_v1/review/NQ_train_pending_92.chat_confirmations_batch03_20261018.json)：本页 6 条确认、17 条暂缓、69 条空白。原 92 条包及其哈希不变。先导出本机其他审核备份，再导入该文件；它包含第二、三批意见，不读取浏览器草稿，也不自动覆盖浏览器状态。
+
+## 第二批人工意见：2026-10-18（历史）
 
 本批只记录用户明确提及的 12 条。完整原话及逐条裁决见 [第二批确认](../data/annotations/human/answer_repair_nq_train_dev_v1_batch02_20261018.confirmations.json)，逐条状态见 [第二批人工记录](../data/annotations/human/answer_repair_nq_train_dev_v1_batch02_20261018.jsonl)。同意暂缓表示接受暂缓处理，未把正确性或主标签从 null 自动补齐。
 
