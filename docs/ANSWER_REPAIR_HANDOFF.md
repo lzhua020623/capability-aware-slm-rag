@@ -42,3 +42,7 @@ E 接受 query、C1 Top-5、初始答案和上游最终 `ControllerDecision`，�
 ## 复现已有结果
 
 原始输入包、输出 ZIP、预测、审核来源及哈希均保留原位置和原字节。回放使用各自输入包中的冻结代码，输出到新的临时目录；不覆盖既有结果，不重新调用 GPU。具体操作见 [运行说明](ANSWER_REPAIR_COLAB.md)。历史交接中的 81/99 项云端检查数属于相应冻结包，不代表当前代码测试数。
+
+## 2026-10-19 云端加载修复
+
+v8 第 1 版拿到 T4 后在输入加载阶段失败，没有模型预测。Kaggle 会自动解压 tar.gz，因此当前使用 [transport r1 Notebook](../notebooks/answer_repair_v8_nq75_transport_r1.ipynb)。新加载器固定 checksums 文档的 SHA-256，再逐一验证原冻结包的 85 个文件；已验证真实解压布局并通过 7 项加载与回放测试。原 906f096f 包、75 条输入及四组算法参数均未改变。失败与后续执行状态见 `artifacts/answer_repair/v8_nq75/`。

@@ -1,0 +1,17 @@
+{
+  "version": "v8_transport_r1",
+  "archive_sha256": "906f096f78e36a4f272cdd863ce2e7383d62acb638c1e480a06c5d3f75daa7a3",
+  "frozen_checksums_sha256": "5499fcca237c5d8f50187c27bf24f5f6189176dab8d86184b507116420f3997e",
+  "bootstrap_source_sha256": "fd1d38f0590967537735e748cb7f6decbc55acf6b12507bbf8666d7be9620755",
+  "notebook": "notebooks/answer_repair_v8_nq75_transport_r1.ipynb",
+  "notebook_sha256": "9d4e8f266410fa2fd7379421faf2b8f1fbe1ba1d4dbfc4baafa867d6299d8d97",
+  "unchanged": [
+    "75 sample IDs",
+    "runtime evidence",
+    "initial answers",
+    "gold and scorer",
+    "all four algorithm arms",
+    "Qwen revision and generation budgets"
+  ],
+  "reason": "Kaggle automatically extracted the tar.gz; version 1 failed before inference while searching for the original filename."
+}

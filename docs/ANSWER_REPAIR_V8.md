@@ -46,7 +46,7 @@ v7 能找到真实引文，但真实引文可能属于另一作品、另一事�
 - 策略分发：[answer_repair.py](../src/compensation/answer_repair.py)；Controller 适配：[controller_adapter.py](../src/compensation/controller_adapter.py)。
 - 协议：[answer_repair_v8_nq75_v1.json](../configs/answer_repair_v8_nq75_v1.json)。
 - 冻结打包：`python scripts/prepare_answer_repair_v8.py`。
-- Kaggle/Colab：[answer_repair_v8_nq75.ipynb](../notebooks/answer_repair_v8_nq75.ipynb)，配套 `artifacts/answer_repair/v8_nq75/answer_repair_v8_nq75_gpu.tar.gz`。
+- Kaggle/Colab：[answer_repair_v8_nq75_transport_r1.ipynb](../notebooks/answer_repair_v8_nq75_transport_r1.ipynb)，配套 `artifacts/answer_repair/v8_nq75/answer_repair_v8_nq75_gpu.tar.gz`。
 - 单组预检：`python scripts/run_answer_repair.py --dataset nq --c1 artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch06_c1.jsonl --all --strategy conservative_repair --check-only`。
 - CPU 回放入口：`repair_from_v8_trace`；断点续跑自动检查记录。
 
@@ -59,3 +59,9 @@ Notebook 按 tar.gz 及每文件 SHA-256 校验冻结代码；安装与 v7 云�
 旧 C1 人工正确性不自动成为新答案的标签。新输出的人审净收益在审核前为 null。若只有 EM 改善而语义质量下降，应报告下降；若 EM 不匹配但人审认可，保留冻结指标并另报语义结果。
 
 本轮只决定是否值得继续：修复收益要超过对正确答案的损害，且额外计算可接受；不得因少量开发样本的正增益就替换默认。之后固定规则，与团队确认未用于开发的 NQ/FEVER 评测划分，报告完整结果及成本，再决定扩充自然错误、调整核验方式或采用独立 verifier。
+
+## 云端执行修正（不改算法）
+
+第 1 版实际取得 T4，运行 30.5 秒后在读取实验包阶段失败，模型推理未开始、预测为 0。Kaggle 自动解压了上传的归档，原 Notebook 只搜索 tar.gz 文件名。当前使用 transport r1 Notebook，保留原包 SHA-256 `906f096f78e36a4f272cdd863ce2e7383d62acb638c1e480a06c5d3f75daa7a3`。
+
+对于自动解压目录，先比对已固定的 checksums 文档哈希 `5499fcca237c5d8f50187c27bf24f5f6189176dab8d86184b507116420f3997e`，再核对全部 85 个文件，并只复制已核对的内容到运行目录。7 项加载与回放测试和真实冻结包的解压布局验证通过；全仓现为 136 项测试通过。新旧 Notebook、失败记录和加载验证均保留，模型、75 条样本、提示、评分及四组消融未调整。

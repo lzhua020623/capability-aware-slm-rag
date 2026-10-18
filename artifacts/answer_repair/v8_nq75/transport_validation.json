@@ -1,0 +1,24 @@
+{
+  "validation": "Actual frozen v8 package, extracted Kaggle layout, pinned checksums hash and all 85 payload files verified",
+  "bundle_sha256": "906f096f78e36a4f272cdd863ce2e7383d62acb638c1e480a06c5d3f75daa7a3",
+  "checksums_sha256": "5499fcca237c5d8f50187c27bf24f5f6189176dab8d86184b507116420f3997e",
+  "payload_hash_checked_files": 85,
+  "samples": 75,
+  "algorithm_or_input_modified": false,
+  "gpu_inference": false,
+  "loader_unit_tests": {
+    "passed": 7
+  },
+  "repository_tests": {
+    "passed": 136,
+    "failed": 0
+  },
+  "replay_integration_test": {
+    "mock_records": 300,
+    "unique_inputs": 75,
+    "frozen_algorithm_payload": true,
+    "forged_decision_rejected": true,
+    "gpu_model_inference": false,
+    "research_results": false
+  }
+}

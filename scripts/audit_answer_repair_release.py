@@ -55,6 +55,11 @@ def main(argv=None):
 
     class ReplayGenerator:
         def __init__(self, row):
+            staged = row.get('repair_trace')
+            if staged is not None:
+                self.outputs = [Generation(**stage['generation']) for stage in staged['stages']]
+                self.calls = 0
+                return
             guard = row.get('support_check')
             def cost(field):
                 total = row.get(field)
@@ -80,6 +85,10 @@ def main(argv=None):
     queue, unique_ids = [], set()
     # (cohort, dataset, manifest section with sample_ids/input_sha256)
     targets = []
+    is_v8_nq75 = manifest.get('version') == 'answer_repair_v8_nq75_v1'
+    if is_v8_nq75:
+        targets.append(('nq75', 'nq', {'sample_ids': manifest['sample_ids'],
+                       'input_sha256': manifest['source_input_sha256']['scored_c1']}))
     if manifest.get('cohort') == 'heldout3216':          # single-cohort run-once bundle
         lines = (bundle / 'inputs/nq_heldout3216_c1.jsonl').read_bytes().decode('utf-8').splitlines()
         targets.append(('heldout3216', manifest['dataset'],
@@ -92,7 +101,8 @@ def main(argv=None):
             targets.append((cohort, ds, (section['datasets'] if cohort == 'heldout' else section)[ds]))
     for cohort, ds, source_manifest in targets:
         if True:
-            source = (bundle / f'inputs/{ds}_{cohort}_c1.jsonl').read_bytes()
+            source_path = 'inputs/nq75_c1.jsonl' if cohort == 'nq75' else f'inputs/{ds}_{cohort}_c1.jsonl'
+            source = (bundle / source_path).read_bytes()
             if sha256(source) != source_manifest['input_sha256']:
                 raise ValueError('Input checksum differs from manifest')
             prepared = prepare_records(read_jsonl(source, ds), DatasetName(ds))
@@ -100,7 +110,7 @@ def main(argv=None):
                 if arm.get('dataset', ds) != ds:
                     continue
                 strategy = arm['strategy']
-                stem = f'{ds}_{strategy}' + ('' if cohort == 'reviewed' else f'_{cohort}')
+                stem = strategy if cohort == 'nq75' else f'{ds}_{strategy}' + ('' if cohort == 'reviewed' else f'_{cohort}')
                 path = results / (stem + '.jsonl')
                 rows = read_jsonl(path.read_bytes(), str(path))
                 if not rows or [r['sample_id'] for r in rows] != source_manifest['sample_ids']:
@@ -139,8 +149,10 @@ def main(argv=None):
                     raise ValueError(f'Summary mismatch: {stem}')
                 report['runs'][stem] = expected
                 report['replayed_records'] += len(rows)
+    if not targets:
+        raise ValueError('Unknown release cohort; refusing an empty audit')
     report['unique_dataset_sample_ids'] = len(unique_ids)
-    report['manual_review_status'] = 'deferred_by_user'
+    report['manual_review_status'] = 'pending_output_review' if is_v8_nq75 else 'deferred_by_user'
     report['pending_result_pairs'] = len(queue)
     write_frozen(args.out_dir / 'cpu_replay.json', encode_json(report))
     write_frozen(args.out_dir / 'pending_semantic_pairs.jsonl',

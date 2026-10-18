@@ -80,3 +80,9 @@ data/annotations/*.xlsx
 !artifacts/answer_repair/v8_nq75/cloud_status.json
 !artifacts/answer_repair/v8_nq75/answer_repair_v8_nq75_gpu.tar.gz
 !notebooks/answer_repair_v8_nq75.ipynb
+
+# v8 cloud transport fix: preserve the original frozen algorithm package.
+!artifacts/answer_repair/v8_nq75/transport_r1.json
+!artifacts/answer_repair/v8_nq75/transport_validation.json
+!artifacts/answer_repair/v8_nq75/kaggle_v1_failure.json
+!notebooks/answer_repair_v8_nq75_transport_r1.ipynb
