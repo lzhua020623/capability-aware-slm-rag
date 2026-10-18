@@ -1,12 +1,31 @@
 # NQ Train 开发样本辅助审核：2026-10-17
 
-已完成固定首批 100 条的代理辅助审核。截至 2026-10-19 第四批意见，用户已对 69 条给出意见：**47 条已定案（11 条 E utilisation 目标、36 条正确对照）、22 条待定，另有 31 条尚未审核**。22 条包括此前 17 条暂缓和本批 5 条完整性／表达口径分歧；这些分歧保留用户原话与代理复核，不自动当作事实错误。仍未定案共 53 条。原始数据以 `origin/main@058f10baa47083220f95edb39db8f106aa7e85d6` 为准；此前核对时未发现该提交之后的新 main 提交，本轮未重新查询远端。
+已完成固定首批 100 条的代理辅助审核。截至 2026-10-19 第五批意见，用户已对 91 条给出意见：**66 条定案（11 条 E utilisation 目标、55 条正确对照）、25 条待定，另有 9 条尚未审核**。25 条包括最初 17 条暂缓、第四批 5 条完整性／表达口径分歧及本批 N58/N61/N83 条件或补充要求；用户原话与代理复核分别保留，不自动当作事实错误。55 条对照含 N76 的同实体来源表述核对，已单独标明。仍未定案共 34 条。原始数据以 `origin/main@058f10baa47083220f95edb39db8f106aa7e85d6` 为准；此前核对时未发现该提交之后的新 main 提交，本轮未重新查询远端。
 
-当前状态见 [累计 69 条审核记录](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch04_20261019.jsonl) 和 [累计计数](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch04_20261019.summary.json)。前三批记录及 [第三批累计历史计数](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch03_20261018.summary.json) 保留原样。这些是查看辅助分析和证据后的对话意见，不是独立盲标；没有确认任何 E 新输出正确。
+当前状态见 [累计 91 条审核记录](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch05_20261019.jsonl) 和 [累计计数](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch05_20261019.summary.json)。前四批记录及 [第四批累计历史计数](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch04_20261019.summary.json) 保留原样。这些是查看辅助分析和证据后的对话意见，不是独立盲标；没有确认任何 E 新输出正确。
 
 2026-10-17 接入时核对 main 新增的 11 个交付/流水线文件与本地版本，均逐字节一致；Google 下载的 15 个原始分片均与 main 清单的 SHA-256 一致。74,097 条源记录及其 gold 未修改。E 的转换文件、内部划分与审核建议均为派生产物；如与 main 后续正式协议或团队共同划分冲突，应按上游重建新的派生版本。
 
-## 第四批人工意见：2026-10-19
+## 第五批人工意见：2026-10-19
+
+本批共 22 条，18 条明确判对：N51/N53/N54/N55/N60/N64/N65/N66/N68/N69/N70/N71/N72/N73/N75/N77/N80/N85。逐条引用位置、段落及来源哈希均通过核对；按冻结语料时点记录，N51 的 current 和 N80 的 new 均不解释为今天的最新版本或人物状态。
+
+| 编号 | 用户意见与记录 |
+|---|---|
+| N58 | 用户将 18 判错，提出 21，原话及否定裁决保留。R1 同时写一般 non-NFA 购买门槛 18，以及向 federal firearms licensees 购买 handgun 为 21；题目未限定枪种／渠道，gold 为 18 years。记录购买条件争议，完整标签暂缓，不直接以 21 覆盖所有场景 |
+| N61 | 用户希望写澳大利亚昆士兰州图文巴市，即 Toowoomba, Queensland, Australia。R1 明确校本部位置，但也支持 C1 列出的 Toowoomba/Springfield/Ipswich 三校区。记录完整地点和校本部／校区范围要求，暂不归为事实错误 |
+| N76 | 用户说“荷兰的圣尼古拉斯”，按 R1 的 Dutch St Nicolas traditions 及 R2/R3 的 Dutch Sinterklaas 核对为同一来源表述，保留正确对照。该条标注为同实体解释，不冒称用户直接写了“对”；不将历史上的希腊主教说成荷兰人 |
+| N83 | 用户要求时间限制，记录 R1 的“截至 2018 年 7 月，Instagram 自己的账户”。原实体在冻结语料口径下有支持；缺少时间说明是否判原答案错误尚未明确，先记录时间完整性要求，完整标签暂缓，不查询或替换为今天排名 |
+
+本批意见完整保存于 [第五批确认范围](../data/annotations/human/answer_repair_nq_train_dev_v1_batch05_20261019.confirmations.json) 和 [逐条记录](../data/annotations/human/answer_repair_nq_train_dev_v1_batch05_20261019.jsonl)。本批为 19 个正确对照（18 个明确“对”及 N76 的等价来源说明），无新增 E 核心目标；N58/N61/N83 单列待定。第四批 5 条口径分歧没有因继续审核或时间经过自动解决。
+
+累计开发清单为 [v5：66 条](../configs/splits/answer_repair_nq_train_confirmed_dev_v5.json)，对应 [C1 子集](../artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch05_c1.jsonl) 和 [运行时子集](../artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch05_runtime.jsonl)，含 11 个 E 目标及 55 个正确对照。均来自 development，校准／预留交集为 0，冻结评分预检通过；没有修改任何 gold、评分规则、原 C1 内容或调用 GPU。来源中同时保留用户意见与代理分歧，不能把审核计数当作修复收益。
+
+网页可导入 [第五批累计状态](../artifacts/answer_repair/nq_train_dev_v1/review/NQ_train_pending_92.chat_confirmations_batch05_20261019.json)，显示本页 58 条确认、25 条待定、9 条空白。包含前几批网页范围内的全部意见；导入前先备份其他浏览器草稿，原 92 条包及哈希不变。
+
+尚未审核仅余 N86/N87/N88/N90/N92/N93/N95/N97/N100。
+
+## 第四批人工意见：2026-10-19（历史）
 
 本批用户对 38 条给出意见，其中明确判对 33 条：N1/N2/N4/N5/N9/N10/N11/N12/N14/N15/N16/N17/N20/N21/N23/N24/N25/N26/N27/N30/N32/N34/N35/N36/N37/N38/N39/N40/N42/N45/N46/N47/N50。记录为正确对照，未进一步推定用户确认了独立的 `initial_supported` 评分。所有来源记录和引用位置校验通过。
 

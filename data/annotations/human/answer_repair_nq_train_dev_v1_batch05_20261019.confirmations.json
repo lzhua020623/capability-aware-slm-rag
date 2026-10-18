@@ -1,0 +1,144 @@
+{
+  "reviewer": "用户（本对话）",
+  "confirmed_at": "2026-10-19",
+  "timezone": "Australia/Sydney",
+  "user_text": "N51对 N53对 N54对 N55对 N58错了21 N60对 N61应该说位于澳大利亚昆士兰州图文巴市 N64对 N65对 N66对 N68对 N69对 N70对 N71对 N72对 N73对 N75对 N76是荷兰的圣尼古拉斯 N77对 N80对 N83要加时间限制 N85对",
+  "review_set_id": "answer_repair_nq_train_dev_v1",
+  "review_numbers": [
+    51,
+    53,
+    54,
+    55,
+    58,
+    60,
+    61,
+    64,
+    65,
+    66,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    75,
+    76,
+    77,
+    80,
+    83,
+    85
+  ],
+  "accepted_sample_ids": {
+    "51": "-547285585922035520",
+    "53": "2517363209257675065",
+    "54": "3898710090334906649",
+    "55": "6471608951128519572",
+    "58": "8748373647137023318",
+    "60": "-1904111941153300402",
+    "61": "1886755777018557601",
+    "64": "1457639279894856450",
+    "65": "7643377925242908266",
+    "66": "-8942709420542468525",
+    "68": "7659680993559844629",
+    "69": "3473298008288621013",
+    "70": "-455522481629941063",
+    "71": "-7534977440550994951",
+    "72": "-787222857578843686",
+    "73": "3133601013091477200",
+    "75": "-2794432552733964922",
+    "76": "7728406136919122642",
+    "77": "676364825758831059",
+    "80": "-5283919567456439969",
+    "83": "-3127624242927084600",
+    "85": "5607341441683614186"
+  },
+  "explicit_accept_correctness": [
+    51,
+    53,
+    54,
+    55,
+    60,
+    64,
+    65,
+    66,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    75,
+    77,
+    80,
+    85
+  ],
+  "entity_equivalence_interpretation": {
+    "76": {
+      "user_statement": "N76是荷兰的圣尼古拉斯",
+      "original_answer": "Dutch Sinterklaas",
+      "interpretation": "The user description refers to the same Dutch Saint Nicholas tradition, directly supported by R1/R2/R3; not a claim that the historical Greek bishop had Dutch nationality."
+    }
+  },
+  "case_scope_and_completeness_comments": {
+    "58": {
+      "user_statement": "N58错了21",
+      "user_judgment": "rejects_18_proposes_21",
+      "initial_answer_status": "incorrect",
+      "initial_correct": false,
+      "supporting_ranks": [
+        1
+      ],
+      "reviewer_note": "原样保留用户将 18 判错并提出 21 的意见。冻结 R1 同时写一般 non-NFA 枪械购买年龄为 18，以及从 federal firearms licensees 购买 handgun 为 21；原题未限定枪种或渠道，gold 仍为 18 years。21 仅在该段限定条件下得到支持，不能将这一条件数值自动改为所有购买场景的答案。购买条件待明确，暂不作为 E 核心事实错误，也不更新 gold。",
+      "suggested_complete_answer": "According to the frozen passage, the general non-NFA purchase threshold is 18; handgun purchases from federally licensed dealers have a threshold of 21.",
+      "qualifier": "handgun purchases from federal firearms licensees"
+    },
+    "61": {
+      "user_statement": "N61应该说位于澳大利亚昆士兰州图文巴市",
+      "user_judgment": "prefers_main_base_with_city_state_country",
+      "initial_answer_status": "partial",
+      "initial_correct": null,
+      "supporting_ranks": [
+        1,
+        3,
+        5
+      ],
+      "reviewer_note": "用户希望回答校本部的完整所在地 Toowoomba, Queensland, Australia。R1 直接给出这一基地位置，也明确列出 Toowoomba、Springfield、Ipswich 三个校区；C1 列出这三个真实校区，并包含 Toowoomba。保留用户偏好，不把多校区来源误记为虚构地点；题目未限定 headquarters，完整性与回答范围待定，暂不加入 E 核心。",
+      "suggested_complete_answer": "Based in Toowoomba, Queensland, Australia, with campuses in Toowoomba, Springfield and Ipswich.",
+      "qualifier": "main base versus all campuses"
+    },
+    "83": {
+      "user_statement": "N83要加时间限制",
+      "user_judgment": "requires_explicit_snapshot_date",
+      "initial_answer_status": "partial",
+      "initial_correct": null,
+      "supporting_ranks": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "reviewer_note": "用户要求给动态粉丝排名加时间限定。R1 明确 as of July 2018，最多粉丝账户是 Instagram 自己的账户；其余证据是同年其他月份的快照。建议表达为截至 2018 年 7 月，Instagram 自己的账户。实体在冻结语料口径下有支持，未补时间是否判原答案错误尚未得到明确二元裁决；先记录时间完整性要求，不查询或替换为当前排名，不加入 E 核心。",
+      "suggested_complete_answer": "As of July 2018, Instagram's own account.",
+      "qualifier": "as of July 2018"
+    }
+  },
+  "prior_rubric_clarification_pending_numbers": [
+    13,
+    18,
+    22,
+    41,
+    43
+  ],
+  "confirmation_mode": "chat_assisted_review_with_case_comments",
+  "independent_blind_annotation": false,
+  "source_review_file": "artifacts/answer_repair/nq_train_dev_v1/review/review_queue.jsonl",
+  "source_review_sha256": "a7807984201905627cf2bb4b2f368c1eb7eaee7223dc8ef8beafea081392238c",
+  "assisted_review_file": "data/annotations/assisted/answer_repair_nq_train_dev_v1_20261017.jsonl",
+  "assisted_review_sha256": "920ea1c56f1b9512346e0d84fcd1d8e9e8e6abe9e62478e7ba2392378dece389",
+  "review_packet_sha256": "c9f2230dda81b660b3ace5bbbcb7618db39dfbe2bfe6e3bd44c44d7a8a19c6b9",
+  "prior_human_file": "data/annotations/human/answer_repair_nq_train_dev_v1_through_batch04_20261019.jsonl",
+  "prior_human_sha256": "a8467a364855b04a918354ed093e84aa8a42dd8c313c8e5257b21686367d4383",
+  "scope": "Exactly 22 named records: 18 explicit correct judgements, N76 equivalent user-described entity, and 3 comments with unresolved scope or binary correctness.",
+  "not_confirmed": "No remaining 9 records, resolution of earlier 5 rubric disagreements, E final output, replacement gold, present-day law/ranking, or model improvement."
+}
