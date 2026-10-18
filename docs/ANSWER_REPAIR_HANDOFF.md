@@ -1,6 +1,6 @@
 # E 当前交接
 
-截至 2026-10-18，E 以 v7 为基础，下一轮新实现将使用 v8 名称，尚未实现。工程可运行，已有 GPU 实验和离线回放；可靠净收益与人工语义验收仍未完成。交付分支为 `feature/verification-answer-repair`。
+截至 2026-10-19，E 以 v7 为基础，下一轮新实现将使用 v8 名称，尚未实现。工程可运行，已有 GPU 实验和离线回放；可靠净收益与人工语义验收仍未完成。交付分支为 `feature/verification-answer-repair`。
 
 ## 当前入口
 
@@ -11,7 +11,7 @@
 | v7 主包与第 4 批结果、失败分析 | [结果报告](ANSWER_REPAIR_RESULTS_20261014_V7.md) |
 | 当前人工审核 | [review_all.txt](../artifacts/answer_repair/v7_combined_review/review_all.txt) / [review_all.jsonl](../artifacts/answer_repair/v7_combined_review/review_all.jsonl) |
 | 新 NQ Train 数据及首批开发审核 | [接入说明](ANSWER_REPAIR_NQ_TRAIN.md) / [100 条待审索引](../artifacts/answer_repair/nq_train_dev_v1/review/review_queue.txt) |
-| 新 NQ Train 的代理辅助判断与确认 | [100 条理由与确认记录](ANSWER_REPAIR_NQ_TRAIN_REVIEW_20261017.md)，14 条已定案、17 条暂缓、69 条未审 |
+| 新 NQ Train 的代理辅助判断与确认 | [100 条理由与确认记录](ANSWER_REPAIR_NQ_TRAIN_REVIEW_20261017.md)，47 条已定案、22 条待定（含 5 条完整性／表达分歧）、31 条未审 |
 | Colab、Kaggle 和离线回放 | [运行说明](ANSWER_REPAIR_COLAB.md) |
 | 旧版结果、Notebook 和交接快照 | [历史归档](history/answer_repair/README.md) |
 | 原始实验材料与哈希 | [git_archive_manifest.json](../artifacts/answer_repair/git_archive_manifest.json) |
@@ -21,6 +21,8 @@
 NQ Train 的 15 个 Drive 分片共 74,097 条，已核对哈希、逐条适配并隔离 gold。E 内部划分为 59,188 开发、7,345 校准、7,564 预留评测，尚非团队共同未见划分；首批 80 筛查候选加 20 EM 匹配对照全部来自开发部分，人工字段待审。112 项测试和现有 E 入口检查通过，没有新 GPU 结果。这解决了新候选池的来源与工程接入，目标错误数量仍需语义审核确认。
 
 新 Train 首批 100 条已逐条完成代理辅助审核，初次建议 69 可接受、8 utilisation 候选、23 暂缓；其中 80 条 EM 不匹配候选有 49 条建议可接受。用户先确认 8 个 utilisation 目标，后续对全部 23 条争议给出意见：N8 主体错、N33 由来未答完整、N62 姓名缺关键姓氏，内部 E 映射新增 3 个 utilisation；N52/N84/N94 接受为正确对照，另 17 条明确暂缓。N99 单独确认所求关系的证据缺失，保留题意／参考时间疑点，完整主标签仍暂缓。累计 14 条定案、17 条暂缓、69 条未审。已导出 [累计开发清单 v3](../configs/splits/answer_repair_nq_train_confirmed_dev_v3.json) 与 14 条兼容输入（11 个 E 目标、3 个正确对照）；少量有选择的对照仍不足以可靠估计总体误修率。main 的来源优先级、原始 gold 和冻结 scorer 保持不变，不能把审核计数当作 E 的修复效果。
+
+第四批又对 38 条给出意见，明确判对 33 条，另 N13/N18/N22/N41/N43 为完整性／表达口径分歧。用户原话与代理复核分别保留，澄清问题尚未回复时不将这 5 条计为 E 核心错误。当前累计 47 条定案（11 个 E 目标、36 个正确对照）、22 条待定、31 条未审；使用 [开发清单 v4](../configs/splits/answer_repair_nq_train_confirmed_dev_v4.json) 与 47 条冻结输入。前段 v3 计数保留为历史，不代表当前数量；没有新增 GPU 结果。
 
 v7 主包 541 条、第 4 批 300 条已完成一次 Kaggle 实验，并通过各自冻结代码回放，合计 836 个不同数据集/样本 ID。v7 NQ 使用短答案与引文分离；FEVER 使用主体约束的独立 MNLI。两种策略均未晋升默认策略，不能把工程完成写成算法有效性已验收。
 

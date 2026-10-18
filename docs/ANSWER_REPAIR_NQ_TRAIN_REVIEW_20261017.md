@@ -1,12 +1,34 @@
 # NQ Train 开发样本辅助审核：2026-10-17
 
-已完成固定首批 100 条的代理辅助审核。截至 2026-10-18 第三批意见，用户已审核 31 条：**14 条已定案（11 条 E utilisation 目标、3 条正确对照）、17 条明确暂缓，另有 69 条尚未审核**。仍未定案共 86 条，包含上述 17 条暂缓。初次标记的 23 条争议均已有人工处理意见，69 条未审恰为原来建议可接受的样本；暂缓不等于已完成主标签裁决。原始数据以 `origin/main@058f10baa47083220f95edb39db8f106aa7e85d6` 为准；此前核对时未发现该提交之后的新 main 提交，本轮未重新查询远端。
+已完成固定首批 100 条的代理辅助审核。截至 2026-10-19 第四批意见，用户已对 69 条给出意见：**47 条已定案（11 条 E utilisation 目标、36 条正确对照）、22 条待定，另有 31 条尚未审核**。22 条包括此前 17 条暂缓和本批 5 条完整性／表达口径分歧；这些分歧保留用户原话与代理复核，不自动当作事实错误。仍未定案共 53 条。原始数据以 `origin/main@058f10baa47083220f95edb39db8f106aa7e85d6` 为准；此前核对时未发现该提交之后的新 main 提交，本轮未重新查询远端。
 
-当前状态见 [累计 31 条人工审核记录](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch03_20261018.jsonl) 和 [累计计数](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch03_20261018.summary.json)。前两批记录及 [第二批累计历史计数](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch02_20261018.summary.json) 保留原样。这些是查看辅助分析和证据后的对话确认，不是独立盲标；没有确认任何 E 新输出正确。
+当前状态见 [累计 69 条审核记录](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch04_20261019.jsonl) 和 [累计计数](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch04_20261019.summary.json)。前三批记录及 [第三批累计历史计数](../data/annotations/human/answer_repair_nq_train_dev_v1_through_batch03_20261018.summary.json) 保留原样。这些是查看辅助分析和证据后的对话意见，不是独立盲标；没有确认任何 E 新输出正确。
 
 2026-10-17 接入时核对 main 新增的 11 个交付/流水线文件与本地版本，均逐字节一致；Google 下载的 15 个原始分片均与 main 清单的 SHA-256 一致。74,097 条源记录及其 gold 未修改。E 的转换文件、内部划分与审核建议均为派生产物；如与 main 后续正式协议或团队共同划分冲突，应按上游重建新的派生版本。
 
-## 第三批人工意见：2026-10-18
+## 第四批人工意见：2026-10-19
+
+本批用户对 38 条给出意见，其中明确判对 33 条：N1/N2/N4/N5/N9/N10/N11/N12/N14/N15/N16/N17/N20/N21/N23/N24/N25/N26/N27/N30/N32/N34/N35/N36/N37/N38/N39/N40/N42/N45/N46/N47/N50。记录为正确对照，未进一步推定用户确认了独立的 `initial_supported` 评分。所有来源记录和引用位置校验通过。
+
+另 5 条原话及代理复核均保存在 [第四批原始意见与待澄清口径](../data/annotations/human/answer_repair_nq_train_dev_v1_batch04_20261019.confirmations.json) 和 [逐条审核记录](../data/annotations/human/answer_repair_nq_train_dev_v1_batch04_20261019.jsonl)：
+
+| 编号 | 用户意见 | 复核与处理 |
+|---|---|---|
+| N13 | 未答出在雪地上 | 题干已有 in the snow；C1 与 gold 均给仰卧及手脚动作。补写雪地可使说明更独立完整，是否构成语义错误待口径确认 |
+| N18 | 不全面，应答 goal／作用 | C1 回答核心定义，题干问 meaning；R1/R2 的 understand how the universe behaves 可补充目标。定义题是否必须包括目标待确认 |
+| N22 | 不算对，答动作，应答名词 | 原话“不算对”完整保留，`initial_correct=false` 仅表示用户这一形式裁决。C1 实为带分词修饰的名词短语，已列 Irish cream、whiskey、stout；代理保留语义可接受意见，未按事实错纳入 E |
+| N41 | 没说小写 | C1 实际含小写字形 π。可补 lowercase，但字形本身已表达大小写；是否要求显式修饰词待确认 |
+| N43 | 要写拉贾斯坦邦焦特布尔市 | R1 支持 Jodhpur, Rajasthan；C1 已给正确城市。用户的城市＋邦表达偏好保留，地点粒度标准待确认 |
+
+已向用户请求对齐这 5 条的评测口径。尚无该问题的回复时，保留逐项意见及代理分歧，完整主标签为 null、开发用途为 hold；`human_review.status=deferred` 表示尚未完成共同口径裁决，不否认用户已经提供意见，也不覆盖原先 agent 建议。N22 的用户形式否定与代理语义判断明确区分；其他 4 条没有仅因补充意见就自动推定二元正确性为 false。建议补全答案另列，并标明不是模型输出，不改写 gold。
+
+累计 47 条开发定案输入已导出至 [清单 v4](../configs/splits/answer_repair_nq_train_confirmed_dev_v4.json)、[C1 子集](../artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch04_c1.jsonl) 与 [运行时子集](../artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch04_runtime.jsonl)，含 11 个 E 目标、36 个正确对照；5 条分歧不进入该子集。原 gold、冻结 EM/F1、C1 原字节内容保持不变，校准／预留评测交集为 0。较多正确对照支持开发阶段检查误修，但有选择的开发集仍不能证明总体净收益。
+
+网页最新累计状态文件为 [第四批导入 JSON](../artifacts/answer_repair/nq_train_dev_v1/review/NQ_train_pending_92.chat_confirmations_batch04_20261019.json)：本页 39 条确认、22 条待定、31 条空白。包含之前各批网页范围内的意见；先备份其他本机草稿，再手动导入。原 92 条材料及其包哈希不变。
+
+剩余未审为 N51/N53/N54/N55/N58/N60/N61/N64/N65/N66/N68/N69/N70/N71/N72/N73/N75/N76/N77/N80/N83/N85/N86/N87/N88/N90/N92/N93/N95/N97/N100。
+
+## 第三批人工意见：2026-10-18（历史）
 
 本批严格只记录 N63/N67/N78/N79/N82/N84/N89/N91/N94/N98/N99 共 11 条。原话及范围见 [第三批确认](../data/annotations/human/answer_repair_nq_train_dev_v1_batch03_20261018.confirmations.json)，逐条结论见 [第三批人工记录](../data/annotations/human/answer_repair_nq_train_dev_v1_batch03_20261018.jsonl)。
 
