@@ -1,0 +1,66 @@
+{
+  "version": "answer_repair_v8r3_smoke8_v1",
+  "engineering_gate_passed": true,
+  "ready_for_full_nq75_run": true,
+  "failures": [],
+  "arms": {
+    "short_answer_quote": {
+      "completed": 8,
+      "complete": true,
+      "status_counts": {
+        "invalid_output": 3,
+        "repaired": 5
+      }
+    },
+    "conservative_repair": {
+      "completed": 8,
+      "complete": true,
+      "status_counts": {
+        "original_supported": 5,
+        "candidate_unchanged": 1,
+        "candidate_rejected": 1,
+        "repaired": 1
+      }
+    },
+    "conservative_no_original_gate": {
+      "completed": 8,
+      "complete": true,
+      "status_counts": {
+        "candidate_unchanged": 2,
+        "candidate_invalid": 3,
+        "repaired": 2,
+        "candidate_rejected": 1
+      }
+    },
+    "conservative_no_candidate_gate": {
+      "completed": 8,
+      "complete": true,
+      "status_counts": {
+        "original_supported": 5,
+        "candidate_unchanged": 1,
+        "repaired": 2
+      }
+    }
+  },
+  "valid_v8_stage_calls": {
+    "original_check": 16,
+    "minimal_repair": 11,
+    "candidate_check": 5
+  },
+  "invalid_v8_stage_calls": {
+    "minimal_repair": 3
+  },
+  "validation_rejection_kinds": {
+    "grounding": 3
+  },
+  "full_three_stage_paths": 2,
+  "generation_stop_observations": {
+    "boundary": 9,
+    "model_end_or_limit": 26
+  },
+  "raw_text_changed_stages": 0,
+  "generation_calls": 43,
+  "semantic_correctness_verified": false,
+  "human_final_gain": null,
+  "interpretation": "Engineering gate only. Greedy same-model checks and EM do not establish semantic gain."
+}

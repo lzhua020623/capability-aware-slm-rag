@@ -137,3 +137,4 @@ data/annotations/*.xlsx
 !artifacts/answer_repair/v8r3_smoke8/review/changed_outputs_pending.jsonl
 !artifacts/answer_repair/v8r2_smoke8/review/assisted_changed_outputs.jsonl
 !artifacts/answer_repair/v8r3_smoke8/offline_candidate_diagnostic.json
+!artifacts/answer_repair/v8r3_smoke8/review/assisted_changed_outputs.jsonl

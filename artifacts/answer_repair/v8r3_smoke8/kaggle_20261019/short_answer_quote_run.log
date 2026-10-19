@@ -1,0 +1,141 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "nq", "--c1", "/kaggle/working/e_v8_72ed761fd801/answer_repair_v8r3_smoke8_gpu/inputs/nq_smoke8_c1.jsonl", "--all", "--strategy", "short_answer_quote", "--max-new-tokens", "384", "--out", "/kaggle/working/answer_repair_v8r3_smoke8_outputs/short_answer_quote.jsonl"]
+{
+  "source": "/kaggle/working/e_v8_72ed761fd801/answer_repair_v8r3_smoke8_gpu/inputs/nq_smoke8_c1.jsonl",
+  "dataset": "nq",
+  "strategy": "short_answer_quote",
+  "routing": "all",
+  "samples": 8,
+  "completed": 0,
+  "routed_samples": 8,
+  "remaining_call_upper_bound": 8,
+  "remaining_classifier_samples": 0,
+  "fingerprint": "1237eda631d38b9cf4cff8571062d87e48a80a771b353543489204c15170e9c2",
+  "output": "/kaggle/working/answer_repair_v8r3_smoke8_outputs/short_answer_quote.jsonl"
+}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+Fetching 4 files:  25%|██▌       | 1/4 [00:44<02:12, 44.02s/it]
+Fetching 4 files:  50%|█████     | 2/4 [00:52<00:46, 23.37s/it]
+Fetching 4 files:  75%|███████▌  | 3/4 [00:59<00:15, 15.54s/it]
+Fetching 4 files: 100%|██████████| 4/4 [00:59<00:00,  9.57s/it]
+Fetching 4 files: 100%|██████████| 4/4 [00:59<00:00, 14.89s/it]
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:02<15:01,  2.67s/it]
+Loading weights:   1%|          | 2/339 [00:05<15:49,  2.82s/it]
+Loading weights:   1%|          | 4/339 [00:05<06:18,  1.13s/it]
+Loading weights:   4%|▍         | 14/339 [00:05<01:09,  4.66it/s]
+Loading weights:   6%|▌         | 19/339 [00:06<00:46,  6.91it/s]
+Loading weights:   9%|▊         | 29/339 [00:06<00:23, 13.21it/s]
+Loading weights:  12%|█▏        | 40/339 [00:06<00:14, 21.32it/s]
+Loading weights:  14%|█▍        | 48/339 [00:06<00:10, 27.76it/s]
+Loading weights:  17%|█▋        | 56/339 [00:06<00:08, 33.40it/s]
+Loading weights:  19%|█▉        | 65/339 [00:06<00:06, 41.94it/s]
+Loading weights:  22%|██▏       | 76/339 [00:06<00:04, 54.21it/s]
+Loading weights:  26%|██▌       | 88/339 [00:06<00:04, 62.66it/s]
+Loading weights:  29%|██▉       | 100/339 [00:07<00:03, 69.21it/s]
+Loading weights:  33%|███▎      | 112/339 [00:07<00:03, 74.08it/s]
+Loading weights:  36%|███▌      | 121/339 [00:07<00:02, 77.17it/s]
+Loading weights:  38%|███▊      | 130/339 [00:08<00:11, 18.02it/s]
+Loading weights:  40%|████      | 137/339 [00:09<00:16, 12.14it/s]
+Loading weights:  42%|████▏     | 142/339 [00:10<00:18, 10.92it/s]
+Loading weights:  43%|████▎     | 146/339 [00:10<00:15, 12.43it/s]
+Loading weights:  44%|████▍     | 150/339 [00:12<00:27,  6.81it/s]
+Loading weights:  45%|████▌     | 154/339 [00:12<00:22,  8.33it/s]
+Loading weights:  46%|████▋     | 157/339 [00:12<00:18,  9.68it/s]
+Loading weights:  47%|████▋     | 160/339 [00:13<00:21,  8.22it/s]
+Loading weights:  48%|████▊     | 163/339 [00:13<00:24,  7.07it/s]
+Loading weights:  51%|█████     | 172/339 [00:14<00:16, 10.28it/s]
+Loading weights:  51%|█████▏    | 174/339 [00:14<00:20,  8.10it/s]
+Loading weights:  54%|█████▍    | 184/339 [00:15<00:13, 11.90it/s]
+Loading weights:  55%|█████▍    | 186/339 [00:16<00:20,  7.49it/s]
+Loading weights:  56%|█████▌    | 190/339 [00:16<00:15,  9.44it/s]
+Loading weights:  57%|█████▋    | 192/339 [00:16<00:14, 10.28it/s]
+Loading weights:  58%|█████▊    | 196/339 [00:17<00:15,  9.06it/s]
+Loading weights:  58%|█████▊    | 198/339 [00:18<00:26,  5.31it/s]
+Loading weights:  60%|█████▉    | 202/339 [00:18<00:18,  7.48it/s]
+Loading weights:  60%|██████    | 204/339 [00:18<00:15,  8.50it/s]
+Loading weights:  61%|██████▏   | 208/339 [00:18<00:16,  7.94it/s]
+Loading weights:  62%|██████▏   | 210/339 [00:19<00:27,  4.75it/s]
+Loading weights:  63%|██████▎   | 214/339 [00:20<00:17,  6.98it/s]
+Loading weights:  64%|██████▎   | 216/339 [00:20<00:15,  8.06it/s]
+Loading weights:  65%|██████▍   | 220/339 [00:20<00:15,  7.69it/s]
+Loading weights:  65%|██████▌   | 222/339 [00:21<00:25,  4.57it/s]
+Loading weights:  67%|██████▋   | 226/339 [00:21<00:16,  6.82it/s]
+Loading weights:  67%|██████▋   | 228/339 [00:22<00:14,  7.92it/s]
+Loading weights:  68%|██████▊   | 232/339 [00:22<00:13,  7.93it/s]
+Loading weights:  69%|██████▉   | 234/339 [00:23<00:18,  5.58it/s]
+Loading weights:  72%|███████▏  | 245/339 [00:23<00:07, 13.16it/s]
+Loading weights:  76%|███████▌  | 256/339 [00:23<00:03, 21.52it/s]
+Loading weights:  77%|███████▋  | 261/339 [00:23<00:03, 24.17it/s]
+Loading weights:  79%|███████▉  | 268/339 [00:24<00:03, 19.78it/s]
+Loading weights:  80%|████████  | 272/339 [00:24<00:03, 21.40it/s]
+Loading weights:  83%|████████▎ | 280/339 [00:24<00:03, 19.14it/s]
+Loading weights:  83%|████████▎ | 283/339 [00:25<00:05,  9.72it/s]
+Loading weights:  84%|████████▍ | 286/339 [00:26<00:04, 11.06it/s]
+Loading weights:  85%|████████▌ | 289/339 [00:26<00:03, 12.80it/s]
+Loading weights:  86%|████████▌ | 292/339 [00:26<00:04,  9.69it/s]
+Loading weights:  87%|████████▋ | 294/339 [00:27<00:08,  5.56it/s]
+Loading weights:  88%|████████▊ | 298/339 [00:27<00:05,  7.85it/s]
+Loading weights:  89%|████████▉ | 301/339 [00:27<00:03,  9.79it/s]
+Loading weights:  90%|████████▉ | 304/339 [00:28<00:04,  8.09it/s]
+Loading weights:  90%|█████████ | 306/339 [00:29<00:06,  4.74it/s]
+Loading weights:  91%|█████████▏| 310/339 [00:29<00:04,  7.06it/s]
+Loading weights:  93%|█████████▎| 314/339 [00:29<00:02,  9.81it/s]
+Loading weights:  94%|█████████▎| 317/339 [00:30<00:03,  5.80it/s]
+Loading weights:  94%|█████████▍| 319/339 [00:31<00:03,  5.21it/s]
+Loading weights:  95%|█████████▍| 322/339 [00:31<00:02,  6.94it/s]
+Loading weights:  96%|█████████▌| 326/339 [00:31<00:01,  9.95it/s]
+Loading weights:  97%|█████████▋| 329/339 [00:32<00:01,  5.69it/s]
+Loading weights:  98%|█████████▊| 331/339 [00:33<00:01,  5.10it/s]
+Loading weights:  99%|█████████▊| 334/339 [00:33<00:00,  6.83it/s]
+Loading weights:  99%|█████████▉| 336/339 [00:33<00:00,  8.04it/s]
+Loading weights: 100%|██████████| 339/339 [00:33<00:00, 10.14it/s]
+[1/8] 8045087486700792769: invalid_output
+[2/8] 6935740157411537788: invalid_output
+[3/8] -6909798989883244156: invalid_output
+[4/8] -1178549234723633450: repaired
+[5/8] -3869689776609561239: repaired
+[6/8] 5822180296105627301: repaired
+[7/8] -1981506712537073428: repaired
+[8/8] 3252643664278412553: repaired
+{
+  "run_fingerprint": "1237eda631d38b9cf4cff8571062d87e48a80a771b353543489204c15170e9c2",
+  "routing": "all",
+  "strategy": "short_answer_quote",
+  "evaluated_samples": 8,
+  "initial_correct": 1,
+  "final_correct": 2,
+  "initial_accuracy": 0.125,
+  "final_accuracy": 0.25,
+  "fixed": 2,
+  "regressed": 1,
+  "net_correct_gain": 1,
+  "accuracy_gain": 0.125,
+  "mcnemar_exact_pvalue": 1.0,
+  "repair_success_rate": 0.2857142857142857,
+  "regression_rate": 1.0,
+  "changed": 5,
+  "verifier_calls": 0,
+  "verifier_latency_total": 0.0,
+  "verifier_input_tokens_total": 0,
+  "extra_calls": 8,
+  "extra_calls_per_sample": 1.0,
+  "extra_generation_latency_total": 49.43818469600001,
+  "extra_generation_latency_per_sample": 6.179773087000001,
+  "status_counts": {
+    "invalid_output": 3,
+    "repaired": 5
+  },
+  "independent_support_checked": 0,
+  "same_model_support_check_counts": {},
+  "input_tokens_total": 7847,
+  "input_tokens_observed_samples": 8,
+  "input_tokens_observed_calls": 8,
+  "output_tokens_estimate_total": 564,
+  "output_tokens_estimate_observed_samples": 8,
+  "output_tokens_estimate_observed_calls": 8,
+  "initial_f1": 0.229933110367893,
+  "final_f1": 0.4986578067241683
+}

@@ -1,0 +1,14 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "nq", "--c1", "/kaggle/working/e_v8_72ed761fd801/answer_repair_v8r3_smoke8_gpu/inputs/nq_smoke8_c1.jsonl", "--all", "--strategy", "short_answer_quote", "--max-new-tokens", "384", "--out", "/kaggle/working/answer_repair_v8r3_smoke8_outputs/short_answer_quote.jsonl", "--check-only"]
+{
+  "source": "/kaggle/working/e_v8_72ed761fd801/answer_repair_v8r3_smoke8_gpu/inputs/nq_smoke8_c1.jsonl",
+  "dataset": "nq",
+  "strategy": "short_answer_quote",
+  "routing": "all",
+  "samples": 8,
+  "completed": 0,
+  "routed_samples": 8,
+  "remaining_call_upper_bound": 8,
+  "remaining_classifier_samples": 0,
+  "fingerprint": "1237eda631d38b9cf4cff8571062d87e48a80a771b353543489204c15170e9c2",
+  "output": "/kaggle/working/answer_repair_v8r3_smoke8_outputs/short_answer_quote.jsonl"
+}
