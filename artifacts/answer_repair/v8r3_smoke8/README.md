@@ -5,6 +5,7 @@
 - [方案与预设门槛](../../../docs/ANSWER_REPAIR_V8_R3.md)
 - `manifest.json`、`preparation.json` 是运行前冻结快照，运行后不改写。
 - `validation.json`：151 项本地检查、111 项冻结便携检查通过；98 个负载文件逐个校验，Notebook 编译通过，32 条模拟流程 CPU 回放通过。模拟结果不作为模型结果入库。
+- `offline_candidate_diagnostic.json`：仅用新解析器检查旧 r2 的 33 份阶段原文，6 次字段省略可恢复、3 次来源拒绝仍保留。没有新模型调用，不推断新最终答案，也不改变 r2 失败记录。
 - 冻结包 SHA-256：`72ed761fd8017ebbaf439729ff318caa55c0823acf4b62429c4db8f31310b6f1`。
 - `cloud_status.json` 单独记录云端实际状态；Kaggle 第 1 版（359908613）已启动，T4 ×2；当前尚无 r3 GPU 结果。
 

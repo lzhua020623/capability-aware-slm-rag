@@ -1,0 +1,313 @@
+{
+  "diagnostic_only": true,
+  "gpu_repeated": false,
+  "new_model_calls": 0,
+  "new_final_answers_inferred": false,
+  "old_r2_gate_still_failed": true,
+  "source_result_zip_sha256": "a1e1d549e5887682be0b554695fb41f412271ffec733e2e303b6fc49489ce387",
+  "r3_bundle_sha256": "72ed761fd8017ebbaf439729ff318caa55c0823acf4b62429c4db8f31310b6f1",
+  "counts": {
+    "valid": 30,
+    "format_compatibility_recoveries": 6,
+    "grounding": 3
+  },
+  "stage_outputs": [
+    {
+      "strategy": "conservative_repair",
+      "sample_id": "8045087486700792769",
+      "stage": "original_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_repair",
+      "sample_id": "6935740157411537788",
+      "stage": "original_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_repair",
+      "sample_id": "-6909798989883244156",
+      "stage": "original_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_repair",
+      "sample_id": "-1178549234723633450",
+      "stage": "original_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_repair",
+      "sample_id": "-1178549234723633450",
+      "stage": "minimal_repair",
+      "r2_valid": false,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": "three_positional_values"
+    },
+    {
+      "strategy": "conservative_repair",
+      "sample_id": "-3869689776609561239",
+      "stage": "original_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_repair",
+      "sample_id": "5822180296105627301",
+      "stage": "original_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_repair",
+      "sample_id": "-1981506712537073428",
+      "stage": "original_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_repair",
+      "sample_id": "-1981506712537073428",
+      "stage": "minimal_repair",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": "labeled"
+    },
+    {
+      "strategy": "conservative_repair",
+      "sample_id": "-1981506712537073428",
+      "stage": "candidate_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_repair",
+      "sample_id": "3252643664278412553",
+      "stage": "original_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_repair",
+      "sample_id": "3252643664278412553",
+      "stage": "minimal_repair",
+      "r2_valid": false,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": "bare_rank_labeled_values"
+    },
+    {
+      "strategy": "conservative_no_original_gate",
+      "sample_id": "8045087486700792769",
+      "stage": "minimal_repair",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": "labeled"
+    },
+    {
+      "strategy": "conservative_no_original_gate",
+      "sample_id": "6935740157411537788",
+      "stage": "minimal_repair",
+      "r2_valid": false,
+      "r3_error_kind": "grounding",
+      "r3_valid": false,
+      "error": "Excerpt is not a verbatim evidence slice on token boundaries"
+    },
+    {
+      "strategy": "conservative_no_original_gate",
+      "sample_id": "-6909798989883244156",
+      "stage": "minimal_repair",
+      "r2_valid": false,
+      "r3_error_kind": "grounding",
+      "r3_valid": false,
+      "error": "Excerpt is not a verbatim evidence slice on token boundaries"
+    },
+    {
+      "strategy": "conservative_no_original_gate",
+      "sample_id": "-1178549234723633450",
+      "stage": "minimal_repair",
+      "r2_valid": false,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": "three_positional_values"
+    },
+    {
+      "strategy": "conservative_no_original_gate",
+      "sample_id": "-3869689776609561239",
+      "stage": "minimal_repair",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": "labeled"
+    },
+    {
+      "strategy": "conservative_no_original_gate",
+      "sample_id": "-3869689776609561239",
+      "stage": "candidate_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_no_original_gate",
+      "sample_id": "5822180296105627301",
+      "stage": "minimal_repair",
+      "r2_valid": false,
+      "r3_error_kind": "grounding",
+      "r3_valid": false,
+      "error": "Excerpt is not a verbatim evidence slice on token boundaries"
+    },
+    {
+      "strategy": "conservative_no_original_gate",
+      "sample_id": "-1981506712537073428",
+      "stage": "minimal_repair",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": "labeled"
+    },
+    {
+      "strategy": "conservative_no_original_gate",
+      "sample_id": "-1981506712537073428",
+      "stage": "candidate_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_no_original_gate",
+      "sample_id": "3252643664278412553",
+      "stage": "minimal_repair",
+      "r2_valid": false,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": "bare_rank_labeled_values"
+    },
+    {
+      "strategy": "conservative_no_candidate_gate",
+      "sample_id": "8045087486700792769",
+      "stage": "original_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_no_candidate_gate",
+      "sample_id": "6935740157411537788",
+      "stage": "original_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_no_candidate_gate",
+      "sample_id": "-6909798989883244156",
+      "stage": "original_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_no_candidate_gate",
+      "sample_id": "-1178549234723633450",
+      "stage": "original_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_no_candidate_gate",
+      "sample_id": "-1178549234723633450",
+      "stage": "minimal_repair",
+      "r2_valid": false,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": "three_positional_values"
+    },
+    {
+      "strategy": "conservative_no_candidate_gate",
+      "sample_id": "-3869689776609561239",
+      "stage": "original_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_no_candidate_gate",
+      "sample_id": "5822180296105627301",
+      "stage": "original_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_no_candidate_gate",
+      "sample_id": "-1981506712537073428",
+      "stage": "original_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_no_candidate_gate",
+      "sample_id": "-1981506712537073428",
+      "stage": "minimal_repair",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": "labeled"
+    },
+    {
+      "strategy": "conservative_no_candidate_gate",
+      "sample_id": "3252643664278412553",
+      "stage": "original_check",
+      "r2_valid": true,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": null
+    },
+    {
+      "strategy": "conservative_no_candidate_gate",
+      "sample_id": "3252643664278412553",
+      "stage": "minimal_repair",
+      "r2_valid": false,
+      "r3_error_kind": null,
+      "r3_valid": true,
+      "response_schema": "bare_rank_labeled_values"
+    }
+  ]
+}

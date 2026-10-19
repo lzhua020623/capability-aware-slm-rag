@@ -43,6 +43,22 @@ Kaggle 第 1 版 `359869429` 已成功完成 8 条 ×4 组的 32 条真实输出
 - [冻结 CPU 回放](../artifacts/answer_repair/v8r2_smoke8/release_audit/cpu_replay.json)
 - [结果校验](../artifacts/answer_repair/v8r2_smoke8/result_validation.json)
 - [7 条改答待审](../artifacts/answer_repair/v8r2_smoke8/review/changed_outputs_pending.jsonl)
+- [7 条改答的辅助意见](../artifacts/answer_repair/v8r2_smoke8/review/assisted_changed_outputs.jsonl)：N31/N48/N96 建议视为修复，N12 为正确答案无必要扩写，N15 为术语退化成现象复述；这对应 5 个唯一样本，跨组重复记录不能当作独立样本。人审字段均未更改，不能据此报告已确认净收益。
 - [预设门槛原始结果](../artifacts/answer_repair/v8r2_smoke8/kaggle_20261019/smoke_acceptance.json)
+
+## 后续语义优化依据
+
+已整理 [6 个辅助诊断案例](../artifacts/answer_repair/v8r2_smoke8/release_audit/semantic_failure_triage.jsonl)，包含完整 Top-5、原审核快照、实际阶段原文与辅助意见。新输出的人审字段仍为 pending。
+
+| 样本 | 实际问题 | 后续要验证的行为 |
+|---|---|---|
+| N8 | 将电影中的 Moon River 与题目同名歌曲混淆，错答被保留 | 精确对应作品名称、媒介及演唱者 |
+| N12 | 正确地点被原检查误拒，要求了题目没有的电影／MV 区分 | 避免凭空增加条件，测量正确对照误报 |
+| N31 | 理由与证据指向 Prince，却把 Charlie Rich 判为支持 | 先提取证据对象，再与被审答案比较 |
+| N48 | 正确否定第二大湖后，又错误拒绝正确候选 | 比较关系方向及核验对象必须一致 |
+| N96 | 候选缺少字段名，尚未得到实际候选核验结果 | 先修文法，重新生成后再判断语义 |
+| N15 | 去原检查组将 inflation 改成现象复述，候选检查放行 | 区分题目要的术语与相关释义 |
+
+v8r3 只处理候选文法和拒绝分类，保持语义提示不变，以便隔离工程影响。之后优先单独测试“先按问题从证据抽取事实，再比较原答案／候选”的核验方法，和现有六项同时判断做同条件对照；这只是待验证路线，不能假设一定提升。保留正确对照和相似作品干扰证据，统计修复、误修、错答放过、正确候选误拒及调用成本。此时不优先更换数据集，也不根据这 8 条开发样本选择最终系统配置；自然目标错误及共同未用于调参的测试集仍需补足。
 
 本地隔离副本的全部 146 项 Python 检查通过，包内 106 项便携检查通过；32 条模拟流程和实际 32 条 GPU 输出分别验证，模拟记录不作为研究结果。任何新的修订、提示或模型结果均另存，不覆盖此包。
