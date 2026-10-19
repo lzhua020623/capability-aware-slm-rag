@@ -62,7 +62,11 @@ class NQFaissBackend:
     Backend errors propagate to RetrievalEnhancer's existing safe fallback.
     """
 
-    def __init__(self, retriever):
+    def __init__(self, retriever, *, max_top_k: int = 5):
+        # Top-20 is opt-in for frozen P3-20; existing callers keep the Top-5 cap.
+        if type(max_top_k) is not int or not 1 <= max_top_k <= 20:
+            raise ValueError("max_top_k must be an integer between 1 and 20")
+        self.max_top_k = max_top_k
         self.retriever = retriever
         self._resource_signature = None
         self._check_resources()
@@ -122,8 +126,8 @@ class NQFaissBackend:
             raise ValueError("query must be a nonempty string")
         if dataset not in ("nq", "natural_questions"):
             raise ValueError("NQFaissBackend supports only nq/natural_questions")
-        if type(top_k) is not int or not 1 <= top_k <= 5:
-            raise ValueError("top_k must be an integer between 1 and 5")
+        if type(top_k) is not int or not 1 <= top_k <= self.max_top_k:
+            raise ValueError(f"top_k must be an integer between 1 and {self.max_top_k}")
         ntotal, dimension = self._check_resources()
         if ntotal == 0:
             return []
