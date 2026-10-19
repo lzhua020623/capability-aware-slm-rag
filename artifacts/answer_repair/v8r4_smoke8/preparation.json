@@ -1,0 +1,12 @@
+{
+  "version": "answer_repair_v8r4_smoke8_v1",
+  "bundle_sha256": "d13880c5e114b5f8379f931103af249e1f10b4975de98c9a5b74a9c161900e11",
+  "parent_bundle_sha256": "72ed761fd8017ebbaf439729ff318caa55c0823acf4b62429c4db8f31310b6f1",
+  "notebook_sha256": "d41feca3ecf77ff6997a82b4c02a99dbec5d352e414a8066528339c2168f730b",
+  "checksums_sha256": "f885de217f647a82d1887593d9d9098774b6b0a5830ed51c42f568125ed5aa96",
+  "files": 104,
+  "samples_per_arm": 8,
+  "predictions_expected": 32,
+  "generation_call_upper_bound": 64,
+  "gpu_inference_completed": false
+}

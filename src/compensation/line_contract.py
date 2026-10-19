@@ -3,9 +3,10 @@ from __future__ import annotations
 
 import re
 
-LINE_CONTRACT_VERSION = "single_response_v2_candidate_schemas"
-CHECK_LABELS = ("ENTITY", "RELATION", "TYPE", "COVERAGE", "SUPPORT", "CONFLICT_FREE",
-                "RANK", "QUOTE", "REASON")
+LINE_CONTRACT_VERSION = "single_response_v3_fact_first_audit"
+LEGACY_CHECK_LABELS = ("ENTITY", "RELATION", "TYPE", "COVERAGE", "SUPPORT", "CONFLICT_FREE",
+                       "RANK", "QUOTE", "REASON")
+CHECK_LABELS = ("FACT",) + LEGACY_CHECK_LABELS
 CANDIDATE_LABELS = ("RANK", "QUOTE", "ANSWER")
 CANDIDATE_SCHEMAS = ("labeled", "bare_rank_labeled_values", "three_positional_values")
 
@@ -83,7 +84,8 @@ def parse_candidate_lines(text: str) -> tuple[dict[str, str], str]:
     if lines[1].startswith("QUOTE:") and lines[2].startswith("ANSWER:"):
         values = parse_labeled_lines("RANK: " + "\n".join(lines), CANDIDATE_LABELS)
         return values, "bare_rank_labeled_values"
-    reserved = CHECK_LABELS + CANDIDATE_LABELS
+    # Keep r3 candidate grammars unchanged; FACT belongs only to audits.
+    reserved = LEGACY_CHECK_LABELS + CANDIDATE_LABELS
     if any(line.startswith(label + ":") for line in lines[1:] for label in reserved):
         raise FormatError("Mixed candidate labels and positional values")
     return dict(zip(CANDIDATE_LABELS, lines)), "three_positional_values"

@@ -1,0 +1,30 @@
+{
+  "version": "v8r4_preflight_v1",
+  "all_python_tests_passed": 158,
+  "frozen_portable_tests_passed": 118,
+  "payload_files_verified": 103,
+  "notebook_compiled": true,
+  "synthetic_integration_records": 32,
+  "synthetic_cpu_replay_passed": true,
+  "synthetic_records_are_research_results": false,
+  "gpu_inference_completed": false,
+  "source_overlay_sha256": {
+    "src/compensation/conservative_repair.py": "8d7db925b81ee9cb5678f1e85e883b18c1b41518f228aa12d856a34773bd040d",
+    "src/compensation/line_contract.py": "32e938f413e6d4dfc0965bdfb31806773c20cef733dc58294c427fb96641a687",
+    "scripts/check_answer_repair_v8_smoke.py": "b9787752518b825bc08bcfe658a5e36b29499dbb454f2c84e1358d62cf4409a5",
+    "scripts/audit_answer_repair_release.py": "86d8896139b9fed0ddd371eb435b9857b21cbf5e8b60e90bc366da0d68214a74",
+    "scripts/prepare_answer_repair_v8_r4.py": "8ac7e903700223b0ce15ec21f2427dc9bf6821cd56ac831254eb85946371c056",
+    "tests/test_answer_repair_v8.py": "0395228a84d81fbc6bb619938aeb74d7aba8c99daa93c5c5a61cf70b976bc028",
+    "tests/test_answer_repair_v8_r2.py": "b7832982772d79f2dc939cf8ab88c9232979396758974858ece0f34c30469ae9",
+    "tests/test_answer_repair_v8_r4.py": "e0d5b28b5df11a72cacc243a0fe37bb0b70cf70051168f3dda866fb5c16760b2",
+    "tests/fixtures/answer_repair_v8r4_invariants.json": "317aa5661f805cb5a392a11ad43dd100f6af84ce128af17cd460badb19ca04ca",
+    "configs/answer_repair_v8r4_smoke8_v1.json": "868d569b49d8f6a41d295df37e9137f02e9ef7c35e4c5dd1c70c2cf88eb68920",
+    "docs/ANSWER_REPAIR_V8_R4.md": "7091ed4f12013f7b6883276f5238f0098c70cf749f02aadcdd0f320b219b8d80"
+  },
+  "extended_workspace_suite": {
+    "command": "python -m unittest discover -s tests",
+    "tests_run": 162,
+    "result": "passed",
+    "includes": "Final development packaging provenance and selected-source invariance; frozen smoke payload unchanged"
+  }
+}

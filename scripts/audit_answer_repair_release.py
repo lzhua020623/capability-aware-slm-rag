@@ -87,7 +87,7 @@ def main(argv=None):
     targets = []
     is_v8_nq75 = manifest.get('version') in (
         'answer_repair_v8_nq75_v1', 'answer_repair_v8r2_smoke8_v1', 'answer_repair_v8r2_nq75_v1',
-        'answer_repair_v8r3_smoke8_v1')
+        'answer_repair_v8r3_smoke8_v1', 'answer_repair_v8r4_smoke8_v1')
     v8_cohort = 'nq75' if manifest.get('samples') == 75 else 'nq_smoke8'
     if is_v8_nq75:
         targets.append((v8_cohort, 'nq', {'sample_ids': manifest['sample_ids'],

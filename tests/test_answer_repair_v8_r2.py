@@ -11,7 +11,7 @@ from unittest.mock import patch
 from src.compensation.answer_repair import Generation, repair_answer
 from src.compensation.conservative_repair import parse_candidate, parse_check, repair_from_v8_trace
 from src.compensation.line_contract import (
-    CHECK_LABELS, CANDIDATE_LABELS, complete_labeled_output, parse_evidence_rank,
+    CHECK_LABELS, LEGACY_CHECK_LABELS, CANDIDATE_LABELS, complete_labeled_output, parse_evidence_rank,
 )
 from src.compensation.qwen_repair import QwenRepairGenerator
 from src.diagnosis import DiagnosisInput, EvidenceItem
@@ -46,13 +46,16 @@ class ContractTests(unittest.TestCase):
         r = real_request(case)
         with self.assertRaises(ValueError):
             parse_check(case["text"], r)
-        self.assertFalse(complete_labeled_output(case["text"], CHECK_LABELS))
+        self.assertFalse(complete_labeled_output(case["text"], LEGACY_CHECK_LABELS))
         boundary = next(i for i in range(1, len(case["text"]) + 1)
-                        if complete_labeled_output(case["text"][:i], CHECK_LABELS))
+                        if complete_labeled_output(case["text"][:i], LEGACY_CHECK_LABELS))
         # This simulates token-by-token stopping; it is NOT a new model result.
         prefix = case["text"][:boundary]
         self.assertEqual(len(prefix.strip().splitlines()), 9)
-        self.assertEqual(parse_check(prefix, r)["status"], "supported")
+        # A synthetic FACT prefix adapts this parser-only regression to r4.
+        # The stored r1 output is unchanged and is not an r4 model result.
+        current = "FACT: Synthetic contract adapter for a legacy source fixture.\n" + prefix
+        self.assertEqual(parse_check(current, r)["status"], "supported")
         with self.assertRaises(ValueError):
             parse_check(prefix + prefix.replace("ENTITY: yes", "ENTITY: no"), r)
         self.assertFalse(complete_labeled_output(prefix + "ENTITY", CHECK_LABELS))
@@ -60,7 +63,9 @@ class ContractTests(unittest.TestCase):
     def test_real_quote_and_rank_display_variants_keep_source_slices(self):
         quoted, bracketed = fixtures()[1:]
         for case, parser in ((quoted, parse_check), (bracketed, parse_candidate)):
-            parsed = parser(case["text"], real_request(case))
+            text = ("FACT: Synthetic contract adapter for a legacy source fixture.\n" + case["text"]
+                    if parser is parse_check else case["text"])
+            parsed = parser(text, real_request(case))
             citation = parsed.get("citation") or parsed["citations"][0]
             evidence = next(e for e in case["runtime"]["evidence"] if e["rank"] == citation["rank"])
             start, end = parsed["source_offsets"]

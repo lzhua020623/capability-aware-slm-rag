@@ -1,0 +1,90 @@
+{
+  "version": "answer_repair_v8r4_smoke8_v1",
+  "frozen_on": "2026-10-19",
+  "purpose": "Final fact-first audit-only revision on the same eight development cases. No EM-based selection; no further smoke tuning.",
+  "parent_bundle_sha256": "72ed761fd8017ebbaf439729ff318caa55c0823acf4b62429c4db8f31310b6f1",
+  "review_numbers": [
+    1,
+    2,
+    8,
+    12,
+    15,
+    31,
+    48,
+    96
+  ],
+  "selection_reason": "Four previously accepted controls and four E targets; exercise repetition, wrapped quotes, bracketed ranks, work identity, comparison, and explanations. Selected before r2 generation, with no new gold injection.",
+  "protocol": [
+    {
+      "strategy": "short_answer_quote",
+      "max_new_tokens": 384,
+      "max_calls": 1
+    },
+    {
+      "strategy": "conservative_repair",
+      "max_new_tokens": 384,
+      "max_calls": 3
+    },
+    {
+      "strategy": "conservative_no_original_gate",
+      "max_new_tokens": 384,
+      "max_calls": 2
+    },
+    {
+      "strategy": "conservative_no_candidate_gate",
+      "max_new_tokens": 384,
+      "max_calls": 2
+    }
+  ],
+  "expected_predictions": 32,
+  "max_generation_calls": 64,
+  "smoke_acceptance": {
+    "minimum_valid_stage_calls": {
+      "original_check": 1,
+      "minimal_repair": 1,
+      "candidate_check": 1
+    },
+    "minimum_full_three_stage_paths": 1,
+    "require_observed_contract_backend": true,
+    "require_raw_text_unchanged": true,
+    "max_format_invalid_v8_stages": 0,
+    "allowed_guard_rejections": [
+      "grounding",
+      "constraint"
+    ]
+  },
+  "reference_policy": "Original C1, evidence, gold and scorer unchanged. Initial human labels offline only; all new output reviews pending.",
+  "acceptance_policy": "Unchanged r3 engineering checks, then the three specified full-arm audit regressions. Ignore EM/F1 for version selection. Other five cases and all arms remain fully logged. N31 downstream provenance failure is recorded and does not redefine its original-audit regression. This is the final use of smoke8.",
+  "previous_revision_bundle_sha256": "72ed761fd8017ebbaf439729ff318caa55c0823acf4b62429c4db8f31310b6f1",
+  "previous_result_zip_sha256": "766c9c377be6b7cc4123a1225f3b4670ae10348df7db3a703e72d9665d36da45",
+  "failure_policy": "Select r4 only if the unchanged engineering gate and all three predeclared audit regressions pass; otherwise freeze r3. No r5 on these eight cases.",
+  "semantic_regressions": {
+    "strategy": "conservative_repair",
+    "cases": [
+      {
+        "case": "N31",
+        "review_number": 31,
+        "expected_stage_status": {
+          "original_check": "unsupported"
+        }
+      },
+      {
+        "case": "N48",
+        "review_number": 48,
+        "expected_stage_status": {
+          "original_check": "unsupported",
+          "candidate_check": "supported"
+        },
+        "expected_candidate_answer": "Govind Ballabh Pant Sagar"
+      },
+      {
+        "case": "N12",
+        "review_number": 12,
+        "expected_stage_status": {
+          "original_check": "supported"
+        },
+        "keep_original": true
+      }
+    ]
+  }
+}

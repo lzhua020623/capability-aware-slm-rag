@@ -25,7 +25,7 @@ from tests.test_answer_repair_v5 import SequenceGenerator
 
 def check(**changes):
     values = {**dict.fromkeys(CHECK_KEYS, "yes"), **changes}
-    return "\n".join(f"{key}: {values[key]}" for key in CHECK_KEYS) + (
+    return "FACT: The capital of France is Paris.\n" + "\n".join(f"{key}: {values[key]}" for key in CHECK_KEYS) + (
         "\nRANK: 1\nQUOTE: The capital of France is Paris.\nREASON: The evidence establishes the requested capital.")
 
 

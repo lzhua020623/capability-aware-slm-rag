@@ -1,0 +1,352 @@
+{
+  "source_bundle_sha256": "72ed761fd8017ebbaf439729ff318caa55c0823acf4b62429c4db8f31310b6f1",
+  "function_ast_sha256": {
+    "max_calls": "2b145c37b5ff809545d11448e697391b6957ff6711ec0c03b4136f955fc22cb8",
+    "_context": "a2d0ef78071b045f479fc1ce0b7812937e67d2eb0a0ad13219314eaf44b826bb",
+    "build_minimal_repair_prompt": "c26af87b67488125deb6eb76e8bb76ef7a75019c956d6f076b0c47641b7d3221",
+    "_lines": "106139663582f81bd1ce5acbd52205b34e25902708c53b523d31d7b81e1b8001",
+    "_locate_display_excerpt": "0d6a127ccd26f9b8a4d5be8507be43d491e141478aa9f2d57152b1224202f91c",
+    "_citation": "b10e2716368584fd76d7e0fec5e183935fad5fede3bd140fe6d49bbea8ce3678",
+    "parse_candidate": "1ec6894b02f899c4fc619c9b716a0805382cfad5b060b70a1b4b178b51e34f1a",
+    "conservative_repair": "cd26ed0542f082ffff2be94d80a7c649e57049974411ccacfbf4a2892405b735",
+    "repair_from_v8_trace": "508868ef29195631884929fc5c87f69272b0cbddbb97169b4efa7bc95187bde9"
+  },
+  "assignment_ast_sha256": {
+    "CHECK_KEYS": "8e6397366ce7fef291809c1a83c49f136ff90cc7394dfed492b2d0edf4bd575c",
+    "MAX_QUOTE_WORDS": "d88a6bda7f761d2fb52eebe6aceae9f6f8446ce3faab5dbdf4e8f2f3330f36d9",
+    "MAX_ANSWER_WORDS": "e440aefe6556a296f592bb4b1e1c7c3d5ac7d499d42c6f3b6aba518f0d75eac1",
+    "MAX_REASON_WORDS": "f66592253d43635d20ec829ef15515121b4630f2ea817a865c639a04a356374b",
+    "SEMANTICS": "26610a8d691a3ee9df994ce9842c56799e5f4d77102a9774e3aea84ae901f161"
+  },
+  "runtime_and_prompt_cases": [
+    {
+      "runtime": {
+        "sample_id": "8045087486700792769",
+        "dataset": "nq",
+        "query": "where was john mccrae when he wrote in flanders fields",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_1178762",
+            "text": "John McCrae -- Best known as the author of the World War I poem In Flanders Fields , McCrae started his active military service in the Boer War as an artillery officer . After completing several major campaigns , McCrae 's artillery unit was sent home to Canada in 1901 with what would be referred to today as an ' honourable discharge ' . McCrae ended up becoming a special professor in the University of Vermont for pathology and he would later serve in World War I as a Medical officer until his death from pneumonia while on active duty in 1918 .",
+            "score": 0.8155189752578735
+          },
+          {
+            "rank": 2,
+            "passage_id": "nq_p_0968089",
+            "text": "Lieutenant Colonel John McCrae , MD ( November 30 , 1872 -- January 28 , 1918 ) was a Canadian poet , physician , author , artist and soldier during World War I , and a surgeon during the Second Battle of Ypres , in Belgium . He is best known for writing the famous war memorial poem `` In Flanders Fields '' . McCrae died of pneumonia near the end of the war .",
+            "score": 0.8088986873626709
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_0968108",
+            "text": "Though various legends have developed as to the inspiration for the poem , the most commonly held belief is that McCrae wrote `` In Flanders Fields '' on May 3 , 1915 , the day after presiding over the funeral and burial of his friend Lieutenant Alexis Helmer , who had been killed during the Second Battle of Ypres . The poem was written as he sat upon the back of a medical field ambulance near an advance dressing post at Essex Farm , just north of Ypres . The poppy , which was a central feature of the poem , grew in great numbers in the spoiled earth of the battlefields and cemeteries of Flanders .",
+            "score": 0.8065404891967773
+          },
+          {
+            "rank": 4,
+            "passage_id": "nq_p_0035714",
+            "text": "In 1915 John McCrae , a Canadian army doctor , wrote the poem In Flanders Fields as a salute to those who perished in the Great War . Published in Punch on 8 December 1915 , it is still recited today , especially on Remembrance Day and Memorial Day .",
+            "score": 0.80543053150177
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0148412",
+            "text": "`` In Flanders Fields '' is a war poem in the form of a rondeau , written during the First World War by Canadian physician Lieutenant - Colonel John McCrae . He was inspired to write it on May 3 , 1915 , after presiding over the funeral of friend and fellow soldier Lieutenant Alexis Helmer , who died in the Second Battle of Ypres . According to legend , fellow soldiers retrieved the poem after McCrae , initially dissatisfied with his work , discarded it . `` In Flanders Fields '' was first published on December 8 of that year in the London magazine Punch .",
+            "score": 0.8030088543891907
+          }
+        ],
+        "initial_answer": "near an advance dressing post at Essex Farm"
+      },
+      "minimal_prompt_sha256": "d00c203c94aafe13c1f62fed0fc40144904790f8a747f9afffdc6c8e17a80dac"
+    },
+    {
+      "runtime": {
+        "sample_id": "6935740157411537788",
+        "dataset": "nq",
+        "query": "where is big bear lake located in california",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_0925132",
+            "text": "Big Bear Lake is located at 34 ° 14 ′ 29 '' N 116 ° 54 ′ 12 '' W ﻿ / ﻿ 34.24139 ° N 116.90333 ° W ﻿ / 34.24139 ; - 116.90333 ( 34.241295 , − 116.903289 ) . According to the United States Census Bureau , the city has a total area of 6.5 square miles ( 17 km ) . 6.3 square miles ( 16 km ) of it is land and 0.2 square miles ( 0.52 km ) of it ( 2.88 % ) is water . It is located 25 miles ( 40 km ) northeast of the city of San Bernardino , and immediately west of Big Bear City .",
+            "score": 0.8162106275558472
+          },
+          {
+            "rank": 2,
+            "passage_id": "nq_p_0925120",
+            "text": "Big Bear Lake is a small city in San Bernardino County , California , located in the San Bernardino Mountains along the south shore of Big Bear Lake , and surrounded by the San Bernardino National Forest . The city is located about 25 miles ( 40 km ) northeast of the city of San Bernardino , and immediately west of the unincorporated town of Big Bear City . The population was approximately 5,019 at the 2010 census , down from 5,438 at the 2000 census . Being a popular year - round resort destination , however , the actual number of people staying in or visiting the greater Big Bear Valley area regularly surges to over 100,000 during many weekends of the year .",
+            "score": 0.810623824596405
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_1050450",
+            "text": "Big Bear Lake is a reservoir in the San Bernardino Mountains , in San Bernardino County , California , United States . At a surface elevation of 6,750 ft ( 2,060 m ) , it has an east -- west length of approximately 7 mi ( 11 km ) and is approximately 2.5 mi ( 4.0 km ) at its widest measurement , though the lake 's width mostly averages a little more than 1 mi ( 1.6 km ) . These approximations are based on the lake having an optimum retainable water level . At dam 's end Big Bear measures its deepest water at 72 ft ( 22 m ) . It is a completely snow - fed lake , having no other means of tributary or mechanical replenishment .",
+            "score": 0.8024526834487915
+          },
+          {
+            "rank": 4,
+            "passage_id": "nq_p_0974071",
+            "text": "Big Bear Lake is a reservoir in the San Bernardino Mountains , in San Bernardino County , California , United States . At a surface elevation of 6,750 ft ( 2,060 m ) , it has an east - west length of approximately 7 mi ( 11 km ) and is approximately 2.5 mi ( 4.0 km ) at its widest measurement , though the lake 's width mostly averages a little more than 1 mi ( 1.6 km ) . These approximations are based on the lake having an optimum retainable water level . At dam 's end Big Bear measures its deepest water at 72 ft ( 22 m ) . It is a completely snow - fed lake , having no other means of tributary or mechanical replenishment .",
+            "score": 0.800171971321106
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0925146",
+            "text": "Big Bear Lake is Southern California 's largest recreation lake . It is about seven miles long and about one mile at its widest . The primary summer attraction in Big Bear was fishing and it still is one of the most common activities there . The most abundant types of fish are trout , bass and catfish . Hiking , mountain biking and horse riding are also very popular . San Bernardino National Forest offers many trails in varying degrees of difficulty . During winter season Big Bear Lake becomes a skiing and snowboarding destination for Southern California . There are two ski resorts : Snow Summit and Bear Mountain . The town is also home to the Big Bear Lake International Film Festival , in operation since 1999 .",
+            "score": 0.7517952919006348
+          }
+        ],
+        "initial_answer": "San Bernardino Mountains"
+      },
+      "minimal_prompt_sha256": "426ad18eff5aa21f7fe4b8422efcd645caf116d6f0068c336ee95479c946129c"
+    },
+    {
+      "runtime": {
+        "sample_id": "-6909798989883244156",
+        "dataset": "nq",
+        "query": "who sang breakfast at tiffany's the original",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_0200453",
+            "text": "Mercer and Mancini wrote the song for Audrey Hepburn to sing in the film Breakfast at Tiffany 's . The lyrics , written by Mercer , are reminiscent of his childhood in Savannah , Georgia , including its waterways . As a child , he had picked huckleberries in summer , and connected them with a carefree childhood and Mark Twain 's Huckleberry Finn . Although an instrumental version is played over the film 's opening titles , the lyrics are first heard in a scene where Paul `` Fred '' Varjak ( George Peppard ) discovers Holly Golightly ( Hepburn ) singing the song , and accompanying herself on the guitar , while sitting on the fire escape outside their apartments .",
+            "score": 0.7775134444236755
+          },
+          {
+            "rank": 2,
+            "passage_id": "nq_p_0084322",
+            "text": "`` Breakfast at Tiffany 's '' is a 1995 song recorded by American alternative rock band Deep Blue Something . Originally appearing on the album 11th Song , it was later re-recorded and released on their album Home . It was the band 's only hit , peaking at number five on the Billboard Hot 100 . Outside the United States , the song topped the charts in the United Kingdom , and peaked within the top ten of the charts in Australia , Belgium ( Flanders ) , Canada , Germany , the Republic of Ireland and Sweden .",
+            "score": 0.7543667554855347
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_0858719",
+            "text": "During the film , Hepburn sang the film 's signature song , `` Moon River '' by Henry Mancini and Johnny Mercer . The song was tailored to Hepburn 's limited vocal range , based on songs she had performed in 1957 's Funny Face . On the Anniversary Edition DVD of Breakfast at Tiffany 's co-producer Richard Shepherd says in his audio commentary that after a preview in San Francisco , Martin Rankin , Paramount 's head of production , wanted `` Moon River '' replaced with music by somebody like Gordon Jenkins ( whose album Manhattan Tower had been out fairly recently ) : `` Marty ( Jurow , co-producer ) and I both said ' over our dead bodies . ' '' According to Mancini and Edwards , a studio executive hated the song and demanded it be cut from the film ; Hepburn , who was present , responded to the suggestion by standing up and saying , `` Over my dead body ! ''",
+            "score": 0.723641037940979
+          },
+          {
+            "rank": 4,
+            "passage_id": "nq_p_0200449",
+            "text": "`` Moon River '' is a song composed by Henry Mancini with lyrics by Johnny Mercer . It was originally performed by Audrey Hepburn in the 1961 movie Breakfast at Tiffany 's , winning an Academy Award for Best Original Song . The song also won the 1962 Grammy Awards for Record of the Year and Song of the Year .",
+            "score": 0.7190487384796143
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0858736",
+            "text": "The soundtrack featured a score composed and conducted by Henry Mancini , with songs by Mancini and lyricist Johnny Mercer . Mancini and Mercer won the 1961 Oscar for Best Original Song for `` Moon River '' . Mancini won for Best Original Score . There are also unreleased score pieces from Breakfast at Tiffany 's in existence ; `` Carousel Cue '' is from an unsurfaced scene , while `` Outtake 1 '' is from a deleted scene in which Holly and Fred visit Tiffany 's and is a variation of the main theme .",
+            "score": 0.7170267105102539
+          }
+        ],
+        "initial_answer": "Audrey Hepburn"
+      },
+      "minimal_prompt_sha256": "c5051b969f562a0fb16526116ea7832aea7b02b3916aa7741f93ae494d2b498e"
+    },
+    {
+      "runtime": {
+        "sample_id": "-1178549234723633450",
+        "dataset": "nq",
+        "query": "where was total eclipse of the heart filmed",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_0473639",
+            "text": "The music video for `` Total Eclipse of the Heart '' was directed by Russell Mulcahy and was filmed on location at the Holloway Sanatorium , a large Victorian Gothic hospital near Virginia Water , Surrey , England . The video features Bonnie Tyler clad in white , dreaming or fantasizing about her students in a boys ' boarding school . Young men are seen dancing and participating in various school activities and singing in a choir .",
+            "score": 0.7903239727020264
+          },
+          {
+            "rank": 2,
+            "passage_id": "nq_p_0473641",
+            "text": "Since the song 's release , Tyler performs `` Total Eclipse of the Heart '' in every concert she performs . `` I sing it much better now than I used to , '' she told The Huffington Post . `` I think my voice is probably not as husky as it was , I think it 's mellowed a bit . '' The song was performed at the 26th Annual Grammy Awards , held at the Shrine Auditorium , Los Angeles , on 28 February 1984 . Tyler performed a brief , live performance of this song on a Royal Caribbean cruise during the solar eclipse of 21 August 2017 .",
+            "score": 0.6821131706237793
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_0995782",
+            "text": "Principal photography for Eclipse began on August 17 , 2009 , at Vancouver Film Studios . On August 29 , photos captured Kristen Stewart , Billy Burke , and other principal actors , filming a scene with graduation caps and gowns . September 2 brought Xavier Samuel together with Kristen Stewart and Robert Pattinson filming at a soundstage for scenes at Bella 's house . Director David Slade stated that they filmed a scene with a tent on September 13 . He also said that they filmed a kiss between Jacob and Bella on September 17 . Filming wrapped up on October 29 , 2009 , while post-production began in late November . Slade published multiple updates on his Twitter account proclaiming that editing was going well . He said the `` story and the way ( they ) approached the film calls for a more realistic approach . '' In April 2010 , it was revealed that reshoots to the film were needed . Both Slade and Stephenie Meyer were present at the shoot along with the three main stars .",
+            "score": 0.6638767123222351
+          },
+          {
+            "rank": 4,
+            "passage_id": "nq_p_0473626",
+            "text": "`` Total Eclipse of the Heart '' is a song recorded by Welsh singer Bonnie Tyler . It was written and produced by Jim Steinman , and released on Tyler 's fifth studio album , Faster Than the Speed of Night ( 1983 ) . The song was released as a single by Columbia Records on 11 February 1983 in the United Kingdom and on 31 May 1983 in the United States .",
+            "score": 0.6521524786949158
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0960027",
+            "text": "Scenes set in Provence were filmed on location in Trogir , Croatia , in the same production block as `` The Vampires of Venice '' , which sees Trogir depicting 16th - century Venice . Filming took place around November 2009 . The scenes at the church which were filmed at Llandaff Cathedral in Wales , while the National Museum Cardiff doubled for the interior of the Musée d'Orsay . Some of the sets were intended to reference paintings , such as Van Gogh 's bedroom . One such set was the café where the Doctor and Amy first meet Van Gogh , which was modelled after the painting Cafe Terrace at Night . This proved challenging for the art department , who extensively looked for a suitable building in Croatia to use . Once they found the one they wanted , they had to redesign it to look like the painting ; this involved putting an awning up , changing the windows , and adding a platform with tables and chairs . The song played during the ending scene is `` Chances '' by the British rock band Athlete .",
+            "score": 0.6486008167266846
+          }
+        ],
+        "initial_answer": "Holloway Sanatorium"
+      },
+      "minimal_prompt_sha256": "ee19d07c7c68ebc202caca6052f30afb2cc1accb83a5eb1aa1d7f101708c15be"
+    },
+    {
+      "runtime": {
+        "sample_id": "-3869689776609561239",
+        "dataset": "nq",
+        "query": "an increase in the average level of prices is called",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_0308170",
+            "text": "According to the aggregate demand - aggregate supply model , when aggregate demand increases , there is movement up along the aggregate supply curve , giving a higher level of prices .",
+            "score": 0.706611692905426
+          },
+          {
+            "rank": 2,
+            "passage_id": "nq_p_0509408",
+            "text": "The term `` inflation '' originally referred to increases in the amount of money in circulation . However , it is common for economists today to use the term `` inflation '' to refer to a rise in the price level . An increase in the money supply may be called monetary inflation , to distinguish it from rising prices , which may also for clarity be called `` price inflation '' . Economists generally agree that in the long run , inflation is caused by increases in the money supply .",
+            "score": 0.7017884850502014
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_0849421",
+            "text": "The term `` inflation '' originally referred to increases in the amount of money in circulation . However , most economists today use the term `` inflation '' to refer to a rise in the price level . An increase in the money supply may be called monetary inflation , to distinguish it from rising prices , which may also for clarity be called `` price inflation '' . Economists generally agree that in the long run , inflation is caused by increases in the money supply .",
+            "score": 0.6997779607772827
+          },
+          {
+            "rank": 4,
+            "passage_id": "nq_p_1096038",
+            "text": "When consumers increase the quantity demanded at a given price , it is referred to as an increase in demand . Increased demand can be represented on the graph as the curve being shifted to the right . At each price point , a greater quantity is demanded , as from the initial curve D1 to the new curve D2 . In the diagram , this raises the equilibrium price from P1 to the higher P2 . This raises the equilibrium quantity from Q1 to the higher Q2 . A movements along the curve is described as a `` change in the quantity demanded '' to distinguish it from a `` change in demand , '' that is , a shift of the curve . there has been an increase in demand which has caused an increase in ( equilibrium ) quantity . The increase in demand could also come from changing tastes and fashions , incomes , price changes in complementary and substitute goods , market expectations , and number of buyers . This would cause the entire demand curve to shift changing the equilibrium price and quantity . Note in the diagram that the shift of the demand curve , by causing a new equilibrium price to emerge , resulted in movement along the supply curve from the point ( Q , P ) to the point ( Q , P ) .",
+            "score": 0.696439266204834
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0130510",
+            "text": "A general price increase across the entire economy is called inflation . When prices decrease , there is deflation . Economists measure these changes in prices with price indexes . Inflation can occur when an economy becomes overheated and grows too quickly . Similarly , a declining economy can lead to deflation .",
+            "score": 0.6817998886108398
+          }
+        ],
+        "initial_answer": "inflation"
+      },
+      "minimal_prompt_sha256": "617733d99fb4a1ef1042d94b55fde3bfb7455bd279beb6b7a49732ae7c064f1d"
+    },
+    {
+      "runtime": {
+        "sample_id": "5822180296105627301",
+        "dataset": "nq",
+        "query": "who sings the most beautiful girl in the world",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_0597721",
+            "text": "`` The Most Beautiful Girl in the World '' is the lead single from the 1994 EP The Beautiful Experience by Prince ( The Artist Formerly Known As Prince ) , and his 1995 album The Gold Experience . In his singles chronology , it was his third major release since changing his stage name to `` The Artist Formerly Known As Prince '' or `` TAFKAP . '' In his albums chronology , it along with the EP was his second release after changing his name . With the consent of Prince 's usual record distributor Warner Bros. Records , `` The Most Beautiful Girl in the World '' was released by NPG Records and Edel Music , and independently distributed by Bellmark Records , under the control and guidance of Music of Life , as a one - off single , topping five different charts .",
+            "score": 0.7342771291732788
+          },
+          {
+            "rank": 2,
+            "passage_id": "nq_p_0377640",
+            "text": "`` The Most Beautiful Girl in the World '' is the lead single from Prince 's 1994 EP The Beautiful Experience and 1995 album The Gold Experience . In his singles chronology , it was his third major release since changing his stage name to an unpronounceable symbol . In his albums chronology , it along with the EP was his second release after changing his name . With the consent of Prince 's usual record distributor Warner Bros. Records , `` The Most Beautiful Girl in the World '' was released by NPG Records and Edel Music , and independently distributed by Bellmark Records , under the control and guidance of Music of Life , as a one - off single , topping five different charts .",
+            "score": 0.7293520569801331
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_0687833",
+            "text": "`` The Most Beautiful Girl '' is a song recorded by Charlie Rich and written by Bill Sherrill , Norris Wilson , and Rory Bourke . The countrypolitan ballad reached number 1 in the United States in 1973 on three Billboard music charts : the pop chart ( two weeks ) , the country chart ( three weeks ) , and the adult contemporary chart ( three weeks ) , as well as in Canada on three RPM charts : the RPM 100 Top Singles chart , the Country Tracks chart , and the Adult Contemporary chart . Billboard ranked it as the No. 23 song for 1974 .",
+            "score": 0.719916820526123
+          },
+          {
+            "rank": 4,
+            "passage_id": "nq_p_0500159",
+            "text": "`` The Most Beautiful Girl '' is a song recorded by Charlie Rich and written by Bill Sherrill , Norris Wilson , and Rory Bourke . The country and western ballad reached number 1 in the United States in 1973 on three Billboard music charts : the pop chart ( two weeks ) , the country chart ( three weeks ) , and the adult contemporary chart ( three weeks ) , as well as in Canada on three RPM charts : the RPM 100 Top Singles chart , the Country Tracks chart , and the Adult Contemporary chart . Billboard ranked it as the No. 23 song for 1974 .",
+            "score": 0.7099336385726929
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0500162",
+            "text": "`` The Most Beautiful Girl '' was also recorded by Slim Whitman in the 1970s . Andy Williams released a version in 1974 on his album The Way We Were . In 1975 ABBA singer Anni - Frid Lyngstad recorded a Swedish - language version called `` Vill du låna en man ? '' ( with Swedish lyrics by Stig Anderson ) on her solo album Frida ensam . Sergio Franchi recorded the song on his 1976 DynaHouse album 20 Magnificent Songs . Country music boy band South 65 recorded an updated version of the song , titled `` The Most Beautiful Girl ( 2001 Version ) '' , on their 2001 album Dream Large .",
+            "score": 0.695644199848175
+          }
+        ],
+        "initial_answer": "Charlie Rich"
+      },
+      "minimal_prompt_sha256": "c6377a9fa6b5053bf1a6e1e4545ef6a5b6e766531a922c8548b4a5aaf4635072"
+    },
+    {
+      "runtime": {
+        "sample_id": "-1981506712537073428",
+        "dataset": "nq",
+        "query": "which is the largest artificial lake in india",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_0410889",
+            "text": "Dhebar Lake ( also known as Jaisamand Lake ) is India 's second - largest artificial lake , after Govind Ballabh Pant Sagar . It is located in the Udaipur District of Rajasthan State in western India . It has an area of 87 km ( 34 sq mi ) when full , and was created in the 17th century , when Rana Jai Singh of Udaipur built a marble dam across the Gomati River . It is about 45.0 km ( 28.0 mi ) from the district headquarters of Udaipur . When first built , it was the largest artificial lake in the world . The surrounding Jaisamand Wildlife Sanctuary around Dhebar Lake can be reached by the state highway to Banswara from Udaipur . It is about 27.0 km ( 16.8 mi ) from Parsad ( A village on National Highway No. 8 ) . Jaisamand Wildlife Sanctuary protects about 162.0 square kilometres ( 16,200 ha ) , mostly teak forest , on the shores of Dhebar Lake . The lake has three islands measuring from 10 to 40 acres ( 40,000 to 162,000 m ) each . The Dhebar Lake Marble Dam is 300.0 m ( 984.3 ft ) long and is a part of the `` Heritage Monuments of India '' . The dam also has the Hawa Mahal Palace , winter Capital of the erstwhile Maharanas of Mewar .",
+            "score": 0.693220853805542
+          },
+          {
+            "rank": 2,
+            "passage_id": "nq_p_0410890",
+            "text": "Dhebar Lake , built by Maharana Jai Singh in 1685 , covers area of 36 square miles ( 93 km ) . The lake remained the largest artificial lake in the world till the building of the Aswan dam in Egypt by the British in 1902 , that was reconstructed between 1960 - 1970 . During the reign of Maharana Jai Singh ( 1680 -- 1698 ) , there was a great need for water for cultivation in Mewar 's southeastern corner . The Maharana emulated his father ( Maharana Raj Singh I who built Rajsamand Lake ) by damming a small river , the Gomati , and building a massive embankment ; the height of the dam is 36.6 meters . Jai Singh named the resultant lake Jaisamand after himself - its often - used nickname is ' Ocean of Victory ' ( ' mand ' meaning ' ocean ' ) . On the day of its inauguration , June 2 , 1691 , Maharana Jai Singh walked around the dam charitably distributing gold equal to his own weight . The statistics of the lake is really amazing -- 9 miles ( 14 km ) in breadth , 102 feet ( 31 m ) deep at its deepest end , a circumference of 30 miles ( 48 km ) , with marble staircases leading into the water . The summer palaces of the Queens of Udaipur surround Dhebar Lake on all sides .",
+            "score": 0.6908293962478638
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_0852473",
+            "text": "The district has no natural lakes . Artificial lakes have been constructed mainly to supply drinking water to Mumbai . The Tansa Lake formed across the Tansa River in the hills north of Bhiwandi behind the dam completed in 1892 CE . The Modak Sagar ( Lower Vaitarna ) Lake on the river Vaitarna formed behind a dam completed in 1957 CE . In the upper reaches of the same river , the Upper Vaitarana Lake formed behind another dam built in 1972 CE . The Bhatsa Lake has been formed in the upper Bhatsa , north of Shahapur behind a dam built in 1981 CE .",
+            "score": 0.6553589105606079
+          },
+          {
+            "rank": 4,
+            "passage_id": "nq_p_0512163",
+            "text": "Rajendra Chola built a vast artificial lake , sixteen miles long and three miles wide which was one of the largest man - made lakes in India . The fortified capital of Rajendra Chola was of impressive grandeur and Ottakoothar states , On seeing Gangapuri , all fourteen worlds encircled by the billowing ocean are overwhelmed with joy . The extent of the empire was the widest in India and the military and naval prestige was at its highest . The successful invasions of Rajendra Chola were applauded by several medieval Tamil poets like Jayamkondan in his text Kalingattupparani and Ottakkoothar in his text Ula .",
+            "score": 0.6549167633056641
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0758017",
+            "text": "Kodaikanal Lake , is an artificial , roughly star - shaped 45 ha ( 60 acres ) lake built in 1863 . It is recognized as Kodaikanal 's most popular geographic landmark and tourist attraction . Rowboats and pedalos can be hired at the Kodaikanal Boat Club . Horses and bicycles can be hired beside the lake for short periods . The 5 kilometres ( 3.1 mi ) path that skirts the periphery of this lovely lake is a favourite walk for the locals and tourists alike .",
+            "score": 0.642784833908081
+          }
+        ],
+        "initial_answer": "Dhebar Lake"
+      },
+      "minimal_prompt_sha256": "f3699a8e392f65585208601805cef60e15bd347067a1e71b37a1680a90497b38"
+    },
+    {
+      "runtime": {
+        "sample_id": "3252643664278412553",
+        "dataset": "nq",
+        "query": "where did the name of monkey bread come from",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_0756250",
+            "text": "The origin of the term `` monkey bread '' comes from the pastry being a finger food : the consumer would pick apart the bread as a monkey would .",
+            "score": 0.8107254505157471
+          },
+          {
+            "rank": 2,
+            "passage_id": "nq_p_0756251",
+            "text": "The name aranygaluska ( monkey bread ) literally means `` golden dumpling '' and by the 1880s , this dessert was being referred to in Hungarian literature . Hungarian immigrants subsequently brought this dish with them when they immigrated to America and began introducing it into the country 's food landscape when Hungarian and Hungarian Jewish bakeries began selling it in the mid-twentieth century . In 1972 , a cookbook published by Betty Crocker included a recipe for aranygaluska , which they referred to as `` Hungarian Coffee Cake '' . As it became more popular in America , aranygaluska came to be confused with monkey bread in which the balls of dough are not dipped in cinnamon and sugar but only in butter . Monkey bread soon became the more common name for this Hungarian Jewish dessert and therefore what most people know as monkey bread today is actually aranygaluska . Recipes for the bread first appeared in American women 's magazines and community cookbooks in the 1950s , but the dish is still virtually unknown outside the United States . The bread is made with pieces of sweet yeast dough ( often frozen ) , which are baked in a cake pan at high heat after first being individually covered in melted butter , cinnamon , sugar , and chopped pecans . It is traditionally served hot so that the baked segments can be easily torn away with the fingers and eaten by hand .",
+            "score": 0.7696611881256104
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_0756249",
+            "text": "Monkey bread , also called monkey puzzle bread , sticky bread , Hungarian coffee cake , golden crown , pinch - me cake , and pluck - it cake is a soft , sweet , sticky pastry served in the United States for breakfast or as a treat . It consists of pieces of soft baked dough sprinkled with cinnamon . It is often served at fairs and festivals .",
+            "score": 0.7266814708709717
+          },
+          {
+            "rank": 4,
+            "passage_id": "nq_p_0567149",
+            "text": "The word `` sweetbread '' is first attested in the 16th century , but the etymology of the name is unclear . `` Sweet '' is perhaps used since the thymus is sweet and rich - tasting , as opposed to savory - tasting muscle flesh . `` Bread '' may come from brede , `` roasted meat '' or from the Old English brǣd ( `` flesh '' or `` meat '' ) .",
+            "score": 0.6733464598655701
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0587854",
+            "text": "Kakamega derives its modern name from the local dialect . The story goes that when European settlers first visited the area now known as Kakamega and were offered maize meal , the local staple food called Obusuma , they tried to emulate the eating style for which the tribe was famous . To the hosts though , the visitors were more like ' pinching ' the Obusuma . The resulting administrative area was named ' Kakamega ' , which roughly translates to ' pinch . '",
+            "score": 0.6556488275527954
+          }
+        ],
+        "initial_answer": "Hungarian literature"
+      },
+      "minimal_prompt_sha256": "da397b996666d5cb09629564f548a6bd28620c1d1f96dce408074e9eb66562c4"
+    }
+  ],
+  "contains_gold_or_human_labels": false
+}

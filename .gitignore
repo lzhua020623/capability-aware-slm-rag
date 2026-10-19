@@ -138,3 +138,21 @@ data/annotations/*.xlsx
 !artifacts/answer_repair/v8r2_smoke8/review/assisted_changed_outputs.jsonl
 !artifacts/answer_repair/v8r3_smoke8/offline_candidate_diagnostic.json
 !artifacts/answer_repair/v8r3_smoke8/review/assisted_changed_outputs.jsonl
+
+# Final FACT-audit smoke revision; browser screenshots stay local.
+!artifacts/answer_repair/v8r4_smoke8/README.md
+!artifacts/answer_repair/v8r4_smoke8/manifest.json
+!artifacts/answer_repair/v8r4_smoke8/preparation.json
+!artifacts/answer_repair/v8r4_smoke8/validation.json
+!artifacts/answer_repair/v8r4_smoke8/cloud_status.json
+!artifacts/answer_repair/v8r4_smoke8/answer_repair_v8r4_smoke8_gpu.tar.gz
+!artifacts/answer_repair/v8r4_smoke8/answer_repair_v8r4_smoke8_outputs_export.zip
+!artifacts/answer_repair/v8r4_smoke8/result_validation.json
+!artifacts/answer_repair/v8r4_smoke8/kaggle_20261019/
+!artifacts/answer_repair/v8r4_smoke8/kaggle_20261019/**
+!artifacts/answer_repair/v8r4_smoke8/release_audit/
+!artifacts/answer_repair/v8r4_smoke8/release_audit/**
+!artifacts/answer_repair/v8r4_smoke8/review/
+!artifacts/answer_repair/v8r4_smoke8/review/changed_outputs_pending.jsonl
+!artifacts/answer_repair/v8r4_smoke8/review/assisted_changed_outputs.jsonl
+!notebooks/answer_repair_v8r4_smoke8.ipynb

@@ -18,7 +18,7 @@ from src.compensation.line_contract import (
 from src.diagnosis import DatasetName, DiagnosisInput
 from src.evaluation.qa import normalize_answer
 
-V8_VERSION = "v8r3_candidate_schemas_typed_rejections_v1"
+V8_VERSION = "v8r4_fact_first_audit_v1"
 CHECK_KEYS = ("ENTITY", "RELATION", "TYPE", "COVERAGE", "SUPPORT", "CONFLICT_FREE")
 MAX_QUOTE_WORDS = 100
 MAX_ANSWER_WORDS = 64
@@ -58,6 +58,14 @@ def build_check_prompt(request: DiagnosisInput, candidate: str | None = None) ->
         f"Answer to audit: {json.dumps(answer, ensure_ascii=False)}\n\n"
         "Return ONE global audit of this answer against ALL evidence, not one audit per passage. "
         "Do not repeat the audit or add alternative versions. "
+        "First write FACT: one concise sentence stating what the evidence establishes as the "
+        "answer to this Question, independently of the Answer to audit. Preserve the exact "
+        "queried entity or work, relation, comparison direction and necessary scope. If the "
+        "evidence does not establish an answer, state that uncertainty in FACT. "
+        "Then compare the Answer to audit with FACT for each of the six checks. "
+        "Audit only the answer explicitly provided above: during a candidate audit compare "
+        "FACT with that candidate, not with another entity mentioned in the passage or an "
+        "earlier answer. The checks and REASON must agree with this comparison. "
         "Report six checks as yes, no, or uncertain. ENTITY: same queried entity/work/event. "
         "RELATION: answers the requested relation with correct direction, comparison, time and negation. "
         "TYPE: requested answer type. COVERAGE: all requested parts and necessary qualifiers. "
@@ -66,7 +74,8 @@ def build_check_prompt(request: DiagnosisInput, candidate: str | None = None) ->
         "Use no only for a demonstrated failure; inability to establish a fact means uncertain. "
         "When all six are yes the answer is supported; when there is a no and no uncertainty it is "
         "unsupported; any uncertainty prevents a repair decision.\n"
-        "Return exactly nine single lines in this order, replacing placeholders, with no markdown:\n"
+        "Return exactly ten single lines in this order, replacing placeholders, with no markdown:\n"
+        "FACT: concise evidence-established answer to the Question\n"
         + "\n".join(f"{key}: yes|no|uncertain" for key in CHECK_KEYS)
         + "\nRANK: evidence block number\nQUOTE: exact evidence excerpt\nREASON: brief evidence-based reason\n"
         f"Quote at most {MAX_QUOTE_WORDS} words from ONE block, preserving words and punctuation; "
@@ -147,7 +156,7 @@ def parse_check(text: str, request: DiagnosisInput) -> dict:
         if rank == 0:
             raise GroundingError("A grounded nonzero rank is required")
         citation, offsets = _citation(request, rank, values["QUOTE"])
-    return {"status": status, "checks": checks, "reason": values["REASON"],
+    return {"status": status, "fact": values["FACT"], "checks": checks, "reason": values["REASON"],
             "citation": asdict(citation) if citation else None, "source_offsets": offsets}
 
 

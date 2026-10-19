@@ -15,6 +15,38 @@ from scripts.summarize_answer_repair_v8 import summarize
 from src.compensation.answer_repair import V8_STRATEGIES
 
 
+def evaluate_known_cases(manifest: dict, arms: dict[str, list[dict]]) -> dict | None:
+    policy = manifest.get("semantic_regressions")
+    if policy is None:
+        return None
+    indexed = {r["sample_id"]: r for r in arms.get(policy["strategy"], [])}
+    cases = []
+    for expected in policy["cases"]:
+        row = indexed.get(expected["sample_id"])
+        stages = {s["stage"]: s for s in ((row or {}).get("repair_trace") or {}).get("stages", [])}
+        failures, observed, facts = [], {}, {}
+        if row is None:
+            failures.append("sample_missing")
+        for name, wanted in expected["expected_stage_status"].items():
+            stage = stages.get(name) or {}
+            parsed = stage.get("parsed") or {}
+            observed[name], facts[name] = parsed.get("status"), parsed.get("fact")
+            if stage.get("validation_error") is not None or observed[name] != wanted:
+                failures.append("stage_status:" + name)
+        candidate = (row or {}).get("candidate_answer")
+        if "expected_candidate_answer" in expected and candidate != expected["expected_candidate_answer"]:
+            failures.append("candidate_identity")
+        if expected.get("keep_original") and (row is None or row["final_answer"] != row["initial_answer"]):
+            failures.append("original_not_preserved")
+        cases.append({"case": expected["case"], "sample_id": expected["sample_id"],
+                      "passed": not failures, "failures": failures,
+                      "observed_stage_status": observed, "facts": facts,
+                      "candidate_answer": candidate, "final_status": (row or {}).get("status")})
+    return {"passed": all(c["passed"] for c in cases), "cases": cases,
+            "metric_used_for_selection": False,
+            "interpretation": "Predeclared development-stage regressions only, not independent semantic evaluation."}
+
+
 def evaluate_smoke(manifest: dict, arms: dict[str, list[dict]]) -> dict:
     policy = manifest["smoke_acceptance"]
     required_ids = manifest["sample_ids"]
@@ -71,14 +103,20 @@ def evaluate_smoke(manifest: dict, arms: dict[str, list[dict]]) -> dict:
         failures.append("generation_was_cropped_afterwards")
     if calls > manifest["max_generation_calls"]:
         failures.append("generation_call_budget_exceeded")
-    return {"version": manifest["version"], "engineering_gate_passed": not failures,
-            "ready_for_full_nq75_run": not failures, "failures": failures,
+    known = evaluate_known_cases(manifest, arms)
+    ready = not failures and (known is None or known["passed"])
+    report = {"version": manifest["version"], "engineering_gate_passed": not failures,
+            "ready_for_full_nq75_run": ready, "failures": failures,
             "arms": arm_stats, "valid_v8_stage_calls": dict(valid), "invalid_v8_stage_calls": dict(invalid),
             "validation_rejection_kinds": dict(rejection_kinds),
             "full_three_stage_paths": full_paths, "generation_stop_observations": dict(observed),
             "raw_text_changed_stages": raw_changed, "generation_calls": calls,
             "semantic_correctness_verified": False, "human_final_gain": None,
             "interpretation": "Engineering gate only. Greedy same-model checks and EM do not establish semantic gain."}
+    if known is not None:
+        report.update(known_case_regressions=known, selected_final_revision="r4" if ready else "r3",
+                      selection_policy=manifest["failure_policy"])
+    return report
 
 
 def main(argv=None):
