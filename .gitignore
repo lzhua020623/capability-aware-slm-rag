@@ -156,3 +156,15 @@ data/annotations/*.xlsx
 !artifacts/answer_repair/v8r4_smoke8/review/changed_outputs_pending.jsonl
 !artifacts/answer_repair/v8r4_smoke8/review/assisted_changed_outputs.jsonl
 !notebooks/answer_repair_v8r4_smoke8.ipynb
+
+# Fixed historical changed-output sample; human judgments remain pending.
+!artifacts/answer_repair/v7_historical_review_v1/README.md
+!artifacts/answer_repair/v7_historical_review_v1/manifest.json
+!artifacts/answer_repair/v7_historical_review_v1/pending_pairs.jsonl
+!notebooks/answer_repair_v8r4_smoke8_retry1.ipynb
+!artifacts/answer_repair/v8r4_smoke8/retry1_preparation.json
+!artifacts/answer_repair/v8r4_smoke8/attempt1_preflight_failure/
+!artifacts/answer_repair/v8r4_smoke8/attempt1_preflight_failure/receipt.json
+!artifacts/answer_repair/v8r4_smoke8/attempt1_preflight_failure/kaggle_full.log
+!artifacts/answer_repair/v8r4_smoke8/kaggle_20261020/
+!artifacts/answer_repair/v8r4_smoke8/kaggle_20261020/**

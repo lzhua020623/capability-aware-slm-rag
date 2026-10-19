@@ -1,0 +1,16 @@
+# v7 历史改答抽审清单
+
+来源是两批已经通过冻结 CPU 回放的历史结果队列，共 841 条预测记录。只对其中名为 heldout／heldout3216 的 cohort 中实际改答记录抽样；这些历史命名不新增独立盲测声明。
+
+固定 seed 42，以 cohort、dataset、strategy、sample_id 的 SHA-256 排序，每层最多 20 条，不按答案是否正确或 EM 选择。
+
+| 历史分层 | 改答总数 | 待审数 |
+|---|---:|---:|
+| FEVER heldout | 5 | 5 |
+| NQ heldout | 20 | 20 |
+| NQ heldout3216 | 52 | 20 |
+| 合计 | 77 | 45 |
+
+`pending_pairs.jsonl` 含 45 个唯一样本的原始问题、C1、最终答案、实际引用、Top-5 和冻结参考。新增审核编号 1–45；原结果指纹和出处均保留。全部人工字段仍为 pending，辅助审核也未完成。此清单不能视为 841 条已审，分层抽样的结果也不能直接当作完整语义准确率或修复召回率。
+
+来源和清单 SHA-256 见 `manifest.json`，固定抽样政策见 `configs/answer_repair_v7_historical_review_v1.json`。相同来源可重建同一清单，已有不同内容时拒绝覆盖。

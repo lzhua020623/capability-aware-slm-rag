@@ -1,0 +1,20 @@
+{
+  "version": "v8r4_infrastructure_retry1",
+  "first_attempt_script_version_id": 360053773,
+  "original_notebook_sha256": "d41feca3ecf77ff6997a82b4c02a99dbec5d352e414a8066528339c2168f730b",
+  "retry_notebook_sha256": "bd65dc5cce2dcfbf646e2222d5e0c3342979de7f7967106528665d3a26488e41",
+  "unchanged_input_bundle_sha256": "d13880c5e114b5f8379f931103af249e1f10b4975de98c9a5b74a9c161900e11",
+  "adapter_sha256": "dac5b7ec6c3c176f3503df32d601de937bc1ed0a5c3c2c4dd251589a208e959d",
+  "changed_code_cell_indices": [
+    3
+  ],
+  "inference_code_or_prompts_or_settings_changed": false,
+  "selection_policy_changed": false,
+  "first_attempt_model_generation_calls": 0,
+  "local_original_frozen_tests_passed": {
+    "Python3.11": 118,
+    "Python3.12": 118,
+    "Python3.13": 118
+  },
+  "adapter_guard_tests": 2
+}

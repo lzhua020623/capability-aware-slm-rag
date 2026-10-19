@@ -1,0 +1,15 @@
+{
+  "version": "answer_repair_v7_historical_changed_review_v1",
+  "seed": 42,
+  "maximum_per_cohort_dataset_strategy": 20,
+  "sampling_key": "SHA256(E-v7-historical-changed-v1:42:cohort:dataset:strategy:sample_id)",
+  "eligible_cohorts": ["heldout", "heldout3216"],
+  "strategies": {"fever": "fever_nli_anchored", "nq": "short_answer_quote"},
+  "sources": {
+    "artifacts/answer_repair/v7_reviewed/release_audit/pending_semantic_pairs.jsonl": "280d8b68d564a4269a7f53a5efebc1128b90cbc138fb63ef21056423d8c41da3",
+    "artifacts/answer_repair/v7_heldout3216/release_audit/pending_semantic_pairs.jsonl": "a944d06a65a4400e517d37c07a515bcde19f2e41bee79d2fce2243c7415db0b8"
+  },
+  "selection_uses_semantic_judgments_or_EM": false,
+  "human_status": "pending",
+  "scope": "Historical changed-output sampling only; not full semantic accuracy, repair recall, or independent unseen evaluation"
+}

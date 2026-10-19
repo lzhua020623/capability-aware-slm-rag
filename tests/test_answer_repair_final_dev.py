@@ -19,6 +19,7 @@ class FinalDevelopmentTests(unittest.TestCase):
     def prepare(self, folder, revision, *, corrupt=False):
         root = Path(folder) / "project"
         for relative in (
+            "scripts/run_answer_repair_portable_tests.py",
             "artifacts/answer_repair/v8_nq75/answer_repair_v8_nq75_gpu.tar.gz",
             f"artifacts/answer_repair/v8{revision}_smoke8/answer_repair_v8{revision}_smoke8_gpu.tar.gz",
         ):
@@ -69,6 +70,8 @@ class FinalDevelopmentTests(unittest.TestCase):
             self.assertIn("scripts/summarize_answer_repair_v8.py", code)
             self.assertNotIn("scripts/check_answer_repair_v8_smoke.py", code)
             self.assertNotIn("report['engineering_gate_passed']", code)
+            self.assertIn("preflight_ast_compat.py", code)
+            self.assertIn(manifest["preflight_adapter_sha256"], code)
             for c in json.loads(book.read_text())["cells"]:
                 if c["cell_type"] == "code":
                     compile("".join(c["source"]), "<final75-test>", "exec")

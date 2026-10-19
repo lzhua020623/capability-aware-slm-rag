@@ -1,0 +1,1072 @@
+8.7s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+8.7s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+8.7s 3 0.00s - to python to disable frozen modules.
+8.7s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+9.3s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+9.3s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+9.3s 7 0.00s - to python to disable frozen modules.
+9.3s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+18.6s 9 GPU: Tesla T4 CUDA: 12.8
+19.2s 10 Verified bundle: {'transport': 'kaggle_auto_extracted', 'source': '/kaggle/input/datasets/yearo111/e-v8r4-smoke8-frozen-20261019/answer_repair_v8r4_smoke8_gpu', 'bundle': '/kaggle/working/e_v8_d13880c5e114/answer_repair_v8r4_smoke8_gpu', 'expected_archive_sha256': 'd13880c5e114b5f8379f931103af249e1f10b4975de98c9a5b74a9c161900e11', 'archive_hash_verified': False, 'checksums_sha256': 'f885de217f647a82d1887593d9d9098774b6b0a5830ed51c42f568125ed5aa96', 'payload_hash_checked_files': 103, 'algorithm_or_input_modified': False} [1, 2, 8, 12, 15, 31, 48, 96]
+21.6s 11 Requirement already satisfied: transformers==5.16.1 in /usr/local/lib/python3.13/dist-packages (from -r requirements-answer-repair-v8.txt (line 3)) (5.16.1)
+21.6s 12 Requirement already satisfied: accelerate==1.14.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements-answer-repair-v8.txt (line 4)) (1.14.0)
+21.7s 13 Collecting bitsandbytes==0.50.2 (from -r requirements-answer-repair-v8.txt (line 5))
+21.7s 14 Downloading bitsandbytes-0.50.2-py3-none-manylinux_2_24_x86_64.whl.metadata (10 kB)
+21.7s 15 Requirement already satisfied: PyYAML==6.0.3 in /usr/local/lib/python3.13/dist-packages (from -r requirements-answer-repair-v8.txt (line 6)) (6.0.3)
+21.8s 16 Requirement already satisfied: huggingface-hub<2.0,>=1.5.0 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (1.29.0)
+21.8s 17 Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (2.1.3)
+21.8s 18 Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (26.3)
+21.8s 19 Requirement already satisfied: regex>=2025.10.22 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (2025.11.3)
+21.8s 20 Requirement already satisfied: tokenizers<0.24.0,>=0.23.1 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (0.23.1)
+21.8s 21 Requirement already satisfied: typer in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (0.27.2)
+21.8s 22 Requirement already satisfied: safetensors>=0.8.0 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (0.8.0)
+21.8s 23 Requirement already satisfied: tqdm>=4.60 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (4.67.3)
+21.8s 24 Requirement already satisfied: psutil in /usr/local/lib/python3.13/dist-packages (from accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (5.9.5)
+21.8s 25 Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.13/dist-packages (from accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (2.11.0+cu128)
+21.8s 26 Requirement already satisfied: click<9.0.0,>=8.4.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (8.5.0)
+21.8s 27 Requirement already satisfied: filelock>=3.10.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (3.32.5)
+21.8s 28 Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (2025.12.0)
+21.8s 29 Requirement already satisfied: hf-xet<2.0.0,>=1.5.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (1.6.0)
+21.8s 30 Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (0.28.1)
+21.8s 31 Requirement already satisfied: typing-extensions>=4.1.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (4.16.0)
+21.9s 32 Requirement already satisfied: setuptools<82 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (81.0.0)
+21.9s 33 Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (1.14.0)
+21.9s 34 Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (3.6.1)
+21.9s 35 Requirement already satisfied: jinja2 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (3.1.6)
+21.9s 36 Requirement already satisfied: cuda-toolkit==12.8.1 in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.8.1)
+21.9s 37 Requirement already satisfied: cuda-bindings<13,>=12.9.4 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.9.7)
+21.9s 38 Requirement already satisfied: nvidia-cudnn-cu12==9.19.0.56 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (9.19.0.56)
+21.9s 39 Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (0.7.1)
+21.9s 40 Requirement already satisfied: nvidia-nccl-cu12==2.28.9 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (2.28.9)
+21.9s 41 Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (3.4.5)
+21.9s 42 Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (3.6.0)
+21.9s 43 Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.8.4.1)
+21.9s 44 Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.8.90)
+21.9s 45 Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (11.3.3.83)
+21.9s 46 Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (1.13.1.3)
+21.9s 47 Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.8.90)
+21.9s 48 Requirement already satisfied: nvidia-curand-cu12==10.3.9.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (10.3.9.90)
+21.9s 49 Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (11.7.3.90)
+21.9s 50 Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.5.8.93)
+21.9s 51 Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.8.93)
+21.9s 52 Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.8.93)
+21.9s 53 Requirement already satisfied: nvidia-nvtx-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.8.90)
+22.0s 54 Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.13/dist-packages (from typer->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (1.5.4)
+22.0s 55 Requirement already satisfied: rich>=13.8.0 in /usr/local/lib/python3.13/dist-packages (from typer->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (13.9.4)
+22.0s 56 Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.13/dist-packages (from typer->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (0.0.5)
+22.0s 57 Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.13/dist-packages (from cuda-bindings<13,>=12.9.4->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (1.8.0)
+22.0s 58 Requirement already satisfied: anyio in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (4.14.2)
+22.0s 59 Requirement already satisfied: certifi in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (2026.7.22)
+22.0s 60 Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (1.0.9)
+22.0s 61 Requirement already satisfied: idna in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (3.19)
+22.0s 62 Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.13/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (0.16.0)
+22.0s 63 Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.13/dist-packages (from rich>=13.8.0->typer->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (4.2.0)
+22.0s 64 Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.13/dist-packages (from rich>=13.8.0->typer->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (2.21.0)
+22.0s 65 Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.13/dist-packages (from sympy>=1.13.3->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (1.3.0)
+22.0s 66 Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.13/dist-packages (from jinja2->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (3.0.3)
+22.0s 67 Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.13/dist-packages (from markdown-it-py>=2.2.0->rich>=13.8.0->typer->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (0.1.2)
+22.1s 68 Downloading bitsandbytes-0.50.2-py3-none-manylinux_2_24_x86_64.whl (43.1 MB)
+22.5s 69 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 43.1/43.1 MB 49.3 MB/s eta 0:00:00
+24.7s 70 Installing collected packages: bitsandbytes
+25.3s 71 Successfully installed bitsandbytes-0.50.2
+27.1s 72 a2a-sdk==1.2.1
+27.1s 73 absl-py==1.4.0
+27.1s 74 accelerate==1.14.0
+27.1s 75 access==1.1.10.post3
+27.1s 76 affine==3.0.1
+27.1s 77 aiobotocore==2.26.0
+27.1s 78 aiofiles==25.1.0
+27.1s 79 aiohappyeyeballs==2.7.1
+27.1s 80 aiohttp==3.14.3
+27.1s 81 aioitertools==0.13.0
+27.1s 82 aiosignal==1.4.0
+27.1s 83 aiosqlite==0.22.1
+27.1s 84 alabaster==1.0.0
+27.1s 85 albucore==0.0.24
+27.1s 86 albumentations==2.0.8
+27.1s 87 ale-py==0.12.1
+27.1s 88 alembic==1.20.0
+27.1s 89 altair==5.5.0
+27.1s 90 annotated-doc==0.0.5
+27.1s 91 annotated-types==0.8.0
+27.1s 92 antlr4-python3-runtime==4.9.3
+27.1s 93 anyio==4.14.2
+27.1s 94 anywidget==0.9.21
+27.1s 95 apsw==3.53.4.0
+27.1s 96 argon2-cffi==25.1.0
+27.1s 97 argon2-cffi-bindings==26.1.0
+27.1s 98 args==0.1.0
+27.1s 99 array_record==0.8.3
+27.1s 100 arrow==1.4.0
+27.1s 101 arviz==0.22.0
+27.1s 102 asn1crypto==1.5.1
+27.1s 103 astropy==7.2.2
+27.1s 104 astropy-iers-data==0.2026.8.31.0.57.9
+27.1s 105 asttokens==3.0.2
+27.1s 106 astunparse==1.6.3
+27.1s 107 async-lru==2.3.0
+27.1s 108 atpublic==5.1
+27.1s 109 attrs==26.1.0
+27.1s 110 audioop-lts==0.2.2
+27.1s 111 audioread==3.1.0
+27.1s 112 Authlib==1.8.0
+27.1s 113 autograd==1.9.1
+27.1s 114 babel==2.18.0
+27.1s 115 backcall==0.2.0
+27.1s 116 bayesian-optimization==3.3.0
+27.1s 117 beartype==0.22.9
+27.1s 118 beautifulsoup4==4.13.5
+27.1s 119 betterproto==2.0.0b7
+27.1s 120 bigframes==2.48.0
+27.1s 121 bigquery-magics==0.14.0
+27.1s 122 bitsandbytes==0.50.2
+27.1s 123 black==26.5.1
+27.1s 124 blake3==1.0.10
+27.1s 125 bleach==6.4.0
+27.1s 126 blinker==1.9.0
+27.1s 127 blis==1.3.3
+27.1s 128 blobfile==3.3.0
+27.1s 129 blosc2==4.12.0
+27.1s 130 bokeh==3.8.2
+27.1s 131 Boruta==0.4.3
+27.1s 132 boto3==1.41.5
+27.1s 133 botocore==1.41.5
+27.1s 134 Bottleneck==1.4.2
+27.1s 135 bqplot==0.12.47
+27.1s 136 branca==0.8.2
+27.1s 137 brotli==1.2.0
+27.1s 138 build==1.6.1
+27.1s 139 cachebox==5.2.3
+27.1s 140 CacheControl==0.14.4
+27.1s 141 cachetools==6.2.6
+27.1s 142 Cartopy==0.26.0
+27.1s 143 catalogue==2.0.10
+27.1s 144 catboost==1.2.10
+27.1s 145 category_encoders==2.11.1
+27.1s 146 certifi==2026.7.22
+27.1s 147 cesium==0.12.4
+27.1s 148 cffi==2.1.1
+27.1s 149 chardet==5.2.0
+27.1s 150 charset-normalizer==3.4.9
+27.1s 151 chex==0.1.90
+27.1s 152 clarabel==0.11.1
+27.1s 153 click==8.5.0
+27.1s 154 click-plugins==1.1.1.2
+27.1s 155 cligj==0.7.2
+27.1s 156 clint==0.5.1
+27.1s 157 cloudpathlib==0.25.0
+27.1s 158 cloudpickle==3.1.2
+27.1s 159 cmake==3.31.10
+27.1s 160 cmdstanpy==1.3.0
+27.1s 161 colorama==0.4.6
+27.1s 162 colorcet==3.2.1
+27.1s 163 colorlog==6.12.0
+27.2s 164 colorlover==0.3.0
+27.2s 165 comm==0.2.3
+27.2s 166 community==1.0.0b1
+27.2s 167 confection==1.3.3
+27.2s 168 ConfigSpace==1.2.2
+27.2s 169 cons==0.4.7
+27.2s 170 contourpy==1.3.3
+27.2s 171 coverage==7.16.2
+27.2s 172 cramjam==2.12.1
+27.2s 173 cryptography==50.0.1
+27.2s 174 cucim-cu12 @ https://pypi.nvidia.com/cucim-cu12/cucim_cu12-26.2.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+27.2s 175 cuda-bindings==12.9.7
+27.2s 176 cuda-core==0.3.2
+27.2s 177 cuda-pathfinder==1.8.0
+27.2s 178 cuda-python==12.9.7
+27.2s 179 cuda-toolkit==12.8.1
+27.2s 180 cudf-cu12==26.2.1
+27.2s 181 cudf-polars-cu12==26.2.1
+27.2s 182 cufflinks==0.17.3
+27.2s 183 cuml-cu12==26.2.0
+27.2s 184 cupy-cuda12x==14.0.1
+27.2s 185 curl_cffi==0.16.2
+27.2s 186 cuvs-cu12 @ https://pypi.nvidia.com/cuvs-cu12/cuvs_cu12-26.2.0-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl
+27.2s 187 cvxopt==1.3.2
+27.2s 188 cvxpy==1.6.7
+27.2s 189 cycler==0.12.1
+27.2s 190 cyipopt==1.5.0
+27.2s 191 cymem==2.0.13
+27.2s 192 Cython==3.0.12
+27.2s 193 cytoolz==1.1.0
+27.2s 194 dacite==1.9.2
+27.2s 195 dask==2026.1.1
+27.2s 196 dask-cuda==26.2.0
+27.2s 197 dask-cudf-cu12==26.2.1
+27.2s 198 dask-expr==2.0.0
+27.2s 199 dask-jobqueue==0.9.0
+27.2s 200 dataclasses-json==0.6.7
+27.2s 201 dataproc-spark-connect==1.1.0
+27.2s 202 datasets==4.8.5
+27.2s 203 db-dtypes==1.7.1
+27.2s 204 dbus-python==1.3.2
+27.2s 205 deap==1.4.4
+27.2s 206 debugpy==1.8.15
+27.2s 207 decorator==5.3.1
+27.2s 208 deepdiff==9.1.0
+27.2s 209 defusedxml==0.7.1
+27.2s 210 Deprecated==3.0.0
+27.2s 211 deprecation==2.1.0
+27.2s 212 diffusers==0.40.0
+27.2s 213 dill==0.4.1
+27.2s 214 dipy==1.12.1
+27.2s 215 distributed==2026.1.1
+27.2s 216 distributed-ucxx-cu12==0.48.0
+27.2s 217 distro==1.9.0
+27.2s 218 dlib==19.24.6
+27.2s 219 dm-tree==0.1.10
+27.2s 220 dnspython==2.8.0
+27.2s 221 docker==7.2.0
+27.2s 222 docstring-to-markdown==0.17
+27.2s 223 docstring_parser==0.18.0
+27.2s 224 docutils==0.21.2
+27.2s 225 dopamine_rl==4.1.2
+27.2s 226 duckdb==1.3.2
+27.2s 227 earthengine-api==1.7.39
+27.2s 228 easydict==1.13
+27.2s 229 easyocr==1.7.2
+27.2s 230 editdistance==0.8.1
+27.2s 231 eerepr==0.1.2
+27.2s 232 einops==0.8.2
+27.2s 233 email-validator==2.3.0
+27.2s 234 emoji==2.16.0
+27.2s 235 en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl#sha256=1932429db727d4bff3deed6b34cfc05df17794f4a52eeb26cf8928f7c1a0fb85
+27.2s 236 entrypoints==0.4
+27.2s 237 esda==2.9.0
+27.2s 238 et_xmlfile==2.0.0
+27.2s 239 etils==1.14.0
+27.2s 240 etuples==0.3.10
+27.2s 241 execnb==0.3.3
+27.2s 242 Farama-Notifications==0.0.6
+27.2s 243 fastai==2.8.8
+27.2s 244 fastapi==0.141.1
+27.2s 245 fastcore==2.2.32
+27.2s 246 fastdownload==0.0.7
+27.2s 247 fastgit==0.1.4
+27.2s 248 fastjsonschema==2.22.2
+27.2s 249 fastprogress==1.1.6
+27.2s 250 fastspec==0.2.5
+27.2s 251 fasttext==0.9.3
+27.2s 252 fasttransform==0.0.2
+27.2s 253 fasttransport==0.0.4
+27.2s 254 fastuuid==0.14.0
+27.2s 255 featuretools==1.31.0
+27.2s 256 filelock==3.32.5
+27.2s 257 filetype==1.2.0
+27.2s 258 fiona==1.10.1
+27.2s 259 firebase-admin==6.9.0
+27.2s 260 Flask==3.1.3
+27.2s 261 flatbuffers==25.12.19
+27.2s 262 flax==0.12.10
+27.2s 263 folium==0.20.0
+27.2s 264 fonttools==4.64.0
+27.2s 265 formulaic==1.2.2
+27.2s 266 fqdn==1.5.1
+27.2s 267 frozendict==2.4.7
+27.2s 268 frozenlist==1.8.0
+27.2s 269 fsspec==2025.12.0
+27.2s 270 func_timeout==4.3.5
+27.2s 271 funcy==2.1
+27.2s 272 fury==0.11.0
+27.2s 273 future==1.0.0
+27.2s 274 fuzzywuzzy==0.18.0
+27.2s 275 gast==0.7.0
+27.2s 276 gatspy==0.3
+27.2s 277 gcsfs==2025.12.0
+27.3s 278 GDAL==3.8.4
+27.3s 279 gdown==5.2.2
+27.3s 280 geemap==0.38.4
+27.3s 281 gensim==4.4.0
+27.3s 282 geocoder==1.38.1
+27.3s 283 geographiclib==2.1
+27.3s 284 geojson==3.3.0
+27.3s 285 geopandas==1.1.4
+27.3s 286 geopy==2.4.1
+27.3s 287 gepa==0.1.4
+27.3s 288 ghapi==2.1.4
+27.3s 289 giddy==2.3.9
+27.3s 290 gin-config==0.5.0
+27.3s 291 glob2==0.7
+27.3s 292 google==3.0.0
+27.3s 293 google-adk==2.7.1
+27.3s 294 google-ai-generativelanguage==0.6.15
+27.3s 295 google-api-core==2.30.3
+27.3s 296 google-api-python-client==2.200.0
+27.3s 297 google-auth==2.49.0
+27.3s 298 google-auth-httplib2==0.4.2
+27.3s 299 google-auth-oauthlib==1.4.1
+27.3s 300 google-cloud-aiplatform==2.3.0
+27.3s 301 google-cloud-bigquery==3.44.0
+27.3s 302 google-cloud-bigquery-connection==1.22.0
+27.3s 303 google-cloud-core==2.7.0
+27.3s 304 google-cloud-dataproc==5.28.0
+27.3s 305 google-cloud-datastore==2.25.0
+27.3s 306 google-cloud-firestore==2.27.0
+27.3s 307 google-cloud-functions==1.24.0
+27.3s 308 google-cloud-language==2.21.0
+27.3s 309 google-cloud-monitoring==2.31.0
+27.3s 310 google-cloud-resource-manager==1.18.0
+27.3s 311 google-cloud-spanner==3.68.0
+27.3s 312 google-cloud-storage==3.13.1
+27.3s 313 google-cloud-storage-control==1.12.0
+27.3s 314 google-cloud-texttospeech==2.37.0
+27.3s 315 google-cloud-translate==3.27.0
+27.3s 316 google-cloud-videointelligence==2.20.0
+27.3s 317 google-cloud-vision==3.15.0
+27.3s 318 google-colab @ file:///colabtools/dist/google_colab-1.0.0.tar.gz
+27.3s 319 google-crc32c==1.8.0
+27.3s 320 google-genai==2.12.1
+27.3s 321 google-generativeai==0.8.6
+27.3s 322 google-pasta==0.2.0
+27.3s 323 google-resumable-media==2.10.2
+27.3s 324 googleapis-common-protos==1.75.0
+27.3s 325 googledrivedownloader==1.1.0
+27.3s 326 gpxpy==1.6.2
+27.3s 327 gradio==6.26.0
+27.3s 328 gradio_client==2.6.1
+27.3s 329 grain==0.2.18
+27.3s 330 graphviz==0.21
+27.3s 331 greenlet==3.5.5
+27.3s 332 groovy==0.1.2
+27.3s 333 grpc-google-iam-v1==0.14.4
+27.3s 334 grpc-interceptor==0.15.4
+27.3s 335 grpcio==1.84.0
+27.3s 336 grpcio-status==1.71.2
+27.3s 337 grpcio-tools==1.71.2
+27.3s 338 grpclib==0.4.9
+27.3s 339 gspread==6.2.1
+27.3s 340 gspread-dataframe==4.0.0
+27.3s 341 gym==0.26.2
+27.3s 342 gym-notices==0.1.0
+27.3s 343 gymnasium==1.2.0
+27.3s 344 gymnax==0.0.8
+27.3s 345 h11==0.16.0
+27.3s 346 h2==4.4.1
+27.3s 347 h2o==3.46.0.12
+27.3s 348 h5netcdf==1.8.1
+27.3s 349 h5py==3.16.0
+27.3s 350 haversine==2.9.0
+27.3s 351 hdbscan==0.8.44
+27.3s 352 hep_ml==0.8.0
+27.3s 353 hf-gradio==0.4.1
+27.3s 354 hf-xet==1.6.0
+27.3s 355 highspy==1.15.1
+27.3s 356 holidays==0.103
+27.3s 357 holoviews==1.23.2
+27.3s 358 hpack==4.2.0
+27.3s 359 html5lib==1.1
+27.3s 360 httpcore==1.0.9
+27.3s 361 httpcore2==2.12.0
+27.3s 362 httpimport==1.4.1
+27.3s 363 httplib2==0.32.0
+27.3s 364 httptools==0.8.0
+27.3s 365 httpx==0.28.1
+27.3s 366 httpx2==2.12.0
+27.3s 367 huggingface_hub==1.29.0
+27.3s 368 humanize==4.16.0
+27.3s 369 hyperframe==6.1.0
+27.3s 370 hyperopt==0.3.0
+27.3s 371 ibis-framework==9.5.0
+27.3s 372 id==1.6.1
+27.3s 373 idna==3.19
+27.3s 374 igraph==1.0.0
+27.3s 375 ImageHash==4.3.2
+27.3s 376 ImageIO==2.37.4
+27.3s 377 imageio-ffmpeg==0.6.0
+27.3s 378 imagesize==2.0.1
+27.3s 379 imbalanced-learn==0.14.2
+27.3s 380 immutabledict==4.3.1
+27.3s 381 importlib_metadata==8.9.0
+27.3s 382 importlib_resources==7.1.0
+27.3s 383 imutils==0.5.4
+27.3s 384 in-toto-attestation==0.9.3
+27.3s 385 inequality==1.1.2
+27.3s 386 inflect==7.5.0
+27.4s 387 iniconfig==2.3.0
+27.4s 388 intel-cmplr-lib-ur==2025.3.3
+27.4s 389 intel-openmp==2025.3.3
+27.4s 390 interface_meta==2.0.1
+27.4s 391 ipyevents==2.0.4
+27.4s 392 ipyfilechooser==0.6.0
+27.4s 393 ipykernel==6.17.1
+27.4s 394 ipyleaflet==0.20.0
+27.4s 395 ipympl==0.10.0
+27.4s 396 ipyparallel==8.8.0
+27.4s 397 ipython==7.34.0
+27.4s 398 ipython-genutils==0.2.0
+27.4s 399 ipython-sql==0.5.0
+27.4s 400 ipython_pygments_lexers==1.1.1
+27.4s 401 ipywidgets==8.1.5
+27.4s 402 isoduration==20.11.0
+27.4s 403 isoweek==1.3.3
+27.4s 404 itsdangerous==2.2.0
+27.4s 405 Janome==0.5.0
+27.4s 406 jaraco.classes==3.4.0
+27.4s 407 jaraco.context==6.1.2
+27.4s 408 jaraco.functools==4.6.0
+27.4s 409 jax==0.11.1
+27.4s 410 jax-cuda12-pjrt==0.11.1
+27.4s 411 jax-cuda12-plugin==0.11.1
+27.4s 412 jaxlib==0.11.1
+27.4s 413 jedi==0.20.0
+27.4s 414 jeepney==0.9.0
+27.4s 415 jieba==0.42.1
+27.4s 416 Jinja2==3.1.6
+27.4s 417 jiter==0.10.0
+27.4s 418 jmespath==1.1.0
+27.4s 419 joblib==1.6.0
+27.4s 420 joserfc==1.7.5
+27.4s 421 json-rpc==1.15.0
+27.4s 422 json5==0.15.0
+27.4s 423 jsonpatch==1.33
+27.4s 424 jsonpickle==4.1.2
+27.4s 425 jsonpointer==3.1.1
+27.4s 426 jsonschema==4.26.0
+27.4s 427 jsonschema-specifications==2025.9.1
+27.4s 428 jupyter-console==6.6.3
+27.4s 429 jupyter-events==0.12.1
+27.4s 430 jupyter-leaflet==0.20.0
+27.4s 431 jupyter-lsp==2.3.1
+27.4s 432 jupyter_client==7.4.9
+27.4s 433 jupyter_core==5.9.1
+27.4s 434 jupyter_kernel_gateway @ git+https://github.com/googlecolab/kernel_gateway@b134e9945df25c2dcb98ade9129399be10788671
+27.4s 435 jupyter_server==2.12.5
+27.4s 436 jupyter_server_proxy==4.6.0
+27.4s 437 jupyter_server_terminals==0.5.4
+27.4s 438 jupyterlab==4.5.11
+27.4s 439 jupyterlab-lsp==5.3.0
+27.4s 440 jupyterlab_pygments==0.3.0
+27.4s 441 jupyterlab_server==2.28.1
+27.4s 442 jupyterlab_widgets==3.0.17
+27.4s 443 jupytext==1.19.5
+27.4s 444 kaggle==2.0.2
+27.4s 445 kaggle-environments==1.27.3
+27.4s 446 kagglehub==1.0.2
+27.4s 447 kagglesdk==0.1.37
+27.4s 448 keras==3.13.2
+27.4s 449 keras-core==0.1.7
+27.4s 450 keras-cv==0.9.0
+27.4s 451 keras-hub==0.26.0
+27.4s 452 keras-nlp==0.26.0
+27.4s 453 keras-tuner==1.4.8
+27.4s 454 keyring==25.7.0
+27.4s 455 keyrings.google-artifactregistry-auth==1.1.2
+27.4s 456 kiwisolver==1.5.1
+27.4s 457 kornia==0.8.3
+27.4s 458 kornia_rs==0.2.0
+27.4s 459 kt-legacy==1.0.5
+27.4s 460 langchain==1.3.18
+27.4s 461 langchain-core==1.6.1
+27.4s 462 langchain-protocol==0.0.19
+27.4s 463 langgraph==1.2.11
+27.4s 464 langgraph-checkpoint==4.2.0
+27.4s 465 langgraph-prebuilt==1.1.0
+27.4s 466 langgraph-sdk==0.4.4
+27.4s 467 langid==1.1.6
+27.4s 468 langsmith==0.12.1
+27.4s 469 lark==1.3.1
+27.4s 470 launchpadlib==1.11.0
+27.4s 471 lazr.restfulclient==0.14.6
+27.4s 472 lazr.uri==1.0.6
+27.4s 473 lazy-loader==0.5
+27.4s 474 learntools @ git+https://github.com/Kaggle/learntools@e9ba66dc899d3e17b80d3a1b9a5d29f430d310cb
+27.4s 475 libclang==18.1.1
+27.4s 476 libcudf-cu12==26.2.1
+27.4s 477 libcugraph-cu12==26.2.0
+27.4s 478 libcuml-cu12==26.2.0
+27.4s 479 libcuvs-cu12==26.2.0
+27.4s 480 libkvikio-cu12==26.2.0
+27.4s 481 libpysal==4.14.1
+27.4s 482 libraft-cu12==26.2.0
+27.4s 483 librmm-cu12==26.2.0
+27.4s 484 librosa==0.11.0
+27.4s 485 libucx-cu12==1.19.0
+27.4s 486 libucxx-cu12==0.48.0
+27.4s 487 lightgbm==4.6.0
+27.4s 488 lightning-utilities==0.15.3
+27.4s 489 lime==0.2.0.1
+27.4s 490 line_profiler==5.0.2
+27.4s 491 linkify-it-py==2.2.0
+27.4s 492 litellm==1.85.7
+27.4s 493 llvmlite==0.44.0
+27.4s 494 lml==0.2.0
+27.4s 495 locket==1.0.0
+27.5s 496 logical-unification==0.4.7
+27.5s 497 lxml==6.1.2
+27.5s 498 Mako==1.4.3
+27.5s 499 mamba==0.11.3
+27.5s 500 mapclassify==2.10.0
+27.5s 501 Markdown==3.10.3
+27.5s 502 markdown-it-py==4.2.0
+27.5s 503 MarkupSafe==3.0.3
+27.5s 504 marshmallow==3.26.2
+27.5s 505 matplotlib==3.10.0
+27.5s 506 matplotlib-inline==0.2.2
+27.5s 507 matplotlib-venn==1.1.2
+27.5s 508 mdit-py-plugins==0.6.1
+27.5s 509 mdurl==0.1.2
+27.5s 510 mgwr==2.2.1
+27.5s 511 minify_html==0.18.1
+27.5s 512 miniKanren==1.0.5
+27.5s 513 missingno==0.5.2
+27.5s 514 mistune==0.8.4
+27.5s 515 mizani==0.13.5
+27.5s 516 mkl==2025.3.1
+27.5s 517 ml_collections==1.1.0
+27.5s 518 ml_dtypes==0.6.0
+27.5s 519 mlcrate==0.2.0
+27.5s 520 mlxtend==0.23.4
+27.5s 521 mmh3==5.3.0
+27.5s 522 mne==1.13.2
+27.5s 523 model-signing==1.1.1
+27.5s 524 momepy==0.11.0
+27.5s 525 moocore==0.3.2
+27.5s 526 more-itertools==10.8.0
+27.5s 527 moviepy==1.0.3
+27.5s 528 mpld3==0.5.12
+27.5s 529 mpmath==1.3.0
+27.5s 530 msgpack==1.2.2
+27.5s 531 multidict==6.7.1
+27.5s 532 multimethod==1.12
+27.5s 533 multipledispatch==1.0.0
+27.5s 534 multiprocess==0.70.19
+27.5s 535 multitasking==0.0.13
+27.5s 536 murmurhash==1.0.15
+27.5s 537 music21==9.9.2
+27.5s 538 mypy_extensions==1.1.0
+27.5s 539 namex==0.1.0
+27.5s 540 narwhals==2.25.0
+27.5s 541 natsort==8.4.0
+27.5s 542 nbclassic==1.3.3
+27.5s 543 nbclient==0.5.13
+27.5s 544 nbconvert==6.4.5
+27.5s 545 nbdev==3.3.24
+27.5s 546 nbformat==5.11.1
+27.5s 547 ndindex==1.10.1
+27.5s 548 nest-asyncio==1.6.0
+27.5s 549 networkx==3.6.1
+27.5s 550 nh3==0.3.7
+27.5s 551 nibabel==5.4.2
+27.5s 552 nilearn==0.14.1
+27.5s 553 ninja==1.13.2
+27.5s 554 nltk==3.9.1
+27.5s 555 notebook==6.5.7
+27.5s 556 notebook_shim==0.2.4
+27.5s 557 numba==0.61.2
+27.5s 558 numba-cuda==0.22.2
+27.5s 559 numexpr==2.14.2
+27.5s 560 numpy==2.1.3
+27.5s 561 nvidia-cublas-cu12==12.8.4.1
+27.5s 562 nvidia-cuda-cccl-cu12==12.9.27
+27.5s 563 nvidia-cuda-cupti-cu12==12.8.90
+27.5s 564 nvidia-cuda-nvcc-cu12==12.8.93
+27.5s 565 nvidia-cuda-nvrtc-cu12==12.8.93
+27.5s 566 nvidia-cuda-runtime-cu12==12.8.90
+27.5s 567 nvidia-cudnn-cu12==9.19.0.56
+27.5s 568 nvidia-cufft-cu12==11.3.3.83
+27.5s 569 nvidia-cufile-cu12==1.13.1.3
+27.5s 570 nvidia-curand-cu12==10.3.9.90
+27.5s 571 nvidia-cusolver-cu12==11.7.3.90
+27.5s 572 nvidia-cusparse-cu12==12.5.8.93
+27.5s 573 nvidia-cusparselt-cu12==0.7.1
+27.5s 574 nvidia-libnvcomp-cu12==5.1.0.21
+27.5s 575 nvidia-ml-py==13.610.43
+27.5s 576 nvidia-nccl-cu12==2.28.9
+27.5s 577 nvidia-nccl-cu13==2.31.2
+27.5s 578 nvidia-nvimgcodec-cu12==0.7.0.11
+27.5s 579 nvidia-nvjitlink-cu12==12.8.93
+27.5s 580 nvidia-nvshmem-cu12==3.4.5
+27.5s 581 nvidia-nvtx-cu12==12.8.90
+27.5s 582 nvtx==0.2.16
+27.5s 583 nx-cugraph-cu12 @ https://pypi.nvidia.com/nx-cugraph-cu12/nx_cugraph_cu12-26.2.0-py3-none-any.whl
+27.5s 584 oauth2client==4.1.3
+27.5s 585 oauthlib==3.3.1
+27.5s 586 odfpy==1.4.1
+27.5s 587 olefile==0.47
+27.5s 588 omegaconf==2.3.1
+27.5s 589 onemkl-license==2025.3.1
+27.5s 590 onnx==1.22.0
+27.5s 591 open-spiel==2.0.2
+27.5s 592 openai==2.54.0
+27.5s 593 opencv-contrib-python==4.14.0.94
+27.5s 594 opencv-python==4.14.0.94
+27.5s 595 opencv-python-headless==4.14.0.94
+27.5s 596 openpyxl==3.1.5
+27.5s 597 openslide-bin==4.0.1.2
+27.5s 598 openslide-python==1.4.6
+27.5s 599 opentelemetry-api==1.42.1
+27.5s 600 opentelemetry-resourcedetector-gcp==1.14.0
+27.5s 601 opentelemetry-sdk==1.42.1
+27.5s 602 opentelemetry-semantic-conventions==0.63b1
+27.5s 603 opt_einsum==3.4.0
+27.5s 604 optax==0.2.8
+27.5s 605 optree==0.20.0
+27.6s 606 optuna==5.0.0
+27.6s 607 orbax-checkpoint==0.12.4
+27.6s 608 orderly-set==5.5.0
+27.6s 609 orjson==3.12.0
+27.6s 610 ormsgpack==1.12.2
+27.6s 611 osqp==1.1.3
+27.6s 612 overrides==7.7.0
+27.6s 613 packaging==26.3
+27.6s 614 pandas==2.3.3
+27.6s 615 pandas-datareader==0.11.1
+27.6s 616 pandas-gbq==0.30.0
+27.6s 617 pandas-profiling==3.6.6
+27.6s 618 pandas-stubs==2.2.3.250527
+27.6s 619 pandasql==0.7.3
+27.6s 620 pandocfilters==1.5.1
+27.6s 621 panel==1.9.4
+27.6s 622 panel-material-ui==0.14.2
+27.6s 623 papermill==2.7.0
+27.6s 624 param==2.4.1
+27.6s 625 parso==0.8.7
+27.6s 626 parsy==2.2
+27.6s 627 partd==1.4.2
+27.6s 628 path==17.1.1
+27.6s 629 path.py==12.5.0
+27.6s 630 pathlib_abc==0.5.2
+27.6s 631 pathos==0.3.5
+27.6s 632 pathspec==1.1.1
+27.6s 633 patsy==1.0.3
+27.6s 634 pdf2image==1.17.0
+27.6s 635 peewee==4.4.0
+27.6s 636 peft==0.20.0
+27.6s 637 pettingzoo==1.24.0
+27.6s 638 pexpect==4.9.0
+27.6s 639 phik==0.12.5
+27.6s 640 pickleshare==0.7.5
+27.6s 641 pillow==12.3.0
+27.6s 642 platformdirs==4.11.7
+27.6s 643 plotly==5.24.1
+27.6s 644 plotly-express==0.4.1
+27.6s 645 plotnine==0.14.5
+27.6s 646 pluggy==1.6.0
+27.6s 647 plum-dispatch==2.9.0
+27.6s 648 pointpats==2.5.5
+27.6s 649 pokerkit==0.6.3
+27.6s 650 polars==1.35.2
+27.6s 651 polars-runtime-32==1.35.2
+27.6s 652 pooch==1.9.0
+27.6s 653 portpicker==1.5.2
+27.6s 654 POT==0.9.7.post1
+27.6s 655 pox==0.3.7
+27.6s 656 ppft==1.7.8
+27.6s 657 preshed==3.0.13
+27.6s 658 prettytable==3.18.0
+27.6s 659 proglog==0.1.12
+27.6s 660 progressbar2==4.5.0
+27.6s 661 prometheus_client==0.26.0
+27.6s 662 promise==2.3
+27.6s 663 prompt_toolkit==3.0.53
+27.6s 664 propcache==0.5.2
+27.6s 665 prophet==1.4.0
+27.6s 666 proto-plus==1.28.2
+27.6s 667 protobuf==5.29.5
+27.6s 668 psutil==5.9.5
+27.6s 669 psycopg2==2.9.12
+27.6s 670 psygnal==0.15.1
+27.6s 671 ptyprocess==0.7.0
+27.6s 672 pudb==2025.1.5
+27.6s 673 PuLP==3.3.2
+27.6s 674 puremagic==2.2.0
+27.6s 675 py-cpuinfo==9.0.0
+27.6s 676 py4j==0.10.9.9
+27.6s 677 pyaml==26.7.0
+27.6s 678 PyArabic==0.6.15
+27.6s 679 pyarrow==23.0.1
+27.6s 680 pyasn1==0.6.4
+27.6s 681 pyasn1_modules==0.4.2
+27.6s 682 pybind11==3.1.0
+27.6s 683 pycairo==1.29.1
+27.6s 684 pyclipper==1.4.0
+27.6s 685 pycocotools==2.0.11
+27.6s 686 pycparser==3.0
+27.6s 687 pycryptodome==3.23.0
+27.6s 688 pycryptodomex==3.23.0
+27.6s 689 pycuda==2026.1
+27.6s 690 pydantic==2.13.5
+27.6s 691 pydantic_core==2.46.5
+27.6s 692 pydata-google-auth==1.9.1
+27.6s 693 pydicom==3.0.2
+27.6s 694 pydot==4.0.1
+27.6s 695 pydotplus==2.0.2
+27.6s 696 PyDrive2==1.21.1
+27.6s 697 pydub==0.25.1
+27.6s 698 pyemd==2.0.0
+27.6s 699 pyerfa==2.0.1.5
+27.6s 700 pyexcel-io==0.6.8
+27.6s 701 pyexcel-ods==0.6.0
+27.6s 702 pygame==2.6.1
+27.6s 703 pygit2==1.20.0
+27.6s 704 pygltflib==1.16.5
+27.6s 705 Pygments==2.21.0
+27.6s 706 PyGObject==3.48.2
+27.6s 707 pyiceberg==0.12.0
+27.6s 708 pyjson5==2.0.1
+27.6s 709 PyJWT==2.13.0
+27.6s 710 pyLDAvis==3.4.1
+27.6s 711 pylibcudf-cu12==26.2.1
+27.6s 712 pylibcugraph-cu12==26.2.0
+27.6s 713 pylibraft-cu12==26.2.0
+27.6s 714 pymc==5.28.5
+27.6s 715 pymongo==4.18.2
+27.6s 716 Pympler==1.1
+27.7s 717 pynndescent==0.6.0
+27.7s 718 pyogrio==0.13.0
+27.7s 719 pyomo==6.10.1
+27.7s 720 PyOpenGL==3.1.10
+27.7s 721 pyOpenSSL==26.4.0
+27.7s 722 pyparsing==3.3.2
+27.7s 723 pypdf==6.19.0
+27.7s 724 pyperclip==1.11.0
+27.7s 725 pyproj==3.7.2
+27.7s 726 pyproject_hooks==1.3.3
+27.7s 727 pyroaring==1.1.0
+27.7s 728 pysal==25.7
+27.7s 729 pyshp==3.1.6
+27.7s 730 PySocks==1.7.1
+27.7s 731 pyspark==4.0.4
+27.7s 732 pytensor==2.38.3
+27.7s 733 pytesseract==0.3.13
+27.7s 734 pytest==8.4.2
+27.7s 735 python-apt==0.0.0
+27.7s 736 python-bidi==0.6.11
+27.7s 737 python-box==7.4.1
+27.7s 738 python-dateutil==2.9.0.post0
+27.7s 739 python-dotenv==1.2.3
+27.7s 740 python-fasthtml==0.14.12
+27.7s 741 python-json-logger==4.2.0
+27.7s 742 python-louvain==0.16
+27.7s 743 python-lsp-jsonrpc==1.1.2
+27.7s 744 python-lsp-server==1.15.0
+27.7s 745 python-multipart==0.0.32
+27.7s 746 python-slugify==8.0.4
+27.7s 747 python-snappy==0.7.3
+27.7s 748 python-utils==4.0.1
+27.7s 749 pytokens==0.4.1
+27.7s 750 pytools==2026.1.1
+27.7s 751 pytorch-ignite==0.5.5
+27.7s 752 pytorch-lightning==2.6.6
+27.7s 753 pytz==2025.2
+27.7s 754 PyUpSet==0.1.1.post7
+27.7s 755 pyviz_comms==3.0.6
+27.7s 756 PyWavelets==1.9.0
+27.7s 757 PyYAML==6.0.3
+27.7s 758 pyzmq==26.2.1
+27.7s 759 qgrid==1.3.1
+27.7s 760 qtconsole==5.7.2
+27.7s 761 QtPy==2.4.3
+27.7s 762 quantecon==0.11.4
+27.7s 763 raft-dask-cu12==26.2.0
+27.7s 764 rapids-dask-dependency==26.2.0
+27.7s 765 rapids-logger==0.2.3
+27.7s 766 rasterio==1.5.1
+27.7s 767 rasterstats==0.21.0
+27.7s 768 ratelim==0.1.6
+27.7s 769 ray==2.58.0
+27.7s 770 referencing==0.37.0
+27.7s 771 regex==2025.11.3
+27.7s 772 requests==2.34.2
+27.7s 773 requests-oauthlib==2.0.0
+27.7s 774 requests-toolbelt==1.0.0
+27.7s 775 requirements-parser==0.9.0
+27.7s 776 rfc3161-client==1.0.9
+27.7s 777 rfc3339-validator==0.1.4
+27.7s 778 rfc3986-validator==0.1.1
+27.7s 779 rfc3987-syntax==1.1.0
+27.7s 780 rfc8785==0.1.4
+27.7s 781 rgf-python==3.12.0
+27.7s 782 rich==13.9.4
+27.7s 783 rmm-cu12==26.2.0
+27.7s 784 roman-numerals==4.1.0
+27.7s 785 roman-numerals-py==4.1.0
+27.7s 786 rouge_score==0.1.2
+27.7s 787 rpds-py==2026.6.3
+27.7s 788 rpy2==3.5.17
+27.7s 789 rsa==4.9.1
+27.7s 790 rtree==1.4.1
+27.7s 791 ruamel.yaml==0.19.1
+27.7s 792 s3fs==2025.12.0
+27.7s 793 s3transfer==0.15.0
+27.7s 794 safehttpx==0.1.7
+27.7s 795 safetensors==0.8.0
+27.7s 796 scikit-image==0.25.2
+27.7s 797 scikit-learn==1.6.1
+27.7s 798 scikit-multilearn==0.2.0
+27.7s 799 scikit-optimize==0.10.2
+27.7s 800 scikit-plot==0.3.7
+27.7s 801 scikit-surprise==1.1.5
+27.7s 802 scipy==1.16.3
+27.7s 803 scooby==0.11.2
+27.7s 804 scs==3.2.11
+27.7s 805 seaborn==0.13.2
+27.7s 806 SecretStorage==3.5.0
+27.7s 807 securesystemslib==1.5.1
+27.7s 808 segment_anything @ git+https://github.com/facebookresearch/segment-anything.git@dca509fe793f601edb92606367a655c15ac00fdf
+27.7s 809 segregation==2.5.4
+27.7s 810 semantic-version==2.10.0
+27.7s 811 Send2Trash==2.1.0
+27.7s 812 sentence-transformers==5.7.0
+27.7s 813 sentencepiece==0.2.2
+27.7s 814 sentry-sdk==2.68.1
+27.7s 815 setuptools==81.0.0
+27.7s 816 shap==0.52.0
+27.7s 817 shapely==2.1.2
+27.7s 818 shellingham==1.5.4
+27.7s 819 Shimmy==2.0.1
+27.7s 820 sigstore==4.5.0
+27.7s 821 sigstore-models==0.0.6
+27.7s 822 sigstore-rekor-types==0.0.18
+27.7s 823 simpervisor==1.0.0
+27.7s 824 simple-parsing==0.1.9
+27.7s 825 simpleitk==2.5.6
+27.7s 826 simplejson==4.1.2
+27.7s 827 simsimd==6.5.16
+27.7s 828 siphash24==1.9
+27.7s 829 six==1.17.0
+27.8s 830 sklearn-compat==0.1.6
+27.8s 831 sklearn-pandas==2.2.0
+27.8s 832 slicer==0.0.8
+27.8s 833 smart_open==8.0.1
+27.8s 834 sniffio==1.3.1
+27.8s 835 snowballstemmer==3.1.1
+27.8s 836 sortedcontainers==2.4.0
+27.8s 837 soundfile==0.14.0
+27.8s 838 soupsieve==2.9.2
+27.8s 839 soxr==1.1.0
+27.8s 840 spacy==3.8.16
+27.8s 841 spacy-legacy==3.0.12
+27.8s 842 spacy-loggers==1.0.5
+27.8s 843 spaghetti==1.7.6
+27.8s 844 spanner-graph-notebook==1.1.10
+27.8s 845 spglm==1.1.0
+27.8s 846 Sphinx==8.2.3
+27.8s 847 sphinxcontrib-applehelp==2.0.0
+27.8s 848 sphinxcontrib-devhelp==2.0.0
+27.8s 849 sphinxcontrib-htmlhelp==2.1.0
+27.8s 850 sphinxcontrib-jsmath==1.0.1
+27.8s 851 sphinxcontrib-qthelp==2.0.0
+27.8s 852 sphinxcontrib-serializinghtml==2.0.0
+27.8s 853 spint==1.1.0
+27.8s 854 splot==1.1.7
+27.8s 855 spopt==0.7.0
+27.8s 856 spreg==1.9.0
+27.8s 857 SQLAlchemy==2.0.52
+27.8s 858 sqlglot==25.20.2
+27.8s 859 sqlparse==0.6.0
+27.8s 860 squarify==0.4.5
+27.8s 861 srsly==2.5.3
+27.8s 862 standard-aifc==3.13.0
+27.8s 863 standard-chunk==3.13.0
+27.8s 864 standard-sunau==3.13.0
+27.8s 865 stanio==0.5.1
+27.8s 866 starlette==1.6.0
+27.8s 867 statsmodels==0.15.0
+27.8s 868 stopit==1.1.2
+27.8s 869 strictyaml==1.7.3
+27.8s 870 stringzilla==5.1.2
+27.8s 871 stumpy==1.14.1
+27.8s 872 sympy==1.14.0
+27.8s 873 tables==3.10.2
+27.8s 874 tabulate==0.9.0
+27.8s 875 tbb==2022.3.1
+27.8s 876 tblib==3.2.2
+27.8s 877 tcmlib==1.5.0
+27.8s 878 tenacity==9.1.4
+27.8s 879 tensorboard==2.20.0
+27.8s 880 tensorboard-data-server==0.7.2
+27.8s 881 tensorflow==2.20.0
+27.8s 882 tensorflow-datasets==4.9.10
+27.8s 883 tensorflow-hub==0.16.1
+27.8s 884 tensorflow-metadata==1.21.0
+27.8s 885 tensorflow-probability==0.25.0
+27.8s 886 tensorflow-text==2.20.1
+27.8s 887 tensorstore==0.1.85
+27.8s 888 termcolor==3.3.0
+27.8s 889 terminado==0.18.1
+27.8s 890 testpath==0.6.0
+27.8s 891 text-unidecode==1.3
+27.8s 892 textblob==0.19.0
+27.8s 893 texttable==1.7.0
+27.8s 894 tf-slim==1.1.0
+27.8s 895 tf_keras==2.20.1
+27.8s 896 thinc==8.3.13
+27.8s 897 threadpoolctl==3.6.0
+27.8s 898 tifffile==2026.8.23
+27.8s 899 tiktoken==0.14.0
+27.8s 900 timm==1.0.29
+27.8s 901 tinycss2==1.5.1
+27.8s 902 tobler==0.14.0
+27.8s 903 tokenizers==0.23.1
+27.8s 904 toml==0.10.2
+27.8s 905 tomlkit==0.14.0
+27.8s 906 toolz==0.12.1
+27.8s 907 torch==2.11.0+cu128
+27.8s 908 torchao==0.10.0
+27.8s 909 torchaudio==2.11.0+cu128
+27.8s 910 torchcodec==0.11.0+cu128
+27.8s 911 torchdata==0.11.0
+27.8s 912 torchinfo==1.8.0
+27.8s 913 torchmetrics==1.9.0
+27.8s 914 torchsummary==1.5.1
+27.8s 915 torchtune==0.6.1
+27.8s 916 torchvision==0.26.0+cu128
+27.8s 917 tornado==6.5.7
+27.8s 918 TPOT==1.1.0
+27.8s 919 tqdm==4.67.3
+27.8s 920 traitlets==5.16.1
+27.8s 921 traittypes==0.2.3
+27.8s 922 transformers==5.16.1
+27.8s 923 treelite==4.7.1
+27.8s 924 treescope==0.1.10
+27.8s 925 triton==3.6.0
+27.8s 926 truststore==0.10.4
+27.8s 927 trx-python==0.6
+27.8s 928 tsfresh==0.21.2
+27.8s 929 tuf==7.0.1
+27.8s 930 tweepy==4.17.0
+27.8s 931 typeguard==4.6.0
+27.8s 932 typer==0.27.2
+27.8s 933 types-pytz==2026.3.1.20260727
+27.8s 934 types-setuptools==84.0.0.20260812
+27.8s 935 typing-inspect==0.9.0
+27.8s 936 typing-inspection==0.4.4
+27.8s 937 typing_extensions==4.16.0
+27.8s 938 tzdata==2026.3
+27.8s 939 tzlocal==5.4.4
+27.8s 940 ucxx-cu12==0.48.0
+27.8s 941 ujson==6.0.0
+27.8s 942 umap-learn==0.5.12
+27.8s 943 umf==1.0.3
+27.8s 944 universal_pathlib==0.3.10
+27.8s 945 update_checker==1.0.0
+27.8s 946 uri-template==1.3.0
+27.8s 947 uritemplate==4.2.0
+27.8s 948 urllib3==2.8.0
+27.8s 949 urwid==4.2.4
+27.8s 950 urwid_readline==0.15.1
+27.8s 951 uuid_utils==0.17.0
+27.8s 952 uvicorn==0.52.4
+27.8s 953 uvloop==0.22.1
+27.9s 954 vega-datasets==0.9.0
+27.9s 955 visions==0.8.1
+27.9s 956 vtk==9.7.1
+27.9s 957 wadllib==1.3.6
+27.9s 958 Wand==0.7.2
+27.9s 959 wandb==0.28.1
+27.9s 960 wasabi==1.1.3
+27.9s 961 watchdog==6.0.0
+27.9s 962 watchfiles==1.2.0
+27.9s 963 wavio==0.0.9
+27.9s 964 wcwidth==0.8.3
+27.9s 965 weasel==1.0.0
+27.9s 966 webcolors==25.10.0
+27.9s 967 webencodings==0.6.1
+27.9s 968 websocket-client==1.9.2
+27.9s 969 websockets==15.0.1
+27.9s 970 Werkzeug==3.1.8
+27.9s 971 wheel==0.48.0
+27.9s 972 widgetsnbextension==4.0.16
+27.9s 973 woodwork==0.31.0
+27.9s 974 wordcloud==1.9.6
+27.9s 975 wrapt==1.17.3
+27.9s 976 xarray==2025.12.0
+27.9s 977 xarray-einstats==0.11.0
+27.9s 978 xgboost==3.4.1
+27.9s 979 xlrd==2.0.2
+27.9s 980 xvfbwrapper==0.2.34
+27.9s 981 xxhash==4.0.1
+27.9s 982 xyzservices==2026.3.0
+27.9s 983 yarl==1.24.5
+27.9s 984 ydata-profiling==4.18.4
+27.9s 985 ydf==0.15.0
+27.9s 986 ydf_tf==2.20.0
+27.9s 987 yellowbrick==1.5
+27.9s 988 yfinance==0.2.66
+27.9s 989 zict==3.0.0
+27.9s 990 zipp==4.1.0
+27.9s 991 zstandard==0.25.0
+29.5s 992 {
+29.5s 993 "checked_at_utc": "2026-10-19T12:59:59.643243+00:00",
+29.5s 994 "python": "3.13.15",
+29.5s 995 "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+29.5s 996 "packages": {
+29.5s 997 "torch": "2.11.0+cu128",
+29.5s 998 "transformers": "5.16.1",
+29.5s 999 "accelerate": "1.14.0",
+29.5s 1000 "bitsandbytes": "0.50.2",
+29.5s 1001 "PyYAML": "6.0.3"
+29.5s 1002 },
+29.5s 1003 "cuda_available": true,
+29.5s 1004 "cuda_version": "12.8",
+29.5s 1005 "gpus": [
+29.5s 1006 {
+29.5s 1007 "index": 0,
+29.5s 1008 "name": "Tesla T4",
+29.5s 1009 "total_memory_bytes": 15636037632
+29.5s 1010 },
+29.5s 1011 {
+29.5s 1012 "index": 1,
+29.5s 1013 "name": "Tesla T4",
+29.5s 1014 "total_memory_bytes": 15636037632
+29.5s 1015 }
+29.5s 1016 ],
+29.5s 1017 "errors": [],
+29.5s 1018 "ready_for_nf4_smoke": true
+29.5s 1019 }
+33.3s 1020 ....................................................................................................................F.
+33.3s 1021 ======================================================================
+33.3s 1022 FAIL: test_non_audit_logic_constants_and_all_minimal_prompts_match_frozen_r3 (tests.test_answer_repair_v8_r4.FactAuditTests.test_non_audit_logic_constants_and_all_minimal_prompts_match_frozen_r3)
+33.3s 1023 ----------------------------------------------------------------------
+33.3s 1024 Traceback (most recent call last):
+33.3s 1025 File "/kaggle/working/e_v8_d13880c5e114/answer_repair_v8r4_smoke8_gpu/tests/test_answer_repair_v8_r4.py", line 51, in test_non_audit_logic_constants_and_all_minimal_prompts_match_frozen_r3
+33.3s 1026 self.assertEqual(funcs, fixture["function_ast_sha256"])
+33.3s 1027 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+33.3s 1028 AssertionError: {'max_calls': 'b59184ee1e1d080c4ae615914df722160b08a6fac[723 chars]f9a'} != {'max_calls': '2b145c37b5ff809545d11448e697391b6957ff671[723 chars]de9'}
+33.3s 1029 Diff is 1622 characters long. Set self.maxDiff to None to see it.
+33.3s 1030 
+33.3s 1031 ----------------------------------------------------------------------
+33.3s 1032 Ran 118 tests in 0.292s
+33.3s 1033 
+33.3s 1034 FAILED (failures=1)
+34.3s 1035 Traceback (most recent call last):
+34.3s 1036 File "<string>", line 1, in <module>
+34.3s 1037 import sys;import papermill as pm;pm.execute_notebook("__notebook__.ipynb","__notebook__.ipynb",progress_bar=False,log_output=True,stdout_file=sys.stdout,stderr_file=sys.stderr,allow_errors=False,timeout=43200)
+34.3s 1038 ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+34.3s 1039 File "/usr/local/lib/python3.13/dist-packages/papermill/execute.py", line 131, in execute_notebook
+34.3s 1040 raise_for_execution_errors(nb, output_path)
+34.3s 1041 ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+34.3s 1042 File "/usr/local/lib/python3.13/dist-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+34.3s 1043 raise error
+34.3s 1044 papermill.exceptions.PapermillExecutionError:
+34.3s 1045 ---------------------------------------------------------------------------
+34.3s 1046 Exception encountered at "In [3]":
+34.3s 1047 ---------------------------------------------------------------------------
+34.3s 1048 CalledProcessError                        Traceback (most recent call last)
+34.3s 1049 /tmp/ipykernel_23/541572504.py in <cell line: 0>()
+34.3s 1050 19 run_logged([sys.executable, 'scripts/check_answer_repair_environment.py', '--require-cuda',
+34.3s 1051 20             '--out', str(OUTPUT / 'environment.json')], 'environment.log')
+34.3s 1052 ---> 21 run_logged([sys.executable, '-m', 'unittest', *manifest['portable_tests']], 'tests.log')
+34.3s 1053 22 RUNS = []
+34.3s 1054 23 for arm in manifest['protocol']:
+34.3s 1055 
+34.3s 1056 /tmp/ipykernel_23/541572504.py in run_logged(argv, name)
+34.3s 1057 13             except subprocess.TimeoutExpired: process.kill(); process.wait()
+34.3s 1058 14             raise
+34.3s 1059 ---> 15     if code: raise subprocess.CalledProcessError(code, argv)
+34.3s 1060 16
+34.3s 1061 17 run_logged([sys.executable, '-m', 'pip', 'install', '-r', 'requirements-answer-repair-v8.txt'], 'install.log')
+34.3s 1062 
+34.3s 1063 CalledProcessError: Command '['/usr/bin/python3', '-m', 'unittest', 'tests.test_answer_repair', 'tests.test_answer_repair_experiment', 'tests.test_answer_repair_v5', 'tests.test_answer_repair_v6', 'tests.test_answer_repair_v7', 'tests.test_answer_repair_v8', 'tests.test_answer_repair_v8_r2', 'tests.test_answer_repair_v8_r3', 'tests.test_answer_repair_v8_r4']' returned non-zero exit status 1.
+34.3s 1064 
+36.5s 1065 /usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+36.5s 1066 cells[i][c] = re.sub('\\\\\|', '|', cell)
+36.6s 1067 /usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+36.6s 1068 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+37.4s 1069 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+37.6s 1070 [NbConvertApp] Writing 62847 bytes to __notebook__.ipynb
+40.0s 1071 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+40.5s 1072 [NbConvertApp] Writing 356052 bytes to __results__.html

@@ -1,0 +1,32 @@
+{
+  "version": "answer_repair_v7_historical_changed_review_v1",
+  "policy_sha256": "63dcad0ffb13ab87067c27d783656303d9aa03b340b36f0f39a359e0ab58c71b",
+  "source_queues_sha256": {
+    "artifacts/answer_repair/v7_reviewed/release_audit/pending_semantic_pairs.jsonl": "280d8b68d564a4269a7f53a5efebc1128b90cbc138fb63ef21056423d8c41da3",
+    "artifacts/answer_repair/v7_heldout3216/release_audit/pending_semantic_pairs.jsonl": "a944d06a65a4400e517d37c07a515bcde19f2e41bee79d2fce2243c7415db0b8"
+  },
+  "total_source_result_records": 841,
+  "eligible_changed_pairs": 77,
+  "selected_pairs": 45,
+  "unique_dataset_sample_ids": 45,
+  "by_cohort_dataset_strategy": {
+    "heldout/fever/fever_nli_anchored": {
+      "changed_available": 5,
+      "selected": 5
+    },
+    "heldout/nq/short_answer_quote": {
+      "changed_available": 20,
+      "selected": 20
+    },
+    "heldout3216/nq/short_answer_quote": {
+      "changed_available": 52,
+      "selected": 20
+    }
+  },
+  "queue_sha256": "ec7ccc7ca8df06b7f5d32a2aa405b7acc529e10d140e1c2fc8694824b67b89e8",
+  "human_verified": false,
+  "all_human_fields_pending": true,
+  "agent_assistance_complete": false,
+  "selection_uses_semantic_judgments_or_EM": false,
+  "scope": "Historical changed-output sampling only; not full semantic accuracy, repair recall, or independent unseen evaluation"
+}

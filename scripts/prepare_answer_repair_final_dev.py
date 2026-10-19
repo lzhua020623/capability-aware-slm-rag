@@ -47,7 +47,10 @@ def main(argv=None):
     parser.add_argument("--notebook", type=Path, default=ROOT / "notebooks/answer_repair_final_nq75.ipynb")
     args = parser.parse_args(argv)
     validation = json.loads((args.smoke_dir / "result_validation.json").read_bytes())
-    report_raw = (args.smoke_dir / "kaggle_20261019/smoke_acceptance.json").read_bytes()
+    result_directory = validation.get("result_directory", "kaggle_20261019")
+    if Path(result_directory).name != result_directory or not result_directory.startswith("kaggle_"):
+        raise ValueError("Invalid raw result directory in validation receipt")
+    report_raw = (args.smoke_dir / result_directory / "smoke_acceptance.json").read_bytes()
     report = json.loads(report_raw)
     if (validation.get("replayed_records") != 32 or
             not validation.get("frozen_engineering_gate_recalculation_matches") or
@@ -79,6 +82,8 @@ def main(argv=None):
     if groups != {"include_e_core": 11, "correct_control": 64}:
         raise ValueError("Final development cohort changed")
     version = f"answer_repair_v8{revision}_nq75_final_v1"
+    adapter_source = (ROOT / "scripts/run_answer_repair_portable_tests.py").read_text()
+    adapter_sha = sha(adapter_source.encode())
     manifest = {k: v for k, v in selected.items() if k not in
                 ("smoke_acceptance", "semantic_regressions", "failure_policy", "review_numbers", "overlay_paths")}
     manifest.update(version=version, purpose="Final development measurement; no post-run tuning or gain claim",
@@ -92,6 +97,8 @@ def main(argv=None):
                     source_row_sha256={json.loads(line)["sample_id"]: sha(line) for line in
                                        files["inputs/nq75_c1.jsonl"].splitlines(keepends=True)},
                     frozen_final=True, tuning_allowed_after_run=False, gpu_inference_completed=False,
+                    preflight_adapter_sha256=adapter_sha,
+                    preflight_adapter_scope="External unittest process only; no frozen source or inference patch",
                     acceptance_policy="Report all development outputs, EM/F1 and cost; do not select another version")
     auditor = "scripts/audit_answer_repair_release.py"
     before = files[auditor]
@@ -124,6 +131,18 @@ def main(argv=None):
         if cell["cell_type"] != "code":
             continue
         text = "".join(cell["source"])
+        test_command = "run_logged([sys.executable, '-m', 'unittest', *manifest['portable_tests']], 'tests.log')"
+        if test_command in text:
+            adapted = (f"adapter_source = {adapter_source!r}\n"
+                       "adapter_path = OUTPUT / 'preflight_ast_compat.py'\n"
+                       "adapter_path.write_text(adapter_source)\n"
+                       f"assert hashlib.sha256(adapter_path.read_bytes()).hexdigest() == {adapter_sha!r}\n"
+                       "(OUTPUT / 'preflight_adapter.json').write_text(json.dumps({\n"
+                       f"    'adapter_sha256': {adapter_sha!r}, 'frozen_bundle_sha256': EXPECTED_SHA256,\n"
+                       "    'scope': 'unittest process only; no inference changes'\n"
+                       "}, indent=2) + '\\n')\n"
+                       "run_logged([sys.executable, str(adapter_path), *manifest['portable_tests']], 'tests.log')")
+            text = text.replace(test_command, adapted)
         text = text.replace(f"answer_repair_v8{revision}_smoke8_v1", version).replace("manifest['samples'] == 8", "manifest['samples'] == 75")
         if "scripts/check_answer_repair_v8_smoke.py" in text:
             text = text.replace("scripts/check_answer_repair_v8_smoke.py", "scripts/summarize_answer_repair_v8.py")

@@ -1,0 +1,15 @@
+{
+  "script_version_id": 360053773,
+  "notebook_url": "https://www.kaggle.com/code/yearo111/e-v8r4-smoke8-fact-final-20261019/log?scriptVersionId=360053773",
+  "status": "failed_before_inference",
+  "runtime_seconds": 41.4,
+  "frozen_bundle_sha256": "d13880c5e114b5f8379f931103af249e1f10b4975de98c9a5b74a9c161900e11",
+  "portable_tests_run": 118,
+  "portable_failures": 1,
+  "failure": "Cross-version AST structural dump fingerprint in r4 invariant test",
+  "python_observed": "3.13.15",
+  "cuda_environment_ready": true,
+  "model_generation_calls": 0,
+  "model_outcomes_available": false,
+  "log_sha256": "3c7d79ffca9a551b7a94e92b1db640142889217beee4951be8053bd699459334"
+}
