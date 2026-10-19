@@ -1,0 +1,65 @@
+{
+  "version": "answer_repair_v7_historical_assisted_complete_v1",
+  "sources_sha256": {
+    "queue": "ec7ccc7ca8df06b7f5d32a2aa405b7acc529e10d140e1c2fc8694824b67b89e8",
+    "assisted": "31b14b63f3ff04c34edbc73ab7e70751b504e84d2fae03c422f3abebc41e2903"
+  },
+  "agent_assistance_complete": true,
+  "human_confirmed": 0,
+  "human_pending": 45,
+  "reference_visible": true,
+  "human_fields_unchanged": true,
+  "sample": {
+    "records": 45,
+    "outcomes": {
+      "reference_only_flip_not_evidence_verified": 1,
+      "suggested_regression": 9,
+      "correct_preserved": 15,
+      "unresolved_error_or_abstention": 10,
+      "correctness_unresolved": 6,
+      "suggested_fix": 4
+    }
+  },
+  "by_stratum": {
+    "heldout/fever/fever_nli_anchored": {
+      "records": 5,
+      "outcomes": {
+        "reference_only_flip_not_evidence_verified": 1,
+        "suggested_regression": 4
+      }
+    },
+    "heldout/nq/short_answer_quote": {
+      "records": 20,
+      "outcomes": {
+        "correct_preserved": 11,
+        "suggested_regression": 3,
+        "unresolved_error_or_abstention": 3,
+        "correctness_unresolved": 3
+      }
+    },
+    "heldout3216/nq/short_answer_quote": {
+      "records": 20,
+      "outcomes": {
+        "unresolved_error_or_abstention": 7,
+        "correct_preserved": 4,
+        "suggested_fix": 4,
+        "correctness_unresolved": 3,
+        "suggested_regression": 2
+      }
+    }
+  },
+  "unresolved_field_numbers": [
+    10,
+    12,
+    15,
+    21,
+    30,
+    37,
+    39,
+    45
+  ],
+  "reference_only_numbers": [
+    1
+  ],
+  "scope": "Agent suggestions for this fixed 45-case sample only; not human gold or a population estimate"
+}

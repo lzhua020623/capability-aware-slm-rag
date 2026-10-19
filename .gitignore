@@ -162,6 +162,8 @@ data/annotations/*.xlsx
 !artifacts/answer_repair/v7_historical_review_v1/manifest.json
 !artifacts/answer_repair/v7_historical_review_v1/pending_pairs.jsonl
 !artifacts/answer_repair/v7_historical_review_v1/assisted_partial.jsonl
+!artifacts/answer_repair/v7_historical_review_v1/assisted_summary.json
+!artifacts/answer_repair/v7_historical_review_v1/H45_review.html
 !notebooks/answer_repair_v8r4_smoke8_retry1.ipynb
 !artifacts/answer_repair/v8r4_smoke8/retry1_preparation.json
 !artifacts/answer_repair/v8r4_smoke8/attempt1_preflight_failure/
