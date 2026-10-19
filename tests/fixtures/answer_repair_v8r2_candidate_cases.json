@@ -1,0 +1,226 @@
+{
+  "source_result_zip_sha256": "a1e1d549e5887682be0b554695fb41f412271ffec733e2e303b6fc49489ce387",
+  "purpose": "Actual r2 candidate outputs; parser/guard regression only, not new generations or correctness labels.",
+  "cases": [
+    {
+      "name": "all_labels_omitted",
+      "runtime": {
+        "sample_id": "-1178549234723633450",
+        "dataset": "nq",
+        "query": "where was total eclipse of the heart filmed",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_0473639",
+            "text": "The music video for `` Total Eclipse of the Heart '' was directed by Russell Mulcahy and was filmed on location at the Holloway Sanatorium , a large Victorian Gothic hospital near Virginia Water , Surrey , England . The video features Bonnie Tyler clad in white , dreaming or fantasizing about her students in a boys ' boarding school . Young men are seen dancing and participating in various school activities and singing in a choir .",
+            "score": 0.7903239727020264
+          },
+          {
+            "rank": 2,
+            "passage_id": "nq_p_0473641",
+            "text": "Since the song 's release , Tyler performs `` Total Eclipse of the Heart '' in every concert she performs . `` I sing it much better now than I used to , '' she told The Huffington Post . `` I think my voice is probably not as husky as it was , I think it 's mellowed a bit . '' The song was performed at the 26th Annual Grammy Awards , held at the Shrine Auditorium , Los Angeles , on 28 February 1984 . Tyler performed a brief , live performance of this song on a Royal Caribbean cruise during the solar eclipse of 21 August 2017 .",
+            "score": 0.6821131706237793
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_0995782",
+            "text": "Principal photography for Eclipse began on August 17 , 2009 , at Vancouver Film Studios . On August 29 , photos captured Kristen Stewart , Billy Burke , and other principal actors , filming a scene with graduation caps and gowns . September 2 brought Xavier Samuel together with Kristen Stewart and Robert Pattinson filming at a soundstage for scenes at Bella 's house . Director David Slade stated that they filmed a scene with a tent on September 13 . He also said that they filmed a kiss between Jacob and Bella on September 17 . Filming wrapped up on October 29 , 2009 , while post-production began in late November . Slade published multiple updates on his Twitter account proclaiming that editing was going well . He said the `` story and the way ( they ) approached the film calls for a more realistic approach . '' In April 2010 , it was revealed that reshoots to the film were needed . Both Slade and Stephenie Meyer were present at the shoot along with the three main stars .",
+            "score": 0.6638767123222351
+          },
+          {
+            "rank": 4,
+            "passage_id": "nq_p_0473626",
+            "text": "`` Total Eclipse of the Heart '' is a song recorded by Welsh singer Bonnie Tyler . It was written and produced by Jim Steinman , and released on Tyler 's fifth studio album , Faster Than the Speed of Night ( 1983 ) . The song was released as a single by Columbia Records on 11 February 1983 in the United Kingdom and on 31 May 1983 in the United States .",
+            "score": 0.6521524786949158
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0960027",
+            "text": "Scenes set in Provence were filmed on location in Trogir , Croatia , in the same production block as `` The Vampires of Venice '' , which sees Trogir depicting 16th - century Venice . Filming took place around November 2009 . The scenes at the church which were filmed at Llandaff Cathedral in Wales , while the National Museum Cardiff doubled for the interior of the Musée d'Orsay . Some of the sets were intended to reference paintings , such as Van Gogh 's bedroom . One such set was the café where the Doctor and Amy first meet Van Gogh , which was modelled after the painting Cafe Terrace at Night . This proved challenging for the art department , who extensively looked for a suitable building in Croatia to use . Once they found the one they wanted , they had to redesign it to look like the painting ; this involved putting an awning up , changing the windows , and adding a platform with tables and chairs . The song played during the ending scene is `` Chances '' by the British rock band Athlete .",
+            "score": 0.6486008167266846
+          }
+        ],
+        "initial_answer": "Holloway Sanatorium"
+      },
+      "text": "1\nThe music video for `` Total Eclipse of the Heart '' was directed by Russell Mulcahy and was filmed on location at the Holloway Sanatorium , a large Victorian Gothic hospital near Virginia Water , Surrey , England .\nHolloway Sanatorium",
+      "expected": "unchanged",
+      "response_schema": "three_positional_values"
+    },
+    {
+      "name": "rank_label_omitted",
+      "runtime": {
+        "sample_id": "3252643664278412553",
+        "dataset": "nq",
+        "query": "where did the name of monkey bread come from",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_0756250",
+            "text": "The origin of the term `` monkey bread '' comes from the pastry being a finger food : the consumer would pick apart the bread as a monkey would .",
+            "score": 0.8107254505157471
+          },
+          {
+            "rank": 2,
+            "passage_id": "nq_p_0756251",
+            "text": "The name aranygaluska ( monkey bread ) literally means `` golden dumpling '' and by the 1880s , this dessert was being referred to in Hungarian literature . Hungarian immigrants subsequently brought this dish with them when they immigrated to America and began introducing it into the country 's food landscape when Hungarian and Hungarian Jewish bakeries began selling it in the mid-twentieth century . In 1972 , a cookbook published by Betty Crocker included a recipe for aranygaluska , which they referred to as `` Hungarian Coffee Cake '' . As it became more popular in America , aranygaluska came to be confused with monkey bread in which the balls of dough are not dipped in cinnamon and sugar but only in butter . Monkey bread soon became the more common name for this Hungarian Jewish dessert and therefore what most people know as monkey bread today is actually aranygaluska . Recipes for the bread first appeared in American women 's magazines and community cookbooks in the 1950s , but the dish is still virtually unknown outside the United States . The bread is made with pieces of sweet yeast dough ( often frozen ) , which are baked in a cake pan at high heat after first being individually covered in melted butter , cinnamon , sugar , and chopped pecans . It is traditionally served hot so that the baked segments can be easily torn away with the fingers and eaten by hand .",
+            "score": 0.7696611881256104
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_0756249",
+            "text": "Monkey bread , also called monkey puzzle bread , sticky bread , Hungarian coffee cake , golden crown , pinch - me cake , and pluck - it cake is a soft , sweet , sticky pastry served in the United States for breakfast or as a treat . It consists of pieces of soft baked dough sprinkled with cinnamon . It is often served at fairs and festivals .",
+            "score": 0.7266814708709717
+          },
+          {
+            "rank": 4,
+            "passage_id": "nq_p_0567149",
+            "text": "The word `` sweetbread '' is first attested in the 16th century , but the etymology of the name is unclear . `` Sweet '' is perhaps used since the thymus is sweet and rich - tasting , as opposed to savory - tasting muscle flesh . `` Bread '' may come from brede , `` roasted meat '' or from the Old English brǣd ( `` flesh '' or `` meat '' ) .",
+            "score": 0.6733464598655701
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0587854",
+            "text": "Kakamega derives its modern name from the local dialect . The story goes that when European settlers first visited the area now known as Kakamega and were offered maize meal , the local staple food called Obusuma , they tried to emulate the eating style for which the tribe was famous . To the hosts though , the visitors were more like ' pinching ' the Obusuma . The resulting administrative area was named ' Kakamega ' , which roughly translates to ' pinch . '",
+            "score": 0.6556488275527954
+          }
+        ],
+        "initial_answer": "Hungarian literature"
+      },
+      "text": "1\nQUOTE: \"The origin of the term `` monkey bread '' comes from the pastry being a finger food : the consumer would pick apart the bread as a monkey would .\"\nANSWER: the pastry being a finger food : the consumer would pick apart the bread as a monkey would",
+      "expected": "candidate",
+      "response_schema": "bare_rank_labeled_values"
+    },
+    {
+      "name": "answer_outside_quote",
+      "runtime": {
+        "sample_id": "6935740157411537788",
+        "dataset": "nq",
+        "query": "where is big bear lake located in california",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_0925132",
+            "text": "Big Bear Lake is located at 34 ° 14 ′ 29 '' N 116 ° 54 ′ 12 '' W ﻿ / ﻿ 34.24139 ° N 116.90333 ° W ﻿ / 34.24139 ; - 116.90333 ( 34.241295 , − 116.903289 ) . According to the United States Census Bureau , the city has a total area of 6.5 square miles ( 17 km ) . 6.3 square miles ( 16 km ) of it is land and 0.2 square miles ( 0.52 km ) of it ( 2.88 % ) is water . It is located 25 miles ( 40 km ) northeast of the city of San Bernardino , and immediately west of Big Bear City .",
+            "score": 0.8162106275558472
+          },
+          {
+            "rank": 2,
+            "passage_id": "nq_p_0925120",
+            "text": "Big Bear Lake is a small city in San Bernardino County , California , located in the San Bernardino Mountains along the south shore of Big Bear Lake , and surrounded by the San Bernardino National Forest . The city is located about 25 miles ( 40 km ) northeast of the city of San Bernardino , and immediately west of the unincorporated town of Big Bear City . The population was approximately 5,019 at the 2010 census , down from 5,438 at the 2000 census . Being a popular year - round resort destination , however , the actual number of people staying in or visiting the greater Big Bear Valley area regularly surges to over 100,000 during many weekends of the year .",
+            "score": 0.810623824596405
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_1050450",
+            "text": "Big Bear Lake is a reservoir in the San Bernardino Mountains , in San Bernardino County , California , United States . At a surface elevation of 6,750 ft ( 2,060 m ) , it has an east -- west length of approximately 7 mi ( 11 km ) and is approximately 2.5 mi ( 4.0 km ) at its widest measurement , though the lake 's width mostly averages a little more than 1 mi ( 1.6 km ) . These approximations are based on the lake having an optimum retainable water level . At dam 's end Big Bear measures its deepest water at 72 ft ( 22 m ) . It is a completely snow - fed lake , having no other means of tributary or mechanical replenishment .",
+            "score": 0.8024526834487915
+          },
+          {
+            "rank": 4,
+            "passage_id": "nq_p_0974071",
+            "text": "Big Bear Lake is a reservoir in the San Bernardino Mountains , in San Bernardino County , California , United States . At a surface elevation of 6,750 ft ( 2,060 m ) , it has an east - west length of approximately 7 mi ( 11 km ) and is approximately 2.5 mi ( 4.0 km ) at its widest measurement , though the lake 's width mostly averages a little more than 1 mi ( 1.6 km ) . These approximations are based on the lake having an optimum retainable water level . At dam 's end Big Bear measures its deepest water at 72 ft ( 22 m ) . It is a completely snow - fed lake , having no other means of tributary or mechanical replenishment .",
+            "score": 0.800171971321106
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0925146",
+            "text": "Big Bear Lake is Southern California 's largest recreation lake . It is about seven miles long and about one mile at its widest . The primary summer attraction in Big Bear was fishing and it still is one of the most common activities there . The most abundant types of fish are trout , bass and catfish . Hiking , mountain biking and horse riding are also very popular . San Bernardino National Forest offers many trails in varying degrees of difficulty . During winter season Big Bear Lake becomes a skiing and snowboarding destination for Southern California . There are two ski resorts : Snow Summit and Bear Mountain . The town is also home to the Big Bear Lake International Film Festival , in operation since 1999 .",
+            "score": 0.7517952919006348
+          }
+        ],
+        "initial_answer": "San Bernardino Mountains"
+      },
+      "text": "RANK: 1\nQUOTE: Big Bear Lake is located at 34 ° 14 ′ 29 '' N 116 ° 54 ′ 12 '' W ﻿ / ﻿ 34.24139 ° N 116.90333 ° W ﻿ / 34.24139 ; - 116.90333 ( 34.241295 , − 116.903289 ) .\nANSWER: San Bernardino Mountains",
+      "expected": "grounding",
+      "response_schema": null
+    },
+    {
+      "name": "answer_not_located",
+      "runtime": {
+        "sample_id": "-6909798989883244156",
+        "dataset": "nq",
+        "query": "who sang breakfast at tiffany's the original",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_0200453",
+            "text": "Mercer and Mancini wrote the song for Audrey Hepburn to sing in the film Breakfast at Tiffany 's . The lyrics , written by Mercer , are reminiscent of his childhood in Savannah , Georgia , including its waterways . As a child , he had picked huckleberries in summer , and connected them with a carefree childhood and Mark Twain 's Huckleberry Finn . Although an instrumental version is played over the film 's opening titles , the lyrics are first heard in a scene where Paul `` Fred '' Varjak ( George Peppard ) discovers Holly Golightly ( Hepburn ) singing the song , and accompanying herself on the guitar , while sitting on the fire escape outside their apartments .",
+            "score": 0.7775134444236755
+          },
+          {
+            "rank": 2,
+            "passage_id": "nq_p_0084322",
+            "text": "`` Breakfast at Tiffany 's '' is a 1995 song recorded by American alternative rock band Deep Blue Something . Originally appearing on the album 11th Song , it was later re-recorded and released on their album Home . It was the band 's only hit , peaking at number five on the Billboard Hot 100 . Outside the United States , the song topped the charts in the United Kingdom , and peaked within the top ten of the charts in Australia , Belgium ( Flanders ) , Canada , Germany , the Republic of Ireland and Sweden .",
+            "score": 0.7543667554855347
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_0858719",
+            "text": "During the film , Hepburn sang the film 's signature song , `` Moon River '' by Henry Mancini and Johnny Mercer . The song was tailored to Hepburn 's limited vocal range , based on songs she had performed in 1957 's Funny Face . On the Anniversary Edition DVD of Breakfast at Tiffany 's co-producer Richard Shepherd says in his audio commentary that after a preview in San Francisco , Martin Rankin , Paramount 's head of production , wanted `` Moon River '' replaced with music by somebody like Gordon Jenkins ( whose album Manhattan Tower had been out fairly recently ) : `` Marty ( Jurow , co-producer ) and I both said ' over our dead bodies . ' '' According to Mancini and Edwards , a studio executive hated the song and demanded it be cut from the film ; Hepburn , who was present , responded to the suggestion by standing up and saying , `` Over my dead body ! ''",
+            "score": 0.723641037940979
+          },
+          {
+            "rank": 4,
+            "passage_id": "nq_p_0200449",
+            "text": "`` Moon River '' is a song composed by Henry Mancini with lyrics by Johnny Mercer . It was originally performed by Audrey Hepburn in the 1961 movie Breakfast at Tiffany 's , winning an Academy Award for Best Original Song . The song also won the 1962 Grammy Awards for Record of the Year and Song of the Year .",
+            "score": 0.7190487384796143
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0858736",
+            "text": "The soundtrack featured a score composed and conducted by Henry Mancini , with songs by Mancini and lyricist Johnny Mercer . Mancini and Mercer won the 1961 Oscar for Best Original Song for `` Moon River '' . Mancini won for Best Original Score . There are also unreleased score pieces from Breakfast at Tiffany 's in existence ; `` Carousel Cue '' is from an unsurfaced scene , while `` Outtake 1 '' is from a deleted scene in which Holly and Fred visit Tiffany 's and is a variation of the main theme .",
+            "score": 0.7170267105102539
+          }
+        ],
+        "initial_answer": "Audrey Hepburn"
+      },
+      "text": "RANK: 3\nQUOTE: \"During the film, Hepburn sang the film's signature song, \"Moon River\" by Henry Mancini and Johnny Mercer.\"\nANSWER: Audrey Hepburn",
+      "expected": "grounding",
+      "response_schema": null
+    },
+    {
+      "name": "spliced_quote",
+      "runtime": {
+        "sample_id": "5822180296105627301",
+        "dataset": "nq",
+        "query": "who sings the most beautiful girl in the world",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_0597721",
+            "text": "`` The Most Beautiful Girl in the World '' is the lead single from the 1994 EP The Beautiful Experience by Prince ( The Artist Formerly Known As Prince ) , and his 1995 album The Gold Experience . In his singles chronology , it was his third major release since changing his stage name to `` The Artist Formerly Known As Prince '' or `` TAFKAP . '' In his albums chronology , it along with the EP was his second release after changing his name . With the consent of Prince 's usual record distributor Warner Bros. Records , `` The Most Beautiful Girl in the World '' was released by NPG Records and Edel Music , and independently distributed by Bellmark Records , under the control and guidance of Music of Life , as a one - off single , topping five different charts .",
+            "score": 0.7342771291732788
+          },
+          {
+            "rank": 2,
+            "passage_id": "nq_p_0377640",
+            "text": "`` The Most Beautiful Girl in the World '' is the lead single from Prince 's 1994 EP The Beautiful Experience and 1995 album The Gold Experience . In his singles chronology , it was his third major release since changing his stage name to an unpronounceable symbol . In his albums chronology , it along with the EP was his second release after changing his name . With the consent of Prince 's usual record distributor Warner Bros. Records , `` The Most Beautiful Girl in the World '' was released by NPG Records and Edel Music , and independently distributed by Bellmark Records , under the control and guidance of Music of Life , as a one - off single , topping five different charts .",
+            "score": 0.7293520569801331
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_0687833",
+            "text": "`` The Most Beautiful Girl '' is a song recorded by Charlie Rich and written by Bill Sherrill , Norris Wilson , and Rory Bourke . The countrypolitan ballad reached number 1 in the United States in 1973 on three Billboard music charts : the pop chart ( two weeks ) , the country chart ( three weeks ) , and the adult contemporary chart ( three weeks ) , as well as in Canada on three RPM charts : the RPM 100 Top Singles chart , the Country Tracks chart , and the Adult Contemporary chart . Billboard ranked it as the No. 23 song for 1974 .",
+            "score": 0.719916820526123
+          },
+          {
+            "rank": 4,
+            "passage_id": "nq_p_0500159",
+            "text": "`` The Most Beautiful Girl '' is a song recorded by Charlie Rich and written by Bill Sherrill , Norris Wilson , and Rory Bourke . The country and western ballad reached number 1 in the United States in 1973 on three Billboard music charts : the pop chart ( two weeks ) , the country chart ( three weeks ) , and the adult contemporary chart ( three weeks ) , as well as in Canada on three RPM charts : the RPM 100 Top Singles chart , the Country Tracks chart , and the Adult Contemporary chart . Billboard ranked it as the No. 23 song for 1974 .",
+            "score": 0.7099336385726929
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0500162",
+            "text": "`` The Most Beautiful Girl '' was also recorded by Slim Whitman in the 1970s . Andy Williams released a version in 1974 on his album The Way We Were . In 1975 ABBA singer Anni - Frid Lyngstad recorded a Swedish - language version called `` Vill du låna en man ? '' ( with Swedish lyrics by Stig Anderson ) on her solo album Frida ensam . Sergio Franchi recorded the song on his 1976 DynaHouse album 20 Magnificent Songs . Country music boy band South 65 recorded an updated version of the song , titled `` The Most Beautiful Girl ( 2001 Version ) '' , on their 2001 album Dream Large .",
+            "score": 0.695644199848175
+          }
+        ],
+        "initial_answer": "Charlie Rich"
+      },
+      "text": "RANK: 1\nQUOTE: ``The Most Beautiful Girl in the World'' is the lead single from Prince ( The Artist Formerly Known As Prince ) , and his 1995 album The Gold Experience .\nANSWER: Prince",
+      "expected": "grounding",
+      "response_schema": null
+    }
+  ]
+}

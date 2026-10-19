@@ -1,0 +1,14 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "nq", "--c1", "/kaggle/working/e_v8_906f096f78e3/answer_repair_v8_nq75_gpu/inputs/nq75_c1.jsonl", "--all", "--strategy", "conservative_no_original_gate", "--max-new-tokens", "384", "--out", "/kaggle/working/answer_repair_v8_nq75_outputs/conservative_no_original_gate.jsonl", "--check-only"]
+{
+  "source": "/kaggle/working/e_v8_906f096f78e3/answer_repair_v8_nq75_gpu/inputs/nq75_c1.jsonl",
+  "dataset": "nq",
+  "strategy": "conservative_no_original_gate",
+  "routing": "all",
+  "samples": 75,
+  "completed": 0,
+  "routed_samples": 75,
+  "remaining_call_upper_bound": 150,
+  "remaining_classifier_samples": 0,
+  "fingerprint": "40806cb89acaf548eafc71b9458fc90693e298bf8c1a2db18bc3a429a7c09b04",
+  "output": "/kaggle/working/answer_repair_v8_nq75_outputs/conservative_no_original_gate.jsonl"
+}

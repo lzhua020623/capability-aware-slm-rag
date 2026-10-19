@@ -1,0 +1,60 @@
+{
+  "version": "answer_repair_v8r3_smoke8_v1",
+  "frozen_on": "2026-10-19",
+  "purpose": "Prospective engineering smoke after r2: explicit candidate schemas and typed source/constraint refusals. The failed r2 engineering gate remains failed. Semantic prompts, model, inputs and call limits unchanged.",
+  "parent_bundle_sha256": "906f096f78e36a4f272cdd863ce2e7383d62acb638c1e480a06c5d3f75daa7a3",
+  "review_numbers": [
+    1,
+    2,
+    8,
+    12,
+    15,
+    31,
+    48,
+    96
+  ],
+  "selection_reason": "Four previously accepted controls and four E targets; exercise repetition, wrapped quotes, bracketed ranks, work identity, comparison, and explanations. Selected before r2 generation, with no new gold injection.",
+  "protocol": [
+    {
+      "strategy": "short_answer_quote",
+      "max_new_tokens": 384,
+      "max_calls": 1
+    },
+    {
+      "strategy": "conservative_repair",
+      "max_new_tokens": 384,
+      "max_calls": 3
+    },
+    {
+      "strategy": "conservative_no_original_gate",
+      "max_new_tokens": 384,
+      "max_calls": 2
+    },
+    {
+      "strategy": "conservative_no_candidate_gate",
+      "max_new_tokens": 384,
+      "max_calls": 2
+    }
+  ],
+  "expected_predictions": 32,
+  "max_generation_calls": 64,
+  "smoke_acceptance": {
+    "minimum_valid_stage_calls": {
+      "original_check": 1,
+      "minimal_repair": 1,
+      "candidate_check": 1
+    },
+    "minimum_full_three_stage_paths": 1,
+    "require_observed_contract_backend": true,
+    "require_raw_text_unchanged": true,
+    "max_format_invalid_v8_stages": 0,
+    "allowed_guard_rejections": [
+      "grounding",
+      "constraint"
+    ]
+  },
+  "reference_policy": "Original C1, evidence, gold and scorer unchanged. Initial human labels offline only; all new output reviews pending.",
+  "acceptance_policy": "All 32 outputs complete; zero v8 format errors or unclassified rejections; all stages and a full three-stage path exercised; no cropping or missing stop observations; within 64 calls. Source/length rejection is reported and preserves C1, never counts as repair. A pass permits development measurement only, not semantic acceptance. This new definition does not change the frozen r2 failure.",
+  "previous_revision_bundle_sha256": "ca318d513f5feab0ff2f4c94acf19888e46ef0021ec454ef6dfd43f166bf58fe",
+  "previous_result_zip_sha256": "a1e1d549e5887682be0b554695fb41f412271ffec733e2e303b6fc49489ce387"
+}

@@ -7,15 +7,18 @@ from __future__ import annotations
 
 import hashlib
 import json
-import re
 from dataclasses import asdict
 
 from src.compensation.answer_repair import Citation, Generation, RepairGenerator, RepairResult, V8_STRATEGIES
-from src.compensation.short_answer_repair import INSUFFICIENT, locate_excerpt, parse_short_answer
+from src.compensation.short_answer_repair import INSUFFICIENT, locate_excerpt
+from src.compensation.line_contract import (
+    LINE_CONTRACT_VERSION, CHECK_LABELS, CANDIDATE_LABELS, parse_labeled_lines, parse_evidence_rank,
+    CANDIDATE_SCHEMAS, parse_candidate_lines, FormatError, GroundingError, ConstraintError,
+)
 from src.diagnosis import DatasetName, DiagnosisInput
 from src.evaluation.qa import normalize_answer
 
-V8_VERSION = "v8_original_minimal_candidate_gates_v1"
+V8_VERSION = "v8r3_candidate_schemas_typed_rejections_v1"
 CHECK_KEYS = ("ENTITY", "RELATION", "TYPE", "COVERAGE", "SUPPORT", "CONFLICT_FREE")
 MAX_QUOTE_WORDS = 100
 MAX_ANSWER_WORDS = 64
@@ -53,6 +56,8 @@ def build_check_prompt(request: DiagnosisInput, candidate: str | None = None) ->
         f"Evidence:\n{_context(request)}\n\n"
         f"Question: {json.dumps(request.query, ensure_ascii=False)}\n"
         f"Answer to audit: {json.dumps(answer, ensure_ascii=False)}\n\n"
+        "Return ONE global audit of this answer against ALL evidence, not one audit per passage. "
+        "Do not repeat the audit or add alternative versions. "
         "Report six checks as yes, no, or uncertain. ENTITY: same queried entity/work/event. "
         "RELATION: answers the requested relation with correct direction, comparison, time and negation. "
         "TYPE: requested answer type. COVERAGE: all requested parts and necessary qualifiers. "
@@ -66,8 +71,11 @@ def build_check_prompt(request: DiagnosisInput, candidate: str | None = None) ->
         + "\nRANK: evidence block number\nQUOTE: exact evidence excerpt\nREASON: brief evidence-based reason\n"
         f"Quote at most {MAX_QUOTE_WORDS} words from ONE block, preserving words and punctuation; "
         "it must justify support or demonstrate the failure. Do not quote the answer being audited. "
+        "Copy quote content without added enclosing quotation marks. "
+        "Write RANK as one integer, without brackets or commentary. "
         "For uncertainty you may instead use RANK: 0 and QUOTE: NONE. "
-        f"REASON must be nonempty and at most {MAX_REASON_WORDS} words."
+        f"REASON must be nonempty and at most {MAX_REASON_WORDS} words. "
+        "End the REASON line with a newline and stop immediately."
     )
 
 
@@ -86,70 +94,78 @@ def build_minimal_repair_prompt(request: DiagnosisInput) -> str:
         "QUOTE: exact supporting excerpt\nANSWER: exact answer span inside that excerpt\n"
         f"Quote at most {MAX_QUOTE_WORDS} words; answer at most {MAX_ANSWER_WORDS} words. "
         "Preserve words and punctuation. If evidence is insufficient, conflicting or no complete "
-        f"span can be extracted, return only {INSUFFICIENT}. No markdown or extra lines."
+        f"span can be extracted, return only {INSUFFICIENT}. No markdown or extra lines. "
+        "Write ONE response, RANK as one integer without brackets, and QUOTE/ANSWER without "
+        "added enclosing quotation marks. End the ANSWER line with a newline and stop immediately."
     )
 
 
 def _lines(text: str, keys: tuple[str, ...]) -> dict[str, str]:
-    lines = [line.strip() for line in text.strip().splitlines() if line.strip()]
-    if len(lines) != len(keys):
-        raise ValueError(f"Expected exactly {len(keys)} labeled lines")
-    output = {}
-    for line, key in zip(lines, keys):
-        match = re.fullmatch(re.escape(key) + r":\s*(\S.*)", line)
-        if match is None:
-            raise ValueError(f"Expected {key} label and nonempty value")
-        output[key] = match[1].strip()
-    return output
+    return parse_labeled_lines(text, keys)
+
+
+def _locate_display_excerpt(quote: str, source: str) -> tuple[str, int, int]:
+    # Prefer the literal match, preserving quotation marks that exist in source.
+    try:
+        return locate_excerpt(quote, source)
+    except ValueError as original_error:
+        for left, right in (("\"", "\""), ("“", "”"), ("'", "'"), ("‘", "’")):
+            if len(quote) > 2 and quote.startswith(left) and quote.endswith(right):
+                try:
+                    return locate_excerpt(quote[1:-1].strip(), source)
+                except ValueError:
+                    break
+        raise GroundingError(str(original_error)) from original_error
 
 
 def _citation(request: DiagnosisInput, rank: int, quote: str) -> tuple[Citation, tuple[int, int]]:
     item = next((e for e in request.evidence if e.rank == rank), None)
     if item is None:
-        raise ValueError("Unknown evidence rank")
-    if len(quote.split()) > MAX_QUOTE_WORDS:
-        raise ValueError("Quote exceeds word limit")
-    actual, start, end = locate_excerpt(quote, item.text)
+        raise GroundingError("Unknown evidence rank")
+    if len(quote.split()) > MAX_QUOTE_WORDS + 2:
+        raise ConstraintError("Quote exceeds word limit")
+    actual, start, end = _locate_display_excerpt(quote, item.text)
     if len(actual.split()) > MAX_QUOTE_WORDS:
-        raise ValueError("Canonical quote exceeds word limit")
+        raise ConstraintError("Canonical quote exceeds word limit")
     return Citation(rank, item.passage_id, actual), (start, end)
 
 
 def parse_check(text: str, request: DiagnosisInput) -> dict:
-    values = _lines(text, CHECK_KEYS + ("RANK", "QUOTE", "REASON"))
+    values = _lines(text, CHECK_LABELS)
     checks = {key: values[key] for key in CHECK_KEYS}
     if any(v not in ("yes", "no", "uncertain") for v in checks.values()):
-        raise ValueError("Check values must be yes, no or uncertain")
+        raise FormatError("Check values must be yes, no or uncertain")
     if len(values["REASON"].split()) > MAX_REASON_WORDS:
-        raise ValueError("Check reason exceeds word limit")
+        raise ConstraintError("Check reason exceeds word limit")
     status = ("uncertain" if "uncertain" in checks.values() else
               "unsupported" if "no" in checks.values() else "supported")
     citation, offsets = None, None
-    if values["RANK"] == "0" and values["QUOTE"] == "NONE" and status == "uncertain":
+    rank = parse_evidence_rank(values["RANK"])
+    if rank == 0 and values["QUOTE"] == "NONE" and status == "uncertain":
         pass
     else:
-        if not re.fullmatch(r"[1-9][0-9]*", values["RANK"]):
-            raise ValueError("A grounded nonzero rank is required")
-        citation, offsets = _citation(request, int(values["RANK"]), values["QUOTE"])
+        if rank == 0:
+            raise GroundingError("A grounded nonzero rank is required")
+        citation, offsets = _citation(request, rank, values["QUOTE"])
     return {"status": status, "checks": checks, "reason": values["REASON"],
             "citation": asdict(citation) if citation else None, "source_offsets": offsets}
 
 
 def parse_candidate(text: str, request: DiagnosisInput) -> dict:
-    parsed = parse_short_answer(text)
-    if parsed is None:
+    if text.strip() == INSUFFICIENT:
         return {"status": "insufficient", "answer": None, "citations": []}
-    rank, quote, answer = parsed
-    if len(answer.split()) > MAX_ANSWER_WORDS:
-        raise ValueError("Answer exceeds word limit")
+    values, response_schema = parse_candidate_lines(text)
+    rank, quote, answer = parse_evidence_rank(values["RANK"]), values["QUOTE"], values["ANSWER"]
+    if len(answer.split()) > MAX_ANSWER_WORDS + 2:
+        raise ConstraintError("Answer exceeds word limit")
     citation, offsets = _citation(request, rank, quote)
-    actual, _, _ = locate_excerpt(answer, citation.quote)
+    actual, _, _ = _locate_display_excerpt(answer, citation.quote)
     if len(actual.split()) > MAX_ANSWER_WORDS:
-        raise ValueError("Canonical answer exceeds word limit")
+        raise ConstraintError("Canonical answer exceeds word limit")
     # Preserve the original surface if only the frozen metric's normalization differs.
     unchanged = normalize_answer(actual) == normalize_answer(request.initial_answer)
     return {"status": "unchanged" if unchanged else "candidate", "answer": actual,
-            "citations": [asdict(citation)], "source_offsets": offsets}
+            "citations": [asdict(citation)], "source_offsets": offsets, "response_schema": response_schema}
 
 
 def conservative_repair(request: DiagnosisInput, generator: RepairGenerator, *,
@@ -162,9 +178,16 @@ def conservative_repair(request: DiagnosisInput, generator: RepairGenerator, *,
     candidate_status = None
 
     def call(stage, prompt, parser):
-        generated = generator.generate(prompt, max_new_tokens)
+        labels = CANDIDATE_LABELS if stage == "minimal_repair" else CHECK_LABELS
+        labeled = getattr(generator, "generate_labeled", None)
+        generated = (labeled(prompt, max_new_tokens, labels=labels, insufficient=stage == "minimal_repair")
+                     if callable(labeled) else generator.generate(prompt, max_new_tokens))
         record = {"stage": stage, "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
-                  "generation": asdict(generated), "parsed": None, "validation_error": None}
+                  "generation": asdict(generated), "parsed": None, "validation_error": None,
+                  "validation_kind": None,
+                  "generation_contract": {"version": LINE_CONTRACT_VERSION, "labels": list(labels),
+                                          "insufficient": stage == "minimal_repair",
+                                          "candidate_schemas": list(CANDIDATE_SCHEMAS) if stage == "minimal_repair" else None}}
         stages.append(record)
         try:
             parsed = parser(generated.text, request)
@@ -172,6 +195,8 @@ def conservative_repair(request: DiagnosisInput, generator: RepairGenerator, *,
             return parsed
         except (ValueError, TypeError) as exc:
             record["validation_error"] = str(exc)
+            record["validation_kind"] = ("grounding" if isinstance(exc, GroundingError) else
+                                         "constraint" if isinstance(exc, ConstraintError) else "format")
             return None
 
     def finish(status, *, accept=False, verdict=None):

@@ -1,0 +1,36 @@
+{
+  "version": "v8r3_local_validation_v1",
+  "gpu_inference_completed": false,
+  "all_python_tests_passed": 151,
+  "frozen_portable_tests_passed": 111,
+  "payload_files_verified": 98,
+  "notebook_code_cells_compiled": true,
+  "synthetic_integration_records": 32,
+  "synthetic_full_stage_replay_passed": true,
+  "synthetic_results_are_research_results": false,
+  "semantic_prompt_comparison": {
+    "r2_saved_stage_prompt_hashes_compared": 33,
+    "all_unchanged": true
+  },
+  "source_file_sha256": {
+    "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+    "src/compensation/qwen_repair.py": "e4989bcc20c3c23596ed685bc706e27cc742de4c1b41bd4f9d8d490c87400b49",
+    "src/compensation/conservative_repair.py": "057ed2740a7ed6420a795ddb275a381c67afa54523b01fdb0da5f52a82623c07",
+    "src/compensation/line_contract.py": "32b79f7e05fe8d7b38b846ca82c4b6f704b0ed21dfb2d8535b98003587c91ca7",
+    "scripts/run_answer_repair.py": "01ed8ae9bac446d51d523eca4a5ac4d2d13a98985adfd57b5ad8cca49e522df3",
+    "scripts/summarize_answer_repair_v8.py": "fc9762809ded8f9b5c8397ffc276e00f195f05a48cabdc9a446e56174fa69ff1",
+    "scripts/audit_answer_repair_release.py": "c492900547ab1dc94c8f916ae348efcfcbef07885f94cf303d5c84da718fa24b",
+    "scripts/check_answer_repair_v8_smoke.py": "64cb11ea294d2ffc5598e35b5dbfc67178f119440f75bef562c3e7eef499c10c",
+    "scripts/prepare_answer_repair_v8_r2.py": "125e1d35dfe7cb21c6fdc67b99c1b9c7a626dc854468e8a830fea32602ef294f",
+    "scripts/load_answer_repair_bundle.py": "fd1d38f0590967537735e748cb7f6decbc55acf6b12507bbf8666d7be9620755",
+    "tests/test_answer_repair_v8_r2.py": "a03b96d7f2dfe463c157968df00d08ab33cbbfb54499d362e46b797a68f721a0",
+    "tests/fixtures/answer_repair_v8r1_contract_cases.json": "9371e5ba752e8edac49b783713620183843db3e3ebadfadbaaaa493f2fb537b9",
+    "docs/ANSWER_REPAIR_V8_R2.md": "f3fbebc33cad826d76551786377d9924a4843fa20898707787618cb6846fe683",
+    "configs/answer_repair_v8r2_smoke8_v1.json": "fdc396740cafa25698f9c9544d157388f5bed7519443648768e2863ecc32b03e",
+    "scripts/prepare_answer_repair_v8_r3.py": "ab3fcd149813d8fb7e9fa82f67eaea6a2c5c92f9c4f6954bc83fda29406cff2e",
+    "tests/test_answer_repair_v8_r3.py": "4c9e815e3b9449f0c0d049d4481a6bb35069b19caf1d1d619670e956406b4ac4",
+    "tests/fixtures/answer_repair_v8r2_candidate_cases.json": "a684604e561fec7d281646d1fdcfdc678eb8a8c9b1f134b0f9bb836db84cedfc",
+    "docs/ANSWER_REPAIR_V8_R3.md": "88dcc2bfa8ddb76b02aa2cedbd62db8e28ef908fa98e89a38872b43ae20b59c2",
+    "configs/answer_repair_v8r3_smoke8_v1.json": "d581def5f2d1e59ae293eefaebc70a8db15af6ca03af9645a4a306208e387680"
+  }
+}

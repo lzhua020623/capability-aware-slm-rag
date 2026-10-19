@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-10-19T09:09:08.207152+11:00",
+  "observed_at": "2026-10-19T10:30:08.559658+11:00",
   "notebook_url": "https://www.kaggle.com/code/yearo111/e-v8-nq75-conservative-gates-20261019",
   "private_dataset_url": "https://www.kaggle.com/datasets/yearo111/e-v8-nq75-conservative-gates-frozen-20261019",
   "notebook_version": 2,
@@ -7,30 +7,50 @@
   "submission": "Save & Run All (Commit)",
   "accelerator": "GPU T4 x2",
   "internet_enabled": true,
-  "status_observed": "Running; Qwen prediction rows observed in version 2 Logs",
+  "status_observed": "Successfully ran in 4481.3s; result ZIP downloaded and 300 frozen decisions replayed",
   "gpu_execution_confirmed": true,
-  "predictions_completed_confirmed": 15,
-  "gpu_results_received": false,
+  "predictions_completed_confirmed": 300,
+  "gpu_results_received": true,
   "bundle_sha256": "906f096f78e36a4f272cdd863ce2e7383d62acb638c1e480a06c5d3f75daa7a3",
-  "next_action": "Inspect version 2 logs; obtain result export after completion; audit with the original frozen algorithm code. Do not submit another version while this one runs.",
+  "next_action": "Fix and smoke-test the generation/output contract in a new revision before a new full GPU run; review 15 changed outputs. Preserve this strict run unchanged.",
   "script_version_id": 359843897,
-  "logs_url": "https://www.kaggle.com/code/yearo111/e-v8-nq75-conservative-gates-20261019?scriptVersionId=359843897",
-  "output_bytes_observed": 0,
+  "logs_url": "https://www.kaggle.com/code/yearo111/e-v8-nq75-conservative-gates-20261019/log?scriptVersionId=359843897",
+  "output_bytes_observed": null,
   "local_implementation_commit": "3e0a0fb",
   "model_inference_started_confirmed": true,
   "transport_revision": "r1_auto_extracted_input",
   "prior_failed_version": 1,
-  "progress_count_is_lower_bound": true,
+  "progress_count_is_lower_bound": false,
   "arm_progress_observed": {
     "short_answer_quote": {
-      "completed_at_least": 15,
+      "completed": 75,
       "total": 75
     },
-    "conservative_repair": null,
-    "conservative_no_original_gate": null,
-    "conservative_no_candidate_gate": null
+    "conservative_repair": {
+      "completed": 75,
+      "total": 75
+    },
+    "conservative_no_original_gate": {
+      "completed": 75,
+      "total": 75
+    },
+    "conservative_no_candidate_gate": {
+      "completed": 75,
+      "total": 75
+    }
   },
   "payload_hash_checked_files_cloud": 85,
-  "full_result_zip_received": false,
-  "repository_tests_passed": 136
+  "full_result_zip_received": true,
+  "repository_tests_passed": 136,
+  "result_zip_bytes": 331325,
+  "result_zip_sha256": "0bf8aa78707b9764ef07dab0948ad029240f969f230ba823c2365fd39772277f",
+  "wall_time_seconds": 4481.3,
+  "cpu_replayed_records": 300,
+  "actual_generation_calls": 302,
+  "semantic_correctness_verified": false,
+  "changed_outputs_pending_human_review": 15,
+  "full_v8_original_check_invalid": 75,
+  "algorithm_effectiveness_accepted": false,
+  "output_url": "https://www.kaggle.com/code/yearo111/e-v8-nq75-conservative-gates-20261019/output?scriptVersionId=359843897",
+  "output_size_display_observed": "5.94 MB"
 }

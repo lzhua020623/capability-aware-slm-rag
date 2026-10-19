@@ -1,0 +1,40 @@
+{
+  "version": "v8r2_single_response_grounded_display_v1",
+  "source_result_zip_sha256": "0bf8aa78707b9764ef07dab0948ad029240f969f230ba823c2365fd39772277f",
+  "parse_only": true,
+  "new_model_generations": 0,
+  "new_final_answers_inferred": false,
+  "semantic_correctness_verified": false,
+  "arms": {
+    "conservative_repair": {
+      "saved_stages": 75,
+      "previously_valid": 0,
+      "r2_parser_valid": 6,
+      "still_invalid_errors": {
+        "Expected exactly 9 labeled lines": 65,
+        "Excerpt is not a verbatim evidence slice on token boundaries": 4
+      }
+    },
+    "conservative_no_original_gate": {
+      "saved_stages": 77,
+      "previously_valid": 19,
+      "r2_parser_valid": 54,
+      "still_invalid_errors": {
+        "Excerpt is not a verbatim evidence slice on token boundaries": 15,
+        "Expected exactly 9 labeled lines": 1,
+        "Quote exceeds word limit": 2,
+        "Expected RANK label and nonempty value": 4,
+        "Expected exactly 3 labeled lines": 1
+      }
+    },
+    "conservative_no_candidate_gate": {
+      "saved_stages": 75,
+      "previously_valid": 0,
+      "r2_parser_valid": 6,
+      "still_invalid_errors": {
+        "Expected exactly 9 labeled lines": 65,
+        "Excerpt is not a verbatim evidence slice on token boundaries": 4
+      }
+    }
+  }
+}

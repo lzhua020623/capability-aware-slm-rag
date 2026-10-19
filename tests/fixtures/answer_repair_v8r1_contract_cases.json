@@ -1,0 +1,144 @@
+{
+  "source_result_zip_sha256": "0bf8aa78707b9764ef07dab0948ad029240f969f230ba823c2365fd39772277f",
+  "purpose": "Actual v8r1 generation failures for parser and incremental stopping regression tests. Not new model results or correctness labels.",
+  "cases": [
+    {
+      "name": "repeated_check",
+      "source_arm": "conservative_repair",
+      "sample_id": "8045087486700792769",
+      "runtime": {
+        "sample_id": "8045087486700792769",
+        "dataset": "nq",
+        "query": "where was john mccrae when he wrote in flanders fields",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_1178762",
+            "text": "John McCrae -- Best known as the author of the World War I poem In Flanders Fields , McCrae started his active military service in the Boer War as an artillery officer . After completing several major campaigns , McCrae 's artillery unit was sent home to Canada in 1901 with what would be referred to today as an ' honourable discharge ' . McCrae ended up becoming a special professor in the University of Vermont for pathology and he would later serve in World War I as a Medical officer until his death from pneumonia while on active duty in 1918 .",
+            "score": 0.8155189752578735
+          },
+          {
+            "rank": 2,
+            "passage_id": "nq_p_0968089",
+            "text": "Lieutenant Colonel John McCrae , MD ( November 30 , 1872 -- January 28 , 1918 ) was a Canadian poet , physician , author , artist and soldier during World War I , and a surgeon during the Second Battle of Ypres , in Belgium . He is best known for writing the famous war memorial poem `` In Flanders Fields '' . McCrae died of pneumonia near the end of the war .",
+            "score": 0.8088986873626709
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_0968108",
+            "text": "Though various legends have developed as to the inspiration for the poem , the most commonly held belief is that McCrae wrote `` In Flanders Fields '' on May 3 , 1915 , the day after presiding over the funeral and burial of his friend Lieutenant Alexis Helmer , who had been killed during the Second Battle of Ypres . The poem was written as he sat upon the back of a medical field ambulance near an advance dressing post at Essex Farm , just north of Ypres . The poppy , which was a central feature of the poem , grew in great numbers in the spoiled earth of the battlefields and cemeteries of Flanders .",
+            "score": 0.8065404891967773
+          },
+          {
+            "rank": 4,
+            "passage_id": "nq_p_0035714",
+            "text": "In 1915 John McCrae , a Canadian army doctor , wrote the poem In Flanders Fields as a salute to those who perished in the Great War . Published in Punch on 8 December 1915 , it is still recited today , especially on Remembrance Day and Memorial Day .",
+            "score": 0.80543053150177
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0148412",
+            "text": "`` In Flanders Fields '' is a war poem in the form of a rondeau , written during the First World War by Canadian physician Lieutenant - Colonel John McCrae . He was inspired to write it on May 3 , 1915 , after presiding over the funeral of friend and fellow soldier Lieutenant Alexis Helmer , who died in the Second Battle of Ypres . According to legend , fellow soldiers retrieved the poem after McCrae , initially dissatisfied with his work , discarded it . `` In Flanders Fields '' was first published on December 8 of that year in the London magazine Punch .",
+            "score": 0.8030088543891907
+          }
+        ],
+        "initial_answer": "near an advance dressing post at Essex Farm"
+      },
+      "text": "ENTITY: yes\nRELATION: yes\nTYPE: yes\nCOVERAGE: yes\nSUPPORT: yes\nCONFLICT_FREE: yes\nRANK: 3\nQUOTE: \"The poem was written as he sat upon the back of a medical field ambulance near an advance dressing post at Essex Farm, just north of Ypres.\"\nREASON: The evidence clearly states where McCrae wrote the poem.\nENTITY: yes\nRELATION: yes\nTYPE: yes\nCOVERAGE: yes\nSUPPORT: yes\nCONFLICT_FREE: yes\nRANK: 3\nQUOTE: \"The poem was written as he sat upon the back of a medical field ambulance near an advance dressing post at Essex Farm, just north of Ypres.\"\nREASON: The evidence provides the exact location where McCrae wrote the poem.\nENTITY: yes\nRELATION: yes\nTYPE: yes\nCOVERAGE: yes\nSUPPORT: yes\nCONFLICT_FREE: yes\nRANK: 3\nQUOTE: \"The poem was written as he sat upon the back of a medical field ambulance near an advance dressing post at Essex Farm, just north of Ypres.\"\nREASON: The evidence directly supports the answer provided.\nENTITY: yes\nRELATION: yes\nTYPE: yes\nCOVERAGE: yes\nSUPPORT: yes\nCONFLICT_FREE: yes\nRANK: 3\nQUOTE: \"The poem was written as he sat upon the back of a medical field ambulance near an advance dressing post at Essex Farm, just north of Ypres.\"\nREASON: The evidence explicitly mentions the location where McCrae wrote the poem.\nENTITY: yes\nRELATION: yes\nTYPE: yes\nCOVERAGE: yes\nSUPPORT: yes\nCONFLICT_FREE: yes\nRANK: 3\nQUOTE: \"The poem was written as he sat upon the back of a medical field",
+      "original_error": "Expected exactly 9 labeled lines",
+      "stage": "original_check"
+    },
+    {
+      "name": "wrapped_check_quote",
+      "source_arm": "conservative_repair",
+      "sample_id": "-1178549234723633450",
+      "runtime": {
+        "sample_id": "-1178549234723633450",
+        "dataset": "nq",
+        "query": "where was total eclipse of the heart filmed",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_0473639",
+            "text": "The music video for `` Total Eclipse of the Heart '' was directed by Russell Mulcahy and was filmed on location at the Holloway Sanatorium , a large Victorian Gothic hospital near Virginia Water , Surrey , England . The video features Bonnie Tyler clad in white , dreaming or fantasizing about her students in a boys ' boarding school . Young men are seen dancing and participating in various school activities and singing in a choir .",
+            "score": 0.7903239727020264
+          },
+          {
+            "rank": 2,
+            "passage_id": "nq_p_0473641",
+            "text": "Since the song 's release , Tyler performs `` Total Eclipse of the Heart '' in every concert she performs . `` I sing it much better now than I used to , '' she told The Huffington Post . `` I think my voice is probably not as husky as it was , I think it 's mellowed a bit . '' The song was performed at the 26th Annual Grammy Awards , held at the Shrine Auditorium , Los Angeles , on 28 February 1984 . Tyler performed a brief , live performance of this song on a Royal Caribbean cruise during the solar eclipse of 21 August 2017 .",
+            "score": 0.6821131706237793
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_0995782",
+            "text": "Principal photography for Eclipse began on August 17 , 2009 , at Vancouver Film Studios . On August 29 , photos captured Kristen Stewart , Billy Burke , and other principal actors , filming a scene with graduation caps and gowns . September 2 brought Xavier Samuel together with Kristen Stewart and Robert Pattinson filming at a soundstage for scenes at Bella 's house . Director David Slade stated that they filmed a scene with a tent on September 13 . He also said that they filmed a kiss between Jacob and Bella on September 17 . Filming wrapped up on October 29 , 2009 , while post-production began in late November . Slade published multiple updates on his Twitter account proclaiming that editing was going well . He said the `` story and the way ( they ) approached the film calls for a more realistic approach . '' In April 2010 , it was revealed that reshoots to the film were needed . Both Slade and Stephenie Meyer were present at the shoot along with the three main stars .",
+            "score": 0.6638767123222351
+          },
+          {
+            "rank": 4,
+            "passage_id": "nq_p_0473626",
+            "text": "`` Total Eclipse of the Heart '' is a song recorded by Welsh singer Bonnie Tyler . It was written and produced by Jim Steinman , and released on Tyler 's fifth studio album , Faster Than the Speed of Night ( 1983 ) . The song was released as a single by Columbia Records on 11 February 1983 in the United Kingdom and on 31 May 1983 in the United States .",
+            "score": 0.6521524786949158
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0960027",
+            "text": "Scenes set in Provence were filmed on location in Trogir , Croatia , in the same production block as `` The Vampires of Venice '' , which sees Trogir depicting 16th - century Venice . Filming took place around November 2009 . The scenes at the church which were filmed at Llandaff Cathedral in Wales , while the National Museum Cardiff doubled for the interior of the Musée d'Orsay . Some of the sets were intended to reference paintings , such as Van Gogh 's bedroom . One such set was the café where the Doctor and Amy first meet Van Gogh , which was modelled after the painting Cafe Terrace at Night . This proved challenging for the art department , who extensively looked for a suitable building in Croatia to use . Once they found the one they wanted , they had to redesign it to look like the painting ; this involved putting an awning up , changing the windows , and adding a platform with tables and chairs . The song played during the ending scene is `` Chances '' by the British rock band Athlete .",
+            "score": 0.6486008167266846
+          }
+        ],
+        "initial_answer": "Holloway Sanatorium"
+      },
+      "text": "ENTITY: no\nRELATION: no\nTYPE: no\nCOVERAGE: no\nSUPPORT: no\nCONFLICT_FREE: yes\nRANK: 1\nQUOTE: \"The music video for `` Total Eclipse of the Heart '' was directed by Russell Mulcahy and was filmed on location at the Holloway Sanatorium, a large Victorian Gothic hospital near Virginia Water, Surrey, England.\"\nREASON: The evidence clearly states that the music video was filmed at the Holloway Sanatorium, not the song itself.",
+      "original_error": "Excerpt is not a verbatim evidence slice on token boundaries",
+      "stage": "original_check"
+    },
+    {
+      "name": "bracket_rank_and_wrapped_candidate",
+      "source_arm": "conservative_no_original_gate",
+      "sample_id": "8045087486700792769",
+      "runtime": {
+        "sample_id": "8045087486700792769",
+        "dataset": "nq",
+        "query": "where was john mccrae when he wrote in flanders fields",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_1178762",
+            "text": "John McCrae -- Best known as the author of the World War I poem In Flanders Fields , McCrae started his active military service in the Boer War as an artillery officer . After completing several major campaigns , McCrae 's artillery unit was sent home to Canada in 1901 with what would be referred to today as an ' honourable discharge ' . McCrae ended up becoming a special professor in the University of Vermont for pathology and he would later serve in World War I as a Medical officer until his death from pneumonia while on active duty in 1918 .",
+            "score": 0.8155189752578735
+          },
+          {
+            "rank": 2,
+            "passage_id": "nq_p_0968089",
+            "text": "Lieutenant Colonel John McCrae , MD ( November 30 , 1872 -- January 28 , 1918 ) was a Canadian poet , physician , author , artist and soldier during World War I , and a surgeon during the Second Battle of Ypres , in Belgium . He is best known for writing the famous war memorial poem `` In Flanders Fields '' . McCrae died of pneumonia near the end of the war .",
+            "score": 0.8088986873626709
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_0968108",
+            "text": "Though various legends have developed as to the inspiration for the poem , the most commonly held belief is that McCrae wrote `` In Flanders Fields '' on May 3 , 1915 , the day after presiding over the funeral and burial of his friend Lieutenant Alexis Helmer , who had been killed during the Second Battle of Ypres . The poem was written as he sat upon the back of a medical field ambulance near an advance dressing post at Essex Farm , just north of Ypres . The poppy , which was a central feature of the poem , grew in great numbers in the spoiled earth of the battlefields and cemeteries of Flanders .",
+            "score": 0.8065404891967773
+          },
+          {
+            "rank": 4,
+            "passage_id": "nq_p_0035714",
+            "text": "In 1915 John McCrae , a Canadian army doctor , wrote the poem In Flanders Fields as a salute to those who perished in the Great War . Published in Punch on 8 December 1915 , it is still recited today , especially on Remembrance Day and Memorial Day .",
+            "score": 0.80543053150177
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0148412",
+            "text": "`` In Flanders Fields '' is a war poem in the form of a rondeau , written during the First World War by Canadian physician Lieutenant - Colonel John McCrae . He was inspired to write it on May 3 , 1915 , after presiding over the funeral of friend and fellow soldier Lieutenant Alexis Helmer , who died in the Second Battle of Ypres . According to legend , fellow soldiers retrieved the poem after McCrae , initially dissatisfied with his work , discarded it . `` In Flanders Fields '' was first published on December 8 of that year in the London magazine Punch .",
+            "score": 0.8030088543891907
+          }
+        ],
+        "initial_answer": "near an advance dressing post at Essex Farm"
+      },
+      "text": "RANK: [3]\nQUOTE: \"The poem was written as he sat upon the back of a medical field ambulance near an advance dressing post at Essex Farm, just north of Ypres.\"\nANSWER: near an advance dressing post at Essex Farm",
+      "original_error": "RANK must be an evidence block number",
+      "stage": "minimal_repair"
+    }
+  ]
+}

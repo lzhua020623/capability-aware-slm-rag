@@ -1,0 +1,19 @@
+{
+  "observed_at": "2026-10-19T14:35:53.886179+11:00",
+  "bundle_sha256": "72ed761fd8017ebbaf439729ff318caa55c0823acf4b62429c4db8f31310b6f1",
+  "notebook_url": "https://www.kaggle.com/code/yearo111/e-v8r3-smoke8-contract-fix-20261019",
+  "private_dataset_url": "https://www.kaggle.com/datasets/yearo111/e-v8r3-smoke8-frozen-20261019",
+  "status_observed": "Running for 29.4s",
+  "gpu_execution_confirmed": true,
+  "results_received": false,
+  "expected_predictions": 32,
+  "generation_call_upper_bound": 64,
+  "engineering_gate_passed": null,
+  "semantic_correctness_verified": false,
+  "logs_url": "https://www.kaggle.com/code/yearo111/e-v8r3-smoke8-contract-fix-20261019/log?scriptVersionId=359908613",
+  "script_version_id": 359908613,
+  "notebook_version": 1,
+  "version_name": "v8r3 smoke8 72ed761f candidate schemas",
+  "accelerator": "GPU T4 x2",
+  "internet_enabled": true
+}

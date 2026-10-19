@@ -1,0 +1,98 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "nq", "--c1", "/kaggle/working/e_v8_ca318d513f5f/answer_repair_v8r2_smoke8_gpu/inputs/nq_smoke8_c1.jsonl", "--all", "--strategy", "conservative_no_original_gate", "--max-new-tokens", "384", "--out", "/kaggle/working/answer_repair_v8r2_smoke8_outputs/conservative_no_original_gate.jsonl"]
+{
+  "source": "/kaggle/working/e_v8_ca318d513f5f/answer_repair_v8r2_smoke8_gpu/inputs/nq_smoke8_c1.jsonl",
+  "dataset": "nq",
+  "strategy": "conservative_no_original_gate",
+  "routing": "all",
+  "samples": 8,
+  "completed": 0,
+  "routed_samples": 8,
+  "remaining_call_upper_bound": 16,
+  "remaining_classifier_samples": 0,
+  "fingerprint": "afbb268de71ea0a87c9eacc85136a70065dde1adc5298f3f6a46042f3240adb9",
+  "output": "/kaggle/working/answer_repair_v8r2_smoke8_outputs/conservative_no_original_gate.jsonl"
+}
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<01:29,  3.79it/s]
+Loading weights:   1%|          | 2/339 [00:00<01:27,  3.84it/s]
+Loading weights:   1%|          | 4/339 [00:00<00:43,  7.64it/s]
+Loading weights:   4%|▎         | 12/339 [00:00<00:12, 26.04it/s]
+Loading weights:   5%|▌         | 18/339 [00:00<00:09, 32.99it/s]
+Loading weights:   9%|▊         | 29/339 [00:00<00:05, 52.99it/s]
+Loading weights:  12%|█▏        | 40/339 [00:01<00:04, 64.88it/s]
+Loading weights:  14%|█▍        | 48/339 [00:01<00:04, 68.79it/s]
+Loading weights:  17%|█▋        | 56/339 [00:01<00:04, 67.46it/s]
+Loading weights:  19%|█▉        | 65/339 [00:01<00:03, 73.27it/s]
+Loading weights:  23%|██▎       | 77/339 [00:01<00:03, 78.07it/s]
+Loading weights:  26%|██▋       | 89/339 [00:01<00:03, 80.90it/s]
+Loading weights:  30%|██▉       | 101/339 [00:01<00:02, 82.58it/s]
+Loading weights:  33%|███▎      | 112/339 [00:01<00:02, 89.30it/s]
+Loading weights:  37%|███▋      | 124/339 [00:02<00:02, 89.10it/s]
+Loading weights:  40%|████      | 136/339 [00:02<00:02, 90.47it/s]
+Loading weights:  44%|████▎     | 148/339 [00:02<00:02, 91.32it/s]
+Loading weights:  47%|████▋     | 160/339 [00:02<00:01, 91.64it/s]
+Loading weights:  51%|█████     | 172/339 [00:02<00:01, 92.81it/s]
+Loading weights:  54%|█████▍    | 184/339 [00:02<00:01, 93.73it/s]
+Loading weights:  58%|█████▊    | 196/339 [00:02<00:01, 93.79it/s]
+Loading weights:  61%|██████▏   | 208/339 [00:02<00:01, 93.87it/s]
+Loading weights:  65%|██████▍   | 220/339 [00:03<00:01, 94.22it/s]
+Loading weights:  68%|██████▊   | 232/339 [00:03<00:01, 93.54it/s]
+Loading weights:  72%|███████▏  | 244/339 [00:03<00:01, 94.45it/s]
+Loading weights:  76%|███████▌  | 256/339 [00:03<00:00, 94.37it/s]
+Loading weights:  79%|███████▉  | 268/339 [00:03<00:00, 94.88it/s]
+Loading weights:  83%|████████▎ | 280/339 [00:03<00:00, 95.60it/s]
+Loading weights:  86%|████████▌ | 292/339 [00:03<00:00, 94.87it/s]
+Loading weights:  90%|████████▉ | 304/339 [00:03<00:00, 95.08it/s]
+Loading weights:  93%|█████████▎| 316/339 [00:04<00:00, 94.50it/s]
+Loading weights:  97%|█████████▋| 328/339 [00:04<00:00, 93.91it/s]
+Loading weights: 100%|██████████| 339/339 [00:04<00:00, 78.57it/s]
+[1/8] 8045087486700792769: candidate_unchanged
+[2/8] 6935740157411537788: candidate_invalid
+[3/8] -6909798989883244156: candidate_invalid
+[4/8] -1178549234723633450: candidate_invalid
+[5/8] -3869689776609561239: repaired
+[6/8] 5822180296105627301: candidate_invalid
+[7/8] -1981506712537073428: candidate_rejected
+[8/8] 3252643664278412553: candidate_invalid
+{
+  "run_fingerprint": "afbb268de71ea0a87c9eacc85136a70065dde1adc5298f3f6a46042f3240adb9",
+  "routing": "all",
+  "strategy": "conservative_no_original_gate",
+  "evaluated_samples": 8,
+  "initial_correct": 1,
+  "final_correct": 0,
+  "initial_accuracy": 0.125,
+  "final_accuracy": 0.0,
+  "fixed": 0,
+  "regressed": 1,
+  "net_correct_gain": -1,
+  "accuracy_gain": -0.125,
+  "mcnemar_exact_pvalue": 1.0,
+  "repair_success_rate": 0.0,
+  "regression_rate": 1.0,
+  "changed": 1,
+  "verifier_calls": 0,
+  "verifier_latency_total": 0.0,
+  "verifier_input_tokens_total": 0,
+  "extra_calls": 10,
+  "extra_calls_per_sample": 1.25,
+  "extra_generation_latency_total": 66.95651476400008,
+  "extra_generation_latency_per_sample": 8.36956434550001,
+  "status_counts": {
+    "candidate_unchanged": 1,
+    "candidate_invalid": 5,
+    "repaired": 1,
+    "candidate_rejected": 1
+  },
+  "independent_support_checked": 0,
+  "same_model_support_check_counts": {},
+  "input_tokens_total": 11626,
+  "input_tokens_observed_samples": 8,
+  "input_tokens_observed_calls": 10,
+  "output_tokens_estimate_total": 656,
+  "output_tokens_estimate_observed_samples": 8,
+  "output_tokens_estimate_observed_calls": 10,
+  "initial_f1": 0.229933110367893,
+  "final_f1": 0.10493311036789299
+}

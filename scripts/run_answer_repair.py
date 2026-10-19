@@ -152,6 +152,7 @@ def run_fingerprint(source: bytes, diagnosis_source: bytes, settings: dict) -> s
         "src/compensation/extractive_repair.py", "src/compensation/nli_repair.py",
         "src/compensation/anchors.py", "src/compensation/short_answer_repair.py",
         "src/compensation/conservative_repair.py",
+        "src/compensation/line_contract.py",
     ):
         h.update(path.encode())
         h.update((ROOT / path).read_bytes())

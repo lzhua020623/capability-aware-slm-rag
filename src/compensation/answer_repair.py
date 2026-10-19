@@ -41,12 +41,15 @@ class Generation:
     input_tokens: int | None = None
     output_tokens_estimate: int | None = None
     raw_text: str | None = None
+    contract_stopped: bool | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.text, str) or not math.isfinite(self.latency) or self.latency < 0:
             raise ValueError("Generation text and latency are invalid")
         if self.raw_text is not None and not isinstance(self.raw_text, str):
             raise ValueError("Raw generation must be text or None")
+        if self.contract_stopped is not None and type(self.contract_stopped) is not bool:
+            raise ValueError("Contract stop observation must be bool or None")
         for count in (self.input_tokens, self.output_tokens_estimate):
             if count is not None and (isinstance(count, bool) or not isinstance(count, int) or count < 0):
                 raise ValueError("Token counts must be non-negative ints or None")

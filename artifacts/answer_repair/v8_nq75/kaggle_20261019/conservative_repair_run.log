@@ -1,0 +1,164 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "nq", "--c1", "/kaggle/working/e_v8_906f096f78e3/answer_repair_v8_nq75_gpu/inputs/nq75_c1.jsonl", "--all", "--strategy", "conservative_repair", "--max-new-tokens", "384", "--out", "/kaggle/working/answer_repair_v8_nq75_outputs/conservative_repair.jsonl"]
+{
+  "source": "/kaggle/working/e_v8_906f096f78e3/answer_repair_v8_nq75_gpu/inputs/nq75_c1.jsonl",
+  "dataset": "nq",
+  "strategy": "conservative_repair",
+  "routing": "all",
+  "samples": 75,
+  "completed": 0,
+  "routed_samples": 75,
+  "remaining_call_upper_bound": 225,
+  "remaining_classifier_samples": 0,
+  "fingerprint": "f0bef23146f5d0eb30763a45c095ef19760d7c4acd5e6d0444fc6789478b0997",
+  "output": "/kaggle/working/answer_repair_v8_nq75_outputs/conservative_repair.jsonl"
+}
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<01:26,  3.91it/s]
+Loading weights:   1%|          | 2/339 [00:00<01:26,  3.92it/s]
+Loading weights:   1%|          | 4/339 [00:00<00:42,  7.86it/s]
+Loading weights:   5%|▍         | 16/339 [00:00<00:09, 33.69it/s]
+Loading weights:   8%|▊         | 26/339 [00:00<00:06, 50.31it/s]
+Loading weights:  10%|▉         | 33/339 [00:00<00:05, 52.80it/s]
+Loading weights:  12%|█▏        | 41/339 [00:01<00:05, 58.02it/s]
+Loading weights:  15%|█▌        | 52/339 [00:01<00:03, 71.80it/s]
+Loading weights:  19%|█▉        | 64/339 [00:01<00:03, 76.89it/s]
+Loading weights:  22%|██▏       | 74/339 [00:01<00:03, 82.85it/s]
+Loading weights:  24%|██▍       | 83/339 [00:01<00:03, 78.72it/s]
+Loading weights:  27%|██▋       | 92/339 [00:01<00:03, 76.18it/s]
+Loading weights:  30%|██▉       | 101/339 [00:01<00:02, 79.58it/s]
+Loading weights:  33%|███▎      | 112/339 [00:01<00:02, 87.46it/s]
+Loading weights:  36%|███▌      | 121/339 [00:01<00:02, 87.59it/s]
+Loading weights:  38%|███▊      | 130/339 [00:02<00:02, 82.91it/s]
+Loading weights:  41%|████      | 139/339 [00:02<00:02, 80.21it/s]
+Loading weights:  44%|████▍     | 150/339 [00:02<00:02, 81.57it/s]
+Loading weights:  48%|████▊     | 162/339 [00:02<00:02, 84.86it/s]
+Loading weights:  51%|█████▏    | 174/339 [00:02<00:01, 87.68it/s]
+Loading weights:  55%|█████▍    | 186/339 [00:02<00:01, 89.53it/s]
+Loading weights:  58%|█████▊    | 198/339 [00:02<00:01, 90.69it/s]
+Loading weights:  62%|██████▏   | 210/339 [00:03<00:01, 91.57it/s]
+Loading weights:  65%|██████▌   | 221/339 [00:03<00:01, 95.22it/s]
+Loading weights:  69%|██████▊   | 233/339 [00:03<00:01, 95.53it/s]
+Loading weights:  72%|███████▏  | 245/339 [00:03<00:00, 94.24it/s]
+Loading weights:  76%|███████▌  | 257/339 [00:03<00:00, 92.00it/s]
+Loading weights:  79%|███████▉  | 269/339 [00:03<00:00, 91.89it/s]
+Loading weights:  83%|████████▎ | 281/339 [00:03<00:00, 91.26it/s]
+Loading weights:  86%|████████▋ | 293/339 [00:03<00:00, 91.15it/s]
+Loading weights:  90%|████████▉ | 305/339 [00:04<00:00, 91.89it/s]
+Loading weights:  94%|█████████▎| 317/339 [00:04<00:00, 92.70it/s]
+Loading weights:  97%|█████████▋| 329/339 [00:04<00:00, 92.77it/s]
+Loading weights: 100%|██████████| 339/339 [00:04<00:00, 78.13it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[1/75] 8045087486700792769: original_check_invalid
+[2/75] 6935740157411537788: original_check_invalid
+[3/75] 3873185573437128094: original_check_invalid
+[4/75] -2862660005729156072: original_check_invalid
+[5/75] 2847980457887203111: original_check_invalid
+[6/75] -6909798989883244156: original_check_invalid
+[7/75] 5772936311107312940: original_check_invalid
+[8/75] 3253525630861841717: original_check_invalid
+[9/75] -7993122396287347186: original_check_invalid
+[10/75] -1178549234723633450: original_check_invalid
+[11/75] -5462248607427716715: original_check_invalid
+[12/75] -3869689776609561239: original_check_invalid
+[13/75] -8545550343341719460: original_check_invalid
+[14/75] -5155812282345038008: original_check_invalid
+[15/75] -2668077822681514653: original_check_invalid
+[16/75] -2374000572693790398: original_check_invalid
+[17/75] 8807212559725492691: original_check_invalid
+[18/75] 7243818178627473072: original_check_invalid
+[19/75] 3297321773729700265: original_check_invalid
+[20/75] -4660048733997517029: original_check_invalid
+[21/75] -4893882152565259225: original_check_invalid
+[22/75] 1739926213792453012: original_check_invalid
+[23/75] -3375552100711015909: original_check_invalid
+[24/75] 5822180296105627301: original_check_invalid
+[25/75] -5476828546252817553: original_check_invalid
+[26/75] -3169716056891969228: original_check_invalid
+[27/75] -3954878209346763094: original_check_invalid
+[28/75] 2095868851000293874: original_check_invalid
+[29/75] 4090393036850137417: original_check_invalid
+[30/75] -1837440648407770655: original_check_invalid
+[31/75] -2477693809305952311: original_check_invalid
+[32/75] 6098465629713582210: original_check_invalid
+[33/75] 2714282365828041450: original_check_invalid
+[34/75] 8542075949294420082: original_check_invalid
+[35/75] 8854896567380520932: original_check_invalid
+[36/75] -5028227845229715599: original_check_invalid
+[37/75] -8389494065836841182: original_check_invalid
+[38/75] -1981506712537073428: original_check_invalid
+[39/75] -564035461981251695: original_check_invalid
+[40/75] -4431827520967666941: original_check_invalid
+[41/75] -547285585922035520: original_check_invalid
+[42/75] -703872651120117348: original_check_invalid
+[43/75] 2517363209257675065: original_check_invalid
+[44/75] 3898710090334906649: original_check_invalid
+[45/75] 6471608951128519572: original_check_invalid
+[46/75] -1904111941153300402: original_check_invalid
+[47/75] 3219108291257004958: original_check_invalid
+[48/75] 1457639279894856450: original_check_invalid
+[49/75] 7643377925242908266: original_check_invalid
+[50/75] -8942709420542468525: original_check_invalid
+[51/75] 7659680993559844629: original_check_invalid
+[52/75] 3473298008288621013: original_check_invalid
+[53/75] -455522481629941063: original_check_invalid
+[54/75] -7534977440550994951: original_check_invalid
+[55/75] -787222857578843686: original_check_invalid
+[56/75] 3133601013091477200: original_check_invalid
+[57/75] -5016482629216613272: original_check_invalid
+[58/75] -2794432552733964922: original_check_invalid
+[59/75] 7728406136919122642: original_check_invalid
+[60/75] 676364825758831059: original_check_invalid
+[61/75] -5283919567456439969: original_check_invalid
+[62/75] -5223755550735908441: original_check_invalid
+[63/75] -7971666984412271711: original_check_invalid
+[64/75] 5607341441683614186: original_check_invalid
+[65/75] -3785663679516475986: original_check_invalid
+[66/75] -1941458279715717945: original_check_invalid
+[67/75] 258078115163430675: original_check_invalid
+[68/75] 40482195487920200: original_check_invalid
+[69/75] 3326691068650840908: original_check_invalid
+[70/75] 2576360884323654666: original_check_invalid
+[71/75] -7203695625159603076: original_check_invalid
+[72/75] -3805777236251722390: original_check_invalid
+[73/75] 3252643664278412553: original_check_invalid
+[74/75] -1848647332780502367: original_check_invalid
+[75/75] -3270371413280430670: original_check_invalid
+{
+  "run_fingerprint": "f0bef23146f5d0eb30763a45c095ef19760d7c4acd5e6d0444fc6789478b0997",
+  "routing": "all",
+  "strategy": "conservative_repair",
+  "evaluated_samples": 75,
+  "initial_correct": 20,
+  "final_correct": 20,
+  "initial_accuracy": 0.26666666666666666,
+  "final_accuracy": 0.26666666666666666,
+  "fixed": 0,
+  "regressed": 0,
+  "net_correct_gain": 0,
+  "accuracy_gain": 0.0,
+  "mcnemar_exact_pvalue": 1.0,
+  "repair_success_rate": 0.0,
+  "regression_rate": 0.0,
+  "changed": 0,
+  "verifier_calls": 0,
+  "verifier_latency_total": 0.0,
+  "verifier_input_tokens_total": 0,
+  "extra_calls": 75,
+  "extra_calls_per_sample": 1.0,
+  "extra_generation_latency_total": 1657.296892605999,
+  "extra_generation_latency_per_sample": 22.097291901413318,
+  "status_counts": {
+    "original_check_invalid": 75
+  },
+  "independent_support_checked": 0,
+  "same_model_support_check_counts": {},
+  "input_tokens_total": 86446,
+  "input_tokens_observed_samples": 75,
+  "input_tokens_observed_calls": 75,
+  "output_tokens_estimate_total": 20593,
+  "output_tokens_estimate_observed_samples": 75,
+  "output_tokens_estimate_observed_calls": 75,
+  "initial_f1": 0.5838279908291094,
+  "final_f1": 0.5838279908291094
+}

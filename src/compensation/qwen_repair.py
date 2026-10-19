@@ -7,6 +7,7 @@ import platform
 import json
 
 from src.compensation.answer_repair import Generation, MODEL_NAME, MODEL_REVISION
+from src.compensation.line_contract import LINE_CONTRACT_VERSION, complete_labeled_output
 
 
 def complete_json_object(text: str) -> bool:
@@ -66,6 +67,7 @@ class QwenRepairGenerator:
                      for i in range(torch.cuda.device_count())],
             "model_revision": MODEL_REVISION,
             "json_output": self.json_output,
+            "labeled_output_stop_version": LINE_CONTRACT_VERSION,
             "tokenizer_revision": MODEL_REVISION,
             "model_class": type(self.model).__module__ + "." + type(self.model).__name__,
             "quantization_config": quant,
@@ -75,6 +77,16 @@ class QwenRepairGenerator:
         }
 
     def generate(self, prompt: str, max_new_tokens: int) -> Generation:
+        return self._generate(prompt, max_new_tokens)
+
+    def generate_labeled(self, prompt: str, max_new_tokens: int, *,
+                         labels: tuple[str, ...], insufficient: bool = False) -> Generation:
+        if self.json_output:
+            raise ValueError("Labeled generation requires json_output=False")
+        return self._generate(prompt, max_new_tokens, labels=labels, insufficient=insufficient)
+
+    def _generate(self, prompt: str, max_new_tokens: int, *,
+                  labels: tuple[str, ...] | None = None, insufficient: bool = False) -> Generation:
         from src.generation.qwen import apply_qwen_chat_template, generate_greedy
 
         chat = apply_qwen_chat_template(self.tokenizer, prompt)
@@ -83,7 +95,20 @@ class QwenRepairGenerator:
         if context_limit is not None and input_tokens + max_new_tokens > context_limit:
             raise RuntimeError("E prompt exceeds the model context window; refusing to silently truncate evidence")
         stopping = None
-        if self.json_output:
+        contract_stop = {"observed": False}
+        if labels is not None:
+            from transformers import StoppingCriteria, StoppingCriteriaList
+            tokenizer = self.tokenizer
+
+            class CompleteLabeledResponse(StoppingCriteria):
+                def __call__(self, input_ids, scores, **kwargs):
+                    continuation = tokenizer.decode(input_ids[0, input_tokens:], skip_special_tokens=True)
+                    done = complete_labeled_output(continuation, labels, insufficient=insufficient)
+                    contract_stop["observed"] = done
+                    return done
+
+            stopping = StoppingCriteriaList([CompleteLabeledResponse()])
+        elif self.json_output:
             from transformers import StoppingCriteria, StoppingCriteriaList
             tokenizer = self.tokenizer
             boundary = {"observed": None, "framed": None}
@@ -111,4 +136,5 @@ class QwenRepairGenerator:
         raw = text
         if self.json_output and boundary["observed"] == text.strip():
             text = boundary["framed"]
-        return Generation(text, latency, input_tokens, output_estimate, raw_text=raw)
+        return Generation(text, latency, input_tokens, output_estimate, raw_text=raw,
+                          contract_stopped=contract_stop["observed"] if labels is not None else None)

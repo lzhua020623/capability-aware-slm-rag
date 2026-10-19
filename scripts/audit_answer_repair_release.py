@@ -85,9 +85,12 @@ def main(argv=None):
     queue, unique_ids = [], set()
     # (cohort, dataset, manifest section with sample_ids/input_sha256)
     targets = []
-    is_v8_nq75 = manifest.get('version') == 'answer_repair_v8_nq75_v1'
+    is_v8_nq75 = manifest.get('version') in (
+        'answer_repair_v8_nq75_v1', 'answer_repair_v8r2_smoke8_v1', 'answer_repair_v8r2_nq75_v1',
+        'answer_repair_v8r3_smoke8_v1')
+    v8_cohort = 'nq75' if manifest.get('samples') == 75 else 'nq_smoke8'
     if is_v8_nq75:
-        targets.append(('nq75', 'nq', {'sample_ids': manifest['sample_ids'],
+        targets.append((v8_cohort, 'nq', {'sample_ids': manifest['sample_ids'],
                        'input_sha256': manifest['source_input_sha256']['scored_c1']}))
     if manifest.get('cohort') == 'heldout3216':          # single-cohort run-once bundle
         lines = (bundle / 'inputs/nq_heldout3216_c1.jsonl').read_bytes().decode('utf-8').splitlines()
@@ -101,7 +104,7 @@ def main(argv=None):
             targets.append((cohort, ds, (section['datasets'] if cohort == 'heldout' else section)[ds]))
     for cohort, ds, source_manifest in targets:
         if True:
-            source_path = 'inputs/nq75_c1.jsonl' if cohort == 'nq75' else f'inputs/{ds}_{cohort}_c1.jsonl'
+            source_path = manifest.get('scored_input', 'inputs/nq75_c1.jsonl') if is_v8_nq75 and cohort == v8_cohort else f'inputs/{ds}_{cohort}_c1.jsonl'
             source = (bundle / source_path).read_bytes()
             if sha256(source) != source_manifest['input_sha256']:
                 raise ValueError('Input checksum differs from manifest')
@@ -110,7 +113,7 @@ def main(argv=None):
                 if arm.get('dataset', ds) != ds:
                     continue
                 strategy = arm['strategy']
-                stem = strategy if cohort == 'nq75' else f'{ds}_{strategy}' + ('' if cohort == 'reviewed' else f'_{cohort}')
+                stem = strategy if is_v8_nq75 and cohort == v8_cohort else f'{ds}_{strategy}' + ('' if cohort == 'reviewed' else f'_{cohort}')
                 path = results / (stem + '.jsonl')
                 rows = read_jsonl(path.read_bytes(), str(path))
                 if not rows or [r['sample_id'] for r in rows] != source_manifest['sample_ids']:

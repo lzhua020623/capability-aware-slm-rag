@@ -1,0 +1,14 @@
+{
+  "version": "v8r2_local_validation_v1",
+  "portable_tests_passed": 106,
+  "frozen_payload_files_verified": 93,
+  "synthetic_pipeline_records": 32,
+  "synthetic_pipeline_cpu_replay_passed": true,
+  "synthetic_pipeline_is_research_result": false,
+  "gpu_execution_completed": false,
+  "semantic_correctness_verified": false,
+  "bundle_sha256": "ca318d513f5feab0ff2f4c94acf19888e46ef0021ec454ef6dfd43f166bf58fe",
+  "repository_python_tests_passed": 146,
+  "repository_test_environment": "isolated byte-identical source copy with unchanged archive and HTML fixtures",
+  "native_repository_test_attempt": "File-provider timeout during Python site initialization; not a test assertion failure"
+}

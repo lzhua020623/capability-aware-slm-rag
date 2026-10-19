@@ -1,0 +1,6 @@
+COMMAND ["/usr/bin/python3", "-m", "unittest", "tests.test_answer_repair", "tests.test_answer_repair_experiment", "tests.test_answer_repair_v5", "tests.test_answer_repair_v6", "tests.test_answer_repair_v7", "tests.test_answer_repair_v8", "tests.test_answer_repair_v8_r2"]
+..........................................................................................................
+----------------------------------------------------------------------
+Ran 106 tests in 0.295s
+
+OK

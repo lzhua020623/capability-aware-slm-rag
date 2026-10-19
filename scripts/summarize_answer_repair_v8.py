@@ -19,7 +19,7 @@ from src.evaluation.answer_repair import score_answer, summarize_repairs
 
 def summarize(bundle: Path, results: Path) -> dict:
     manifest = json.loads((bundle / "manifest.json").read_text())
-    source_raw = (bundle / "inputs/nq75_c1.jsonl").read_bytes()
+    source_raw = (bundle / manifest.get("scored_input", "inputs/nq75_c1.jsonl")).read_bytes()
     sources = read_jsonl(source_raw, "v8 C1")
     prepared = prepare_records(sources, DatasetName.NQ)
     human = {r["sample_id"]: r for r in read_jsonl((bundle / "offline/initial_reviews.jsonl").read_bytes(), "initial reviews")}
