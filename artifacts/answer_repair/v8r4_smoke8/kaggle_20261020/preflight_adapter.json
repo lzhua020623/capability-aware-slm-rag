@@ -1,0 +1,7 @@
+{
+  "adapter_sha256": "dac5b7ec6c3c176f3503df32d601de937bc1ed0a5c3c2c4dd251589a208e959d",
+  "scope": "unittest process only; no inference source or settings changed",
+  "frozen_bundle_sha256": "d13880c5e114b5f8379f931103af249e1f10b4975de98c9a5b74a9c161900e11",
+  "reason": "Python AST dump representation differs across 3.11 and 3.13",
+  "first_attempt_script_version_id": 360053773
+}

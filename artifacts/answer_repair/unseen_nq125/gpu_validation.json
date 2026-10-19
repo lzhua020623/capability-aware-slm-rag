@@ -1,0 +1,11 @@
+{
+  "payload_files_verified": 101,
+  "runtime_source_files_identical_to_final_development": 29,
+  "python3_13_original_portable_tests_passed": 111,
+  "all_125_runtime_allowlist_records_match_scored_source": true,
+  "synthetic_integration_records": 250,
+  "synthetic_cpu_replay_records": 250,
+  "synthetic_preflight_is_research_result": false,
+  "real_model_calls_in_preflight": 0,
+  "gpu_inference_completed": false
+}

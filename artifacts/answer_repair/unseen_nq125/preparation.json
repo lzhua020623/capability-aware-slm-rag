@@ -1,0 +1,20 @@
+{
+  "version": "answer_repair_nq_train_calibration_challenge125_v1",
+  "samples": 125,
+  "groups": {
+    "screen_candidate": 100,
+    "em_match_control": 25
+  },
+  "manifest_sha256": "a6cc40d778aac2aad5f5cc514e5cb3b5928de66d93804897b936a27d18320297",
+  "outputs_sha256": {
+    "inputs/nq125_c1.jsonl": "e1aed0d86a5bf5ed3b23e1607ea4057cc067a9c1ef4ac56e05592352bb897fed",
+    "inputs/nq125_runtime.jsonl": "beaa6cb7356fdf30f0109302f8af0ef2b0b43643bad06a2d8accd1f7a8ce74ac",
+    "offline/strata.jsonl": "75a9b9204cfdab2eb9b6c533b117ad5818290c6b479708b7719ef318d9e7fd9b"
+  },
+  "selected_final_revision": "r3",
+  "available_calibration_screening_counts": {
+    "em_match_control": 2848,
+    "screen_candidate": 2388
+  },
+  "gpu_inference_completed": false
+}

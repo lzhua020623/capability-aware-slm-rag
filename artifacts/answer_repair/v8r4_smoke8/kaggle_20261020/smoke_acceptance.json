@@ -1,0 +1,123 @@
+{
+  "version": "answer_repair_v8r4_smoke8_v1",
+  "engineering_gate_passed": true,
+  "ready_for_full_nq75_run": false,
+  "failures": [],
+  "arms": {
+    "short_answer_quote": {
+      "completed": 8,
+      "complete": true,
+      "status_counts": {
+        "invalid_output": 3,
+        "repaired": 5
+      }
+    },
+    "conservative_repair": {
+      "completed": 8,
+      "complete": true,
+      "status_counts": {
+        "original_supported": 5,
+        "original_check_invalid": 2,
+        "candidate_rejected": 1
+      }
+    },
+    "conservative_no_original_gate": {
+      "completed": 8,
+      "complete": true,
+      "status_counts": {
+        "candidate_unchanged": 2,
+        "candidate_invalid": 3,
+        "repaired": 2,
+        "candidate_rejected": 1
+      }
+    },
+    "conservative_no_candidate_gate": {
+      "completed": 8,
+      "complete": true,
+      "status_counts": {
+        "original_supported": 5,
+        "original_check_invalid": 2,
+        "repaired": 1
+      }
+    }
+  },
+  "valid_v8_stage_calls": {
+    "original_check": 12,
+    "minimal_repair": 7,
+    "candidate_check": 4
+  },
+  "invalid_v8_stage_calls": {
+    "original_check": 4,
+    "minimal_repair": 3
+  },
+  "validation_rejection_kinds": {
+    "grounding": 7
+  },
+  "full_three_stage_paths": 1,
+  "generation_stop_observations": {
+    "model_end_or_limit": 23,
+    "boundary": 7
+  },
+  "raw_text_changed_stages": 0,
+  "generation_calls": 38,
+  "semantic_correctness_verified": false,
+  "human_final_gain": null,
+  "interpretation": "Engineering gate only. Greedy same-model checks and EM do not establish semantic gain.",
+  "known_case_regressions": {
+    "passed": false,
+    "cases": [
+      {
+        "case": "N31",
+        "sample_id": "5822180296105627301",
+        "passed": false,
+        "failures": [
+          "stage_status:original_check"
+        ],
+        "observed_stage_status": {
+          "original_check": "supported"
+        },
+        "facts": {
+          "original_check": "The evidence establishes that Charlie Rich sang \"The Most Beautiful Girl\" in 1973."
+        },
+        "candidate_answer": null,
+        "final_status": "original_supported"
+      },
+      {
+        "case": "N48",
+        "sample_id": "-1981506712537073428",
+        "passed": false,
+        "failures": [
+          "stage_status:candidate_check"
+        ],
+        "observed_stage_status": {
+          "original_check": "unsupported",
+          "candidate_check": "unsupported"
+        },
+        "facts": {
+          "original_check": "Dhebar Lake is India's second-largest artificial lake, but not the largest.",
+          "candidate_check": "Dhebar Lake is India's second-largest artificial lake, with no evidence of a larger one."
+        },
+        "candidate_answer": "Govind Ballabh Pant Sagar",
+        "final_status": "candidate_rejected"
+      },
+      {
+        "case": "N12",
+        "sample_id": "-1178549234723633450",
+        "passed": true,
+        "failures": [],
+        "observed_stage_status": {
+          "original_check": "supported"
+        },
+        "facts": {
+          "original_check": "The music video for \"Total Eclipse of the Heart\" was filmed at the Holloway Sanatorium."
+        },
+        "candidate_answer": null,
+        "final_status": "original_supported"
+      }
+    ],
+    "metric_used_for_selection": false,
+    "interpretation": "Predeclared development-stage regressions only, not independent semantic evaluation."
+  },
+  "selected_final_revision": "r3",
+  "selection_policy": "Select r4 only if the unchanged engineering gate and all three predeclared audit regressions pass; otherwise freeze r3. No r5 on these eight cases."
+}

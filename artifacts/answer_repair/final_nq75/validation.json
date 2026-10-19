@@ -1,0 +1,9 @@
+{
+  "bundle_payload_files_verified": 99,
+  "frozen_runtime_source_files_verified": 29,
+  "runtime_source_identical_to_selected_r3": true,
+  "python_3_13_portable_tests_passed": 111,
+  "adapter_sha256": "dac5b7ec6c3c176f3503df32d601de937bc1ed0a5c3c2c4dd251589a208e959d",
+  "gpu_inference_completed": false,
+  "real_smoke_selection_receipt_verified": true
+}

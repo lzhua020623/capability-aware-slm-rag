@@ -1,0 +1,10 @@
+{
+  "transport": "kaggle_auto_extracted",
+  "source": "/kaggle/input/datasets/yearo111/e-v8r4-smoke8-frozen-20261019/answer_repair_v8r4_smoke8_gpu",
+  "bundle": "/kaggle/working/e_v8_d13880c5e114/answer_repair_v8r4_smoke8_gpu",
+  "expected_archive_sha256": "d13880c5e114b5f8379f931103af249e1f10b4975de98c9a5b74a9c161900e11",
+  "archive_hash_verified": false,
+  "checksums_sha256": "f885de217f647a82d1887593d9d9098774b6b0a5830ed51c42f568125ed5aa96",
+  "payload_hash_checked_files": 103,
+  "algorithm_or_input_modified": false
+}

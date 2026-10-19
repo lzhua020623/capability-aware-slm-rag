@@ -1,0 +1,99 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "nq", "--c1", "/kaggle/working/e_v8_d13880c5e114/answer_repair_v8r4_smoke8_gpu/inputs/nq_smoke8_c1.jsonl", "--all", "--strategy", "conservative_no_candidate_gate", "--max-new-tokens", "384", "--out", "/kaggle/working/answer_repair_v8r4_smoke8_outputs/conservative_no_candidate_gate.jsonl"]
+{
+  "source": "/kaggle/working/e_v8_d13880c5e114/answer_repair_v8r4_smoke8_gpu/inputs/nq_smoke8_c1.jsonl",
+  "dataset": "nq",
+  "strategy": "conservative_no_candidate_gate",
+  "routing": "all",
+  "samples": 8,
+  "completed": 0,
+  "routed_samples": 8,
+  "remaining_call_upper_bound": 16,
+  "remaining_classifier_samples": 0,
+  "fingerprint": "5a32b95f7fca387df188e3884c8a6b31c546ebcbdc00c1e4280f07311b6bb6ad",
+  "output": "/kaggle/working/answer_repair_v8r4_smoke8_outputs/conservative_no_candidate_gate.jsonl"
+}
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<01:29,  3.79it/s]
+Loading weights:   1%|          | 2/339 [00:00<01:28,  3.80it/s]
+Loading weights:   1%|          | 4/339 [00:00<00:43,  7.64it/s]
+Loading weights:   4%|▎         | 12/339 [00:00<00:12, 26.05it/s]
+Loading weights:   5%|▌         | 18/339 [00:00<00:09, 33.16it/s]
+Loading weights:   9%|▊         | 29/339 [00:00<00:05, 53.38it/s]
+Loading weights:  12%|█▏        | 40/339 [00:01<00:04, 65.29it/s]
+Loading weights:  15%|█▌        | 52/339 [00:01<00:03, 72.40it/s]
+Loading weights:  19%|█▉        | 64/339 [00:01<00:03, 77.14it/s]
+Loading weights:  22%|██▏       | 76/339 [00:01<00:03, 80.61it/s]
+Loading weights:  26%|██▌       | 87/339 [00:01<00:02, 87.86it/s]
+Loading weights:  29%|██▊       | 97/339 [00:01<00:02, 82.91it/s]
+Loading weights:  31%|███▏      | 106/339 [00:01<00:02, 78.22it/s]
+Loading weights:  34%|███▍      | 115/339 [00:01<00:02, 76.09it/s]
+Loading weights:  37%|███▋      | 125/339 [00:02<00:02, 79.46it/s]
+Loading weights:  40%|████      | 137/339 [00:02<00:02, 83.03it/s]
+Loading weights:  44%|████▍     | 149/339 [00:02<00:02, 85.61it/s]
+Loading weights:  47%|████▋     | 161/339 [00:02<00:02, 87.32it/s]
+Loading weights:  51%|█████     | 173/339 [00:02<00:01, 88.27it/s]
+Loading weights:  55%|█████▍    | 185/339 [00:02<00:01, 88.78it/s]
+Loading weights:  58%|█████▊    | 197/339 [00:02<00:01, 89.48it/s]
+Loading weights:  62%|██████▏   | 209/339 [00:03<00:01, 89.60it/s]
+Loading weights:  65%|██████▌   | 221/339 [00:03<00:01, 89.27it/s]
+Loading weights:  69%|██████▊   | 233/339 [00:03<00:01, 89.26it/s]
+Loading weights:  72%|███████▏  | 245/339 [00:03<00:01, 89.90it/s]
+Loading weights:  76%|███████▌  | 257/339 [00:03<00:00, 89.72it/s]
+Loading weights:  79%|███████▉  | 269/339 [00:03<00:00, 89.05it/s]
+Loading weights:  83%|████████▎ | 281/339 [00:03<00:00, 89.03it/s]
+Loading weights:  86%|████████▋ | 293/339 [00:03<00:00, 89.16it/s]
+Loading weights:  90%|████████▉ | 305/339 [00:04<00:00, 88.92it/s]
+Loading weights:  93%|█████████▎| 316/339 [00:04<00:00, 93.97it/s]
+Loading weights:  97%|█████████▋| 328/339 [00:04<00:00, 92.62it/s]
+Loading weights: 100%|██████████| 339/339 [00:04<00:00, 96.99it/s]
+Loading weights: 100%|██████████| 339/339 [00:04<00:00, 76.42it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[1/8] 8045087486700792769: original_supported
+[2/8] 6935740157411537788: original_check_invalid
+[3/8] -6909798989883244156: original_check_invalid
+[4/8] -1178549234723633450: original_supported
+[5/8] -3869689776609561239: original_supported
+[6/8] 5822180296105627301: original_supported
+[7/8] -1981506712537073428: repaired
+[8/8] 3252643664278412553: original_supported
+{
+  "run_fingerprint": "5a32b95f7fca387df188e3884c8a6b31c546ebcbdc00c1e4280f07311b6bb6ad",
+  "routing": "all",
+  "strategy": "conservative_no_candidate_gate",
+  "evaluated_samples": 8,
+  "initial_correct": 1,
+  "final_correct": 2,
+  "initial_accuracy": 0.125,
+  "final_accuracy": 0.25,
+  "fixed": 1,
+  "regressed": 0,
+  "net_correct_gain": 1,
+  "accuracy_gain": 0.125,
+  "mcnemar_exact_pvalue": 1.0,
+  "repair_success_rate": 0.14285714285714285,
+  "regression_rate": 0.0,
+  "changed": 1,
+  "verifier_calls": 0,
+  "verifier_latency_total": 0.0,
+  "verifier_input_tokens_total": 0,
+  "extra_calls": 9,
+  "extra_calls_per_sample": 1.125,
+  "extra_generation_latency_total": 100.9084354180003,
+  "extra_generation_latency_per_sample": 12.613554427250037,
+  "status_counts": {
+    "original_supported": 5,
+    "original_check_invalid": 2,
+    "repaired": 1
+  },
+  "independent_support_checked": 0,
+  "same_model_support_check_counts": {},
+  "input_tokens_total": 12773,
+  "input_tokens_observed_samples": 8,
+  "input_tokens_observed_calls": 9,
+  "output_tokens_estimate_total": 1077,
+  "output_tokens_estimate_observed_samples": 8,
+  "output_tokens_estimate_observed_calls": 9,
+  "initial_f1": 0.229933110367893,
+  "final_f1": 0.354933110367893
+}

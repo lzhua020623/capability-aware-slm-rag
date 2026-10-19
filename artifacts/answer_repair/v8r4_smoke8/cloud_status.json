@@ -1,24 +1,24 @@
 {
-  "observed_at": "2026-10-19T13:11:17.745363+00:00",
-  "status_observed": "Version 2 infrastructure-only retry submitted and Running; same frozen bundle; awaiting generation outputs",
+  "observed_at": "2026-10-19T13:23:12.551080+00:00",
+  "status_observed": "Version 2 Successful; 32 outputs received and frozen CPU replay verified",
   "bundle_sha256": "d13880c5e114b5f8379f931103af249e1f10b4975de98c9a5b74a9c161900e11",
   "notebook_url": "https://www.kaggle.com/code/yearo111/e-v8r4-smoke8-fact-final-20261019?scriptVersionId=360064691",
   "private_dataset_url": "https://www.kaggle.com/datasets/yearo111/e-v8r4-smoke8-frozen-20261019",
-  "results_received": false,
+  "results_received": true,
   "gpu_execution_confirmed": true,
   "expected_predictions": 32,
   "generation_call_upper_bound": 64,
-  "engineering_gate_passed": null,
-  "selected_final_revision": null,
+  "engineering_gate_passed": true,
+  "selected_final_revision": "r3",
   "browser_coordination_pending": false,
   "script_version_id": 360064691,
   "accelerator_observed": "GPU T4 x2",
-  "proof_screenshot_local": "cloud_retry1_running.png",
+  "proof_screenshot_local": "cloud_complete.png",
   "last_status_check_utc": "2026-10-19T12:55:27.791421+00:00",
   "cloud_submission_confirmed": true,
-  "model_generations_confirmed": false,
-  "gpu_inference_completed": false,
-  "model_generation_calls": null,
+  "model_generations_confirmed": true,
+  "gpu_inference_completed": true,
+  "model_generation_calls": 38,
   "failed_attempts": [
     {
       "script_version_id": 360053773,
@@ -37,5 +37,8 @@
     }
   ],
   "active_attempt": 2,
-  "preflight_adapter_sha256": "dac5b7ec6c3c176f3503df32d601de937bc1ed0a5c3c2c4dd251589a208e959d"
+  "preflight_adapter_sha256": "dac5b7ec6c3c176f3503df32d601de937bc1ed0a5c3c2c4dd251589a208e959d",
+  "runtime_seconds": 577.3,
+  "known_case_regressions_passed": false,
+  "result_zip_sha256": "135f5dfb36aa89f0f8e1261188cafdd9adefe316c0ad41ea1d842dcd40778982"
 }

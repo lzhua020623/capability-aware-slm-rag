@@ -1,0 +1,11 @@
+{
+  "version": "answer_repair_v8r3_nq75_final_v1",
+  "selected_final_revision": "r3",
+  "bundle_sha256": "b5be903db6efecb5681498f0110ebed65920369ca1e5d466492ebae7455fc98b",
+  "notebook_sha256": "4961f0d91519157184331fd45bb6ed44290233df6f77ddd460ee16625177651b",
+  "checksums_sha256": "e843f615e696c1f205158744ce2ad57dc941d6b83338c716ea5711736a14383e",
+  "frozen_inference_source_unchanged": true,
+  "predictions_expected": 300,
+  "generation_call_upper_bound": 600,
+  "gpu_inference_completed": false
+}

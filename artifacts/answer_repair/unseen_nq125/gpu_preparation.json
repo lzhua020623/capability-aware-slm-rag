@@ -1,0 +1,11 @@
+{
+  "version": "answer_repair_v8r3_nq125_challenge_v1",
+  "bundle_sha256": "17dcadf90d30e8fea7a4f5d0fd259f17d9c5739484eec52d7586a5855f52855f",
+  "notebook_sha256": "e15e138cf5b44076c0aebe0d0c35fa975533efa93fa358d150d0058a6664e29c",
+  "checksums_sha256": "160c752fb1208e4d796e4bf994e9d6cadd6189fb76740b83688eb6e57ae0f959",
+  "selected_final_revision": "r3",
+  "runtime_source_unchanged_from_final_development": true,
+  "expected_predictions": 250,
+  "max_generation_calls": 500,
+  "gpu_inference_completed": false
+}

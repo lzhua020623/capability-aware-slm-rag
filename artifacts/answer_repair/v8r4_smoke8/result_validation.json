@@ -1,0 +1,106 @@
+{
+  "version": "v8r4_result_validation_v1",
+  "result_zip_sha256": "135f5dfb36aa89f0f8e1261188cafdd9adefe316c0ad41ea1d842dcd40778982",
+  "raw_file_sha256": {
+    "bootstrap.json": "45343a85a8515dcc1a6ff09180dc92e5b88b83e5f885a4cb40a7434ce3e0dd03",
+    "bundle_checksums.json": "f885de217f647a82d1887593d9d9098774b6b0a5830ed51c42f568125ed5aa96",
+    "comparison.json": "0547d09cc27aa6eba63bac0625aff0cf1dbef9f6ae200f4cc8a008754bfa7e0e",
+    "conservative_no_candidate_gate.jsonl": "52fd37df9c6aed92c1f379c1eacccb82a067447021c4b104e24def6612cb5b12",
+    "conservative_no_candidate_gate.summary.json": "617f421cc66b4292661f6b1fb29392c0808d7c52b29ee5b6a1f43c5ab4abc41c",
+    "conservative_no_candidate_gate_preflight.log": "a1605e6ac7a4cb2ed9c651a988eb8882c6137485bc1577f79ee602d1993c7975",
+    "conservative_no_candidate_gate_run.log": "f147f3c1ec66d8fef468f4ee37a32e1fa95a66be21140284c052c61c5686fc15",
+    "conservative_no_original_gate.jsonl": "1589763ab62fdbdc28c0d7da34529d8a7ef67b6792f2e51fd74e57d14369ef17",
+    "conservative_no_original_gate.summary.json": "d846754f6cac28b66e2be1676ada995ef00f7aaa514a515287a3ce3dbf01a1c8",
+    "conservative_no_original_gate_preflight.log": "c089129c9aa42f2d93f5a26e88c1a0b05cf66cf0be956b0fa0c03849071247ab",
+    "conservative_no_original_gate_run.log": "0845c826175a00276e68ddf71bab68aec0b5919a410c268915137e7501e457ab",
+    "conservative_repair.jsonl": "4d806099b6b1b72644cbc5848136a906639bd518d01e38ffa80e21f006dbf882",
+    "conservative_repair.summary.json": "256ab65da4ea9255e7a9f05d6ca9173df2ed6df137a372ca573876b3e0659dda",
+    "conservative_repair_preflight.log": "7596adf282cc3e6869d06dac80357fbadae702490aff327f264daf332fdd563e",
+    "conservative_repair_run.log": "b34eb7b3e56bc85aa76e3fc3f80f96ed74d0e91bb7ff84589d839550e234b87c",
+    "environment.json": "70cff782d5dcc9d3292557b6a19b64f6d0952b7cfe4c91b04b45e61f29eea752",
+    "environment.log": "acda88f340d5b6450ec7d50d4cfc294b71a3a584967e888edaa68b925d8724c4",
+    "install.log": "1167c83bb483e6db9072ae4c3ef4337fc407124251357af43a753fcd7d37260f",
+    "manifest.json": "a10e6b154d8996f779c3ec7e608eb45fedff17d8c58b50a08061c9cda9e949d1",
+    "output_review_queue.jsonl": "64e8b3116e0b6f63f4ecbc9f44916f73ee307362e2f74bf916205f45d0c5109e",
+    "packages.log": "ebf44f158574b0be0940dc7b9447c48b4e0d23f33a8a8cefbb398b0b4afd5aa6",
+    "preflight_adapter.json": "efb513270eab78a396cf7f30201deab9c7a1cf6a9f3e5b00604fa22d4d6cdf8b",
+    "preflight_ast_compat.py": "dac5b7ec6c3c176f3503df32d601de937bc1ed0a5c3c2c4dd251589a208e959d",
+    "short_answer_quote.jsonl": "dd9eb75798117b5db662bf4f4833c3a805aed43c1a062a1bf704985766e04236",
+    "short_answer_quote.summary.json": "a346a5c07baf9743a4bfb6fc918c2800455f4072f73c713b2cadfea3b5a9fa89",
+    "short_answer_quote_preflight.log": "5b74f11b1c96aea4a87e5cdbe42a56087ddfbfdb800330e08c48146d39fabaf4",
+    "short_answer_quote_run.log": "76f69481073da69f139d4516b30e3dd1b5938b4d0321633579c6df2c8d445d3b",
+    "smoke_acceptance.json": "6f1cb222f7c08ccc0535b941aca08ed067cf35a0255362390d9570e21b9e865b",
+    "smoke_check.log": "f3e01737aa489b01486c4ac2ae6e3474f3e607fd2d8a8f36aed4d32ca1f98b96",
+    "tests.log": "4180e34ffc3523f94a4f9ec0a280fd601e12fec63a2ea265001a989c59d70dd9"
+  },
+  "zip_crc_ok": true,
+  "frozen_input_bundle_sha256": "d13880c5e114b5f8379f931103af249e1f10b4975de98c9a5b74a9c161900e11",
+  "replayed_records": 32,
+  "result_directory": "kaggle_20261020",
+  "unique_sample_ids": 8,
+  "engineering_gate_passed": true,
+  "semantic_correctness_verified": false,
+  "changed_outputs_pending_human_review": 8,
+  "same_inputs_as_r2_verified": true,
+  "gpu_repeated": false,
+  "selected_final_revision": "r3",
+  "comparison_replay_uses_original_frozen_numeric_tolerance": true,
+  "comparison_replay_byte_equal": false,
+  "frozen_engineering_gate_recalculation_matches": true,
+  "known_case_regressions": {
+    "passed": false,
+    "cases": [
+      {
+        "case": "N31",
+        "sample_id": "5822180296105627301",
+        "passed": false,
+        "failures": [
+          "stage_status:original_check"
+        ],
+        "observed_stage_status": {
+          "original_check": "supported"
+        },
+        "facts": {
+          "original_check": "The evidence establishes that Charlie Rich sang \"The Most Beautiful Girl\" in 1973."
+        },
+        "candidate_answer": null,
+        "final_status": "original_supported"
+      },
+      {
+        "case": "N48",
+        "sample_id": "-1981506712537073428",
+        "passed": false,
+        "failures": [
+          "stage_status:candidate_check"
+        ],
+        "observed_stage_status": {
+          "original_check": "unsupported",
+          "candidate_check": "unsupported"
+        },
+        "facts": {
+          "original_check": "Dhebar Lake is India's second-largest artificial lake, but not the largest.",
+          "candidate_check": "Dhebar Lake is India's second-largest artificial lake, with no evidence of a larger one."
+        },
+        "candidate_answer": "Govind Ballabh Pant Sagar",
+        "final_status": "candidate_rejected"
+      },
+      {
+        "case": "N12",
+        "sample_id": "-1178549234723633450",
+        "passed": true,
+        "failures": [],
+        "observed_stage_status": {
+          "original_check": "supported"
+        },
+        "facts": {
+          "original_check": "The music video for \"Total Eclipse of the Heart\" was filmed at the Holloway Sanatorium."
+        },
+        "candidate_answer": null,
+        "final_status": "original_supported"
+      }
+    ],
+    "metric_used_for_selection": false,
+    "interpretation": "Predeclared development-stage regressions only, not independent semantic evaluation."
+  },
+  "test_only_adapter_verified": true
+}
