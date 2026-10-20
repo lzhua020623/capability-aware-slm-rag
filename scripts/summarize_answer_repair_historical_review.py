@@ -56,6 +56,9 @@ def load(directory):
             raise ValueError(f"Source identity or human status mismatch at H{number}")
         if any(a[f] is not None and type(a[f]) is not bool for f in FIELDS):
             raise ValueError(f"Invalid judgment type at H{number}")
+        initial_human = row.get("initial_human_review")
+        if initial_human and a["initial_correct"] != initial_human["initial_correct"]:
+            raise ValueError(f"Assistance cannot override confirmed initial correctness at {number}")
         initial, final = a["initial_correct"], a["final_correct"]
         transition = ("correctness_unresolved" if initial is None or final is None
                       else "suggested_fix" if not initial and final
@@ -75,55 +78,68 @@ def load(directory):
     return result, {"queue": sha(raw), "assisted": sha(assisted_raw)}
 
 
-def summary(rows, hashes):
+def summary(rows, hashes, *, version="answer_repair_v7_historical_assisted_complete_v1",
+            scope="Agent suggestions for this fixed 45-case sample only; not human gold or a population estimate"):
     strata = defaultdict(list)
     for row in rows:
         strata[f"{row['cohort']}/{row['dataset']}/{row['strategy']}"].append(row)
     def count(group):
         return {"records": len(group), "outcomes": dict(Counter(x["agent_review"]["outcome"] for x in group))}
-    return {"version": "answer_repair_v7_historical_assisted_complete_v1", "sources_sha256": hashes,
+    return {"version": version, "sources_sha256": hashes,
             "agent_assistance_complete": True, "human_confirmed": 0, "human_pending": len(rows),
             "reference_visible": True, "human_fields_unchanged": True,
             "sample": count(rows), "by_stratum": {k: count(v) for k, v in strata.items()},
             "unresolved_field_numbers": [x["review_number"] for x in rows if any(x["agent_review"][f] is None for f in FIELDS)],
             "reference_only_numbers": [x["review_number"] for x in rows if x["agent_review"]["outcome"] == "reference_only_flip_not_evidence_verified"],
-            "scope": "Agent suggestions for this fixed 45-case sample only; not human gold or a population estimate"}
+            "scope": scope}
 
 
-def render(rows, report):
+def render(rows, report, *, prefix="H", title="E · v7 历史 45 条改答审核", scope=None):
     esc = lambda x: html.escape(str(x))
     label = lambda x: "待定" if x is None else "是" if x else "否"
     cards = []
     for r in rows:
         a = r["agent_review"]; number = r["review_number"]
+        arm = "最终 r3 改答" if r["strategy"] == "conservative_repair" else "v7 改答"
+        alias = " · " + r["source_alias"] if "source_alias" in r else ""
         correctness = ("冻结标签匹配（语义正确性未独立核实）"
                        if a["outcome"] == "reference_only_flip_not_evidence_verified" else "正确")
         citations = "".join(f"<blockquote>R{c['rank']} · {esc(c['passage_id'])}<br>{esc(c['quote'])}</blockquote>" for c in r["model_result"]["citations"])
         evidence = "".join(f"<details><summary>R{i} · {esc(e['passage_id'])}</summary><p>{esc(e['text'])}</p></details>" for i, e in enumerate(r["evidence"], 1))
-        cards.append(f'''<article id="H{number}" data-outcome="{a['outcome']}">
-<div class="meta">H{number} · {esc(r['dataset'].upper())} · {esc(r['cohort'])} · {esc(r['sample_id'])}</div>
-<h2>{esc(r['query'])}</h2><div class="answers"><div><b>C1 原答</b><p>{esc(r['initial_answer'])}</p></div><div><b>v7 改答</b><p>{esc(r['final_answer'])}</p></div></div>
+        cards.append(f'''<article id="{prefix}{number}" data-outcome="{a['outcome']}">
+<div class="meta">{prefix}{number}{esc(alias)} · {esc(r['dataset'].upper())} · {esc(r['cohort'])} · {esc(r['sample_id'])}</div>
+<h2>{esc(r['query'])}</h2><div class="answers"><div><b>C1 原答</b><p>{esc(r['initial_answer'])}</p></div><div><b>{arm}</b><p>{esc(r['final_answer'])}</p></div></div>
 <div class="opinion"><b>辅助建议：{OUTCOMES[a['outcome']]}</b><p>{correctness}：{label(a['initial_correct'])} → {label(a['final_correct'])}；Top-5 支持：{label(a['initial_supported'])} → {label(a['final_supported'])}。实际引用：{esc(a.get('final_citation_support', '未单列，见判断理由与引用原文'))}。</p><p>{esc(a['reason_zh'])}</p></div>
 <details><summary>实际引用（{len(r['model_result']['citations'])} 条）</summary>{citations or '<p>无引用</p>'}</details>
 <details><summary>完整 Top-5 证据</summary>{evidence}</details>
 <details><summary>冻结参考与出处</summary><p>{esc(json.dumps(r['frozen_reference'], ensure_ascii=False))}</p><p>结果 SHA-256：{r['result_sha256']}</p><p>依据：{esc(a['correctness_basis'])}；参考可见；人工状态：pending。</p></details>
 </article>''')
+    counts = Counter(r["agent_review"]["outcome"] for r in rows)
+    intro = " · ".join(f"{label} {counts[key]}" for key, label in OUTCOMES.items() if counts[key])
+    scope = scope or "固定抽样：FEVER 5/5、旧 NQ 20/20、第 4 批 NQ 20/52。不得把这 45 条或辅助意见当作全部 841 条的人工结论。"
     options = "".join(f'<option value="{k}">{v}</option>' for k, v in OUTCOMES.items())
     return '''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>E · v7 历史 45 条改答审核</title><style>
+<title>''' + esc(title) + '''</title><style>
 body{margin:0;background:#f1f5f5;color:#17333c;font:16px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}header{background:#143e45;color:white;padding:28px max(22px,calc((100% - 1100px)/2))}h1{margin:0;font-size:27px}header p{margin:10px 0}main{max-width:1100px;margin:auto;padding:20px}.controls{position:sticky;top:0;background:#f1f5f5;padding:12px 0;display:flex;gap:10px;flex-wrap:wrap}input,select{font:inherit;padding:9px;border:1px solid #afc6c7;border-radius:6px}input{flex:1;min-width:220px}article{background:white;padding:24px;border:1px solid #d2dfdf;border-radius:12px;margin:12px 0 22px;scroll-margin-top:90px}h2{font-size:21px;margin:8px 0 16px}.meta{color:#55717b;font-size:13px}.answers{display:grid;grid-template-columns:1fr 1fr;gap:18px}.answers>div{background:#f5f8f7;border-left:3px solid #167a6b;padding:12px}.answers p{margin:5px 0}.opinion{background:#fff6e7;padding:16px;margin:18px 0}details{border-top:1px solid #dae2e2;padding:10px 0}summary{cursor:pointer}p,blockquote{white-space:pre-wrap;overflow-wrap:anywhere}blockquote{border-left:3px solid #9fc5ba;padding:8px 15px;margin:8px 0}.hidden{display:none}#count{align-self:center;font-size:14px}@media(max-width:650px){.answers{grid-template-columns:1fr}article{padding:16px}}
-</style><header><h1>E · v7 历史 45 条改答审核</h1><p>代理辅助已完成 45/45，人工确认 0/45。参考答案可见；判断只针对冻结问题和证据。</p><p>建议修复 4 · 疑似误修 9 · 正确保留／同义改写 15 · 仍未答对 10 · 正确性待定 6 · 仅参考翻转 1。</p><p>请在聊天中按 H 编号确认或纠正，例如“H29 同意；H37 暂缓”。这一页只展示材料，不会自动提交人工标签。</p></header><main><div class="controls"><input id="search" aria-label="搜索编号、问题或证据" placeholder="搜索 H 编号、问题、答案或证据"><select id="filter" aria-label="筛选辅助建议"><option value="all">全部建议</option>''' + options + '''</select><span id="count"></span></div>''' + "".join(cards) + '''<p>固定抽样：FEVER 5/5、旧 NQ 20/20、第 4 批 NQ 20/52。不得把这 45 条或辅助意见当作全部 841 条的人工结论。</p></main><script>
-const cards=[...document.querySelectorAll('article')],search=document.getElementById('search'),filter=document.getElementById('filter');function update(){const s=search.value.trim().toLowerCase();let n=0;for(const c of cards){const visible=(!s||c.textContent.toLowerCase().includes(s))&&(filter.value==='all'||c.dataset.outcome===filter.value);c.classList.toggle('hidden',!visible);n+=visible;}document.getElementById('count').textContent=`显示 ${n} / ${cards.length}`;}search.addEventListener('input',update);filter.addEventListener('change',update);update();
+</style><header><h1>''' + esc(title) + f'''</h1><p>代理辅助已完成 {len(rows)}/{len(rows)}，人工确认 0/{len(rows)}。参考答案可见；判断只针对冻结问题和证据。</p><p>{esc(intro)}</p><p>请在聊天中按 {prefix} 编号确认或纠正。这一页只展示材料，不会自动提交人工标签。</p></header><main><div class="controls"><input id="search" autocomplete="off" spellcheck="false" aria-label="搜索编号、问题或证据" placeholder="搜索编号、问题、答案或证据"><select id="filter" aria-label="筛选辅助建议"><option value="all">全部建议</option>''' + options + '''</select><span id="count"></span></div>''' + "".join(cards) + '<p>' + esc(scope) + '''</p></main><script>
+const cards=[...document.querySelectorAll('article')],search=document.getElementById('search'),filter=document.getElementById('filter');function update(){const s=search.value.trim().toLowerCase();let n=0;for(const c of cards){const match=/^[hf][0-9]+$/.test(s)?c.id.toLowerCase()===s:c.textContent.toLowerCase().includes(s);const visible=(!s||match)&&(filter.value==='all'||c.dataset.outcome===filter.value);c.classList.toggle('hidden',!visible);n+=visible;}document.getElementById('count').textContent=`显示 ${n} / ${cards.length}`;}search.addEventListener('input',update);filter.addEventListener('change',update);update();
 </script></html>'''
 
 
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--directory", type=Path, default=ROOT / "artifacts/answer_repair/v7_historical_review_v1")
+    p.add_argument("--prefix", choices=("H", "F"), default="H")
+    p.add_argument("--title", default="E · v7 历史 45 条改答审核")
+    p.add_argument("--scope")
+    p.add_argument("--summary-version", default="answer_repair_v7_historical_assisted_complete_v1")
     args = p.parse_args(argv)
-    rows, hashes = load(args.directory); report = summary(rows, hashes)
+    rows, hashes = load(args.directory)
+    kwargs = {"scope": args.scope} if args.scope else {}
+    report = summary(rows, hashes, version=args.summary_version, **kwargs)
     (args.directory / "assisted_summary.json").write_bytes(encode(report))
-    (args.directory / "H45_review.html").write_text(render(rows, report), encoding="utf-8")
+    (args.directory / f"{args.prefix}{len(rows)}_review.html").write_text(
+        render(rows, report, prefix=args.prefix, title=args.title, scope=args.scope), encoding="utf-8")
     print(json.dumps(report, ensure_ascii=False, indent=2))
 
 

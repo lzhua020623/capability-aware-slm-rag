@@ -1,0 +1,58 @@
+{
+  "version": "answer_repair_final_changed_assisted_complete_v1",
+  "sources_sha256": {
+    "queue": "e8115cb6854e9e602b1aa3710b00fa4f34bcbf40ed560209cf788b7ec070440c",
+    "assisted": "eb4f83b7cb92aacd0dc22188c766cbffab1a8d5f70874dd38988a5aa0b7ca9bb"
+  },
+  "agent_assistance_complete": true,
+  "human_confirmed": 0,
+  "human_pending": 42,
+  "reference_visible": true,
+  "human_fields_unchanged": true,
+  "sample": {
+    "records": 42,
+    "outcomes": {
+      "correct_preserved": 23,
+      "suggested_regression": 6,
+      "correctness_unresolved": 7,
+      "suggested_fix": 6
+    }
+  },
+  "by_stratum": {
+    "nq75/nq/short_answer_quote": {
+      "records": 14,
+      "outcomes": {
+        "correct_preserved": 8,
+        "suggested_regression": 2,
+        "correctness_unresolved": 1,
+        "suggested_fix": 3
+      }
+    },
+    "nq75/nq/conservative_repair": {
+      "records": 1,
+      "outcomes": {
+        "suggested_fix": 1
+      }
+    },
+    "nq125/nq/short_answer_quote": {
+      "records": 27,
+      "outcomes": {
+        "suggested_fix": 2,
+        "correct_preserved": 15,
+        "correctness_unresolved": 6,
+        "suggested_regression": 4
+      }
+    }
+  },
+  "unresolved_field_numbers": [
+    4,
+    19,
+    21,
+    22,
+    35,
+    36,
+    40
+  ],
+  "reference_only_numbers": [],
+  "scope": "最终75条开发与125条E组件分层挑战的全部主策略改答。F1–F14为开发v7，F15为开发r3，F16–F42为未见批v7。含41个样本，F13/F15是同一题的不同答案。全部为参考可见的代理建议，人工确认前不作语义收益结论；不包含消融输出，不外推NQ总体表现。"
+}

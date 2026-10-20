@@ -1180,5 +1180,33 @@
       "artifacts/answer_repair/v7_combined_review/review_all.jsonl",
       "artifacts/answer_repair/v7_combined_review/review_all.txt"
     ]
+  },
+  "appended_20261021_final_e_results": {
+    "note": "Both frozen final r3 experiments completed and replayed; 42 primary changed pairs / 41 unique samples have agent opinions, all human confirmations pending. No post-run strategy changes.",
+    "runs": {
+      "final_nq75": {
+        "source_bundle_sha256": "b5be903db6efecb5681498f0110ebed65920369ca1e5d466492ebae7455fc98b",
+        "result_zip_sha256": "15a5c987c38c0d1514af648ac190788ed4075115bf525eefbb84b3a0312f2802",
+        "replayed_records": 300,
+        "result_validation_sha256": "67777684af8501779965db25d5a48a0e6a09168862bbcde80522d38ead0a5762",
+        "human_final_gain": null
+      },
+      "unseen_nq125": {
+        "source_bundle_sha256": "17dcadf90d30e8fea7a4f5d0fd259f17d9c5739484eec52d7586a5855f52855f",
+        "result_zip_sha256": "f604e0b85266abd86efed22915a745eeb854d1bc15046ff42ea7e6856a5744eb",
+        "replayed_records": 250,
+        "result_validation_sha256": "f53b4f158d4fb9c3699da76d04bab5132d09d102de974c42257ce9bf6f5a4f96",
+        "human_final_gain": null
+      }
+    },
+    "review_queue_sha256": "e8115cb6854e9e602b1aa3710b00fa4f34bcbf40ed560209cf788b7ec070440c",
+    "agent_assisted_pairs": 42,
+    "human_confirmed": 0
+  },
+  "appended_20261021_historical_assistance": {
+    "review_pairs": 45,
+    "human_confirmed": 0,
+    "assisted_sha256": "31b14b63f3ff04c34edbc73ab7e70751b504e84d2fae03c422f3abebc41e2903",
+    "scope": "Fixed historical changed-output sample; not 841 human-reviewed predictions"
   }
 }

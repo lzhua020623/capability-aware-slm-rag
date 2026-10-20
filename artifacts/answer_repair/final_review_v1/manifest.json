@@ -1,0 +1,25 @@
+{
+  "version": "answer_repair_final_changed_review_v1",
+  "queue_sha256": "e8115cb6854e9e602b1aa3710b00fa4f34bcbf40ed560209cf788b7ec070440c",
+  "sources": {
+    "final_nq75": {
+      "receipt_sha256": "67777684af8501779965db25d5a48a0e6a09168862bbcde80522d38ead0a5762",
+      "queue_sha256": "5fa4f8944ceccc0d5721545f28a38eef7bbb777f154050dae199196dea1642a4"
+    },
+    "unseen_nq125": {
+      "receipt_sha256": "f53b4f158d4fb9c3699da76d04bab5132d09d102de974c42257ce9bf6f5a4f96",
+      "queue_sha256": "33c3a29640ee5962b81aba5b77ec2d38cc555a428db3ff473154dfbf857f3e5d"
+    }
+  },
+  "selected_pairs": 42,
+  "unique_dataset_sample_ids": 41,
+  "primary_changed_result_pairs": 42,
+  "by_run_strategy": {
+    "final_nq75/short_answer_quote": 14,
+    "final_nq75/conservative_repair": 1,
+    "unseen_nq125/short_answer_quote": 27
+  },
+  "human_confirmed": 0,
+  "all_human_fields_pending": true,
+  "scope": "All changed v7/r3 outputs from final dev75 and E-only stratified challenge125; ablations excluded; no correctness-based selection"
+}

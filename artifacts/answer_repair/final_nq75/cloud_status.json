@@ -1,6 +1,6 @@
 {
   "observed_at_utc": "2026-10-19T13:30:48.238979+00:00",
-  "status": "Running",
+  "status": "Complete",
   "script_version_id": 360070600,
   "notebook_url": "https://www.kaggle.com/code/yearo111/e-final-nq75-r3-comparison-20261020?scriptVersionId=360070600",
   "private_dataset_url": "https://www.kaggle.com/datasets/yearo111/e-final-nq75-frozen-r3-20261020",
@@ -9,7 +9,11 @@
   "selected_final_revision": "r3",
   "generated_records_expected": 300,
   "generation_call_upper_bound": 600,
-  "results_received": false,
-  "gpu_inference_completed": false,
-  "human_final_gain": null
+  "results_received": true,
+  "gpu_inference_completed": true,
+  "human_final_gain": null,
+  "collected_at_utc": "2026-10-20T23:09:53.098150+00:00",
+  "replayed_records": 300,
+  "result_zip_sha256": "15a5c987c38c0d1514af648ac190788ed4075115bf525eefbb84b3a0312f2802",
+  "semantic_correctness_verified": false
 }

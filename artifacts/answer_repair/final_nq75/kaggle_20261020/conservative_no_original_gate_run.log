@@ -1,0 +1,166 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "nq", "--c1", "/kaggle/working/e_v8_b5be903db6ef/answer_repair_final_r3_nq75_gpu/inputs/nq75_c1.jsonl", "--all", "--strategy", "conservative_no_original_gate", "--max-new-tokens", "384", "--out", "/kaggle/working/answer_repair_final_r3_nq75_outputs/conservative_no_original_gate.jsonl"]
+{
+  "source": "/kaggle/working/e_v8_b5be903db6ef/answer_repair_final_r3_nq75_gpu/inputs/nq75_c1.jsonl",
+  "dataset": "nq",
+  "strategy": "conservative_no_original_gate",
+  "routing": "all",
+  "samples": 75,
+  "completed": 0,
+  "routed_samples": 75,
+  "remaining_call_upper_bound": 150,
+  "remaining_classifier_samples": 0,
+  "fingerprint": "8c17b91a5e8480fbd97f8322b6dc6a7432eb6bbbc9fea3dd93e005ede985606d",
+  "output": "/kaggle/working/answer_repair_final_r3_nq75_outputs/conservative_no_original_gate.jsonl"
+}
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<01:30,  3.76it/s]
+Loading weights:   1%|          | 2/339 [00:00<01:29,  3.78it/s]
+Loading weights:   1%|          | 4/339 [00:00<00:43,  7.64it/s]
+Loading weights:   5%|▍         | 16/339 [00:00<00:09, 33.21it/s]
+Loading weights:   8%|▊         | 26/339 [00:00<00:06, 49.78it/s]
+Loading weights:  10%|▉         | 33/339 [00:00<00:05, 52.24it/s]
+Loading weights:  12%|█▏        | 41/339 [00:01<00:05, 57.48it/s]
+Loading weights:  16%|█▌        | 53/339 [00:01<00:04, 67.11it/s]
+Loading weights:  19%|█▉        | 64/339 [00:01<00:03, 76.31it/s]
+Loading weights:  22%|██▏       | 74/339 [00:01<00:03, 82.23it/s]
+Loading weights:  24%|██▍       | 83/339 [00:01<00:03, 78.48it/s]
+Loading weights:  27%|██▋       | 92/339 [00:01<00:03, 75.56it/s]
+Loading weights:  30%|███       | 102/339 [00:01<00:03, 74.41it/s]
+Loading weights:  34%|███▎      | 114/339 [00:01<00:02, 78.37it/s]
+Loading weights:  37%|███▋      | 125/339 [00:02<00:02, 85.60it/s]
+Loading weights:  40%|████      | 137/339 [00:02<00:02, 86.74it/s]
+Loading weights:  44%|████▍     | 149/339 [00:02<00:02, 87.21it/s]
+Loading weights:  47%|████▋     | 161/339 [00:02<00:02, 88.37it/s]
+Loading weights:  51%|█████     | 173/339 [00:02<00:01, 89.10it/s]
+Loading weights:  55%|█████▍    | 185/339 [00:02<00:01, 88.86it/s]
+Loading weights:  58%|█████▊    | 197/339 [00:02<00:01, 89.59it/s]
+Loading weights:  62%|██████▏   | 209/339 [00:03<00:01, 89.76it/s]
+Loading weights:  65%|██████▌   | 221/339 [00:03<00:01, 89.17it/s]
+Loading weights:  69%|██████▊   | 233/339 [00:03<00:01, 89.86it/s]
+Loading weights:  72%|███████▏  | 245/339 [00:03<00:01, 90.56it/s]
+Loading weights:  76%|███████▌  | 257/339 [00:03<00:00, 89.41it/s]
+Loading weights:  79%|███████▉  | 269/339 [00:03<00:00, 89.08it/s]
+Loading weights:  83%|████████▎ | 281/339 [00:03<00:00, 88.76it/s]
+Loading weights:  86%|████████▋ | 293/339 [00:03<00:00, 89.46it/s]
+Loading weights:  90%|████████▉ | 305/339 [00:04<00:00, 89.92it/s]
+Loading weights:  94%|█████████▎| 317/339 [00:04<00:00, 89.43it/s]
+Loading weights:  97%|█████████▋| 329/339 [00:04<00:00, 90.09it/s]
+Loading weights: 100%|██████████| 339/339 [00:04<00:00, 76.64it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[1/75] 8045087486700792769: candidate_unchanged
+[2/75] 6935740157411537788: candidate_invalid
+[3/75] 3873185573437128094: candidate_unchanged
+[4/75] -2862660005729156072: candidate_unchanged
+[5/75] 2847980457887203111: candidate_unchanged
+[6/75] -6909798989883244156: candidate_invalid
+[7/75] 5772936311107312940: candidate_invalid
+[8/75] 3253525630861841717: candidate_unchanged
+[9/75] -7993122396287347186: candidate_unchanged
+[10/75] -1178549234723633450: candidate_unchanged
+[11/75] -5462248607427716715: candidate_unchanged
+[12/75] -3869689776609561239: repaired
+[13/75] -8545550343341719460: candidate_invalid
+[14/75] -5155812282345038008: candidate_unchanged
+[15/75] -2668077822681514653: candidate_invalid
+[16/75] -2374000572693790398: candidate_unchanged
+[17/75] 8807212559725492691: candidate_invalid
+[18/75] 7243818178627473072: candidate_invalid
+[19/75] 3297321773729700265: candidate_unchanged
+[20/75] -4660048733997517029: candidate_invalid
+[21/75] -4893882152565259225: candidate_unchanged
+[22/75] 1739926213792453012: candidate_rejected
+[23/75] -3375552100711015909: candidate_invalid
+[24/75] 5822180296105627301: candidate_invalid
+[25/75] -5476828546252817553: candidate_invalid
+[26/75] -3169716056891969228: candidate_invalid
+[27/75] -3954878209346763094: candidate_unchanged
+[28/75] 2095868851000293874: repaired
+[29/75] 4090393036850137417: repaired
+[30/75] -1837440648407770655: candidate_unchanged
+[31/75] -2477693809305952311: repaired
+[32/75] 6098465629713582210: candidate_invalid
+[33/75] 2714282365828041450: candidate_invalid
+[34/75] 8542075949294420082: candidate_unchanged
+[35/75] 8854896567380520932: candidate_unchanged
+[36/75] -5028227845229715599: candidate_unchanged
+[37/75] -8389494065836841182: candidate_unchanged
+[38/75] -1981506712537073428: candidate_rejected
+[39/75] -564035461981251695: candidate_unchanged
+[40/75] -4431827520967666941: candidate_invalid
+[41/75] -547285585922035520: repaired
+[42/75] -703872651120117348: candidate_unchanged
+[43/75] 2517363209257675065: candidate_invalid
+[44/75] 3898710090334906649: repaired
+[45/75] 6471608951128519572: candidate_unchanged
+[46/75] -1904111941153300402: candidate_invalid
+[47/75] 3219108291257004958: candidate_invalid
+[48/75] 1457639279894856450: candidate_invalid
+[49/75] 7643377925242908266: candidate_invalid
+[50/75] -8942709420542468525: candidate_invalid
+[51/75] 7659680993559844629: candidate_invalid
+[52/75] 3473298008288621013: candidate_unchanged
+[53/75] -455522481629941063: candidate_unchanged
+[54/75] -7534977440550994951: repaired
+[55/75] -787222857578843686: candidate_invalid
+[56/75] 3133601013091477200: candidate_invalid
+[57/75] -5016482629216613272: candidate_unchanged
+[58/75] -2794432552733964922: candidate_unchanged
+[59/75] 7728406136919122642: candidate_invalid
+[60/75] 676364825758831059: candidate_invalid
+[61/75] -5283919567456439969: candidate_unchanged
+[62/75] -5223755550735908441: candidate_unchanged
+[63/75] -7971666984412271711: candidate_invalid
+[64/75] 5607341441683614186: candidate_unchanged
+[65/75] -3785663679516475986: candidate_invalid
+[66/75] -1941458279715717945: candidate_invalid
+[67/75] 258078115163430675: repaired
+[68/75] 40482195487920200: candidate_invalid
+[69/75] 3326691068650840908: repaired
+[70/75] 2576360884323654666: candidate_invalid
+[71/75] -7203695625159603076: repaired
+[72/75] -3805777236251722390: repaired
+[73/75] 3252643664278412553: repaired
+[74/75] -1848647332780502367: candidate_invalid
+[75/75] -3270371413280430670: candidate_unchanged
+{
+  "run_fingerprint": "8c17b91a5e8480fbd97f8322b6dc6a7432eb6bbbc9fea3dd93e005ede985606d",
+  "routing": "all",
+  "strategy": "conservative_no_original_gate",
+  "evaluated_samples": 75,
+  "initial_correct": 20,
+  "final_correct": 19,
+  "initial_accuracy": 0.26666666666666666,
+  "final_accuracy": 0.25333333333333335,
+  "fixed": 2,
+  "regressed": 3,
+  "net_correct_gain": -1,
+  "accuracy_gain": -0.013333333333333334,
+  "mcnemar_exact_pvalue": 1.0,
+  "repair_success_rate": 0.03636363636363636,
+  "regression_rate": 0.15,
+  "changed": 12,
+  "verifier_calls": 0,
+  "verifier_latency_total": 0.0,
+  "verifier_input_tokens_total": 0,
+  "extra_calls": 89,
+  "extra_calls_per_sample": 1.1866666666666668,
+  "extra_generation_latency_total": 590.9594238459993,
+  "extra_generation_latency_per_sample": 7.879458984613323,
+  "status_counts": {
+    "candidate_unchanged": 29,
+    "candidate_invalid": 32,
+    "repaired": 12,
+    "candidate_rejected": 2
+  },
+  "independent_support_checked": 0,
+  "same_model_support_check_counts": {},
+  "input_tokens_total": 93146,
+  "input_tokens_observed_samples": 75,
+  "input_tokens_observed_calls": 89,
+  "output_tokens_estimate_total": 6241,
+  "output_tokens_estimate_observed_samples": 75,
+  "output_tokens_estimate_observed_calls": 89,
+  "initial_f1": 0.5838279908291094,
+  "final_f1": 0.5672811507381046
+}

@@ -1,0 +1,10 @@
+{
+  "transport": "kaggle_auto_extracted",
+  "source": "/kaggle/input/datasets/yearo111/e-final-nq75-frozen-r3-20261020/answer_repair_final_r3_nq75_gpu",
+  "bundle": "/kaggle/working/e_v8_b5be903db6ef/answer_repair_final_r3_nq75_gpu",
+  "expected_archive_sha256": "b5be903db6efecb5681498f0110ebed65920369ca1e5d466492ebae7455fc98b",
+  "archive_hash_verified": false,
+  "checksums_sha256": "e843f615e696c1f205158744ce2ad57dc941d6b83338c716ea5711736a14383e",
+  "payload_hash_checked_files": 99,
+  "algorithm_or_input_modified": false
+}

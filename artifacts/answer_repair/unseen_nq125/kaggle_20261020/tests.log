@@ -1,0 +1,7 @@
+COMMAND ["/usr/bin/python3", "/kaggle/working/answer_repair_final_r3_nq125_outputs/preflight_ast_compat.py", "tests.test_answer_repair", "tests.test_answer_repair_experiment", "tests.test_answer_repair_v5", "tests.test_answer_repair_v6", "tests.test_answer_repair_v7", "tests.test_answer_repair_v8", "tests.test_answer_repair_v8_r2", "tests.test_answer_repair_v8_r3"]
+Frozen preflight AST schema: Python 3.11; only empty type_params omitted; test process only.
+...............................................................................................................
+----------------------------------------------------------------------
+Ran 111 tests in 0.280s
+
+OK

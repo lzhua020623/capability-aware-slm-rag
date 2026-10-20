@@ -1,0 +1,203 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "nq", "--c1", "/kaggle/working/e_v8_b5be903db6ef/answer_repair_final_r3_nq75_gpu/inputs/nq75_c1.jsonl", "--all", "--strategy", "short_answer_quote", "--max-new-tokens", "384", "--out", "/kaggle/working/answer_repair_final_r3_nq75_outputs/short_answer_quote.jsonl"]
+{
+  "source": "/kaggle/working/e_v8_b5be903db6ef/answer_repair_final_r3_nq75_gpu/inputs/nq75_c1.jsonl",
+  "dataset": "nq",
+  "strategy": "short_answer_quote",
+  "routing": "all",
+  "samples": 75,
+  "completed": 0,
+  "routed_samples": 75,
+  "remaining_call_upper_bound": 75,
+  "remaining_classifier_samples": 0,
+  "fingerprint": "7f4be129b1a2db7ac7cffea90f213214128088030a560546504039f75f978eb5",
+  "output": "/kaggle/working/answer_repair_final_r3_nq75_outputs/short_answer_quote.jsonl"
+}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+Fetching 4 files:  25%|██▌       | 1/4 [01:02<03:08, 62.78s/it]
+Fetching 4 files: 100%|██████████| 4/4 [01:02<00:00, 15.70s/it]
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:03<20:15,  3.60s/it]
+Loading weights:   1%|          | 2/339 [00:07<22:19,  3.97s/it]
+Loading weights:   1%|          | 4/339 [00:08<09:32,  1.71s/it]
+Loading weights:   1%|▏         | 5/339 [00:08<06:49,  1.23s/it]
+Loading weights:   5%|▍         | 16/339 [00:08<01:11,  4.53it/s]
+Loading weights:   7%|▋         | 24/339 [00:08<00:39,  8.04it/s]
+Loading weights:   9%|▉         | 30/339 [00:09<00:27, 11.12it/s]
+Loading weights:  12%|█▏        | 41/339 [00:09<00:15, 18.78it/s]
+Loading weights:  15%|█▌        | 52/339 [00:09<00:10, 27.96it/s]
+Loading weights:  18%|█▊        | 60/339 [00:09<00:08, 34.52it/s]
+Loading weights:  20%|██        | 68/339 [00:09<00:06, 39.84it/s]
+Loading weights:  23%|██▎       | 77/339 [00:09<00:05, 48.39it/s]
+Loading weights:  26%|██▌       | 88/339 [00:09<00:04, 59.99it/s]
+Loading weights:  29%|██▊       | 97/339 [00:09<00:03, 66.01it/s]
+Loading weights:  31%|███▏      | 106/339 [00:09<00:03, 66.60it/s]
+Loading weights:  34%|███▍      | 115/339 [00:10<00:03, 67.73it/s]
+Loading weights:  37%|███▋      | 124/339 [00:10<00:05, 38.11it/s]
+Loading weights:  38%|███▊      | 130/339 [00:11<00:13, 15.65it/s]
+Loading weights:  40%|███▉      | 135/339 [00:11<00:11, 18.08it/s]
+Loading weights:  41%|████▏     | 140/339 [00:13<00:23,  8.63it/s]
+Loading weights:  42%|████▏     | 144/339 [00:13<00:20,  9.72it/s]
+Loading weights:  44%|████▎     | 148/339 [00:14<00:21,  8.98it/s]
+Loading weights:  45%|████▍     | 151/339 [00:15<00:30,  6.23it/s]
+Loading weights:  45%|████▌     | 154/339 [00:15<00:24,  7.50it/s]
+Loading weights:  46%|████▌     | 156/339 [00:15<00:21,  8.39it/s]
+Loading weights:  47%|████▋     | 160/339 [00:16<00:22,  7.96it/s]
+Loading weights:  48%|████▊     | 162/339 [00:17<00:36,  4.87it/s]
+Loading weights:  51%|█████     | 172/339 [00:17<00:19,  8.41it/s]
+Loading weights:  51%|█████▏    | 174/339 [00:18<00:23,  6.88it/s]
+Loading weights:  54%|█████▍    | 184/339 [00:18<00:15, 10.31it/s]
+Loading weights:  55%|█████▍    | 186/339 [00:19<00:23,  6.58it/s]
+Loading weights:  56%|█████▌    | 190/339 [00:20<00:17,  8.39it/s]
+Loading weights:  57%|█████▋    | 192/339 [00:20<00:15,  9.23it/s]
+Loading weights:  58%|█████▊    | 196/339 [00:20<00:16,  8.51it/s]
+Loading weights:  58%|█████▊    | 198/339 [00:21<00:27,  5.16it/s]
+Loading weights:  60%|█████▉    | 202/339 [00:21<00:18,  7.29it/s]
+Loading weights:  60%|██████    | 204/339 [00:21<00:16,  8.32it/s]
+Loading weights:  61%|██████▏   | 208/339 [00:22<00:16,  7.84it/s]
+Loading weights:  62%|██████▏   | 210/339 [00:23<00:27,  4.71it/s]
+Loading weights:  63%|██████▎   | 214/339 [00:23<00:18,  6.92it/s]
+Loading weights:  64%|██████▎   | 216/339 [00:23<00:15,  7.99it/s]
+Loading weights:  65%|██████▍   | 220/339 [00:24<00:15,  7.64it/s]
+Loading weights:  65%|██████▌   | 222/339 [00:25<00:20,  5.69it/s]
+Loading weights:  69%|██████▊   | 233/339 [00:25<00:07, 13.50it/s]
+Loading weights:  72%|███████▏  | 244/339 [00:25<00:04, 22.11it/s]
+Loading weights:  74%|███████▍  | 252/339 [00:25<00:03, 28.88it/s]
+Loading weights:  76%|███████▌  | 258/339 [00:25<00:02, 32.08it/s]
+Loading weights:  79%|███████▉  | 268/339 [00:26<00:02, 26.46it/s]
+Loading weights:  82%|████████▏ | 278/339 [00:26<00:01, 35.67it/s]
+Loading weights:  84%|████████▍ | 284/339 [00:27<00:04, 12.42it/s]
+Loading weights:  85%|████████▌ | 289/339 [00:27<00:03, 13.83it/s]
+Loading weights:  86%|████████▋ | 293/339 [00:29<00:05,  8.89it/s]
+Loading weights:  87%|████████▋ | 296/339 [00:29<00:05,  8.03it/s]
+Loading weights:  88%|████████▊ | 299/339 [00:29<00:04,  9.32it/s]
+Loading weights:  89%|████████▉ | 302/339 [00:29<00:03, 10.89it/s]
+Loading weights:  90%|████████▉ | 305/339 [00:30<00:05,  6.36it/s]
+Loading weights:  91%|█████████ | 307/339 [00:31<00:05,  5.70it/s]
+Loading weights:  92%|█████████▏| 312/339 [00:31<00:03,  8.30it/s]
+Loading weights:  93%|█████████▎| 316/339 [00:32<00:02,  7.98it/s]
+Loading weights:  94%|█████████▍| 318/339 [00:33<00:04,  5.11it/s]
+Loading weights:  96%|█████████▌| 324/339 [00:33<00:01,  8.18it/s]
+Loading weights:  97%|█████████▋| 328/339 [00:33<00:01,  7.86it/s]
+Loading weights:  97%|█████████▋| 330/339 [00:34<00:01,  5.10it/s]
+Loading weights:  99%|█████████▊| 334/339 [00:35<00:00,  7.16it/s]
+Loading weights:  99%|█████████▉| 336/339 [00:35<00:00,  8.13it/s]
+Loading weights: 100%|██████████| 339/339 [00:35<00:00,  9.65it/s]
+[1/75] 8045087486700792769: invalid_output
+[2/75] 6935740157411537788: invalid_output
+[3/75] 3873185573437128094: kept
+[4/75] -2862660005729156072: invalid_output
+[5/75] 2847980457887203111: invalid_output
+[6/75] -6909798989883244156: invalid_output
+[7/75] 5772936311107312940: invalid_output
+[8/75] 3253525630861841717: kept
+[9/75] -7993122396287347186: invalid_output
+[10/75] -1178549234723633450: repaired
+[11/75] -5462248607427716715: invalid_output
+[12/75] -3869689776609561239: repaired
+[13/75] -8545550343341719460: invalid_output
+[14/75] -5155812282345038008: kept
+[15/75] -2668077822681514653: invalid_output
+[16/75] -2374000572693790398: invalid_output
+[17/75] 8807212559725492691: kept
+[18/75] 7243818178627473072: repaired
+[19/75] 3297321773729700265: kept
+[20/75] -4660048733997517029: invalid_output
+[21/75] -4893882152565259225: kept
+[22/75] 1739926213792453012: repaired
+[23/75] -3375552100711015909: invalid_output
+[24/75] 5822180296105627301: repaired
+[25/75] -5476828546252817553: invalid_output
+[26/75] -3169716056891969228: invalid_output
+[27/75] -3954878209346763094: kept
+[28/75] 2095868851000293874: invalid_output
+[29/75] 4090393036850137417: invalid_output
+[30/75] -1837440648407770655: invalid_output
+[31/75] -2477693809305952311: invalid_output
+[32/75] 6098465629713582210: invalid_output
+[33/75] 2714282365828041450: invalid_output
+[34/75] 8542075949294420082: invalid_output
+[35/75] 8854896567380520932: kept
+[36/75] -5028227845229715599: kept
+[37/75] -8389494065836841182: repaired
+[38/75] -1981506712537073428: repaired
+[39/75] -564035461981251695: invalid_output
+[40/75] -4431827520967666941: invalid_output
+[41/75] -547285585922035520: invalid_output
+[42/75] -703872651120117348: repaired
+[43/75] 2517363209257675065: invalid_output
+[44/75] 3898710090334906649: repaired
+[45/75] 6471608951128519572: kept
+[46/75] -1904111941153300402: invalid_output
+[47/75] 3219108291257004958: invalid_output
+[48/75] 1457639279894856450: invalid_output
+[49/75] 7643377925242908266: kept
+[50/75] -8942709420542468525: invalid_output
+[51/75] 7659680993559844629: repaired
+[52/75] 3473298008288621013: kept
+[53/75] -455522481629941063: invalid_output
+[54/75] -7534977440550994951: repaired
+[55/75] -787222857578843686: unanchored_candidate
+[56/75] 3133601013091477200: invalid_output
+[57/75] -5016482629216613272: invalid_output
+[58/75] -2794432552733964922: invalid_output
+[59/75] 7728406136919122642: invalid_output
+[60/75] 676364825758831059: kept
+[61/75] -5283919567456439969: kept
+[62/75] -5223755550735908441: kept
+[63/75] -7971666984412271711: repaired
+[64/75] 5607341441683614186: invalid_output
+[65/75] -3785663679516475986: invalid_output
+[66/75] -1941458279715717945: invalid_output
+[67/75] 258078115163430675: invalid_output
+[68/75] 40482195487920200: invalid_output
+[69/75] 3326691068650840908: invalid_output
+[70/75] 2576360884323654666: invalid_output
+[71/75] -7203695625159603076: invalid_output
+[72/75] -3805777236251722390: invalid_output
+[73/75] 3252643664278412553: repaired
+[74/75] -1848647332780502367: kept
+[75/75] -3270371413280430670: repaired
+{
+  "run_fingerprint": "7f4be129b1a2db7ac7cffea90f213214128088030a560546504039f75f978eb5",
+  "routing": "all",
+  "strategy": "short_answer_quote",
+  "evaluated_samples": 75,
+  "initial_correct": 20,
+  "final_correct": 23,
+  "initial_accuracy": 0.26666666666666666,
+  "final_accuracy": 0.30666666666666664,
+  "fixed": 5,
+  "regressed": 2,
+  "net_correct_gain": 3,
+  "accuracy_gain": 0.04,
+  "mcnemar_exact_pvalue": 0.453125,
+  "repair_success_rate": 0.09090909090909091,
+  "regression_rate": 0.1,
+  "changed": 14,
+  "verifier_calls": 0,
+  "verifier_latency_total": 0.0,
+  "verifier_input_tokens_total": 0,
+  "extra_calls": 75,
+  "extra_calls_per_sample": 1.0,
+  "extra_generation_latency_total": 471.9683700949998,
+  "extra_generation_latency_per_sample": 6.292911601266664,
+  "status_counts": {
+    "invalid_output": 44,
+    "kept": 16,
+    "repaired": 14,
+    "unanchored_candidate": 1
+  },
+  "independent_support_checked": 0,
+  "same_model_support_check_counts": {},
+  "input_tokens_total": 67685,
+  "input_tokens_observed_samples": 75,
+  "input_tokens_observed_calls": 75,
+  "output_tokens_estimate_total": 5222,
+  "output_tokens_estimate_observed_samples": 75,
+  "output_tokens_estimate_observed_calls": 75,
+  "initial_f1": 0.5838279908291094,
+  "final_f1": 0.6186547629561912
+}

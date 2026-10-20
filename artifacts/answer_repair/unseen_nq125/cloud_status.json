@@ -1,6 +1,5 @@
 {
   "observed_at_utc": "2026-10-19T13:48:22.384765+00:00",
-  "status_observed": "Queued",
   "script_version_id": 360075807,
   "notebook_url": "https://www.kaggle.com/code/yearo111/e-final-nq125-r3-challenge-20261020?scriptVersionId=360075807",
   "private_dataset_url": "https://www.kaggle.com/datasets/yearo111/e-nq125-challenge-frozen-r3-20261020",
@@ -10,9 +9,15 @@
   "samples": 125,
   "generated_records_expected": 250,
   "generation_call_upper_bound": 500,
-  "results_received": false,
-  "gpu_inference_completed": false,
+  "results_received": true,
+  "gpu_inference_completed": true,
   "semantic_correctness_verified": false,
   "team_wide_unseen_status_established": false,
-  "proof_screenshot_local": "cloud_submitted.png"
+  "proof_screenshot_local": "cloud_submitted.png",
+  "collected_at_utc": "2026-10-20T23:09:53.098150+00:00",
+  "status": "Complete",
+  "replayed_records": 250,
+  "result_zip_sha256": "f604e0b85266abd86efed22915a745eeb854d1bc15046ff42ea7e6856a5744eb",
+  "human_final_gain": null,
+  "submission_status_observed": "Queued"
 }

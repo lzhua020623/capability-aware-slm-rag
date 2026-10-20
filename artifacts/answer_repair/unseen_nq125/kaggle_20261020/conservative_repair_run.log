@@ -1,0 +1,220 @@
+COMMAND ["/usr/bin/python3", "-u", "scripts/run_answer_repair.py", "--dataset", "nq", "--c1", "/kaggle/working/e_v8_17dcadf90d30/answer_repair_final_r3_nq125_gpu/inputs/nq125_c1.jsonl", "--all", "--strategy", "conservative_repair", "--max-new-tokens", "384", "--out", "/kaggle/working/answer_repair_final_r3_nq125_outputs/conservative_repair.jsonl"]
+{
+  "source": "/kaggle/working/e_v8_17dcadf90d30/answer_repair_final_r3_nq125_gpu/inputs/nq125_c1.jsonl",
+  "dataset": "nq",
+  "strategy": "conservative_repair",
+  "routing": "all",
+  "samples": 125,
+  "completed": 0,
+  "routed_samples": 125,
+  "remaining_call_upper_bound": 375,
+  "remaining_classifier_samples": 0,
+  "fingerprint": "fe6259d10d79c475cae94f8096d83258a913806b1024e0ec9ffdb40f3e9e040b",
+  "output": "/kaggle/working/answer_repair_final_r3_nq125_outputs/conservative_repair.jsonl"
+}
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<01:26,  3.89it/s]
+Loading weights:   1%|          | 2/339 [00:00<01:25,  3.92it/s]
+Loading weights:   1%|          | 4/339 [00:00<00:42,  7.89it/s]
+Loading weights:   4%|▍         | 15/339 [00:00<00:09, 34.53it/s]
+Loading weights:   6%|▌         | 21/339 [00:00<00:08, 38.22it/s]
+Loading weights:   9%|▉         | 30/339 [00:00<00:06, 47.34it/s]
+Loading weights:  12%|█▏        | 41/339 [00:01<00:04, 60.47it/s]
+Loading weights:  15%|█▌        | 52/339 [00:01<00:03, 73.13it/s]
+Loading weights:  18%|█▊        | 62/339 [00:01<00:03, 80.17it/s]
+Loading weights:  21%|██        | 71/339 [00:01<00:03, 76.64it/s]
+Loading weights:  24%|██▎       | 80/339 [00:01<00:03, 74.87it/s]
+Loading weights:  27%|██▋       | 90/339 [00:01<00:03, 74.06it/s]
+Loading weights:  30%|██▉       | 101/339 [00:01<00:02, 83.17it/s]
+Loading weights:  33%|███▎      | 112/339 [00:01<00:02, 90.24it/s]
+Loading weights:  36%|███▌      | 122/339 [00:01<00:02, 92.57it/s]
+Loading weights:  39%|███▉      | 132/339 [00:02<00:02, 87.26it/s]
+Loading weights:  42%|████▏     | 141/339 [00:02<00:02, 84.23it/s]
+Loading weights:  44%|████▍     | 150/339 [00:02<00:02, 79.57it/s]
+Loading weights:  48%|████▊     | 162/339 [00:02<00:02, 83.70it/s]
+Loading weights:  51%|█████▏    | 174/339 [00:02<00:01, 86.08it/s]
+Loading weights:  55%|█████▍    | 186/339 [00:02<00:01, 87.85it/s]
+Loading weights:  58%|█████▊    | 198/339 [00:02<00:01, 89.00it/s]
+Loading weights:  62%|██████▏   | 210/339 [00:03<00:01, 89.41it/s]
+Loading weights:  65%|██████▌   | 222/339 [00:03<00:01, 89.03it/s]
+Loading weights:  69%|██████▉   | 234/339 [00:03<00:01, 88.62it/s]
+Loading weights:  73%|███████▎  | 246/339 [00:03<00:01, 89.55it/s]
+Loading weights:  76%|███████▌  | 258/339 [00:03<00:00, 90.32it/s]
+Loading weights:  80%|███████▉  | 270/339 [00:03<00:00, 90.46it/s]
+Loading weights:  83%|████████▎ | 282/339 [00:03<00:00, 90.31it/s]
+Loading weights:  87%|████████▋ | 294/339 [00:03<00:00, 90.68it/s]
+Loading weights:  90%|█████████ | 306/339 [00:04<00:00, 90.27it/s]
+Loading weights:  94%|█████████▍| 318/339 [00:04<00:00, 89.83it/s]
+Loading weights:  97%|█████████▋| 330/339 [00:04<00:00, 89.73it/s]
+Loading weights: 100%|██████████| 339/339 [00:04<00:00, 77.37it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[1/125] 11209806144799448: candidate_insufficient
+[2/125] -5325951479439617831: original_supported
+[3/125] 1482735520785273583: original_check_invalid
+[4/125] 2791289337176080305: original_supported
+[5/125] 6749973805769288146: original_supported
+[6/125] 3810524430141178378: original_supported
+[7/125] 263074685984627276: original_supported
+[8/125] -8189846456456795761: original_supported
+[9/125] -6585266924658658641: original_supported
+[10/125] -5782926581968900804: original_check_invalid
+[11/125] -5764576855578461762: original_supported
+[12/125] -3395384820712071564: original_check_invalid
+[13/125] 8218599104858980538: candidate_unchanged
+[14/125] -4866413855339103001: original_supported
+[15/125] -5486647261392452754: original_check_invalid
+[16/125] 7415621582573811070: original_supported
+[17/125] -3700458500250469597: candidate_unchanged
+[18/125] -2384545671248113832: original_supported
+[19/125] 3948778181353173063: original_check_invalid
+[20/125] 4143124033847057136: original_supported
+[21/125] 3641126233749045266: original_supported
+[22/125] 8365041212428550687: original_supported
+[23/125] -5774727623773985877: original_supported
+[24/125] 7363380908122438533: candidate_unchanged
+[25/125] 3014925670303662991: original_check_invalid
+[26/125] -4609734981388290529: original_check_invalid
+[27/125] -3832889924758271536: original_supported
+[28/125] 6945133188536552979: original_check_invalid
+[29/125] -7075267600383726230: original_supported
+[30/125] -7426720720532018059: original_supported
+[31/125] 1135818594813879028: original_supported
+[32/125] 3048782159240705145: original_supported
+[33/125] 2222392498956911753: original_supported
+[34/125] -7157171436162442994: original_check_invalid
+[35/125] -572969775857672569: original_check_invalid
+[36/125] 3777306535557127016: original_supported
+[37/125] 1964164562884711241: original_supported
+[38/125] -2530568567156124617: original_supported
+[39/125] -4903933041773754965: original_supported
+[40/125] -8238246874610280180: original_supported
+[41/125] 5233211032610729739: original_supported
+[42/125] -5669213354806536572: original_check_invalid
+[43/125] -7543692038835587817: original_supported
+[44/125] -4373589406113124758: original_check_invalid
+[45/125] -2048238832353162427: original_supported
+[46/125] 7277361921568995174: original_check_invalid
+[47/125] -8178615220778790931: original_supported
+[48/125] -891160053019773245: original_check_invalid
+[49/125] -4182061580130199693: original_supported
+[50/125] -7358499765807879669: original_supported
+[51/125] 6211806776334195461: original_check_invalid
+[52/125] -4145025776898813596: original_check_invalid
+[53/125] -3570137369533946074: original_supported
+[54/125] -6856196380561024268: original_check_invalid
+[55/125] 3904154345191187755: original_supported
+[56/125] -1869029885886097677: original_supported
+[57/125] -4639627469961109615: original_supported
+[58/125] -5906700244186843383: original_check_invalid
+[59/125] -948003176186875688: candidate_invalid
+[60/125] 1684673995472697722: original_supported
+[61/125] 2532913027685725533: original_supported
+[62/125] 2058966170272007730: original_supported
+[63/125] 5705188548446573295: candidate_unchanged
+[64/125] -3517532286325325405: candidate_unchanged
+[65/125] 3876745911178273992: original_check_invalid
+[66/125] 8585434524747151785: candidate_unchanged
+[67/125] 6300762469123268173: original_supported
+[68/125] -5642371253438169085: original_check_invalid
+[69/125] 7213296413401133682: original_supported
+[70/125] -8225765337874667108: original_supported
+[71/125] 5421284328651685453: original_check_invalid
+[72/125] 7245410484148588489: original_supported
+[73/125] -9101155256500206271: original_supported
+[74/125] -8503749076774373081: candidate_invalid
+[75/125] -7495206206136415928: original_supported
+[76/125] -5874070659042921333: original_supported
+[77/125] -458590508316965068: original_supported
+[78/125] -8695473978815241365: original_check_invalid
+[79/125] 7600260321800569756: original_supported
+[80/125] -7479482113315039028: original_supported
+[81/125] 6008635624298261320: original_check_invalid
+[82/125] 6859249363425971615: original_supported
+[83/125] 183785326987897937: original_check_invalid
+[84/125] 1167579462123005030: original_supported
+[85/125] 2298788441630803097: original_supported
+[86/125] -3049504831977921028: original_supported
+[87/125] 6171354912254325767: candidate_rejected
+[88/125] 5560585320193553357: original_check_invalid
+[89/125] 4042991800282300606: original_check_invalid
+[90/125] 168274094668826497: original_supported
+[91/125] 6133499621237672766: original_supported
+[92/125] 2542629015674204295: original_supported
+[93/125] 397546817774080816: original_check_invalid
+[94/125] 8318290135956444779: original_supported
+[95/125] -9082711314151647546: original_check_invalid
+[96/125] 3399334844377043382: original_check_invalid
+[97/125] -6696374238920785767: original_check_invalid
+[98/125] 821782079446715687: original_supported
+[99/125] 6544197885631933262: original_supported
+[100/125] -8174177369836541060: original_supported
+[101/125] -590000685800588908: original_supported
+[102/125] -1794465649369510023: original_supported
+[103/125] 2559452277492400813: original_supported
+[104/125] -5367444397961821075: original_supported
+[105/125] -3126748851610727506: original_uncertain
+[106/125] 2455674525626848523: original_supported
+[107/125] 5234390967906356308: original_check_invalid
+[108/125] -8988664589057470298: original_check_invalid
+[109/125] -9201030255733810134: original_check_invalid
+[110/125] 3300303070507782867: original_supported
+[111/125] -6257007744532550500: original_supported
+[112/125] 6078884951747768554: original_check_invalid
+[113/125] -6525454350868627117: original_check_invalid
+[114/125] 4159112032052037193: original_check_invalid
+[115/125] -7417257835709709961: original_supported
+[116/125] 1812732816825454125: original_supported
+[117/125] -4771633048454221677: original_check_invalid
+[118/125] 4404577298487271253: original_check_invalid
+[119/125] -5761552226439216554: original_supported
+[120/125] 4989816664699757325: original_supported
+[121/125] 1073013167409264352: original_supported
+[122/125] -3568725148335632700: original_supported
+[123/125] 6662908386801566192: original_check_invalid
+[124/125] -6534454940943076153: original_supported
+[125/125] 7718453280683447884: original_supported
+{
+  "run_fingerprint": "fe6259d10d79c475cae94f8096d83258a913806b1024e0ec9ffdb40f3e9e040b",
+  "routing": "all",
+  "strategy": "conservative_repair",
+  "evaluated_samples": 125,
+  "initial_correct": 25,
+  "final_correct": 25,
+  "initial_accuracy": 0.2,
+  "final_accuracy": 0.2,
+  "fixed": 0,
+  "regressed": 0,
+  "net_correct_gain": 0,
+  "accuracy_gain": 0.0,
+  "mcnemar_exact_pvalue": 1.0,
+  "repair_success_rate": 0.0,
+  "regression_rate": 0.0,
+  "changed": 0,
+  "verifier_calls": 0,
+  "verifier_latency_total": 0.0,
+  "verifier_input_tokens_total": 0,
+  "extra_calls": 136,
+  "extra_calls_per_sample": 1.088,
+  "extra_generation_latency_total": 1156.370703360001,
+  "extra_generation_latency_per_sample": 9.250965626880008,
+  "status_counts": {
+    "candidate_insufficient": 1,
+    "original_supported": 75,
+    "original_check_invalid": 39,
+    "candidate_unchanged": 6,
+    "candidate_invalid": 2,
+    "candidate_rejected": 1,
+    "original_uncertain": 1
+  },
+  "independent_support_checked": 0,
+  "same_model_support_check_counts": {},
+  "input_tokens_total": 164019,
+  "input_tokens_observed_samples": 125,
+  "input_tokens_observed_calls": 136,
+  "output_tokens_estimate_total": 13185,
+  "output_tokens_estimate_observed_samples": 125,
+  "output_tokens_estimate_observed_calls": 136,
+  "initial_f1": 0.4686233199333111,
+  "final_f1": 0.4686233199333111
+}

@@ -1,0 +1,5 @@
+{
+  "adapter_sha256": "dac5b7ec6c3c176f3503df32d601de937bc1ed0a5c3c2c4dd251589a208e959d",
+  "frozen_bundle_sha256": "b5be903db6efecb5681498f0110ebed65920369ca1e5d466492ebae7455fc98b",
+  "scope": "unittest process only; no inference changes"
+}

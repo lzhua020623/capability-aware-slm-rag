@@ -1,0 +1,10 @@
+{
+  "transport": "kaggle_auto_extracted",
+  "source": "/kaggle/input/datasets/yearo111/e-nq125-challenge-frozen-r3-20261020/answer_repair_final_r3_nq125_gpu",
+  "bundle": "/kaggle/working/e_v8_17dcadf90d30/answer_repair_final_r3_nq125_gpu",
+  "expected_archive_sha256": "17dcadf90d30e8fea7a4f5d0fd259f17d9c5739484eec52d7586a5855f52855f",
+  "archive_hash_verified": false,
+  "checksums_sha256": "160c752fb1208e4d796e4bf994e9d6cadd6189fb76740b83688eb6e57ae0f959",
+  "payload_hash_checked_files": 101,
+  "algorithm_or_input_modified": false
+}
