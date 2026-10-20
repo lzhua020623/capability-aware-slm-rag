@@ -1208,5 +1208,18 @@
     "human_confirmed": 0,
     "assisted_sha256": "31b14b63f3ff04c34edbc73ab7e70751b504e84d2fae03c422f3abebc41e2903",
     "scope": "Fixed historical changed-output sample; not 841 human-reviewed predictions"
+  },
+  "appended_20261021_final_human_batch01": {
+    "reviewed_pairs": 42,
+    "correctness_resolved": 32,
+    "correctness_unresolved": 10,
+    "unique_sample_ids": 41,
+    "mode": "chat_assisted_not_blind",
+    "raw_and_agent_artifacts_unchanged": true,
+    "files_sha256": {
+      "data/annotations/human/answer_repair_final_v1_batch01_20261021.confirmations.json": "c3f93508b6b3a752e0134823f7b1e66d12924e214bbe129fb07c2a1e3679e905",
+      "data/annotations/human/answer_repair_final_v1_batch01_20261021.jsonl": "a8f44b93f475766dcc4197199f53fde3ab6ec2ed17639ce64f1f9211d850c308",
+      "data/annotations/human/answer_repair_final_v1_batch01_20261021.summary.json": "832fcdb481d951d84a60517f53616f1a6ad277d522439a7571047673760d765c"
+    }
   }
 }

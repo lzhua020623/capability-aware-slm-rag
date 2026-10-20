@@ -39,3 +39,5 @@ C1 复用已有冻结预测，新增运行 v7 和最终 v8，一次性如实报�
 `scripts/collect_answer_repair_final.py` 接收对应 Kaggle 输出 ZIP（`--run dev75` 或 `--run challenge125`），校验 CRC、冻结包／模型指纹、执行环境及原始测试通过记录，然后使用该实验的冻结代码回放全部 300／250 条结果，并重算汇总。`--python` 指向与 Kaggle 相同的 Python 主／次版本，避免跨版本浮点求和差异；原始 ZIP 和导出文件保持原样。
 
 只有 v7 和最终 r3 的改答进入 `review/primary_changed_pairs.jsonl`，消融记录保留在完整审计中。所有最终语义判断及人工字段保持 pending，不能用工程回放替代人工审核。工具已用 250 条独立标明的合成记录完成集成检验；默认路径拒收合成结果，显式允许时也只能写到临时目录，不能作为模型实验结果入库。
+
+2026-10-21 人工第一批更新：F1–F42已过目，正确性定案32条、未决10条；偏好不代替二元判错，接受待定仍保留null。确认另存 `data/annotations/human/answer_repair_final_v1_batch01_20261021.*`，历史H45未被自动确认。见 [人工报告](ANSWER_REPAIR_FINAL_HUMAN_REVIEW_20261021.md)。

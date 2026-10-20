@@ -207,4 +207,5 @@ data/annotations/*.xlsx
 !artifacts/answer_repair/final_review_v1/assisted_partial.jsonl
 !artifacts/answer_repair/final_review_v1/assisted_summary.json
 !artifacts/answer_repair/final_review_v1/F42_review.html
+!artifacts/answer_repair/final_review_v1/F42_human_review.html
 !notebooks/answer_repair_final_nq125.ipynb
