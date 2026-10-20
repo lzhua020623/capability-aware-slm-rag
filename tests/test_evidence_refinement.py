@@ -316,6 +316,18 @@ class IntegrationContractTest(unittest.TestCase):
         with self.assertRaises(TypeError):
             evidence_refinement(item, routed, refiner="not a refiner")
 
+    def test_generate_exposes_one_backend_call_for_offline_evaluation(self):
+        rec = recorder("  William Shakespeare \n", p1=0.1, p2=0.9)
+        refiner = refiner_for(rec)
+        self.assertEqual(refiner.generate("a prompt"), "William Shakespeare")
+        self.assertEqual(rec.prompts, ["a prompt"])
+
+    def test_generate_rejects_a_non_text_backend_reply(self):
+        rec = recorder(p1=0.1)
+        refiner = EvidenceRefiner(rec.score, lambda prompt: 42, config=KEEP_ALL, prompt_builder=rec.prompt_builder)
+        with self.assertRaises(TypeError):
+            refiner.generate("a prompt")
+
     def test_run_returns_a_refinement_result(self):
         rec = recorder(p1=0.1, p2=0.9)
         self.assertIsInstance(refiner_for(rec).run(nq_item("p1", "p2"), decision()), RefinementResult)

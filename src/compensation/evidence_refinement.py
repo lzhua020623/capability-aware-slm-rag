@@ -151,6 +151,18 @@ class EvidenceRefiner:
 
         return cls(scorer, generate, config=config, candidate_provider=candidate_provider)
 
+    def generate(self, prompt: str) -> str:
+        """One call to the injected generator.
+
+        Offline evaluation uses it to re-ask the same backend on the evidence in
+        its original order, so a "before" answer and an "after" answer come from
+        the same numeric setup. Refinement itself never calls this directly.
+        """
+        answer = self._generate(prompt)
+        if not isinstance(answer, str):
+            raise TypeError(f"generate_fn must return a string, got {type(answer).__name__}")
+        return answer.strip()
+
     def _untouched(self, item: DiagnosisInput, status: RefinementStatus, reject_reason: str | None = None) -> RefinementResult:
         evidence = tuple(item.evidence)
         return RefinementResult(

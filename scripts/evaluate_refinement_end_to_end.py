@@ -7,10 +7,16 @@ and re-asking once turn from wrong to right?
 
 Protocol
 --------
-* "before" is the stored C1 answer, produced by the frozen Reference RAG on the
-  same Top-5. "after" is what the frozen generator returns when the same
-  passages are reordered (and optionally pruned) by the refiner. Same model,
-  same prompt text, same passages: only the ordering differs.
+* "before" is the C1 answer on the Top-5 in its original order, "after" the
+  answer on the same passages reordered (and optionally pruned) by the refiner.
+  Same model, same prompt text, same passages: only the ordering differs.
+* With the frozen local generator (`--backend frozen`), "before" is the stored
+  C1 answer, which came from exactly that setup. With any hosted backend it is
+  **regenerated through the same endpoint**, because a hosted Qwen2.5-7B serves
+  fp16/bf16 while the stored answers came from local 4-bit NF4: comparing one
+  against the other would mix quantisation into the delta. Absolute numbers
+  from a hosted run therefore will not match the frozen baseline; the
+  before/after difference is what transfers.
 * The Controller is bypassed and the action is set to `evidence_refinement` for
   every sample. That is deliberate: this measures what the module can do on
   the samples it is meant for, not how well Diagnosis routes to it. The
@@ -25,14 +31,25 @@ Run `--label correct` for the harm arm: the same pipeline on already-correct
 samples, where every changed answer is a potential regression.
 
 Usage:
-    python scripts/evaluate_refinement_end_to_end.py --limit 200
-    python scripts/evaluate_refinement_end_to_end.py --label correct --limit 200
-    python scripts/evaluate_refinement_end_to_end.py --records results/preliminary/nq_c1_7b.jsonl --frozen-500
+    # dry run: whole pipeline, no model, no API key
+    python scripts/evaluate_refinement_end_to_end.py --backend echo --limit 5
+
+    # hosted Qwen2.5-7B (any OpenAI-compatible endpoint)
+    $env:LLM_API_KEY = "..."
+    python scripts/evaluate_refinement_end_to_end.py --backend openrouter \
+        --generator-model qwen/qwen-2.5-7b-instruct --limit 200
+
+    # the frozen local generator (4-bit NF4), on a machine that holds the weights
+    python scripts/evaluate_refinement_end_to_end.py --backend frozen --limit 200
+    python scripts/evaluate_refinement_end_to_end.py --backend frozen --label correct --limit 200
+    python scripts/evaluate_refinement_end_to_end.py --backend frozen --frozen-500 \
+        --records results/preliminary/nq_c1_7b.jsonl
 """
 
 from __future__ import annotations
 
 import argparse
+import dataclasses
 import json
 import sys
 import time
@@ -43,12 +60,15 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.compensation.evidence_refinement import EvidenceRefiner  # noqa: E402
+from src.compensation.evidence_refinement import EvidenceRefiner, build_refinement_prompt  # noqa: E402
+from src.compensation.rerank import CrossEncoderScorer  # noqa: E402
 from src.compensation.schema import RefinementConfig  # noqa: E402
+from src.config import load_generator_config  # noqa: E402
 from src.controller.schema import ControllerAction, ControllerDecision  # noqa: E402
 from src.diagnosis.labels import DiagnosisLabel  # noqa: E402
 from src.diagnosis.schema import DatasetName, DiagnosisInput, EvidenceItem  # noqa: E402
 from src.evaluation.qa import exact_match, token_f1  # noqa: E402
+from src.generation.backend import build_backend  # noqa: E402
 
 DEFAULT_RECORDS = ROOT / "data" / "processed" / "diagnosis" / "nq15_train_records.jsonl"
 DEFAULT_SPLIT = ROOT / "data" / "processed" / "rerank" / "test.jsonl"
@@ -80,6 +100,28 @@ def to_input(record: dict) -> DiagnosisInput:
         ],
         initial_answer=record["initial_answer"],
     )
+
+
+def build_refiner(args, config: RefinementConfig):
+    """The refiner plus a flag saying whether the stored C1 answer is still comparable.
+
+    `frozen` is the project's own generator (Qwen2.5-7B, 4-bit NF4, greedy) and
+    produced the stored answers, so "before" can be read from the records. Any
+    other backend is a different numeric setup, so "before" must be regenerated
+    through it.
+    """
+    if args.backend == "frozen":
+        return EvidenceRefiner.from_frozen_defaults(config=config), "frozen local Qwen2.5-7B NF4", False
+
+    backend = build_backend(args.backend, args.generator_model, args.base_url, args.api_key)
+    max_new_tokens = args.max_new_tokens
+
+    def generate(prompt: str) -> str:
+        text, _latency = backend.generate(prompt, max_new_tokens)
+        return text
+
+    scorer = CrossEncoderScorer.from_pretrained(config.reranker_model)
+    return EvidenceRefiner(scorer, generate, config=config), backend.name, True
 
 
 def frozen_500_records(path: Path, label_file: Path, label: str) -> list[dict]:
@@ -119,7 +161,30 @@ def main() -> None:
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--save-rows", action="store_true")
+    parser.add_argument(
+        "--backend",
+        default="frozen",
+        help="frozen (local Qwen2.5-7B NF4), echo (dry run), or any OpenAI-compatible provider "
+        "(openrouter, together, fireworks, deepinfra, groq, local-vllm, ollama, ...)",
+    )
+    parser.add_argument("--generator-model", default=None, help="model id at the hosted endpoint")
+    parser.add_argument("--base-url", default=None, help="override the provider base URL")
+    parser.add_argument("--api-key", default=None, help="defaults to $LLM_API_KEY")
+    parser.add_argument("--max-new-tokens", type=int, default=None, help="defaults to configs/base.yaml")
+    parser.add_argument(
+        "--regenerate-before",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="re-ask the backend on the original order instead of reading the stored C1 answer "
+        "(default: on for every backend except frozen)",
+    )
     args = parser.parse_args()
+
+    generator_config = load_generator_config()
+    if args.max_new_tokens is None:
+        args.max_new_tokens = int(generator_config.get("max_new_tokens", 64))
+    if args.generator_model is None:
+        args.generator_model = str(generator_config["model_name"])
 
     if args.frozen_500:
         records = frozen_500_records(args.records, args.labels, args.label)
@@ -139,8 +204,13 @@ def main() -> None:
     print(f"{len(records)} {args.label} samples from {split_note}")
 
     config = RefinementConfig(keep_k=args.keep_k, reranker_model=args.model)
-    print(f"loading reranker {config.reranker_model} and the frozen generator")
-    refiner = EvidenceRefiner.from_frozen_defaults(config=config)
+    print(f"loading reranker {config.reranker_model} and generator backend {args.backend}")
+    refiner, generator_name, must_regenerate = build_refiner(args, config)
+    regenerate_before = must_regenerate if args.regenerate_before is None else args.regenerate_before
+    if must_regenerate and not regenerate_before:
+        print("WARNING: comparing a hosted answer against the stored 4-bit NF4 answer mixes quantisation "
+              "into the delta; --no-regenerate-before was asked for explicitly.")
+    print(f"generator: {generator_name} | before answers: {'regenerated' if regenerate_before else 'stored C1'}")
 
     rows = []
     statuses: Counter[str] = Counter()
@@ -148,6 +218,9 @@ def main() -> None:
     start = time.perf_counter()
     for index, record in enumerate(records, start=1):
         item = to_input(record)
+        if regenerate_before:
+            # Same backend, same frozen prompt, Top-5 in its original order.
+            item = dataclasses.replace(item, initial_answer=refiner.generate(build_refinement_prompt(item, item.evidence)))
         result = refiner.run(item, ROUTED)
         gold = str((record.get("annotation_reference") or {}).get("gold_answer") or "")
         before_em, after_em = exact_match(item.initial_answer, gold), exact_match(result.final_answer, gold)
@@ -201,6 +274,13 @@ def main() -> None:
         "label": args.label,
         "source": str(args.records.relative_to(ROOT)) if args.records.is_relative_to(ROOT) else str(args.records),
         "split": split_note,
+        "generator": {
+            "backend": args.backend,
+            "name": generator_name,
+            "model": args.generator_model if args.backend != "frozen" else str(generator_config["model_name"]),
+            "max_new_tokens": args.max_new_tokens,
+            "before_answers": "regenerated through the same backend" if regenerate_before else "stored frozen C1",
+        },
         "config": config.to_dict(),
         "summary": summary,
     }
