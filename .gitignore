@@ -9,3 +9,7 @@ data/annotations/*.xlsx
 models/
 checkpoints/
 .env
+
+# Raw annotation drop (84 MB of workbooks); normalized output goes to data/processed
+data/NQ_15/
+data/NQ_15*.zip

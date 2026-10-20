@@ -1,0 +1,45 @@
+{
+  "label": "evidence_accessibility",
+  "source_records": "data\\processed\\diagnosis\\nq15_train_records.jsonl",
+  "annotated_with_label": 18017,
+  "usable_examples": 16901,
+  "dropped_for_held_out_overlap": 1131,
+  "final_examples": 15770,
+  "groups": 13965,
+  "max_negatives": 4,
+  "jaccard_threshold": 0.6,
+  "seed": 42,
+  "skipped": {
+    "skipped_no_positive": 516,
+    "skipped_no_negative": 600
+  },
+  "positive_source": {
+    "positive_from_gold_answer_text": 15378,
+    "positive_from_gold_passage_id": 1523
+  },
+  "positive_rank_distribution": {
+    "1": 8906,
+    "2": 3517,
+    "3": 2052,
+    "4": 1429,
+    "5": 997
+  },
+  "splits": {
+    "train": {
+      "examples": 11064,
+      "pairs": 49423,
+      "path": "data\\processed\\rerank\\train.jsonl"
+    },
+    "validation": {
+      "examples": 2339,
+      "pairs": 10466,
+      "path": "data\\processed\\rerank\\validation.jsonl"
+    },
+    "test": {
+      "examples": 2367,
+      "pairs": 10589,
+      "path": "data\\processed\\rerank\\test.jsonl"
+    }
+  },
+  "note": "Gold answers and gold passage IDs were used to pick positives. They are offline supervision and never reach a runtime DiagnosisInput, Probe prompt or Controller input."
+}
