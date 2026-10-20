@@ -1,0 +1,129 @@
+{
+  "source_file": "data/annotations/nq_train_annotation_candidates.jsonl",
+  "total_samples": 74097,
+  "shard_count": 15,
+  "shard_size_target": 5000,
+  "ordering": "stable ascending sort by sample_id (string)",
+  "label_field": "label",
+  "overall_label_distribution": {
+    "null": 74097
+  },
+  "primary_labels_allowed": [
+    "correct",
+    "evidence_insufficiency",
+    "evidence_accessibility",
+    "evidence_utilisation"
+  ],
+  "notes": [
+    "label must remain null until annotators fill primary Diagnosis label",
+    "annotation_reference is offline-only and must never enter Diagnosis runtime input",
+    "no automatic labels were generated for this delivery"
+  ],
+  "shards": [
+    {
+      "file": "nq_train_annotation_000.jsonl",
+      "n_samples": 5000,
+      "first_sample_id": "-1000144997787636808",
+      "last_sample_id": "-2100330570982475504",
+      "sha256": "60a03259a7275284b4585755dbbc83138f6abb46ba94dd47c4c08064babe7a87"
+    },
+    {
+      "file": "nq_train_annotation_001.jsonl",
+      "n_samples": 5000,
+      "first_sample_id": "-2100544569041006969",
+      "last_sample_id": "-3225902439351056467",
+      "sha256": "a5ccfca2af087d0fcd236274dad57e3613b0546fae8caff366c2d2391396581b"
+    },
+    {
+      "file": "nq_train_annotation_002.jsonl",
+      "n_samples": 5000,
+      "first_sample_id": "-3225943333144436024",
+      "last_sample_id": "-4329368171766610475",
+      "sha256": "4885214758f18b1071c9a0860ac07c9e2f39f5c7b68be23dfe3720ff26e71b78"
+    },
+    {
+      "file": "nq_train_annotation_003.jsonl",
+      "n_samples": 5000,
+      "first_sample_id": "-4329772614326767302",
+      "last_sample_id": "-5440279573063708842",
+      "sha256": "2726bac8fa09dd89c09fdc4533dccdc339275ceae98df5baa0c41b07eba96930"
+    },
+    {
+      "file": "nq_train_annotation_004.jsonl",
+      "n_samples": 5000,
+      "first_sample_id": "-544095559898034955",
+      "last_sample_id": "-6558226369792139462",
+      "sha256": "f7b65012f5a66217e3642d20eaefbe332326fc2b0e267280457164b9c6af7fd0"
+    },
+    {
+      "file": "nq_train_annotation_005.jsonl",
+      "n_samples": 5000,
+      "first_sample_id": "-6558255662045389370",
+      "last_sample_id": "-7676733016209065268",
+      "sha256": "e1aef80b2fd26f3d3d832a0819a68dfc9277f967faf105b8caaf49eb3a8ca4d7"
+    },
+    {
+      "file": "nq_train_annotation_006.jsonl",
+      "n_samples": 5000,
+      "first_sample_id": "-7676904580233675488",
+      "last_sample_id": "-8795695905077064563",
+      "sha256": "0975f945d254ca4a3983490b5d0c4e163a032ab61e981fc8c09cd9efedc10ef4"
+    },
+    {
+      "file": "nq_train_annotation_007.jsonl",
+      "n_samples": 5000,
+      "first_sample_id": "-8795708239652381645",
+      "last_sample_id": "1614559335882953887",
+      "sha256": "51630aff40c605944c14672421fae9467e7577b65a1117744cac97fd20566f7c"
+    },
+    {
+      "file": "nq_train_annotation_008.jsonl",
+      "n_samples": 5000,
+      "first_sample_id": "1614757411903726148",
+      "last_sample_id": "2728331625015426228",
+      "sha256": "3c1f6a36e6f9b496afccda47d46d3fd4a2298019d4684f02f95265cdb377c320"
+    },
+    {
+      "file": "nq_train_annotation_009.jsonl",
+      "n_samples": 5000,
+      "first_sample_id": "2728402602054286378",
+      "last_sample_id": "3844180769221532866",
+      "sha256": "21ffd6f6eb7580bb0f048589b6f4b1b76ec2a70780379e118e7d5e9ea50ee0a4"
+    },
+    {
+      "file": "nq_train_annotation_010.jsonl",
+      "n_samples": 5000,
+      "first_sample_id": "3844797611572499663",
+      "last_sample_id": "4976130570222889631",
+      "sha256": "7344529c38013296d8d3bc2641a1635a03f666ea89d1069a729a957e0f322c54"
+    },
+    {
+      "file": "nq_train_annotation_011.jsonl",
+      "n_samples": 5000,
+      "first_sample_id": "4976260698907497989",
+      "last_sample_id": "6119710215083686826",
+      "sha256": "7849329a19e380c66eb65a67de75defd4fce5c3f15786698d0a4e85d92ae8fba"
+    },
+    {
+      "file": "nq_train_annotation_012.jsonl",
+      "n_samples": 5000,
+      "first_sample_id": "6120304279458541141",
+      "last_sample_id": "7253167976330060230",
+      "sha256": "302908930121240d6b28773c05c0e84bbaa835223eccf6d6e3e17d4b550c2988"
+    },
+    {
+      "file": "nq_train_annotation_013.jsonl",
+      "n_samples": 5000,
+      "first_sample_id": "7253214784019479714",
+      "last_sample_id": "8397107513336585851",
+      "sha256": "25ffa3fe664d8c118064f986eda10de2e635a49ac95053f7e0729927ca300903"
+    },
+    {
+      "file": "nq_train_annotation_014.jsonl",
+      "n_samples": 4097,
+      "first_sample_id": "839812262251906585",
+      "last_sample_id": "999582791170607023",
+      "sha256": "cf67526be016dbf1e697f4513cb5bb8c79de649b2271baeb32e5fb2fae1451f7"
+    }
+  ]
+}
