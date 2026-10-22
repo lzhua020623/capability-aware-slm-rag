@@ -8,7 +8,7 @@
 
 用户确认继续后，已新增独立入口 `scripts/run_answer_repair_v9.py`、`src/compensation/evidence_id_repair.py` 和 `configs/answer_repair_v9_protocol_v1.json`，不修改旧v7／r3／r4冻结包。三组为Qwen直接重答、仅证据ID、证据ID＋分解核验；均用同一Qwen2.5-7B-Instruct／revision／NF4。分解组为问题分解→最多3个独立事实问答→最终比较，核验上下文不见C1答案及其他事实答案；最终比较可见完整Top-5和可追溯事实。最多5次调用，另外两组各1次，不宣称算力匹配或额外成本已带来收益。
 
-证据句子ID映射原文区间，由程序还原引用，支持相邻句合并、伪造／重复ID拒绝、跨句限定与保留冲突。近重复只注记、不删原文、不做多数表决。NQ改答须定位到所选原文片段；FEVER使用Qwen判断，缺证或未解冲突保留原判。结构通过严格JSON和ID校验，尚未启用XGrammar解码约束；来源有效不代表语义正确。
+证据句子ID映射原文区间，由程序还原引用，支持相邻句合并、伪造／重复ID拒绝、跨句限定与保留冲突。近重复只注记、不删原文、不做多数表决。NQ改答须定位到所选原文片段；FEVER使用Qwen判断，缺证或未解冲突保留原判。原v9入口通过严格JSON和ID后校验，未启用XGrammar；后续独立contract实验已接入解码约束，见当前入口。来源有效不代表语义正确。
 
 13项v9核心检查及相关检查共78项通过；六个数据集／策略组合CPU预检通过。已分别冻结 `v9_dev_v1/`、`v9_dev_v2/`、`v9_dev_v3/` GPU包和Kaggle notebook，含原已暴露NQ75、FEVER50开发输入，不含125挑战。新的工程smoke按哈希各取5条，排除退役NQ smoke8，三组共30预测、最多70次调用；仅检查执行、来源和回放，不按EM调提示。
 
@@ -24,7 +24,7 @@
 
 ## 当前入口
 
-2026-10-22 后续推进：已固定 [NQ初标分层200条](../artifacts/answer_repair/nq_label_audit_200_v1/README.md)，四类各50，排除226个已知暴露ID；辅助30/200、人工0/200，剩余170条未语义审核。建议16正确、3E、3缺证、8暂缓，不是金标。A11/A16/A29有参考范围疑点；A19为合理拒答但任务未答对，A23/A25/A28/A30另有时间、指代或未知作者口径待裁决。未修改已有75条定案、25条暂缓或gold/EM，未做训练/数据增强。新 [受约束输出接口实验](../artifacts/answer_repair/v9_contract_v1/README.md) 与旧v9隔离，已接入XGrammar：12个虚构工程样例，原生语法36份通过、24个反例拒绝；Kaggle私有Version 1（361060970）573.2秒后显示failure，71个输出待收取，原因及完成预测数未知。Chrome切换打断下载，已询问可操作窗口；不得以此宣布语义收益或默认晋升。
+2026-10-22 后续推进：已固定 [NQ初标分层200条](../artifacts/answer_repair/nq_label_audit_200_v1/README.md)，四类各50，排除226个已知暴露ID；辅助30/200、人工0/200，剩余170条未语义审核。建议16正确、3E、3缺证、8暂缓，不是金标。A11/A16/A29有参考范围疑点；A19为合理拒答但任务未答对，A23/A25/A28/A30另有时间、指代或未知作者口径待裁决。未修改已有75条定案、25条暂缓或gold/EM，未做训练/数据增强。新 [受约束输出接口实验](../artifacts/answer_repair/v9_contract_v1/README.md) 与旧v9隔离，已接入XGrammar：12个虚构工程样例，48条GPU预测全部完成，本地冻结回放48/48及40个源码哈希通过，96次调用未超预算。XGrammar严格合规22/24（prompt_only20/24），Unknown ID与keep改写为0，达到独立预声明工程门槛。Kaggle Version 1（361060970）573.2秒后显示failure的原因是最后ZIP导出拒绝1970年源码时间戳；完整输出与日志已收取，新增导出修复变体但无需重跑模型。剩余两项受约束拒绝均为同一S03的9/nine原文片段限制。允许另行冻结真实语义开发协议；不能宣布准确率收益、默认晋升或回用旧smoke调参。
 
 | 内容 | 入口与状态 |
 |---|---|
@@ -77,7 +77,7 @@ E接受query、实际C1 Top-5、初始答案及上游最终ControllerDecision；
 
 先在已定案的开发样本上评估核验器：错答误放、正确答案误拒、正确候选误拒、引用无效、修复／误修及调用成本；未决人审不作为确定标签。本轮 125 条已经使用，不再用于选择后续方案。新实验的未见评测须另取隔离数据并确认团队 Diagnosis 的训练排除。运行时继续禁止读取 gold 和人工正确性。
 
-参考：[CoVe（Findings ACL 2024）](https://aclanthology.org/2024.findings-acl.212/) 的事实问题分解及核验上下文隔离；[XGrammar 官方文档](https://xgrammar.mlc.ai/docs/latest/start/quick_start.html) 的结构约束能力。2026-10-22已实现证据 ID、原文映射及两任务适配并提交v9工程试跑，尚无有效性结论；默认策略未切换，XGrammar尚未集成。
+参考：[CoVe（Findings ACL 2024）](https://aclanthology.org/2024.findings-acl.212/) 的事实问题分解及核验上下文隔离；[XGrammar 官方文档](https://xgrammar.mlc.ai/docs/latest/start/quick_start.html) 的结构约束能力。2026-10-22已实现证据 ID、原文映射及两任务适配；原v9工程门槛失败后已另立contract实验，XGrammar接入并达到22/24工程合规门槛。尚无真实语义收益结论，默认策略未切换，旧smoke保持退役。
 
 ## 问题与任务总清单（2026-10-21）
 

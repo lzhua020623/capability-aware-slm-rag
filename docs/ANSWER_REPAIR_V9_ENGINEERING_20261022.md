@@ -64,11 +64,17 @@ True Blood 暴露了更重要的边界：R1 明确说 ten episodes；模型输�
 
 新改答已整理为 [V1–V3辅助审核网页](../artifacts/answer_repair/v9_dev_v3/kaggle_20261022_v3/changed_review.html) 和同目录 `changed_assisted_review.jsonl`。原答错误沿用先前已确认的 NQ75 标签，只留下新候选及引用质量待人工确认；与已关闭的 F42 清单分开。
 
-## 输出约束后续方案（尚未实现）
+## 输出约束后续方案（前三份冻结包未实现）
 
 优先另立受约束生成方案，使用新的合成工程样例验证接口，不再调此十题。依据 [XGrammar 官方 HF 接入说明](https://xgrammar.mlc.ai/docs/latest/start/quick_start.html) 和 [JSON Schema 文档](https://xgrammar.mlc.ai/docs/latest/defining_structures/json_generation.html)，拟在生成时约束字段、decision／FEVER 标签、当前合法句子 ID，并让 keep 的答案由契约约束为原答。这是本项目的拟议设计，当前三份 GPU 包均未集成 XGrammar。
 
 需要单独验证 Qwen NF4／当前 Transformers／Python 组合，记录编译及生成成本；限制输出长度仍可能造成未完成结果。程序继续做精确来源、数量／去重和抽取检查。来源 ID 合法、JSON 合法不能证明主体、关系、时间或答案正确；候选应绑定具体的支持片段，并把数字表示归一化与语义判断分开设计、独立验证。
+
+当日后续已新增独立 [contract_v1实验](../artifacts/answer_repair/v9_contract_v1/README.md)，用12个全新虚构题、两种结构化策略及prompt_only／XGrammar两种解码，48条预测，未回用上述十题。两解码组收到相同schema文本，固定Qwen revision／NF4／预算。Kaggle361060970已完成48条及云端回放，本地40个源码哈希、48条回放和汇总重算均通过；实际96次调用。受约束组22/24严格合规，达到独立预声明22/24门槛，Unknown ID与keep改写为0；提示组20/24。新增合规对应同一S02的两个策略结果，剩余受约束拒绝对应同一S03的9/nine原文片段限制，不可当作多个独立题的变化。
+
+该任务在最后ZIP导出时报错：冻结源码mtime=0，ZIP默认拒绝1980年前时间戳。已通过Kaggle的Download output收回完整原始结果并保存完整日志，推理与回放未丢失。新增exportfix notebook仅修正导出时间戳处理，原包及原notebook不覆盖，不重跑模型。平台failure与推理完成分开记录。
+
+新工程门槛通过只允许另行冻结真实语义开发协议，不表示正确率提升或默认策略晋升。旧十题停止规则仍有效；不会围绕这12题继续调提示或放宽抽取条件。标签质量审核、必要人审与评分取舍仍是下一步依赖。
 
 ## 后续顺序
 

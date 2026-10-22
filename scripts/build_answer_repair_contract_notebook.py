@@ -1,6 +1,7 @@
 """Freeze a self-contained synthetic-only Kaggle notebook and source archive."""
 from __future__ import annotations
 
+import argparse
 import base64
 import gzip
 import hashlib
@@ -16,7 +17,20 @@ if str(ROOT) not in sys.path:
 from scripts.import_nq_train_preliminary import write_new
 
 
-def main():
+def fix_export_timestamps(code):
+    """Change export timestamp handling only; leave all inference bytes intact."""
+    before = "with zipfile.ZipFile('/kaggle/working/e_contract_v1_outputs.zip','w',zipfile.ZIP_DEFLATED) as export:"
+    after = "with zipfile.ZipFile('/kaggle/working/e_contract_v1_outputs.zip','w',zipfile.ZIP_DEFLATED,strict_timestamps=False) as export:"
+    if code.count(before) != 1:
+        raise ValueError("Expected exactly one frozen export block")
+    return code.replace(before, after)
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--export-fix", action="store_true",
+                        help="Write a separate export-only variant; preserve the original frozen notebook")
+    args = parser.parse_args(argv)
     folder = ROOT / "artifacts/answer_repair/v9_contract_v1"
     paths = [*sorted((ROOT / "src").rglob("*.py")), ROOT / "configs/base.yaml",
              ROOT / "configs/answer_repair_contract_v1.json", ROOT / "requirements-answer-repair-v8.txt",
@@ -75,6 +89,8 @@ finally:
                 export.write(path,path.relative_to(root))
 print('SYNTHETIC CONTRACT RUN COMPLETE. No benchmark gain claim; inspect the predeclared gate.')
 '''
+    if args.export_fix:
+        code = fix_export_timestamps(code)
     compile(code, "contract_notebook", "exec")
     notebook = {"nbformat": 4, "nbformat_minor": 5,
         "metadata": {"kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
@@ -88,11 +104,16 @@ print('SYNTHETIC CONTRACT RUN COMPLETE. No benchmark gain claim; inspect the pre
             {"id": "run", "cell_type": "code", "metadata": {}, "execution_count": None,
              "outputs": [], "source": code.splitlines(keepends=True)}]}
     notebook_raw = (json.dumps(notebook, ensure_ascii=False, indent=1) + "\n").encode()
-    write_new(ROOT / "notebooks/answer_repair_contract_v1.ipynb", notebook_raw)
+    suffix = "_exportfix" if args.export_fix else ""
+    write_new(ROOT / f"notebooks/answer_repair_contract_v1{suffix}.ipynb", notebook_raw)
     receipt = {"archive_sha256": digest, "notebook_sha256": hashlib.sha256(notebook_raw).hexdigest(),
                "source_files": len(checksums), "synthetic_cases": 12, "predictions": 48,
                "gpu_run_completed": False, "default_promoted": False}
-    write_new(folder / "bundle_manifest.json", (json.dumps(receipt, indent=2) + "\n").encode())
+    if args.export_fix:
+        receipt.update(export_only_timestamp_fix=True, input_archive_unchanged=True,
+                       original_notebook_preserved=True, variant_gpu_run_performed=False,
+                       existing_48_predictions_reused_no_gpu_rerun_needed=True)
+    write_new(folder / f"bundle_manifest{suffix}.json", (json.dumps(receipt, indent=2) + "\n").encode())
     print(json.dumps(receipt, indent=2))
 
 

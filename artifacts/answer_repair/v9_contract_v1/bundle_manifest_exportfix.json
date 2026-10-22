@@ -1,0 +1,14 @@
+{
+  "archive_sha256": "8dced5b6c02e1295393dcfe00bfc73e4c612ca39c7c03d98bb77a62e4d722159",
+  "notebook_sha256": "8e21e99b3eff89969efce35fb1c28aad11e9f17367f3e635be60bf06ec94f819",
+  "source_files": 40,
+  "synthetic_cases": 12,
+  "predictions": 48,
+  "gpu_run_completed": false,
+  "default_promoted": false,
+  "export_only_timestamp_fix": true,
+  "input_archive_unchanged": true,
+  "original_notebook_preserved": true,
+  "variant_gpu_run_performed": false,
+  "existing_48_predictions_reused_no_gpu_rerun_needed": true
+}

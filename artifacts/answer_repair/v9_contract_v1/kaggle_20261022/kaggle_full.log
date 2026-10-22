@@ -1,0 +1,395 @@
+7.5s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.5s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.5s 3 0.00s - to python to disable frozen modules.
+7.5s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+8.1s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+8.1s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+8.1s 7 0.00s - to python to disable frozen modules.
+8.1s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+9.5s 9 /tmp/ipykernel_23/3980563763.py:10: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+9.5s 10 archive.extractall(base)
+9.5s 11 
+9.5s 12 /tmp/ipykernel_23/3980563763.py:10: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+9.5s 13 archive.extractall(base)
+11.6s 14 Requirement already satisfied: transformers==5.16.1 in /usr/local/lib/python3.13/dist-packages (from -r requirements-answer-repair-v8.txt (line 3)) (5.16.1)
+11.6s 15 Requirement already satisfied: accelerate==1.14.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements-answer-repair-v8.txt (line 4)) (1.14.0)
+11.7s 16 Collecting bitsandbytes==0.50.2 (from -r requirements-answer-repair-v8.txt (line 5))
+11.7s 17 Downloading bitsandbytes-0.50.2-py3-none-manylinux_2_24_x86_64.whl.metadata (10 kB)
+11.8s 18 Requirement already satisfied: PyYAML==6.0.3 in /usr/local/lib/python3.13/dist-packages (from -r requirements-answer-repair-v8.txt (line 6)) (6.0.3)
+11.9s 19 Collecting xgrammar==0.2.8 (from -r requirements-answer-repair-contract.txt (line 2))
+11.9s 20 Downloading xgrammar-0.2.8-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (10 kB)
+12.0s 21 Requirement already satisfied: jsonschema==4.26.0 in /usr/local/lib/python3.13/dist-packages (from -r requirements-answer-repair-contract.txt (line 3)) (4.26.0)
+12.0s 22 Requirement already satisfied: huggingface-hub<2.0,>=1.5.0 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (1.29.0)
+12.0s 23 Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (2.1.3)
+12.0s 24 Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (26.3)
+12.0s 25 Requirement already satisfied: regex>=2025.10.22 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (2025.11.3)
+12.0s 26 Requirement already satisfied: tokenizers<0.24.0,>=0.23.1 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (0.23.1)
+12.0s 27 Requirement already satisfied: typer in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (0.27.2)
+12.0s 28 Requirement already satisfied: safetensors>=0.8.0 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (0.8.0)
+12.0s 29 Requirement already satisfied: tqdm>=4.60 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (4.67.3)
+12.0s 30 Requirement already satisfied: psutil in /usr/local/lib/python3.13/dist-packages (from accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (5.9.5)
+12.0s 31 Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.13/dist-packages (from accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (2.11.0+cu128)
+12.2s 32 Collecting apache-tvm-ffi>=0.1.11 (from xgrammar==0.2.8->-r requirements-answer-repair-contract.txt (line 2))
+12.2s 33 Downloading apache_tvm_ffi-0.1.15.post0-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (6.2 kB)
+12.2s 34 Requirement already satisfied: pydantic in /usr/local/lib/python3.13/dist-packages (from xgrammar==0.2.8->-r requirements-answer-repair-contract.txt (line 2)) (2.13.5)
+12.2s 35 Requirement already satisfied: triton in /usr/local/lib/python3.13/dist-packages (from xgrammar==0.2.8->-r requirements-answer-repair-contract.txt (line 2)) (3.6.0)
+12.2s 36 Requirement already satisfied: typing-extensions>=4.9.0 in /usr/local/lib/python3.13/dist-packages (from xgrammar==0.2.8->-r requirements-answer-repair-contract.txt (line 2)) (4.16.0)
+12.2s 37 Requirement already satisfied: attrs>=22.2.0 in /usr/local/lib/python3.13/dist-packages (from jsonschema==4.26.0->-r requirements-answer-repair-contract.txt (line 3)) (26.1.0)
+12.2s 38 Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.13/dist-packages (from jsonschema==4.26.0->-r requirements-answer-repair-contract.txt (line 3)) (2025.9.1)
+12.2s 39 Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.13/dist-packages (from jsonschema==4.26.0->-r requirements-answer-repair-contract.txt (line 3)) (0.37.0)
+12.2s 40 Requirement already satisfied: rpds-py>=0.25.0 in /usr/local/lib/python3.13/dist-packages (from jsonschema==4.26.0->-r requirements-answer-repair-contract.txt (line 3)) (2026.6.3)
+12.3s 41 Requirement already satisfied: click<9.0.0,>=8.4.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (8.5.0)
+12.3s 42 Requirement already satisfied: filelock>=3.10.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (3.32.5)
+12.3s 43 Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (2025.12.0)
+12.3s 44 Requirement already satisfied: hf-xet<2.0.0,>=1.5.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (1.6.0)
+12.3s 45 Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (0.28.1)
+12.3s 46 Requirement already satisfied: setuptools<82 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (81.0.0)
+12.3s 47 Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (1.14.0)
+12.3s 48 Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (3.6.1)
+12.3s 49 Requirement already satisfied: jinja2 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (3.1.6)
+12.3s 50 Requirement already satisfied: cuda-toolkit==12.8.1 in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.8.1)
+12.3s 51 Requirement already satisfied: cuda-bindings<13,>=12.9.4 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.9.7)
+12.3s 52 Requirement already satisfied: nvidia-cudnn-cu12==9.19.0.56 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (9.19.0.56)
+12.3s 53 Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (0.7.1)
+12.3s 54 Requirement already satisfied: nvidia-nccl-cu12==2.28.9 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (2.28.9)
+12.3s 55 Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (3.4.5)
+12.3s 56 Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.8.4.1)
+12.3s 57 Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.8.90)
+12.3s 58 Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (11.3.3.83)
+12.3s 59 Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (1.13.1.3)
+12.3s 60 Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.8.90)
+12.3s 61 Requirement already satisfied: nvidia-curand-cu12==10.3.9.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (10.3.9.90)
+12.3s 62 Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (11.7.3.90)
+12.3s 63 Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.5.8.93)
+12.3s 64 Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.8.93)
+12.4s 65 Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.8.93)
+12.4s 66 Requirement already satisfied: nvidia-nvtx-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (12.8.90)
+12.4s 67 Requirement already satisfied: annotated-types>=0.6.0 in /usr/local/lib/python3.13/dist-packages (from pydantic->xgrammar==0.2.8->-r requirements-answer-repair-contract.txt (line 2)) (0.8.0)
+12.4s 68 Requirement already satisfied: pydantic-core==2.46.5 in /usr/local/lib/python3.13/dist-packages (from pydantic->xgrammar==0.2.8->-r requirements-answer-repair-contract.txt (line 2)) (2.46.5)
+12.4s 69 Requirement already satisfied: typing-inspection>=0.4.2 in /usr/local/lib/python3.13/dist-packages (from pydantic->xgrammar==0.2.8->-r requirements-answer-repair-contract.txt (line 2)) (0.4.4)
+12.4s 70 Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.13/dist-packages (from typer->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (1.5.4)
+12.4s 71 Requirement already satisfied: rich>=13.8.0 in /usr/local/lib/python3.13/dist-packages (from typer->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (13.9.4)
+12.4s 72 Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.13/dist-packages (from typer->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (0.0.5)
+12.4s 73 Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.13/dist-packages (from cuda-bindings<13,>=12.9.4->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (1.8.0)
+12.4s 74 Requirement already satisfied: anyio in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (4.14.2)
+12.4s 75 Requirement already satisfied: certifi in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (2026.7.22)
+12.4s 76 Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (1.0.9)
+12.4s 77 Requirement already satisfied: idna in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (3.19)
+12.4s 78 Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.13/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (0.16.0)
+12.5s 79 Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.13/dist-packages (from rich>=13.8.0->typer->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (4.2.0)
+12.5s 80 Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.13/dist-packages (from rich>=13.8.0->typer->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (2.21.0)
+12.5s 81 Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.13/dist-packages (from sympy>=1.13.3->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (1.3.0)
+12.5s 82 Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.13/dist-packages (from jinja2->torch>=2.0.0->accelerate==1.14.0->-r requirements-answer-repair-v8.txt (line 4)) (3.0.3)
+12.5s 83 Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.13/dist-packages (from markdown-it-py>=2.2.0->rich>=13.8.0->typer->transformers==5.16.1->-r requirements-answer-repair-v8.txt (line 3)) (0.1.2)
+12.5s 84 Downloading bitsandbytes-0.50.2-py3-none-manylinux_2_24_x86_64.whl (43.1 MB)
+12.9s 85 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 43.1/43.1 MB 50.4 MB/s eta 0:00:00
+13.0s 86 Downloading xgrammar-0.2.8-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (1.3 MB)
+13.0s 87 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 53.9 MB/s eta 0:00:00
+13.0s 88 Downloading apache_tvm_ffi-0.1.15.post0-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (3.3 MB)
+13.0s 89 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 91.5 MB/s eta 0:00:00
+15.2s 90 Installing collected packages: apache-tvm-ffi, bitsandbytes, xgrammar
+16.2s 91 Successfully installed apache-tvm-ffi-0.1.15.post0 bitsandbytes-0.50.2 xgrammar-0.2.8
+18.1s 92 {
+18.1s 93 "preflight": "passed",
+18.1s 94 "synthetic_cases": 12,
+18.1s 95 "predictions": 48,
+18.1s 96 "maximum_calls": 144,
+18.1s 97 "gpu_inference_completed": false,
+18.1s 98 "fingerprint": "559e48fc46f5ec6d2e63dc018a4ac4d5e5669768468be035859305d506dc12e2",
+18.1s 99 "manifest": {
+18.1s 100 "version": "v9_contract_v1_xgrammar",
+18.1s 101 "cases_sha256": "f6370ad4bd1460672e3be8f4433cfba93865257522435563605faf5cfaa89c08",
+18.1s 102 "source_sha256": {
+18.1s 103 "scripts/run_answer_repair_contract.py": "4bc308f1bf3c36552e9f0030d754ca999a4812751d518a13fe02dbf101806e33",
+18.1s 104 "scripts/prepare_answer_repair_contract.py": "bfff58a28ee1a4763e7c3cc6bced7b5c44c52ed50d842e59a4f5ec112a021229",
+18.1s 105 "src/compensation/constrained_evidence_id.py": "0c7f66bb3d19393022fd0a5f4ea540efed571c12c11a5852cb1f1398358646a1",
+18.1s 106 "src/compensation/qwen_constrained.py": "df915def2e58e8fb1773cce31d2a8557ca635f5e55cc56fe79edd48cf2e27511",
+18.1s 107 "src/compensation/evidence_id_repair.py": "ee23d1b90129fa1859835a9b59e01cd2058209dbf21fe4994d08db38cfc129c0",
+18.1s 108 "src/compensation/qwen_repair.py": "e4989bcc20c3c23596ed685bc706e27cc742de4c1b41bd4f9d8d490c87400b49",
+18.1s 109 "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+18.2s 110 "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+18.2s 111 "src/compensation/controller_adapter.py": "e3722ee732ce5eff839e0316704fb23a7a41e5e5e175d225f369823fd1a450be",
+18.2s 112 "src/compensation/line_contract.py": "32e938f413e6d4dfc0965bdfb31806773c20cef733dc58294c427fb96641a687",
+18.2s 113 "src/generation/qwen.py": "c932c3a0df40f030813d8c7298144adc1310a0bfee15ef832868a49cce9d6d6a",
+18.2s 114 "src/config.py": "9b2c12efa927872022fb626a1479944e660c4f3a21de25cd0beae8f17e2be9e1",
+18.2s 115 "src/diagnosis/schema.py": "f1bf526835f5c98a369ac38884415ce06e9a454639c41cb1daa2799ab26f700f",
+18.2s 116 "src/diagnosis/labels.py": "c9e787268e2669e2af0cf074aaf6a8b71bc5ed960fcacb8f6a657f7217ee1fda",
+18.2s 117 "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+18.2s 118 "configs/answer_repair_contract_v1.json": "80566e9e3cc5b4ec051575a06b44217a2f828c2e90802f409d492237922fc0f2",
+18.2s 119 "requirements-answer-repair-contract.txt": "8310938de5bb27f40928ebc83805aec175cc1ec7891448c3e0d98a28512128d4"
+18.2s 120 }
+18.2s 121 }
+18.2s 122 }
+51.3s 123 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+52.9s 124 {"case_id": "S01", "stage": "plan", "compiled": true, "compile_seconds": 0.027909345000011854}
+52.9s 125 {"case_id": "S01", "stage": "fact", "compiled": true, "compile_seconds": 0.002912914999996019}
+52.9s 126 {"case_id": "S01", "stage": "decision", "compiled": true, "compile_seconds": 0.0035714930000096956}
+52.9s 127 {"case_id": "S02", "stage": "plan", "compiled": true, "compile_seconds": 4.1299000002936737e-05}
+52.9s 128 {"case_id": "S02", "stage": "fact", "compiled": true, "compile_seconds": 0.00010183699998833617}
+52.9s 129 {"case_id": "S02", "stage": "decision", "compiled": true, "compile_seconds": 0.0029824030000042967}
+52.9s 130 {"case_id": "S03", "stage": "plan", "compiled": true, "compile_seconds": 3.373500001657703e-05}
+52.9s 131 {"case_id": "S03", "stage": "fact", "compiled": true, "compile_seconds": 0.002707229999998617}
+53.0s 132 {"case_id": "S03", "stage": "decision", "compiled": true, "compile_seconds": 0.0036851549999994404}
+53.0s 133 {"case_id": "S04", "stage": "plan", "compiled": true, "compile_seconds": 3.077799999573472e-05}
+53.0s 134 {"case_id": "S04", "stage": "fact", "compiled": true, "compile_seconds": 5.068999999480184e-05}
+53.0s 135 {"case_id": "S04", "stage": "decision", "compiled": true, "compile_seconds": 0.0032059990000163907}
+53.0s 136 {"case_id": "S05", "stage": "plan", "compiled": true, "compile_seconds": 3.927600002384679e-05}
+53.0s 137 {"case_id": "S05", "stage": "fact", "compiled": true, "compile_seconds": 0.0026065659999972013}
+53.0s 138 {"case_id": "S05", "stage": "decision", "compiled": true, "compile_seconds": 0.0035594860000003337}
+53.0s 139 {"case_id": "S06", "stage": "plan", "compiled": true, "compile_seconds": 3.134699997531243e-05}
+53.0s 140 {"case_id": "S06", "stage": "fact", "compiled": true, "compile_seconds": 5.1388000002816625e-05}
+53.0s 141 {"case_id": "S06", "stage": "decision", "compiled": true, "compile_seconds": 0.0029453309999780686}
+53.0s 142 {"case_id": "S07", "stage": "plan", "compiled": true, "compile_seconds": 3.0780000003005625e-05}
+53.0s 143 {"case_id": "S07", "stage": "fact", "compiled": true, "compile_seconds": 5.058799999346775e-05}
+53.0s 144 {"case_id": "S07", "stage": "decision", "compiled": true, "compile_seconds": 0.0032263420000049337}
+53.0s 145 {"case_id": "S08", "stage": "plan", "compiled": true, "compile_seconds": 3.081899998846893e-05}
+53.1s 146 {"case_id": "S08", "stage": "fact", "compiled": true, "compile_seconds": 4.875799999126684e-05}
+53.1s 147 {"case_id": "S08", "stage": "decision", "compiled": true, "compile_seconds": 5.82350000115639e-05}
+53.1s 148 {"case_id": "S09", "stage": "plan", "compiled": true, "compile_seconds": 3.135600002224237e-05}
+53.1s 149 {"case_id": "S09", "stage": "fact", "compiled": true, "compile_seconds": 5.133799999157418e-05}
+53.1s 150 {"case_id": "S09", "stage": "decision", "compiled": true, "compile_seconds": 0.0030214260000036575}
+53.1s 151 {"case_id": "S10", "stage": "plan", "compiled": true, "compile_seconds": 3.544500000884909e-05}
+53.1s 152 {"case_id": "S10", "stage": "fact", "compiled": true, "compile_seconds": 9.504099998025595e-05}
+53.1s 153 {"case_id": "S10", "stage": "decision", "compiled": true, "compile_seconds": 0.0032283609999979035}
+53.1s 154 {"case_id": "S11", "stage": "plan", "compiled": true, "compile_seconds": 3.5248999978421125e-05}
+53.1s 155 {"case_id": "S11", "stage": "fact", "compiled": true, "compile_seconds": 5.3381000014951496e-05}
+53.1s 156 {"case_id": "S11", "stage": "decision", "compiled": true, "compile_seconds": 0.003527275000010377}
+53.1s 157 {"case_id": "S12", "stage": "plan", "compiled": true, "compile_seconds": 3.100000000699765e-05}
+53.1s 158 {"case_id": "S12", "stage": "fact", "compiled": true, "compile_seconds": 5.281500000364758e-05}
+53.2s 159 {"case_id": "S12", "stage": "decision", "compiled": true, "compile_seconds": 6.173799999942275e-05}
+69.7s 160 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+71.3s 161 
+116.9s 162 Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+127.7s 163 Fetching 4 files:  25%|██▌       | 1/4 [00:45<02:16, 45.62s/it]
+127.8s 164 Fetching 4 files:  50%|█████     | 2/4 [00:56<00:50, 25.10s/it]
+132.5s 165 Fetching 4 files:  75%|███████▌  | 3/4 [00:56<00:13, 13.71s/it]
+132.5s 166 Fetching 4 files: 100%|██████████| 4/4 [01:01<00:00, 10.15s/it]
+132.5s 167 Fetching 4 files: 100%|██████████| 4/4 [01:01<00:00, 15.30s/it]
+143.1s 168 
+146.0s 169 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+149.8s 170 Loading weights:   0%|          | 1/339 [00:02<16:24,  2.91s/it]
+150.1s 171 Loading weights:   1%|          | 2/339 [00:06<19:20,  3.44s/it]
+150.2s 172 Loading weights:   1%|          | 4/339 [00:06<07:37,  1.37s/it]
+150.3s 173 Loading weights:   4%|▍         | 15/339 [00:07<01:17,  4.20it/s]
+150.4s 174 Loading weights:   6%|▌         | 20/339 [00:07<00:51,  6.14it/s]
+150.5s 175 Loading weights:   9%|▉         | 30/339 [00:07<00:27, 11.34it/s]
+150.7s 176 Loading weights:  12%|█▏        | 41/339 [00:07<00:16, 18.48it/s]
+150.8s 177 Loading weights:  16%|█▌        | 53/339 [00:07<00:10, 27.17it/s]
+150.9s 178 Loading weights:  19%|█▉        | 64/339 [00:07<00:07, 36.78it/s]
+151.0s 179 Loading weights:  22%|██▏       | 74/339 [00:07<00:05, 45.74it/s]
+151.2s 180 Loading weights:  24%|██▍       | 83/339 [00:07<00:05, 49.84it/s]
+151.3s 181 Loading weights:  27%|██▋       | 92/339 [00:08<00:04, 54.42it/s]
+151.4s 182 Loading weights:  30%|██▉       | 101/339 [00:08<00:03, 61.31it/s]
+151.5s 183 Loading weights:  33%|███▎      | 112/339 [00:08<00:03, 71.96it/s]
+152.9s 184 Loading weights:  36%|███▌      | 122/339 [00:08<00:02, 78.52it/s]
+154.5s 185 Loading weights:  39%|███▉      | 132/339 [00:09<00:10, 19.28it/s]
+154.7s 186 Loading weights:  41%|████      | 139/339 [00:11<00:18, 10.64it/s]
+155.6s 187 Loading weights:  42%|████▏     | 144/339 [00:11<00:16, 11.88it/s]
+155.7s 188 Loading weights:  44%|████▍     | 149/339 [00:12<00:19,  9.63it/s]
+155.9s 189 Loading weights:  45%|████▌     | 153/339 [00:12<00:16, 11.15it/s]
+156.4s 190 Loading weights:  47%|████▋     | 161/339 [00:12<00:11, 15.84it/s]
+156.9s 191 Loading weights:  51%|█████     | 172/339 [00:13<00:09, 17.54it/s]
+157.3s 192 Loading weights:  52%|█████▏    | 176/339 [00:13<00:11, 14.15it/s]
+158.4s 193 Loading weights:  54%|█████▍    | 184/339 [00:14<00:09, 15.89it/s]
+158.5s 194 Loading weights:  55%|█████▌    | 187/339 [00:15<00:16,  9.38it/s]
+158.6s 195 Loading weights:  56%|█████▌    | 190/339 [00:15<00:14, 10.63it/s]
+159.6s 196 Loading weights:  57%|█████▋    | 194/339 [00:15<00:11, 12.93it/s]
+160.2s 197 Loading weights:  58%|█████▊    | 197/339 [00:16<00:19,  7.35it/s]
+160.3s 198 Loading weights:  59%|█████▊    | 199/339 [00:17<00:22,  6.31it/s]
+160.4s 199 Loading weights:  60%|█████▉    | 202/339 [00:17<00:17,  7.93it/s]
+160.9s 200 Loading weights:  60%|██████    | 204/339 [00:17<00:14,  9.01it/s]
+161.9s 201 Loading weights:  61%|██████▏   | 208/339 [00:17<00:15,  8.66it/s]
+162.1s 202 Loading weights:  62%|██████▏   | 210/339 [00:18<00:26,  4.93it/s]
+162.2s 203 Loading weights:  63%|██████▎   | 214/339 [00:18<00:17,  7.26it/s]
+162.7s 204 Loading weights:  64%|██████▎   | 216/339 [00:19<00:14,  8.37it/s]
+163.8s 205 Loading weights:  65%|██████▍   | 220/339 [00:19<00:15,  7.85it/s]
+163.9s 206 Loading weights:  65%|██████▌   | 222/339 [00:20<00:25,  4.65it/s]
+164.0s 207 Loading weights:  67%|██████▋   | 226/339 [00:20<00:16,  6.88it/s]
+164.2s 208 Loading weights:  68%|██████▊   | 230/339 [00:20<00:11,  9.59it/s]
+164.3s 209 Loading weights:  69%|██████▊   | 233/339 [00:21<00:09, 11.18it/s]
+164.5s 210 Loading weights:  72%|███████▏  | 244/339 [00:21<00:04, 22.13it/s]
+164.6s 211 Loading weights:  73%|███████▎  | 248/339 [00:21<00:03, 24.25it/s]
+165.1s 212 Loading weights:  76%|███████▌  | 257/339 [00:21<00:02, 33.29it/s]
+165.2s 213 Loading weights:  79%|███████▉  | 268/339 [00:22<00:02, 26.72it/s]
+165.7s 214 Loading weights:  80%|████████  | 272/339 [00:22<00:02, 28.01it/s]
+166.7s 215 Loading weights:  83%|████████▎ | 280/339 [00:22<00:02, 23.59it/s]
+166.8s 216 Loading weights:  84%|████████▍ | 284/339 [00:23<00:04, 11.60it/s]
+167.0s 217 Loading weights:  85%|████████▍ | 287/339 [00:23<00:04, 12.85it/s]
+168.0s 218 Loading weights:  86%|████████▌ | 290/339 [00:23<00:03, 14.32it/s]
+168.6s 219 Loading weights:  86%|████████▋ | 293/339 [00:24<00:06,  7.44it/s]
+168.7s 220 Loading weights:  87%|████████▋ | 295/339 [00:25<00:06,  6.33it/s]
+168.8s 221 Loading weights:  88%|████████▊ | 298/339 [00:25<00:05,  8.00it/s]
+169.4s 222 Loading weights:  88%|████████▊ | 300/339 [00:25<00:04,  9.11it/s]
+170.4s 223 Loading weights:  90%|████████▉ | 304/339 [00:26<00:04,  8.28it/s]
+170.5s 224 Loading weights:  90%|█████████ | 306/339 [00:27<00:06,  4.81it/s]
+170.6s 225 Loading weights:  91%|█████████▏| 310/339 [00:27<00:04,  7.14it/s]
+171.6s 226 Loading weights:  93%|█████████▎| 314/339 [00:27<00:02,  9.99it/s]
+172.0s 227 Loading weights:  94%|█████████▎| 317/339 [00:28<00:03,  6.26it/s]
+172.1s 228 Loading weights:  94%|█████████▍| 319/339 [00:28<00:03,  6.02it/s]
+172.2s 229 Loading weights:  97%|█████████▋| 329/339 [00:29<00:00, 13.34it/s]
+172.2s 230 Loading weights: 100%|██████████| 339/339 [00:29<00:00, 11.66it/s]
+178.8s 231 {"completed": 1, "total": 48, "status": "kept"}
+186.6s 232 {"completed": 2, "total": 48, "status": "kept"}
+195.5s 233 {"completed": 3, "total": 48, "status": "kept"}
+204.7s 234 {"completed": 4, "total": 48, "status": "kept"}
+208.8s 235 {"completed": 5, "total": 48, "status": "invalid_decision"}
+213.0s 236 {"completed": 6, "total": 48, "status": "kept"}
+222.9s 237 {"completed": 7, "total": 48, "status": "invalid_decision"}
+233.6s 238 {"completed": 8, "total": 48, "status": "kept"}
+238.5s 239 {"completed": 9, "total": 48, "status": "invalid_decision"}
+243.7s 240 {"completed": 10, "total": 48, "status": "invalid_decision"}
+253.9s 241 {"completed": 11, "total": 48, "status": "invalid_decision"}
+264.3s 242 {"completed": 12, "total": 48, "status": "invalid_decision"}
+268.9s 243 {"completed": 13, "total": 48, "status": "kept"}
+273.6s 244 {"completed": 14, "total": 48, "status": "kept"}
+283.0s 245 {"completed": 15, "total": 48, "status": "kept"}
+292.7s 246 {"completed": 16, "total": 48, "status": "kept"}
+297.9s 247 {"completed": 17, "total": 48, "status": "insufficient_evidence"}
+303.2s 248 {"completed": 18, "total": 48, "status": "insufficient_evidence"}
+322.5s 249 {"completed": 19, "total": 48, "status": "conflicting_evidence"}
+342.1s 250 {"completed": 20, "total": 48, "status": "conflicting_evidence"}
+349.1s 251 {"completed": 21, "total": 48, "status": "kept"}
+356.3s 252 {"completed": 22, "total": 48, "status": "kept"}
+366.1s 253 {"completed": 23, "total": 48, "status": "insufficient_evidence"}
+376.1s 254 {"completed": 24, "total": 48, "status": "insufficient_evidence"}
+381.6s 255 {"completed": 25, "total": 48, "status": "kept"}
+387.1s 256 {"completed": 26, "total": 48, "status": "kept"}
+396.7s 257 {"completed": 27, "total": 48, "status": "kept"}
+406.7s 258 {"completed": 28, "total": 48, "status": "kept"}
+411.9s 259 {"completed": 29, "total": 48, "status": "repaired"}
+417.2s 260 {"completed": 30, "total": 48, "status": "repaired"}
+427.4s 261 {"completed": 31, "total": 48, "status": "repaired"}
+437.8s 262 {"completed": 32, "total": 48, "status": "repaired"}
+442.7s 263 {"completed": 33, "total": 48, "status": "kept"}
+447.6s 264 {"completed": 34, "total": 48, "status": "kept"}
+457.3s 265 {"completed": 35, "total": 48, "status": "kept"}
+467.1s 266 {"completed": 36, "total": 48, "status": "kept"}
+470.6s 267 {"completed": 37, "total": 48, "status": "insufficient_evidence"}
+474.2s 268 {"completed": 38, "total": 48, "status": "insufficient_evidence"}
+482.5s 269 {"completed": 39, "total": 48, "status": "insufficient_evidence"}
+491.0s 270 {"completed": 40, "total": 48, "status": "insufficient_evidence"}
+497.2s 271 {"completed": 41, "total": 48, "status": "conflicting_evidence"}
+503.6s 272 {"completed": 42, "total": 48, "status": "conflicting_evidence"}
+515.1s 273 {"completed": 43, "total": 48, "status": "conflicting_evidence"}
+527.0s 274 {"completed": 44, "total": 48, "status": "conflicting_evidence"}
+533.0s 275 {"completed": 45, "total": 48, "status": "repaired"}
+539.1s 276 {"completed": 46, "total": 48, "status": "repaired"}
+549.6s 277 {"completed": 47, "total": 48, "status": "repaired"}
+560.3s 278 {"completed": 48, "total": 48, "status": "repaired"}
+560.5s 279 {
+560.5s 280 "version": "v9_contract_v1_xgrammar",
+560.5s 281 "fingerprint": "559e48fc46f5ec6d2e63dc018a4ac4d5e5669768468be035859305d506dc12e2",
+560.5s 282 "manifest": {
+560.5s 283 "version": "v9_contract_v1_xgrammar",
+560.5s 284 "cases_sha256": "f6370ad4bd1460672e3be8f4433cfba93865257522435563605faf5cfaa89c08",
+560.5s 285 "source_sha256": {
+560.5s 286 "scripts/run_answer_repair_contract.py": "4bc308f1bf3c36552e9f0030d754ca999a4812751d518a13fe02dbf101806e33",
+560.5s 287 "scripts/prepare_answer_repair_contract.py": "bfff58a28ee1a4763e7c3cc6bced7b5c44c52ed50d842e59a4f5ec112a021229",
+560.5s 288 "src/compensation/constrained_evidence_id.py": "0c7f66bb3d19393022fd0a5f4ea540efed571c12c11a5852cb1f1398358646a1",
+560.5s 289 "src/compensation/qwen_constrained.py": "df915def2e58e8fb1773cce31d2a8557ca635f5e55cc56fe79edd48cf2e27511",
+560.5s 290 "src/compensation/evidence_id_repair.py": "ee23d1b90129fa1859835a9b59e01cd2058209dbf21fe4994d08db38cfc129c0",
+560.5s 291 "src/compensation/qwen_repair.py": "e4989bcc20c3c23596ed685bc706e27cc742de4c1b41bd4f9d8d490c87400b49",
+560.5s 292 "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+560.5s 293 "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+560.5s 294 "src/compensation/controller_adapter.py": "e3722ee732ce5eff839e0316704fb23a7a41e5e5e175d225f369823fd1a450be",
+560.5s 295 "src/compensation/line_contract.py": "32e938f413e6d4dfc0965bdfb31806773c20cef733dc58294c427fb96641a687",
+560.5s 296 "src/generation/qwen.py": "c932c3a0df40f030813d8c7298144adc1310a0bfee15ef832868a49cce9d6d6a",
+560.5s 297 "src/config.py": "9b2c12efa927872022fb626a1479944e660c4f3a21de25cd0beae8f17e2be9e1",
+560.5s 298 "src/diagnosis/schema.py": "f1bf526835f5c98a369ac38884415ce06e9a454639c41cb1daa2799ab26f700f",
+560.5s 299 "src/diagnosis/labels.py": "c9e787268e2669e2af0cf074aaf6a8b71bc5ed960fcacb8f6a657f7217ee1fda",
+560.5s 300 "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+560.5s 301 "configs/answer_repair_contract_v1.json": "80566e9e3cc5b4ec051575a06b44217a2f828c2e90802f409d492237922fc0f2",
+560.5s 302 "requirements-answer-repair-contract.txt": "8310938de5bb27f40928ebc83805aec175cc1ec7891448c3e0d98a28512128d4"
+560.5s 303 }
+560.5s 304 },
+560.5s 305 "groups": {
+560.5s 306 "evidence_id/prompt_only": {
+560.5s 307 "predictions": 12,
+560.5s 308 "valid": 10,
+560.5s 309 "calls": 12,
+560.5s 310 "generation_seconds": 62.49505357099997,
+560.5s 311 "schema_compile_seconds": 0.0
+560.5s 312 },
+560.5s 313 "evidence_id/xgrammar": {
+560.5s 314 "predictions": 12,
+560.5s 315 "valid": 11,
+560.5s 316 "calls": 12,
+560.5s 317 "generation_seconds": 66.19442033099995,
+560.5s 318 "schema_compile_seconds": 0.07120175100004644
+560.5s 319 },
+560.5s 320 "factored_evidence_id/prompt_only": {
+560.5s 321 "predictions": 12,
+560.5s 322 "valid": 10,
+560.5s 323 "calls": 36,
+560.5s 324 "generation_seconds": 126.9278415310003,
+560.5s 325 "schema_compile_seconds": 0.0
+560.5s 326 },
+560.5s 327 "factored_evidence_id/xgrammar": {
+560.5s 328 "predictions": 12,
+560.6s 329 "valid": 11,
+560.6s 330 "calls": 36,
+560.6s 331 "generation_seconds": 130.57827930300004,
+560.6s 332 "schema_compile_seconds": 0.011716603000365922
+560.6s 333 }
+560.6s 334 },
+560.6s 335 "constrained_valid": 22,
+560.6s 336 "constrained_total": 24,
+560.6s 337 "unknown_ids": 0,
+560.6s 338 "keep_rewrites": 0,
+560.6s 339 "replay": "passed",
+560.6s 340 "engineering_gate_passed": true,
+560.6s 341 "benchmark_gain_claim": false,
+560.6s 342 "model_training": false
+560.6s 343 }
+565.8s 344 {"replay": "passed", "predictions": 48, "fingerprint": "559e48fc46f5ec6d2e63dc018a4ac4d5e5669768468be035859305d506dc12e2"}
+566.2s 345 Traceback (most recent call last):
+566.2s 346 File "<string>", line 1, in <module>
+566.2s 347 import sys;import papermill as pm;pm.execute_notebook("__notebook__.ipynb","__notebook__.ipynb",progress_bar=False,log_output=True,stdout_file=sys.stdout,stderr_file=sys.stderr,allow_errors=False,timeout=43200)
+566.2s 348 ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+566.2s 349 File "/usr/local/lib/python3.13/dist-packages/papermill/execute.py", line 131, in execute_notebook
+566.2s 350 raise_for_execution_errors(nb, output_path)
+566.2s 351 ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+566.2s 352 File "/usr/local/lib/python3.13/dist-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+566.2s 353 raise error
+566.2s 354 papermill.exceptions.PapermillExecutionError:
+566.2s 355 ---------------------------------------------------------------------------
+566.2s 356 Exception encountered at "In [1]":
+566.2s 357 ---------------------------------------------------------------------------
+566.2s 358 ValueError                                Traceback (most recent call last)
+566.2s 359 /tmp/ipykernel_23/3980563763.py in <cell line: 0>()
+566.2s 360 36         for path in sorted(root.rglob('*')):
+566.2s 361 37             if path.is_file() and '__pycache__' not in path.parts:
+566.2s 362 ---> 38                 export.write(path,path.relative_to(root))
+566.2s 363 39 print('SYNTHETIC CONTRACT RUN COMPLETE. No benchmark gain claim; inspect the predeclared gate.')
+566.2s 364 
+566.2s 365 /usr/lib/python3.13/zipfile/__init__.py in write(self, filename, arcname, compress_type, compresslevel)
+566.2s 366 1916             )
+566.2s 367 1917
+566.2s 368 -> 1918         zinfo = ZipInfo.from_file(filename, arcname,
+566.2s 369 1919                                   strict_timestamps=self._strict_timestamps)
+566.2s 370 1920
+566.2s 371 
+566.2s 372 /usr/lib/python3.13/zipfile/__init__.py in from_file(cls, filename, arcname, strict_timestamps)
+566.2s 373 615         if isdir:
+566.2s 374 616             arcname += '/'
+566.2s 375 --> 617         zinfo = cls(arcname, date_time)
+566.2s 376 618         zinfo.external_attr = (st.st_mode & 0xFFFF) << 16  # Unix attributes
+566.2s 377 619         if isdir:
+566.2s 378 
+566.2s 379 /usr/lib/python3.13/zipfile/__init__.py in __init__(self, filename, date_time)
+566.2s 380 426
+566.2s 381 427         if date_time[0] < 1980:
+566.2s 382 --> 428             raise ValueError('ZIP does not support timestamps before 1980')
+566.2s 383 429
+566.2s 384 430         # Standard values:
+566.2s 385 
+566.2s 386 ValueError: ZIP does not support timestamps before 1980
+566.2s 387 
+568.5s 388 /usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+568.5s 389 cells[i][c] = re.sub('\\\\\|', '|', cell)
+568.6s 390 /usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+568.6s 391 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+569.4s 392 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+569.5s 393 [NbConvertApp] Writing 121248 bytes to __notebook__.ipynb
+572.0s 394 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+572.5s 395 [NbConvertApp] Writing 404284 bytes to __results__.html
