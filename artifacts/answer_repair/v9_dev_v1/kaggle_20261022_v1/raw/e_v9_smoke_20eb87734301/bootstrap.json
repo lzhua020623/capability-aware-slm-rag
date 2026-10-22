@@ -1,0 +1,5 @@
+{
+  "expected_checksums_sha256": "20eb87734301f5947e30ae203ba21b24ea3002c491f784f1f2279630dc878216",
+  "expected_archive_sha256": "4f3e3e2acf4de62bf70089b2a5ee13b66afc917641c8f602f6dc6faaa79046bf",
+  "purpose": "10-sample exposed development engineering smoke; no EM-based selection"
+}

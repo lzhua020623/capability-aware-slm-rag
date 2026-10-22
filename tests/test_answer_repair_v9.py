@@ -6,7 +6,7 @@ import unittest
 
 from src.compensation.answer_repair import Generation
 from src.compensation.evidence_id_repair import (
-    evidence_units, reconstruct_citations, repair, replay, plan_prompt, fact_prompt,
+    evidence_units, reconstruct_citations, repair, replay, plan_prompt, fact_prompt, context,
 )
 from src.diagnosis import DiagnosisInput, EvidenceItem
 
@@ -39,6 +39,18 @@ class EvidenceIdTests(unittest.TestCase):
         self.assertEqual("".join(u.text for u in units), r.evidence[0].text)
         for u in units:
             self.assertEqual(r.evidence[0].text[u.start:u.end], u.text)
+
+    def test_compact_context_preserves_every_source_character_and_id(self):
+        r = request(texts=["Dr. Mira lived here. She left in 1990. She returned in 1991.",
+                           "Same city? Different year!\nDo not drop this qualifier."])
+        units = evidence_units(r)
+        compact = context(r, units)
+        decoded = json.loads(compact)
+        self.assertEqual(decoded["evidence_units"], {u.id: u.text for u in units})
+        self.assertEqual(decoded["sources"], {f"R{e.rank}": e.passage_id for e in r.evidence})
+        for e in r.evidence:
+            self.assertEqual("".join(decoded["evidence_units"][u.id] for u in units if u.rank == e.rank), e.text)
+        self.assertLess(len(compact), len(json.dumps([asdict(u) for u in units])))
 
     def test_program_reconstructs_quotes_and_source_answer(self):
         r = request(); g = Generator([answer()])

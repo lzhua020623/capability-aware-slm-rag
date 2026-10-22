@@ -6,6 +6,7 @@ from dataclasses import asdict
 import hashlib
 import io
 import json
+import re
 from pathlib import Path
 import sys
 import tarfile
@@ -25,8 +26,12 @@ def digest(raw):
 
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--out-dir", type=Path, default=ROOT / "artifacts/answer_repair/v9_dev_v1")
+    p.add_argument("--snapshot", default="v9_dev_v2")
+    p.add_argument("--out-dir", type=Path)
     args = p.parse_args(argv)
+    if not re.fullmatch(r"v9_dev_v[1-9][0-9]*", args.snapshot):
+        p.error("Snapshot must have the form v9_dev_v2")
+    args.out_dir = args.out_dir or ROOT / "artifacts/answer_repair" / args.snapshot
     sources = {
         "nq": ("artifacts/answer_repair/final_nq75/answer_repair_final_r3_nq75_gpu.tar.gz",
                "answer_repair_final_r3_nq75_gpu/inputs/nq75_c1.jsonl"),
@@ -42,7 +47,7 @@ def main(argv=None):
     human_fever = {r["sample_id"]: r for r in read_jsonl(
         (ROOT / "data/annotations/human/answer_repair_v6r1_pairs_20261014.jsonl").read_bytes(), "FEVER human")
                    if r["dataset"] == "fever" and r["cohort"] == "dev50"}
-    files, manifest = {}, {"version": "v9_dev_v1", "purpose": "exposed development only, not unseen",
+    files, manifest = {}, {"version": args.snapshot, "purpose": "exposed development only, not unseen",
                           "datasets": {}, "gpu_inference_completed": False,
                           "smoke_policy": "5 per dataset by SHA256; exclude retired NQ smoke8 IDs; engineering only, no EM selection",
                           "selection_gate": "GPU smoke: full output count, finite costs, successful frozen replay; log all format/source failures. No performance-based prompt changes on smoke.",
@@ -107,18 +112,19 @@ def main(argv=None):
     files["bundle_checksums.json"] = encode_json({name: digest(raw) for name, raw in sorted(files.items())})
     for name, raw in files.items():
         write_frozen(args.out_dir / "gpu_bundle" / name, raw)
-    archive_out = args.out_dir / "answer_repair_v9_dev_v1_gpu.tar.gz"
+    archive_prefix = "answer_repair_" + args.snapshot + "_gpu"
+    archive_out = args.out_dir / (archive_prefix + ".tar.gz")
     if not archive_out.exists():
         temporary = archive_out.with_suffix(".tmp")
         with tarfile.open(temporary, "w:gz") as tar:
             for name, raw in sorted(files.items()):
-                info = tarfile.TarInfo("answer_repair_v9_dev_v1_gpu/" + name)
+                info = tarfile.TarInfo(archive_prefix + "/" + name)
                 info.size = len(raw); info.mtime = 0
                 tar.addfile(info, io.BytesIO(raw))
         temporary.replace(archive_out)
     else:
         with tarfile.open(archive_out) as tar:
-            if tar.extractfile("answer_repair_v9_dev_v1_gpu/bundle_checksums.json").read() != files["bundle_checksums.json"]:
+            if tar.extractfile(archive_prefix + "/bundle_checksums.json").read() != files["bundle_checksums.json"]:
                 raise ValueError("Existing frozen bundle differs")
     write_frozen(args.out_dir / "manifest.json", encode_json(manifest))
     write_frozen(args.out_dir / "preparation.json", encode_json({"archive_sha256": digest(archive_out.read_bytes()),

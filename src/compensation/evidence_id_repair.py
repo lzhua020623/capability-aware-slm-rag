@@ -16,7 +16,7 @@ from src.compensation.controller_adapter import controller_route_status
 from src.compensation.short_answer_repair import locate_excerpt
 from src.diagnosis import DatasetName, DiagnosisInput
 
-VERSION = "v9_evidence_id_factored_v1"
+VERSION = "v9_evidence_id_factored_v2_compact_context"
 STRATEGIES = ("qwen_direct", "evidence_id", "factored_evidence_id")
 MAX_QUESTIONS = 3
 MAX_NEW_TOKENS = 384
@@ -63,9 +63,13 @@ def near_duplicates(request):
 
 
 def context(request, units):
-    # Every original character is retained, including punctuation and qualifiers.
-    return json.dumps({"evidence_units": [asdict(u) for u in units],
-                       "near_duplicate_passages": near_duplicates(request)}, ensure_ascii=False)
+    # Runtime needs an ID and its text, not repeated offsets/source metadata.
+    # Keep the full lossless units in the saved trace for deterministic replay.
+    # Every original character remains visible, including punctuation/qualifiers.
+    return json.dumps({"sources": {f"R{e.rank}": e.passage_id for e in request.evidence},
+                       "evidence_units": {u.id: u.text for u in units},
+                       "near_duplicate_passages": near_duplicates(request)},
+                      ensure_ascii=False, separators=(",", ":"))
 
 
 RULES = (

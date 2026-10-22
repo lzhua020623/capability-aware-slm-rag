@@ -1,5 +1,5 @@
 {
-  "status": "Running",
+  "status": "failed_partial",
   "observed_on": "2026-10-22",
   "timezone": "Australia/Sydney",
   "private_dataset_url": "https://www.kaggle.com/datasets/yearo111/e-v9-evidence-id-factored-dev-frozen-20261022",
@@ -15,5 +15,10 @@
   "internet_observed": true,
   "notebook_visibility_observed": "Private",
   "submission_observed": "Version History: Running...",
-  "script_version_id": 360999513
+  "script_version_id": 360999513,
+  "run_seconds": 592.9,
+  "saved_predictions": 26,
+  "real_gpu_inference_completed": false,
+  "failure": "CUDA OOM in FEVER factored final decision",
+  "outputs": "kaggle_20261022_v1/"
 }

@@ -1,0 +1,26 @@
+{
+  "status": "running",
+  "kaggle_version": 2,
+  "version_name": "v9 compact smoke10 frozen 682f0911",
+  "notebook_url": "https://www.kaggle.com/code/yearo111/e-v9-id-factored-smoke10-20261022?scriptVersionId=361004665",
+  "private": true,
+  "accelerator": "GPU T4 x2",
+  "internet": true,
+  "expected_predictions": 30,
+  "expected_replays": 6,
+  "purpose": "engineering only; no EM-based selection",
+  "changes_from_v1": [
+    "compact evidence context serialization; full evidence text and IDs retained",
+    "snapshot version identifier and packaging support"
+  ],
+  "unchanged": [
+    "sample IDs",
+    "Qwen model/revision/NF4",
+    "three strategies",
+    "prompt rules",
+    "generation/call budgets",
+    "strict validation"
+  ],
+  "gpu_inference_completed": false,
+  "script_version_id": 361004665
+}

@@ -1,0 +1,144 @@
+{
+  "changed_repair_functions": [
+    "context"
+  ],
+  "semantic_prompt_rules": "unchanged AST",
+  "selection": "same bytes and same IDs; no gold-based tuning",
+  "unit_ids_and_text": "identical",
+  "saved_trace_offsets": "retained",
+  "samples": [
+    {
+      "dataset": "nq",
+      "sample_id": "2095868851000293874",
+      "units": 19,
+      "previous_context_characters": 4763,
+      "compact_context_characters": 3269,
+      "fraction_of_previous": 0.6863321436069704,
+      "all_text_and_ids": "identical"
+    },
+    {
+      "dataset": "nq",
+      "sample_id": "-5223755550735908441",
+      "units": 11,
+      "previous_context_characters": 2451,
+      "compact_context_characters": 1638,
+      "fraction_of_previous": 0.6682986536107711,
+      "all_text_and_ids": "identical"
+    },
+    {
+      "dataset": "nq",
+      "sample_id": "2847980457887203111",
+      "units": 13,
+      "previous_context_characters": 3248,
+      "compact_context_characters": 2255,
+      "fraction_of_previous": 0.6942733990147784,
+      "all_text_and_ids": "identical"
+    },
+    {
+      "dataset": "nq",
+      "sample_id": "-7203695625159603076",
+      "units": 11,
+      "previous_context_characters": 3321,
+      "compact_context_characters": 2508,
+      "fraction_of_previous": 0.7551942186088527,
+      "all_text_and_ids": "identical"
+    },
+    {
+      "dataset": "nq",
+      "sample_id": "6098465629713582210",
+      "units": 22,
+      "previous_context_characters": 5294,
+      "compact_context_characters": 3544,
+      "fraction_of_previous": 0.6694370986021911,
+      "all_text_and_ids": "identical"
+    },
+    {
+      "dataset": "fever",
+      "sample_id": "193411",
+      "units": 62,
+      "previous_context_characters": 16031,
+      "compact_context_characters": 10152,
+      "fraction_of_previous": 0.6332730334975984,
+      "all_text_and_ids": "identical"
+    },
+    {
+      "dataset": "fever",
+      "sample_id": "42213",
+      "units": 69,
+      "previous_context_characters": 16449,
+      "compact_context_characters": 9566,
+      "fraction_of_previous": 0.5815551097331145,
+      "all_text_and_ids": "identical"
+    },
+    {
+      "dataset": "fever",
+      "sample_id": "98655",
+      "units": 18,
+      "previous_context_characters": 4063,
+      "compact_context_characters": 2653,
+      "fraction_of_previous": 0.6529657888259907,
+      "all_text_and_ids": "identical"
+    },
+    {
+      "dataset": "fever",
+      "sample_id": "226143",
+      "units": 33,
+      "previous_context_characters": 8703,
+      "compact_context_characters": 5755,
+      "fraction_of_previous": 0.6612662300356199,
+      "all_text_and_ids": "identical"
+    },
+    {
+      "dataset": "fever",
+      "sample_id": "222026",
+      "units": 26,
+      "previous_context_characters": 6218,
+      "compact_context_characters": 3938,
+      "fraction_of_previous": 0.633322611772274,
+      "all_text_and_ids": "identical"
+    }
+  ],
+  "checks": [
+    {
+      "dataset": "nq",
+      "strategy": "qwen_direct",
+      "preflight": "passed",
+      "fingerprint": "3f5433f65bc450828822665f2aa3f82e993228a66d0370fc3a5d66254584e88a"
+    },
+    {
+      "dataset": "nq",
+      "strategy": "evidence_id",
+      "preflight": "passed",
+      "fingerprint": "5fe8b37fb673b7baf29524744ebe767aab08fd2473ee1433214b3beaaac7a37b"
+    },
+    {
+      "dataset": "nq",
+      "strategy": "factored_evidence_id",
+      "preflight": "passed",
+      "fingerprint": "ce268a96d111b4fdf9a1ce8aceeb7645dcda987f57ad68d46fbaaf533e8c46d2"
+    },
+    {
+      "dataset": "fever",
+      "strategy": "qwen_direct",
+      "preflight": "passed",
+      "fingerprint": "6266f6fe6a47a25126a5120697967d807686f19082600ebea244ce9bb731a793"
+    },
+    {
+      "dataset": "fever",
+      "strategy": "evidence_id",
+      "preflight": "passed",
+      "fingerprint": "de81b95df2152c1c7b2af72101c50785417e06a9b2dfc80be23dc537a8f28334"
+    },
+    {
+      "dataset": "fever",
+      "strategy": "factored_evidence_id",
+      "preflight": "passed",
+      "fingerprint": "62a0310f000784e9f6214ad21c77387495a454a0c29d2065a365594c55c2e810"
+    }
+  ],
+  "local_tests": {
+    "passed": 78,
+    "v9_core": 13
+  },
+  "frozen_archive_sha256": "682f0911a24006271d6b72f46c01e5768fe10bd0f5c1cd9730067e539c5a3a68"
+}
