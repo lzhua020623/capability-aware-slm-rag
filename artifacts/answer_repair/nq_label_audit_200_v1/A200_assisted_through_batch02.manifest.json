@@ -1,0 +1,21 @@
+{
+  "assisted": 10,
+  "remaining_without_semantic_assistance": 190,
+  "human_confirmed": 0,
+  "assisted_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "packet_sha256": "eb606019884a97f7b536daaf25f5251aa01194ad287304927dd018806bed4f1e",
+  "html_sha256": "7a5473a797b5fc1f841bc33a560fd62e342487c4f048474c305202cedacd056b",
+  "assisted_file_sha256": "34cce6fd91122379a63181b8adeb601ad42d6285686c24646bec35909beb66fa",
+  "reference_visible_assistance_not_independent_human_gold": true
+}

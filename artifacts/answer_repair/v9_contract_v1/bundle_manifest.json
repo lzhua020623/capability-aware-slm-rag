@@ -1,0 +1,9 @@
+{
+  "archive_sha256": "8dced5b6c02e1295393dcfe00bfc73e4c612ca39c7c03d98bb77a62e4d722159",
+  "notebook_sha256": "ee2c06c5297013c002c0759d45864666c8c413ba70afa083676e311f791ddc97",
+  "source_files": 40,
+  "synthetic_cases": 12,
+  "predictions": 48,
+  "gpu_run_completed": false,
+  "default_promoted": false
+}

@@ -1,0 +1,18 @@
+{
+  "samples": 200,
+  "stratum_counts": {
+    "correct": 50,
+    "evidence_accessibility": 50,
+    "evidence_insufficiency": 50,
+    "evidence_utilisation": 50
+  },
+  "known_exposures_excluded": 226,
+  "human_confirmed": 0,
+  "outputs_sha256": {
+    "manifest.json": "37ad35178452acc3681dc258f6f90856b71bc734d8c9160364bd19b4f09fe363",
+    "review_packet.json": "6485e9634bd991ad66b2eeadbd59b9681d1c3585a2562aa23ab51f0e0c56a6a4",
+    "review_queue.jsonl": "2cd6d5af942d85cb4840eec4452f5ac0eb8ea347bfc665cc439559cb7247a6db",
+    "runtime.jsonl": "bd3ae352b5e2415b02dc961e8078fb8376b190bdae4a0091b9e1f866d61c6b82",
+    "A200_review.html": "46b5772e0c898190bf1ecce2647c57a0c5db5ea08098be1531b9acfd85f8ee46"
+  }
+}

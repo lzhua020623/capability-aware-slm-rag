@@ -1,0 +1,20 @@
+{
+  "version": "v9_contract_v1_xgrammar",
+  "date": "2026-10-22",
+  "scope": "12 fictional engineering cases only; no retired smoke, human audit or final benchmark",
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "quantization": "nf4_fp16_double_quant",
+  "seed": 42,
+  "max_new_tokens_per_call": 384,
+  "strategies": ["evidence_id", "factored_evidence_id"],
+  "decoder_arms": ["prompt_only", "xgrammar"],
+  "same_schema_text_in_both_arms": true,
+  "xgrammar": "0.2.8",
+  "predeclared_engineering_gate": "48 predictions complete, frozen replay passes, budget respected; at least 22/24 constrained final results pass strict existing postchecks. Unknown IDs and keep rewrites must be zero. No semantic benefit claim.",
+  "stop_policy": "If gate fails, archive the failure; do not tune on these synthetic cases or expand the real benchmark. Passing permits a separately frozen semantic-development protocol, not automatic promotion.",
+  "unchanged_semantic_pipeline": "Original v9 decomposition, context isolation, full Top-5 and postchecks; only schema text/decoder experiment in new opt-in entry.",
+  "training": false,
+  "runtime_gold": false,
+  "default_strategy_promotion": false
+}

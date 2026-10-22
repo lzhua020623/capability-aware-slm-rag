@@ -1,0 +1,260 @@
+{
+  "bad_keep_or_id_examples_rejected": 24,
+  "compiled_schemas": 36,
+  "fingerprint": "559e48fc46f5ec6d2e63dc018a4ac4d5e5669768468be035859305d506dc12e2",
+  "gpu_nf4_compatibility_verified": false,
+  "manifest": {
+    "cases_sha256": "f6370ad4bd1460672e3be8f4433cfba93865257522435563605faf5cfaa89c08",
+    "source_sha256": {
+      "configs/answer_repair_contract_v1.json": "80566e9e3cc5b4ec051575a06b44217a2f828c2e90802f409d492237922fc0f2",
+      "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+      "requirements-answer-repair-contract.txt": "8310938de5bb27f40928ebc83805aec175cc1ec7891448c3e0d98a28512128d4",
+      "scripts/prepare_answer_repair_contract.py": "bfff58a28ee1a4763e7c3cc6bced7b5c44c52ed50d842e59a4f5ec112a021229",
+      "scripts/run_answer_repair_contract.py": "4bc308f1bf3c36552e9f0030d754ca999a4812751d518a13fe02dbf101806e33",
+      "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+      "src/compensation/constrained_evidence_id.py": "0c7f66bb3d19393022fd0a5f4ea540efed571c12c11a5852cb1f1398358646a1",
+      "src/compensation/controller_adapter.py": "e3722ee732ce5eff839e0316704fb23a7a41e5e5e175d225f369823fd1a450be",
+      "src/compensation/evidence_id_repair.py": "ee23d1b90129fa1859835a9b59e01cd2058209dbf21fe4994d08db38cfc129c0",
+      "src/compensation/line_contract.py": "32e938f413e6d4dfc0965bdfb31806773c20cef733dc58294c427fb96641a687",
+      "src/compensation/qwen_constrained.py": "df915def2e58e8fb1773cce31d2a8557ca635f5e55cc56fe79edd48cf2e27511",
+      "src/compensation/qwen_repair.py": "e4989bcc20c3c23596ed685bc706e27cc742de4c1b41bd4f9d8d490c87400b49",
+      "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+      "src/config.py": "9b2c12efa927872022fb626a1479944e660c4f3a21de25cd0beae8f17e2be9e1",
+      "src/diagnosis/labels.py": "c9e787268e2669e2af0cf074aaf6a8b71bc5ed960fcacb8f6a657f7217ee1fda",
+      "src/diagnosis/schema.py": "f1bf526835f5c98a369ac38884415ce06e9a454639c41cb1daa2799ab26f700f",
+      "src/generation/qwen.py": "c932c3a0df40f030813d8c7298144adc1310a0bfee15ef832868a49cce9d6d6a"
+    },
+    "version": "v9_contract_v1_xgrammar"
+  },
+  "mode": "cpu_grammar_compilation_only_no_model_weights",
+  "model_name": "Qwen/Qwen2.5-7B-Instruct",
+  "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "packages": {
+    "apache-tvm-ffi": "0.1.15.post0",
+    "jsonschema": "4.26.0",
+    "torch": "2.14.1",
+    "transformers": "5.16.1",
+    "xgrammar": "0.2.8"
+  },
+  "python": "3.12.14",
+  "results": [
+    {
+      "case_id": "S01",
+      "compile_seconds": 0.03132166701834649,
+      "compiled": true,
+      "stage": "plan"
+    },
+    {
+      "case_id": "S01",
+      "compile_seconds": 0.0061746659921482205,
+      "compiled": true,
+      "stage": "fact"
+    },
+    {
+      "case_id": "S01",
+      "compile_seconds": 0.008395542041398585,
+      "compiled": true,
+      "stage": "decision"
+    },
+    {
+      "case_id": "S02",
+      "compile_seconds": 6.433308590203524e-05,
+      "compiled": true,
+      "stage": "plan"
+    },
+    {
+      "case_id": "S02",
+      "compile_seconds": 8.583301678299904e-05,
+      "compiled": true,
+      "stage": "fact"
+    },
+    {
+      "case_id": "S02",
+      "compile_seconds": 0.0070719169452786446,
+      "compiled": true,
+      "stage": "decision"
+    },
+    {
+      "case_id": "S03",
+      "compile_seconds": 6.991706322878599e-05,
+      "compiled": true,
+      "stage": "plan"
+    },
+    {
+      "case_id": "S03",
+      "compile_seconds": 0.005692375008948147,
+      "compiled": true,
+      "stage": "fact"
+    },
+    {
+      "case_id": "S03",
+      "compile_seconds": 0.00957633403595537,
+      "compiled": true,
+      "stage": "decision"
+    },
+    {
+      "case_id": "S04",
+      "compile_seconds": 7.766694761812687e-05,
+      "compiled": true,
+      "stage": "plan"
+    },
+    {
+      "case_id": "S04",
+      "compile_seconds": 8.195801638066769e-05,
+      "compiled": true,
+      "stage": "fact"
+    },
+    {
+      "case_id": "S04",
+      "compile_seconds": 0.00571599998511374,
+      "compiled": true,
+      "stage": "decision"
+    },
+    {
+      "case_id": "S05",
+      "compile_seconds": 4.641700070351362e-05,
+      "compiled": true,
+      "stage": "plan"
+    },
+    {
+      "case_id": "S05",
+      "compile_seconds": 0.007108457968570292,
+      "compiled": true,
+      "stage": "fact"
+    },
+    {
+      "case_id": "S05",
+      "compile_seconds": 0.006803915952332318,
+      "compiled": true,
+      "stage": "decision"
+    },
+    {
+      "case_id": "S06",
+      "compile_seconds": 8.337490726262331e-05,
+      "compiled": true,
+      "stage": "plan"
+    },
+    {
+      "case_id": "S06",
+      "compile_seconds": 0.00011137500405311584,
+      "compiled": true,
+      "stage": "fact"
+    },
+    {
+      "case_id": "S06",
+      "compile_seconds": 0.012751959031447768,
+      "compiled": true,
+      "stage": "decision"
+    },
+    {
+      "case_id": "S07",
+      "compile_seconds": 0.00014933303464204073,
+      "compiled": true,
+      "stage": "plan"
+    },
+    {
+      "case_id": "S07",
+      "compile_seconds": 0.00016345898620784283,
+      "compiled": true,
+      "stage": "fact"
+    },
+    {
+      "case_id": "S07",
+      "compile_seconds": 0.01149924995843321,
+      "compiled": true,
+      "stage": "decision"
+    },
+    {
+      "case_id": "S08",
+      "compile_seconds": 4.9541937187314034e-05,
+      "compiled": true,
+      "stage": "plan"
+    },
+    {
+      "case_id": "S08",
+      "compile_seconds": 0.00010829092934727669,
+      "compiled": true,
+      "stage": "fact"
+    },
+    {
+      "case_id": "S08",
+      "compile_seconds": 0.00017004203982651234,
+      "compiled": true,
+      "stage": "decision"
+    },
+    {
+      "case_id": "S09",
+      "compile_seconds": 0.00026762497145682573,
+      "compiled": true,
+      "stage": "plan"
+    },
+    {
+      "case_id": "S09",
+      "compile_seconds": 9.641703218221664e-05,
+      "compiled": true,
+      "stage": "fact"
+    },
+    {
+      "case_id": "S09",
+      "compile_seconds": 0.0052924168994650245,
+      "compiled": true,
+      "stage": "decision"
+    },
+    {
+      "case_id": "S10",
+      "compile_seconds": 8.220900781452656e-05,
+      "compiled": true,
+      "stage": "plan"
+    },
+    {
+      "case_id": "S10",
+      "compile_seconds": 0.00012699991930276155,
+      "compiled": true,
+      "stage": "fact"
+    },
+    {
+      "case_id": "S10",
+      "compile_seconds": 0.00492291699629277,
+      "compiled": true,
+      "stage": "decision"
+    },
+    {
+      "case_id": "S11",
+      "compile_seconds": 6.504205521196127e-05,
+      "compiled": true,
+      "stage": "plan"
+    },
+    {
+      "case_id": "S11",
+      "compile_seconds": 0.00026445905677974224,
+      "compiled": true,
+      "stage": "fact"
+    },
+    {
+      "case_id": "S11",
+      "compile_seconds": 0.0061518329894170165,
+      "compiled": true,
+      "stage": "decision"
+    },
+    {
+      "case_id": "S12",
+      "compile_seconds": 3.458303399384022e-05,
+      "compiled": true,
+      "stage": "plan"
+    },
+    {
+      "case_id": "S12",
+      "compile_seconds": 7.50409672036767e-05,
+      "compiled": true,
+      "stage": "fact"
+    },
+    {
+      "case_id": "S12",
+      "compile_seconds": 0.0001437920145690441,
+      "compiled": true,
+      "stage": "decision"
+    }
+  ],
+  "valid_examples_accepted": 36,
+  "vocab_size": 152064
+}

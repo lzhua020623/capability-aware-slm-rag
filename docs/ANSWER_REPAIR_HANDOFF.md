@@ -24,6 +24,8 @@
 
 ## 当前入口
 
+2026-10-22 后续推进：已固定 [NQ初标分层200条](../artifacts/answer_repair/nq_label_audit_200_v1/README.md)，四类各50，排除226个已知暴露ID；辅助10/200、人工0/200，剩余190条未语义审核。未修改已有75条定案或25条暂缓，未做训练/数据增强。新 [受约束输出接口实验](../artifacts/answer_repair/v9_contract_v1/README.md) 与旧v9隔离：12个虚构工程样例，原生语法36份通过、24个反例拒绝，真实Qwen GPU任务已私有提交，最后观察Queued，尚未完成CUDA/NF4生成验收。不得以此宣布正式收益或默认晋升。
+
 | 内容 | 入口与状态 |
 |---|---|
 | v9新路线实现与真实工程负结果 | [工程报告](ANSWER_REPAIR_V9_ENGINEERING_20261022.md)／[v3快照](../artifacts/answer_repair/v9_dev_v3/README.md)，30条、六组回放通过；输出契约11／20未过门槛，完整开发搁置 |

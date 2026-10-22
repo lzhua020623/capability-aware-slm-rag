@@ -209,3 +209,9 @@ data/annotations/*.xlsx
 !artifacts/answer_repair/final_review_v1/F42_review.html
 !artifacts/answer_repair/final_review_v1/F42_human_review.html
 !notebooks/answer_repair_final_nq125.ipynb
+
+# New development label audit and synthetic contract experiment (no model caches).
+!artifacts/answer_repair/nq_label_audit_200_v1/**
+!artifacts/answer_repair/v9_contract_v1/**
+artifacts/answer_repair/**/gpu_bundle/
+artifacts/answer_repair/**/partial_downloads/

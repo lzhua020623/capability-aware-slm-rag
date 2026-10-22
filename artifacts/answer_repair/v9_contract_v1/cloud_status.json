@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-22",
+  "notebook_url": "https://www.kaggle.com/code/yearo111/e-contract-v1-synthetic-20261022",
+  "visibility_observed": "Private",
+  "accelerator_observed": "GPU T4 x2",
+  "internet_observed": true,
+  "version": 1,
+  "status_observed": "Queued",
+  "gpu_inference_complete": false,
+  "synthetic_cases": 12,
+  "expected_predictions": 48
+}
