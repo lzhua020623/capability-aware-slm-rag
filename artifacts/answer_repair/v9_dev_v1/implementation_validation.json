@@ -1,0 +1,18 @@
+{
+  "status": "cpu_engineering_passed",
+  "client_date": "2026-10-22",
+  "timezone": "Australia/Sydney",
+  "root_related_tests_passed": 74,
+  "frozen_bundle_core_tests_passed": 12,
+  "dataset_strategy_preflights_passed": 6,
+  "gold_sentinel_isolation_check": "passed",
+  "synthetic_cli_replay_check": "passed_not_gpu_prediction",
+  "frozen_bundle_checksums_verified": 51,
+  "real_gpu_inference_completed": false,
+  "gpu_results_pending": true,
+  "human_initial_label_coverage": {
+    "nq": 75,
+    "fever": 4
+  },
+  "warning": "Engineering checks establish execution, isolation and provenance; not semantic judgment accuracy or repair gain."
+}

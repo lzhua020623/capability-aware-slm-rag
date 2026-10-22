@@ -73,6 +73,33 @@ class FinalConfirmationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "prior C1 labels"):
             apply([pair], confirmation([1]))
 
+    def test_closed_preference_keeps_unscored_label_and_net_bounds(self):
+        c = confirmation([], {"12": {"initial_correct": True, "final_correct": None,
+                                      "initial_supported": None, "final_supported": None,
+                                      "preference": "initial_better", "reason": "Keep C1 without a binary verdict",
+                                      "support_fields_confirmed": False}})
+        c["workflow_decisions"] = {"12": {"status": "closed_keep_initial", "reason": "Already handled"}}
+        outputs, report = apply([row(12, (True, True, True, True))], c)
+        self.assertIsNone(outputs[0]["human_review"]["final_correct"])
+        self.assertEqual(report["workflow_pending_numbers"], [])
+        self.assertEqual(report["closed_without_binary_score_numbers"], [12])
+        self.assertEqual(next(iter(report["by_run"].values()))["all_changed_pairs_net_change_bounds"], [-1, 0])
+
+    def test_external_check_does_not_become_human_gold(self):
+        pair = row(19, (True, None, True, True))
+        c = confirmation([19])
+        c["workflow_decisions"] = {"19": {"status": "closed_external_check", "reason": "Fact check completed",
+                                           "external_assessment": {"basis": "assistant_external_fact_check",
+                                                                   "initial_correct": True, "final_correct": True,
+                                                                   "sources": [{"url": "https://example.test/record", "title": "Record"}]}}}
+        outputs, report = apply([pair], c)
+        self.assertIsNone(outputs[0]["human_review"]["final_correct"])
+        self.assertEqual(report["workflow_closed_pairs"], 1)
+        self.assertEqual(report["correctness_resolved_pairs"], 0)
+        c["workflow_decisions"]["19"]["external_assessment"]["sources"] = []
+        with self.assertRaises(ValueError):
+            apply([pair], c)
+
 
 if __name__ == "__main__":
     unittest.main()

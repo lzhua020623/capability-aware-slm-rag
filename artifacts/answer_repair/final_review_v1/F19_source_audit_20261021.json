@@ -1,0 +1,102 @@
+{
+  "version": "answer_repair_f19_source_audit_v1",
+  "sample_id": "-4609734981388290529",
+  "review_number": 19,
+  "query": "when did leningrad changed back to st petersburg",
+  "source_shard": "data/processed/external/nq_train_delivery_20261017/nq_train_annotation_003.jsonl",
+  "source_shard_sha256": "2726bac8fa09dd89c09fdc4533dccdc339275ceae98df5baa0c41b07eba96930",
+  "queue_sha256": "e8115cb6854e9e602b1aa3710b00fa4f34bcbf40ed560209cf788b7ec070440c",
+  "upstream_c1_runtime_review_passages_identical": true,
+  "evidence": [
+    {
+      "rank": 1,
+      "passage_id": "nq_p_0563384",
+      "text_sha256": "5e88c3772c56645602ea76635daef63f71da983069288b7bd6e1f6b37de05433"
+    },
+    {
+      "rank": 2,
+      "passage_id": "nq_p_0990176",
+      "text_sha256": "23a52c04c903ef2a2da8c85a58c5e6aa4d6e1d0d3504ec83da143ed50a8f5732"
+    },
+    {
+      "rank": 3,
+      "passage_id": "nq_p_0871185",
+      "text_sha256": "d2e419f8141955cc97c42a9b5ef5ecc6fa63e7bc85b8c2b2e597d6237dad965b"
+    },
+    {
+      "rank": 4,
+      "passage_id": "nq_p_0563326",
+      "text_sha256": "9adf6ae03f8976bb46c024f05ca7a1b0872737559b55a39902fd606f6c69a61e"
+    },
+    {
+      "rank": 5,
+      "passage_id": "nq_p_0563358",
+      "text_sha256": "3d93cc5efa96e1dec0a83f220aeed966f12f9fab5a7ce0cd170873e2f75450c3"
+    }
+  ],
+  "near_duplicate_pairs": [
+    {
+      "ranks": [
+        2,
+        3
+      ],
+      "exact_text_equal": false,
+      "character_sequence_similarity": 0.9982517482517482,
+      "differences": [
+        {
+          "left": "",
+          "right": "0"
+        },
+        {
+          "left": "",
+          "right": "0"
+        }
+      ]
+    },
+    {
+      "ranks": [
+        2,
+        4
+      ],
+      "exact_text_equal": false,
+      "character_sequence_similarity": 0.9477178423236514,
+      "differences": [
+        {
+          "left": "",
+          "right": ", which is about 625 kilometres ( 388 mi ) to the south - east "
+        }
+      ]
+    },
+    {
+      "ranks": [
+        3,
+        4
+      ],
+      "exact_text_equal": false,
+      "character_sequence_similarity": 0.9461474730737366,
+      "differences": [
+        {
+          "left": "0",
+          "right": ""
+        },
+        {
+          "left": "0",
+          "right": ""
+        },
+        {
+          "left": "",
+          "right": ", which is about 625 kilometres ( 388 mi ) to the south - east "
+        }
+      ]
+    }
+  ],
+  "actual_citation_is_verbatim_R1_slice": true,
+  "construction_policy": "prepare_nq_train_retrieval_data.py deduplicates exact full text only; run_nq_train_bge_retriever.py checks distinct passage IDs, not semantic diversity.",
+  "provenance_limit": "Raw corpus document metadata is not locally available here; the passages are text variants, but distinct source-page/version provenance is not established.",
+  "date_conflict": {
+    "rank_1": "September 6, 1991",
+    "ranks_2_3_4": "September 7, 1991"
+  },
+  "human_correctness_decision": "unchanged_unresolved",
+  "algorithm_or_frozen_input_changed": false
+}

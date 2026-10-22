@@ -1,0 +1,19 @@
+{
+  "status": "Running",
+  "observed_on": "2026-10-22",
+  "timezone": "Australia/Sydney",
+  "private_dataset_url": "https://www.kaggle.com/datasets/yearo111/e-v9-evidence-id-factored-dev-frozen-20261022",
+  "dataset_visibility_observed": "Private",
+  "archive_sha256": "4f3e3e2acf4de62bf70089b2a5ee13b66afc917641c8f602f6dc6faaa79046bf",
+  "gpu_inference_completed": false,
+  "smoke_predictions_expected": 30,
+  "generation_call_upper_bound": 70,
+  "notebook_url": "https://www.kaggle.com/code/yearo111/e-v9-id-factored-smoke10-20261022?scriptVersionId=360999513",
+  "version_number": 1,
+  "version_name": "v9 engineering smoke10 frozen 4f3e3e2a",
+  "accelerator_observed": "GPU T4 x2",
+  "internet_observed": true,
+  "notebook_visibility_observed": "Private",
+  "submission_observed": "Version History: Running...",
+  "script_version_id": 360999513
+}

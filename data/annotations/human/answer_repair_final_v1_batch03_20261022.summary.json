@@ -1,0 +1,91 @@
+{
+  "version": "answer_repair_final_human_confirmation_v1",
+  "human_reviewed_pairs": 42,
+  "unique_dataset_sample_ids_reviewed": 41,
+  "correctness_resolved_pairs": 37,
+  "fully_resolved_four_fields": 36,
+  "correctness_unresolved_numbers": [
+    12,
+    19,
+    23,
+    25,
+    36
+  ],
+  "support_unresolved_numbers": [
+    12,
+    23,
+    25,
+    37
+  ],
+  "initial_answer_preferred_numbers": [
+    12,
+    23,
+    25,
+    36
+  ],
+  "by_run": {
+    "nq75/nq/short_answer_quote": {
+      "reviewed_pairs": 14,
+      "correctness_resolved": 13,
+      "correctness_unresolved": 1,
+      "outcomes": {
+        "correct_preserved": 7,
+        "regressed": 2,
+        "fixed": 4,
+        "correctness_unresolved": 1
+      },
+      "resolved_pairs_net_change": 2,
+      "all_changed_pairs_net_change": null,
+      "all_changed_pairs_net_change_bounds": [
+        1,
+        2
+      ],
+      "warning": "Resolved-pair counts omit unresolved outcomes. Bounds retain all changed pairs; not whole-cohort accuracy or independent blind evaluation."
+    },
+    "nq75/nq/conservative_repair": {
+      "reviewed_pairs": 1,
+      "correctness_resolved": 1,
+      "correctness_unresolved": 0,
+      "outcomes": {
+        "fixed": 1
+      },
+      "resolved_pairs_net_change": 1,
+      "all_changed_pairs_net_change": 1,
+      "all_changed_pairs_net_change_bounds": [
+        1,
+        1
+      ],
+      "warning": "Resolved-pair counts omit unresolved outcomes. Bounds retain all changed pairs; not whole-cohort accuracy or independent blind evaluation."
+    },
+    "nq125/nq/short_answer_quote": {
+      "reviewed_pairs": 27,
+      "correctness_resolved": 23,
+      "correctness_unresolved": 4,
+      "outcomes": {
+        "fixed": 3,
+        "correct_preserved": 14,
+        "correctness_unresolved": 4,
+        "regressed": 4,
+        "wrong_preserved": 2
+      },
+      "resolved_pairs_net_change": -1,
+      "all_changed_pairs_net_change": null,
+      "all_changed_pairs_net_change_bounds": [
+        -5,
+        -1
+      ],
+      "warning": "Resolved-pair counts omit unresolved outcomes. Bounds retain all changed pairs; not whole-cohort accuracy or independent blind evaluation."
+    }
+  },
+  "blind": false,
+  "gold_changed": false,
+  "algorithm_or_metrics_changed": false,
+  "scope": "F1–F42 only; each output material retained separately. No pooled cross-strategy net gain or whole-challenge accuracy is inferred.",
+  "confirmation_sha256": "8ee6dd66efe782eaece8bb33d9039aaae7231461fe438455daee5c8fffdf9b94",
+  "output_sha256": "2921a8498f42f82279d7f2ea3b9af8950a84de4db42e5ecf291870fe3d156849",
+  "source_sha256": {
+    "pending_pairs.jsonl": "e8115cb6854e9e602b1aa3710b00fa4f34bcbf40ed560209cf788b7ec070440c",
+    "assisted_partial.jsonl": "eb4f83b7cb92aacd0dc22188c766cbffab1a8d5f70874dd38988a5aa0b7ca9bb",
+    "F42_review.html": "625755784b00980daceb04f8f8a7eec32e8a08bf05e5100a192a6f1a05502652"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "version": "v9_evidence_id_factored_v1",
+  "approved_direction_on": "2026-10-21",
+  "implementation_started_on": "2026-10-22",
+  "status": "engineering_only_no_gpu_results",
+  "model_name": "Qwen/Qwen2.5-7B-Instruct",
+  "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "quantization": "nf4_fp16_double_quant",
+  "do_sample": false,
+  "seed": 42,
+  "max_new_tokens_per_call": 384,
+  "max_fact_questions": 3,
+  "arms": {
+    "qwen_direct": {"max_calls": 1, "max_generated_tokens": 384},
+    "evidence_id": {"max_calls": 1, "max_generated_tokens": 384},
+    "factored_evidence_id": {"max_calls": 5, "max_generated_tokens": 1920}
+  },
+  "shared_decision_schema": ["decision", "answer", "evidence_ids", "reason"],
+  "evidence_policy": "Same archived C1 Top-5, all passages retained; source offsets reconstruct quotations; near duplicates are annotated, never counted as independent votes or silently removed.",
+  "factored_policy": "Plan from query/claim only; answer each fact question in a separate context containing the query and complete evidence, without initial answer, candidate, or other fact answers. Same Qwen weights, not an independent verifier.",
+  "fever_policy": "SUPPORTS needs evidence for the claim; REFUTES needs explicit contradiction. Insufficient evidence and unresolved relevant conflict retain the initial prediction. Never rewrite the input claim.",
+  "nq_policy": "Keep valid aliases and equivalent concise answers; repair requires an answer span in selected original evidence. A supported statement must also answer the requested relation and scope.",
+  "runtime_forbidden": ["gold", "human_correctness", "EM", "F1", "C0", "C3", "web_search"],
+  "development_policy": "Use already exposed development records only. The consumed challenge125 and historical held-out data cannot select prompts. New unseen data stay unopened until candidate selection and team isolation are fixed.",
+  "selection_policy": "Assess original-answer false acceptance, correct-answer false rejection, source validity, fixes, regressions and cost by dataset. Unscored human cases stay unscored. Declare the development gate and frozen cohort before GPU submission.",
+  "compute_limit": "These arms are not compute matched. Report actual calls, tokens and latency; do not attribute gains solely to decomposition or claim efficiency without a separate compute-controlled comparison.",
+  "stop_policy": "Engineering checks before GPU; no tuning on the old smoke8. Freeze the GPU input/code fingerprint before submission. New unseen evaluation runs once after selection; never tune on its outputs.",
+  "optional_not_enabled": ["automatic_prompt_evolution", "NLI", "model_training", "retrieval_changes"],
+  "promotion_policy": "Experimental opt-in entry only; no default strategy promotion or alteration of frozen v7/r3/r4 packages."
+}

@@ -1,0 +1,255 @@
+{
+  "version": "answer_repair_final_chat_confirmations_v4",
+  "review_set_id": "answer_repair_final_changed_review_v1",
+  "reviewer": "用户（本对话）",
+  "confirmed_at": "2026-10-22",
+  "timezone": "Australia/Sydney",
+  "user_text": "F1F2F3同意 F4同意 F5同意 F6-F11同意 F12还是原判好 F13-F22同意。F23原判好一点 新判断没有提到灰视 F24同意 F25还是原判好 一世这个序号在人名里面很重要F26-F36同意 F37原答案和现在的答案都不对  应该具体写法国人提供的帮助行为 F38-42同意\n追加确认：F4支持 F12按照C1原答 F19为什么会出现引用证据内容完全一样的现象\n2026-10-22追加确认：F21同意 F22同意 F23维持C1原答 F25维持C1原答 F35同意 F36维持原答 F40同意\n澄清问题：F21、F22、F35、F40 的原辅助意见含“待定”，为准确落实这次“同意”，请补四个对错：F21 改答“过多液态燃油进入燃烧室”是否正确；F22 原答 parabolic 是否正确；F35 原答 inorganic electron donors 是否正确；F40 改答只解释强化／惩罚机制、没给学习类型，是否正确？可简写“21改错、22原对、35原错、40改错”。\n用户回答：是\n2026-10-22处理状态纠正：这几个不是处理过了么 为什么还是待定",
+  "clarification_replies": [
+    {
+      "question": "F12、F23、F25 的“原答更好”应怎样计分？F12 改答保留同一人名；F23 改答省略 greyouts；F25 改答省略“一世”。",
+      "answer": "记录原答更好；改答是否错误逐题保留待定"
+    },
+    {
+      "question": "F37 原题“who did the French help in the American Revolution”问受援对象。原答 Americans，新答 the American Revolution，参考 Continental Army。是否按原题要求具体受援者 Continental Army 来判两答都错？",
+      "answer": "要求具体受援者：两答都错"
+    },
+    {
+      "question": "F21、F22、F35、F40 的原辅助意见含“待定”，为准确落实这次“同意”，请补四个对错：F21 改答“过多液态燃油进入燃烧室”是否正确；F22 原答 parabolic 是否正确；F35 原答 inorganic electron donors 是否正确；F40 改答只解释强化／惩罚机制、没给学习类型，是否正确？可简写“21改错、22原对、35原错、40改错”。",
+      "answer": "是",
+      "interpreted_decisions": {
+        "F21": "原对改错",
+        "F22": "原对改对",
+        "F35": "原错改对",
+        "F40": "原错改错"
+      },
+      "interpretation_note": "用户的“是”按接受提问中给出的四项简写判定理解；本次在commentary明确回述该计分口径。"
+    }
+  ],
+  "source_sha256": {
+    "pending_pairs.jsonl": "e8115cb6854e9e602b1aa3710b00fa4f34bcbf40ed560209cf788b7ec070440c",
+    "assisted_partial.jsonl": "eb4f83b7cb92aacd0dc22188c766cbffab1a8d5f70874dd38988a5aa0b7ca9bb",
+    "F42_review.html": "625755784b00980daceb04f8f8a7eec32e8a08bf05e5100a192a6f1a05502652"
+  },
+  "accept_agent": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    24,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    38,
+    39,
+    41,
+    42
+  ],
+  "override": {
+    "12": {
+      "initial_correct": true,
+      "final_correct": null,
+      "initial_supported": null,
+      "final_supported": null,
+      "preference": "initial_better",
+      "reason": "用户偏好原答完整句子。经追问明确选择“记录原答更好；改答是否错误逐题保留待定”，没有把相同人名的短答直接判错。 本次用户补充“F12按照C1原答”，再次确认保留／偏好C1完整原答；未明确将改答判错，沿用此前明确的待定政策。",
+      "support_fields_confirmed": false
+    },
+    "23": {
+      "initial_correct": true,
+      "final_correct": null,
+      "initial_supported": null,
+      "final_supported": null,
+      "preference": "initial_better",
+      "reason": "用户指出改答没有提到 greyouts，偏好原答。经追问，改答正确性继续待定；不把偏好自动转为误修。 2026-10-22用户再次要求“维持C1原答”，记录保留选择；未明确将改答判错，沿用已确认的待定政策。",
+      "support_fields_confirmed": false
+    },
+    "25": {
+      "initial_correct": true,
+      "final_correct": null,
+      "initial_supported": null,
+      "final_supported": null,
+      "preference": "initial_better",
+      "reason": "用户认为人名中的“一世”序号很重要，偏好原答。经追问，改答正确性继续待定；不把省略序号直接判错。 2026-10-22用户再次要求“维持C1原答”，记录保留选择；未明确将改答判错，沿用已确认的待定政策。",
+      "support_fields_confirmed": false
+    },
+    "37": {
+      "initial_correct": false,
+      "final_correct": false,
+      "initial_supported": null,
+      "final_supported": null,
+      "preference": null,
+      "reason": "经澄清按 who 的受援对象判断，用户要求具体写 Continental Army。原答 Americans 不够具体，新答 American Revolution 是事件，两答都错。用户未单独裁定证据支持字段，保留空值。",
+      "support_fields_confirmed": false
+    },
+    "4": {
+      "initial_correct": false,
+      "final_correct": true,
+      "initial_supported": false,
+      "final_supported": true,
+      "preference": null,
+      "reason": "用户在最终未决清单后回复“F4支持”，接受改答中的剧情内相对时间作为本题回答。原答 Han 未回答 when，保持既有人工错误标签；本次确认改答正确。来源支持字段沿用先前已同意的辅助字段。",
+      "support_fields_confirmed": true
+    },
+    "21": {
+      "initial_correct": true,
+      "final_correct": false,
+      "initial_supported": true,
+      "final_supported": true,
+      "preference": null,
+      "reason": "用户确认“21改错”：原答混合气过浓、不能点燃正确；改答只描述一种严重形式，未给出一般定义，按本题口径判为误修。 来源支持字段沿用先前已同意的辅助字段，事实支持不等于回答了问题。",
+      "support_fields_confirmed": true
+    },
+    "22": {
+      "initial_correct": true,
+      "final_correct": true,
+      "initial_supported": true,
+      "final_supported": true,
+      "preference": null,
+      "reason": "用户确认“22原对”：接受parabolic作为本题的形状描述；改答paraboloid也正确，记两答都对，不将精度提升计为修复。 来源支持字段沿用先前已同意的辅助字段，事实支持不等于回答了问题。",
+      "support_fields_confirmed": true
+    },
+    "35": {
+      "initial_correct": false,
+      "final_correct": true,
+      "initial_supported": true,
+      "final_supported": true,
+      "preference": null,
+      "reason": "用户确认“35原错”：未限定场景的问题不能只回答无机电子供体这一特例；改答electron donor给出一般来源，记为修复。 来源支持字段沿用先前已同意的辅助字段，事实支持不等于回答了问题。",
+      "support_fields_confirmed": true
+    },
+    "40": {
+      "initial_correct": false,
+      "final_correct": false,
+      "initial_supported": false,
+      "final_supported": true,
+      "preference": null,
+      "reason": "用户确认“40改错”：改答虽说明强化／惩罚机制，但未回答学习类型；原答learning process也未回答类型，记两答都错。 来源支持字段沿用先前已同意的辅助字段，事实支持不等于回答了问题。",
+      "support_fields_confirmed": true
+    },
+    "36": {
+      "initial_correct": true,
+      "final_correct": null,
+      "initial_supported": true,
+      "final_supported": false,
+      "preference": "initial_better",
+      "reason": "2026-10-22用户要求“F36维持原答”，记录保留first season。改答为全剧1992–1995年份范围；用户未单独明确判定其二元正确性，继续待定，不把保留偏好自动计为误修。",
+      "support_fields_confirmed": true
+    }
+  },
+  "all_review_numbers_addressed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42
+  ],
+  "mode": "chat_assisted_confirmation_with_explicit_clarifications",
+  "independent_blind_annotation": false,
+  "null_policy": "Agreement with an unresolved agent field confirms that it remains unresolved; never infer a boolean. Quality preference is separate from binary correctness.",
+  "scope": "This final F1–F42 queue only; historical H1–H45 confirmations and upstream Diagnosis gold are not inferred.",
+  "previous_confirmation": {
+    "path": "data/annotations/human/answer_repair_final_v1_batch03_20261022.confirmations.json",
+    "sha256": "8ee6dd66efe782eaece8bb33d9039aaae7231461fe438455daee5c8fffdf9b94"
+  },
+  "followup_user_text": "这几个不是处理过了么 为什么还是待定",
+  "snapshot_scope": "Cumulative F1–F42 human labels unchanged from batch03. Close already handled preference/external-check cases; distinguish review workflow from binary scoring. No new human correctness labels are inferred.",
+  "workflow_decisions": {
+    "12": {
+      "status": "closed_keep_initial",
+      "reason": "已按用户决定保留C1原答，处理完成，无需重复审核。改答未作二元评分，记录说明并保留净变化范围，不自动计为误修。"
+    },
+    "23": {
+      "status": "closed_keep_initial",
+      "reason": "已按用户决定保留C1原答，处理完成，无需重复审核。改答未作二元评分，记录说明并保留净变化范围，不自动计为误修。"
+    },
+    "25": {
+      "status": "closed_keep_initial",
+      "reason": "已按用户决定保留C1原答，处理完成，无需重复审核。改答未作二元评分，记录说明并保留净变化范围，不自动计为误修。"
+    },
+    "36": {
+      "status": "closed_keep_initial",
+      "reason": "已按用户决定保留C1原答，处理完成，无需重复审核。改答未作二元评分，记录说明并保留净变化范围，不自动计为误修。"
+    },
+    "19": {
+      "status": "closed_external_check",
+      "reason": "外部核查已完成：官方资料支持1991年9月6日。辅助结论为原答1991与改答September 6, 1991均正确，属于细化。此为单独的外部核查结论，不冒充新增人工金标；保留固定Top-5日期冲突记录，不再重复要求用户审核。",
+      "external_assessment": {
+        "basis": "assistant_external_fact_check",
+        "initial_correct": true,
+        "final_correct": true,
+        "outcome": "correct_preserved",
+        "human_binary_confirmation": false,
+        "fact_checked": "Historical name Saint Petersburg restored on 6 September 1991; 12 June was referendum.",
+        "checked_at": "2026-10-21",
+        "sources": [
+          {
+            "title": "俄罗斯总统图书馆：Ленинграду возвращено имя Петра",
+            "url": "https://www.prlib.ru/history/619516"
+          },
+          {
+            "title": "圣彼得堡市政府：Статистика культурной жизни Петербурга",
+            "url": "https://www.gov.spb.ru/gov/otrasl/c_culture/culture_statistics/"
+          }
+        ]
+      }
+    }
+  }
+}
