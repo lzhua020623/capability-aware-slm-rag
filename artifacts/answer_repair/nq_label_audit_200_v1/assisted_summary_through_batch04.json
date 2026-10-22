@@ -1,0 +1,181 @@
+{
+  "assisted": 20,
+  "remaining_without_semantic_assistance": 180,
+  "human_confirmed": 0,
+  "agent_label_counts": {
+    "correct": 10,
+    "deferred": 4,
+    "evidence_utilisation": 3,
+    "evidence_insufficiency": 3
+  },
+  "provisional_label_agreements": 4,
+  "provisional_label_disagreements": 12,
+  "comparison": [
+    {
+      "review_number": 1,
+      "sample_id": "-6605638885133826345",
+      "preliminary_label": "correct",
+      "agent_label": "correct",
+      "requires_adjudication": false,
+      "same_provisional_label": true
+    },
+    {
+      "review_number": 2,
+      "sample_id": "-4700404516222278011",
+      "preliminary_label": "evidence_utilisation",
+      "agent_label": "correct",
+      "requires_adjudication": false,
+      "same_provisional_label": false
+    },
+    {
+      "review_number": 3,
+      "sample_id": "-4692867883739713954",
+      "preliminary_label": "evidence_accessibility",
+      "agent_label": null,
+      "requires_adjudication": true,
+      "same_provisional_label": null
+    },
+    {
+      "review_number": 4,
+      "sample_id": "9193279716892779591",
+      "preliminary_label": "evidence_utilisation",
+      "agent_label": "correct",
+      "requires_adjudication": false,
+      "same_provisional_label": false
+    },
+    {
+      "review_number": 5,
+      "sample_id": "8872477699071651078",
+      "preliminary_label": "evidence_insufficiency",
+      "agent_label": "evidence_utilisation",
+      "requires_adjudication": true,
+      "same_provisional_label": false
+    },
+    {
+      "review_number": 6,
+      "sample_id": "-2661726491941943941",
+      "preliminary_label": "evidence_utilisation",
+      "agent_label": null,
+      "requires_adjudication": true,
+      "same_provisional_label": null
+    },
+    {
+      "review_number": 7,
+      "sample_id": "-3937210297838150370",
+      "preliminary_label": "evidence_utilisation",
+      "agent_label": null,
+      "requires_adjudication": true,
+      "same_provisional_label": null
+    },
+    {
+      "review_number": 8,
+      "sample_id": "6811850840060583502",
+      "preliminary_label": "evidence_utilisation",
+      "agent_label": "correct",
+      "requires_adjudication": true,
+      "same_provisional_label": false
+    },
+    {
+      "review_number": 9,
+      "sample_id": "-7743334907613945811",
+      "preliminary_label": "evidence_accessibility",
+      "agent_label": "correct",
+      "requires_adjudication": true,
+      "same_provisional_label": false
+    },
+    {
+      "review_number": 10,
+      "sample_id": "-2488373045658887705",
+      "preliminary_label": "evidence_insufficiency",
+      "agent_label": "evidence_utilisation",
+      "requires_adjudication": true,
+      "same_provisional_label": false
+    },
+    {
+      "review_number": 11,
+      "sample_id": "8821307670451418666",
+      "preliminary_label": "evidence_insufficiency",
+      "agent_label": "correct",
+      "requires_adjudication": false,
+      "same_provisional_label": false
+    },
+    {
+      "review_number": 12,
+      "sample_id": "4777571984732066471",
+      "preliminary_label": "evidence_insufficiency",
+      "agent_label": null,
+      "requires_adjudication": true,
+      "same_provisional_label": null
+    },
+    {
+      "review_number": 13,
+      "sample_id": "-2955172626181466513",
+      "preliminary_label": "evidence_accessibility",
+      "agent_label": "correct",
+      "requires_adjudication": false,
+      "same_provisional_label": false
+    },
+    {
+      "review_number": 14,
+      "sample_id": "4689377544173567104",
+      "preliminary_label": "evidence_insufficiency",
+      "agent_label": "evidence_insufficiency",
+      "requires_adjudication": false,
+      "same_provisional_label": true
+    },
+    {
+      "review_number": 15,
+      "sample_id": "-8703589755580040997",
+      "preliminary_label": "evidence_insufficiency",
+      "agent_label": "evidence_insufficiency",
+      "requires_adjudication": true,
+      "same_provisional_label": true
+    },
+    {
+      "review_number": 16,
+      "sample_id": "949269123433704606",
+      "preliminary_label": "evidence_utilisation",
+      "agent_label": "correct",
+      "requires_adjudication": true,
+      "same_provisional_label": false
+    },
+    {
+      "review_number": 17,
+      "sample_id": "-5914639801147488863",
+      "preliminary_label": "evidence_accessibility",
+      "agent_label": "evidence_utilisation",
+      "requires_adjudication": false,
+      "same_provisional_label": false
+    },
+    {
+      "review_number": 18,
+      "sample_id": "-8463715945904229228",
+      "preliminary_label": "evidence_accessibility",
+      "agent_label": "correct",
+      "requires_adjudication": false,
+      "same_provisional_label": false
+    },
+    {
+      "review_number": 19,
+      "sample_id": "7522856786560439365",
+      "preliminary_label": "evidence_insufficiency",
+      "agent_label": "evidence_insufficiency",
+      "requires_adjudication": false,
+      "same_provisional_label": true
+    },
+    {
+      "review_number": 20,
+      "sample_id": "1443749759062404459",
+      "preliminary_label": "evidence_insufficiency",
+      "agent_label": "correct",
+      "requires_adjudication": false,
+      "same_provisional_label": false
+    }
+  ],
+  "assisted_file_sha256": "b2c904888a47caeeff2202928831ed14a88b91a474b30ba0bb972135dc810782",
+  "limitations": [
+    "Agent judgments are reference-visible and not independent human gold.",
+    "Neither label agreement nor this balanced audit is population accuracy or model improvement.",
+    "Medium-confidence and scope/reference disputes remain provisional."
+  ]
+}

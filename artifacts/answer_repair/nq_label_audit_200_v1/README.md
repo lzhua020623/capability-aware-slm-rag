@@ -2,17 +2,23 @@
 
 2026-10-22 从既定 development 中按四类初标各取50条，seed=42，取样后另行哈希混排。只使用ID、冻结用途和初标分层，不按EM、gold、答案或预期E收益挑题。排除原100题、已用125挑战和单独预览题，共226个已知暴露ID，并检查归一化问题重合。原有人工记录、25条暂缓和所有旧实验保持原样。
 
-**当前：取样200/200；语义辅助10/200；人工确认0/200。** 剩余190条未做语义辅助，不能称全批完成审核。A1–A200是本批新编号，与旧N、F、H编号分开。
+**当前：取样200/200；语义辅助30/200；人工确认0/200。** 剩余170条未做语义辅助，不能称全批完成审核。A1–A200是本批新编号，与旧N、F、H编号分开。
 
-- [带首10条辅助意见的审核网页](A200_assisted_through_batch02.html)：建议使用此页；人工字段留空，辅助意见在折叠区。
+- [带首30条辅助意见的审核网页](A200_assisted_through_batch06.html)：建议使用此页；人工字段留空，辅助意见在折叠区。[首20条快照](A200_assisted_through_batch04.html)及[首10条快照](A200_assisted_through_batch02.html)保留。各快照审核包哈希不同；已有草稿应先在原页导出，不能跨快照直接混入。
 - [原始待审网页](A200_review.html)：不含辅助判断。
 - [固定样本清单与排除范围](manifest.json)、[原始审核包](review_packet.json)、[完整Top-5队列](review_queue.jsonl)。
 - `runtime.jsonl` 只含运行时五字段；没有初标、人工意见、gold或EM。本轮未对这200条调用E。
-- [首10条辅助来源校验](A200_assisted_through_batch02.manifest.json)。全部摘录通过passage ID与字符区间检查；这只证明引用来自原文。
+- [首30条辅助来源校验](A200_assisted_through_batch06.manifest.json)及[辅助分布/初标比较](assisted_summary_through_batch06.json)。全部摘录通过passage ID与字符区间检查；这只证明引用来自原文。
 
 审核分别记录原答正确性、Top-5是否支持原答、Top-5是否充分、可访问性、主标签、支持位置和参考问题。正确但当前Top-5不支持也是可表达的组合，不用“有引用”代替正确性。初标默认隐藏在来源折叠区；gold单独折叠。浏览器草稿保存在本机，完成一批导出JSON；不同审核包哈希的导出拒绝混入。
 
-首10条辅助为参考可见的Codex意见，不是独立盲审或人工金标。A1/A2/A4倾向正确；A3角色与演员歧义；A5倾向时间范围E错误；A6歌名与检索材料不一致；A7定义题与数值题歧义；A8演唱者/署名艺人边界；A9位置粒度；A10现代/历史分界线及可访问性边界。中等把握或歧义项继续由用户裁定。
+首30条辅助为参考可见的Codex意见，不是独立盲审或人工金标。建议16条correct、3条utilisation、3条insufficiency，8条暂不定类；有初步类别不表示中等把握/范围争议已解决。与初标比较，有明确辅助类别的22条中7条一致、15条不同，不能视为人审准确率或外推到全量。
+
+首10条：A1/A2/A4倾向正确；A3角色与演员歧义；A5倾向时间范围E错误；A6歌名与检索材料不一致；A7定义题与数值题歧义；A8演唱者/署名艺人边界；A9位置粒度；A10现代/历史分界线及可访问性边界。新增A11/A13/A16/A18/A20倾向正确；A12缺少年份/联赛口径；A14/A15缺少所问实体/关系的证据；A17把蜱虫回答为疾病；A19是有依据的拒答，但未给出QA所求人物。
+
+A11参考给出的是生物类别，C1回答ATP/NADPH；A16参考特指七恩赐，而原题没有seven限定。均单独记录参考疑点，不修改原gold或冻结EM。A19的support=true表示拒答有证据依据，`response_kind=evidence_grounded_abstention`；不表示已提供有支持的人物答案。真实性/依据与任务答题正确性分开，不能把该例当作编造或E误用。
+
+新增A21/A22/A24/A26/A27/A29倾向正确，A21仍有“战后”与战时方案的题目措辞问题；A22为舌系带别名，A29为另一种有效定义补全，均不因参考字符串不同判错。A23人口缺少as-of日期；A25未指明哪位修女；A28未定义“首次”是何种音画结合；A30的not specified可能是材料内拒答，也可能想表达作者未知，不能直接等同anonymous。这四条保留裁决；A25/A30的support=true仍不代表问题歧义已消除或已经答对。
 
 四类各50条是质量审计的分层配额，不代表自然错误分布。不得直接用200条未加权结果估计7.4万条的类别比例或总体准确率。该批从现在记为E开发已暴露，后续不能称新未见测试。没有改变原开发/校准/预留划分；团队训练排除、页面和语义近重复隔离仍待协调。
 
@@ -20,7 +26,7 @@
 
 ```sh
 python scripts/prepare_nq_label_audit.py
-python scripts/build_nq_label_audit_assisted.py --assisted data/annotations/assisted/nq_label_audit_200_v1_through_batch02_20261022.jsonl --out-stem A200_assisted_through_batch02
+python scripts/build_nq_label_audit_assisted.py --assisted data/annotations/assisted/nq_label_audit_200_v1_through_batch06_20261022.jsonl --out-stem A200_assisted_through_batch06
 ```
 
 输入为本地原始15分片、已核验的初标层和既定划分。输出字节一致可重跑，已有不同内容拒绝覆盖。原始200条、后续辅助与人工确认分开保存。

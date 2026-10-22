@@ -10,7 +10,7 @@
 
 本地已用固定Qwen tokenizer（152064词表）完成36份原生语法编译/正例接受，24个错误keep/非法ID反例拒绝；详见 [CPU核验](cpu_grammar_check.json)。没有加载Qwen模型权重，**不是CUDA/NF4兼容性或真实生成通过**。26项Python检查、前端校验通过；工程样例不会混入200条真实标注质量审核。
 
-GPU包及notebook已冻结。Kaggle [私有任务](https://www.kaggle.com/code/yearo111/e-contract-v1-synthetic-20261022) Version 1已提交，观察到T4×2、联网、Queued。实际状态以 [cloud_status.json](cloud_status.json) 及收取回执为准；当前尚无收齐并回放的GPU结果。
+GPU包及notebook已冻结。Kaggle [私有任务](https://www.kaggle.com/code/yearo111/e-contract-v1-synthetic-20261022) Version 1（361060970）运行573.2秒后显示failure，页面保留71个输出文件。原始预测/日志尚未收取，失败原因和完成预测数待核查，不能据此判断语义收益或宣称通过门槛。下载操作被Chrome切换至其他文档打断，已询问用户可操作窗口；本地审核继续。实际状态以 [cloud_status.json](cloud_status.json) 及后续收取回执为准。
 
 文件：`synthetic_cases.jsonl`、`preflight.json`、`cpu_grammar_check.json`、`bundle_manifest.json`、`answer_repair_contract_v1_gpu.tar.gz`。notebook在 `notebooks/answer_repair_contract_v1.ipynb`。包记录40个源文件哈希；原始模型生成、环境与导出结果收齐后单独归档。
 

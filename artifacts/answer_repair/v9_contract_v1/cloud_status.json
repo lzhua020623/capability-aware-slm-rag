@@ -5,8 +5,31 @@
   "accelerator_observed": "GPU T4 x2",
   "internet_observed": true,
   "version": 1,
-  "status_observed": "Queued",
+  "status_observed": "Failed; raw output not yet collected",
   "gpu_inference_complete": false,
   "synthetic_cases": 12,
-  "expected_predictions": 48
+  "expected_predictions": 48,
+  "observations": [
+    {
+      "date": "2026-10-22",
+      "notebook_url": "https://www.kaggle.com/code/yearo111/e-contract-v1-synthetic-20261022",
+      "visibility_observed": "Private",
+      "accelerator_observed": "GPU T4 x2",
+      "internet_observed": true,
+      "version": 1,
+      "status_observed": "Queued",
+      "gpu_inference_complete": false,
+      "synthetic_cases": 12,
+      "expected_predictions": 48
+    }
+  ],
+  "script_version_id": 361060970,
+  "runtime_seconds_observed": 573.2,
+  "output_file_count_observed": 71,
+  "job_finished": true,
+  "gpu_predictions_complete": null,
+  "gpu_artifacts_collected": false,
+  "replay_complete": false,
+  "failure_cause": "unknown_until_raw_logs_collected",
+  "collection_issue": "Chrome changed to another active document during download; user availability requested"
 }
