@@ -1,0 +1,825 @@
+{
+  "all_sample_ids_stored_as_text": true,
+  "download_zip_sha256": "fb7c0d3e404a24f306cc6f9e11763187e027cb2acff68c063bdfe102e3eb0742",
+  "duplicate_ids": 0,
+  "existing_human_comparison": {
+    "disagreed": 36,
+    "disagreements": [
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 4,
+        "sample_id": "3873185573437128094"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "evidence_utilisation",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 6,
+        "sample_id": "2847980457887203111"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "evidence_utilisation",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 8,
+        "sample_id": "-6909798989883244156"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_insufficiency",
+        "review_number": 9,
+        "sample_id": "5772936311107312940"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 14,
+        "sample_id": "-5462248607427716715"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 16,
+        "sample_id": "-8545550343341719460"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_utilisation",
+        "review_number": 21,
+        "sample_id": "-2374000572693790398"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 26,
+        "sample_id": "-4660048733997517029"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 27,
+        "sample_id": "-4893882152565259225"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "evidence_utilisation",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 29,
+        "sample_id": "1739926213792453012"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "evidence_utilisation",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 31,
+        "sample_id": "5822180296105627301"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 32,
+        "sample_id": "-5476828546252817553"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "evidence_utilisation",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 33,
+        "sample_id": "-3169716056891969228"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 36,
+        "sample_id": "4090393036850137417"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 39,
+        "sample_id": "6098465629713582210"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 46,
+        "sample_id": "-5028227845229715599"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 47,
+        "sample_id": "-8389494065836841182"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "evidence_utilisation",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 48,
+        "sample_id": "-1981506712537073428"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "evidence_utilisation",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 49,
+        "sample_id": "-564035461981251695"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 51,
+        "sample_id": "-547285585922035520"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 52,
+        "sample_id": "-703872651120117348"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 53,
+        "sample_id": "2517363209257675065"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 54,
+        "sample_id": "3898710090334906649"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "evidence_utilisation",
+        "human_status": "completed",
+        "preliminary_label": "correct",
+        "review_number": 62,
+        "sample_id": "3219108291257004958"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 68,
+        "sample_id": "7659680993559844629"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_utilisation",
+        "review_number": 72,
+        "sample_id": "-787222857578843686"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "evidence_utilisation",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 74,
+        "sample_id": "-5016482629216613272"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 76,
+        "sample_id": "7728406136919122642"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "evidence_utilisation",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 81,
+        "sample_id": "-5223755550735908441"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_utilisation",
+        "review_number": 84,
+        "sample_id": "-7971666984412271711"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_utilisation",
+        "review_number": 87,
+        "sample_id": "-1941458279715717945"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 88,
+        "sample_id": "258078115163430675"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_utilisation",
+        "review_number": 93,
+        "sample_id": "2576360884323654666"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 94,
+        "sample_id": "-7203695625159603076"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "evidence_utilisation",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 96,
+        "sample_id": "3252643664278412553"
+      },
+      {
+        "human_decision_preserved": true,
+        "human_label": "correct",
+        "human_status": "completed",
+        "preliminary_label": "evidence_accessibility",
+        "review_number": 97,
+        "sample_id": "-1848647332780502367"
+      }
+    ],
+    "matched": 39,
+    "unresolved": 25
+  },
+  "files": [
+    {
+      "file": "NQ_C1_000_preliminary_annotations.xlsx",
+      "label_counts": {
+        "correct": 2684,
+        "evidence_accessibility": 1071,
+        "evidence_insufficiency": 916,
+        "evidence_utilisation": 329
+      },
+      "review_sheet_rows": 1891,
+      "rows": 5000,
+      "sha256": "b38637dee2b22f49ddbe78c54c3b61ea4398150fe117afe562933ebc369eb153",
+      "summary": {
+        "Automated preliminary labels": "5000",
+        "Batch review label changes": "278",
+        "Batch review method": "Automated consistency and conservative numeric equivalence checks; matched earlier full-evidence decisions reused. Not a full semantic review.",
+        "Correct": "2684",
+        "Evidence Accessibility Failure": "1071",
+        "Evidence Insufficiency": "916",
+        "Evidence Utilisation Failure": "329",
+        "Flagged for review": "1891",
+        "Human-reviewed labels": "0",
+        "Note": "Heuristic automated initial pass; not a full five-passage semantic review.",
+        "Review records retained": "Existing review rows retained for traceability, including resolved cases; not an unresolved-error count.",
+        "secondary_label": "Blank because no matched C3 results."
+      }
+    },
+    {
+      "file": "NQ_C1_001_preliminary_annotations.xlsx",
+      "label_counts": {
+        "correct": 2427,
+        "evidence_accessibility": 1219,
+        "evidence_insufficiency": 960,
+        "evidence_utilisation": 394
+      },
+      "review_sheet_rows": 1850,
+      "rows": 5000,
+      "sha256": "0d6369efca0660dd2ffd9123f12231c198f4f5fb1843b493bf5718bd2e5c1afe",
+      "summary": {
+        "Automatically pre-labeled, not manually adjudicated": "4979",
+        "Batch review label changes": "21",
+        "Batch review method": "Automated consistency and conservative numeric equivalence checks; matched earlier full-evidence decisions reused. Not a full semantic review.",
+        "Classification scope": "21 full-evidence manual judgements; 4,979 heuristic preliminary labels only, not verified semantic decisions",
+        "Conflicting and gold errors": "Gold passage absence is not equivalent to insufficient evidence; heuristic can misclassify semantic paraphrases or weak support",
+        "Correct": "2427",
+        "Data preservation": "Original evidence and annotation_reference JSON preserved in full without rewriting source text",
+        "Evidence Accessibility Failure": "1219",
+        "Evidence Insufficiency": "960",
+        "Evidence Utilisation Failure": "394",
+        "Five-passage manually adjudicated": "21",
+        "Flagged for review": "1850",
+        "Important limitation": null,
+        "Records labeled (preliminary)": "5000",
+        "Review records retained": "Existing review rows retained for traceability, including resolved cases; not an unresolved-error count.",
+        "Secondary labels": "Blank: no matched C3/large-model comparison provided"
+      }
+    },
+    {
+      "file": "NQ_C1_002_preliminary_annotations.xlsx",
+      "label_counts": {
+        "correct": 2397,
+        "evidence_accessibility": 1246,
+        "evidence_insufficiency": 954,
+        "evidence_utilisation": 403
+      },
+      "review_sheet_rows": 1931,
+      "rows": 5000,
+      "sha256": "c58e53331326773ee36284b48662c4f660d63dca8113345f6991c34fe18c8d47",
+      "summary": {
+        "Automatic provisional labels (NOT fully reviewed)": "4957",
+        "Batch review label changes": "37",
+        "Batch review method": "Automated consistency and conservative numeric equivalence checks; matched earlier full-evidence decisions reused. Not a full semantic review.",
+        "Correct": "2397",
+        "Doubts": "Review_Questions lists suspected alternative labels; NOT an exhaustive record of every uncertain automatic classification.",
+        "Evidence Accessibility Failure": "1246",
+        "Evidence Insufficiency": "954",
+        "Evidence Utilisation Failure": "403",
+        "Flagged review questions": "1931",
+        "Fully adjudicated with Top-5": "43",
+        "Important methodological limitation": "",
+        "Review records retained": "Existing review rows retained for traceability, including resolved cases; not an unresolved-error count.",
+        "Scope": "Only first 43 rows were judged after complete Top-5 reading; remaining 4,957 rows carry computational heuristic starting labels.",
+        "Secondary labels": "Blank: no real matched C3 / large-model comparison was provided.",
+        "Source preservation": "Question/answer and Top-5 evidence unchanged; evidence and annotation_reference stored as complete serialized JSON strings.",
+        "Total preliminary labels": "5000",
+        "Warning": "Automatic labels cannot establish answer entailment, evidence sufficiency or concrete source-confusion; do not treat aggregate counts as final research findings."
+      }
+    },
+    {
+      "file": "NQ_C1_003_preliminary_annotations.xlsx",
+      "label_counts": {
+        "correct": 2436,
+        "evidence_accessibility": 1243,
+        "evidence_insufficiency": 936,
+        "evidence_utilisation": 385
+      },
+      "review_sheet_rows": 1839,
+      "rows": 5000,
+      "sha256": "d0daaf73670a4121aad35c15f422bfd403b50776754488b8f77da20c0928d357",
+      "summary": {
+        "Automatic provisional labels (NOT fully reviewed)": "4957",
+        "Batch review label changes": "20",
+        "Batch review method": "Automated consistency and conservative numeric equivalence checks; matched earlier full-evidence decisions reused. Not a full semantic review.",
+        "Correct": "2436",
+        "Doubts": "Review_Questions lists suspected alternative labels; NOT an exhaustive record of every uncertain automatic classification.",
+        "Evidence Accessibility Failure": "1243",
+        "Evidence Insufficiency": "936",
+        "Evidence Utilisation Failure": "385",
+        "Flagged review questions": "1839",
+        "Fully adjudicated with Top-5": "43",
+        "Important methodological limitation": "",
+        "Review records retained": "Existing review rows retained for traceability, including resolved cases; not an unresolved-error count.",
+        "Scope": "Only first 43 rows were judged after complete Top-5 reading; remaining 4,957 rows carry computational heuristic starting labels.",
+        "Secondary labels": "Blank: no real matched C3 / large-model comparison was provided.",
+        "Source preservation": "Question/answer and Top-5 evidence unchanged; evidence and annotation_reference stored as complete serialized JSON strings.",
+        "Total preliminary labels": "5000",
+        "Warning": "Automatic labels cannot establish answer entailment, evidence sufficiency or concrete source-confusion; do not treat aggregate counts as final research findings."
+      }
+    },
+    {
+      "file": "NQ_C1_004_preliminary_annotations.xlsx",
+      "label_counts": {
+        "correct": 2460,
+        "evidence_accessibility": 1190,
+        "evidence_insufficiency": 964,
+        "evidence_utilisation": 386
+      },
+      "review_sheet_rows": 2308,
+      "rows": 5000,
+      "sha256": "34ddf34696ffc587e0b7aace58244988173c40dbfac4629b71cafc314d85aa44",
+      "summary": {
+        "Automatic provisional labels (NOT fully reviewed)": "4979",
+        "Batch review label changes": "13",
+        "Batch review method": "Automated consistency and conservative numeric equivalence checks; matched earlier full-evidence decisions reused. Not a full semantic review.",
+        "Correct": "2460",
+        "Doubts": "Review_Questions lists suspected alternative labels; NOT an exhaustive record of every uncertain automatic classification.",
+        "Evidence Accessibility Failure": "1190",
+        "Evidence Insufficiency": "964",
+        "Evidence Utilisation Failure": "386",
+        "Flagged review questions": "2308",
+        "Fully adjudicated with Top-5": "21",
+        "Important methodological limitation": "",
+        "Review records retained": "Existing review rows retained for traceability, including resolved cases; not an unresolved-error count.",
+        "Scope": "Only specified directly reviewed rows were judged after full Top-5 reading; all remaining rows carry computational heuristic labels.",
+        "Secondary labels": "Blank: no real matched C3 / large-model comparison was provided.",
+        "Source preservation": "Question/answer and Top-5 evidence unchanged; evidence and annotation_reference stored as complete serialized JSON strings.",
+        "Total preliminary labels": "5000",
+        "Warning": "Automatic labels cannot establish answer entailment, evidence sufficiency or concrete source-confusion; do not treat aggregate counts as final research findings."
+      }
+    },
+    {
+      "file": "NQ_C1_005_preliminary_annotations.xlsx",
+      "label_counts": {
+        "correct": 2440,
+        "evidence_accessibility": 1250,
+        "evidence_insufficiency": 948,
+        "evidence_utilisation": 362
+      },
+      "review_sheet_rows": 1874,
+      "rows": 5000,
+      "sha256": "9a4ef97fff3a3427df58fa3b67d7f1aa15e352c23b15bc66a67a716e06a9736e",
+      "summary": {
+        "Automated provisional labels (UNVERIFIED)": "4978",
+        "Batch review label changes": "21",
+        "Batch review method": "Automated consistency and conservative numeric equivalence checks; matched earlier full-evidence decisions reused. Not a full semantic review.",
+        "Complete Top-5 semantic adjudications": "22",
+        "Correct": "2440",
+        "Evidence Accessibility Failure": "1250",
+        "Evidence Insufficiency": "948",
+        "Evidence Utilisation Failure": "362",
+        "Flagged possible alternate labels": "1874",
+        "Preservation": "All original values preserved: evidence and annotation_reference are serialized complete JSON without truncation; sample_id is text.",
+        "Review limitation": "This is an initial screening file, not a completed dataset-wide semantic audit.",
+        "Review records retained": "Existing review rows retained for traceability, including resolved cases; not an unresolved-error count.",
+        "Reviewed rows": "Only the first 22 cases received direct Top-5 evidence-based semantic adjudication.",
+        "Secondary label": "Blank because no actual matched C3/large-model comparison was supplied.",
+        "Total provisional labeled records": "5000",
+        "Uncertainty": "Review_Questions is a targeted risk list, not an exhaustive list of unverified labels; all 4,978 auto labels need semantic review.",
+        "Unreviewed rows": "The remaining 4,978 provisional labels are computational heuristics; text overlap does NOT establish evidence sufficiency or causality."
+      }
+    },
+    {
+      "file": "NQ_C1_006_preliminary_annotations.xlsx",
+      "label_counts": {
+        "correct": 2425,
+        "evidence_accessibility": 1503,
+        "evidence_insufficiency": 857,
+        "evidence_utilisation": 215
+      },
+      "review_sheet_rows": 2809,
+      "rows": 5000,
+      "sha256": "653c9c37fbcefad4c2c2a9a4f5dd46f7f867126ffc69d98f9b455ca17cb85468",
+      "summary": {
+        "Automated provisional labels": "4966",
+        "Batch review label changes": "25",
+        "Batch review method": "Automated consistency and conservative numeric equivalence checks; matched earlier full-evidence decisions reused. Not a full semantic review.",
+        "Complete Top-5 semantic adjudications": "34",
+        "Correct": "2425",
+        "Evidence Accessibility Failure": "1503",
+        "Evidence Insufficiency": "857",
+        "Evidence Utilisation Failure": "215",
+        "Limitations": "For unreviewed records, a phrase appearing in Top-5 is NOT proof that it supports the exact question, and a missing Gold phrase is NOT proof of retrieval failure.",
+        "Manual scope": "34 selected examples inspected against all five full passages. Some Gold references were corrected according to question wording and actual evidence.",
+        "Methodology": "Provisional classification ONLY: lexical/evidence-phrase heuristics for unreviewed rows, not final human semantic audit.",
+        "Review questions / flagged uncertainties": "2809",
+        "Review records retained": "Existing review rows retained for traceability, including resolved cases; not an unresolved-error count.",
+        "Secondary labels populated": "0",
+        "Source integrity": "Original JSONL fields preserved as equivalent UTF-8 JSON text; sample_id is stored as text, secondary_label is blank.",
+        "Total provisional labeled records": "5000"
+      }
+    },
+    {
+      "file": "NQ_C1_007_preliminary_annotations.xlsx",
+      "label_counts": {
+        "correct": 2419,
+        "evidence_accessibility": 1532,
+        "evidence_insufficiency": 831,
+        "evidence_utilisation": 218
+      },
+      "review_sheet_rows": 2781,
+      "rows": 5000,
+      "sha256": "7458f8140cb795a0e5245a348493f50a2d29776900b5ec9c7e5b8c7df5f0a2f6",
+      "summary": {
+        "Automated provisional labels": "4951",
+        "Batch review label changes": "20",
+        "Batch review method": "Automated consistency and conservative numeric equivalence checks; matched earlier full-evidence decisions reused. Not a full semantic review.",
+        "Complete Top-5 semantic adjudications": "49",
+        "Correct": "2419",
+        "Evidence Accessibility Failure": "1532",
+        "Evidence Insufficiency": "831",
+        "Evidence Utilisation Failure": "218",
+        "Limitations": "For unreviewed records, a phrase appearing in Top-5 is NOT proof that it supports the exact question, and a missing Gold phrase is NOT proof of retrieval failure.",
+        "Manual scope": "49 selected examples inspected against all five full passages. Some Gold references were corrected according to question wording and actual evidence.",
+        "Methodology": "Provisional classification ONLY: lexical/evidence-phrase heuristics for unreviewed rows, not final human semantic audit.",
+        "Review questions / flagged uncertainties": "2781",
+        "Review records retained": "Existing review rows retained for traceability, including resolved cases; not an unresolved-error count.",
+        "Secondary labels populated": "0",
+        "Source integrity": "Original JSONL fields preserved as equivalent UTF-8 JSON text; sample_id is stored as text, secondary_label is blank.",
+        "Total provisional labeled records": "5000"
+      }
+    },
+    {
+      "file": "NQ_C1_008_preliminary_annotations.xlsx",
+      "label_counts": {
+        "correct": 2379,
+        "evidence_accessibility": 1520,
+        "evidence_insufficiency": 903,
+        "evidence_utilisation": 198
+      },
+      "review_sheet_rows": 2846,
+      "rows": 5000,
+      "sha256": "ecf83818586a88a494b4dfdc97abf2cf0cdfd8110e78e0f7b9dc993f889b70e6",
+      "summary": {
+        "Automated provisional labels": "4944",
+        "Batch review label changes": "25",
+        "Batch review method": "Automated consistency and conservative numeric equivalence checks; matched earlier full-evidence decisions reused. Not a full semantic review.",
+        "Complete Top-5 semantic adjudications": "56",
+        "Correct": "2379",
+        "Evidence Accessibility Failure": "1520",
+        "Evidence Insufficiency": "903",
+        "Evidence Utilisation Failure": "198",
+        "Limitations": "For unreviewed records, a phrase appearing in Top-5 is NOT proof that it supports the exact question, and a missing Gold phrase is NOT proof of retrieval failure.",
+        "Manual scope": "56 selected examples inspected against all five full passages. Some Gold references were corrected according to question wording and actual evidence.",
+        "Methodology": "Provisional classification ONLY: lexical/evidence-phrase heuristics for unreviewed rows, not final human semantic audit.",
+        "Review questions / flagged uncertainties": "2846",
+        "Review records retained": "Existing review rows retained for traceability, including resolved cases; not an unresolved-error count.",
+        "Secondary labels populated": "0",
+        "Source integrity": "Original JSONL fields preserved as equivalent UTF-8 JSON text; sample_id is stored as text, secondary_label is blank.",
+        "Total provisional labeled records": "5000"
+      }
+    },
+    {
+      "file": "NQ_C1_009_preliminary_annotations.xlsx",
+      "label_counts": {
+        "correct": 2301,
+        "evidence_accessibility": 1298,
+        "evidence_insufficiency": 1199,
+        "evidence_utilisation": 202
+      },
+      "review_sheet_rows": 2769,
+      "rows": 5000,
+      "sha256": "135bed7a077be8a9b974ebeb01ad8e8d1040d75f97296c63a44c75ddf7b8ec9a",
+      "summary": {
+        "Automated provisional labels": "4956",
+        "Batch review label changes": "18",
+        "Batch review method": "Automated consistency and conservative numeric equivalence checks; matched earlier full-evidence decisions reused. Not a full semantic review.",
+        "Complete Top-5 semantic adjudications (selected examples)": "44",
+        "Correct": "2301",
+        "Evidence Accessibility Failure": "1298",
+        "Evidence Insufficiency": "1199",
+        "Evidence Utilisation Failure": "202",
+        "Evidence representation": "evidence and annotation_reference stored as complete JSON strings preserving original field values and order.",
+        "Limitations": "Full semantic audit NOT completed for remaining records. Gold passage recall or lexical answer matches alone do not establish a supported answer.",
+        "Manual scope": "Selected samples inspected against their five retrieved evidence passages; findings for ambiguous or contested cases are in Review_Questions.",
+        "Methodology": "PROVISIONAL classification ONLY: 44 individually inspected records and lexical/evidence-phrase heuristics for other records.",
+        "Review questions / flagged uncertainties": "2769",
+        "Review records retained": "Existing review rows retained for traceability, including resolved cases; not an unresolved-error count.",
+        "Secondary labels populated": "0",
+        "Source integrity": "Original JSONL fields copied without modifying question, prediction, evidence, or gold data; sample_id held as text.",
+        "Total provisional labeled records": "5000"
+      }
+    },
+    {
+      "file": "NQ_C1_010_preliminary_annotations.xlsx",
+      "label_counts": {
+        "correct": 2338,
+        "evidence_accessibility": 1228,
+        "evidence_insufficiency": 1217,
+        "evidence_utilisation": 217
+      },
+      "review_sheet_rows": 2749,
+      "rows": 5000,
+      "sha256": "1de03ea82f5ae7fdffc8afc21aeca7a8d4415ab198e479ed203c678f4147aa88",
+      "summary": {
+        "Automated provisional labels": "4950",
+        "Batch review label changes": "26",
+        "Batch review method": "Automated consistency and conservative numeric equivalence checks; matched earlier full-evidence decisions reused. Not a full semantic review.",
+        "Complete Top-5 semantic adjudications (selected examples)": "50",
+        "Correct": "2338",
+        "Evidence Accessibility Failure": "1228",
+        "Evidence Insufficiency": "1217",
+        "Evidence Utilisation Failure": "217",
+        "Evidence representation": "evidence and annotation_reference stored as complete JSON strings preserving original field values and order.",
+        "Limitations": "Full semantic audit NOT completed for remaining records. Gold passage recall or lexical answer matches alone do not establish a supported answer.",
+        "Manual scope": "Selected samples inspected against their five retrieved evidence passages; findings for ambiguous or contested cases are in Review_Questions.",
+        "Methodology": "PROVISIONAL classification ONLY: 50 individually inspected records and lexical/evidence-phrase heuristics for other records.",
+        "Review questions / flagged uncertainties": "2749",
+        "Review records retained": "Existing review rows retained for traceability, including resolved cases; not an unresolved-error count.",
+        "Secondary labels populated": "0",
+        "Source integrity": "Original JSONL fields copied without modifying question, prediction, evidence, or gold data; sample_id held as text.",
+        "Total provisional labeled records": "5000"
+      }
+    },
+    {
+      "file": "NQ_C1_011_preliminary_annotations.xlsx",
+      "label_counts": {
+        "correct": 2212,
+        "evidence_accessibility": 1286,
+        "evidence_insufficiency": 1268,
+        "evidence_utilisation": 234
+      },
+      "review_sheet_rows": 2885,
+      "rows": 5000,
+      "sha256": "c1cd2f65a33c2f2115fa600de456da822118b887a837b06323f76645388e4523",
+      "summary": {
+        "Automated provisional labels": "4959",
+        "Batch review label changes": "19",
+        "Batch review method": "Automated consistency and conservative numeric equivalence checks; matched earlier full-evidence decisions reused. Not a full semantic review.",
+        "Complete Top-5 semantic adjudications (selected examples)": "41",
+        "Correct": "2212",
+        "Evidence Accessibility Failure": "1286",
+        "Evidence Insufficiency": "1268",
+        "Evidence Utilisation Failure": "234",
+        "Evidence representation": "evidence and annotation_reference stored as complete JSON strings preserving original field values and order.",
+        "Limitations": "Full semantic audit NOT completed for remaining records. Gold passage recall or lexical answer matches alone do not establish a supported answer.",
+        "Manual scope": "Selected records evaluated against five retrieved evidence passages; ambiguities are documented in Review_Questions.",
+        "Methodology": "PROVISIONAL classification ONLY: 41 selected manually reviewed records and lexical/evidence-phrase heuristics for all other records.",
+        "Review questions / flagged uncertainties": "2885",
+        "Review records retained": "Existing review rows retained for traceability, including resolved cases; not an unresolved-error count.",
+        "Secondary labels populated": "0",
+        "Source integrity": "Original JSONL fields copied without modifying question, prediction, evidence, or gold data; sample_id held as text.",
+        "Total provisional labeled records": "5000"
+      }
+    },
+    {
+      "file": "NQ_C1_012_preliminary_annotations.xlsx",
+      "label_counts": {
+        "correct": 2762,
+        "evidence_accessibility": 987,
+        "evidence_insufficiency": 965,
+        "evidence_utilisation": 286
+      },
+      "review_sheet_rows": 3255,
+      "rows": 5000,
+      "sha256": "2bb5540f8bab0dd4a43c4ac213f8c335090dd91798bef4b447d86981ab4da6b7",
+      "summary": {
+        "Automated provisional labels": "4960",
+        "Batch review label changes": "32",
+        "Batch review method": "Automated consistency and conservative numeric equivalence checks; matched earlier full-evidence decisions reused. Not a full semantic review.",
+        "Correct": "2762",
+        "Evidence Accessibility Failure": "987",
+        "Evidence Insufficiency": "965",
+        "Evidence Utilisation Failure": "286",
+        "Evidence field": "All five original evidence passages (including IDs, ranks, scores) serialised intact as JSON text in source order.",
+        "Gold reference field": "annotation_reference including gold_answer, gold_evidence_text, gold_passage_id and recall flags retained intact as JSON text.",
+        "ID format": "sample_id is stored as a text string.",
+        "Interpretation": "Never treat Gold passage not recalled as proof of insufficiency. Never infer accessibility failure solely because wrong prediction occurs in evidence.",
+        "Limitations": "Automated label counts are NOT validated error-distribution estimates; some Gold entries may be wrong. Every unreviewed assignment must be semantically checked before research use.",
+        "Methodology": "PROVISIONAL: selected examples were manually considered against the question, prediction, Gold and retrieval evidence; remaining rows use surface/phrase signals to triage and are NOT per-item semantic adjudications.",
+        "Review questions / flagged uncertainties": "3255",
+        "Review records retained": "Existing review rows retained for traceability, including resolved cases; not an unresolved-error count.",
+        "Review sheet": "All four labels are provisional outside selected examples. Review_Questions prioritises disagreement and alias/ambiguity cases, and is not an exhaustive uncertainty audit.",
+        "Secondary labels populated": "0",
+        "Selected evidence-informed semantic reviews": "40",
+        "Source JSONL": "nq_train_annotation_012.jsonl",
+        "Total provisional labeled records": "5000"
+      }
+    },
+    {
+      "file": "NQ_C1_013_preliminary_annotations.xlsx",
+      "label_counts": {
+        "correct": 2796,
+        "evidence_accessibility": 973,
+        "evidence_insufficiency": 983,
+        "evidence_utilisation": 248
+      },
+      "review_sheet_rows": 3172,
+      "rows": 5000,
+      "sha256": "9d6d33aaf465d15cf7e829c195760ce9b50d202a48a8587374c9f39597af2d9d",
+      "summary": {
+        "Automated provisional labels": "4934",
+        "Batch review label changes": "24",
+        "Batch review method": "Automated consistency and conservative numeric equivalence checks; matched earlier full-evidence decisions reused. Not a full semantic review.",
+        "Correct": "2796",
+        "Evidence Accessibility Failure": "973",
+        "Evidence Insufficiency": "983",
+        "Evidence Utilisation Failure": "248",
+        "Evidence field": "All five original evidence passages (including IDs, ranks, scores) serialised intact as JSON text in source order.",
+        "Gold reference field": "annotation_reference including gold_answer, gold_evidence_text, gold_passage_id and recall flags retained intact as JSON text.",
+        "ID format": "sample_id is stored as a text string.",
+        "Interpretation": "Never treat Gold passage not recalled as proof of insufficiency. Never infer accessibility failure solely because wrong prediction occurs in evidence.",
+        "Limitations": "Automated label counts are NOT validated error-distribution estimates; some Gold entries may be wrong. Every unreviewed assignment must be semantically checked before research use.",
+        "Methodology": "PROVISIONAL: targeted review examples were semantically reviewed against the question, prediction, Gold and retrieval evidence; remaining rows use surface/phrase signals to triage and are NOT per-item semantic adjudications.",
+        "Review questions / flagged uncertainties": "3172",
+        "Review records retained": "Existing review rows retained for traceability, including resolved cases; not an unresolved-error count.",
+        "Review sheet": "All four labels are provisional outside targeted review examples. Review_Questions prioritises disagreement and alias/ambiguity cases, and is not an exhaustive uncertainty audit.",
+        "Secondary labels populated": "0",
+        "Source JSONL": "nq_train_annotation_013(2).jsonl",
+        "Targeted Top-5 semantic reviews": "66",
+        "Total provisional labeled records": "5000"
+      }
+    },
+    {
+      "file": "NQ_C1_014_preliminary_annotations.xlsx",
+      "label_counts": {
+        "correct": 2323,
+        "evidence_accessibility": 471,
+        "evidence_insufficiency": 849,
+        "evidence_utilisation": 454
+      },
+      "review_sheet_rows": 2744,
+      "rows": 4097,
+      "sha256": "7cce7e7cb73b1a5fce9f171cafc2ea611f1bd4ce6ac529b94145dc5c5380fb91",
+      "summary": {
+        "Annotation status": "PRELIMINARY: only a subset was manually reviewed",
+        "Automatic preliminary labels": "4066",
+        "Batch review label changes": "0",
+        "Batch review method": "Automated consistency and conservative numeric equivalence checks; matched earlier full-evidence decisions reused. Not a full semantic review.",
+        "Caveat": "Gold, EM, and text matches alone cannot establish correctness, sufficiency, nor interference. All automatic labels require semantic checking.",
+        "Correct": "2323",
+        "Data preservation": "Original source fields are preserved as text; nested evidence and Gold metadata fully JSON-serialized.",
+        "Doubt records": "2744",
+        "Evidence Accessibility Failure": "471",
+        "Evidence Insufficiency": "849",
+        "Evidence Utilisation Failure": "454",
+        "Five evidence passages present": "4097",
+        "Full Top-5 evidence semantic review": "31",
+        "Gold passage not recalled (metadata only)": "1465",
+        "Gold passage recalled (metadata only)": "2632",
+        "Method": "31 selected questions reviewed semantically against full E1–E5; all others inferred using approximate answer and retrieval text heuristics.",
+        "Review records retained": "Existing review rows retained for traceability, including resolved cases; not an unresolved-error count.",
+        "Secondary label": "blank for all samples",
+        "Source file": "nq_train_annotation_014.jsonl",
+        "Total records": "4097",
+        "Unique sample_id": "4097"
+      }
+    }
+  ],
+  "frozen_field_changes": 0,
+  "human_verified_labels_imported": 0,
+  "inputs_sha256": {
+    "delivery_manifest": "565b694d1caae3e3c22b47f3be90ca68a944196a641a6d15a5306252b4df7346",
+    "existing_human": "6b410bb84602e5ae5bb2135e17ab6ecd66a0cb685724508a299aeecf2125f498",
+    "partition_ids": "4bfaf449b099037df509a874c69946bb79038428ff33a1b844c3356cdf429115"
+  },
+  "label_counts": {
+    "correct": 36799,
+    "evidence_accessibility": 18017,
+    "evidence_insufficiency": 14750,
+    "evidence_utilisation": 4531
+  },
+  "missing_ids": 0,
+  "ok": true,
+  "overlay": {
+    "path": "data/processed/answer_repair/nq_train_preliminary_20261022/labels.jsonl",
+    "runtime_use": false,
+    "sha256": "1c08f65bd0351c66d27dd8ec6400083c5c2b898bcb95fa08c194aa8c3d9d4da1"
+  },
+  "partition_label_counts": {
+    "calibration": {
+      "correct": 3722,
+      "evidence_accessibility": 1765,
+      "evidence_insufficiency": 1436,
+      "evidence_utilisation": 422
+    },
+    "development": {
+      "correct": 29344,
+      "evidence_accessibility": 14410,
+      "evidence_insufficiency": 11788,
+      "evidence_utilisation": 3646
+    },
+    "reserved_evaluation": {
+      "correct": 3733,
+      "evidence_accessibility": 1842,
+      "evidence_insufficiency": 1526,
+      "evidence_utilisation": 463
+    }
+  },
+  "per_record_semantic_review_ids_or_reviewer_provenance_supplied": false,
+  "policy": [
+    "Preliminary labels only; not human gold or a measured accuracy.",
+    "No source/gold/evidence/workbook/partition/human decision modified.",
+    "No sample selection, prompt tuning or GPU inference performed.",
+    "Reserved split is E-only; team-wide unseen status remains unconfirmed."
+  ],
+  "received_date": "2026-10-22",
+  "review_sheet_rows_are_not_an_unresolved_count": true,
+  "review_sheet_rows_total": 37703,
+  "source_folder_url": "https://drive.google.com/drive/u/0/folders/1JWLByrI_hZ1qv70TSD23QjOlHngGBP1X",
+  "total": 74097,
+  "unknown_ids": 0,
+  "version": "nq_train_preliminary_import_20261022_v1",
+  "workbook_claimed_automatic_preliminary_total": 73536,
+  "workbook_claimed_semantic_review_total": 561,
+  "workbook_count": 15
+}
