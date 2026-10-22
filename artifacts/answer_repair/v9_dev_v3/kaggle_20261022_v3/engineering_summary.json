@@ -1,0 +1,214 @@
+{
+  "status": "complete",
+  "script_version_id": 361008203,
+  "run_seconds": 523.2,
+  "expected_predictions": 30,
+  "saved_predictions": 30,
+  "complete_arms": 6,
+  "completed_replays": 6,
+  "engineering_execution_gate": "passed",
+  "structured_contract_gate": "failed",
+  "predeclared_minimum": 18,
+  "structured_records": 20,
+  "structured_contract_valid": 11,
+  "structured_invalid": 9,
+  "structured_changes": 3,
+  "unique_changed_questions": 2,
+  "unknown_evidence_id_errors": 0,
+  "total_generation_calls": 48,
+  "total_model_seconds": 257.0516494939999,
+  "summaries": [
+    {
+      "dataset": "fever",
+      "counts": {
+        "samples": 5,
+        "calls": 5,
+        "changed": 0,
+        "invalid": 2,
+        "without_human_initial_label": 5
+      },
+      "classified_coverage_of_human_scored": null,
+      "wrong_original_explicit_false_accept_rate": null,
+      "correct_original_explicit_false_reject_rate": null,
+      "warning": "Coverage and abstention must accompany error rates. Changed correct originals are not automatically semantic regressions. No final-answer human accuracy or faithfulness is inferred.",
+      "label_basis": "Prior reference-visible chat-assisted original-answer confirmations, not independent blind labels.",
+      "file": "fever_smoke5_evidence_id.jsonl",
+      "statuses": {
+        "invalid_decision": 2,
+        "kept": 3
+      },
+      "invalid_reasons": {
+        "Keep cannot rewrite the original": 2
+      },
+      "total_model_seconds": 51.505027951999864,
+      "mean_model_seconds": 10.301005590399972,
+      "input_tokens": 10330,
+      "output_tokens_estimate": 400
+    },
+    {
+      "dataset": "fever",
+      "counts": {
+        "samples": 5,
+        "calls": 13,
+        "changed": 0,
+        "invalid": 4,
+        "without_human_initial_label": 5
+      },
+      "classified_coverage_of_human_scored": null,
+      "wrong_original_explicit_false_accept_rate": null,
+      "correct_original_explicit_false_reject_rate": null,
+      "warning": "Coverage and abstention must accompany error rates. Changed correct originals are not automatically semantic regressions. No final-answer human accuracy or faithfulness is inferred.",
+      "label_basis": "Prior reference-visible chat-assisted original-answer confirmations, not independent blind labels.",
+      "file": "fever_smoke5_factored_evidence_id.jsonl",
+      "statuses": {
+        "invalid_decision": 3,
+        "invalid_plan": 1,
+        "kept": 1
+      },
+      "invalid_reasons": {
+        "Keep cannot rewrite the original": 2,
+        "Expected 1-5 unique source IDs": 1,
+        "Invalid control character at: line 1 column 41 (char 40)": 1
+      },
+      "total_model_seconds": 78.78481710499977,
+      "mean_model_seconds": 15.756963420999956,
+      "input_tokens": 18937,
+      "output_tokens_estimate": 562
+    },
+    {
+      "dataset": "fever",
+      "counts": {
+        "samples": 5,
+        "calls": 5,
+        "changed": 2,
+        "invalid": 0,
+        "without_human_initial_label": 5
+      },
+      "classified_coverage_of_human_scored": null,
+      "wrong_original_explicit_false_accept_rate": null,
+      "correct_original_explicit_false_reject_rate": null,
+      "warning": "Coverage and abstention must accompany error rates. Changed correct originals are not automatically semantic regressions. No final-answer human accuracy or faithfulness is inferred.",
+      "label_basis": "Prior reference-visible chat-assisted original-answer confirmations, not independent blind labels.",
+      "file": "fever_smoke5_qwen_direct.jsonl",
+      "statuses": {
+        "direct_reanswer": 5
+      },
+      "invalid_reasons": {},
+      "total_model_seconds": 20.443025147999947,
+      "mean_model_seconds": 4.088605029599989,
+      "input_tokens": 7004,
+      "output_tokens_estimate": 135
+    },
+    {
+      "dataset": "nq",
+      "counts": {
+        "samples": 5,
+        "calls": 5,
+        "changed": 2,
+        "invalid": 1,
+        "human_initial_scored": 5,
+        "original_correct": 3,
+        "classified": 4,
+        "classified_correct": 2,
+        "false_accept_wrong": 0,
+        "false_reject_correct": 0,
+        "wrong_original_retained": 0,
+        "correct_original_changed": 0,
+        "original_wrong": 2,
+        "classified_wrong": 2,
+        "unclassified_correct": 1
+      },
+      "classified_coverage_of_human_scored": 0.8,
+      "wrong_original_explicit_false_accept_rate": 0.0,
+      "correct_original_explicit_false_reject_rate": 0.0,
+      "warning": "Coverage and abstention must accompany error rates. Changed correct originals are not automatically semantic regressions. No final-answer human accuracy or faithfulness is inferred.",
+      "label_basis": "Prior reference-visible chat-assisted original-answer confirmations, not independent blind labels.",
+      "file": "nq_smoke5_evidence_id.jsonl",
+      "statuses": {
+        "kept": 2,
+        "repaired": 2,
+        "invalid_decision": 1
+      },
+      "invalid_reasons": {
+        "NQ answer is not a span in selected evidence": 1
+      },
+      "total_model_seconds": 32.46402192300002,
+      "mean_model_seconds": 6.492804384600004,
+      "input_tokens": 5590,
+      "output_tokens_estimate": 345
+    },
+    {
+      "dataset": "nq",
+      "counts": {
+        "samples": 5,
+        "calls": 15,
+        "changed": 1,
+        "invalid": 2,
+        "human_initial_scored": 5,
+        "original_correct": 3,
+        "classified": 3,
+        "classified_correct": 2,
+        "false_accept_wrong": 0,
+        "false_reject_correct": 0,
+        "wrong_original_retained": 1,
+        "correct_original_changed": 0,
+        "original_wrong": 2,
+        "unclassified_wrong": 1,
+        "classified_wrong": 1,
+        "unclassified_correct": 1
+      },
+      "classified_coverage_of_human_scored": 0.6,
+      "wrong_original_explicit_false_accept_rate": 0.0,
+      "correct_original_explicit_false_reject_rate": 0.0,
+      "warning": "Coverage and abstention must accompany error rates. Changed correct originals are not automatically semantic regressions. No final-answer human accuracy or faithfulness is inferred.",
+      "label_basis": "Prior reference-visible chat-assisted original-answer confirmations, not independent blind labels.",
+      "file": "nq_smoke5_factored_evidence_id.jsonl",
+      "statuses": {
+        "kept": 2,
+        "invalid_decision": 2,
+        "repaired": 1
+      },
+      "invalid_reasons": {
+        "Repair must change the answer": 1,
+        "Keep cannot rewrite the original": 1
+      },
+      "total_model_seconds": 67.33217789700018,
+      "mean_model_seconds": 13.466435579400036,
+      "input_tokens": 11782,
+      "output_tokens_estimate": 709
+    },
+    {
+      "dataset": "nq",
+      "counts": {
+        "samples": 5,
+        "calls": 5,
+        "changed": 0,
+        "invalid": 0,
+        "human_initial_scored": 5,
+        "original_correct": 3,
+        "unclassified_correct": 3,
+        "wrong_original_retained": 2,
+        "correct_original_changed": 0,
+        "original_wrong": 2,
+        "unclassified_wrong": 2
+      },
+      "classified_coverage_of_human_scored": 0.0,
+      "wrong_original_explicit_false_accept_rate": 0.0,
+      "correct_original_explicit_false_reject_rate": 0.0,
+      "warning": "Coverage and abstention must accompany error rates. Changed correct originals are not automatically semantic regressions. No final-answer human accuracy or faithfulness is inferred.",
+      "label_basis": "Prior reference-visible chat-assisted original-answer confirmations, not independent blind labels.",
+      "file": "nq_smoke5_qwen_direct.jsonl",
+      "statuses": {
+        "direct_reanswer": 5
+      },
+      "invalid_reasons": {},
+      "total_model_seconds": 6.522579469000107,
+      "mean_model_seconds": 1.3045158938000214,
+      "input_tokens": 2844,
+      "output_tokens_estimate": 29
+    }
+  ],
+  "stop_decision": "Freeze these 10 samples. No more prompt changes on them. Full development/unseen evaluation not started; first specify constrained-output follow-up using separate engineering fixtures.",
+  "human_final_scored_changes": 0,
+  "interpretation": "Engineering smoke only, no EM-based selection or effectiveness claim. Citation provenance does not establish semantic support; True Blood numerical span binds to a date in a second passage."
+}

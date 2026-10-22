@@ -37,5 +37,6 @@
       "replay": "passed",
       "stdout": "{\"replay\": \"passed\", \"records\": 5, \"run_fingerprint\": \"387817cfa7c9c8ffbbecb6bfa93966f4c48386ca48aea0687f55fe8964e47055\"}"
     }
-  ]
+  ],
+  "expected_checksums_sha256": "20eb87734301f5947e30ae203ba21b24ea3002c491f784f1f2279630dc878216"
 }

@@ -1,0 +1,46 @@
+{
+  "script_version_id": 361008203,
+  "input_archive_sha256": "4dab82e46dd6b48b0a880c5de38de36418d0c9189c027f12c63ebdfe53e4a940",
+  "expected_bundle_checksums_sha256": "d16ee84275fdabdecdedd74abdd2bb92bfb4c0ab445202990de264860ff42d58",
+  "gate_sha256": "847dc7351a0af6aa51476da46e0a3956de36003f78459ca2fe25f4972199c87d",
+  "gate_published_commit": "42db594fb18406f9285ab1e4fdb4b4169305d6ec",
+  "frozen_replay_python": "3.13.16",
+  "gpu_python": "3.13.15",
+  "replay_meaning": "Replay stored generations through frozen repair/metric code; not a fresh model generation or a claim of bitwise GPU reproducibility",
+  "complete_records": 30,
+  "complete_replays": 6,
+  "structured_contract_valid": 11,
+  "structured_contract_gate": "failed",
+  "stop_rule_applied": true,
+  "human_final_reviews_added": 0,
+  "files": {
+    "outputs.zip": {
+      "bytes": 996577,
+      "sha256": "9b1a4a117fd018ca89b9bc6f12db0fa50f47c13591c2e3207d8346287bb2572a"
+    },
+    "run.log": {
+      "bytes": 160454,
+      "sha256": "efdc11ca676ae4492d91c7ee120dbfa57222b45cfc6e55a57c0450e63a6c9b36"
+    },
+    "local_replay.json": {
+      "bytes": 1850,
+      "sha256": "78ccb767b1d4f735267d58773a36b54a5142027f0eedc13e7eaf249f4edde970"
+    },
+    "engineering_summary.json": {
+      "bytes": 8325,
+      "sha256": "fefe61db941054ff92c697e0fc1ac1b9cfb58111c9e0ff3ea8dcd0c1f6b220b5"
+    },
+    "changed_assisted_review.jsonl": {
+      "bytes": 11793,
+      "sha256": "0d4c6216e9d46a459a17ca0861c677ad9e79289f2637d9a63712c7676d2cb004"
+    },
+    "changed_review.html": {
+      "bytes": 11096,
+      "sha256": "fdc5535c860fe8c3bb1c578de238bc47ae18b23a9452eff943495b1caf57ff83"
+    },
+    "archive_manifest.json": {
+      "bytes": 20996,
+      "sha256": "7c53ffa4c6fdd95f3efb329c69cd79e8cfdc0593814969ad16faa2e466c08965"
+    }
+  }
+}

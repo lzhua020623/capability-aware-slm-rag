@@ -1,0 +1,5 @@
+{
+  "expected_archive_sha256": "4dab82e46dd6b48b0a880c5de38de36418d0c9189c027f12c63ebdfe53e4a940",
+  "expected_checksums_sha256": "d16ee84275fdabdecdedd74abdd2bb92bfb4c0ab445202990de264860ff42d58",
+  "purpose": "10 exposed development samples; engineering only, no EM selection"
+}

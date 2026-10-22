@@ -1,5 +1,5 @@
 {
-  "status": "running",
+  "status": "complete",
   "script_version_id": 361008203,
   "kaggle_version": 3,
   "version_name": "v9 source ID contract frozen 4dab82e4",
@@ -9,7 +9,15 @@
   "internet": true,
   "expected_predictions": 30,
   "expected_replays": 6,
-  "gpu_inference_completed": false,
+  "gpu_inference_completed": true,
   "engineering_gate": "engineering_gate.json; declared before submission",
-  "full_development_started": false
+  "full_development_started": false,
+  "run_seconds": 523.2,
+  "saved_predictions": 30,
+  "completed_replays": 6,
+  "structured_contract_valid": 11,
+  "structured_contract_total": 20,
+  "engineering_gate_passed": false,
+  "stop_rule_applied": true,
+  "outputs": "kaggle_20261022_v3/"
 }
