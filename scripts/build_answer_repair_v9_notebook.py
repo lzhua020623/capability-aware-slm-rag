@@ -54,8 +54,8 @@ print("V9 ENGINEERING SMOKE COMPLETE: 30 predictions, 6 replay checks; no effect
                    "isGpuEnabled": True, "isInternetEnabled": True, "language": "python", "sourceType": "notebook"}},
         "cells": [
             {"id": "protocol", "cell_type": "markdown", "metadata": {}, "source": [
-                "# E v9 compact context engineering smoke\n",
-                "Private frozen input embedded in this notebook. Full Top-5 retained. Same Qwen, calls and samples; compact evidence serialization only. No effectiveness or prompt selection claim."]},
+                "# E v9 frozen engineering smoke\n",
+                "Private frozen input embedded in this notebook. Full Top-5 retained; model, samples and budgets in the manifest. Engineering integrity and output contract checks only. No effectiveness or prompt selection claim."]},
             {"id": "run", "cell_type": "code", "metadata": {}, "execution_count": None,
              "outputs": [], "source": code.splitlines(keepends=True)}]}
     args.out.parent.mkdir(parents=True, exist_ok=True)

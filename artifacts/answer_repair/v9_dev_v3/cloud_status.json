@@ -1,0 +1,15 @@
+{
+  "status": "running",
+  "script_version_id": 361008203,
+  "kaggle_version": 3,
+  "version_name": "v9 source ID contract frozen 4dab82e4",
+  "notebook_url": "https://www.kaggle.com/code/yearo111/e-v9-id-factored-smoke10-20261022?scriptVersionId=361008203",
+  "private": true,
+  "accelerator": "GPU T4 x2",
+  "internet": true,
+  "expected_predictions": 30,
+  "expected_replays": 6,
+  "gpu_inference_completed": false,
+  "engineering_gate": "engineering_gate.json; declared before submission",
+  "full_development_started": false
+}

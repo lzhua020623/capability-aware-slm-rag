@@ -1,0 +1,51 @@
+{
+  "tests_passed": 78,
+  "core_tests": 13,
+  "changed_repair_functions_from_v2": [
+    "context",
+    "fact_prompt",
+    "decision_prompt"
+  ],
+  "changes": "ID namespace and output-contract guidance only; semantic rules and parser unchanged",
+  "smoke_input_bytes": "identical to v1/v2",
+  "all_sentence_ids_text_and_passage_titles": "preserved",
+  "checks": [
+    {
+      "dataset": "nq",
+      "strategy": "qwen_direct",
+      "preflight": "passed",
+      "fingerprint": "9e2512f10d055e074bb77527512e3f2fe12af0eacb859c44c91f888be11577f9"
+    },
+    {
+      "dataset": "nq",
+      "strategy": "evidence_id",
+      "preflight": "passed",
+      "fingerprint": "08700c997efadde4ed64c84885e516e7c02b65ce8038c84e8576812010e5c81a"
+    },
+    {
+      "dataset": "nq",
+      "strategy": "factored_evidence_id",
+      "preflight": "passed",
+      "fingerprint": "717334ae182511d87211ec2d7fed997d43a2a554900762c7ad258c2e3c3130c7"
+    },
+    {
+      "dataset": "fever",
+      "strategy": "qwen_direct",
+      "preflight": "passed",
+      "fingerprint": "ea06558cc82076b62fb8bce092f513e8d96f130da81fd9cc9d4bddecfdade7c2"
+    },
+    {
+      "dataset": "fever",
+      "strategy": "evidence_id",
+      "preflight": "passed",
+      "fingerprint": "1bbbe7d24061452ac817784648df66b63e1fb9a8abca058cf8362e80f0009ede"
+    },
+    {
+      "dataset": "fever",
+      "strategy": "factored_evidence_id",
+      "preflight": "passed",
+      "fingerprint": "e2fa204c28cd1a6475eebeea97b4fc2f359c18c842280adf395c8c390a219e12"
+    }
+  ],
+  "gpu_inference_completed": false
+}

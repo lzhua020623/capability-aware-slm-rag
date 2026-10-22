@@ -1,0 +1,7 @@
+{
+  "archive_sha256": "4dab82e46dd6b48b0a880c5de38de36418d0c9189c027f12c63ebdfe53e4a940",
+  "files": 52,
+  "gpu_inference_completed": false,
+  "smoke_predictions": 30,
+  "smoke_max_calls": 70
+}

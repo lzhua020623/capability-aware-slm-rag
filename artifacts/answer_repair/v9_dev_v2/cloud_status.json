@@ -1,5 +1,5 @@
 {
-  "status": "running",
+  "status": "complete",
   "kaggle_version": 2,
   "version_name": "v9 compact smoke10 frozen 682f0911",
   "notebook_url": "https://www.kaggle.com/code/yearo111/e-v9-id-factored-smoke10-20261022?scriptVersionId=361004665",
@@ -21,6 +21,11 @@
     "generation/call budgets",
     "strict validation"
   ],
-  "gpu_inference_completed": false,
-  "script_version_id": 361004665
+  "gpu_inference_completed": true,
+  "script_version_id": 361004665,
+  "run_seconds": 495.4,
+  "saved_predictions": 30,
+  "completed_replays": 6,
+  "semantic_readiness": "not_ready",
+  "outputs": "kaggle_20261022_v2/"
 }

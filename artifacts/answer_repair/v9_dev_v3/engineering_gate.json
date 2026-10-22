@@ -1,0 +1,31 @@
+{
+  "scope": "final engineering interface retry; before GPU submission",
+  "purpose": "valid output contract; not effectiveness or EM",
+  "fixed_smoke": "identical 5 NQ + 5 FEVER development IDs, three arms; no semantic/gold-based changes",
+  "stop_rule": "After this interface retry collect and freeze results. Do not continue adjusting prompts on these 10 samples. If contract gate fails, record failure and require a separately specified constrained-output approach before full development.",
+  "gates": {
+    "expected_records": 30,
+    "successful_frozen_replays": 6,
+    "finite_costs_and_declared_budgets": true,
+    "structured_contract_valid_minimum": 18,
+    "structured_contract_total": 20,
+    "rationale": "90% is an engineering usability gate, not a statistical accuracy claim. Every accepted citation must reconstruct from original source."
+  },
+  "allowed_changes_from_v2": [
+    "single source-ID namespace in model context; passage title kept once per passage",
+    "explicit exact sentence-ID / lowercase decision / max5 fact-ID output contract",
+    "version identifier and packaging default"
+  ],
+  "unchanged": [
+    "Qwen model and revision",
+    "NF4 / seed / greedy",
+    "smoke inputs",
+    "semantic decision rules",
+    "full evidence text",
+    "strict parser and original-answer fallback",
+    "1/1/5 call budgets",
+    "384-token per call budget"
+  ],
+  "human_gold_in_runtime": false,
+  "declared_at_utc": "2026-10-22 04:27:16 UTC"
+}

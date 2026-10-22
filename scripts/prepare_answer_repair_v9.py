@@ -26,7 +26,7 @@ def digest(raw):
 
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--snapshot", default="v9_dev_v2")
+    p.add_argument("--snapshot", default="v9_dev_v3")
     p.add_argument("--out-dir", type=Path)
     args = p.parse_args(argv)
     if not re.fullmatch(r"v9_dev_v[1-9][0-9]*", args.snapshot):

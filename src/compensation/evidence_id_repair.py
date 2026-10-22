@@ -16,7 +16,7 @@ from src.compensation.controller_adapter import controller_route_status
 from src.compensation.short_answer_repair import locate_excerpt
 from src.diagnosis import DatasetName, DiagnosisInput
 
-VERSION = "v9_evidence_id_factored_v2_compact_context"
+VERSION = "v9_evidence_id_factored_v3_single_source_namespace_candidate"
 STRATEGIES = ("qwen_direct", "evidence_id", "factored_evidence_id")
 MAX_QUESTIONS = 3
 MAX_NEW_TOKENS = 384
@@ -66,8 +66,10 @@ def context(request, units):
     # Runtime needs an ID and its text, not repeated offsets/source metadata.
     # Keep the full lossless units in the saved trace for deterministic replay.
     # Every original character remains visible, including punctuation/qualifiers.
-    return json.dumps({"sources": {f"R{e.rank}": e.passage_id for e in request.evidence},
-                       "evidence_units": {u.id: u.text for u in units},
+    return json.dumps({"passages": [
+                          {"passage_title": e.passage_id,
+                           "evidence_units": {u.id: u.text for u in units if u.rank == e.rank}}
+                          for e in request.evidence],
                        "near_duplicate_passages": near_duplicates(request)},
                       ensure_ascii=False, separators=(",", ":"))
 
@@ -99,6 +101,8 @@ def fact_prompt(request, units, question):
             "No previous answer is available. Return only JSON with status, fact, evidence_ids. "
             "status is answerable, insufficient or conflict. fact is a concise evidence-based "
             "answer (or explanation of uncertainty); evidence_ids lists the exact source units. "
+            "Select at most 5 unique keys from evidence_units (such as R1S1), never a "
+            "passage title or shortened passage prefix such as R1. "
             "For conflict identify incompatible facts and cite both; never majority-vote. "
             "For insufficient evidence_ids may be empty. Do not copy long quotes.\n"
             f"Original query: {json.dumps(request.query, ensure_ascii=False)}\n"
@@ -129,6 +133,8 @@ def decision_prompt(request, units, facts=None):
             "program preserves the original. For keep copy the original answer unchanged. "
             "For keep/repair select 1-5 unique evidence IDs establishing the requested fact "
             "with its necessary context; select adjacent units when a fact crosses sentences. "
+            "IDs must be exact keys from evidence_units (such as R1S1), never a passage "
+            "title or shortened prefix such as R1. decision values must be lowercase. "
             "Return only JSON with exactly decision, answer, evidence_ids, reason. reason is "
             "a concise explanation of the semantic comparison. Never generate quote text.\n"
             f"Query: {json.dumps(request.query, ensure_ascii=False)}\n"

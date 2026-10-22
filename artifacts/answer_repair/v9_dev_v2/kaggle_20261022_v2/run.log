@@ -1,0 +1,1255 @@
+7.4s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.4s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.4s 3 0.00s - to python to disable frozen modules.
+7.4s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+8.0s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+8.0s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+8.0s 7 0.00s - to python to disable frozen modules.
+8.0s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+9.6s 9 /tmp/ipykernel_23/916423160.py:12: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+9.6s 10 tar.extractall(extract)
+9.6s 11 
+9.6s 12 /tmp/ipykernel_23/916423160.py:12: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+9.6s 13 tar.extractall(extract)
+11.6s 14 Requirement already satisfied: transformers in /usr/local/lib/python3.13/dist-packages (from -r requirements-answer-repair.txt (line 2)) (5.16.1)
+11.6s 15 Requirement already satisfied: accelerate in /usr/local/lib/python3.13/dist-packages (from -r requirements-answer-repair.txt (line 3)) (1.14.0)
+11.7s 16 Collecting bitsandbytes (from -r requirements-answer-repair.txt (line 4))
+11.7s 17 Downloading bitsandbytes-0.50.2-py3-none-manylinux_2_24_x86_64.whl.metadata (10 kB)
+11.7s 18 Requirement already satisfied: pyyaml in /usr/local/lib/python3.13/dist-packages (from -r requirements-answer-repair.txt (line 5)) (6.0.3)
+11.8s 19 Requirement already satisfied: huggingface-hub<2.0,>=1.5.0 in /usr/local/lib/python3.13/dist-packages (from transformers->-r requirements-answer-repair.txt (line 2)) (1.29.0)
+11.8s 20 Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.13/dist-packages (from transformers->-r requirements-answer-repair.txt (line 2)) (2.1.3)
+11.8s 21 Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.13/dist-packages (from transformers->-r requirements-answer-repair.txt (line 2)) (26.3)
+11.8s 22 Requirement already satisfied: transformers in /usr/local/lib/python3.13/dist-packages (from -r requirements-answer-repair.txt (line 2)) (5.16.1)
+11.8s 23 Requirement already satisfied: accelerate in /usr/local/lib/python3.13/dist-packages (from -r requirements-answer-repair.txt (line 3)) (1.14.0)
+11.8s 24 Collecting bitsandbytes (from -r requirements-answer-repair.txt (line 4))
+11.8s 25 Downloading bitsandbytes-0.50.2-py3-none-manylinux_2_24_x86_64.whl.metadata (10 kB)
+11.8s 26 Requirement already satisfied: pyyaml in /usr/local/lib/python3.13/dist-packages (from -r requirements-answer-repair.txt (line 5)) (6.0.3)
+11.8s 27 Requirement already satisfied: huggingface-hub<2.0,>=1.5.0 in /usr/local/lib/python3.13/dist-packages (from transformers->-r requirements-answer-repair.txt (line 2)) (1.29.0)
+11.8s 28 Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.13/dist-packages (from transformers->-r requirements-answer-repair.txt (line 2)) (2.1.3)
+11.8s 29 Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.13/dist-packages (from transformers->-r requirements-answer-repair.txt (line 2)) (26.3)
+11.8s 30 Requirement already satisfied: regex>=2025.10.22 in /usr/local/lib/python3.13/dist-packages (from transformers->-r requirements-answer-repair.txt (line 2)) (2025.11.3)
+11.8s 31 Requirement already satisfied: tokenizers<0.24.0,>=0.23.1 in /usr/local/lib/python3.13/dist-packages (from transformers->-r requirements-answer-repair.txt (line 2)) (0.23.1)
+11.8s 32 Requirement already satisfied: typer in /usr/local/lib/python3.13/dist-packages (from transformers->-r requirements-answer-repair.txt (line 2)) (0.27.2)
+11.8s 33 Requirement already satisfied: safetensors>=0.8.0 in /usr/local/lib/python3.13/dist-packages (from transformers->-r requirements-answer-repair.txt (line 2)) (0.8.0)
+11.8s 34 Requirement already satisfied: tqdm>=4.60 in /usr/local/lib/python3.13/dist-packages (from transformers->-r requirements-answer-repair.txt (line 2)) (4.67.3)
+11.8s 35 Requirement already satisfied: psutil in /usr/local/lib/python3.13/dist-packages (from accelerate->-r requirements-answer-repair.txt (line 3)) (5.9.5)
+11.8s 36 Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.13/dist-packages (from accelerate->-r requirements-answer-repair.txt (line 3)) (2.11.0+cu128)
+11.8s 37 Requirement already satisfied: click<9.0.0,>=8.4.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (8.5.0)
+11.8s 38 Requirement already satisfied: filelock>=3.10.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (3.32.5)
+11.8s 39 Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (2025.12.0)
+11.8s 40 Requirement already satisfied: hf-xet<2.0.0,>=1.5.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (1.6.0)
+11.8s 41 Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (0.28.1)
+11.8s 42 Requirement already satisfied: typing-extensions>=4.1.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (4.16.0)
+11.9s 43 Requirement already satisfied: setuptools<82 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (81.0.0)
+11.9s 44 Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (1.14.0)
+11.9s 45 Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (3.6.1)
+11.9s 46 Requirement already satisfied: jinja2 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (3.1.6)
+11.9s 47 Requirement already satisfied: cuda-toolkit==12.8.1 in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.8.1)
+11.9s 48 Requirement already satisfied: cuda-bindings<13,>=12.9.4 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.9.7)
+11.9s 49 Requirement already satisfied: nvidia-cudnn-cu12==9.19.0.56 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (9.19.0.56)
+11.9s 50 Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (0.7.1)
+11.9s 51 Requirement already satisfied: nvidia-nccl-cu12==2.28.9 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (2.28.9)
+11.9s 52 Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (3.4.5)
+11.9s 53 Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (3.6.0)
+11.9s 54 Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.8.4.1)
+11.9s 55 Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.8.90)
+11.9s 56 Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (11.3.3.83)
+11.9s 57 Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (1.13.1.3)
+11.9s 58 Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.8.90)
+11.9s 59 Requirement already satisfied: nvidia-curand-cu12==10.3.9.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (10.3.9.90)
+11.9s 60 Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (11.7.3.90)
+11.9s 61 Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.5.8.93)
+11.9s 62 Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.8.93)
+11.9s 63 Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.8.93)
+11.9s 64 Requirement already satisfied: nvidia-nvtx-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.8.90)
+11.9s 65 Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.13/dist-packages (from typer->transformers->-r requirements-answer-repair.txt (line 2)) (1.5.4)
+12.0s 66 Requirement already satisfied: rich>=13.8.0 in /usr/local/lib/python3.13/dist-packages (from typer->transformers->-r requirements-answer-repair.txt (line 2)) (13.9.4)
+12.0s 67 Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.13/dist-packages (from typer->transformers->-r requirements-answer-repair.txt (line 2)) (0.0.5)
+12.0s 68 Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.13/dist-packages (from cuda-bindings<13,>=12.9.4->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (1.8.0)
+12.0s 69 Requirement already satisfied: anyio in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (4.14.2)
+12.0s 70 Requirement already satisfied: certifi in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (2026.7.22)
+12.0s 71 Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (1.0.9)
+12.0s 72 Requirement already satisfied: idna in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (3.19)
+12.0s 73 Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.13/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (0.16.0)
+12.0s 74 Requirement already satisfied: regex>=2025.10.22 in /usr/local/lib/python3.13/dist-packages (from transformers->-r requirements-answer-repair.txt (line 2)) (2025.11.3)
+12.0s 75 Requirement already satisfied: tokenizers<0.24.0,>=0.23.1 in /usr/local/lib/python3.13/dist-packages (from transformers->-r requirements-answer-repair.txt (line 2)) (0.23.1)
+12.0s 76 Requirement already satisfied: typer in /usr/local/lib/python3.13/dist-packages (from transformers->-r requirements-answer-repair.txt (line 2)) (0.27.2)
+12.0s 77 Requirement already satisfied: safetensors>=0.8.0 in /usr/local/lib/python3.13/dist-packages (from transformers->-r requirements-answer-repair.txt (line 2)) (0.8.0)
+12.0s 78 Requirement already satisfied: tqdm>=4.60 in /usr/local/lib/python3.13/dist-packages (from transformers->-r requirements-answer-repair.txt (line 2)) (4.67.3)
+12.0s 79 Requirement already satisfied: psutil in /usr/local/lib/python3.13/dist-packages (from accelerate->-r requirements-answer-repair.txt (line 3)) (5.9.5)
+12.0s 80 Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.13/dist-packages (from accelerate->-r requirements-answer-repair.txt (line 3)) (2.11.0+cu128)
+12.0s 81 Requirement already satisfied: click<9.0.0,>=8.4.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (8.5.0)
+12.0s 82 Requirement already satisfied: filelock>=3.10.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (3.32.5)
+12.0s 83 Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (2025.12.0)
+12.0s 84 Requirement already satisfied: hf-xet<2.0.0,>=1.5.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (1.6.0)
+12.0s 85 Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (0.28.1)
+12.0s 86 Requirement already satisfied: typing-extensions>=4.1.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (4.16.0)
+12.0s 87 Requirement already satisfied: setuptools<82 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (81.0.0)
+12.0s 88 Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (1.14.0)
+12.0s 89 Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (3.6.1)
+12.0s 90 Requirement already satisfied: jinja2 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (3.1.6)
+12.0s 91 Requirement already satisfied: cuda-toolkit==12.8.1 in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.8.1)
+12.0s 92 Requirement already satisfied: cuda-bindings<13,>=12.9.4 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.9.7)
+12.0s 93 Requirement already satisfied: nvidia-cudnn-cu12==9.19.0.56 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (9.19.0.56)
+12.0s 94 Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (0.7.1)
+12.0s 95 Requirement already satisfied: nvidia-nccl-cu12==2.28.9 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (2.28.9)
+12.0s 96 Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (3.4.5)
+12.0s 97 Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (3.6.0)
+12.0s 98 Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.8.4.1)
+12.0s 99 Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.8.90)
+12.0s 100 Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (11.3.3.83)
+12.0s 101 Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (1.13.1.3)
+12.0s 102 Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.8.90)
+12.0s 103 Requirement already satisfied: nvidia-curand-cu12==10.3.9.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (10.3.9.90)
+12.0s 104 Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (11.7.3.90)
+12.0s 105 Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.5.8.93)
+12.0s 106 Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.8.93)
+12.0s 107 Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.8.93)
+12.0s 108 Requirement already satisfied: nvidia-nvtx-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (12.8.90)
+12.0s 109 Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.13/dist-packages (from typer->transformers->-r requirements-answer-repair.txt (line 2)) (1.5.4)
+12.0s 110 Requirement already satisfied: rich>=13.8.0 in /usr/local/lib/python3.13/dist-packages (from typer->transformers->-r requirements-answer-repair.txt (line 2)) (13.9.4)
+12.0s 111 Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.13/dist-packages (from typer->transformers->-r requirements-answer-repair.txt (line 2)) (0.0.5)
+12.0s 112 Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.13/dist-packages (from cuda-bindings<13,>=12.9.4->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (1.8.0)
+12.0s 113 Requirement already satisfied: anyio in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (4.14.2)
+12.0s 114 Requirement already satisfied: certifi in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (2026.7.22)
+12.0s 115 Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (1.0.9)
+12.0s 116 Requirement already satisfied: idna in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (3.19)
+12.0s 117 Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.13/dist-packages (from rich>=13.8.0->typer->transformers->-r requirements-answer-repair.txt (line 2)) (4.2.0)
+12.0s 118 Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.13/dist-packages (from rich>=13.8.0->typer->transformers->-r requirements-answer-repair.txt (line 2)) (2.21.0)
+12.0s 119 Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.13/dist-packages (from sympy>=1.13.3->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (1.3.0)
+12.0s 120 Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.13/dist-packages (from jinja2->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (3.0.3)
+12.0s 121 Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.13/dist-packages (from markdown-it-py>=2.2.0->rich>=13.8.0->typer->transformers->-r requirements-answer-repair.txt (line 2)) (0.1.2)
+12.1s 122 Downloading bitsandbytes-0.50.2-py3-none-manylinux_2_24_x86_64.whl (43.1 MB)
+12.2s 123 Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.13/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers->-r requirements-answer-repair.txt (line 2)) (0.16.0)
+12.2s 124 Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.13/dist-packages (from rich>=13.8.0->typer->transformers->-r requirements-answer-repair.txt (line 2)) (4.2.0)
+12.2s 125 Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.13/dist-packages (from rich>=13.8.0->typer->transformers->-r requirements-answer-repair.txt (line 2)) (2.21.0)
+12.2s 126 Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.13/dist-packages (from sympy>=1.13.3->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (1.3.0)
+12.2s 127 Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.13/dist-packages (from jinja2->torch>=2.0.0->accelerate->-r requirements-answer-repair.txt (line 3)) (3.0.3)
+12.2s 128 Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.13/dist-packages (from markdown-it-py>=2.2.0->rich>=13.8.0->typer->transformers->-r requirements-answer-repair.txt (line 2)) (0.1.2)
+12.2s 129 Downloading bitsandbytes-0.50.2-py3-none-manylinux_2_24_x86_64.whl (43.1 MB)
+12.9s 130 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 43.1/43.1 MB 36.3 MB/s eta 0:00:00
+13.1s 131 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 43.1/43.1 MB 36.3 MB/s eta 0:00:00
+15.1s 132 Installing collected packages: bitsandbytes
+15.3s 133 Installing collected packages: bitsandbytes
+15.7s 134 Successfully installed bitsandbytes-0.50.2
+15.9s 135 test_answer_must_be_inside_selected_text (tests.test_answer_repair_v9.EvidenceIdTests.test_answer_must_be_inside_selected_text) ... ok
+15.9s 136 test_blind_stages_do_not_see_original_or_other_fact_answers (tests.test_answer_repair_v9.EvidenceIdTests.test_blind_stages_do_not_see_original_or_other_fact_answers) ... ok
+15.9s 137 test_compact_context_preserves_every_source_character_and_id (tests.test_answer_repair_v9.EvidenceIdTests.test_compact_context_preserves_every_source_character_and_id) ... ok
+15.9s 138 test_duplicate_json_keys_are_rejected (tests.test_answer_repair_v9.EvidenceIdTests.test_duplicate_json_keys_are_rejected) ... ok
+15.9s 139 test_fever_uses_qwen_and_preserves_on_uncertainty (tests.test_answer_repair_v9.EvidenceIdTests.test_fever_uses_qwen_and_preserves_on_uncertainty) ... ok
+15.9s 140 test_lossless_offsets_and_abbreviations (tests.test_answer_repair_v9.EvidenceIdTests.test_lossless_offsets_and_abbreviations) ... ok
+15.9s 141 test_near_duplicates_keep_different_dates_visible (tests.test_answer_repair_v9.EvidenceIdTests.test_near_duplicates_keep_different_dates_visible) ... ok
+15.9s 142 test_nonadjacent_sentences_cannot_form_a_fabricated_quote (tests.test_answer_repair_v9.EvidenceIdTests.test_nonadjacent_sentences_cannot_form_a_fabricated_quote) ... ok
+15.9s 143 test_other_controller_action_makes_zero_calls (tests.test_answer_repair_v9.EvidenceIdTests.test_other_controller_action_makes_zero_calls) ... ok
+15.9s 144 test_program_reconstructs_quotes_and_source_answer (tests.test_answer_repair_v9.EvidenceIdTests.test_program_reconstructs_quotes_and_source_answer) ... ok
+15.9s 145 test_replay_rejects_changed_evidence (tests.test_answer_repair_v9.EvidenceIdTests.test_replay_rejects_changed_evidence) ... ok
+15.9s 146 test_too_many_questions_cannot_expand_budget (tests.test_answer_repair_v9.EvidenceIdTests.test_too_many_questions_cannot_expand_budget) ... ok
+15.9s 147 test_unknown_duplicate_and_injected_ids_cannot_repair (tests.test_answer_repair_v9.EvidenceIdTests.test_unknown_duplicate_and_injected_ids_cannot_repair) ... ok
+15.9s 148 
+15.9s 149 ----------------------------------------------------------------------
+15.9s 150 Ran 13 tests in 0.007s
+15.9s 151 
+15.9s 152 OK
+15.9s 153 Successfully installed bitsandbytes-0.50.2
+16.1s 154 test_answer_must_be_inside_selected_text (tests.test_answer_repair_v9.EvidenceIdTests.test_answer_must_be_inside_selected_text) ... ok
+16.1s 155 test_blind_stages_do_not_see_original_or_other_fact_answers (tests.test_answer_repair_v9.EvidenceIdTests.test_blind_stages_do_not_see_original_or_other_fact_answers) ... ok
+16.1s 156 test_compact_context_preserves_every_source_character_and_id (tests.test_answer_repair_v9.EvidenceIdTests.test_compact_context_preserves_every_source_character_and_id) ... ok
+16.1s 157 test_duplicate_json_keys_are_rejected (tests.test_answer_repair_v9.EvidenceIdTests.test_duplicate_json_keys_are_rejected) ... ok
+16.1s 158 test_fever_uses_qwen_and_preserves_on_uncertainty (tests.test_answer_repair_v9.EvidenceIdTests.test_fever_uses_qwen_and_preserves_on_uncertainty) ... ok
+16.1s 159 test_lossless_offsets_and_abbreviations (tests.test_answer_repair_v9.EvidenceIdTests.test_lossless_offsets_and_abbreviations) ... ok
+16.1s 160 test_near_duplicates_keep_different_dates_visible (tests.test_answer_repair_v9.EvidenceIdTests.test_near_duplicates_keep_different_dates_visible) ... ok
+16.1s 161 test_nonadjacent_sentences_cannot_form_a_fabricated_quote (tests.test_answer_repair_v9.EvidenceIdTests.test_nonadjacent_sentences_cannot_form_a_fabricated_quote) ... ok
+16.1s 162 test_other_controller_action_makes_zero_calls (tests.test_answer_repair_v9.EvidenceIdTests.test_other_controller_action_makes_zero_calls) ... ok
+16.1s 163 test_program_reconstructs_quotes_and_source_answer (tests.test_answer_repair_v9.EvidenceIdTests.test_program_reconstructs_quotes_and_source_answer) ... ok
+16.1s 164 test_replay_rejects_changed_evidence (tests.test_answer_repair_v9.EvidenceIdTests.test_replay_rejects_changed_evidence) ... ok
+16.1s 165 test_too_many_questions_cannot_expand_budget (tests.test_answer_repair_v9.EvidenceIdTests.test_too_many_questions_cannot_expand_budget) ... ok
+16.1s 166 test_unknown_duplicate_and_injected_ids_cannot_repair (tests.test_answer_repair_v9.EvidenceIdTests.test_unknown_duplicate_and_injected_ids_cannot_repair) ... ok
+16.1s 167 
+16.1s 168 ----------------------------------------------------------------------
+16.1s 169 Ran 13 tests in 0.007s
+16.1s 170 
+16.1s 171 OK
+16.1s 172 
+16.1s 173 test_answer_must_be_inside_selected_text (tests.test_answer_repair_v9.EvidenceIdTests.test_answer_must_be_inside_selected_text) ... ok
+16.1s 174 test_blind_stages_do_not_see_original_or_other_fact_answers (tests.test_answer_repair_v9.EvidenceIdTests.test_blind_stages_do_not_see_original_or_other_fact_answers) ... ok
+16.1s 175 test_compact_context_preserves_every_source_character_and_id (tests.test_answer_repair_v9.EvidenceIdTests.test_compact_context_preserves_every_source_character_and_id) ... ok
+16.1s 176 test_duplicate_json_keys_are_rejected (tests.test_answer_repair_v9.EvidenceIdTests.test_duplicate_json_keys_are_rejected) ... ok
+16.1s 177 test_fever_uses_qwen_and_preserves_on_uncertainty (tests.test_answer_repair_v9.EvidenceIdTests.test_fever_uses_qwen_and_preserves_on_uncertainty) ... ok
+16.1s 178 test_lossless_offsets_and_abbreviations (tests.test_answer_repair_v9.EvidenceIdTests.test_lossless_offsets_and_abbreviations) ... ok
+16.1s 179 test_near_duplicates_keep_different_dates_visible (tests.test_answer_repair_v9.EvidenceIdTests.test_near_duplicates_keep_different_dates_visible) ... ok
+16.1s 180 test_nonadjacent_sentences_cannot_form_a_fabricated_quote (tests.test_answer_repair_v9.EvidenceIdTests.test_nonadjacent_sentences_cannot_form_a_fabricated_quote) ... ok
+16.1s 181 test_other_controller_action_makes_zero_calls (tests.test_answer_repair_v9.EvidenceIdTests.test_other_controller_action_makes_zero_calls) ... ok
+16.1s 182 test_program_reconstructs_quotes_and_source_answer (tests.test_answer_repair_v9.EvidenceIdTests.test_program_reconstructs_quotes_and_source_answer) ... ok
+16.1s 183 test_replay_rejects_changed_evidence (tests.test_answer_repair_v9.EvidenceIdTests.test_replay_rejects_changed_evidence) ... ok
+16.1s 184 test_too_many_questions_cannot_expand_budget (tests.test_answer_repair_v9.EvidenceIdTests.test_too_many_questions_cannot_expand_budget) ... ok
+16.1s 185 test_unknown_duplicate_and_injected_ids_cannot_repair (tests.test_answer_repair_v9.EvidenceIdTests.test_unknown_duplicate_and_injected_ids_cannot_repair) ... ok
+16.1s 186 
+16.1s 187 ----------------------------------------------------------------------
+16.1s 188 Ran 13 tests in 0.007s
+16.1s 189 
+16.1s 190 OK
+23.7s 191 {
+23.7s 192 "checked_at_utc": "2026-10-22T04:12:32.580125+00:00",
+23.7s 193 "python": "3.13.15",
+23.7s 194 "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+23.7s 195 "packages": {
+23.7s 196 "torch": "2.11.0+cu128",
+23.7s 197 "transformers": "5.16.1",
+23.7s 198 "accelerate": "1.14.0",
+23.7s 199 "bitsandbytes": "0.50.2",
+23.7s 200 "PyYAML": "6.0.3"
+23.7s 201 },
+23.7s 202 "cuda_available": true,
+23.7s 203 "cuda_version": "12.8",
+23.7s 204 "gpus": [
+23.7s 205 {
+23.7s 206 "index": 0,
+23.7s 207 "name": "Tesla T4",
+23.7s 208 "total_memory_bytes": 15636037632
+23.7s 209 },
+23.7s 210 {
+23.7s 211 "index": 1,
+23.7s 212 "name": "Tesla T4",
+23.7s 213 "total_memory_bytes": 15636037632
+23.7s 214 }
+23.7s 215 ],
+23.7s 216 "errors": [],
+23.7s 217 "ready_for_nf4_smoke": true
+23.7s 218 }
+23.9s 219 {
+23.9s 220 "checked_at_utc": "2026-10-22T04:12:32.580125+00:00",
+23.9s 221 "python": "3.13.15",
+23.9s 222 "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+23.9s 223 "packages": {
+23.9s 224 "torch": "2.11.0+cu128",
+23.9s 225 "transformers": "5.16.1",
+23.9s 226 "accelerate": "1.14.0",
+23.9s 227 "bitsandbytes": "0.50.2",
+23.9s 228 "PyYAML": "6.0.3"
+23.9s 229 },
+23.9s 230 "cuda_available": true,
+23.9s 231 "cuda_version": "12.8",
+23.9s 232 "gpus": [
+23.9s 233 {
+23.9s 234 "index": 0,
+23.9s 235 "name": "Tesla T4",
+23.9s 236 "total_memory_bytes": 15636037632
+23.9s 237 },
+23.9s 238 {
+23.9s 239 "index": 1,
+23.9s 240 "name": "Tesla T4",
+23.9s 241 "total_memory_bytes": 15636037632
+23.9s 242 }
+23.9s 243 ],
+23.9s 244 "errors": [],
+23.9s 245 "ready_for_nf4_smoke": true
+23.9s 246 }
+27.2s 247 {
+27.2s 248 "preflight": "passed",
+27.2s 249 "samples": 5,
+27.2s 250 "evidence_units": 76,
+27.2s 251 "maximum_generation_calls": 5,
+27.2s 252 "gpu_inference_completed": false,
+27.2s 253 "run_fingerprint": "3f5433f65bc450828822665f2aa3f82e993228a66d0370fc3a5d66254584e88a",
+27.2s 254 "manifest": {
+27.2s 255 "input_sha256": "720102391a5dcc8d4551d5d60565f27d68b6ec308d921d2023691b1de79bc496",
+27.2s 256 "controller_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+27.2s 257 "settings": {
+27.2s 258 "dataset": "nq",
+27.2s 259 "strategy": "qwen_direct",
+27.2s 260 "version": "v9_evidence_id_factored_v2_compact_context",
+27.2s 261 "model_name": "Qwen/Qwen2.5-7B-Instruct",
+27.2s 262 "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+27.2s 263 "quantization": "nf4",
+27.2s 264 "do_sample": false,
+27.2s 265 "seed": 42,
+27.2s 266 "max_new_tokens": 384,
+27.2s 267 "max_calls_per_sample": 1,
+27.2s 268 "routing": "all_component_ablation",
+27.2s 269 "sample_count": 5,
+27.2s 270 "semantic_verifier": "same_Qwen_not_independent"
+27.2s 271 },
+27.2s 272 "code_sha256": {
+27.2s 273 "src/__init__.py": "a54def8f254ea77cf89df6eec69911b8a06a922f098c0260296ee53a77fb66b7",
+27.2s 274 "src/compensation/__init__.py": "e6a14ed2a66bb3844648fbd04ec796a198b10f84933b661b410da1af95d51cb9",
+27.2s 275 "src/compensation/anchors.py": "75ff5517f5bf51112b655a0114f5e4fd8dc36e18041061fefe0a09921dced380",
+27.2s 276 "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+27.2s 277 "src/compensation/conservative_repair.py": "8d7db925b81ee9cb5678f1e85e883b18c1b41518f228aa12d856a34773bd040d",
+27.2s 278 "src/compensation/controller_adapter.py": "e3722ee732ce5eff839e0316704fb23a7a41e5e5e175d225f369823fd1a450be",
+27.2s 279 "src/compensation/evidence_id_repair.py": "6a2506e534603a34d1f721554909386869f359edfdcbf68d831ead2eed91decb",
+27.2s 280 "src/compensation/extractive_repair.py": "016ee9918389b4132d8f2a6f2a3632cd676204dbd5d5a26ebb7d2e4757e0aabc",
+27.2s 281 "src/compensation/line_contract.py": "32e938f413e6d4dfc0965bdfb31806773c20cef733dc58294c427fb96641a687",
+27.2s 282 "src/compensation/nli_repair.py": "8e3a6a2fd98eecf858e922c6c7480fc3fbe8cd85f8b2aa221fa020bb8cb4e2a8",
+27.2s 283 "src/compensation/nq_train_adapter.py": "a04edaf2277b7a82b4ec93e9e9f6de7ba581683a7804c7392f571e122a244165",
+27.2s 284 "src/compensation/qwen_repair.py": "e4989bcc20c3c23596ed685bc706e27cc742de4c1b41bd4f9d8d490c87400b49",
+27.2s 285 "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+27.2s 286 "src/compensation/support_check.py": "a0210ed3ea13a33346b69219b58d2638becaad6fc85ed3b42889e994daeefbcc",
+27.2s 287 "src/config.py": "9b2c12efa927872022fb626a1479944e660c4f3a21de25cd0beae8f17e2be9e1",
+27.2s 288 "src/controller/__init__.py": "fc1abf7105d3f0f3e52fad083065f681efcbf3e6415f44e0532f704f86a6500b",
+27.2s 289 "src/diagnosis/__init__.py": "1ba51863d569c1c8d432301f0db01dd6fcd6d1d938707bb090bb8130c04cff25",
+27.2s 290 "src/diagnosis/labels.py": "c9e787268e2669e2af0cf074aaf6a8b71bc5ed960fcacb8f6a657f7217ee1fda",
+27.2s 291 "src/diagnosis/schema.py": "f1bf526835f5c98a369ac38884415ce06e9a454639c41cb1daa2799ab26f700f",
+27.2s 292 "src/evaluation/__init__.py": "45da70e1184a66129a5b3ca8a3e776906f31781006b4b4257fbd213b8ca54cfd",
+27.2s 293 "src/evaluation/answer_repair.py": "896cbb5a1506fcf2bab02a9ada655279eb092939776a5cb2640a27dea9539147",
+27.2s 294 "src/evaluation/fever.py": "f8fac10584bffbafda1d627311624cb817f5ec725d9ade60493f281301bac2fa",
+27.2s 295 "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+27.2s 296 "src/evaluation/recoverability.py": "2fc8451f54952cfb7ccc6bbe1d945f2f091e3863a06ce3c6415f60d5e45aa4e1",
+27.2s 297 "src/generation/__init__.py": "59f7c1600b5430abd57b2353211fbe9d48305b29970737e649e6cd42b23311db",
+27.2s 298 "src/generation/qwen.py": "c932c3a0df40f030813d8c7298144adc1310a0bfee15ef832868a49cce9d6d6a",
+27.2s 299 "src/probe/__init__.py": "bd3cc044021b1d1b0524d53fa7bd2142762d0c91faeaa1202c1133796bfb368a",
+27.2s 300 "src/retrieval/__init__.py": "e9b4f2cb268485dac3f02ef10cb50cfe27af4be2a60e936337bf7c246e9037d9",
+27.2s 301 "src/retrieval/e5_faiss.py": "acbcda84a14a32847502b9cd64361112cbb09102431f7e14f051dc85e80a3f2d",
+27.2s 302 "src/retrieval/fever_ivfpq.py": "9e011c5c253d9c1f87c016a1c8543e996e9945159a9dfda84102c07f42dddbc2",
+27.2s 303 "scripts/run_answer_repair.py": "01ed8ae9bac446d51d523eca4a5ac4d2d13a98985adfd57b5ad8cca49e522df3",
+27.2s 304 "scripts/run_answer_repair_v9.py": "348eafb2e6411ef82b09da2125ef30495c468ded2e1b614100a44370cd66dbc2",
+27.2s 305 "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+27.2s 306 "configs/answer_repair_v9_protocol_v1.json": "4cb7909ed3ebc85269ed9cf7cce4db44000c5fb2beccb0997ad905becf000f08"
+27.2s 307 }
+27.2s 308 }
+27.2s 309 }
+27.4s 310 {
+27.4s 311 "preflight": "passed",
+27.4s 312 "samples": 5,
+27.4s 313 "evidence_units": 76,
+27.4s 314 "maximum_generation_calls": 5,
+27.4s 315 "gpu_inference_completed": false,
+27.4s 316 "run_fingerprint": "3f5433f65bc450828822665f2aa3f82e993228a66d0370fc3a5d66254584e88a",
+27.4s 317 "manifest": {
+27.4s 318 "input_sha256": "720102391a5dcc8d4551d5d60565f27d68b6ec308d921d2023691b1de79bc496",
+27.4s 319 "controller_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+27.4s 320 "settings": {
+27.4s 321 "dataset": "nq",
+27.4s 322 "strategy": "qwen_direct",
+27.4s 323 "version": "v9_evidence_id_factored_v2_compact_context",
+27.4s 324 "model_name": "Qwen/Qwen2.5-7B-Instruct",
+27.4s 325 "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+27.4s 326 "quantization": "nf4",
+27.4s 327 "do_sample": false,
+27.4s 328 "seed": 42,
+27.4s 329 "max_new_tokens": 384,
+27.4s 330 "max_calls_per_sample": 1,
+27.4s 331 "routing": "all_component_ablation",
+27.4s 332 "sample_count": 5,
+27.4s 333 "semantic_verifier": "same_Qwen_not_independent"
+27.4s 334 },
+27.4s 335 "code_sha256": {
+27.4s 336 "src/__init__.py": "a54def8f254ea77cf89df6eec69911b8a06a922f098c0260296ee53a77fb66b7",
+27.4s 337 "src/compensation/__init__.py": "e6a14ed2a66bb3844648fbd04ec796a198b10f84933b661b410da1af95d51cb9",
+27.4s 338 "src/compensation/anchors.py": "75ff5517f5bf51112b655a0114f5e4fd8dc36e18041061fefe0a09921dced380",
+27.4s 339 "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+27.4s 340 "src/compensation/conservative_repair.py": "8d7db925b81ee9cb5678f1e85e883b18c1b41518f228aa12d856a34773bd040d",
+27.4s 341 "src/compensation/controller_adapter.py": "e3722ee732ce5eff839e0316704fb23a7a41e5e5e175d225f369823fd1a450be",
+27.4s 342 "src/compensation/evidence_id_repair.py": "6a2506e534603a34d1f721554909386869f359edfdcbf68d831ead2eed91decb",
+27.4s 343 "src/compensation/extractive_repair.py": "016ee9918389b4132d8f2a6f2a3632cd676204dbd5d5a26ebb7d2e4757e0aabc",
+27.4s 344 "src/compensation/line_contract.py": "32e938f413e6d4dfc0965bdfb31806773c20cef733dc58294c427fb96641a687",
+27.4s 345 "src/compensation/nli_repair.py": "8e3a6a2fd98eecf858e922c6c7480fc3fbe8cd85f8b2aa221fa020bb8cb4e2a8",
+27.4s 346 "src/compensation/nq_train_adapter.py": "a04edaf2277b7a82b4ec93e9e9f6de7ba581683a7804c7392f571e122a244165",
+27.4s 347 "src/compensation/qwen_repair.py": "e4989bcc20c3c23596ed685bc706e27cc742de4c1b41bd4f9d8d490c87400b49",
+27.4s 348 "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+27.4s 349 "src/compensation/support_check.py": "a0210ed3ea13a33346b69219b58d2638becaad6fc85ed3b42889e994daeefbcc",
+27.4s 350 "src/config.py": "9b2c12efa927872022fb626a1479944e660c4f3a21de25cd0beae8f17e2be9e1",
+27.4s 351 "src/controller/__init__.py": "fc1abf7105d3f0f3e52fad083065f681efcbf3e6415f44e0532f704f86a6500b",
+27.4s 352 "src/diagnosis/__init__.py": "1ba51863d569c1c8d432301f0db01dd6fcd6d1d938707bb090bb8130c04cff25",
+27.4s 353 "src/diagnosis/labels.py": "c9e787268e2669e2af0cf074aaf6a8b71bc5ed960fcacb8f6a657f7217ee1fda",
+27.4s 354 "src/diagnosis/schema.py": "f1bf526835f5c98a369ac38884415ce06e9a454639c41cb1daa2799ab26f700f",
+27.4s 355 "src/evaluation/__init__.py": "45da70e1184a66129a5b3ca8a3e776906f31781006b4b4257fbd213b8ca54cfd",
+27.4s 356 "src/evaluation/answer_repair.py": "896cbb5a1506fcf2bab02a9ada655279eb092939776a5cb2640a27dea9539147",
+27.4s 357 "src/evaluation/fever.py": "f8fac10584bffbafda1d627311624cb817f5ec725d9ade60493f281301bac2fa",
+27.4s 358 "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+27.4s 359 "src/evaluation/recoverability.py": "2fc8451f54952cfb7ccc6bbe1d945f2f091e3863a06ce3c6415f60d5e45aa4e1",
+27.4s 360 "src/generation/__init__.py": "59f7c1600b5430abd57b2353211fbe9d48305b29970737e649e6cd42b23311db",
+27.4s 361 "src/generation/qwen.py": "c932c3a0df40f030813d8c7298144adc1310a0bfee15ef832868a49cce9d6d6a",
+27.4s 362 "src/probe/__init__.py": "bd3cc044021b1d1b0524d53fa7bd2142762d0c91faeaa1202c1133796bfb368a",
+27.4s 363 "src/retrieval/__init__.py": "e9b4f2cb268485dac3f02ef10cb50cfe27af4be2a60e936337bf7c246e9037d9",
+27.4s 364 "src/retrieval/e5_faiss.py": "acbcda84a14a32847502b9cd64361112cbb09102431f7e14f051dc85e80a3f2d",
+27.4s 365 "src/retrieval/fever_ivfpq.py": "9e011c5c253d9c1f87c016a1c8543e996e9945159a9dfda84102c07f42dddbc2",
+27.4s 366 "scripts/run_answer_repair.py": "01ed8ae9bac446d51d523eca4a5ac4d2d13a98985adfd57b5ad8cca49e522df3",
+27.4s 367 "scripts/run_answer_repair_v9.py": "348eafb2e6411ef82b09da2125ef30495c468ded2e1b614100a44370cd66dbc2",
+27.4s 368 "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+27.4s 369 "configs/answer_repair_v9_protocol_v1.json": "4cb7909ed3ebc85269ed9cf7cce4db44000c5fb2beccb0997ad905becf000f08"
+27.4s 370 }
+27.4s 371 }
+27.4s 372 }
+55.6s 373 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+55.8s 374 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+55.8s 375 
+55.8s 376 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+59.1s 377 Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+105.1s 378 Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [00:45<02:17, 45.95s/it]Fetching 4 files:  25%|██▌       | 1/4 [00:45<02:17, 45.95s/it]
+119.0s 379 Fetching 4 files:  25%|██▌       | 1/4 [00:45<02:17, 45.95s/it]Fetching 4 files: 100%|██████████| 4/4 [01:00<00:00, 12.52s/it]Fetching 4 files: 100%|██████████| 4/4 [01:00<00:00, 15.03s/it]
+119.2s 380 Fetching 4 files: 100%|██████████| 4/4 [01:00<00:00, 12.52s/it]Fetching 4 files: 100%|██████████| 4/4 [01:00<00:00, 15.03s/it]
+119.2s 381 
+119.2s 382 Fetching 4 files: 100%|██████████| 4/4 [01:00<00:00, 12.52s/it]Fetching 4 files: 100%|██████████| 4/4 [01:00<00:00, 15.03s/it]
+132.1s 383 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+135.4s 384 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   0%|          | 1/339 [00:03<18:33,  3.29s/it]Loading weights:   0%|          | 1/339 [00:03<18:33,  3.29s/it]
+136.7s 385 Loading weights:   0%|          | 1/339 [00:03<18:33,  3.29s/it]Loading weights:   1%|          | 2/339 [00:04<12:06,  2.16s/it]Loading weights:   1%|          | 2/339 [00:04<12:06,  2.16s/it]
+136.9s 386 Loading weights:   1%|          | 2/339 [00:04<12:06,  2.16s/it]Loading weights:   1%|          | 4/339 [00:04<04:54,  1.14it/s]Loading weights:   5%|▍         | 16/339 [00:05<00:47,  6.78it/s]Loading weights:   1%|          | 4/339 [00:04<04:54,  1.14it/s]Loading weights:   5%|▍         | 16/339 [00:05<00:47,  6.78it/s]
+137.2s 387 Loading weights:   1%|          | 4/339 [00:04<04:54,  1.14it/s]Loading weights:   5%|▍         | 16/339 [00:05<00:47,  6.78it/s]Loading weights:   8%|▊         | 28/339 [00:05<00:22, 13.66it/s]Loading weights:  12%|█▏        | 40/339 [00:05<00:14, 21.32it/s]Loading weights:   8%|▊         | 28/339 [00:05<00:22, 13.66it/s]Loading weights:  12%|█▏        | 40/339 [00:05<00:14, 21.32it/s]
+137.5s 388 Loading weights:   8%|▊         | 28/339 [00:05<00:22, 13.66it/s]Loading weights:  12%|█▏        | 40/339 [00:05<00:14, 21.32it/s]Loading weights:  15%|█▌        | 52/339 [00:05<00:09, 30.04it/s]Loading weights:  19%|█▊        | 63/339 [00:05<00:06, 39.72it/s]Loading weights:  15%|█▌        | 52/339 [00:05<00:09, 30.04it/s]Loading weights:  19%|█▊        | 63/339 [00:05<00:06, 39.72it/s]
+137.8s 389 Loading weights:  15%|█▌        | 52/339 [00:05<00:09, 30.04it/s]Loading weights:  19%|█▊        | 63/339 [00:05<00:06, 39.72it/s]Loading weights:  21%|██        | 72/339 [00:05<00:05, 44.72it/s]Loading weights:  24%|██▎       | 80/339 [00:05<00:05, 48.87it/s]Loading weights:  21%|██        | 72/339 [00:05<00:05, 44.72it/s]Loading weights:  24%|██▎       | 80/339 [00:05<00:05, 48.87it/s]
+138.0s 390 Loading weights:  21%|██        | 72/339 [00:05<00:05, 44.72it/s]Loading weights:  24%|██▎       | 80/339 [00:05<00:05, 48.87it/s]Loading weights:  27%|██▋       | 90/339 [00:05<00:04, 54.46it/s]Loading weights:  30%|██▉       | 101/339 [00:06<00:03, 65.48it/s]Loading weights:  27%|██▋       | 90/339 [00:05<00:04, 54.46it/s]Loading weights:  30%|██▉       | 101/339 [00:06<00:03, 65.48it/s]
+138.3s 391 Loading weights:  27%|██▋       | 90/339 [00:05<00:04, 54.46it/s]Loading weights:  30%|██▉       | 101/339 [00:06<00:03, 65.48it/s]Loading weights:  33%|███▎      | 113/339 [00:06<00:03, 71.34it/s]Loading weights:  33%|███▎      | 113/339 [00:06<00:03, 71.34it/s]
+138.8s 392 Loading weights:  33%|███▎      | 113/339 [00:06<00:03, 71.34it/s]Loading weights:  37%|███▋      | 124/339 [00:06<00:05, 41.95it/s]Loading weights:  37%|███▋      | 124/339 [00:06<00:05, 41.95it/s]
+139.8s 393 Loading weights:  37%|███▋      | 124/339 [00:06<00:05, 41.95it/s]Loading weights:  39%|███▊      | 131/339 [00:07<00:10, 19.24it/s]Loading weights:  39%|███▊      | 131/339 [00:07<00:10, 19.24it/s]
+140.5s 394 Loading weights:  39%|███▊      | 131/339 [00:07<00:10, 19.24it/s]Loading weights:  40%|████      | 136/339 [00:08<00:13, 15.20it/s]Loading weights:  40%|████      | 136/339 [00:08<00:13, 15.20it/s]
+141.5s 395 Loading weights:  40%|████      | 136/339 [00:08<00:13, 15.20it/s]Loading weights:  41%|████▏     | 140/339 [00:09<00:20,  9.94it/s]Loading weights:  42%|████▏     | 143/339 [00:09<00:17, 11.02it/s]Loading weights:  41%|████▏     | 140/339 [00:09<00:20,  9.94it/s]Loading weights:  42%|████▏     | 143/339 [00:09<00:17, 11.02it/s]
+141.8s 396 Loading weights:  41%|████▏     | 140/339 [00:09<00:20,  9.94it/s]Loading weights:  42%|████▏     | 143/339 [00:09<00:17, 11.02it/s]Loading weights:  43%|████▎     | 146/339 [00:09<00:15, 12.31it/s]Loading weights:  43%|████▎     | 146/339 [00:09<00:15, 12.31it/s]
+142.7s 397 Loading weights:  43%|████▎     | 146/339 [00:09<00:15, 12.31it/s]Loading weights:  44%|████▍     | 149/339 [00:10<00:24,  7.82it/s]Loading weights:  47%|████▋     | 160/339 [00:10<00:12, 14.61it/s]Loading weights:  44%|████▍     | 149/339 [00:10<00:24,  7.82it/s]Loading weights:  47%|████▋     | 160/339 [00:10<00:12, 14.61it/s]
+142.9s 398 Loading weights:  44%|████▍     | 149/339 [00:10<00:24,  7.82it/s]Loading weights:  47%|████▋     | 160/339 [00:10<00:12, 14.61it/s]Loading weights:  48%|████▊     | 164/339 [00:10<00:10, 16.59it/s]Loading weights:  48%|████▊     | 164/339 [00:10<00:10, 16.59it/s]
+143.4s 399 Loading weights:  48%|████▊     | 164/339 [00:10<00:10, 16.59it/s]Loading weights:  51%|█████     | 172/339 [00:11<00:09, 16.99it/s]Loading weights:  51%|█████     | 172/339 [00:11<00:09, 16.99it/s]
+143.9s 400 Loading weights:  51%|█████     | 172/339 [00:11<00:09, 16.99it/s]Loading weights:  52%|█████▏    | 175/339 [00:11<00:12, 12.81it/s]Loading weights:  52%|█████▏    | 175/339 [00:11<00:12, 12.81it/s]
+144.4s 401 Loading weights:  52%|█████▏    | 175/339 [00:11<00:12, 12.81it/s]Loading weights:  54%|█████▍    | 184/339 [00:12<00:10, 15.09it/s]Loading weights:  54%|█████▍    | 184/339 [00:12<00:10, 15.09it/s]
+145.4s 402 Loading weights:  54%|█████▍    | 184/339 [00:12<00:10, 15.09it/s]Loading weights:  55%|█████▌    | 187/339 [00:13<00:17,  8.89it/s]Loading weights:  56%|█████▌    | 190/339 [00:13<00:14, 10.22it/s]Loading weights:  55%|█████▌    | 187/339 [00:13<00:17,  8.89it/s]Loading weights:  56%|█████▌    | 190/339 [00:13<00:14, 10.22it/s]
+145.6s 403 Loading weights:  55%|█████▌    | 187/339 [00:13<00:17,  8.89it/s]Loading weights:  56%|█████▌    | 190/339 [00:13<00:14, 10.22it/s]Loading weights:  57%|█████▋    | 192/339 [00:13<00:13, 11.04it/s]Loading weights:  57%|█████▋    | 192/339 [00:13<00:13, 11.04it/s]
+146.2s 404 Loading weights:  57%|█████▋    | 192/339 [00:13<00:13, 11.04it/s]Loading weights:  58%|█████▊    | 196/339 [00:14<00:15,  9.50it/s]Loading weights:  58%|█████▊    | 196/339 [00:14<00:15,  9.50it/s]
+147.2s 405 Loading weights:  58%|█████▊    | 196/339 [00:14<00:15,  9.50it/s]Loading weights:  58%|█████▊    | 198/339 [00:15<00:25,  5.45it/s]Loading weights:  60%|█████▉    | 202/339 [00:15<00:17,  7.65it/s]Loading weights:  58%|█████▊    | 198/339 [00:15<00:25,  5.45it/s]Loading weights:  60%|█████▉    | 202/339 [00:15<00:17,  7.65it/s]
+147.5s 406 Loading weights:  58%|█████▊    | 198/339 [00:15<00:25,  5.45it/s]Loading weights:  60%|█████▉    | 202/339 [00:15<00:17,  7.65it/s]Loading weights:  60%|██████    | 204/339 [00:15<00:15,  8.66it/s]Loading weights:  60%|██████    | 204/339 [00:15<00:15,  8.66it/s]
+148.0s 407 Loading weights:  60%|██████    | 204/339 [00:15<00:15,  8.66it/s]Loading weights:  61%|██████▏   | 208/339 [00:15<00:16,  8.05it/s]Loading weights:  61%|██████▏   | 208/339 [00:15<00:16,  8.05it/s]
+149.1s 408 Loading weights:  61%|██████▏   | 208/339 [00:15<00:16,  8.05it/s]Loading weights:  62%|██████▏   | 210/339 [00:17<00:26,  4.83it/s]Loading weights:  63%|██████▎   | 214/339 [00:17<00:17,  7.08it/s]Loading weights:  62%|██████▏   | 210/339 [00:17<00:26,  4.83it/s]Loading weights:  63%|██████▎   | 214/339 [00:17<00:17,  7.08it/s]
+149.3s 409 Loading weights:  62%|██████▏   | 210/339 [00:17<00:26,  4.83it/s]Loading weights:  63%|██████▎   | 214/339 [00:17<00:17,  7.08it/s]Loading weights:  64%|██████▎   | 216/339 [00:17<00:15,  8.16it/s]Loading weights:  64%|██████▎   | 216/339 [00:17<00:15,  8.16it/s]
+149.9s 410 Loading weights:  64%|██████▎   | 216/339 [00:17<00:15,  8.16it/s]Loading weights:  65%|██████▍   | 220/339 [00:17<00:15,  7.74it/s]Loading weights:  65%|██████▍   | 220/339 [00:17<00:15,  7.74it/s]
+150.7s 411 Loading weights:  65%|██████▍   | 220/339 [00:17<00:15,  7.74it/s]Loading weights:  65%|██████▌   | 222/339 [00:18<00:22,  5.31it/s]Loading weights:  69%|██████▊   | 233/339 [00:18<00:08, 12.66it/s]Loading weights:  65%|██████▌   | 222/339 [00:18<00:22,  5.31it/s]Loading weights:  69%|██████▊   | 233/339 [00:18<00:08, 12.66it/s]
+151.0s 412 Loading weights:  65%|██████▌   | 222/339 [00:18<00:22,  5.31it/s]Loading weights:  69%|██████▊   | 233/339 [00:18<00:08, 12.66it/s]Loading weights:  72%|███████▏  | 244/339 [00:18<00:04, 20.77it/s]Loading weights:  74%|███████▎  | 250/339 [00:19<00:03, 25.18it/s]Loading weights:  72%|███████▏  | 244/339 [00:18<00:04, 20.77it/s]Loading weights:  74%|███████▎  | 250/339 [00:19<00:03, 25.18it/s]
+151.2s 413 Loading weights:  72%|███████▏  | 244/339 [00:18<00:04, 20.77it/s]Loading weights:  74%|███████▎  | 250/339 [00:19<00:03, 25.18it/s]Loading weights:  76%|███████▌  | 258/339 [00:19<00:02, 31.18it/s]Loading weights:  76%|███████▌  | 258/339 [00:19<00:02, 31.18it/s]
+151.7s 414 Loading weights:  76%|███████▌  | 258/339 [00:19<00:02, 31.18it/s]Loading weights:  79%|███████▉  | 268/339 [00:19<00:02, 26.08it/s]Loading weights:  81%|████████▏ | 276/339 [00:19<00:01, 32.68it/s]Loading weights:  79%|███████▉  | 268/339 [00:19<00:02, 26.08it/s]Loading weights:  81%|████████▏ | 276/339 [00:19<00:01, 32.68it/s]
+153.3s 415 Loading weights:  79%|███████▉  | 268/339 [00:19<00:02, 26.08it/s]Loading weights:  81%|████████▏ | 276/339 [00:19<00:01, 32.68it/s]Loading weights:  83%|████████▎ | 282/339 [00:21<00:04, 11.63it/s]Loading weights:  84%|████████▍ | 286/339 [00:21<00:03, 13.32it/s]Loading weights:  83%|████████▎ | 282/339 [00:21<00:04, 11.63it/s]Loading weights:  84%|████████▍ | 286/339 [00:21<00:03, 13.32it/s]
+153.6s 416 Loading weights:  83%|████████▎ | 282/339 [00:21<00:04, 11.63it/s]Loading weights:  84%|████████▍ | 286/339 [00:21<00:03, 13.32it/s]Loading weights:  86%|████████▌ | 290/339 [00:21<00:03, 15.32it/s]Loading weights:  86%|████████▌ | 290/339 [00:21<00:03, 15.32it/s]
+155.2s 417 Loading weights:  86%|████████▌ | 290/339 [00:21<00:03, 15.32it/s]Loading weights:  87%|████████▋ | 294/339 [00:23<00:06,  6.91it/s]Loading weights:  88%|████████▊ | 298/339 [00:23<00:04,  8.65it/s]Loading weights:  87%|████████▋ | 294/339 [00:23<00:06,  6.91it/s]Loading weights:  88%|████████▊ | 298/339 [00:23<00:04,  8.65it/s]
+155.4s 418 Loading weights:  87%|████████▋ | 294/339 [00:23<00:06,  6.91it/s]Loading weights:  88%|████████▊ | 298/339 [00:23<00:04,  8.65it/s]Loading weights:  89%|████████▉ | 301/339 [00:23<00:03, 10.16it/s]Loading weights:  89%|████████▉ | 301/339 [00:23<00:03, 10.16it/s]
+156.0s 419 Loading weights:  89%|████████▉ | 301/339 [00:23<00:03, 10.16it/s]Loading weights:  90%|████████▉ | 304/339 [00:23<00:04,  8.40it/s]Loading weights:  90%|████████▉ | 304/339 [00:23<00:04,  8.40it/s]
+157.1s 420 Loading weights:  90%|████████▉ | 304/339 [00:23<00:04,  8.40it/s]Loading weights:  91%|█████████ | 307/339 [00:25<00:05,  5.57it/s]Loading weights:  91%|█████████▏| 310/339 [00:25<00:04,  7.03it/s]Loading weights:  91%|█████████ | 307/339 [00:25<00:05,  5.57it/s]Loading weights:  91%|█████████▏| 310/339 [00:25<00:04,  7.03it/s]
+157.3s 421 Loading weights:  91%|█████████ | 307/339 [00:25<00:05,  5.57it/s]Loading weights:  91%|█████████▏| 310/339 [00:25<00:04,  7.03it/s]Loading weights:  92%|█████████▏| 312/339 [00:25<00:03,  8.06it/s]Loading weights:  92%|█████████▏| 312/339 [00:25<00:03,  8.06it/s]
+157.8s 422 Loading weights:  92%|█████████▏| 312/339 [00:25<00:03,  8.06it/s]Loading weights:  93%|█████████▎| 316/339 [00:25<00:02,  7.70it/s]Loading weights:  93%|█████████▎| 316/339 [00:25<00:02,  7.70it/s]
+158.9s 423 Loading weights:  93%|█████████▎| 316/339 [00:25<00:02,  7.70it/s]Loading weights:  94%|█████████▍| 318/339 [00:26<00:04,  4.70it/s]Loading weights:  96%|█████████▌| 324/339 [00:26<00:01,  8.26it/s]Loading weights:  94%|█████████▍| 318/339 [00:26<00:04,  4.70it/s]Loading weights:  96%|█████████▌| 324/339 [00:26<00:01,  8.26it/s]
+159.6s 424 Loading weights:  94%|█████████▍| 318/339 [00:26<00:04,  4.70it/s]Loading weights:  96%|█████████▌| 324/339 [00:26<00:01,  8.26it/s]Loading weights:  97%|█████████▋| 328/339 [00:27<00:01,  7.89it/s]Loading weights:  97%|█████████▋| 328/339 [00:27<00:01,  7.89it/s]
+160.6s 425 Loading weights:  97%|█████████▋| 328/339 [00:27<00:01,  7.89it/s]Loading weights:  97%|█████████▋| 330/339 [00:28<00:01,  5.02it/s]Loading weights:  99%|█████████▊| 334/339 [00:28<00:00,  7.08it/s]Loading weights:  97%|█████████▋| 330/339 [00:28<00:01,  5.02it/s]Loading weights:  99%|█████████▊| 334/339 [00:28<00:00,  7.08it/s]
+160.6s 426 Loading weights:  97%|█████████▋| 330/339 [00:28<00:01,  5.02it/s]Loading weights:  99%|█████████▊| 334/339 [00:28<00:00,  7.08it/s]Loading weights:  99%|█████████▉| 337/339 [00:28<00:00,  8.86it/s]Loading weights: 100%|██████████| 339/339 [00:28<00:00, 11.77it/s]
+160.8s 427 Loading weights:  99%|█████████▉| 337/339 [00:28<00:00,  8.86it/s]Loading weights: 100%|██████████| 339/339 [00:28<00:00, 11.77it/s]
+160.8s 428 
+160.8s 429 Loading weights:  99%|█████████▉| 337/339 [00:28<00:00,  8.86it/s]Loading weights: 100%|██████████| 339/339 [00:28<00:00, 11.77it/s]
+163.4s 430 {"completed": 1, "total": 5, "status": "direct_reanswer"}
+163.6s 431 {"completed": 1, "total": 5, "status": "direct_reanswer"}
+164.0s 432 {"completed": 2, "total": 5, "status": "direct_reanswer"}
+164.2s 433 {"completed": 2, "total": 5, "status": "direct_reanswer"}
+164.8s 434 {"completed": 3, "total": 5, "status": "direct_reanswer"}
+165.0s 435 {"completed": 3, "total": 5, "status": "direct_reanswer"}
+166.3s 436 {"completed": 4, "total": 5, "status": "direct_reanswer"}
+166.5s 437 {"completed": 4, "total": 5, "status": "direct_reanswer"}
+167.6s 438 {"completed": 5, "total": 5, "status": "direct_reanswer"}
+167.8s 439 {"completed": 5, "total": 5, "status": "direct_reanswer"}
+172.4s 440 {"replay": "passed", "records": 5, "run_fingerprint": "3f5433f65bc450828822665f2aa3f82e993228a66d0370fc3a5d66254584e88a"}
+172.5s 441 {
+172.5s 442 "preflight": "passed",
+172.5s 443 "samples": 5,
+172.5s 444 "evidence_units": 76,
+172.5s 445 "maximum_generation_calls": 5,
+172.5s 446 "gpu_inference_completed": false,
+172.5s 447 "run_fingerprint": "5fe8b37fb673b7baf29524744ebe767aab08fd2473ee1433214b3beaaac7a37b",
+172.5s 448 "manifest": {
+172.5s 449 "input_sha256": "720102391a5dcc8d4551d5d60565f27d68b6ec308d921d2023691b1de79bc496",
+172.5s 450 "controller_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+172.5s 451 "settings": {
+172.5s 452 "dataset": "nq",
+172.5s 453 "strategy": "evidence_id",
+172.5s 454 "version": "v9_evidence_id_factored_v2_compact_context",
+172.5s 455 "model_name": "Qwen/Qwen2.5-7B-Instruct",
+172.5s 456 "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+172.5s 457 "quantization": "nf4",
+172.5s 458 "do_sample": false,
+172.5s 459 "seed": 42,
+172.5s 460 "max_new_tokens": 384,
+172.5s 461 "max_calls_per_sample": 1,
+172.5s 462 "routing": "all_component_ablation",
+172.5s 463 "sample_count": 5,
+172.5s 464 "semantic_verifier": "same_Qwen_not_independent"
+172.5s 465 },
+172.5s 466 "code_sha256": {
+172.5s 467 "src/__init__.py": "a54def8f254ea77cf89df6eec69911b8a06a922f098c0260296ee53a77fb66b7",
+172.5s 468 "src/compensation/__init__.py": "e6a14ed2a66bb3844648fbd04ec796a198b10f84933b661b410da1af95d51cb9",
+172.5s 469 "src/compensation/anchors.py": "75ff5517f5bf51112b655a0114f5e4fd8dc36e18041061fefe0a09921dced380",
+172.5s 470 "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+172.5s 471 "src/compensation/conservative_repair.py": "8d7db925b81ee9cb5678f1e85e883b18c1b41518f228aa12d856a34773bd040d",
+172.5s 472 "src/compensation/controller_adapter.py": "e3722ee732ce5eff839e0316704fb23a7a41e5e5e175d225f369823fd1a450be",
+172.5s 473 "src/compensation/evidence_id_repair.py": "6a2506e534603a34d1f721554909386869f359edfdcbf68d831ead2eed91decb",
+172.5s 474 "src/compensation/extractive_repair.py": "016ee9918389b4132d8f2a6f2a3632cd676204dbd5d5a26ebb7d2e4757e0aabc",
+172.5s 475 "src/compensation/line_contract.py": "32e938f413e6d4dfc0965bdfb31806773c20cef733dc58294c427fb96641a687",
+172.5s 476 "src/compensation/nli_repair.py": "8e3a6a2fd98eecf858e922c6c7480fc3fbe8cd85f8b2aa221fa020bb8cb4e2a8",
+172.5s 477 "src/compensation/nq_train_adapter.py": "a04edaf2277b7a82b4ec93e9e9f6de7ba581683a7804c7392f571e122a244165",
+172.5s 478 "src/compensation/qwen_repair.py": "e4989bcc20c3c23596ed685bc706e27cc742de4c1b41bd4f9d8d490c87400b49",
+172.5s 479 "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+172.5s 480 "src/compensation/support_check.py": "a0210ed3ea13a33346b69219b58d2638becaad6fc85ed3b42889e994daeefbcc",
+172.5s 481 "src/config.py": "9b2c12efa927872022fb626a1479944e660c4f3a21de25cd0beae8f17e2be9e1",
+172.5s 482 "src/controller/__init__.py": "fc1abf7105d3f0f3e52fad083065f681efcbf3e6415f44e0532f704f86a6500b",
+172.5s 483 "src/diagnosis/__init__.py": "1ba51863d569c1c8d432301f0db01dd6fcd6d1d938707bb090bb8130c04cff25",
+172.5s 484 "src/diagnosis/labels.py": "c9e787268e2669e2af0cf074aaf6a8b71bc5ed960fcacb8f6a657f7217ee1fda",
+172.5s 485 "src/diagnosis/schema.py": "f1bf526835f5c98a369ac38884415ce06e9a454639c41cb1daa2799ab26f700f",
+172.5s 486 "src/evaluation/__init__.py": "45da70e1184a66129a5b3ca8a3e776906f31781006b4b4257fbd213b8ca54cfd",
+172.5s 487 "src/evaluation/answer_repair.py": "896cbb5a1506fcf2bab02a9ada655279eb092939776a5cb2640a27dea9539147",
+172.5s 488 "src/evaluation/fever.py": "f8fac10584bffbafda1d627311624cb817f5ec725d9ade60493f281301bac2fa",
+172.5s 489 "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+172.5s 490 "src/evaluation/recoverability.py": "2fc8451f54952cfb7ccc6bbe1d945f2f091e3863a06ce3c6415f60d5e45aa4e1",
+172.5s 491 "src/generation/__init__.py": "59f7c1600b5430abd57b2353211fbe9d48305b29970737e649e6cd42b23311db",
+172.5s 492 "src/generation/qwen.py": "c932c3a0df40f030813d8c7298144adc1310a0bfee15ef832868a49cce9d6d6a",
+172.5s 493 "src/probe/__init__.py": "bd3cc044021b1d1b0524d53fa7bd2142762d0c91faeaa1202c1133796bfb368a",
+172.5s 494 "src/retrieval/__init__.py": "e9b4f2cb268485dac3f02ef10cb50cfe27af4be2a60e936337bf7c246e9037d9",
+172.5s 495 "src/retrieval/e5_faiss.py": "acbcda84a14a32847502b9cd64361112cbb09102431f7e14f051dc85e80a3f2d",
+172.5s 496 "src/retrieval/fever_ivfpq.py": "9e011c5c253d9c1f87c016a1c8543e996e9945159a9dfda84102c07f42dddbc2",
+172.5s 497 "scripts/run_answer_repair.py": "01ed8ae9bac446d51d523eca4a5ac4d2d13a98985adfd57b5ad8cca49e522df3",
+172.5s 498 "scripts/run_answer_repair_v9.py": "348eafb2e6411ef82b09da2125ef30495c468ded2e1b614100a44370cd66dbc2",
+172.5s 499 "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+172.5s 500 "configs/answer_repair_v9_protocol_v1.json": "4cb7909ed3ebc85269ed9cf7cce4db44000c5fb2beccb0997ad905becf000f08"
+172.5s 501 }
+172.5s 502 }
+172.5s 503 }
+172.6s 504 {"replay": "passed", "records": 5, "run_fingerprint": "3f5433f65bc450828822665f2aa3f82e993228a66d0370fc3a5d66254584e88a"}
+172.6s 505 {
+172.6s 506 "preflight": "passed",
+172.6s 507 "samples": 5,
+172.6s 508 "evidence_units": 76,
+172.6s 509 "maximum_generation_calls": 5,
+172.6s 510 "gpu_inference_completed": false,
+172.6s 511 "run_fingerprint": "5fe8b37fb673b7baf29524744ebe767aab08fd2473ee1433214b3beaaac7a37b",
+172.6s 512 "manifest": {
+172.6s 513 "input_sha256": "720102391a5dcc8d4551d5d60565f27d68b6ec308d921d2023691b1de79bc496",
+172.6s 514 "controller_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+172.6s 515 "settings": {
+172.6s 516 "dataset": "nq",
+172.6s 517 "strategy": "evidence_id",
+172.6s 518 "version": "v9_evidence_id_factored_v2_compact_context",
+172.6s 519 "model_name": "Qwen/Qwen2.5-7B-Instruct",
+172.6s 520 "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+172.6s 521 "quantization": "nf4",
+172.6s 522 "do_sample": false,
+172.6s 523 "seed": 42,
+172.6s 524 "max_new_tokens": 384,
+172.6s 525 "max_calls_per_sample": 1,
+172.6s 526 "routing": "all_component_ablation",
+172.6s 527 "sample_count": 5,
+172.6s 528 "semantic_verifier": "same_Qwen_not_independent"
+172.6s 529 },
+172.6s 530 "code_sha256": {
+172.6s 531 "src/__init__.py": "a54def8f254ea77cf89df6eec69911b8a06a922f098c0260296ee53a77fb66b7",
+172.6s 532 "src/compensation/__init__.py": "e6a14ed2a66bb3844648fbd04ec796a198b10f84933b661b410da1af95d51cb9",
+172.6s 533 "src/compensation/anchors.py": "75ff5517f5bf51112b655a0114f5e4fd8dc36e18041061fefe0a09921dced380",
+172.6s 534 "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+172.6s 535 "src/compensation/conservative_repair.py": "8d7db925b81ee9cb5678f1e85e883b18c1b41518f228aa12d856a34773bd040d",
+172.6s 536 "src/compensation/controller_adapter.py": "e3722ee732ce5eff839e0316704fb23a7a41e5e5e175d225f369823fd1a450be",
+172.6s 537 "src/compensation/evidence_id_repair.py": "6a2506e534603a34d1f721554909386869f359edfdcbf68d831ead2eed91decb",
+172.6s 538 "src/compensation/extractive_repair.py": "016ee9918389b4132d8f2a6f2a3632cd676204dbd5d5a26ebb7d2e4757e0aabc",
+172.6s 539 "src/compensation/line_contract.py": "32e938f413e6d4dfc0965bdfb31806773c20cef733dc58294c427fb96641a687",
+172.6s 540 "src/compensation/nli_repair.py": "8e3a6a2fd98eecf858e922c6c7480fc3fbe8cd85f8b2aa221fa020bb8cb4e2a8",
+172.6s 541 "src/compensation/nq_train_adapter.py": "a04edaf2277b7a82b4ec93e9e9f6de7ba581683a7804c7392f571e122a244165",
+172.6s 542 "src/compensation/qwen_repair.py": "e4989bcc20c3c23596ed685bc706e27cc742de4c1b41bd4f9d8d490c87400b49",
+172.6s 543 "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+172.6s 544 "src/compensation/support_check.py": "a0210ed3ea13a33346b69219b58d2638becaad6fc85ed3b42889e994daeefbcc",
+172.6s 545 "src/config.py": "9b2c12efa927872022fb626a1479944e660c4f3a21de25cd0beae8f17e2be9e1",
+172.6s 546 "src/controller/__init__.py": "fc1abf7105d3f0f3e52fad083065f681efcbf3e6415f44e0532f704f86a6500b",
+172.6s 547 "src/diagnosis/__init__.py": "1ba51863d569c1c8d432301f0db01dd6fcd6d1d938707bb090bb8130c04cff25",
+172.6s 548 "src/diagnosis/labels.py": "c9e787268e2669e2af0cf074aaf6a8b71bc5ed960fcacb8f6a657f7217ee1fda",
+172.6s 549 "src/diagnosis/schema.py": "f1bf526835f5c98a369ac38884415ce06e9a454639c41cb1daa2799ab26f700f",
+172.6s 550 "src/evaluation/__init__.py": "45da70e1184a66129a5b3ca8a3e776906f31781006b4b4257fbd213b8ca54cfd",
+172.6s 551 "src/evaluation/answer_repair.py": "896cbb5a1506fcf2bab02a9ada655279eb092939776a5cb2640a27dea9539147",
+172.6s 552 "src/evaluation/fever.py": "f8fac10584bffbafda1d627311624cb817f5ec725d9ade60493f281301bac2fa",
+172.6s 553 "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+172.6s 554 "src/evaluation/recoverability.py": "2fc8451f54952cfb7ccc6bbe1d945f2f091e3863a06ce3c6415f60d5e45aa4e1",
+172.6s 555 "src/generation/__init__.py": "59f7c1600b5430abd57b2353211fbe9d48305b29970737e649e6cd42b23311db",
+172.6s 556 "src/generation/qwen.py": "c932c3a0df40f030813d8c7298144adc1310a0bfee15ef832868a49cce9d6d6a",
+172.6s 557 "src/probe/__init__.py": "bd3cc044021b1d1b0524d53fa7bd2142762d0c91faeaa1202c1133796bfb368a",
+172.6s 558 "src/retrieval/__init__.py": "e9b4f2cb268485dac3f02ef10cb50cfe27af4be2a60e936337bf7c246e9037d9",
+172.6s 559 "src/retrieval/e5_faiss.py": "acbcda84a14a32847502b9cd64361112cbb09102431f7e14f051dc85e80a3f2d",
+172.6s 560 "src/retrieval/fever_ivfpq.py": "9e011c5c253d9c1f87c016a1c8543e996e9945159a9dfda84102c07f42dddbc2",
+172.6s 561 "scripts/run_answer_repair.py": "01ed8ae9bac446d51d523eca4a5ac4d2d13a98985adfd57b5ad8cca49e522df3",
+172.6s 562 "scripts/run_answer_repair_v9.py": "348eafb2e6411ef82b09da2125ef30495c468ded2e1b614100a44370cd66dbc2",
+172.6s 563 "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+172.6s 564 "configs/answer_repair_v9_protocol_v1.json": "4cb7909ed3ebc85269ed9cf7cce4db44000c5fb2beccb0997ad905becf000f08"
+172.6s 565 }
+172.6s 566 }
+172.6s 567 }
+185.7s 568 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+186.0s 569 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   0%|          | 1/339 [00:00<01:24,  3.99it/s]Loading weights:   0%|          | 1/339 [00:00<01:24,  3.99it/s]
+186.2s 570 Loading weights:   0%|          | 1/339 [00:00<01:24,  3.99it/s]Loading weights:   1%|          | 2/339 [00:00<01:25,  3.94it/s]Loading weights:   1%|          | 4/339 [00:00<00:42,  7.92it/s]Loading weights:   4%|▍         | 14/339 [00:00<00:10, 31.93it/s]Loading weights:   1%|          | 2/339 [00:00<01:25,  3.94it/s]Loading weights:   1%|          | 4/339 [00:00<00:42,  7.92it/s]
+186.4s 571 Loading weights:   1%|          | 2/339 [00:00<01:25,  3.94it/s]Loading weights:   1%|          | 4/339 [00:00<00:42,  7.92it/s]Loading weights:   6%|▌         | 19/339 [00:00<00:09, 35.04it/s]Loading weights:   4%|▍         | 14/339 [00:00<00:10, 31.93it/s]Loading weights:   6%|▌         | 19/339 [00:00<00:09, 35.04it/s]
+186.7s 572 Loading weights:   4%|▍         | 14/339 [00:00<00:10, 31.93it/s]Loading weights:   6%|▌         | 19/339 [00:00<00:09, 35.04it/s]Loading weights:   9%|▊         | 29/339 [00:00<00:05, 52.54it/s]Loading weights:  12%|█▏        | 40/339 [00:01<00:04, 65.41it/s]Loading weights:   9%|▊         | 29/339 [00:00<00:05, 52.54it/s]Loading weights:  12%|█▏        | 40/339 [00:01<00:04, 65.41it/s]
+186.9s 573 Loading weights:   9%|▊         | 29/339 [00:00<00:05, 52.54it/s]Loading weights:  12%|█▏        | 40/339 [00:01<00:04, 65.41it/s]Loading weights:  15%|█▍        | 50/339 [00:01<00:03, 74.74it/s]Loading weights:  17%|█▋        | 59/339 [00:01<00:03, 73.01it/s]Loading weights:  15%|█▍        | 50/339 [00:01<00:03, 74.74it/s]Loading weights:  17%|█▋        | 59/339 [00:01<00:03, 73.01it/s]
+187.1s 574 Loading weights:  15%|█▍        | 50/339 [00:01<00:03, 74.74it/s]Loading weights:  17%|█▋        | 59/339 [00:01<00:03, 73.01it/s]Loading weights:  20%|█▉        | 67/339 [00:01<00:03, 69.60it/s]Loading weights:  23%|██▎       | 78/339 [00:01<00:03, 72.97it/s]Loading weights:  20%|█▉        | 67/339 [00:01<00:03, 69.60it/s]Loading weights:  23%|██▎       | 78/339 [00:01<00:03, 72.97it/s]
+187.4s 575 Loading weights:  20%|█▉        | 67/339 [00:01<00:03, 69.60it/s]Loading weights:  23%|██▎       | 78/339 [00:01<00:03, 72.97it/s]Loading weights:  27%|██▋       | 90/339 [00:01<00:03, 77.54it/s]Loading weights:  30%|██▉       | 101/339 [00:01<00:02, 85.58it/s]Loading weights:  27%|██▋       | 90/339 [00:01<00:03, 77.54it/s]Loading weights:  30%|██▉       | 101/339 [00:01<00:02, 85.58it/s]
+187.6s 576 Loading weights:  27%|██▋       | 90/339 [00:01<00:03, 77.54it/s]Loading weights:  30%|██▉       | 101/339 [00:01<00:02, 85.58it/s]Loading weights:  33%|███▎      | 112/339 [00:01<00:02, 91.53it/s]Loading weights:  36%|███▋      | 123/339 [00:01<00:02, 96.50it/s]Loading weights:  33%|███▎      | 112/339 [00:01<00:02, 91.53it/s]Loading weights:  36%|███▋      | 123/339 [00:01<00:02, 96.50it/s]
+187.8s 577 Loading weights:  33%|███▎      | 112/339 [00:01<00:02, 91.53it/s]Loading weights:  36%|███▋      | 123/339 [00:01<00:02, 96.50it/s]Loading weights:  39%|███▉      | 133/339 [00:02<00:02, 90.62it/s]Loading weights:  42%|████▏     | 143/339 [00:02<00:02, 88.33it/s]Loading weights:  39%|███▉      | 133/339 [00:02<00:02, 90.62it/s]Loading weights:  42%|████▏     | 143/339 [00:02<00:02, 88.33it/s]
+188.1s 578 Loading weights:  39%|███▉      | 133/339 [00:02<00:02, 90.62it/s]Loading weights:  42%|████▏     | 143/339 [00:02<00:02, 88.33it/s]Loading weights:  45%|████▍     | 152/339 [00:02<00:02, 84.53it/s]Loading weights:  48%|████▊     | 162/339 [00:02<00:02, 83.28it/s]Loading weights:  45%|████▍     | 152/339 [00:02<00:02, 84.53it/s]Loading weights:  48%|████▊     | 162/339 [00:02<00:02, 83.28it/s]
+188.3s 579 Loading weights:  45%|████▍     | 152/339 [00:02<00:02, 84.53it/s]Loading weights:  48%|████▊     | 162/339 [00:02<00:02, 83.28it/s]Loading weights:  51%|█████▏    | 174/339 [00:02<00:01, 87.14it/s]Loading weights:  55%|█████▍    | 186/339 [00:02<00:01, 90.00it/s]Loading weights:  51%|█████▏    | 174/339 [00:02<00:01, 87.14it/s]Loading weights:  55%|█████▍    | 186/339 [00:02<00:01, 90.00it/s]
+188.6s 580 Loading weights:  51%|█████▏    | 174/339 [00:02<00:01, 87.14it/s]Loading weights:  55%|█████▍    | 186/339 [00:02<00:01, 90.00it/s]Loading weights:  58%|█████▊    | 198/339 [00:02<00:01, 91.87it/s]Loading weights:  62%|██████▏   | 210/339 [00:02<00:01, 92.74it/s]Loading weights:  58%|█████▊    | 198/339 [00:02<00:01, 91.87it/s]Loading weights:  62%|██████▏   | 210/339 [00:02<00:01, 92.74it/s]
+188.8s 581 Loading weights:  58%|█████▊    | 198/339 [00:02<00:01, 91.87it/s]Loading weights:  62%|██████▏   | 210/339 [00:02<00:01, 92.74it/s]Loading weights:  65%|██████▌   | 222/339 [00:03<00:01, 94.05it/s]Loading weights:  69%|██████▉   | 234/339 [00:03<00:01, 94.36it/s]Loading weights:  65%|██████▌   | 222/339 [00:03<00:01, 94.05it/s]Loading weights:  69%|██████▉   | 234/339 [00:03<00:01, 94.36it/s]
+189.1s 582 Loading weights:  65%|██████▌   | 222/339 [00:03<00:01, 94.05it/s]Loading weights:  69%|██████▉   | 234/339 [00:03<00:01, 94.36it/s]Loading weights:  73%|███████▎  | 246/339 [00:03<00:00, 93.77it/s]Loading weights:  76%|███████▌  | 258/339 [00:03<00:00, 92.12it/s]Loading weights:  73%|███████▎  | 246/339 [00:03<00:00, 93.77it/s]Loading weights:  76%|███████▌  | 258/339 [00:03<00:00, 92.12it/s]
+189.3s 583 Loading weights:  73%|███████▎  | 246/339 [00:03<00:00, 93.77it/s]Loading weights:  76%|███████▌  | 258/339 [00:03<00:00, 92.12it/s]Loading weights:  80%|███████▉  | 270/339 [00:03<00:00, 92.10it/s]Loading weights:  83%|████████▎ | 282/339 [00:03<00:00, 93.08it/s]Loading weights:  80%|███████▉  | 270/339 [00:03<00:00, 92.10it/s]Loading weights:  83%|████████▎ | 282/339 [00:03<00:00, 93.08it/s]
+189.6s 584 Loading weights:  80%|███████▉  | 270/339 [00:03<00:00, 92.10it/s]Loading weights:  83%|████████▎ | 282/339 [00:03<00:00, 93.08it/s]Loading weights:  87%|████████▋ | 294/339 [00:03<00:00, 94.01it/s]Loading weights:  90%|█████████ | 306/339 [00:03<00:00, 93.93it/s]Loading weights:  87%|████████▋ | 294/339 [00:03<00:00, 94.01it/s]Loading weights:  90%|█████████ | 306/339 [00:03<00:00, 93.93it/s]
+189.8s 585 Loading weights:  87%|████████▋ | 294/339 [00:03<00:00, 94.01it/s]Loading weights:  90%|█████████ | 306/339 [00:03<00:00, 93.93it/s]Loading weights:  94%|█████████▍| 318/339 [00:04<00:00, 94.64it/s]Loading weights:  97%|█████████▋| 330/339 [00:04<00:00, 95.15it/s]Loading weights: 100%|██████████| 339/339 [00:04<00:00, 79.49it/s]
+189.8s 586 Loading weights:  94%|█████████▍| 318/339 [00:04<00:00, 94.64it/s]Loading weights:  97%|█████████▋| 330/339 [00:04<00:00, 95.15it/s]Loading weights: 100%|██████████| 339/339 [00:04<00:00, 79.49it/s]
+189.8s 587 
+189.8s 588 Loading weights:  94%|█████████▍| 318/339 [00:04<00:00, 94.64it/s]Loading weights:  97%|█████████▋| 330/339 [00:04<00:00, 95.15it/s]Loading weights: 100%|██████████| 339/339 [00:04<00:00, 79.49it/s]
+196.7s 589 {"completed": 1, "total": 5, "status": "invalid_decision"}
+196.9s 590 {"completed": 1, "total": 5, "status": "invalid_decision"}
+201.3s 591 {"completed": 2, "total": 5, "status": "invalid_decision"}
+201.5s 592 {"completed": 2, "total": 5, "status": "invalid_decision"}
+207.4s 593 {"completed": 3, "total": 5, "status": "invalid_decision"}
+207.6s 594 {"completed": 3, "total": 5, "status": "invalid_decision"}
+212.2s 595 {"completed": 4, "total": 5, "status": "invalid_decision"}
+212.5s 596 {"completed": 4, "total": 5, "status": "invalid_decision"}
+218.8s 597 {"completed": 5, "total": 5, "status": "invalid_decision"}
+219.0s 598 {"completed": 5, "total": 5, "status": "invalid_decision"}
+220.6s 599 {"replay": "passed", "records": 5, "run_fingerprint": "5fe8b37fb673b7baf29524744ebe767aab08fd2473ee1433214b3beaaac7a37b"}
+220.7s 600 {
+220.7s 601 "preflight": "passed",
+220.7s 602 "samples": 5,
+220.7s 603 "evidence_units": 76,
+220.7s 604 "maximum_generation_calls": 25,
+220.7s 605 "gpu_inference_completed": false,
+220.7s 606 "run_fingerprint": "ce268a96d111b4fdf9a1ce8aceeb7645dcda987f57ad68d46fbaaf533e8c46d2",
+220.7s 607 "manifest": {
+220.7s 608 "input_sha256": "720102391a5dcc8d4551d5d60565f27d68b6ec308d921d2023691b1de79bc496",
+220.7s 609 "controller_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+220.7s 610 "settings": {
+220.7s 611 "dataset": "nq",
+220.7s 612 "strategy": "factored_evidence_id",
+220.7s 613 "version": "v9_evidence_id_factored_v2_compact_context",
+220.7s 614 "model_name": "Qwen/Qwen2.5-7B-Instruct",
+220.7s 615 "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+220.7s 616 "quantization": "nf4",
+220.7s 617 "do_sample": false,
+220.7s 618 "seed": 42,
+220.7s 619 "max_new_tokens": 384,
+220.7s 620 "max_calls_per_sample": 5,
+220.7s 621 "routing": "all_component_ablation",
+220.7s 622 "sample_count": 5,
+220.7s 623 "semantic_verifier": "same_Qwen_not_independent"
+220.7s 624 },
+220.7s 625 "code_sha256": {
+220.7s 626 "src/__init__.py": "a54def8f254ea77cf89df6eec69911b8a06a922f098c0260296ee53a77fb66b7",
+220.7s 627 "src/compensation/__init__.py": "e6a14ed2a66bb3844648fbd04ec796a198b10f84933b661b410da1af95d51cb9",
+220.7s 628 "src/compensation/anchors.py": "75ff5517f5bf51112b655a0114f5e4fd8dc36e18041061fefe0a09921dced380",
+220.7s 629 "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+220.7s 630 "src/compensation/conservative_repair.py": "8d7db925b81ee9cb5678f1e85e883b18c1b41518f228aa12d856a34773bd040d",
+220.7s 631 "src/compensation/controller_adapter.py": "e3722ee732ce5eff839e0316704fb23a7a41e5e5e175d225f369823fd1a450be",
+220.7s 632 "src/compensation/evidence_id_repair.py": "6a2506e534603a34d1f721554909386869f359edfdcbf68d831ead2eed91decb",
+220.7s 633 "src/compensation/extractive_repair.py": "016ee9918389b4132d8f2a6f2a3632cd676204dbd5d5a26ebb7d2e4757e0aabc",
+220.7s 634 "src/compensation/line_contract.py": "32e938f413e6d4dfc0965bdfb31806773c20cef733dc58294c427fb96641a687",
+220.7s 635 "src/compensation/nli_repair.py": "8e3a6a2fd98eecf858e922c6c7480fc3fbe8cd85f8b2aa221fa020bb8cb4e2a8",
+220.7s 636 "src/compensation/nq_train_adapter.py": "a04edaf2277b7a82b4ec93e9e9f6de7ba581683a7804c7392f571e122a244165",
+220.7s 637 "src/compensation/qwen_repair.py": "e4989bcc20c3c23596ed685bc706e27cc742de4c1b41bd4f9d8d490c87400b49",
+220.7s 638 "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+220.7s 639 "src/compensation/support_check.py": "a0210ed3ea13a33346b69219b58d2638becaad6fc85ed3b42889e994daeefbcc",
+220.7s 640 "src/config.py": "9b2c12efa927872022fb626a1479944e660c4f3a21de25cd0beae8f17e2be9e1",
+220.7s 641 "src/controller/__init__.py": "fc1abf7105d3f0f3e52fad083065f681efcbf3e6415f44e0532f704f86a6500b",
+220.7s 642 "src/diagnosis/__init__.py": "1ba51863d569c1c8d432301f0db01dd6fcd6d1d938707bb090bb8130c04cff25",
+220.7s 643 "src/diagnosis/labels.py": "c9e787268e2669e2af0cf074aaf6a8b71bc5ed960fcacb8f6a657f7217ee1fda",
+220.7s 644 "src/diagnosis/schema.py": "f1bf526835f5c98a369ac38884415ce06e9a454639c41cb1daa2799ab26f700f",
+220.7s 645 "src/evaluation/__init__.py": "45da70e1184a66129a5b3ca8a3e776906f31781006b4b4257fbd213b8ca54cfd",
+220.7s 646 "src/evaluation/answer_repair.py": "896cbb5a1506fcf2bab02a9ada655279eb092939776a5cb2640a27dea9539147",
+220.7s 647 "src/evaluation/fever.py": "f8fac10584bffbafda1d627311624cb817f5ec725d9ade60493f281301bac2fa",
+220.7s 648 "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+220.7s 649 "src/evaluation/recoverability.py": "2fc8451f54952cfb7ccc6bbe1d945f2f091e3863a06ce3c6415f60d5e45aa4e1",
+220.7s 650 "src/generation/__init__.py": "59f7c1600b5430abd57b2353211fbe9d48305b29970737e649e6cd42b23311db",
+220.7s 651 "src/generation/qwen.py": "c932c3a0df40f030813d8c7298144adc1310a0bfee15ef832868a49cce9d6d6a",
+220.7s 652 "src/probe/__init__.py": "bd3cc044021b1d1b0524d53fa7bd2142762d0c91faeaa1202c1133796bfb368a",
+220.7s 653 "src/retrieval/__init__.py": "e9b4f2cb268485dac3f02ef10cb50cfe27af4be2a60e936337bf7c246e9037d9",
+220.7s 654 "src/retrieval/e5_faiss.py": "acbcda84a14a32847502b9cd64361112cbb09102431f7e14f051dc85e80a3f2d",
+220.7s 655 "src/retrieval/fever_ivfpq.py": "9e011c5c253d9c1f87c016a1c8543e996e9945159a9dfda84102c07f42dddbc2",
+220.7s 656 "scripts/run_answer_repair.py": "01ed8ae9bac446d51d523eca4a5ac4d2d13a98985adfd57b5ad8cca49e522df3",
+220.7s 657 "scripts/run_answer_repair_v9.py": "348eafb2e6411ef82b09da2125ef30495c468ded2e1b614100a44370cd66dbc2",
+220.7s 658 "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+220.7s 659 "configs/answer_repair_v9_protocol_v1.json": "4cb7909ed3ebc85269ed9cf7cce4db44000c5fb2beccb0997ad905becf000f08"
+220.7s 660 }
+220.7s 661 }
+220.7s 662 }
+220.8s 663 {"replay": "passed", "records": 5, "run_fingerprint": "5fe8b37fb673b7baf29524744ebe767aab08fd2473ee1433214b3beaaac7a37b"}
+220.8s 664 {
+220.8s 665 "preflight": "passed",
+220.8s 666 "samples": 5,
+220.8s 667 "evidence_units": 76,
+220.8s 668 "maximum_generation_calls": 25,
+220.8s 669 "gpu_inference_completed": false,
+220.8s 670 "run_fingerprint": "ce268a96d111b4fdf9a1ce8aceeb7645dcda987f57ad68d46fbaaf533e8c46d2",
+220.8s 671 "manifest": {
+220.8s 672 "input_sha256": "720102391a5dcc8d4551d5d60565f27d68b6ec308d921d2023691b1de79bc496",
+220.8s 673 "controller_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+220.8s 674 "settings": {
+220.8s 675 "dataset": "nq",
+220.8s 676 "strategy": "factored_evidence_id",
+220.8s 677 "version": "v9_evidence_id_factored_v2_compact_context",
+220.8s 678 "model_name": "Qwen/Qwen2.5-7B-Instruct",
+220.8s 679 "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+220.8s 680 "quantization": "nf4",
+220.8s 681 "do_sample": false,
+220.8s 682 "seed": 42,
+220.8s 683 "max_new_tokens": 384,
+220.8s 684 "max_calls_per_sample": 5,
+220.8s 685 "routing": "all_component_ablation",
+220.8s 686 "sample_count": 5,
+220.8s 687 "semantic_verifier": "same_Qwen_not_independent"
+220.8s 688 },
+220.8s 689 "code_sha256": {
+220.8s 690 "src/__init__.py": "a54def8f254ea77cf89df6eec69911b8a06a922f098c0260296ee53a77fb66b7",
+220.8s 691 "src/compensation/__init__.py": "e6a14ed2a66bb3844648fbd04ec796a198b10f84933b661b410da1af95d51cb9",
+220.8s 692 "src/compensation/anchors.py": "75ff5517f5bf51112b655a0114f5e4fd8dc36e18041061fefe0a09921dced380",
+220.8s 693 "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+220.8s 694 "src/compensation/conservative_repair.py": "8d7db925b81ee9cb5678f1e85e883b18c1b41518f228aa12d856a34773bd040d",
+220.8s 695 "src/compensation/controller_adapter.py": "e3722ee732ce5eff839e0316704fb23a7a41e5e5e175d225f369823fd1a450be",
+220.8s 696 "src/compensation/evidence_id_repair.py": "6a2506e534603a34d1f721554909386869f359edfdcbf68d831ead2eed91decb",
+220.8s 697 "src/compensation/extractive_repair.py": "016ee9918389b4132d8f2a6f2a3632cd676204dbd5d5a26ebb7d2e4757e0aabc",
+220.8s 698 "src/compensation/line_contract.py": "32e938f413e6d4dfc0965bdfb31806773c20cef733dc58294c427fb96641a687",
+220.8s 699 "src/compensation/nli_repair.py": "8e3a6a2fd98eecf858e922c6c7480fc3fbe8cd85f8b2aa221fa020bb8cb4e2a8",
+220.8s 700 "src/compensation/nq_train_adapter.py": "a04edaf2277b7a82b4ec93e9e9f6de7ba581683a7804c7392f571e122a244165",
+220.8s 701 "src/compensation/qwen_repair.py": "e4989bcc20c3c23596ed685bc706e27cc742de4c1b41bd4f9d8d490c87400b49",
+220.8s 702 "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+220.8s 703 "src/compensation/support_check.py": "a0210ed3ea13a33346b69219b58d2638becaad6fc85ed3b42889e994daeefbcc",
+220.8s 704 "src/config.py": "9b2c12efa927872022fb626a1479944e660c4f3a21de25cd0beae8f17e2be9e1",
+220.8s 705 "src/controller/__init__.py": "fc1abf7105d3f0f3e52fad083065f681efcbf3e6415f44e0532f704f86a6500b",
+220.8s 706 "src/diagnosis/__init__.py": "1ba51863d569c1c8d432301f0db01dd6fcd6d1d938707bb090bb8130c04cff25",
+220.8s 707 "src/diagnosis/labels.py": "c9e787268e2669e2af0cf074aaf6a8b71bc5ed960fcacb8f6a657f7217ee1fda",
+220.8s 708 "src/diagnosis/schema.py": "f1bf526835f5c98a369ac38884415ce06e9a454639c41cb1daa2799ab26f700f",
+220.8s 709 "src/evaluation/__init__.py": "45da70e1184a66129a5b3ca8a3e776906f31781006b4b4257fbd213b8ca54cfd",
+220.8s 710 "src/evaluation/answer_repair.py": "896cbb5a1506fcf2bab02a9ada655279eb092939776a5cb2640a27dea9539147",
+220.8s 711 "src/evaluation/fever.py": "f8fac10584bffbafda1d627311624cb817f5ec725d9ade60493f281301bac2fa",
+220.8s 712 "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+220.8s 713 "src/evaluation/recoverability.py": "2fc8451f54952cfb7ccc6bbe1d945f2f091e3863a06ce3c6415f60d5e45aa4e1",
+220.8s 714 "src/generation/__init__.py": "59f7c1600b5430abd57b2353211fbe9d48305b29970737e649e6cd42b23311db",
+220.8s 715 "src/generation/qwen.py": "c932c3a0df40f030813d8c7298144adc1310a0bfee15ef832868a49cce9d6d6a",
+220.8s 716 "src/probe/__init__.py": "bd3cc044021b1d1b0524d53fa7bd2142762d0c91faeaa1202c1133796bfb368a",
+220.8s 717 "src/retrieval/__init__.py": "e9b4f2cb268485dac3f02ef10cb50cfe27af4be2a60e936337bf7c246e9037d9",
+220.8s 718 "src/retrieval/e5_faiss.py": "acbcda84a14a32847502b9cd64361112cbb09102431f7e14f051dc85e80a3f2d",
+220.8s 719 "src/retrieval/fever_ivfpq.py": "9e011c5c253d9c1f87c016a1c8543e996e9945159a9dfda84102c07f42dddbc2",
+220.8s 720 "scripts/run_answer_repair.py": "01ed8ae9bac446d51d523eca4a5ac4d2d13a98985adfd57b5ad8cca49e522df3",
+220.8s 721 "scripts/run_answer_repair_v9.py": "348eafb2e6411ef82b09da2125ef30495c468ded2e1b614100a44370cd66dbc2",
+220.8s 722 "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+220.8s 723 "configs/answer_repair_v9_protocol_v1.json": "4cb7909ed3ebc85269ed9cf7cce4db44000c5fb2beccb0997ad905becf000f08"
+220.8s 724 }
+220.8s 725 }
+220.8s 726 }
+231.2s 727 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+231.4s 728 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   0%|          | 1/339 [00:00<01:27,  3.87it/s]Loading weights:   0%|          | 1/339 [00:00<01:27,  3.87it/s]
+231.7s 729 Loading weights:   0%|          | 1/339 [00:00<01:27,  3.87it/s]Loading weights:   1%|          | 2/339 [00:00<01:26,  3.88it/s]Loading weights:   1%|▏         | 5/339 [00:00<00:35,  9.44it/s]Loading weights:   1%|          | 2/339 [00:00<01:26,  3.88it/s]Loading weights:   1%|▏         | 5/339 [00:00<00:35,  9.44it/s]
+231.9s 730 Loading weights:   1%|          | 2/339 [00:00<01:26,  3.88it/s]Loading weights:   1%|▏         | 5/339 [00:00<00:35,  9.44it/s]Loading weights:   5%|▌         | 17/339 [00:00<00:09, 33.29it/s]Loading weights:   9%|▊         | 29/339 [00:00<00:06, 49.96it/s]Loading weights:   5%|▌         | 17/339 [00:00<00:09, 33.29it/s]Loading weights:   9%|▊         | 29/339 [00:00<00:06, 49.96it/s]
+232.2s 731 Loading weights:   5%|▌         | 17/339 [00:00<00:09, 33.29it/s]Loading weights:   9%|▊         | 29/339 [00:00<00:06, 49.96it/s]Loading weights:  12%|█▏        | 40/339 [00:01<00:04, 62.12it/s]Loading weights:  15%|█▌        | 51/339 [00:01<00:03, 74.03it/s]Loading weights:  12%|█▏        | 40/339 [00:01<00:04, 62.12it/s]Loading weights:  15%|█▌        | 51/339 [00:01<00:03, 74.03it/s]
+232.4s 732 Loading weights:  12%|█▏        | 40/339 [00:01<00:04, 62.12it/s]Loading weights:  15%|█▌        | 51/339 [00:01<00:03, 74.03it/s]Loading weights:  18%|█▊        | 60/339 [00:01<00:03, 71.53it/s]Loading weights:  20%|██        | 68/339 [00:01<00:03, 70.31it/s]Loading weights:  18%|█▊        | 60/339 [00:01<00:03, 71.53it/s]Loading weights:  20%|██        | 68/339 [00:01<00:03, 70.31it/s]
+232.7s 733 Loading weights:  18%|█▊        | 60/339 [00:01<00:03, 71.53it/s]Loading weights:  20%|██        | 68/339 [00:01<00:03, 70.31it/s]Loading weights:  23%|██▎       | 78/339 [00:01<00:03, 71.43it/s]Loading weights:  27%|██▋       | 90/339 [00:01<00:03, 76.95it/s]Loading weights:  23%|██▎       | 78/339 [00:01<00:03, 71.43it/s]Loading weights:  27%|██▋       | 90/339 [00:01<00:03, 76.95it/s]
+232.9s 734 Loading weights:  23%|██▎       | 78/339 [00:01<00:03, 71.43it/s]Loading weights:  27%|██▋       | 90/339 [00:01<00:03, 76.95it/s]Loading weights:  30%|███       | 102/339 [00:01<00:02, 80.35it/s]Loading weights:  33%|███▎      | 113/339 [00:01<00:02, 87.61it/s]Loading weights:  30%|███       | 102/339 [00:01<00:02, 80.35it/s]Loading weights:  33%|███▎      | 113/339 [00:01<00:02, 87.61it/s]
+233.2s 735 Loading weights:  30%|███       | 102/339 [00:01<00:02, 80.35it/s]Loading weights:  33%|███▎      | 113/339 [00:01<00:02, 87.61it/s]Loading weights:  37%|███▋      | 125/339 [00:02<00:02, 88.91it/s]Loading weights:  40%|████      | 137/339 [00:02<00:02, 90.61it/s]Loading weights:  37%|███▋      | 125/339 [00:02<00:02, 88.91it/s]Loading weights:  40%|████      | 137/339 [00:02<00:02, 90.61it/s]
+233.4s 736 Loading weights:  37%|███▋      | 125/339 [00:02<00:02, 88.91it/s]Loading weights:  40%|████      | 137/339 [00:02<00:02, 90.61it/s]Loading weights:  44%|████▍     | 149/339 [00:02<00:02, 91.86it/s]Loading weights:  47%|████▋     | 161/339 [00:02<00:01, 93.05it/s]Loading weights:  44%|████▍     | 149/339 [00:02<00:02, 91.86it/s]Loading weights:  47%|████▋     | 161/339 [00:02<00:01, 93.05it/s]
+233.7s 737 Loading weights:  44%|████▍     | 149/339 [00:02<00:02, 91.86it/s]Loading weights:  47%|████▋     | 161/339 [00:02<00:01, 93.05it/s]Loading weights:  51%|█████     | 173/339 [00:02<00:01, 93.95it/s]Loading weights:  55%|█████▍    | 185/339 [00:02<00:01, 94.80it/s]Loading weights:  51%|█████     | 173/339 [00:02<00:01, 93.95it/s]Loading weights:  55%|█████▍    | 185/339 [00:02<00:01, 94.80it/s]
+233.9s 738 Loading weights:  51%|█████     | 173/339 [00:02<00:01, 93.95it/s]Loading weights:  55%|█████▍    | 185/339 [00:02<00:01, 94.80it/s]Loading weights:  58%|█████▊    | 197/339 [00:02<00:01, 95.20it/s]Loading weights:  62%|██████▏   | 209/339 [00:02<00:01, 95.64it/s]Loading weights:  58%|█████▊    | 197/339 [00:02<00:01, 95.20it/s]Loading weights:  62%|██████▏   | 209/339 [00:02<00:01, 95.64it/s]
+234.2s 739 Loading weights:  58%|█████▊    | 197/339 [00:02<00:01, 95.20it/s]Loading weights:  62%|██████▏   | 209/339 [00:02<00:01, 95.64it/s]Loading weights:  65%|██████▌   | 221/339 [00:03<00:01, 96.30it/s]Loading weights:  69%|██████▊   | 233/339 [00:03<00:01, 96.53it/s]Loading weights:  65%|██████▌   | 221/339 [00:03<00:01, 96.30it/s]Loading weights:  69%|██████▊   | 233/339 [00:03<00:01, 96.53it/s]
+234.4s 740 Loading weights:  65%|██████▌   | 221/339 [00:03<00:01, 96.30it/s]Loading weights:  69%|██████▊   | 233/339 [00:03<00:01, 96.53it/s]Loading weights:  72%|███████▏  | 245/339 [00:03<00:00, 96.67it/s]Loading weights:  76%|███████▌  | 257/339 [00:03<00:00, 95.13it/s]Loading weights:  72%|███████▏  | 245/339 [00:03<00:00, 96.67it/s]Loading weights:  76%|███████▌  | 257/339 [00:03<00:00, 95.13it/s]
+234.7s 741 Loading weights:  72%|███████▏  | 245/339 [00:03<00:00, 96.67it/s]Loading weights:  76%|███████▌  | 257/339 [00:03<00:00, 95.13it/s]Loading weights:  79%|███████▉  | 269/339 [00:03<00:00, 93.96it/s]Loading weights:  83%|████████▎ | 281/339 [00:03<00:00, 94.60it/s]Loading weights:  79%|███████▉  | 269/339 [00:03<00:00, 93.96it/s]Loading weights:  83%|████████▎ | 281/339 [00:03<00:00, 94.60it/s]
+234.9s 742 Loading weights:  79%|███████▉  | 269/339 [00:03<00:00, 93.96it/s]Loading weights:  83%|████████▎ | 281/339 [00:03<00:00, 94.60it/s]Loading weights:  86%|████████▋ | 293/339 [00:03<00:00, 95.55it/s]Loading weights:  90%|████████▉ | 305/339 [00:03<00:00, 95.64it/s]Loading weights:  86%|████████▋ | 293/339 [00:03<00:00, 95.55it/s]Loading weights:  90%|████████▉ | 305/339 [00:03<00:00, 95.64it/s]
+235.2s 743 Loading weights:  86%|████████▋ | 293/339 [00:03<00:00, 95.55it/s]Loading weights:  90%|████████▉ | 305/339 [00:03<00:00, 95.64it/s]Loading weights:  94%|█████████▎| 317/339 [00:04<00:00, 95.51it/s]Loading weights:  97%|█████████▋| 329/339 [00:04<00:00, 96.25it/s]Loading weights: 100%|██████████| 339/339 [00:04<00:00, 80.38it/s]
+235.2s 744 Loading weights:  94%|█████████▎| 317/339 [00:04<00:00, 95.51it/s]Loading weights:  97%|█████████▋| 329/339 [00:04<00:00, 96.25it/s]Loading weights: 100%|██████████| 339/339 [00:04<00:00, 80.38it/s]
+235.2s 745 
+235.2s 746 Loading weights:  94%|█████████▎| 317/339 [00:04<00:00, 95.51it/s]Loading weights:  97%|█████████▋| 329/339 [00:04<00:00, 96.25it/s]Loading weights: 100%|██████████| 339/339 [00:04<00:00, 80.38it/s]
+235.4s 747 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+235.6s 748 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+235.6s 749 
+235.6s 750 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+246.5s 751 {"completed": 1, "total": 5, "status": "kept"}
+246.7s 752 {"completed": 1, "total": 5, "status": "kept"}
+253.7s 753 {"completed": 2, "total": 5, "status": "invalid_fact_1"}
+253.9s 754 {"completed": 2, "total": 5, "status": "invalid_fact_1"}
+259.9s 755 {"completed": 3, "total": 5, "status": "invalid_fact_1"}
+260.1s 756 {"completed": 3, "total": 5, "status": "invalid_fact_1"}
+270.8s 757 {"completed": 4, "total": 5, "status": "invalid_fact_1"}
+271.0s 758 {"completed": 4, "total": 5, "status": "invalid_fact_1"}
+290.3s 759 {"completed": 5, "total": 5, "status": "invalid_decision"}
+290.5s 760 {"completed": 5, "total": 5, "status": "invalid_decision"}
+292.1s 761 {"replay": "passed", "records": 5, "run_fingerprint": "ce268a96d111b4fdf9a1ce8aceeb7645dcda987f57ad68d46fbaaf533e8c46d2"}
+292.2s 762 {
+292.2s 763 "preflight": "passed",
+292.2s 764 "samples": 5,
+292.2s 765 "evidence_units": 208,
+292.2s 766 "maximum_generation_calls": 5,
+292.2s 767 "gpu_inference_completed": false,
+292.2s 768 "run_fingerprint": "6266f6fe6a47a25126a5120697967d807686f19082600ebea244ce9bb731a793",
+292.2s 769 "manifest": {
+292.2s 770 "input_sha256": "f08f11478a607665701051b8711e26078742006e1e04b23b2ce807aae1c127cd",
+292.2s 771 "controller_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+292.2s 772 "settings": {
+292.2s 773 "dataset": "fever",
+292.2s 774 "strategy": "qwen_direct",
+292.2s 775 "version": "v9_evidence_id_factored_v2_compact_context",
+292.2s 776 "model_name": "Qwen/Qwen2.5-7B-Instruct",
+292.2s 777 "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+292.2s 778 "quantization": "nf4",
+292.2s 779 "do_sample": false,
+292.2s 780 "seed": 42,
+292.2s 781 "max_new_tokens": 384,
+292.2s 782 "max_calls_per_sample": 1,
+292.2s 783 "routing": "all_component_ablation",
+292.2s 784 "sample_count": 5,
+292.2s 785 "semantic_verifier": "same_Qwen_not_independent"
+292.2s 786 },
+292.2s 787 "code_sha256": {
+292.2s 788 "src/__init__.py": "a54def8f254ea77cf89df6eec69911b8a06a922f098c0260296ee53a77fb66b7",
+292.2s 789 "src/compensation/__init__.py": "e6a14ed2a66bb3844648fbd04ec796a198b10f84933b661b410da1af95d51cb9",
+292.2s 790 "src/compensation/anchors.py": "75ff5517f5bf51112b655a0114f5e4fd8dc36e18041061fefe0a09921dced380",
+292.2s 791 "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+292.2s 792 "src/compensation/conservative_repair.py": "8d7db925b81ee9cb5678f1e85e883b18c1b41518f228aa12d856a34773bd040d",
+292.2s 793 "src/compensation/controller_adapter.py": "e3722ee732ce5eff839e0316704fb23a7a41e5e5e175d225f369823fd1a450be",
+292.2s 794 "src/compensation/evidence_id_repair.py": "6a2506e534603a34d1f721554909386869f359edfdcbf68d831ead2eed91decb",
+292.2s 795 "src/compensation/extractive_repair.py": "016ee9918389b4132d8f2a6f2a3632cd676204dbd5d5a26ebb7d2e4757e0aabc",
+292.2s 796 "src/compensation/line_contract.py": "32e938f413e6d4dfc0965bdfb31806773c20cef733dc58294c427fb96641a687",
+292.2s 797 "src/compensation/nli_repair.py": "8e3a6a2fd98eecf858e922c6c7480fc3fbe8cd85f8b2aa221fa020bb8cb4e2a8",
+292.2s 798 "src/compensation/nq_train_adapter.py": "a04edaf2277b7a82b4ec93e9e9f6de7ba581683a7804c7392f571e122a244165",
+292.2s 799 "src/compensation/qwen_repair.py": "e4989bcc20c3c23596ed685bc706e27cc742de4c1b41bd4f9d8d490c87400b49",
+292.2s 800 "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+292.2s 801 "src/compensation/support_check.py": "a0210ed3ea13a33346b69219b58d2638becaad6fc85ed3b42889e994daeefbcc",
+292.2s 802 "src/config.py": "9b2c12efa927872022fb626a1479944e660c4f3a21de25cd0beae8f17e2be9e1",
+292.2s 803 "src/controller/__init__.py": "fc1abf7105d3f0f3e52fad083065f681efcbf3e6415f44e0532f704f86a6500b",
+292.2s 804 "src/diagnosis/__init__.py": "1ba51863d569c1c8d432301f0db01dd6fcd6d1d938707bb090bb8130c04cff25",
+292.2s 805 "src/diagnosis/labels.py": "c9e787268e2669e2af0cf074aaf6a8b71bc5ed960fcacb8f6a657f7217ee1fda",
+292.2s 806 "src/diagnosis/schema.py": "f1bf526835f5c98a369ac38884415ce06e9a454639c41cb1daa2799ab26f700f",
+292.2s 807 "src/evaluation/__init__.py": "45da70e1184a66129a5b3ca8a3e776906f31781006b4b4257fbd213b8ca54cfd",
+292.2s 808 "src/evaluation/answer_repair.py": "896cbb5a1506fcf2bab02a9ada655279eb092939776a5cb2640a27dea9539147",
+292.2s 809 "src/evaluation/fever.py": "f8fac10584bffbafda1d627311624cb817f5ec725d9ade60493f281301bac2fa",
+292.2s 810 "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+292.2s 811 "src/evaluation/recoverability.py": "2fc8451f54952cfb7ccc6bbe1d945f2f091e3863a06ce3c6415f60d5e45aa4e1",
+292.2s 812 "src/generation/__init__.py": "59f7c1600b5430abd57b2353211fbe9d48305b29970737e649e6cd42b23311db",
+292.2s 813 "src/generation/qwen.py": "c932c3a0df40f030813d8c7298144adc1310a0bfee15ef832868a49cce9d6d6a",
+292.2s 814 "src/probe/__init__.py": "bd3cc044021b1d1b0524d53fa7bd2142762d0c91faeaa1202c1133796bfb368a",
+292.2s 815 "src/retrieval/__init__.py": "e9b4f2cb268485dac3f02ef10cb50cfe27af4be2a60e936337bf7c246e9037d9",
+292.2s 816 "src/retrieval/e5_faiss.py": "acbcda84a14a32847502b9cd64361112cbb09102431f7e14f051dc85e80a3f2d",
+292.2s 817 "src/retrieval/fever_ivfpq.py": "9e011c5c253d9c1f87c016a1c8543e996e9945159a9dfda84102c07f42dddbc2",
+292.2s 818 "scripts/run_answer_repair.py": "01ed8ae9bac446d51d523eca4a5ac4d2d13a98985adfd57b5ad8cca49e522df3",
+292.2s 819 "scripts/run_answer_repair_v9.py": "348eafb2e6411ef82b09da2125ef30495c468ded2e1b614100a44370cd66dbc2",
+292.2s 820 "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+292.2s 821 "configs/answer_repair_v9_protocol_v1.json": "4cb7909ed3ebc85269ed9cf7cce4db44000c5fb2beccb0997ad905becf000f08"
+292.2s 822 }
+292.2s 823 }
+292.2s 824 }
+292.3s 825 {"replay": "passed", "records": 5, "run_fingerprint": "ce268a96d111b4fdf9a1ce8aceeb7645dcda987f57ad68d46fbaaf533e8c46d2"}
+292.3s 826 {
+292.3s 827 "preflight": "passed",
+292.3s 828 "samples": 5,
+292.3s 829 "evidence_units": 208,
+292.3s 830 "maximum_generation_calls": 5,
+292.3s 831 "gpu_inference_completed": false,
+292.3s 832 "run_fingerprint": "6266f6fe6a47a25126a5120697967d807686f19082600ebea244ce9bb731a793",
+292.3s 833 "manifest": {
+292.3s 834 "input_sha256": "f08f11478a607665701051b8711e26078742006e1e04b23b2ce807aae1c127cd",
+292.3s 835 "controller_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+292.3s 836 "settings": {
+292.3s 837 "dataset": "fever",
+292.3s 838 "strategy": "qwen_direct",
+292.3s 839 "version": "v9_evidence_id_factored_v2_compact_context",
+292.3s 840 "model_name": "Qwen/Qwen2.5-7B-Instruct",
+292.3s 841 "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+292.3s 842 "quantization": "nf4",
+292.3s 843 "do_sample": false,
+292.3s 844 "seed": 42,
+292.3s 845 "max_new_tokens": 384,
+292.3s 846 "max_calls_per_sample": 1,
+292.3s 847 "routing": "all_component_ablation",
+292.3s 848 "sample_count": 5,
+292.3s 849 "semantic_verifier": "same_Qwen_not_independent"
+292.3s 850 },
+292.3s 851 "code_sha256": {
+292.3s 852 "src/__init__.py": "a54def8f254ea77cf89df6eec69911b8a06a922f098c0260296ee53a77fb66b7",
+292.3s 853 "src/compensation/__init__.py": "e6a14ed2a66bb3844648fbd04ec796a198b10f84933b661b410da1af95d51cb9",
+292.3s 854 "src/compensation/anchors.py": "75ff5517f5bf51112b655a0114f5e4fd8dc36e18041061fefe0a09921dced380",
+292.3s 855 "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+292.3s 856 "src/compensation/conservative_repair.py": "8d7db925b81ee9cb5678f1e85e883b18c1b41518f228aa12d856a34773bd040d",
+292.3s 857 "src/compensation/controller_adapter.py": "e3722ee732ce5eff839e0316704fb23a7a41e5e5e175d225f369823fd1a450be",
+292.3s 858 "src/compensation/evidence_id_repair.py": "6a2506e534603a34d1f721554909386869f359edfdcbf68d831ead2eed91decb",
+292.3s 859 "src/compensation/extractive_repair.py": "016ee9918389b4132d8f2a6f2a3632cd676204dbd5d5a26ebb7d2e4757e0aabc",
+292.3s 860 "src/compensation/line_contract.py": "32e938f413e6d4dfc0965bdfb31806773c20cef733dc58294c427fb96641a687",
+292.3s 861 "src/compensation/nli_repair.py": "8e3a6a2fd98eecf858e922c6c7480fc3fbe8cd85f8b2aa221fa020bb8cb4e2a8",
+292.3s 862 "src/compensation/nq_train_adapter.py": "a04edaf2277b7a82b4ec93e9e9f6de7ba581683a7804c7392f571e122a244165",
+292.3s 863 "src/compensation/qwen_repair.py": "e4989bcc20c3c23596ed685bc706e27cc742de4c1b41bd4f9d8d490c87400b49",
+292.3s 864 "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+292.3s 865 "src/compensation/support_check.py": "a0210ed3ea13a33346b69219b58d2638becaad6fc85ed3b42889e994daeefbcc",
+292.3s 866 "src/config.py": "9b2c12efa927872022fb626a1479944e660c4f3a21de25cd0beae8f17e2be9e1",
+292.3s 867 "src/controller/__init__.py": "fc1abf7105d3f0f3e52fad083065f681efcbf3e6415f44e0532f704f86a6500b",
+292.3s 868 "src/diagnosis/__init__.py": "1ba51863d569c1c8d432301f0db01dd6fcd6d1d938707bb090bb8130c04cff25",
+292.3s 869 "src/diagnosis/labels.py": "c9e787268e2669e2af0cf074aaf6a8b71bc5ed960fcacb8f6a657f7217ee1fda",
+292.3s 870 "src/diagnosis/schema.py": "f1bf526835f5c98a369ac38884415ce06e9a454639c41cb1daa2799ab26f700f",
+292.3s 871 "src/evaluation/__init__.py": "45da70e1184a66129a5b3ca8a3e776906f31781006b4b4257fbd213b8ca54cfd",
+292.3s 872 "src/evaluation/answer_repair.py": "896cbb5a1506fcf2bab02a9ada655279eb092939776a5cb2640a27dea9539147",
+292.3s 873 "src/evaluation/fever.py": "f8fac10584bffbafda1d627311624cb817f5ec725d9ade60493f281301bac2fa",
+292.3s 874 "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+292.3s 875 "src/evaluation/recoverability.py": "2fc8451f54952cfb7ccc6bbe1d945f2f091e3863a06ce3c6415f60d5e45aa4e1",
+292.3s 876 "src/generation/__init__.py": "59f7c1600b5430abd57b2353211fbe9d48305b29970737e649e6cd42b23311db",
+292.3s 877 "src/generation/qwen.py": "c932c3a0df40f030813d8c7298144adc1310a0bfee15ef832868a49cce9d6d6a",
+292.3s 878 "src/probe/__init__.py": "bd3cc044021b1d1b0524d53fa7bd2142762d0c91faeaa1202c1133796bfb368a",
+292.3s 879 "src/retrieval/__init__.py": "e9b4f2cb268485dac3f02ef10cb50cfe27af4be2a60e936337bf7c246e9037d9",
+292.3s 880 "src/retrieval/e5_faiss.py": "acbcda84a14a32847502b9cd64361112cbb09102431f7e14f051dc85e80a3f2d",
+292.3s 881 "src/retrieval/fever_ivfpq.py": "9e011c5c253d9c1f87c016a1c8543e996e9945159a9dfda84102c07f42dddbc2",
+292.3s 882 "scripts/run_answer_repair.py": "01ed8ae9bac446d51d523eca4a5ac4d2d13a98985adfd57b5ad8cca49e522df3",
+292.3s 883 "scripts/run_answer_repair_v9.py": "348eafb2e6411ef82b09da2125ef30495c468ded2e1b614100a44370cd66dbc2",
+292.3s 884 "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+292.3s 885 "configs/answer_repair_v9_protocol_v1.json": "4cb7909ed3ebc85269ed9cf7cce4db44000c5fb2beccb0997ad905becf000f08"
+292.3s 886 }
+292.3s 887 }
+292.3s 888 }
+303.2s 889 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+303.4s 890 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   0%|          | 1/339 [00:00<01:24,  3.99it/s]Loading weights:   0%|          | 1/339 [00:00<01:24,  3.99it/s]
+303.7s 891 Loading weights:   0%|          | 1/339 [00:00<01:24,  3.99it/s]Loading weights:   1%|          | 2/339 [00:00<01:25,  3.96it/s]Loading weights:   1%|▏         | 5/339 [00:00<00:34,  9.55it/s]Loading weights:   1%|          | 2/339 [00:00<01:25,  3.96it/s]Loading weights:   1%|▏         | 5/339 [00:00<00:34,  9.55it/s]
+303.9s 892 Loading weights:   1%|          | 2/339 [00:00<01:25,  3.96it/s]Loading weights:   1%|▏         | 5/339 [00:00<00:34,  9.55it/s]Loading weights:   5%|▌         | 17/339 [00:00<00:09, 33.60it/s]Loading weights:   9%|▊         | 29/339 [00:00<00:06, 50.15it/s]Loading weights:   5%|▌         | 17/339 [00:00<00:09, 33.60it/s]Loading weights:   9%|▊         | 29/339 [00:00<00:06, 50.15it/s]
+304.2s 893 Loading weights:   5%|▌         | 17/339 [00:00<00:09, 33.60it/s]Loading weights:   9%|▊         | 29/339 [00:00<00:06, 50.15it/s]Loading weights:  12%|█▏        | 40/339 [00:01<00:04, 62.41it/s]Loading weights:  15%|█▌        | 52/339 [00:01<00:04, 70.47it/s]Loading weights:  12%|█▏        | 40/339 [00:01<00:04, 62.41it/s]Loading weights:  15%|█▌        | 52/339 [00:01<00:04, 70.47it/s]
+304.5s 894 Loading weights:  12%|█▏        | 40/339 [00:01<00:04, 62.41it/s]Loading weights:  15%|█▌        | 52/339 [00:01<00:04, 70.47it/s]Loading weights:  19%|█▉        | 64/339 [00:01<00:03, 76.39it/s]Loading weights:  22%|██▏       | 76/339 [00:01<00:03, 80.84it/s]Loading weights:  19%|█▉        | 64/339 [00:01<00:03, 76.39it/s]Loading weights:  22%|██▏       | 76/339 [00:01<00:03, 80.84it/s]
+304.7s 895 Loading weights:  19%|█▉        | 64/339 [00:01<00:03, 76.39it/s]Loading weights:  22%|██▏       | 76/339 [00:01<00:03, 80.84it/s]Loading weights:  26%|██▌       | 88/339 [00:01<00:02, 84.11it/s]Loading weights:  29%|██▉       | 100/339 [00:01<00:02, 86.67it/s]Loading weights:  26%|██▌       | 88/339 [00:01<00:02, 84.11it/s]Loading weights:  29%|██▉       | 100/339 [00:01<00:02, 86.67it/s]
+305.0s 896 Loading weights:  26%|██▌       | 88/339 [00:01<00:02, 84.11it/s]Loading weights:  29%|██▉       | 100/339 [00:01<00:02, 86.67it/s]Loading weights:  33%|███▎      | 112/339 [00:01<00:02, 87.71it/s]Loading weights:  37%|███▋      | 124/339 [00:01<00:02, 89.61it/s]Loading weights:  33%|███▎      | 112/339 [00:01<00:02, 87.71it/s]Loading weights:  37%|███▋      | 124/339 [00:01<00:02, 89.61it/s]
+305.2s 897 Loading weights:  33%|███▎      | 112/339 [00:01<00:02, 87.71it/s]Loading weights:  37%|███▋      | 124/339 [00:01<00:02, 89.61it/s]Loading weights:  40%|████      | 136/339 [00:02<00:02, 92.44it/s]Loading weights:  44%|████▎     | 148/339 [00:02<00:02, 94.35it/s]Loading weights:  40%|████      | 136/339 [00:02<00:02, 92.44it/s]Loading weights:  44%|████▎     | 148/339 [00:02<00:02, 94.35it/s]
+305.5s 898 Loading weights:  40%|████      | 136/339 [00:02<00:02, 92.44it/s]Loading weights:  44%|████▎     | 148/339 [00:02<00:02, 94.35it/s]Loading weights:  47%|████▋     | 160/339 [00:02<00:01, 95.55it/s]Loading weights:  51%|█████     | 172/339 [00:02<00:01, 96.62it/s]Loading weights:  47%|████▋     | 160/339 [00:02<00:01, 95.55it/s]Loading weights:  51%|█████     | 172/339 [00:02<00:01, 96.62it/s]
+305.7s 899 Loading weights:  47%|████▋     | 160/339 [00:02<00:01, 95.55it/s]Loading weights:  51%|█████     | 172/339 [00:02<00:01, 96.62it/s]Loading weights:  54%|█████▍    | 184/339 [00:02<00:01, 97.52it/s]Loading weights:  58%|█████▊    | 196/339 [00:02<00:01, 98.16it/s]Loading weights:  54%|█████▍    | 184/339 [00:02<00:01, 97.52it/s]Loading weights:  58%|█████▊    | 196/339 [00:02<00:01, 98.16it/s]
+306.0s 900 Loading weights:  54%|█████▍    | 184/339 [00:02<00:01, 97.52it/s]Loading weights:  58%|█████▊    | 196/339 [00:02<00:01, 98.16it/s]Loading weights:  61%|██████▏   | 208/339 [00:02<00:01, 98.16it/s]Loading weights:  65%|██████▍   | 220/339 [00:02<00:01, 98.18it/s]Loading weights:  61%|██████▏   | 208/339 [00:02<00:01, 98.16it/s]Loading weights:  65%|██████▍   | 220/339 [00:02<00:01, 98.18it/s]
+306.2s 901 Loading weights:  61%|██████▏   | 208/339 [00:02<00:01, 98.16it/s]Loading weights:  65%|██████▍   | 220/339 [00:02<00:01, 98.18it/s]Loading weights:  68%|██████▊   | 232/339 [00:03<00:01, 98.39it/s]Loading weights:  72%|███████▏  | 244/339 [00:03<00:00, 98.74it/s]Loading weights:  68%|██████▊   | 232/339 [00:03<00:01, 98.39it/s]Loading weights:  72%|███████▏  | 244/339 [00:03<00:00, 98.74it/s]
+306.5s 902 Loading weights:  68%|██████▊   | 232/339 [00:03<00:01, 98.39it/s]Loading weights:  72%|███████▏  | 244/339 [00:03<00:00, 98.74it/s]Loading weights:  76%|███████▌  | 256/339 [00:03<00:00, 97.10it/s]Loading weights:  79%|███████▉  | 268/339 [00:03<00:00, 95.51it/s]Loading weights:  76%|███████▌  | 256/339 [00:03<00:00, 97.10it/s]Loading weights:  79%|███████▉  | 268/339 [00:03<00:00, 95.51it/s]
+306.7s 903 Loading weights:  76%|███████▌  | 256/339 [00:03<00:00, 97.10it/s]Loading weights:  79%|███████▉  | 268/339 [00:03<00:00, 95.51it/s]Loading weights:  83%|████████▎ | 280/339 [00:03<00:00, 95.06it/s]Loading weights:  86%|████████▌ | 292/339 [00:03<00:00, 96.12it/s]Loading weights:  83%|████████▎ | 280/339 [00:03<00:00, 95.06it/s]Loading weights:  86%|████████▌ | 292/339 [00:03<00:00, 96.12it/s]
+307.0s 904 Loading weights:  83%|████████▎ | 280/339 [00:03<00:00, 95.06it/s]Loading weights:  86%|████████▌ | 292/339 [00:03<00:00, 96.12it/s]Loading weights:  90%|████████▉ | 304/339 [00:03<00:00, 97.01it/s]Loading weights:  93%|█████████▎| 316/339 [00:03<00:00, 96.55it/s]Loading weights:  90%|████████▉ | 304/339 [00:03<00:00, 97.01it/s]Loading weights:  93%|█████████▎| 316/339 [00:03<00:00, 96.55it/s]
+307.1s 905 Loading weights:  90%|████████▉ | 304/339 [00:03<00:00, 97.01it/s]Loading weights:  93%|█████████▎| 316/339 [00:03<00:00, 96.55it/s]Loading weights:  97%|█████████▋| 328/339 [00:04<00:00, 97.21it/s]Loading weights: 100%|██████████| 339/339 [00:04<00:00, 82.12it/s]
+307.2s 906 Loading weights:  97%|█████████▋| 328/339 [00:04<00:00, 97.21it/s]Loading weights: 100%|██████████| 339/339 [00:04<00:00, 82.12it/s]
+307.2s 907 
+307.2s 908 Loading weights:  97%|█████████▋| 328/339 [00:04<00:00, 97.21it/s]Loading weights: 100%|██████████| 339/339 [00:04<00:00, 82.12it/s]
+307.3s 909 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+307.5s 910 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+307.5s 911 
+307.5s 912 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+311.3s 913 {"completed": 1, "total": 5, "status": "direct_reanswer"}
+311.5s 914 {"completed": 1, "total": 5, "status": "direct_reanswer"}
+321.3s 915 {"completed": 2, "total": 5, "status": "direct_reanswer"}
+321.5s 916 {"completed": 2, "total": 5, "status": "direct_reanswer"}
+322.5s 917 {"completed": 3, "total": 5, "status": "direct_reanswer"}
+322.8s 918 {"completed": 3, "total": 5, "status": "direct_reanswer"}
+326.9s 919 {"completed": 4, "total": 5, "status": "direct_reanswer"}
+327.1s 920 {"completed": 4, "total": 5, "status": "direct_reanswer"}
+328.2s 921 {"completed": 5, "total": 5, "status": "direct_reanswer"}
+328.4s 922 {"completed": 5, "total": 5, "status": "direct_reanswer"}
+330.0s 923 {"replay": "passed", "records": 5, "run_fingerprint": "6266f6fe6a47a25126a5120697967d807686f19082600ebea244ce9bb731a793"}
+330.1s 924 {
+330.1s 925 "preflight": "passed",
+330.1s 926 "samples": 5,
+330.1s 927 "evidence_units": 208,
+330.1s 928 "maximum_generation_calls": 5,
+330.1s 929 "gpu_inference_completed": false,
+330.1s 930 "run_fingerprint": "de81b95df2152c1c7b2af72101c50785417e06a9b2dfc80be23dc537a8f28334",
+330.1s 931 "manifest": {
+330.1s 932 "input_sha256": "f08f11478a607665701051b8711e26078742006e1e04b23b2ce807aae1c127cd",
+330.1s 933 "controller_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+330.1s 934 "settings": {
+330.1s 935 "dataset": "fever",
+330.1s 936 "strategy": "evidence_id",
+330.1s 937 "version": "v9_evidence_id_factored_v2_compact_context",
+330.1s 938 "model_name": "Qwen/Qwen2.5-7B-Instruct",
+330.1s 939 "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+330.1s 940 "quantization": "nf4",
+330.1s 941 "do_sample": false,
+330.1s 942 "seed": 42,
+330.1s 943 "max_new_tokens": 384,
+330.1s 944 "max_calls_per_sample": 1,
+330.1s 945 "routing": "all_component_ablation",
+330.1s 946 "sample_count": 5,
+330.1s 947 "semantic_verifier": "same_Qwen_not_independent"
+330.1s 948 },
+330.1s 949 "code_sha256": {
+330.1s 950 "src/__init__.py": "a54def8f254ea77cf89df6eec69911b8a06a922f098c0260296ee53a77fb66b7",
+330.1s 951 "src/compensation/__init__.py": "e6a14ed2a66bb3844648fbd04ec796a198b10f84933b661b410da1af95d51cb9",
+330.1s 952 "src/compensation/anchors.py": "75ff5517f5bf51112b655a0114f5e4fd8dc36e18041061fefe0a09921dced380",
+330.1s 953 "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+330.1s 954 "src/compensation/conservative_repair.py": "8d7db925b81ee9cb5678f1e85e883b18c1b41518f228aa12d856a34773bd040d",
+330.1s 955 "src/compensation/controller_adapter.py": "e3722ee732ce5eff839e0316704fb23a7a41e5e5e175d225f369823fd1a450be",
+330.1s 956 "src/compensation/evidence_id_repair.py": "6a2506e534603a34d1f721554909386869f359edfdcbf68d831ead2eed91decb",
+330.1s 957 "src/compensation/extractive_repair.py": "016ee9918389b4132d8f2a6f2a3632cd676204dbd5d5a26ebb7d2e4757e0aabc",
+330.1s 958 "src/compensation/line_contract.py": "32e938f413e6d4dfc0965bdfb31806773c20cef733dc58294c427fb96641a687",
+330.1s 959 "src/compensation/nli_repair.py": "8e3a6a2fd98eecf858e922c6c7480fc3fbe8cd85f8b2aa221fa020bb8cb4e2a8",
+330.1s 960 "src/compensation/nq_train_adapter.py": "a04edaf2277b7a82b4ec93e9e9f6de7ba581683a7804c7392f571e122a244165",
+330.1s 961 "src/compensation/qwen_repair.py": "e4989bcc20c3c23596ed685bc706e27cc742de4c1b41bd4f9d8d490c87400b49",
+330.1s 962 "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+330.1s 963 "src/compensation/support_check.py": "a0210ed3ea13a33346b69219b58d2638becaad6fc85ed3b42889e994daeefbcc",
+330.1s 964 "src/config.py": "9b2c12efa927872022fb626a1479944e660c4f3a21de25cd0beae8f17e2be9e1",
+330.1s 965 "src/controller/__init__.py": "fc1abf7105d3f0f3e52fad083065f681efcbf3e6415f44e0532f704f86a6500b",
+330.1s 966 "src/diagnosis/__init__.py": "1ba51863d569c1c8d432301f0db01dd6fcd6d1d938707bb090bb8130c04cff25",
+330.1s 967 "src/diagnosis/labels.py": "c9e787268e2669e2af0cf074aaf6a8b71bc5ed960fcacb8f6a657f7217ee1fda",
+330.1s 968 "src/diagnosis/schema.py": "f1bf526835f5c98a369ac38884415ce06e9a454639c41cb1daa2799ab26f700f",
+330.1s 969 "src/evaluation/__init__.py": "45da70e1184a66129a5b3ca8a3e776906f31781006b4b4257fbd213b8ca54cfd",
+330.1s 970 "src/evaluation/answer_repair.py": "896cbb5a1506fcf2bab02a9ada655279eb092939776a5cb2640a27dea9539147",
+330.1s 971 "src/evaluation/fever.py": "f8fac10584bffbafda1d627311624cb817f5ec725d9ade60493f281301bac2fa",
+330.1s 972 "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+330.1s 973 "src/evaluation/recoverability.py": "2fc8451f54952cfb7ccc6bbe1d945f2f091e3863a06ce3c6415f60d5e45aa4e1",
+330.1s 974 "src/generation/__init__.py": "59f7c1600b5430abd57b2353211fbe9d48305b29970737e649e6cd42b23311db",
+330.1s 975 "src/generation/qwen.py": "c932c3a0df40f030813d8c7298144adc1310a0bfee15ef832868a49cce9d6d6a",
+330.1s 976 "src/probe/__init__.py": "bd3cc044021b1d1b0524d53fa7bd2142762d0c91faeaa1202c1133796bfb368a",
+330.1s 977 "src/retrieval/__init__.py": "e9b4f2cb268485dac3f02ef10cb50cfe27af4be2a60e936337bf7c246e9037d9",
+330.1s 978 "src/retrieval/e5_faiss.py": "acbcda84a14a32847502b9cd64361112cbb09102431f7e14f051dc85e80a3f2d",
+330.1s 979 "src/retrieval/fever_ivfpq.py": "9e011c5c253d9c1f87c016a1c8543e996e9945159a9dfda84102c07f42dddbc2",
+330.1s 980 "scripts/run_answer_repair.py": "01ed8ae9bac446d51d523eca4a5ac4d2d13a98985adfd57b5ad8cca49e522df3",
+330.1s 981 "scripts/run_answer_repair_v9.py": "348eafb2e6411ef82b09da2125ef30495c468ded2e1b614100a44370cd66dbc2",
+330.1s 982 "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+330.1s 983 "configs/answer_repair_v9_protocol_v1.json": "4cb7909ed3ebc85269ed9cf7cce4db44000c5fb2beccb0997ad905becf000f08"
+330.1s 984 }
+330.1s 985 }
+330.1s 986 }
+330.2s 987 {"replay": "passed", "records": 5, "run_fingerprint": "6266f6fe6a47a25126a5120697967d807686f19082600ebea244ce9bb731a793"}
+330.2s 988 {
+330.2s 989 "preflight": "passed",
+330.2s 990 "samples": 5,
+330.2s 991 "evidence_units": 208,
+330.2s 992 "maximum_generation_calls": 5,
+330.2s 993 "gpu_inference_completed": false,
+330.2s 994 "run_fingerprint": "de81b95df2152c1c7b2af72101c50785417e06a9b2dfc80be23dc537a8f28334",
+330.2s 995 "manifest": {
+330.2s 996 "input_sha256": "f08f11478a607665701051b8711e26078742006e1e04b23b2ce807aae1c127cd",
+330.2s 997 "controller_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+330.2s 998 "settings": {
+330.2s 999 "dataset": "fever",
+330.2s 1000 "strategy": "evidence_id",
+330.2s 1001 "version": "v9_evidence_id_factored_v2_compact_context",
+330.2s 1002 "model_name": "Qwen/Qwen2.5-7B-Instruct",
+330.2s 1003 "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+330.2s 1004 "quantization": "nf4",
+330.2s 1005 "do_sample": false,
+330.2s 1006 "seed": 42,
+330.2s 1007 "max_new_tokens": 384,
+330.2s 1008 "max_calls_per_sample": 1,
+330.2s 1009 "routing": "all_component_ablation",
+330.2s 1010 "sample_count": 5,
+330.2s 1011 "semantic_verifier": "same_Qwen_not_independent"
+330.2s 1012 },
+330.2s 1013 "code_sha256": {
+330.2s 1014 "src/__init__.py": "a54def8f254ea77cf89df6eec69911b8a06a922f098c0260296ee53a77fb66b7",
+330.2s 1015 "src/compensation/__init__.py": "e6a14ed2a66bb3844648fbd04ec796a198b10f84933b661b410da1af95d51cb9",
+330.2s 1016 "src/compensation/anchors.py": "75ff5517f5bf51112b655a0114f5e4fd8dc36e18041061fefe0a09921dced380",
+330.2s 1017 "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+330.2s 1018 "src/compensation/conservative_repair.py": "8d7db925b81ee9cb5678f1e85e883b18c1b41518f228aa12d856a34773bd040d",
+330.2s 1019 "src/compensation/controller_adapter.py": "e3722ee732ce5eff839e0316704fb23a7a41e5e5e175d225f369823fd1a450be",
+330.2s 1020 "src/compensation/evidence_id_repair.py": "6a2506e534603a34d1f721554909386869f359edfdcbf68d831ead2eed91decb",
+330.2s 1021 "src/compensation/extractive_repair.py": "016ee9918389b4132d8f2a6f2a3632cd676204dbd5d5a26ebb7d2e4757e0aabc",
+330.2s 1022 "src/compensation/line_contract.py": "32e938f413e6d4dfc0965bdfb31806773c20cef733dc58294c427fb96641a687",
+330.2s 1023 "src/compensation/nli_repair.py": "8e3a6a2fd98eecf858e922c6c7480fc3fbe8cd85f8b2aa221fa020bb8cb4e2a8",
+330.2s 1024 "src/compensation/nq_train_adapter.py": "a04edaf2277b7a82b4ec93e9e9f6de7ba581683a7804c7392f571e122a244165",
+330.2s 1025 "src/compensation/qwen_repair.py": "e4989bcc20c3c23596ed685bc706e27cc742de4c1b41bd4f9d8d490c87400b49",
+330.2s 1026 "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+330.2s 1027 "src/compensation/support_check.py": "a0210ed3ea13a33346b69219b58d2638becaad6fc85ed3b42889e994daeefbcc",
+330.2s 1028 "src/config.py": "9b2c12efa927872022fb626a1479944e660c4f3a21de25cd0beae8f17e2be9e1",
+330.2s 1029 "src/controller/__init__.py": "fc1abf7105d3f0f3e52fad083065f681efcbf3e6415f44e0532f704f86a6500b",
+330.2s 1030 "src/diagnosis/__init__.py": "1ba51863d569c1c8d432301f0db01dd6fcd6d1d938707bb090bb8130c04cff25",
+330.2s 1031 "src/diagnosis/labels.py": "c9e787268e2669e2af0cf074aaf6a8b71bc5ed960fcacb8f6a657f7217ee1fda",
+330.2s 1032 "src/diagnosis/schema.py": "f1bf526835f5c98a369ac38884415ce06e9a454639c41cb1daa2799ab26f700f",
+330.2s 1033 "src/evaluation/__init__.py": "45da70e1184a66129a5b3ca8a3e776906f31781006b4b4257fbd213b8ca54cfd",
+330.2s 1034 "src/evaluation/answer_repair.py": "896cbb5a1506fcf2bab02a9ada655279eb092939776a5cb2640a27dea9539147",
+330.2s 1035 "src/evaluation/fever.py": "f8fac10584bffbafda1d627311624cb817f5ec725d9ade60493f281301bac2fa",
+330.2s 1036 "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+330.2s 1037 "src/evaluation/recoverability.py": "2fc8451f54952cfb7ccc6bbe1d945f2f091e3863a06ce3c6415f60d5e45aa4e1",
+330.2s 1038 "src/generation/__init__.py": "59f7c1600b5430abd57b2353211fbe9d48305b29970737e649e6cd42b23311db",
+330.2s 1039 "src/generation/qwen.py": "c932c3a0df40f030813d8c7298144adc1310a0bfee15ef832868a49cce9d6d6a",
+330.2s 1040 "src/probe/__init__.py": "bd3cc044021b1d1b0524d53fa7bd2142762d0c91faeaa1202c1133796bfb368a",
+330.2s 1041 "src/retrieval/__init__.py": "e9b4f2cb268485dac3f02ef10cb50cfe27af4be2a60e936337bf7c246e9037d9",
+330.2s 1042 "src/retrieval/e5_faiss.py": "acbcda84a14a32847502b9cd64361112cbb09102431f7e14f051dc85e80a3f2d",
+330.2s 1043 "src/retrieval/fever_ivfpq.py": "9e011c5c253d9c1f87c016a1c8543e996e9945159a9dfda84102c07f42dddbc2",
+330.2s 1044 "scripts/run_answer_repair.py": "01ed8ae9bac446d51d523eca4a5ac4d2d13a98985adfd57b5ad8cca49e522df3",
+330.2s 1045 "scripts/run_answer_repair_v9.py": "348eafb2e6411ef82b09da2125ef30495c468ded2e1b614100a44370cd66dbc2",
+330.2s 1046 "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+330.2s 1047 "configs/answer_repair_v9_protocol_v1.json": "4cb7909ed3ebc85269ed9cf7cce4db44000c5fb2beccb0997ad905becf000f08"
+330.2s 1048 }
+330.2s 1049 }
+330.2s 1050 }
+341.1s 1051 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+341.3s 1052 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   0%|          | 1/339 [00:00<01:26,  3.92it/s]Loading weights:   0%|          | 1/339 [00:00<01:26,  3.92it/s]
+341.6s 1053 Loading weights:   0%|          | 1/339 [00:00<01:26,  3.92it/s]Loading weights:   1%|          | 2/339 [00:00<01:28,  3.80it/s]Loading weights:   1%|          | 4/339 [00:00<00:43,  7.70it/s]Loading weights:   4%|▍         | 14/339 [00:00<00:10, 31.26it/s]Loading weights:   1%|          | 2/339 [00:00<01:28,  3.80it/s]Loading weights:   1%|          | 4/339 [00:00<00:43,  7.70it/s]
+341.8s 1054 Loading weights:   1%|          | 2/339 [00:00<01:28,  3.80it/s]Loading weights:   1%|          | 4/339 [00:00<00:43,  7.70it/s]Loading weights:   6%|▌         | 19/339 [00:00<00:09, 34.49it/s]Loading weights:   4%|▍         | 14/339 [00:00<00:10, 31.26it/s]Loading weights:   6%|▌         | 19/339 [00:00<00:09, 34.49it/s]
+342.1s 1055 Loading weights:   4%|▍         | 14/339 [00:00<00:10, 31.26it/s]Loading weights:   6%|▌         | 19/339 [00:00<00:09, 34.49it/s]Loading weights:   9%|▉         | 30/339 [00:00<00:06, 49.61it/s]Loading weights:  12%|█▏        | 41/339 [00:01<00:04, 61.97it/s]Loading weights:   9%|▉         | 30/339 [00:00<00:06, 49.61it/s]Loading weights:  12%|█▏        | 41/339 [00:01<00:04, 61.97it/s]
+342.3s 1056 Loading weights:   9%|▉         | 30/339 [00:00<00:06, 49.61it/s]Loading weights:  12%|█▏        | 41/339 [00:01<00:04, 61.97it/s]Loading weights:  15%|█▌        | 52/339 [00:01<00:03, 74.22it/s]Loading weights:  19%|█▊        | 63/339 [00:01<00:03, 83.85it/s]Loading weights:  15%|█▌        | 52/339 [00:01<00:03, 74.22it/s]Loading weights:  19%|█▊        | 63/339 [00:01<00:03, 83.85it/s]
+342.5s 1057 Loading weights:  15%|█▌        | 52/339 [00:01<00:03, 74.22it/s]Loading weights:  19%|█▊        | 63/339 [00:01<00:03, 83.85it/s]Loading weights:  22%|██▏       | 73/339 [00:01<00:03, 80.20it/s]Loading weights:  24%|██▍       | 82/339 [00:01<00:03, 76.87it/s]Loading weights:  22%|██▏       | 73/339 [00:01<00:03, 80.20it/s]Loading weights:  24%|██▍       | 82/339 [00:01<00:03, 76.87it/s]
+342.8s 1058 Loading weights:  22%|██▏       | 73/339 [00:01<00:03, 80.20it/s]Loading weights:  24%|██▍       | 82/339 [00:01<00:03, 76.87it/s]Loading weights:  27%|██▋       | 91/339 [00:01<00:03, 75.25it/s]Loading weights:  30%|███       | 102/339 [00:01<00:03, 76.98it/s]Loading weights:  27%|██▋       | 91/339 [00:01<00:03, 75.25it/s]Loading weights:  30%|███       | 102/339 [00:01<00:03, 76.98it/s]
+343.0s 1059 Loading weights:  27%|██▋       | 91/339 [00:01<00:03, 75.25it/s]Loading weights:  30%|███       | 102/339 [00:01<00:03, 76.98it/s]Loading weights:  33%|███▎      | 113/339 [00:01<00:02, 85.19it/s]Loading weights:  37%|███▋      | 125/339 [00:02<00:02, 87.13it/s]Loading weights:  33%|███▎      | 113/339 [00:01<00:02, 85.19it/s]Loading weights:  37%|███▋      | 125/339 [00:02<00:02, 87.13it/s]
+343.3s 1060 Loading weights:  33%|███▎      | 113/339 [00:01<00:02, 85.19it/s]Loading weights:  37%|███▋      | 125/339 [00:02<00:02, 87.13it/s]Loading weights:  40%|████      | 137/339 [00:02<00:02, 89.03it/s]Loading weights:  44%|████▍     | 149/339 [00:02<00:02, 90.72it/s]Loading weights:  40%|████      | 137/339 [00:02<00:02, 89.03it/s]Loading weights:  44%|████▍     | 149/339 [00:02<00:02, 90.72it/s]
+343.5s 1061 Loading weights:  40%|████      | 137/339 [00:02<00:02, 89.03it/s]Loading weights:  44%|████▍     | 149/339 [00:02<00:02, 90.72it/s]Loading weights:  47%|████▋     | 161/339 [00:02<00:01, 92.00it/s]Loading weights:  51%|█████     | 173/339 [00:02<00:01, 93.35it/s]Loading weights:  47%|████▋     | 161/339 [00:02<00:01, 92.00it/s]Loading weights:  51%|█████     | 173/339 [00:02<00:01, 93.35it/s]
+343.8s 1062 Loading weights:  47%|████▋     | 161/339 [00:02<00:01, 92.00it/s]Loading weights:  51%|█████     | 173/339 [00:02<00:01, 93.35it/s]Loading weights:  55%|█████▍    | 185/339 [00:02<00:01, 94.13it/s]Loading weights:  58%|█████▊    | 197/339 [00:02<00:01, 94.97it/s]Loading weights:  55%|█████▍    | 185/339 [00:02<00:01, 94.13it/s]Loading weights:  58%|█████▊    | 197/339 [00:02<00:01, 94.97it/s]
+344.0s 1063 Loading weights:  55%|█████▍    | 185/339 [00:02<00:01, 94.13it/s]Loading weights:  58%|█████▊    | 197/339 [00:02<00:01, 94.97it/s]Loading weights:  62%|██████▏   | 209/339 [00:02<00:01, 95.30it/s]Loading weights:  65%|██████▌   | 221/339 [00:03<00:01, 95.79it/s]Loading weights:  62%|██████▏   | 209/339 [00:02<00:01, 95.30it/s]Loading weights:  65%|██████▌   | 221/339 [00:03<00:01, 95.79it/s]
+344.3s 1064 Loading weights:  62%|██████▏   | 209/339 [00:02<00:01, 95.30it/s]Loading weights:  65%|██████▌   | 221/339 [00:03<00:01, 95.79it/s]Loading weights:  69%|██████▊   | 233/339 [00:03<00:01, 96.57it/s]Loading weights:  72%|███████▏  | 245/339 [00:03<00:00, 97.05it/s]Loading weights:  69%|██████▊   | 233/339 [00:03<00:01, 96.57it/s]Loading weights:  72%|███████▏  | 245/339 [00:03<00:00, 97.05it/s]
+344.5s 1065 Loading weights:  69%|██████▊   | 233/339 [00:03<00:01, 96.57it/s]Loading weights:  72%|███████▏  | 245/339 [00:03<00:00, 97.05it/s]Loading weights:  76%|███████▌  | 257/339 [00:03<00:00, 95.68it/s]Loading weights:  79%|███████▉  | 269/339 [00:03<00:00, 94.77it/s]Loading weights:  76%|███████▌  | 257/339 [00:03<00:00, 95.68it/s]Loading weights:  79%|███████▉  | 269/339 [00:03<00:00, 94.77it/s]
+344.8s 1066 Loading weights:  76%|███████▌  | 257/339 [00:03<00:00, 95.68it/s]Loading weights:  79%|███████▉  | 269/339 [00:03<00:00, 94.77it/s]Loading weights:  83%|████████▎ | 281/339 [00:03<00:00, 95.22it/s]Loading weights:  86%|████████▋ | 293/339 [00:03<00:00, 95.94it/s]Loading weights:  83%|████████▎ | 281/339 [00:03<00:00, 95.22it/s]Loading weights:  86%|████████▋ | 293/339 [00:03<00:00, 95.94it/s]
+345.0s 1067 Loading weights:  83%|████████▎ | 281/339 [00:03<00:00, 95.22it/s]Loading weights:  86%|████████▋ | 293/339 [00:03<00:00, 95.94it/s]Loading weights:  90%|████████▉ | 305/339 [00:03<00:00, 96.41it/s]Loading weights:  94%|█████████▎| 317/339 [00:04<00:00, 96.25it/s]Loading weights:  90%|████████▉ | 305/339 [00:03<00:00, 96.41it/s]Loading weights:  94%|█████████▎| 317/339 [00:04<00:00, 96.25it/s]
+345.1s 1068 Loading weights:  90%|████████▉ | 305/339 [00:03<00:00, 96.41it/s]Loading weights:  94%|█████████▎| 317/339 [00:04<00:00, 96.25it/s]Loading weights:  97%|█████████▋| 329/339 [00:04<00:00, 96.74it/s]Loading weights: 100%|██████████| 339/339 [00:04<00:00, 79.90it/s]
+345.3s 1069 Loading weights:  97%|█████████▋| 329/339 [00:04<00:00, 96.74it/s]Loading weights: 100%|██████████| 339/339 [00:04<00:00, 79.90it/s]
+345.3s 1070 
+345.3s 1071 Loading weights:  97%|█████████▋| 329/339 [00:04<00:00, 96.74it/s]Loading weights: 100%|██████████| 339/339 [00:04<00:00, 79.90it/s]
+356.2s 1072 {"completed": 1, "total": 5, "status": "invalid_decision"}
+356.4s 1073 {"completed": 1, "total": 5, "status": "invalid_decision"}
+370.2s 1074 {"completed": 2, "total": 5, "status": "invalid_decision"}
+370.4s 1075 {"completed": 2, "total": 5, "status": "invalid_decision"}
+376.1s 1076 {"completed": 3, "total": 5, "status": "invalid_decision"}
+376.3s 1077 {"completed": 3, "total": 5, "status": "invalid_decision"}
+385.3s 1078 {"completed": 4, "total": 5, "status": "invalid_decision"}
+385.5s 1079 {"completed": 4, "total": 5, "status": "invalid_decision"}
+392.0s 1080 {"completed": 5, "total": 5, "status": "invalid_decision"}
+392.3s 1081 {"completed": 5, "total": 5, "status": "invalid_decision"}
+393.9s 1082 {"replay": "passed", "records": 5, "run_fingerprint": "de81b95df2152c1c7b2af72101c50785417e06a9b2dfc80be23dc537a8f28334"}
+394.1s 1083 {
+394.1s 1084 "preflight": "passed",
+394.1s 1085 "samples": 5,
+394.1s 1086 "evidence_units": 208,
+394.1s 1087 "maximum_generation_calls": 25,
+394.1s 1088 "gpu_inference_completed": false,
+394.1s 1089 "run_fingerprint": "62a0310f000784e9f6214ad21c77387495a454a0c29d2065a365594c55c2e810",
+394.1s 1090 "manifest": {
+394.1s 1091 "input_sha256": "f08f11478a607665701051b8711e26078742006e1e04b23b2ce807aae1c127cd",
+394.1s 1092 "controller_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+394.1s 1093 "settings": {
+394.1s 1094 "dataset": "fever",
+394.1s 1095 "strategy": "factored_evidence_id",
+394.1s 1096 "version": "v9_evidence_id_factored_v2_compact_context",
+394.1s 1097 "model_name": "Qwen/Qwen2.5-7B-Instruct",
+394.1s 1098 "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+394.1s 1099 "quantization": "nf4",
+394.1s 1100 "do_sample": false,
+394.1s 1101 "seed": 42,
+394.1s 1102 "max_new_tokens": 384,
+394.1s 1103 "max_calls_per_sample": 5,
+394.1s 1104 "routing": "all_component_ablation",
+394.1s 1105 "sample_count": 5,
+394.1s 1106 "semantic_verifier": "same_Qwen_not_independent"
+394.1s 1107 },
+394.1s 1108 "code_sha256": {
+394.1s 1109 "src/__init__.py": "a54def8f254ea77cf89df6eec69911b8a06a922f098c0260296ee53a77fb66b7",
+394.1s 1110 "src/compensation/__init__.py": "e6a14ed2a66bb3844648fbd04ec796a198b10f84933b661b410da1af95d51cb9",
+394.1s 1111 "src/compensation/anchors.py": "75ff5517f5bf51112b655a0114f5e4fd8dc36e18041061fefe0a09921dced380",
+394.1s 1112 "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+394.1s 1113 "src/compensation/conservative_repair.py": "8d7db925b81ee9cb5678f1e85e883b18c1b41518f228aa12d856a34773bd040d",
+394.1s 1114 "src/compensation/controller_adapter.py": "e3722ee732ce5eff839e0316704fb23a7a41e5e5e175d225f369823fd1a450be",
+394.1s 1115 "src/compensation/evidence_id_repair.py": "6a2506e534603a34d1f721554909386869f359edfdcbf68d831ead2eed91decb",
+394.1s 1116 "src/compensation/extractive_repair.py": "016ee9918389b4132d8f2a6f2a3632cd676204dbd5d5a26ebb7d2e4757e0aabc",
+394.1s 1117 "src/compensation/line_contract.py": "32e938f413e6d4dfc0965bdfb31806773c20cef733dc58294c427fb96641a687",
+394.1s 1118 "src/compensation/nli_repair.py": "8e3a6a2fd98eecf858e922c6c7480fc3fbe8cd85f8b2aa221fa020bb8cb4e2a8",
+394.1s 1119 "src/compensation/nq_train_adapter.py": "a04edaf2277b7a82b4ec93e9e9f6de7ba581683a7804c7392f571e122a244165",
+394.1s 1120 "src/compensation/qwen_repair.py": "e4989bcc20c3c23596ed685bc706e27cc742de4c1b41bd4f9d8d490c87400b49",
+394.1s 1121 "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+394.1s 1122 "src/compensation/support_check.py": "a0210ed3ea13a33346b69219b58d2638becaad6fc85ed3b42889e994daeefbcc",
+394.1s 1123 "src/config.py": "9b2c12efa927872022fb626a1479944e660c4f3a21de25cd0beae8f17e2be9e1",
+394.1s 1124 "src/controller/__init__.py": "fc1abf7105d3f0f3e52fad083065f681efcbf3e6415f44e0532f704f86a6500b",
+394.1s 1125 "src/diagnosis/__init__.py": "1ba51863d569c1c8d432301f0db01dd6fcd6d1d938707bb090bb8130c04cff25",
+394.1s 1126 "src/diagnosis/labels.py": "c9e787268e2669e2af0cf074aaf6a8b71bc5ed960fcacb8f6a657f7217ee1fda",
+394.1s 1127 "src/diagnosis/schema.py": "f1bf526835f5c98a369ac38884415ce06e9a454639c41cb1daa2799ab26f700f",
+394.1s 1128 "src/evaluation/__init__.py": "45da70e1184a66129a5b3ca8a3e776906f31781006b4b4257fbd213b8ca54cfd",
+394.1s 1129 "src/evaluation/answer_repair.py": "896cbb5a1506fcf2bab02a9ada655279eb092939776a5cb2640a27dea9539147",
+394.1s 1130 "src/evaluation/fever.py": "f8fac10584bffbafda1d627311624cb817f5ec725d9ade60493f281301bac2fa",
+394.1s 1131 "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+394.1s 1132 "src/evaluation/recoverability.py": "2fc8451f54952cfb7ccc6bbe1d945f2f091e3863a06ce3c6415f60d5e45aa4e1",
+394.1s 1133 "src/generation/__init__.py": "59f7c1600b5430abd57b2353211fbe9d48305b29970737e649e6cd42b23311db",
+394.1s 1134 "src/generation/qwen.py": "c932c3a0df40f030813d8c7298144adc1310a0bfee15ef832868a49cce9d6d6a",
+394.1s 1135 "src/probe/__init__.py": "bd3cc044021b1d1b0524d53fa7bd2142762d0c91faeaa1202c1133796bfb368a",
+394.1s 1136 "src/retrieval/__init__.py": "e9b4f2cb268485dac3f02ef10cb50cfe27af4be2a60e936337bf7c246e9037d9",
+394.1s 1137 "src/retrieval/e5_faiss.py": "acbcda84a14a32847502b9cd64361112cbb09102431f7e14f051dc85e80a3f2d",
+394.1s 1138 "src/retrieval/fever_ivfpq.py": "9e011c5c253d9c1f87c016a1c8543e996e9945159a9dfda84102c07f42dddbc2",
+394.1s 1139 "scripts/run_answer_repair.py": "01ed8ae9bac446d51d523eca4a5ac4d2d13a98985adfd57b5ad8cca49e522df3",
+394.1s 1140 "scripts/run_answer_repair_v9.py": "348eafb2e6411ef82b09da2125ef30495c468ded2e1b614100a44370cd66dbc2",
+394.1s 1141 "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+394.1s 1142 "configs/answer_repair_v9_protocol_v1.json": "4cb7909ed3ebc85269ed9cf7cce4db44000c5fb2beccb0997ad905becf000f08"
+394.1s 1143 }
+394.1s 1144 }
+394.1s 1145 }
+394.1s 1146 {"replay": "passed", "records": 5, "run_fingerprint": "de81b95df2152c1c7b2af72101c50785417e06a9b2dfc80be23dc537a8f28334"}
+394.1s 1147 {
+394.1s 1148 "preflight": "passed",
+394.1s 1149 "samples": 5,
+394.1s 1150 "evidence_units": 208,
+394.1s 1151 "maximum_generation_calls": 25,
+394.1s 1152 "gpu_inference_completed": false,
+394.1s 1153 "run_fingerprint": "62a0310f000784e9f6214ad21c77387495a454a0c29d2065a365594c55c2e810",
+394.1s 1154 "manifest": {
+394.1s 1155 "input_sha256": "f08f11478a607665701051b8711e26078742006e1e04b23b2ce807aae1c127cd",
+394.1s 1156 "controller_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+394.1s 1157 "settings": {
+394.1s 1158 "dataset": "fever",
+394.1s 1159 "strategy": "factored_evidence_id",
+394.1s 1160 "version": "v9_evidence_id_factored_v2_compact_context",
+394.1s 1161 "model_name": "Qwen/Qwen2.5-7B-Instruct",
+394.1s 1162 "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+394.1s 1163 "quantization": "nf4",
+394.1s 1164 "do_sample": false,
+394.1s 1165 "seed": 42,
+394.1s 1166 "max_new_tokens": 384,
+394.1s 1167 "max_calls_per_sample": 5,
+394.1s 1168 "routing": "all_component_ablation",
+394.1s 1169 "sample_count": 5,
+394.1s 1170 "semantic_verifier": "same_Qwen_not_independent"
+394.1s 1171 },
+394.1s 1172 "code_sha256": {
+394.1s 1173 "src/__init__.py": "a54def8f254ea77cf89df6eec69911b8a06a922f098c0260296ee53a77fb66b7",
+394.1s 1174 "src/compensation/__init__.py": "e6a14ed2a66bb3844648fbd04ec796a198b10f84933b661b410da1af95d51cb9",
+394.1s 1175 "src/compensation/anchors.py": "75ff5517f5bf51112b655a0114f5e4fd8dc36e18041061fefe0a09921dced380",
+394.1s 1176 "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+394.1s 1177 "src/compensation/conservative_repair.py": "8d7db925b81ee9cb5678f1e85e883b18c1b41518f228aa12d856a34773bd040d",
+394.1s 1178 "src/compensation/controller_adapter.py": "e3722ee732ce5eff839e0316704fb23a7a41e5e5e175d225f369823fd1a450be",
+394.1s 1179 "src/compensation/evidence_id_repair.py": "6a2506e534603a34d1f721554909386869f359edfdcbf68d831ead2eed91decb",
+394.1s 1180 "src/compensation/extractive_repair.py": "016ee9918389b4132d8f2a6f2a3632cd676204dbd5d5a26ebb7d2e4757e0aabc",
+394.1s 1181 "src/compensation/line_contract.py": "32e938f413e6d4dfc0965bdfb31806773c20cef733dc58294c427fb96641a687",
+394.1s 1182 "src/compensation/nli_repair.py": "8e3a6a2fd98eecf858e922c6c7480fc3fbe8cd85f8b2aa221fa020bb8cb4e2a8",
+394.1s 1183 "src/compensation/nq_train_adapter.py": "a04edaf2277b7a82b4ec93e9e9f6de7ba581683a7804c7392f571e122a244165",
+394.1s 1184 "src/compensation/qwen_repair.py": "e4989bcc20c3c23596ed685bc706e27cc742de4c1b41bd4f9d8d490c87400b49",
+394.1s 1185 "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+394.1s 1186 "src/compensation/support_check.py": "a0210ed3ea13a33346b69219b58d2638becaad6fc85ed3b42889e994daeefbcc",
+394.1s 1187 "src/config.py": "9b2c12efa927872022fb626a1479944e660c4f3a21de25cd0beae8f17e2be9e1",
+394.1s 1188 "src/controller/__init__.py": "fc1abf7105d3f0f3e52fad083065f681efcbf3e6415f44e0532f704f86a6500b",
+394.1s 1189 "src/diagnosis/__init__.py": "1ba51863d569c1c8d432301f0db01dd6fcd6d1d938707bb090bb8130c04cff25",
+394.1s 1190 "src/diagnosis/labels.py": "c9e787268e2669e2af0cf074aaf6a8b71bc5ed960fcacb8f6a657f7217ee1fda",
+394.1s 1191 "src/diagnosis/schema.py": "f1bf526835f5c98a369ac38884415ce06e9a454639c41cb1daa2799ab26f700f",
+394.1s 1192 "src/evaluation/__init__.py": "45da70e1184a66129a5b3ca8a3e776906f31781006b4b4257fbd213b8ca54cfd",
+394.1s 1193 "src/evaluation/answer_repair.py": "896cbb5a1506fcf2bab02a9ada655279eb092939776a5cb2640a27dea9539147",
+394.1s 1194 "src/evaluation/fever.py": "f8fac10584bffbafda1d627311624cb817f5ec725d9ade60493f281301bac2fa",
+394.1s 1195 "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+394.1s 1196 "src/evaluation/recoverability.py": "2fc8451f54952cfb7ccc6bbe1d945f2f091e3863a06ce3c6415f60d5e45aa4e1",
+394.1s 1197 "src/generation/__init__.py": "59f7c1600b5430abd57b2353211fbe9d48305b29970737e649e6cd42b23311db",
+394.1s 1198 "src/generation/qwen.py": "c932c3a0df40f030813d8c7298144adc1310a0bfee15ef832868a49cce9d6d6a",
+394.1s 1199 "src/probe/__init__.py": "bd3cc044021b1d1b0524d53fa7bd2142762d0c91faeaa1202c1133796bfb368a",
+394.1s 1200 "src/retrieval/__init__.py": "e9b4f2cb268485dac3f02ef10cb50cfe27af4be2a60e936337bf7c246e9037d9",
+394.1s 1201 "src/retrieval/e5_faiss.py": "acbcda84a14a32847502b9cd64361112cbb09102431f7e14f051dc85e80a3f2d",
+394.1s 1202 "src/retrieval/fever_ivfpq.py": "9e011c5c253d9c1f87c016a1c8543e996e9945159a9dfda84102c07f42dddbc2",
+394.1s 1203 "scripts/run_answer_repair.py": "01ed8ae9bac446d51d523eca4a5ac4d2d13a98985adfd57b5ad8cca49e522df3",
+394.1s 1204 "scripts/run_answer_repair_v9.py": "348eafb2e6411ef82b09da2125ef30495c468ded2e1b614100a44370cd66dbc2",
+394.1s 1205 "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+394.1s 1206 "configs/answer_repair_v9_protocol_v1.json": "4cb7909ed3ebc85269ed9cf7cce4db44000c5fb2beccb0997ad905becf000f08"
+394.1s 1207 }
+394.1s 1208 }
+394.1s 1209 }
+404.6s 1210 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+404.9s 1211 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   0%|          | 1/339 [00:00<01:24,  3.99it/s]Loading weights:   0%|          | 1/339 [00:00<01:24,  3.99it/s]
+405.1s 1212 Loading weights:   0%|          | 1/339 [00:00<01:24,  3.99it/s]Loading weights:   1%|          | 2/339 [00:00<01:25,  3.96it/s]Loading weights:   1%|          | 4/339 [00:00<00:42,  7.96it/s]Loading weights:   4%|▍         | 14/339 [00:00<00:10, 32.09it/s]Loading weights:   1%|          | 2/339 [00:00<01:25,  3.96it/s]Loading weights:   1%|          | 4/339 [00:00<00:42,  7.96it/s]
+405.3s 1213 Loading weights:   1%|          | 2/339 [00:00<01:25,  3.96it/s]Loading weights:   1%|          | 4/339 [00:00<00:42,  7.96it/s]Loading weights:   6%|▌         | 19/339 [00:00<00:09, 35.19it/s]Loading weights:   4%|▍         | 14/339 [00:00<00:10, 32.09it/s]Loading weights:   6%|▌         | 19/339 [00:00<00:09, 35.19it/s]
+405.5s 1214 Loading weights:   4%|▍         | 14/339 [00:00<00:10, 32.09it/s]Loading weights:   6%|▌         | 19/339 [00:00<00:09, 35.19it/s]Loading weights:   9%|▊         | 29/339 [00:00<00:05, 52.65it/s]Loading weights:  12%|█▏        | 40/339 [00:01<00:04, 65.62it/s]Loading weights:   9%|▊         | 29/339 [00:00<00:05, 52.65it/s]Loading weights:  12%|█▏        | 40/339 [00:01<00:04, 65.62it/s]
+405.8s 1215 Loading weights:   9%|▊         | 29/339 [00:00<00:05, 52.65it/s]Loading weights:  12%|█▏        | 40/339 [00:01<00:04, 65.62it/s]Loading weights:  15%|█▌        | 52/339 [00:01<00:03, 73.37it/s]Loading weights:  19%|█▉        | 64/339 [00:01<00:03, 78.48it/s]Loading weights:  15%|█▌        | 52/339 [00:01<00:03, 73.37it/s]Loading weights:  19%|█▉        | 64/339 [00:01<00:03, 78.48it/s]
+406.1s 1216 Loading weights:  15%|█▌        | 52/339 [00:01<00:03, 73.37it/s]Loading weights:  19%|█▉        | 64/339 [00:01<00:03, 78.48it/s]Loading weights:  22%|██▏       | 76/339 [00:01<00:03, 81.31it/s]Loading weights:  26%|██▌       | 88/339 [00:01<00:02, 83.67it/s]Loading weights:  22%|██▏       | 76/339 [00:01<00:03, 81.31it/s]Loading weights:  26%|██▌       | 88/339 [00:01<00:02, 83.67it/s]
+406.4s 1217 Loading weights:  22%|██▏       | 76/339 [00:01<00:03, 81.31it/s]Loading weights:  26%|██▌       | 88/339 [00:01<00:02, 83.67it/s]Loading weights:  29%|██▉       | 100/339 [00:01<00:02, 84.79it/s]Loading weights:  33%|███▎      | 112/339 [00:01<00:02, 85.34it/s]Loading weights:  29%|██▉       | 100/339 [00:01<00:02, 84.79it/s]Loading weights:  33%|███▎      | 112/339 [00:01<00:02, 85.34it/s]
+406.6s 1218 Loading weights:  29%|██▉       | 100/339 [00:01<00:02, 84.79it/s]Loading weights:  33%|███▎      | 112/339 [00:01<00:02, 85.34it/s]Loading weights:  36%|███▋      | 123/339 [00:01<00:02, 91.30it/s]Loading weights:  39%|███▉      | 133/339 [00:02<00:02, 88.12it/s]Loading weights:  36%|███▋      | 123/339 [00:01<00:02, 91.30it/s]Loading weights:  39%|███▉      | 133/339 [00:02<00:02, 88.12it/s]
+406.8s 1219 Loading weights:  36%|███▋      | 123/339 [00:01<00:02, 91.30it/s]Loading weights:  39%|███▉      | 133/339 [00:02<00:02, 88.12it/s]Loading weights:  42%|████▏     | 142/339 [00:02<00:02, 84.60it/s]Loading weights:  45%|████▍     | 151/339 [00:02<00:02, 81.97it/s]Loading weights:  42%|████▏     | 142/339 [00:02<00:02, 84.60it/s]Loading weights:  45%|████▍     | 151/339 [00:02<00:02, 81.97it/s]
+407.1s 1220 Loading weights:  42%|████▏     | 142/339 [00:02<00:02, 84.60it/s]Loading weights:  45%|████▍     | 151/339 [00:02<00:02, 81.97it/s]Loading weights:  48%|████▊     | 162/339 [00:02<00:02, 83.37it/s]Loading weights:  51%|█████▏    | 174/339 [00:02<00:01, 86.95it/s]Loading weights:  48%|████▊     | 162/339 [00:02<00:02, 83.37it/s]Loading weights:  51%|█████▏    | 174/339 [00:02<00:01, 86.95it/s]
+407.3s 1221 Loading weights:  48%|████▊     | 162/339 [00:02<00:02, 83.37it/s]Loading weights:  51%|█████▏    | 174/339 [00:02<00:01, 86.95it/s]Loading weights:  55%|█████▍    | 186/339 [00:02<00:01, 89.30it/s]Loading weights:  58%|█████▊    | 198/339 [00:02<00:01, 91.19it/s]Loading weights:  55%|█████▍    | 186/339 [00:02<00:01, 89.30it/s]Loading weights:  58%|█████▊    | 198/339 [00:02<00:01, 91.19it/s]
+407.6s 1222 Loading weights:  55%|█████▍    | 186/339 [00:02<00:01, 89.30it/s]Loading weights:  58%|█████▊    | 198/339 [00:02<00:01, 91.19it/s]Loading weights:  62%|██████▏   | 210/339 [00:02<00:01, 92.22it/s]Loading weights:  65%|██████▌   | 222/339 [00:03<00:01, 93.36it/s]Loading weights:  62%|██████▏   | 210/339 [00:02<00:01, 92.22it/s]Loading weights:  65%|██████▌   | 222/339 [00:03<00:01, 93.36it/s]
+407.8s 1223 Loading weights:  62%|██████▏   | 210/339 [00:02<00:01, 92.22it/s]Loading weights:  65%|██████▌   | 222/339 [00:03<00:01, 93.36it/s]Loading weights:  69%|██████▉   | 234/339 [00:03<00:01, 93.95it/s]Loading weights:  73%|███████▎  | 246/339 [00:03<00:00, 93.77it/s]Loading weights:  69%|██████▉   | 234/339 [00:03<00:01, 93.95it/s]Loading weights:  73%|███████▎  | 246/339 [00:03<00:00, 93.77it/s]
+408.1s 1224 Loading weights:  69%|██████▉   | 234/339 [00:03<00:01, 93.95it/s]Loading weights:  73%|███████▎  | 246/339 [00:03<00:00, 93.77it/s]Loading weights:  76%|███████▌  | 258/339 [00:03<00:00, 91.76it/s]Loading weights:  80%|███████▉  | 270/339 [00:03<00:00, 91.55it/s]Loading weights:  76%|███████▌  | 258/339 [00:03<00:00, 91.76it/s]Loading weights:  80%|███████▉  | 270/339 [00:03<00:00, 91.55it/s]
+408.4s 1225 Loading weights:  76%|███████▌  | 258/339 [00:03<00:00, 91.76it/s]Loading weights:  80%|███████▉  | 270/339 [00:03<00:00, 91.55it/s]Loading weights:  83%|████████▎ | 282/339 [00:03<00:00, 92.61it/s]Loading weights:  87%|████████▋ | 294/339 [00:03<00:00, 93.84it/s]Loading weights:  83%|████████▎ | 282/339 [00:03<00:00, 92.61it/s]Loading weights:  87%|████████▋ | 294/339 [00:03<00:00, 93.84it/s]
+408.6s 1226 Loading weights:  83%|████████▎ | 282/339 [00:03<00:00, 92.61it/s]Loading weights:  87%|████████▋ | 294/339 [00:03<00:00, 93.84it/s]Loading weights:  90%|█████████ | 306/339 [00:03<00:00, 93.65it/s]Loading weights:  94%|█████████▍| 318/339 [00:04<00:00, 94.19it/s]Loading weights:  90%|█████████ | 306/339 [00:03<00:00, 93.65it/s]Loading weights:  94%|█████████▍| 318/339 [00:04<00:00, 94.19it/s]
+408.7s 1227 Loading weights:  90%|█████████ | 306/339 [00:03<00:00, 93.65it/s]Loading weights:  94%|█████████▍| 318/339 [00:04<00:00, 94.19it/s]Loading weights:  97%|█████████▋| 330/339 [00:04<00:00, 94.97it/s]Loading weights: 100%|██████████| 339/339 [00:04<00:00, 79.76it/s]
+408.9s 1228 Loading weights:  97%|█████████▋| 330/339 [00:04<00:00, 94.97it/s]Loading weights: 100%|██████████| 339/339 [00:04<00:00, 79.76it/s]
+408.9s 1229 
+408.9s 1230 Loading weights:  97%|█████████▋| 330/339 [00:04<00:00, 94.97it/s]Loading weights: 100%|██████████| 339/339 [00:04<00:00, 79.76it/s]
+408.9s 1231 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+409.1s 1232 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+409.1s 1233 
+409.1s 1234 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+430.2s 1235 {"completed": 1, "total": 5, "status": "invalid_decision"}
+430.4s 1236 {"completed": 1, "total": 5, "status": "invalid_decision"}
+454.6s 1237 {"completed": 2, "total": 5, "status": "invalid_decision"}
+454.8s 1238 {"completed": 2, "total": 5, "status": "invalid_decision"}
+455.7s 1239 {"completed": 3, "total": 5, "status": "invalid_plan"}
+455.9s 1240 {"completed": 3, "total": 5, "status": "invalid_plan"}
+472.8s 1241 {"completed": 4, "total": 5, "status": "invalid_decision"}
+473.0s 1242 {"completed": 4, "total": 5, "status": "invalid_decision"}
+486.4s 1243 {"completed": 5, "total": 5, "status": "invalid_decision"}
+486.6s 1244 {"completed": 5, "total": 5, "status": "invalid_decision"}
+488.3s 1245 {"replay": "passed", "records": 5, "run_fingerprint": "62a0310f000784e9f6214ad21c77387495a454a0c29d2065a365594c55c2e810"}
+488.4s 1246 {"replay": "passed", "records": 5, "run_fingerprint": "62a0310f000784e9f6214ad21c77387495a454a0c29d2065a365594c55c2e810"}
+488.4s 1247 V9 ENGINEERING SMOKE COMPLETE: 30 predictions, 6 replay checks; no effectiveness claim.
+490.8s 1248 /usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+490.8s 1249 cells[i][c] = re.sub('\\\\\|', '|', cell)
+490.9s 1250 /usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+490.9s 1251 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+491.7s 1252 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+491.8s 1253 [NbConvertApp] Writing 677995 bytes to __notebook__.ipynb
+494.3s 1254 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+494.8s 1255 [NbConvertApp] Writing 957330 bytes to __results__.html

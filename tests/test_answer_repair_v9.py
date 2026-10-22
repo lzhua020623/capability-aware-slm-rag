@@ -46,10 +46,13 @@ class EvidenceIdTests(unittest.TestCase):
         units = evidence_units(r)
         compact = context(r, units)
         decoded = json.loads(compact)
-        self.assertEqual(decoded["evidence_units"], {u.id: u.text for u in units})
-        self.assertEqual(decoded["sources"], {f"R{e.rank}": e.passage_id for e in r.evidence})
-        for e in r.evidence:
-            self.assertEqual("".join(decoded["evidence_units"][u.id] for u in units if u.rank == e.rank), e.text)
+        visible = {key: text for p in decoded["passages"] for key, text in p["evidence_units"].items()}
+        self.assertEqual(visible, {u.id: u.text for u in units})
+        self.assertEqual([p["passage_title"] for p in decoded["passages"]], [e.passage_id for e in r.evidence])
+        for e, p in zip(r.evidence, decoded["passages"]):
+            self.assertEqual("".join(p["evidence_units"].values()), e.text)
+        self.assertNotIn("sources", decoded)
+        self.assertNotIn('"R1":', compact)
         self.assertLess(len(compact), len(json.dumps([asdict(u) for u in units])))
 
     def test_program_reconstructs_quotes_and_source_answer(self):

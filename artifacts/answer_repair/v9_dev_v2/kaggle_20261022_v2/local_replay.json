@@ -1,0 +1,43 @@
+{
+  "python": "3.13.16 (main, Oct 14 2026, 00:55:38) [Clang 23.1.3 ]",
+  "packaged_file_checksums": "all_passed",
+  "cost_budgets": "finite_and_within_declared_per_sample_limits",
+  "results": [
+    {
+      "file": "fever_smoke5_evidence_id.jsonl",
+      "records": 5,
+      "replay": "passed",
+      "stdout": "{\"replay\": \"passed\", \"records\": 5, \"run_fingerprint\": \"de81b95df2152c1c7b2af72101c50785417e06a9b2dfc80be23dc537a8f28334\"}"
+    },
+    {
+      "file": "fever_smoke5_factored_evidence_id.jsonl",
+      "records": 5,
+      "replay": "passed",
+      "stdout": "{\"replay\": \"passed\", \"records\": 5, \"run_fingerprint\": \"62a0310f000784e9f6214ad21c77387495a454a0c29d2065a365594c55c2e810\"}"
+    },
+    {
+      "file": "fever_smoke5_qwen_direct.jsonl",
+      "records": 5,
+      "replay": "passed",
+      "stdout": "{\"replay\": \"passed\", \"records\": 5, \"run_fingerprint\": \"6266f6fe6a47a25126a5120697967d807686f19082600ebea244ce9bb731a793\"}"
+    },
+    {
+      "file": "nq_smoke5_evidence_id.jsonl",
+      "records": 5,
+      "replay": "passed",
+      "stdout": "{\"replay\": \"passed\", \"records\": 5, \"run_fingerprint\": \"5fe8b37fb673b7baf29524744ebe767aab08fd2473ee1433214b3beaaac7a37b\"}"
+    },
+    {
+      "file": "nq_smoke5_factored_evidence_id.jsonl",
+      "records": 5,
+      "replay": "passed",
+      "stdout": "{\"replay\": \"passed\", \"records\": 5, \"run_fingerprint\": \"ce268a96d111b4fdf9a1ce8aceeb7645dcda987f57ad68d46fbaaf533e8c46d2\"}"
+    },
+    {
+      "file": "nq_smoke5_qwen_direct.jsonl",
+      "records": 5,
+      "replay": "passed",
+      "stdout": "{\"replay\": \"passed\", \"records\": 5, \"run_fingerprint\": \"3f5433f65bc450828822665f2aa3f82e993228a66d0370fc3a5d66254584e88a\"}"
+    }
+  ]
+}
