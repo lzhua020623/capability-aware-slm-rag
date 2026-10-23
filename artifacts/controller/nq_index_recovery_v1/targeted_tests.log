@@ -1,0 +1,21 @@
+test_duplicate_ids_do_not_publish_partial_outputs (tests.test_nq_index_sidecar_recovery.RecoveryTests.test_duplicate_ids_do_not_publish_partial_outputs) ... ok
+test_existing_sidecar_is_preserved (tests.test_nq_index_sidecar_recovery.RecoveryTests.test_existing_sidecar_is_preserved) ... ok
+test_failed_encoding_child_does_not_publish_structural_only_outputs (tests.test_nq_index_sidecar_recovery.RecoveryTests.test_failed_encoding_child_does_not_publish_structural_only_outputs) ... ok
+test_input_mutation_during_verification_is_rejected (tests.test_nq_index_sidecar_recovery.RecoveryTests.test_input_mutation_during_verification_is_rejected) ... ok
+test_invalid_encoder_output_is_rejected (tests.test_nq_index_sidecar_recovery.RecoveryTests.test_invalid_encoder_output_is_rejected) ... ok
+test_missing_index_and_corrupt_index_do_not_publish_sidecars (tests.test_nq_index_sidecar_recovery.RecoveryTests.test_missing_index_and_corrupt_index_do_not_publish_sidecars) ... ok
+test_missing_text_invalid_json_and_nonobject_are_rejected (tests.test_nq_index_sidecar_recovery.RecoveryTests.test_missing_text_invalid_json_and_nonobject_are_rejected) ... ok
+test_nonfinite_and_unnormalized_index_vectors_are_rejected (tests.test_nq_index_sidecar_recovery.RecoveryTests.test_nonfinite_and_unnormalized_index_vectors_are_rejected) ... ok
+test_publication_race_rolls_back_our_file_and_preserves_other_writer (tests.test_nq_index_sidecar_recovery.RecoveryTests.test_publication_race_rolls_back_our_file_and_preserves_other_writer) ... ok
+test_read_only_mmap_recovers_without_changing_original_index (tests.test_nq_index_sidecar_recovery.RecoveryTests.test_read_only_mmap_recovers_without_changing_original_index) ... ok
+test_real_index_recovery_preserves_order_unicode_and_text_mode_seeking (tests.test_nq_index_sidecar_recovery.RecoveryTests.test_real_index_recovery_preserves_order_unicode_and_text_mode_seeking) ... ok
+test_same_count_permuted_index_is_rejected_by_independent_embedding_check (tests.test_nq_index_sidecar_recovery.RecoveryTests.test_same_count_permuted_index_is_rejected_by_independent_embedding_check) ... ok
+test_structural_only_recovery_does_not_claim_embedding_alignment (tests.test_nq_index_sidecar_recovery.RecoveryTests.test_structural_only_recovery_does_not_claim_embedding_alignment) ... ok
+test_too_few_or_too_many_corpus_rows_are_rejected (tests.test_nq_index_sidecar_recovery.RecoveryTests.test_too_few_or_too_many_corpus_rows_are_rejected) ... ok
+test_wrong_index_dimension_count_or_metric_is_rejected (tests.test_nq_index_sidecar_recovery.RecoveryTests.test_wrong_index_dimension_count_or_metric_is_rejected) ... ok
+test_deterministic_bounded_sampling_covers_boundaries (tests.test_nq_index_sidecar_recovery.SamplingTests.test_deterministic_bounded_sampling_covers_boundaries) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.392s
+
+OK

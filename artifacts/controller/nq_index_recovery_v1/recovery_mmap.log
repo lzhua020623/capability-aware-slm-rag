@@ -1,0 +1,108 @@
+{"stage": "loading_index", "mode": "mmap"}
+{"stage": "scanning_corpus", "expected_count": 1224119}
+{"stage": "scanning_corpus", "passages": 200000}
+{"stage": "scanning_corpus", "passages": 400000}
+{"stage": "scanning_corpus", "passages": 600000}
+{"stage": "scanning_corpus", "passages": 800000}
+{"stage": "scanning_corpus", "passages": 1000000}
+{"stage": "scanning_corpus", "passages": 1200000}
+{"stage": "checking_vector_norms", "count": 1224119}
+{"stage": "checking_sample_embeddings", "samples": 64, "execution": "isolated CPU child"}
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 3638.22it/s]
+{"stage": "hashing_original_index"}
+{
+  "created": [
+    "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/data/processed/indexes/nq_train_bge_base_ids.jsonl",
+    "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/data/processed/indexes/nq_train_bge_base_offsets.npy",
+    "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/data/processed/indexes/nq_train_bge_metadata.json"
+  ],
+  "passages": 1224119,
+  "embedding_alignment": {
+    "performed": true,
+    "sample_count": 64,
+    "positions": [
+      0,
+      13628,
+      52451,
+      55649,
+      62489,
+      66653,
+      91122,
+      96100,
+      145867,
+      165255,
+      167335,
+      182323,
+      194502,
+      196493,
+      202828,
+      211815,
+      214350,
+      214947,
+      233478,
+      261779,
+      292632,
+      326064,
+      334829,
+      341110,
+      403258,
+      416992,
+      451545,
+      458517,
+      462297,
+      468106,
+      477937,
+      487925,
+      488197,
+      513575,
+      554740,
+      576778,
+      582738,
+      582952,
+      583408,
+      606890,
+      614839,
+      705889,
+      713557,
+      721327,
+      752834,
+      758403,
+      765108,
+      793844,
+      796765,
+      797182,
+      879796,
+      884834,
+      886286,
+      942059,
+      950870,
+      963483,
+      1059806,
+      1124551,
+      1142825,
+      1143716,
+      1157713,
+      1177016,
+      1210795,
+      1224118
+    ],
+    "scope": "Sampled positions only; not every passage embedding",
+    "model": {
+      "model_name": "BAAI/bge-base-en-v1.5",
+      "revision": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+      "device": "cpu",
+      "passage_prefix": "",
+      "max_seq_length": 512,
+      "historical_revision_claim": false,
+      "execution": "isolated CPU process; no large FAISS index loaded"
+    },
+    "minimum_cosine_similarity": 0.9999998807907104,
+    "maximum_absolute_component_difference": 3.390014171600342e-07,
+    "thresholds": {
+      "minimum_cosine": 0.9999,
+      "maximum_component_difference": 0.001
+    },
+    "passed": true
+  },
+  "full_T2_ready": false
+}

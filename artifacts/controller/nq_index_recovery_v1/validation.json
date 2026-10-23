@@ -1,0 +1,181 @@
+{
+  "task": "Recover NQ Train ID/offset sidecars and verify the original index without full re-encoding",
+  "date_local": "2026-10-24",
+  "timezone": "Australia/Sydney",
+  "base_commit": "fca9dbc",
+  "status": "recovered_and_sampled_embedding_alignment_passed",
+  "full_T2_ready": false,
+  "command": "/tmp/e-xgrammar-20261022/bin/python -X faulthandler scripts/recover_nq_train_index_sidecars.py --verify-embeddings --sample-count 64 --index-read-mode mmap",
+  "exit_code": 0,
+  "tests": {
+    "command": "/tmp/e-xgrammar-20261022/bin/python -m unittest discover -s tests -v",
+    "passed": 681,
+    "seconds": 35.93,
+    "new_recovery_tests": 16
+  },
+  "data_freeze_source_check": {
+    "passed": true,
+    "source_hashes_checked": 552
+  },
+  "python": "3.12.14",
+  "packages": {
+    "numpy": "2.5.4",
+    "faiss-cpu": "1.15.1",
+    "sentence-transformers": "6.2.0",
+    "torch": "2.14.1",
+    "transformers": "5.16.1",
+    "huggingface-hub": "1.33.0"
+  },
+  "scope": "CPU resource recovery and regression only; no Qwen QA inference, no gold-based tuning, no full official NQ expansion",
+  "corpus_passages": 1224119,
+  "sampled_embedding_check": {
+    "performed": true,
+    "sample_count": 64,
+    "positions": [
+      0,
+      13628,
+      52451,
+      55649,
+      62489,
+      66653,
+      91122,
+      96100,
+      145867,
+      165255,
+      167335,
+      182323,
+      194502,
+      196493,
+      202828,
+      211815,
+      214350,
+      214947,
+      233478,
+      261779,
+      292632,
+      326064,
+      334829,
+      341110,
+      403258,
+      416992,
+      451545,
+      458517,
+      462297,
+      468106,
+      477937,
+      487925,
+      488197,
+      513575,
+      554740,
+      576778,
+      582738,
+      582952,
+      583408,
+      606890,
+      614839,
+      705889,
+      713557,
+      721327,
+      752834,
+      758403,
+      765108,
+      793844,
+      796765,
+      797182,
+      879796,
+      884834,
+      886286,
+      942059,
+      950870,
+      963483,
+      1059806,
+      1124551,
+      1142825,
+      1143716,
+      1157713,
+      1177016,
+      1210795,
+      1224118
+    ],
+    "scope": "Sampled positions only; not every passage embedding",
+    "model": {
+      "model_name": "BAAI/bge-base-en-v1.5",
+      "revision": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+      "device": "cpu",
+      "passage_prefix": "",
+      "max_seq_length": 512,
+      "historical_revision_claim": false,
+      "execution": "isolated CPU process; no large FAISS index loaded"
+    },
+    "minimum_cosine_similarity": 0.9999998807907104,
+    "maximum_absolute_component_difference": 3.390014171600342e-07,
+    "thresholds": {
+      "minimum_cosine": 0.9999,
+      "maximum_component_difference": 0.001
+    },
+    "passed": true
+  },
+  "index_access": {
+    "mode": "mmap",
+    "faiss_io_flags": 514,
+    "faiss_version": "1.15.1"
+  },
+  "attempts": [
+    {
+      "log": "recovery.log",
+      "exit_code": 139,
+      "result": "Native libomp segmentation fault confirmed by macOS report"
+    },
+    {
+      "log": "structural_diagnostic.log",
+      "exit_code": 0,
+      "result": "Structural recovery completed without embedding comparison"
+    },
+    {
+      "log": "recovery_isolated.log",
+      "exit_code": null,
+      "result": "Session disappeared after app interruption; completion/cause unknown"
+    },
+    {
+      "log": "recovery_mmap.log",
+      "exit_code": 0,
+      "result": "Read-only mmap and isolated single-thread CPU encoding completed"
+    }
+  ],
+  "task_owned_duplicate_staging_removed_after_hash_match": [
+    ".recover_nq_imlnhcum",
+    ".recover_nq_kitiec8d"
+  ],
+  "portable_archive": {
+    "path": "artifacts/controller/nq_index_recovery_v1/nq_train_sidecars.tar.gz",
+    "bytes": 6555104,
+    "members": [
+      "nq_train_bge_base_ids.jsonl",
+      "nq_train_bge_base_offsets.npy",
+      "nq_train_bge_metadata.json"
+    ],
+    "contents_sha256_verified": true
+  },
+  "sha256": {
+    "scripts/recover_nq_train_index_sidecars.py": "fe8bd3c1200111b51956e6bb7f857e15639369071121acfaff6c9fd435839a08",
+    "tests/test_nq_index_sidecar_recovery.py": "0659becd054c431261a68c0a3e1392af59a04b70976937a5232c3e87bd48fd7f",
+    "artifacts/controller/nq_index_recovery_v1/recovered_metadata.json": "c6ed43b627833dd6592a964e5e03eebfd1fad3ba627f2c66a568ad94e7914fbd",
+    "artifacts/controller/nq_index_recovery_v1/crash_diagnosis.json": "d9e99de6b0b2e789ae1ddf7225045f938632ef1ec2dec8aa0a140c76328cdfe0",
+    "artifacts/controller/nq_index_recovery_v1/resource_discovery.json": "f5cc5269f27105b62c8b78d1f3efbce49bb999dc32a0c27dcdd15bbab6b34078",
+    "artifacts/controller/nq_index_recovery_v1/data_freeze_validation.json": "63a509d008e0523579e5678ecfd794ec1e647ea37a0204995ef7fcfe401154cd",
+    "artifacts/controller/nq_index_recovery_v1/structural_diagnostic_metadata.json": "02e2eb7a7123c22b963b4412241ece5c158288b4dee09a1f1c8f26f5c0f86362",
+    "artifacts/controller/nq_index_recovery_v1/recovery.log": "a80c71602ae42d37d947da2534a2b5d6489cc21e397142dbc84bc5546aaa8aad",
+    "artifacts/controller/nq_index_recovery_v1/recovery_isolated.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/controller/nq_index_recovery_v1/recovery_mmap.log": "98543b77bc3fe7564fd7b76d56cdbac7a6e30c9d36947c0a9f3bfbeb03488e69",
+    "artifacts/controller/nq_index_recovery_v1/structural_diagnostic.log": "849b5d87f98418baea0b393bf3e2b6de16e86991638e31af1019db9f85956bb9",
+    "artifacts/controller/nq_index_recovery_v1/targeted_tests.log": "259de030936035976ad9a94edf629ed79552a12b3b6e3c927b99fd89b409b960",
+    "artifacts/controller/nq_index_recovery_v1/tests_before_runtime_fix.log": "c20cd59407905768fb4471fae6aae952d27e2279c021fae47a23723fc0d1a96d",
+    "artifacts/controller/nq_index_recovery_v1/tests.log": "cfd482d94b919f616f04c0debbba1fc488ab383ad70b313ad8af4af45b665894",
+    "artifacts/controller/nq_index_recovery_v1/nq_train_sidecars.tar.gz": "af65672bf2e1488c3ca95e33ec1ed5c4aedc822de73c8c39f3ef2afcb5fbaa84"
+  },
+  "remaining_requirements": [
+    "FEVER archive contents and resources must still be validated",
+    "NQ Train Controller provider needs its ID/offset/corpus adapter",
+    "Generate and seal new FEVER C1; formal GPU execution and quality evaluation remain pending"
+  ]
+}

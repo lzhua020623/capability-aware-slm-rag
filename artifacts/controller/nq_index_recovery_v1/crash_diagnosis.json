@@ -1,0 +1,79 @@
+{
+  "date_local": "2026-10-24",
+  "timezone": "Australia/Sydney",
+  "original_crash_report": {
+    "filename": "python3.12-2026-10-24-010512.ips",
+    "sha256": "4b0c866e997a47a13587dcd5fdecf1bb2eae3a271f6c63df60ad4b683ddca54e"
+  },
+  "process": "python3.12",
+  "pid": 34209,
+  "timestamp": "2026-10-24 01:05:12.00 +1100",
+  "exception": {
+    "codes": "0x0000000000000001, 0x0000000000000008",
+    "rawCodes": [
+      1,
+      8
+    ],
+    "type": "EXC_BAD_ACCESS",
+    "signal": "SIGSEGV",
+    "subtype": "KERN_INVALID_ADDRESS at 0x0000000000000008"
+  },
+  "termination": {
+    "flags": 0,
+    "code": 11,
+    "namespace": "SIGNAL",
+    "indicator": "Segmentation fault: 11",
+    "byProc": "exc handler",
+    "byPid": 34209
+  },
+  "faulting_frames": [
+    {
+      "symbol": "void __kmp_suspend_64<false, true>(int, kmp_flag_64<false, true>*)",
+      "image": "libomp.dylib"
+    },
+    {
+      "symbol": "kmp_flag_64<false, true>::wait(kmp_info*, int, void*)",
+      "image": "libomp.dylib"
+    },
+    {
+      "symbol": "__kmp_hyper_barrier_release(barrier_type, kmp_info*, int, int, int, void*)",
+      "image": "libomp.dylib"
+    },
+    {
+      "symbol": "__kmp_fork_barrier(int, int)",
+      "image": "libomp.dylib"
+    },
+    {
+      "symbol": "__kmp_launch_thread",
+      "image": "libomp.dylib"
+    },
+    {
+      "symbol": "__kmp_launch_worker(void*)",
+      "image": "libomp.dylib"
+    },
+    {
+      "symbol": "_pthread_start",
+      "image": "libsystem_pthread.dylib"
+    },
+    {
+      "symbol": "thread_start",
+      "image": "libsystem_pthread.dylib"
+    }
+  ],
+  "loaded_libomp_image_count": 3,
+  "conclusion": "Confirmed native OpenMP runtime segmentation fault; exact conflicting package pair not proven. No OOM termination is recorded in this crash report.",
+  "newer_app_restart": "Prior execution session IDs were unavailable after interruption; the cause of the later application restart is not established by this Python crash report.",
+  "hardware": {
+    "ram_bytes": 25769803776,
+    "memory_pressure_query_free_percent": 33,
+    "swap_used_mb_observed": 16540.12,
+    "scope": "Point-in-time observations, not evidence that memory exhaustion caused the crash"
+  },
+  "mitigation": [
+    "Read original FlatIP vectors through read-only mmap instead of a large heap allocation",
+    "Run BGE verification in an isolated CPU subprocess",
+    "Limit verification child OMP/OpenBLAS/Accelerate/Torch threads to one",
+    "Preserve source files and failure logs; publish only after validation"
+  ],
+  "gpu_required_for_sidecar_generation": false
+}

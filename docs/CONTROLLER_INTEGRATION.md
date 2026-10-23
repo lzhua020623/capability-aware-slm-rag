@@ -2,11 +2,13 @@
 
 当前有效开发分支为 `controller`。本次汇合当日 10 个远端分支，并实现从冻结 C1 输出到最终答案的统一执行与离线评测入口。此版本用于建立系统基线，未晋升任何 E 策略为已证明有效的默认方案；尚未完成真实 GPU 端到端质量实验，未开始 Qwen 训练或 RSI。
 
-后续实验设计已在 [T1 统一实验协议 v1](CONTROLLER_EXPERIMENT_PROTOCOL_V1.md) 冻结：六个主比较组、两个解释性对照、每组预算、配对评分和一次集中优化限制。T2 仍需冻结样本/资源，T3 仍需补齐 Full、FEVER 检索及对照/验收；本页的“已有”描述仅对应参考实现，不表示所有协议组均可执行。
+后续实验设计已在 [T1 统一实验协议 v1](CONTROLLER_EXPERIMENT_PROTOCOL_V1.md) 冻结：六个主比较组、两个解释性对照、每组预算、配对评分和一次集中优化限制。T2 样本已冻结、资源验收仍待补齐，T3 仍需补齐 Full、FEVER 检索及对照/验收；本页的“已有”描述仅对应参考实现，不表示所有协议组均可执行。
 
 T1 的完整 CPU 回归为 648 项通过（新增 13 项协议测试），68 个参考文件无漂移，验证归档见 [protocol_v1](../artifacts/controller/protocol_v1/README.md)。下面第 4 节的 635 项是先前集成提交的历史验收数量。
 
-T2 已冻结 [两数据集的样本和完整评测保留池](CONTROLLER_DATA_V1.md)：NQ 7,564、FEVER 1,886 条禁止用于训练/调参；各抽 500 条为本轮最终子集，开发/选型各 200 条。NQ 配对输入已导出，FEVER 仅生成 query-only C1 任务；匹配索引、BGE revision、新 FEVER C1 仍待补齐，因此未宣称 T2 全部就绪。最新 CPU 回归 665 项通过。当前 NQ Train 的 ID/offset/corpus 资源格式也需在 T3 接入。
+T2 已冻结 [两数据集的样本和完整评测保留池](CONTROLLER_DATA_V1.md)：NQ 7,564、FEVER 1,886 条禁止用于训练/调参；各抽 500 条为本轮最终子集，开发/选型各 200 条。NQ 配对输入已导出，FEVER 仅生成 query-only C1 任务；该冻结提交时匹配索引、BGE revision、新 FEVER C1 待补齐，CPU 回归 665 项通过，未宣称 T2 全部就绪。NQ Train 的 ID/offset/corpus 资源格式也需在 T3 接入。
+
+2026-10-24 已[取回 NQ Train 原语料/索引并恢复配套文件](NQ_TRAIN_INDEX_RECOVERY.md)，64 段独立 BGE 向量比对通过，最新 CPU 回归 681 项通过。所核验快照与历史 C1 revision 的区别保留在恢复记录中；FEVER 和 Controller provider 接入仍按原 T2/T3 待办推进，原冻结样本、保留池及算法提示不改。
 
 ## 1. 来源与合并
 

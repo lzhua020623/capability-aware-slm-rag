@@ -27,6 +27,7 @@ Smoke 使用虚构样本和假模型输出，只验证执行链路。真实推�
 | 当前集成、运行、评测与下一步 | [Controller 集成交接](docs/CONTROLLER_INTEGRATION.md) |
 | T1 冻结比较组、预算、评分和停止条件 | [统一实验协议 v1](docs/CONTROLLER_EXPERIMENT_PROTOCOL_V1.md)（设计已冻结；T2/T3 执行门槛待补） |
 | T2 样本、完整评测保留池与资源缺口 | [数据冻结 v1](docs/CONTROLLER_DATA_V1.md)：NQ 保留 7,564，FEVER 保留 1,886；新 FEVER C1/匹配索引仍待补齐 |
+| NQ 原索引配套文件及崩溃核对 | [资源恢复](docs/NQ_TRAIN_INDEX_RECOVERY.md)：ID/offsets 已恢复，64 处向量比对通过；附恢复包与 681 项 CPU 回归记录 |
 | 合并前的全分支与数据审计 | [2026-10-23 审计](docs/PROJECT_AUDIT_AND_RSI_PLAN_20261023.md) |
 | Diagnosis / Probe / 原路由 | [冻结交接](docs/DIAGNOSIS_PROBE_CONTROLLER_HANDOFF.md) |
 | 重排 / 检索增强 | [重排说明](docs/EVIDENCE_REFINEMENT_RERANK.md) / [P3-20](src/compensation/retrieval_enhancement/README.md) |

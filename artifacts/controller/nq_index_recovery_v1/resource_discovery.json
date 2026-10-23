@@ -1,0 +1,23 @@
+{
+  "date_local": "2026-10-24",
+  "timezone": "Australia/Sydney",
+  "drive_folder_url": "https://drive.google.com/drive/u/0/folders/1ZF9i_M-PJSzJSOW34rKPcAB1Ft-0QCQA",
+  "discovery": "Native Chrome Drive folder listing; connector returned ACCESS_TOKEN_SCOPE_INSUFFICIENT",
+  "download_method": "Drive browser download, followed by moving completed task downloads into ignored project data paths",
+  "official_dataset_redownload_performed": false,
+  "full_index_reencoding_performed": false,
+  "question_subset_expanded": false,
+  "source_question_subset_size": 74097,
+  "corpus": {
+    "path": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/data/processed/retrieval/nq_train_corpus.jsonl",
+    "bytes": 782900757,
+    "sha256": "c4ec2cc61aa091bd4cd6492b7cbdc53c8265395d9ac1b9b6307ac748daf6940d"
+  },
+  "index": {
+    "path": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/data/processed/indexes/nq_train_bge_base.index",
+    "bytes": 3760493613,
+    "sha256": "cd94b5cd2d5fec4736ba16197e2431a87d347640cd1c79da6a6daa2cac9bfd5d"
+  },
+  "historical_index_c1_complete_replay_verified": false,
+  "fever_status": "Shared fever_corpus.zip and for_fever_c1.zip observed; archive contents have not been validated or installed"
+}
