@@ -1,0 +1,9 @@
+{
+  "diagnosis_ref": "7c7863f98f87e892119481a79e23ca6dcebdced0",
+  "diagnosis_nq_input_ids": 3216,
+  "diagnosis_frozen_partition_ids": 2698,
+  "normalized_questions_checked": 3216,
+  "sample_id_overlap": {},
+  "exact_lowercase_whitespace_question_overlap": {},
+  "scope": "All 3216 published NQ Diagnosis inputs, including those outside the frozen split. No future/team-unpublished training claims; no question text disclosed."
+}

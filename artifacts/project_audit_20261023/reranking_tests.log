@@ -1,0 +1,85 @@
+test_guard_rejects_forbidden_names (tests.test_compensation_schema.ForbiddenFieldTest.test_guard_rejects_forbidden_names) ... ok
+test_no_offline_only_fields_in_runtime_objects (tests.test_compensation_schema.ForbiddenFieldTest.test_no_offline_only_fields_in_runtime_objects) ... ok
+test_result_dict_shape (tests.test_compensation_schema.ForbiddenFieldTest.test_result_dict_shape) ... ok
+test_config_is_frozen_and_serialisable (tests.test_compensation_schema.RefinementConfigTest.test_config_is_frozen_and_serialisable) ... ok
+test_defaults_are_conservative (tests.test_compensation_schema.RefinementConfigTest.test_defaults_are_conservative) ... ok
+test_flags_and_model_name (tests.test_compensation_schema.RefinementConfigTest.test_flags_and_model_name) ... ok
+test_keep_k_bounds (tests.test_compensation_schema.RefinementConfigTest.test_keep_k_bounds) ... ok
+test_keep_k_type (tests.test_compensation_schema.RefinementConfigTest.test_keep_k_type) ... ok
+test_min_score_must_be_finite_or_none (tests.test_compensation_schema.RefinementConfigTest.test_min_score_must_be_finite_or_none) ... ok
+test_probe_hint_weight_validated (tests.test_compensation_schema.RefinementConfigTest.test_probe_hint_weight_validated) ... ok
+test_candidate_pool_must_cover_kept_evidence (tests.test_compensation_schema.RefinementResultTest.test_candidate_pool_must_cover_kept_evidence) ... ok
+test_derived_fields (tests.test_compensation_schema.RefinementResultTest.test_derived_fields) ... ok
+test_rerank_scores_may_be_empty_but_otherwise_must_align (tests.test_compensation_schema.RefinementResultTest.test_rerank_scores_may_be_empty_but_otherwise_must_align) ... ok
+test_result_is_frozen (tests.test_compensation_schema.RefinementResultTest.test_result_is_frozen) ... ok
+test_sample_id_is_logging_only (tests.test_compensation_schema.RefinementResultTest.test_sample_id_is_logging_only) ... ok
+test_status_invariants (tests.test_compensation_schema.RefinementResultTest.test_status_invariants) ... ok
+test_type_checks (tests.test_compensation_schema.RefinementResultTest.test_type_checks) ... ok
+test_unchanged_evidence_and_answer (tests.test_compensation_schema.RefinementResultTest.test_unchanged_evidence_and_answer) ... ok
+test_valid_statuses (tests.test_compensation_schema.RefinementResultTest.test_valid_statuses) ... ok
+test_provider_duplicates_are_dropped (tests.test_compensation_rerank.CandidatePoolTest.test_provider_duplicates_are_dropped) ... ok
+test_provider_extends_the_pool_after_the_originals (tests.test_compensation_rerank.CandidatePoolTest.test_provider_extends_the_pool_after_the_originals) ... ok
+test_provider_must_yield_evidence_items (tests.test_compensation_rerank.CandidatePoolTest.test_provider_must_yield_evidence_items) ... ok
+test_without_provider_the_pool_is_the_shown_evidence (tests.test_compensation_rerank.CandidatePoolTest.test_without_provider_the_pool_is_the_shown_evidence) ... ok
+test_builds_query_passage_pairs_and_returns_floats (tests.test_compensation_rerank.CrossEncoderScorerTest.test_builds_query_passage_pairs_and_returns_floats) ... ok
+test_no_texts_means_no_model_call (tests.test_compensation_rerank.CrossEncoderScorerTest.test_no_texts_means_no_model_call) ... ok
+test_query_must_be_a_string (tests.test_compensation_rerank.CrossEncoderScorerTest.test_query_must_be_a_string) ... ok
+test_satisfies_the_scorer_protocol (tests.test_compensation_rerank.CrossEncoderScorerTest.test_satisfies_the_scorer_protocol) ... ok
+test_empty_pool_is_rejected (tests.test_compensation_rerank.RerankEvidenceTest.test_empty_pool_is_rejected) ... ok
+test_hints_only_match_the_ranks_the_probe_saw (tests.test_compensation_rerank.RerankEvidenceTest.test_hints_only_match_the_ranks_the_probe_saw) ... ok
+test_hints_that_match_nothing_are_not_reported_as_used (tests.test_compensation_rerank.RerankEvidenceTest.test_hints_that_match_nothing_are_not_reported_as_used) ... ok
+test_keep_k_prunes_and_reports_dropped_in_pool_order (tests.test_compensation_rerank.RerankEvidenceTest.test_keep_k_prunes_and_reports_dropped_in_pool_order) ... ok
+test_min_score_floor_always_keeps_the_best_passage (tests.test_compensation_rerank.RerankEvidenceTest.test_min_score_floor_always_keeps_the_best_passage) ... ok
+test_min_score_floor_drops_weak_passages (tests.test_compensation_rerank.RerankEvidenceTest.test_min_score_floor_drops_weak_passages) ... ok
+test_negative_hint_weight_inverts_the_adjustment (tests.test_compensation_rerank.RerankEvidenceTest.test_negative_hint_weight_inverts_the_adjustment) ... ok
+test_original_retrieval_score_is_preserved (tests.test_compensation_rerank.RerankEvidenceTest.test_original_retrieval_score_is_preserved) ... ok
+test_positive_hint_weight_promotes_the_contradicting_passage (tests.test_compensation_rerank.RerankEvidenceTest.test_positive_hint_weight_promotes_the_contradicting_passage) ... ok
+test_probe_hints_are_ignored_at_the_default_weight (tests.test_compensation_rerank.RerankEvidenceTest.test_probe_hints_are_ignored_at_the_default_weight) ... ok
+test_reorders_by_score_and_renumbers_ranks (tests.test_compensation_rerank.RerankEvidenceTest.test_reorders_by_score_and_renumbers_ranks) ... ok
+test_reranking_is_deterministic (tests.test_compensation_rerank.RerankEvidenceTest.test_reranking_is_deterministic) ... ok
+test_scorer_contract_is_enforced (tests.test_compensation_rerank.RerankEvidenceTest.test_scorer_contract_is_enforced) ... ok
+test_ties_break_on_the_original_rank (tests.test_compensation_rerank.RerankEvidenceTest.test_ties_break_on_the_original_rank) ... ok
+test_fever_rejection_uses_the_label_parser (tests.test_evidence_refinement.GroundingTest.test_fever_rejection_uses_the_label_parser) ... ok
+test_grounding_ignores_case_punctuation_and_articles (tests.test_evidence_refinement.GroundingTest.test_grounding_ignores_case_punctuation_and_articles) ... ok
+test_grounding_requires_a_contiguous_token_run (tests.test_evidence_refinement.GroundingTest.test_grounding_requires_a_contiguous_token_run) ... ok
+test_refusals (tests.test_evidence_refinement.GroundingTest.test_refusals) ... ok
+test_rejection_reasons (tests.test_evidence_refinement.GroundingTest.test_rejection_reasons) ... ok
+test_calling_the_refiner_returns_the_final_answer (tests.test_evidence_refinement.IntegrationContractTest.test_calling_the_refiner_returns_the_final_answer) ... ok
+test_default_prompt_builder_is_the_frozen_reference_rag_prompt (tests.test_evidence_refinement.IntegrationContractTest.test_default_prompt_builder_is_the_frozen_reference_rag_prompt) ... ERROR
+test_run_returns_a_refinement_result (tests.test_evidence_refinement.IntegrationContractTest.test_run_returns_a_refinement_result) ... ok
+test_wrapper_validates_the_refiner (tests.test_evidence_refinement.IntegrationContractTest.test_wrapper_validates_the_refiner) ... ok
+test_answer_is_stripped (tests.test_evidence_refinement.RefinementOutcomeTest.test_answer_is_stripped) ... ok
+test_answer_must_be_grounded_in_the_kept_passages_only (tests.test_evidence_refinement.RefinementOutcomeTest.test_answer_must_be_grounded_in_the_kept_passages_only) ... ok
+test_candidate_provider_widens_the_pool (tests.test_evidence_refinement.RefinementOutcomeTest.test_candidate_provider_widens_the_pool) ... ok
+test_empty_evidence_is_a_no_change (tests.test_evidence_refinement.RefinementOutcomeTest.test_empty_evidence_is_a_no_change) ... ok
+test_fever_label_answer_is_accepted_without_grounding (tests.test_evidence_refinement.RefinementOutcomeTest.test_fever_label_answer_is_accepted_without_grounding) ... ok
+test_generator_must_return_text (tests.test_evidence_refinement.RefinementOutcomeTest.test_generator_must_return_text) ... ok
+test_grounded_answer_replaces_the_original (tests.test_evidence_refinement.RefinementOutcomeTest.test_grounded_answer_replaces_the_original) ... ok
+test_probe_hints_are_passed_through_to_reranking (tests.test_evidence_refinement.RefinementOutcomeTest.test_probe_hints_are_passed_through_to_reranking) ... ok
+test_prompt_sees_only_the_kept_evidence_in_the_new_order (tests.test_evidence_refinement.RefinementOutcomeTest.test_prompt_sees_only_the_kept_evidence_in_the_new_order) ... ok
+test_pruning_reports_the_dropped_passages (tests.test_evidence_refinement.RefinementOutcomeTest.test_pruning_reports_the_dropped_passages) ... ok
+test_refinement_is_deterministic (tests.test_evidence_refinement.RefinementOutcomeTest.test_refinement_is_deterministic) ... ok
+test_refusal_is_rejected (tests.test_evidence_refinement.RefinementOutcomeTest.test_refusal_is_rejected) ... ok
+test_regenerate_when_unchanged_can_be_forced (tests.test_evidence_refinement.RefinementOutcomeTest.test_regenerate_when_unchanged_can_be_forced) ... ok
+test_unchanged_order_keeps_the_answer_without_generating (tests.test_evidence_refinement.RefinementOutcomeTest.test_unchanged_order_keeps_the_answer_without_generating) ... ok
+test_ungrounded_answer_is_rejected (tests.test_evidence_refinement.RefinementOutcomeTest.test_ungrounded_answer_is_rejected) ... ok
+test_constructor_validates_its_collaborators (tests.test_evidence_refinement.RoutingGateTest.test_constructor_validates_its_collaborators) ... ok
+test_item_and_decision_types_are_enforced (tests.test_evidence_refinement.RoutingGateTest.test_item_and_decision_types_are_enforced) ... ok
+test_other_actions_are_left_untouched (tests.test_evidence_refinement.RoutingGateTest.test_other_actions_are_left_untouched) ... ok
+
+======================================================================
+ERROR: test_default_prompt_builder_is_the_frozen_reference_rag_prompt (tests.test_evidence_refinement.IntegrationContractTest.test_default_prompt_builder_is_the_frozen_reference_rag_prompt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/capability-audit-20261023/snapshots/reranking/tests/test_evidence_refinement.py", line 324, in test_default_prompt_builder_is_the_frozen_reference_rag_prompt
+    from src.generation.qwen import FEVER_PROMPT_INSTRUCTION, PROMPT_INSTRUCTION
+  File "/private/tmp/capability-audit-20261023/snapshots/reranking/src/generation/__init__.py", line 3, in <module>
+    from src.generation.qwen import (
+  File "/private/tmp/capability-audit-20261023/snapshots/reranking/src/generation/qwen.py", line 8, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+----------------------------------------------------------------------
+Ran 68 tests in 0.010s
+
+FAILED (errors=1)

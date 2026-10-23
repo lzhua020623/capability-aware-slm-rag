@@ -1,0 +1,81 @@
+{
+  "audit_date": "2026-10-23",
+  "remote_fetch_succeeded": true,
+  "remote_branch_count": 10,
+  "local_branch_count": 4,
+  "working_branch": "feature/verification-answer-repair",
+  "source_head": "5da1fe50d1e7f289d8859c6cfe9d8a4e296aec3b",
+  "source_data_changed": false,
+  "model_inference_executed": false,
+  "training_executed": false,
+  "merges_or_pushes_executed": false,
+  "tests": [
+    {
+      "component": "diagnosis_probe_controller",
+      "ref": "7c7863f",
+      "count": 164,
+      "status": "passed",
+      "log": "diagnosis_tests.log"
+    },
+    {
+      "component": "retrieval_enhancement",
+      "ref": "1d97780",
+      "count": 155,
+      "status": "passed",
+      "log": "retrieval_tests_git_checkout.log"
+    },
+    {
+      "component": "evidence_refinement",
+      "ref": "338ff34",
+      "count": 68,
+      "status": "passed",
+      "log": "reranking_tests_fullenv.log"
+    },
+    {
+      "component": "E_core_v9_contract",
+      "ref": "5da1fe5",
+      "count": 48,
+      "status": "passed",
+      "log": "e_core_tests.log"
+    }
+  ],
+  "test_scope": "CPU unit/contract tests; model collaborators are mocked. Not an end-to-end GPU or semantic-effect evaluation. E is a selected core subset, not every E archived test.",
+  "initial_environment_failures": [
+    "reranking: 1 of 68 failed to import torch in minimal audit env; rerun all 68 in existing XGrammar env passed.",
+    "retrieval: 4 of 155 errored because git archive has no .git; rerun all 155 in a real isolated checkout of the same SHA passed."
+  ],
+  "corpus_coverage": {
+    "nq_dev_full_corpus": "not present at configured local path",
+    "nq_train_full_corpus": "not present at configured local path",
+    "fever_full_corpus": "3517244063-byte cloud placeholder marked compressed,dataless; full bytes not scanned",
+    "nq_delivery": "74097 records / 370485 evidence occurrences / 197964 unique passage IDs scanned"
+  },
+  "files": {
+    "branches.json": "2ec3e53ece5956915bacc0dab4eae42cb767727c74e2ed35a9a0e6b4be5b6088",
+    "preliminary_artifact_inventory.json": "6522b4b9c2cd5284319ed40f5b405b71a2187c4d4dc24ddc99d126ace67eade9",
+    "audit_data.py": "4e3443f4184a377afa7366d539058924db1cfc34b686ac606a2dab576bbb0146",
+    "nq_delivery_audit.json": "64f5e401b5de88170f860ccf1dc8a8a8227044af9fe4b836a63736aa378c1e25",
+    "cross_branch_split_audit.json": "9d6854d8fbaa71b294a67326f5d35a7a67b475a6d1e5fbf0a99f171f5383d95a",
+    "split_variant_groups.json": "4d3b509233bac2ec6549b13ada5effd4978d2fb4d42fce56deafa45bab41169e",
+    "diagnosis_tests.log": "0161dbe4009b82cc4876210a8ab6756e7c78deb834805d465800965f31c5d859",
+    "reranking_tests.log": "c9bb20cef6aed5602eb7feb3e18cad88ace70511488e68f230a44d8cea3e40f9",
+    "reranking_tests_fullenv.log": "4ff0159c8f93b91f1c56549ce26038d13fa749a679f8fd5b5359cb3df184e88b",
+    "retrieval_tests.log": "c7e9f6c610da6b41240c03d67c90bc46fecbdb99552f4faa453fb8a385acd33f",
+    "retrieval_tests_git_checkout.log": "3fc6a3d0177d400cea7fc3a6d833d5cb3b214446eb23e3b67797ae3e8a5058bc",
+    "e_core_tests.log": "48cf6d627afc2ebef85c95857e78d3b3546c0b3bdc1ca375c55bfa7a05e2f9fd"
+  },
+  "audit_env": {
+    "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "PyYAML": "6.0.3"
+  },
+  "existing_contract_env": {
+    "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "numpy": "2.5.4",
+    "PyYAML": "6.0.3",
+    "torch": "2.14.1",
+    "transformers": "5.16.1",
+    "xgrammar": "0.2.8"
+  }
+}

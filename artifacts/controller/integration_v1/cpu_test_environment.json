@@ -1,0 +1,15 @@
+{
+  "python": "3.12.14",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "packages": {
+    "torch": "2.14.1",
+    "transformers": "5.16.1",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "PyYAML": "6.0.3",
+    "accelerate": null,
+    "xgrammar": "0.2.8"
+  },
+  "scope": "CPU tests only; no CUDA inference or model downloads"
+}

@@ -1,0 +1,4 @@
+# GPU host must install its CUDA-enabled PyTorch separately.
+# Independent environment: do not combine with historical E experiment pins.
+-r requirements.txt
+scikit-learn==1.9.1

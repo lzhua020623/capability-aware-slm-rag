@@ -2,10 +2,33 @@
 
 本项目研究小参数模型 RAG 的诊断与动态增强：先用固定检索和生成模型产生 C1 答案，再由 Diagnosis、可选 Probe 和 Controller 选择补检索、重排过滤或答案核验与修复。Reference RAG 是共同实验底座。
 
+## Controller 集成分支（2026-10-23）
+
+`controller` 已汇合当日全部 10 个远端分支的提交历史、功能实现和入库实验结果。
+统一入口从冻结 C1 输出开始，执行 Diagnosis → 可选 Probe → Safe Binary → 一条增强，
+输出原答、终答、路由、实际调用轨迹、回退原因和增量成本。模型与各模块原有策略保持显式版本；
+本次集成不代表准确率提升，也未开始蒸馏、DPO 或 RSI。
+
+集成说明、运行命令、已知限制和下一步见 [Controller 集成交接](docs/CONTROLLER_INTEGRATION.md)，
+来源与原始结果一致性见 [分支清单](artifacts/controller/integration_v1/branch_manifest.json)。
+当前 P3-20 检索增强只支持 NQ；FEVER 路由到该动作时明确返回 `unsupported_dataset` 并保留原答。
+
+```bash
+python scripts/run_controller_integration.py --smoke --output-dir /tmp/controller-smoke-new
+python -m unittest discover -s tests -v
+```
+
+Smoke 使用虚构样本和假模型输出，只验证执行链路。真实推理需要 CUDA、匹配 C1 来源的 NQ 索引及元数据。
+
 ## 当前入口
 
 | 需要了解的内容 | 入口 |
 |---|---|
+| 当前集成、运行、评测与下一步 | [Controller 集成交接](docs/CONTROLLER_INTEGRATION.md) |
+| 合并前的全分支与数据审计 | [2026-10-23 审计](docs/PROJECT_AUDIT_AND_RSI_PLAN_20261023.md) |
+| Diagnosis / Probe / 原路由 | [冻结交接](docs/DIAGNOSIS_PROBE_CONTROLLER_HANDOFF.md) |
+| 重排 / 检索增强 | [重排说明](docs/EVIDENCE_REFINEMENT_RERANK.md) / [P3-20](src/compensation/retrieval_enhancement/README.md) |
+| 预实验和大模型对照 | [FEVER C0/C3](docs/FEVER_C0_C3.md) / [70B 对照](docs/LARGER_MODEL_CONTROL.md) |
 | 项目进度、分支分工与下一轮方向 | [项目进度](docs/PROJECT_STATUS_AND_DIRECTION.md) |
 | E 的职责、接口与交接 | [E 说明](docs/ANSWER_REPAIR.md) / [当前交接](docs/ANSWER_REPAIR_HANDOFF.md) |
 | 最新完成的 v7 实验 | [冻结协议](docs/ANSWER_REPAIR_V7.md) / [结果及问题分析](docs/ANSWER_REPAIR_RESULTS_20261014_V7.md) |
@@ -17,7 +40,10 @@
 | 旧版文档与 Notebook | [历史归档](docs/history/answer_repair/README.md) |
 | 每个文件的用途与保留建议 | [文件清单](docs/REPOSITORY_INVENTORY_20261016.html) |
 
-## 当前状态
+## E 分支历史进度记录
+
+下面保留原 E 分支的阶段记录，其中“待审核”“未合并”“下一步”等描述以记录当时为准。
+本分支当前状态以 [Controller 集成交接](docs/CONTROLLER_INTEGRATION.md) 为准。
 
 截至 2026-10-19，E v8 的 75 条开发样本四组 GPU 实验已完成，共 300 条输出并通过冻结决策回放；完整 v8 的原答案核验 75 条全部无效回退，未进入修复。原 15 条新改答待人审；后续 r3 的工程修正已通过真实试跑，当前限制转为语义核验，见下方最新结果。见 [v8 方案](docs/ANSWER_REPAIR_V8.md) 与 [实际结果](docs/ANSWER_REPAIR_RESULTS_20261019_V8.md)。v7 历史主包和第 4 批共 841 条结果、836 个唯一数据集/样本 ID，均通过冻结回放。策略均未晋升默认，可靠净收益仍待验收。
 

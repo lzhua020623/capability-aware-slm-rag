@@ -1,0 +1,9 @@
+{
+  "nq_repair_strategy": "short_answer_quote",
+  "fever_repair_strategy": "verify_repair",
+  "max_llm_calls": 4,
+  "max_retrieval_calls": 1,
+  "max_scoring_calls": 1,
+  "answer_max_new_tokens": 64,
+  "repair_max_new_tokens": 384
+}

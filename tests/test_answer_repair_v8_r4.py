@@ -43,7 +43,12 @@ class FactAuditTests(unittest.TestCase):
     def test_non_audit_logic_constants_and_all_minimal_prompts_match_frozen_r3(self):
         fixture = json.loads((ROOT / "tests/fixtures/answer_repair_v8r4_invariants.json").read_text())
         module = ast.parse((ROOT / "src/compensation/conservative_repair.py").read_text())
-        digest = lambda n: hashlib.sha256(ast.dump(n, include_attributes=False).encode()).hexdigest()
+        # Frozen hashes predate Python 3.12's empty FunctionDef.type_params.
+        # Remove only that absent-in-the-source field; retain all semantic AST
+        # fields and the original fixture hashes (including all prompt bytes).
+        def digest(n):
+            rendered = ast.dump(n, include_attributes=False).replace(", type_params=[]", "")
+            return hashlib.sha256(rendered.encode()).hexdigest()
         funcs = {n.name: digest(n) for n in module.body if isinstance(n, ast.FunctionDef)
                  and n.name not in ("build_check_prompt", "parse_check")}
         constants = {t.id: digest(n.value) for n in module.body if isinstance(n, ast.Assign)

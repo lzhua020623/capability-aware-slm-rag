@@ -1,0 +1,234 @@
+{
+  "status": "audit flags only; no original split changed",
+  "method": "lowercase+collapse whitespace, NFKC, replace non-word sequences by one space",
+  "groups": [
+    {
+      "normalized_query_sha256": "0172e74e4b8acb4604358c3b527f3d1019d428f5ea15775ad252cbbd8f8a53bd",
+      "members": [
+        {
+          "sample_id": "-1692081659343097146",
+          "partition": "development"
+        },
+        {
+          "sample_id": "-7431747244878287837",
+          "partition": "calibration"
+        }
+      ]
+    },
+    {
+      "normalized_query_sha256": "3a5e9d65a6b5fb7ab15ac5b2f100110af34ecf8f288db1aceedf36571f43dcf0",
+      "members": [
+        {
+          "sample_id": "-1914996722895788424",
+          "partition": "calibration"
+        },
+        {
+          "sample_id": "3716649460901013141",
+          "partition": "development"
+        }
+      ]
+    },
+    {
+      "normalized_query_sha256": "5a980d411c140e2925a348d15e12404ec6870f99cb3a37b93c979e5f90d51123",
+      "members": [
+        {
+          "sample_id": "-2039745878410292726",
+          "partition": "reserved_evaluation"
+        },
+        {
+          "sample_id": "3163210401175978562",
+          "partition": "development"
+        }
+      ]
+    },
+    {
+      "normalized_query_sha256": "d69005ae38849fb0a1f89e54e593ce5c89db810dc7686e9a340266f0cd41de42",
+      "members": [
+        {
+          "sample_id": "-2369057785773727526",
+          "partition": "development"
+        },
+        {
+          "sample_id": "-720449615385650267",
+          "partition": "calibration"
+        }
+      ]
+    },
+    {
+      "normalized_query_sha256": "c275dbc0b6e22d2ed41deabc1c3b42f22d524a6f88c2bc63d84a99bf935c8e9a",
+      "members": [
+        {
+          "sample_id": "-3557268865091350602",
+          "partition": "calibration"
+        },
+        {
+          "sample_id": "7188014317022059869",
+          "partition": "development"
+        }
+      ]
+    },
+    {
+      "normalized_query_sha256": "14f5d2eac26e6e2d472f9e2b3a5e458fb98a9beca5e2cb37096eea682e80bb20",
+      "members": [
+        {
+          "sample_id": "-3861285293725870521",
+          "partition": "calibration"
+        },
+        {
+          "sample_id": "-9137796966332279579",
+          "partition": "development"
+        }
+      ]
+    },
+    {
+      "normalized_query_sha256": "a7757b1c7f67d976c59c586ed3c71116d651c47eeb1139ffb6c2b55bb388d450",
+      "members": [
+        {
+          "sample_id": "-510072921513358756",
+          "partition": "calibration"
+        },
+        {
+          "sample_id": "-5646958792555032149",
+          "partition": "reserved_evaluation"
+        }
+      ]
+    },
+    {
+      "normalized_query_sha256": "4e771d04361ee5ce982b62c6e08226bbf36d712ac65a85990fcd0bb69f43e2a9",
+      "members": [
+        {
+          "sample_id": "-5636629915648227843",
+          "partition": "development"
+        },
+        {
+          "sample_id": "57062618780373925",
+          "partition": "reserved_evaluation"
+        }
+      ]
+    },
+    {
+      "normalized_query_sha256": "d6f4cb86cf9fefbc24a788e832db4663d86e2d03c1500b37b1f112cf01ffe5c6",
+      "members": [
+        {
+          "sample_id": "-7926933902718925131",
+          "partition": "reserved_evaluation"
+        },
+        {
+          "sample_id": "1980729432350266831",
+          "partition": "development"
+        }
+      ]
+    },
+    {
+      "normalized_query_sha256": "59f22bba3128653501a01e09be03eac4a035b2447a899b29f62d8648c2dbaa3b",
+      "members": [
+        {
+          "sample_id": "-8083048180588927688",
+          "partition": "calibration"
+        },
+        {
+          "sample_id": "-8211904476218939372",
+          "partition": "development"
+        }
+      ]
+    },
+    {
+      "normalized_query_sha256": "ba59887c2f9322fd7143c52d508a02e19ed032c6a8b0eb54b4b11535bc40e194",
+      "members": [
+        {
+          "sample_id": "-8248824101799167236",
+          "partition": "development"
+        },
+        {
+          "sample_id": "5263737493047017714",
+          "partition": "calibration"
+        },
+        {
+          "sample_id": "7979665984085443296",
+          "partition": "development"
+        }
+      ]
+    },
+    {
+      "normalized_query_sha256": "09cf4b6247afe3ad348ed809712227934b0b6bfa786852e0efcfcd51cd77e7a9",
+      "members": [
+        {
+          "sample_id": "-833947944471487489",
+          "partition": "calibration"
+        },
+        {
+          "sample_id": "534594060737021751",
+          "partition": "development"
+        }
+      ]
+    },
+    {
+      "normalized_query_sha256": "ccab9e76b9cb70bd0910f543fbfa2b2cb8adc086dd435081cf4d085efc84eebe",
+      "members": [
+        {
+          "sample_id": "-9163899688615270166",
+          "partition": "reserved_evaluation"
+        },
+        {
+          "sample_id": "1353495749691923328",
+          "partition": "development"
+        }
+      ]
+    },
+    {
+      "normalized_query_sha256": "f227a27f132ae761b6c635a5f73f0c8432a2a21f16f4a733b4e8ca57e4526258",
+      "members": [
+        {
+          "sample_id": "1537996802837104777",
+          "partition": "calibration"
+        },
+        {
+          "sample_id": "1790516090940257891",
+          "partition": "development"
+        }
+      ]
+    },
+    {
+      "normalized_query_sha256": "212bb1cbb2ee3286c5b713298f3139d49aa1d477535d2ea8c7678a9e258f0716",
+      "members": [
+        {
+          "sample_id": "2501564207632275431",
+          "partition": "calibration"
+        },
+        {
+          "sample_id": "7019595139315057310",
+          "partition": "development"
+        }
+      ]
+    },
+    {
+      "normalized_query_sha256": "7ffe80a04487cc0b5edd1d9cb1cbc0b2627430d4730797a8df590f9116521cec",
+      "members": [
+        {
+          "sample_id": "2641554321968534496",
+          "partition": "reserved_evaluation"
+        },
+        {
+          "sample_id": "8374261003884438976",
+          "partition": "development"
+        }
+      ]
+    },
+    {
+      "normalized_query_sha256": "458fca50bd48281b24ecb4f2c5ef40f616269bbb0c1b938b8cb3b2a74ec30f09",
+      "members": [
+        {
+          "sample_id": "4575653996854262380",
+          "partition": "development"
+        },
+        {
+          "sample_id": "7461382664882165451",
+          "partition": "calibration"
+        }
+      ]
+    }
+  ],
+  "group_count": 17,
+  "flagged_sample_count": 35,
+  "groups_touching_reserved": 6
+}

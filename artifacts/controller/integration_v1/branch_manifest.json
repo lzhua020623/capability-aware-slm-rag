@@ -1,0 +1,109 @@
+{
+  "date": "2026-10-23",
+  "branch": "controller",
+  "merge_checkpoint": "564121ad9baf6908088ddc265769ff48622e8733",
+  "remote_branch_count": 10,
+  "branches": [
+    {
+      "ref": "origin/feature/-ce-70B",
+      "commit": "6f08f2fe2dc2dcf39b75177763207682b2890a31",
+      "ancestor_of_integration": true,
+      "tracked_files": 78,
+      "preserved_artifact_files": 28,
+      "artifact_mismatches": []
+    },
+    {
+      "ref": "origin/feature/F500-c0c3",
+      "commit": "1238a4fca8fb5946f644cbbf7a04b00684d060e1",
+      "ancestor_of_integration": true,
+      "tracked_files": 60,
+      "preserved_artifact_files": 13,
+      "artifact_mismatches": []
+    },
+    {
+      "ref": "origin/feature/diagnosis-probe-zheng",
+      "commit": "7c7863f98f87e892119481a79e23ca6dcebdced0",
+      "ancestor_of_integration": true,
+      "tracked_files": 122,
+      "preserved_artifact_files": 31,
+      "artifact_mismatches": []
+    },
+    {
+      "ref": "origin/feature/fever-c1",
+      "commit": "6ebdfc99309d977019d4fb75a6a4b97766ad710a",
+      "ancestor_of_integration": true,
+      "tracked_files": 69,
+      "preserved_artifact_files": 21,
+      "artifact_mismatches": []
+    },
+    {
+      "ref": "origin/feature/nq-c0-c1",
+      "commit": "bcb248cdb94fb828b01513555d2513cc9cbb921f",
+      "ancestor_of_integration": true,
+      "tracked_files": 54,
+      "preserved_artifact_files": 11,
+      "artifact_mismatches": []
+    },
+    {
+      "ref": "origin/feature/nq-c3",
+      "commit": "8b03009d8ed5e516eba14c6947f3f0085adb1e48",
+      "ancestor_of_integration": true,
+      "tracked_files": 61,
+      "preserved_artifact_files": 15,
+      "artifact_mismatches": []
+    },
+    {
+      "ref": "origin/feature/retrieval-enhancement",
+      "commit": "1d9778095f921735bdb16a21b5ef61ab73443c1c",
+      "ancestor_of_integration": true,
+      "tracked_files": 72,
+      "preserved_artifact_files": 9,
+      "artifact_mismatches": []
+    },
+    {
+      "ref": "origin/feature/verification-answer-repair",
+      "commit": "5da1fe50d1e7f289d8859c6cfe9d8a4e296aec3b",
+      "ancestor_of_integration": true,
+      "tracked_files": 935,
+      "preserved_artifact_files": 719,
+      "artifact_mismatches": []
+    },
+    {
+      "ref": "origin/main",
+      "commit": "058f10baa47083220f95edb39db8f106aa7e85d6",
+      "ancestor_of_integration": true,
+      "tracked_files": 62,
+      "preserved_artifact_files": 13,
+      "artifact_mismatches": []
+    },
+    {
+      "ref": "origin/reranking",
+      "commit": "338ff34b039ed367220b0b916b48c4f7fc715e20",
+      "ancestor_of_integration": true,
+      "tracked_files": 134,
+      "preserved_artifact_files": 34,
+      "artifact_mismatches": []
+    }
+  ],
+  "artifact_comparison": "Git blob identity at each original tracked data/result/artifact/model/split path; excludes data/README.md and .gitkeep documentation/placeholders",
+  "unique_artifact_paths": 764,
+  "conflict_resolution": {
+    "README.md": "Consolidated navigation; original texts remain in source branch history",
+    "data/README.md": {
+      "resolution": "Retain the newer E data handoff documentation",
+      "older_refs": [
+        "origin/feature/-ce-70B",
+        "origin/feature/F500-c0c3",
+        "origin/feature/diagnosis-probe-zheng",
+        "origin/feature/fever-c1",
+        "origin/feature/nq-c0-c1",
+        "origin/feature/nq-c3",
+        "origin/feature/retrieval-enhancement",
+        "origin/main",
+        "origin/reranking"
+      ]
+    },
+    "src/generation/qwen.py": "Retain E-tested revision pin, explicit NF4 device placement and labeled/JSON stopping; legacy automatic GPU memory offload from 70B branch is not enabled"
+  },
+  "artifact_mismatches": []
+}

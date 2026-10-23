@@ -312,7 +312,7 @@ class PipelineTests(unittest.TestCase):
 
 class CompatibilityTests(unittest.TestCase):
     def test_prompt_byte_matches_actual_frozen_c1_without_importing_models(self):
-        path = Path(__file__).resolve().parents[1] / "src/generation/qwen.py"
+        path = Path(__file__).resolve().parents[1] / "src/generation/prompts.py"
         tree = ast.parse(path.read_text())
         nodes = [n for n in tree.body if (
             isinstance(n, ast.Assign) and any(isinstance(t, ast.Name) and t.id == "PROMPT_INSTRUCTION" for t in n.targets)

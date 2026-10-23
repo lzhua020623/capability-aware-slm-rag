@@ -269,7 +269,7 @@ assert r["trace"]["llm_calls"] == 0
         self.assertEqual(completed.returncode, 0, completed.stderr)
 
     def test_output_works_with_actual_qwen_prompt_builder_bodies(self):
-        path = Path(__file__).resolve().parents[1] / "src/generation/qwen.py"
+        path = Path(__file__).resolve().parents[1] / "src/generation/prompts.py"
         tree = ast.parse(path.read_text(encoding="utf-8"))
         names = {"PROMPT_INSTRUCTION", "FEVER_PROMPT_INSTRUCTION", "build_rag_prompt", "build_fever_rag_prompt"}
         nodes = [n for n in tree.body if (isinstance(n, ast.FunctionDef) and n.name in names)

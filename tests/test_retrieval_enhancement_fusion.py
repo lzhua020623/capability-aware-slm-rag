@@ -192,7 +192,7 @@ class RetrievalEnhancementFusionTests(unittest.TestCase):
 
     def test_evidence_is_consumed_by_existing_qwen_prompt_builder_bodies(self):
         # Execute the actual pure Prompt builders without importing GPU libraries.
-        path = Path(__file__).resolve().parents[1] / "src/generation/qwen.py"
+        path = Path(__file__).resolve().parents[1] / "src/generation/prompts.py"
         tree = ast.parse(path.read_text(encoding="utf-8"))
         names = {"PROMPT_INSTRUCTION", "FEVER_PROMPT_INSTRUCTION",
                  "build_rag_prompt", "build_fever_rag_prompt"}
