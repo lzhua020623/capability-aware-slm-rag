@@ -1,0 +1,318 @@
+{
+  "schema_version": "controller_data_manifest_v1",
+  "protocol_sha256": "3edce74cc048e20f2a7a6bbe187564adb06f520397b1ea51a875a1faf2a8f9d0",
+  "policy_sha256": "6a551545ce453dbe44be829630d3d9883882f5976b030b7970d4ccd5c8add9a1",
+  "source_commit": "30738f0d6acf13b125a695615e3c5794ee841832",
+  "source_files": [
+    {
+      "path": "data/processed/answer_repair/nq_train_v1/partition_ids.json",
+      "sha256": "4bfaf449b099037df509a874c69946bb79038428ff33a1b844c3356cdf429115"
+    },
+    {
+      "path": "data/annotations/nq_train_delivery/manifest.json",
+      "sha256": "565b694d1caae3e3c22b47f3be90ca68a944196a641a6d15a5306252b4df7346"
+    },
+    {
+      "path": "data/annotations/nq_train_annotation_candidates_stats.json",
+      "sha256": "8e0ee7c78d62080f6b3f0cf444de2a369b8ac1fa939d62de14ca5f6427e071fa"
+    },
+    {
+      "path": "data/processed/retrieval/fever_dev.jsonl",
+      "sha256": "352d36fab72a6d567b6b0a9c7b779709cab8628ccbbcdc5a568025a721e8b4de"
+    },
+    {
+      "path": "artifacts/project_audit_20261023/split_variant_groups.json",
+      "sha256": "4d3b509233bac2ec6549b13ada5effd4978d2fb4d42fce56deafa45bab41169e"
+    },
+    {
+      "path": "data/processed/external/nq_train_delivery_20261017/nq_train_annotation_000.jsonl",
+      "sha256": "60a03259a7275284b4585755dbbc83138f6abb46ba94dd47c4c08064babe7a87",
+      "rows": 5000
+    },
+    {
+      "path": "data/processed/external/nq_train_delivery_20261017/nq_train_annotation_001.jsonl",
+      "sha256": "a5ccfca2af087d0fcd236274dad57e3613b0546fae8caff366c2d2391396581b",
+      "rows": 5000
+    },
+    {
+      "path": "data/processed/external/nq_train_delivery_20261017/nq_train_annotation_002.jsonl",
+      "sha256": "4885214758f18b1071c9a0860ac07c9e2f39f5c7b68be23dfe3720ff26e71b78",
+      "rows": 5000
+    },
+    {
+      "path": "data/processed/external/nq_train_delivery_20261017/nq_train_annotation_003.jsonl",
+      "sha256": "2726bac8fa09dd89c09fdc4533dccdc339275ceae98df5baa0c41b07eba96930",
+      "rows": 5000
+    },
+    {
+      "path": "data/processed/external/nq_train_delivery_20261017/nq_train_annotation_004.jsonl",
+      "sha256": "f7b65012f5a66217e3642d20eaefbe332326fc2b0e267280457164b9c6af7fd0",
+      "rows": 5000
+    },
+    {
+      "path": "data/processed/external/nq_train_delivery_20261017/nq_train_annotation_005.jsonl",
+      "sha256": "e1aef80b2fd26f3d3d832a0819a68dfc9277f967faf105b8caaf49eb3a8ca4d7",
+      "rows": 5000
+    },
+    {
+      "path": "data/processed/external/nq_train_delivery_20261017/nq_train_annotation_006.jsonl",
+      "sha256": "0975f945d254ca4a3983490b5d0c4e163a032ab61e981fc8c09cd9efedc10ef4",
+      "rows": 5000
+    },
+    {
+      "path": "data/processed/external/nq_train_delivery_20261017/nq_train_annotation_007.jsonl",
+      "sha256": "51630aff40c605944c14672421fae9467e7577b65a1117744cac97fd20566f7c",
+      "rows": 5000
+    },
+    {
+      "path": "data/processed/external/nq_train_delivery_20261017/nq_train_annotation_008.jsonl",
+      "sha256": "3c1f6a36e6f9b496afccda47d46d3fd4a2298019d4684f02f95265cdb377c320",
+      "rows": 5000
+    },
+    {
+      "path": "data/processed/external/nq_train_delivery_20261017/nq_train_annotation_009.jsonl",
+      "sha256": "21ffd6f6eb7580bb0f048589b6f4b1b76ec2a70780379e118e7d5e9ea50ee0a4",
+      "rows": 5000
+    },
+    {
+      "path": "data/processed/external/nq_train_delivery_20261017/nq_train_annotation_010.jsonl",
+      "sha256": "7344529c38013296d8d3bc2641a1635a03f666ea89d1069a729a957e0f322c54",
+      "rows": 5000
+    },
+    {
+      "path": "data/processed/external/nq_train_delivery_20261017/nq_train_annotation_011.jsonl",
+      "sha256": "7849329a19e380c66eb65a67de75defd4fce5c3f15786698d0a4e85d92ae8fba",
+      "rows": 5000
+    },
+    {
+      "path": "data/processed/external/nq_train_delivery_20261017/nq_train_annotation_012.jsonl",
+      "sha256": "302908930121240d6b28773c05c0e84bbaa835223eccf6d6e3e17d4b550c2988",
+      "rows": 5000
+    },
+    {
+      "path": "data/processed/external/nq_train_delivery_20261017/nq_train_annotation_013.jsonl",
+      "sha256": "25ffa3fe664d8c118064f986eda10de2e635a49ac95053f7e0729927ca300903",
+      "rows": 5000
+    },
+    {
+      "path": "data/processed/external/nq_train_delivery_20261017/nq_train_annotation_014.jsonl",
+      "sha256": "cf67526be016dbf1e697f4513cb5bb8c79de649b2271baeb32e5fb2fae1451f7",
+      "rows": 4097
+    }
+  ],
+  "source_code_sha256": {
+    "scripts/prepare_controller_data.py": "db55f9cfcf10487b240e767ab19a8957307b4764a3714458ec82873618b2af6b",
+    "src/controller/data_preparation.py": "404bda3dae3dca48a56bc0b851e17509fce20737342bfc49a3a2416a94989683",
+    "src/compensation/nq_train_adapter.py": "a04edaf2277b7a82b4ec93e9e9f6de7ba581683a7804c7392f571e122a244165",
+    "src/diagnosis/features.py": "1e48c44e1e3684fa97b652cc63c6c728b262028cadaeb0a27149649936de7982",
+    "src/diagnosis/schema.py": "f1bf526835f5c98a369ac38884415ce06e9a454639c41cb1daa2799ab26f700f"
+  },
+  "source_counts": {
+    "nq": 74097,
+    "fever": 13332
+  },
+  "structural_exclusions": {
+    "fever": 103
+  },
+  "selection": {
+    "fever": {
+      "source_candidates": 13229,
+      "pre_sampling_exclusions": {
+        "known_exposed_id": 518
+      },
+      "roles": {
+        "final_candidate": {
+          "pre_lexical_pool": 1886,
+          "examined_in_hash_order": 540,
+          "lexical_conflicts_skipped": 40,
+          "selected": 500
+        },
+        "selection": {
+          "pre_lexical_pool": 1869,
+          "examined_in_hash_order": 223,
+          "lexical_conflicts_skipped": 23,
+          "selected": 200
+        },
+        "development": {
+          "pre_lexical_pool": 8956,
+          "examined_in_hash_order": 227,
+          "lexical_conflicts_skipped": 27,
+          "selected": 200
+        }
+      }
+    },
+    "nq": {
+      "source_candidates": 74097,
+      "pre_sampling_exclusions": {
+        "known_exposed_id": 426,
+        "cross_partition_query_variant": 46,
+        "previously_flagged_query_variant": 35
+      },
+      "roles": {
+        "final_candidate": {
+          "pre_lexical_pool": 7542,
+          "examined_in_hash_order": 530,
+          "lexical_conflicts_skipped": 30,
+          "selected": 500
+        },
+        "selection": {
+          "pre_lexical_pool": 7199,
+          "examined_in_hash_order": 212,
+          "lexical_conflicts_skipped": 12,
+          "selected": 200
+        },
+        "development": {
+          "pre_lexical_pool": 58849,
+          "examined_in_hash_order": 211,
+          "lexical_conflicts_skipped": 11,
+          "selected": 200
+        }
+      }
+    }
+  },
+  "counts_per_dataset": {
+    "development": 200,
+    "selection": 200,
+    "final_candidate": 500
+  },
+  "evaluation_reserve": {
+    "nq": {
+      "population_count": 74097,
+      "protected_count": 7564,
+      "fraction": 0.10208240549549914,
+      "active_final_subset_count": 500,
+      "additional_reserved_count": 7064,
+      "scope": "Do not use any protected ID for training, prompt design, tuning or selection; active subset receives the additional lexical exclusion checks"
+    },
+    "fever": {
+      "population_count": 13229,
+      "protected_count": 1886,
+      "fraction": 0.14256557562929928,
+      "active_final_subset_count": 500,
+      "additional_reserved_count": 1386,
+      "scope": "Do not use any protected ID for training, prompt design, tuning or selection; active subset receives the additional lexical exclusion checks"
+    }
+  },
+  "precision": {
+    "development": {
+      "n": 200,
+      "single_accuracy_worst_case_95pct_half_width_pp": 6.93,
+      "paired_gain_worst_case_95pct_half_width_pp": 13.86,
+      "paired_gain_if_discordance_20pct_half_width_pp": 6.2,
+      "interpretation": "Illustrative normal approximations, not observed confidence intervals or a power guarantee"
+    },
+    "selection": {
+      "n": 200,
+      "single_accuracy_worst_case_95pct_half_width_pp": 6.93,
+      "paired_gain_worst_case_95pct_half_width_pp": 13.86,
+      "paired_gain_if_discordance_20pct_half_width_pp": 6.2,
+      "interpretation": "Illustrative normal approximations, not observed confidence intervals or a power guarantee"
+    },
+    "final_candidate": {
+      "n": 500,
+      "single_accuracy_worst_case_95pct_half_width_pp": 4.38,
+      "paired_gain_worst_case_95pct_half_width_pp": 8.77,
+      "paired_gain_if_discordance_20pct_half_width_pp": 3.92,
+      "interpretation": "Illustrative normal approximations, not observed confidence intervals or a power guarantee"
+    }
+  },
+  "artifacts": {
+    "fever/final_candidate/c1_tasks.jsonl": {
+      "sha256": "004f58065a65efef528617829778e3bde0e6790654e53ebbe4b0966f55755748",
+      "bytes": 52334
+    },
+    "offline/fever/final_candidate/gold.jsonl": {
+      "sha256": "e04094ba6599f860cadc0d9da88550a6527c646ca4b10790d4639f6e40d590dd",
+      "bytes": 39501
+    },
+    "fever/selection/c1_tasks.jsonl": {
+      "sha256": "47615c09aeba901c3a1954084a0d5d157b6afe14137d5057e9c78da209aac0c6",
+      "bytes": 21349
+    },
+    "offline/fever/selection/gold.jsonl": {
+      "sha256": "4056c82f8a6145aacf69c4fc41795d8c0340f25ccc6cca7247f6fb99a29d575b",
+      "bytes": 15816
+    },
+    "fever/development/c1_tasks.jsonl": {
+      "sha256": "778827461e2f5ce23faf65156d39f1ee703f1448bd7c536430d0a54de920b16a",
+      "bytes": 20903
+    },
+    "offline/fever/development/gold.jsonl": {
+      "sha256": "46a4fd09dea942a20d8e0fb5655a8329eeb0d7eec256a33e916ededc9c36ff5c",
+      "bytes": 15795
+    },
+    "nq/final_candidate/runtime.jsonl": {
+      "sha256": "8613e8f1208cbd5a63e3000e1fe28b12f67483a6bd1dc2331572b1c9eb4a07a3",
+      "bytes": 1678241
+    },
+    "offline/nq/final_candidate/gold.jsonl": {
+      "sha256": "535678a406439a4ca0c362f58a123c3b0d5204c635d49c04c4ca1dcbeb13016a",
+      "bytes": 54688
+    },
+    "nq/selection/runtime.jsonl": {
+      "sha256": "a02fc16e379babd93d722d5f9406a950c58afe9a73b4aa61d2dcbca160308518",
+      "bytes": 678221
+    },
+    "offline/nq/selection/gold.jsonl": {
+      "sha256": "ac82f06e41896f4bd63aeb8fc8d45010158fdbd4bfb746c3bbbc5147e7d1eaf8",
+      "bytes": 22367
+    },
+    "nq/development/runtime.jsonl": {
+      "sha256": "85494318b3d5cec04a2cbac4c64ce3d729e4767fc0308eff42233f9638548203",
+      "bytes": 674909
+    },
+    "offline/nq/development/gold.jsonl": {
+      "sha256": "90c05e0872d6056c65312ebab0a96925655548a4fef3d9e1e7f4ccaa75ae1166",
+      "bytes": 21975
+    },
+    "selection_ids.json": {
+      "sha256": "82d76471170ae732fac7270e53b392c51d64c8caa7bc3083087e6597f8fff6f0",
+      "bytes": 40534
+    },
+    "evaluation_reserve_ids.json": {
+      "sha256": "43bee6035df34346c6d98f3e0cdaf6411e4e104116d85a08ca6e519c7b86cb86",
+      "bytes": 232519
+    },
+    "evaluation_reserve_summary.json": {
+      "sha256": "aa72444c977913422e57f09c93a2a4cef007d333dc92be81a19888eeef7de4cb",
+      "bytes": 696
+    },
+    "exposure_audit.json": {
+      "sha256": "4fa2fdaba34051beef97cdfa12ac3603989122c11a07fe868268d29689724df4",
+      "bytes": 598023
+    },
+    "asset_inventory.json": {
+      "sha256": "e080b006ed4df2bb551a0ffb5686b1654bff4b0857e7dc033269f1599163bc0d",
+      "bytes": 2438
+    },
+    "exclusions.jsonl": {
+      "sha256": "7b51d4657bf91244600f65a80589301fa1f530e7dd92e2f8ecf37b612279e0b1",
+      "bytes": 107633
+    },
+    "policy.json": {
+      "sha256": "116aed3025985119f42a0397648ad22a803389ec0e33f4bb19673bd762b125d7",
+      "bytes": 3225
+    }
+  },
+  "prediction_scores_computed": false,
+  "new_human_labels_created": 0,
+  "gpu_inference_performed": false,
+  "nq": {
+    "paired_runtime_and_gold_ready": true,
+    "c1_revision": null,
+    "baseline_scope": "Use the original NQ Train cached C1 as a historical postprocessing baseline; upstream Qwen revision/environment were not exported and remain unknown"
+  },
+  "fever": {
+    "paired_runtime_and_gold_ready": false,
+    "c1_tasks_and_offline_gold_ready": true,
+    "missing_c1_count": 900,
+    "decision": "Generate fresh C1 on selected new claims using the T1 Qwen revision and matching FEVER index; do not reuse the old exposed 500 as new test data"
+  },
+  "full_T2_ready": false,
+  "remaining_requirements": [
+    "Generate and seal FEVER C1 Top5/answers for the fixed 900 tasks without outcome-dependent removal",
+    "Obtain and hash matching NQ Train and FEVER index/IDs/corpus/sidecars and pin verified BGE weights",
+    "T3 must implement the NQ Train source-format adapter and FEVER retrieval; all formal arms require an execution seal"
+  ],
+  "unseen_scope": "No recorded ID/canonical/direct-Jaccard exposure plus user-confirmed absence of extra team use; no semantic, Wikipedia-page or pretraining isolation guarantee"
+}

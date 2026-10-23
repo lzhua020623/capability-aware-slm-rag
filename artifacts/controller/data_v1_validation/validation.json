@@ -1,0 +1,86 @@
+{
+  "task": "T2 data freeze and complete evaluation reserve protection",
+  "date": "2026-10-23",
+  "source_commit": "30738f0d6acf13b125a695615e3c5794ee841832",
+  "full_T2_ready": false,
+  "tests": {
+    "command": "/tmp/e-xgrammar-20261022/bin/python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "passed": 665,
+    "seconds": 57.293,
+    "new_data_tests": 17
+  },
+  "checks": [
+    {
+      "command": "/tmp/e-xgrammar-20261022/bin/python scripts/check_controller_data.py --check-sources",
+      "exit_code": 0,
+      "data_integrity_passed": true,
+      "source_hashes_checked": 552
+    },
+    {
+      "command": "/tmp/e-xgrammar-20261022/bin/python scripts/check_controller_data.py --require-full-t2",
+      "exit_code": 2,
+      "expected": true,
+      "meaning": "FEVER C1 and matching retrieval asset seals are pending; no full-readiness claim"
+    }
+  ],
+  "datasets": {
+    "nq": {
+      "counts": {
+        "development": 200,
+        "selection": 200,
+        "final_candidate": 500
+      },
+      "protected_count": 7564,
+      "protected_fraction": 0.10208240549549914,
+      "paired_runtime_ready": true
+    },
+    "fever": {
+      "counts": {
+        "development": 200,
+        "selection": 200,
+        "final_candidate": 500
+      },
+      "protected_count": 1886,
+      "protected_fraction": 0.14256557562929928,
+      "paired_runtime_ready": false
+    }
+  },
+  "python": "3.12.14",
+  "packages": {
+    "torch": "2.14.1",
+    "transformers": "5.16.1",
+    "scikit-learn": "1.9.1",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "PyYAML": "6.0.3",
+    "xgrammar": "0.2.8",
+    "sentence-transformers": null,
+    "faiss-cpu": null,
+    "accelerate": null,
+    "bitsandbytes": null
+  },
+  "environment_scope": "CPU regression only; not the planned CUDA deployment lock",
+  "gpu_inference_performed": false,
+  "new_qa_metrics_computed": false,
+  "remaining_requirements": [
+    "Generate and seal FEVER C1 Top5/answers for the fixed 900 tasks without outcome-dependent removal",
+    "Obtain and hash matching NQ Train and FEVER index/IDs/corpus/sidecars and pin verified BGE weights",
+    "T3 must implement the NQ Train source-format adapter and FEVER retrieval; all formal arms require an execution seal"
+  ],
+  "sha256": {
+    "artifacts/controller/data_v1_validation/tests.log": "fc3da335d872f3c980f3aafc2e236e7ce47edb0305ae3406d47b6f82762d26b3",
+    "artifacts/controller/data_v1_validation/data_validation.json": "63a509d008e0523579e5678ecfd794ec1e647ea37a0204995ef7fcfe401154cd",
+    "artifacts/controller/data_v1_validation/readiness_check.json": "5eab089690442ab6fc955f79752ecf76db95403ccc1ec18d2c0fecf0a1c100a3",
+    "artifacts/controller/data_v1_validation/branch_resource_inventory.json": "365c3c6661016bfeba3c0bb5c4ffd469adfa30ad4c5c4f99b0577d826cf2a619",
+    "artifacts/controller/data_v1/manifest.json": "73178f7ce6501aa59ecf15463b266cb4cf89ee52b126a4fe375cb976c02e15c6",
+    "artifacts/controller/data_v1/evaluation_reserve_ids.json": "43bee6035df34346c6d98f3e0cdaf6411e4e104116d85a08ca6e519c7b86cb86",
+    "configs/splits/controller_data_v1.json": "3f9e859d767724cbefc5b07fcfb157ce5dacde8f258dd00fd25e8f35666552b2",
+    "configs/controller/data_policy_v1.json": "6a551545ce453dbe44be829630d3d9883882f5976b030b7970d4ccd5c8add9a1",
+    "configs/controller/experiment_protocol_v1.json": "3edce74cc048e20f2a7a6bbe187564adb06f520397b1ea51a875a1faf2a8f9d0",
+    "src/controller/data_preparation.py": "404bda3dae3dca48a56bc0b851e17509fce20737342bfc49a3a2416a94989683",
+    "scripts/prepare_controller_data.py": "db55f9cfcf10487b240e767ab19a8957307b4764a3714458ec82873618b2af6b",
+    "scripts/check_controller_data.py": "511fd85349e0053454ea3a8aea4e1f00bb4bf3adb1c23a2f2d35edb87e9938db",
+    "tests/test_controller_data_preparation.py": "b4f0abbe30b64df8de6361ec42f75a65a39129b68156105bcb7a01f85cbc7997"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": "controller_data_policy_v1",
+  "protocol_path": "configs/controller/experiment_protocol_v1.json",
+  "source_commit": "30738f0d6acf13b125a695615e3c5794ee841832",
+  "seed": 42,
+  "counts_per_dataset": {
+    "development": 200,
+    "selection": 200,
+    "final_candidate": 500
+  },
+  "evaluation_reserve": {
+    "minimum_fraction": 0.1,
+    "maximum_fraction": 0.15,
+    "nq_source": "All original reserved_evaluation IDs, including quarantined records; never reassign them to training or tuning",
+    "fever_source": "All valid binary-gold candidates in the final hash partition after excluding known exposed IDs",
+    "active_subset_per_dataset": 500,
+    "rule": "500 is the predeclared evaluated subset, not the full protected pool; remaining reserved IDs stay sealed"
+  },
+  "nq_partition_source": "data/processed/answer_repair/nq_train_v1/partition_ids.json",
+  "nq_delivery_directory": "data/processed/external/nq_train_delivery_20261017",
+  "nq_delivery_manifest": "data/annotations/nq_train_delivery/manifest.json",
+  "nq_generation_stats": "data/annotations/nq_train_annotation_candidates_stats.json",
+  "fever_source": "data/processed/retrieval/fever_dev.jsonl",
+  "preexisting_variant_quarantine": "artifacts/project_audit_20261023/split_variant_groups.json",
+  "sampling": "Seeded SHA256 order; retain original NQ roles; FEVER canonical-query hash buckets 70/15/15; no correctness/failure-label filtering",
+  "duplicate_control": "Quarantine all 35 previously flagged NQ variant rows; also NFKC + casefold + punctuation removal + whitespace collapse cross-role groups; direct content-token Jaccard >=0.60 excluded against prior exposed and previously selected queries",
+  "selection_role_order": [
+    "final_candidate",
+    "selection",
+    "development"
+  ],
+  "historical_c1_decision": "Use the original NQ Train cached C1 as a historical postprocessing baseline; upstream Qwen revision/environment were not exported and remain unknown",
+  "fever_c1_decision": "Generate fresh C1 on selected new claims using the T1 Qwen revision and matching FEVER index; do not reuse the old exposed 500 as new test data",
+  "team_exposure_attestation": {
+    "status": "confirmed_by_user",
+    "date": "2026-10-23",
+    "question": "团队是否在仓库已有实验记录之外，使用过 NQ Train 或 FEVER dev 做 Diagnosis 训练、调参或错误分析？",
+    "answer": "没有额外使用",
+    "scope": "User-reported team usage in addition to repository audit; not a model pretraining or semantic/page isolation guarantee"
+  },
+  "label_policy": "New preliminary AI/heuristic diagnosis labels are not human gold, training evidence, or sampling scores; main QA gold comes from original delivery references",
+  "resource_discovery": {
+    "observed_date": "2026-10-23",
+    "google_drive_search": "ACCESS_TOKEN_SCOPE_INSUFFICIENT",
+    "browser_fallback": "No browser is available",
+    "meaning": "Remote resource discovery was unavailable; missing local assets are not proof that the team has no copy"
+  },
+  "final_candidate_meaning": "Reserved for final evaluation, conditioned on completion of C1/resource/execution seals; never used for debugging, prompt design, or candidate selection"
+}

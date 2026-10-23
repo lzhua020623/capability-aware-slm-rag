@@ -1,0 +1,84 @@
+{
+  "datasets": {
+    "nq": [
+      {
+        "path": "data/processed/retrieval/nq_train_corpus.jsonl",
+        "exists": false,
+        "bytes": null,
+        "dataless": false,
+        "sha256": null,
+        "verification": "missing"
+      },
+      {
+        "path": "data/processed/indexes/nq_train_bge_base.index",
+        "exists": false,
+        "bytes": null,
+        "dataless": false,
+        "sha256": null,
+        "verification": "missing"
+      },
+      {
+        "path": "data/processed/indexes/nq_train_bge_base_ids.jsonl",
+        "exists": false,
+        "bytes": null,
+        "dataless": false,
+        "sha256": null,
+        "verification": "missing"
+      },
+      {
+        "path": "data/processed/indexes/nq_train_bge_base_offsets.npy",
+        "exists": false,
+        "bytes": null,
+        "dataless": false,
+        "sha256": null,
+        "verification": "missing"
+      },
+      {
+        "path": "data/processed/indexes/nq_train_bge_metadata.json",
+        "exists": false,
+        "bytes": null,
+        "dataless": false,
+        "sha256": null,
+        "verification": "missing"
+      }
+    ],
+    "fever": [
+      {
+        "path": "data/processed/retrieval/fever_corpus.jsonl",
+        "exists": true,
+        "bytes": 3517244063,
+        "dataless": true,
+        "sha256": null,
+        "verification": "cloud_placeholder"
+      },
+      {
+        "path": "data/processed/indexes/fever_bge_ivfpq.index",
+        "exists": false,
+        "bytes": null,
+        "dataless": false,
+        "sha256": null,
+        "verification": "missing"
+      },
+      {
+        "path": "data/processed/indexes/fever_bge_ivfpq_ids.jsonl",
+        "exists": false,
+        "bytes": null,
+        "dataless": false,
+        "sha256": null,
+        "verification": "missing"
+      },
+      {
+        "path": "results/retrieval/fever_bge_ivfpq_meta.json",
+        "exists": true,
+        "bytes": 601,
+        "dataless": false,
+        "sha256": "f4146debafd05ff4b78d8788265c9df8ceb59462d40883beb6ef70eda6e6c2be",
+        "verification": "present_not_semantically_audited"
+      }
+    ]
+  },
+  "index_c1_match_verified": false,
+  "bge_revision": null,
+  "nq_adapter_requirement": "Preserve official IndexFlatIP + IDs + offsets + corpus. Current controller provider expects full-text JSONL metadata; T3 must add the supplied-format adapter or a verified lossless conversion.",
+  "full_corpus_cleanliness_claim": false
+}

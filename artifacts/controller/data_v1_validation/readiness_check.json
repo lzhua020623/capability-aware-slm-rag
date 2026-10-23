@@ -1,0 +1,34 @@
+{
+  "schema_version": "controller_data_validation_v1",
+  "data_integrity_passed": true,
+  "full_T2_ready": false,
+  "manifest_sha256": "73178f7ce6501aa59ecf15463b266cb4cf89ee52b126a4fe375cb976c02e15c6",
+  "source_hashes_checked": 0,
+  "datasets": {
+    "nq": {
+      "counts": {
+        "development": 200,
+        "selection": 200,
+        "final_candidate": 500
+      },
+      "protected_count": 7564,
+      "protected_fraction": 0.10208240549549914,
+      "paired_runtime_ready": true
+    },
+    "fever": {
+      "counts": {
+        "development": 200,
+        "selection": 200,
+        "final_candidate": 500
+      },
+      "protected_count": 1886,
+      "protected_fraction": 0.14256557562929928,
+      "paired_runtime_ready": false
+    }
+  },
+  "remaining_requirements": [
+    "Generate and seal FEVER C1 Top5/answers for the fixed 900 tasks without outcome-dependent removal",
+    "Obtain and hash matching NQ Train and FEVER index/IDs/corpus/sidecars and pin verified BGE weights",
+    "T3 must implement the NQ Train source-format adapter and FEVER retrieval; all formal arms require an execution seal"
+  ]
+}

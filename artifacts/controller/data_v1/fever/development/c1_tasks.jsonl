@@ -1,0 +1,200 @@
+{"dataset": "fever", "query": "Palo Alto, California is located in a county.", "sample_id": "206148"}
+{"dataset": "fever", "query": "Chris Paul is notorious for shooting instead of passing, with the lowest assist record in the NBA.", "sample_id": "148655"}
+{"dataset": "fever", "query": "The State of Palestine claims a territory in East Asia.", "sample_id": "370"}
+{"dataset": "fever", "query": "Part of The Last Song (film) was filmed on a beach.", "sample_id": "36953"}
+{"dataset": "fever", "query": "Trollhunters is only hand-drawn.", "sample_id": "115863"}
+{"dataset": "fever", "query": "Tim McGraw has yet to work with Reese Witherspoon.", "sample_id": "41833"}
+{"dataset": "fever", "query": "Alexandra Daddario is American.", "sample_id": "13951"}
+{"dataset": "fever", "query": "Libya is the third largest country on its continent.", "sample_id": "218242"}
+{"dataset": "fever", "query": "The ruins of the ancient Roman town of Pompeii lie near Naples.", "sample_id": "16807"}
+{"dataset": "fever", "query": "The Cretaceous is an event.", "sample_id": "204356"}
+{"dataset": "fever", "query": "The Blue Dog coalition was formed by conservative republicans.", "sample_id": "83527"}
+{"dataset": "fever", "query": "Malta claims to be the historical Melita where Paul the Apostle was shipwrecked.", "sample_id": "126740"}
+{"dataset": "fever", "query": "Tamerlan Tsarnaev had a brother.", "sample_id": "202025"}
+{"dataset": "fever", "query": "Helmand Province is in the Middle East.", "sample_id": "154399"}
+{"dataset": "fever", "query": "Honeymoon is the third perfume line by Lana Del Rey.", "sample_id": "5187"}
+{"dataset": "fever", "query": "Mad Max: Fury Road was released in the 21st century.", "sample_id": "41764"}
+{"dataset": "fever", "query": "The KGB was not governed by army laws and regulations.", "sample_id": "132471"}
+{"dataset": "fever", "query": "Kevin Bacon acted in The Woodsman when he was 93 years old.", "sample_id": "195236"}
+{"dataset": "fever", "query": "The Monster is an EP.", "sample_id": "208924"}
+{"dataset": "fever", "query": "Fist of Legend is a remake of a film.", "sample_id": "10947"}
+{"dataset": "fever", "query": "Mel B released a song on Virgin Records.", "sample_id": "207517"}
+{"dataset": "fever", "query": "Ashton Kutcher was in two films in 2005.", "sample_id": "11497"}
+{"dataset": "fever", "query": "Weill Cornell Medicine is a school as part of a university.", "sample_id": "159321"}
+{"dataset": "fever", "query": "Hot Right Now is from the album Escape from Planet Monday.", "sample_id": "125491"}
+{"dataset": "fever", "query": "Mike Friedrich was only born on May 27, 1949.", "sample_id": "194241"}
+{"dataset": "fever", "query": "An Education is a drama movie.", "sample_id": "173924"}
+{"dataset": "fever", "query": "Practical Magic is based on a 1995 novel.", "sample_id": "222741"}
+{"dataset": "fever", "query": "University of Chicago Law School is ranked first in the 2016 QS World University Rankings.", "sample_id": "3160"}
+{"dataset": "fever", "query": "James Earl Jones was not the voice of Darth Vader.", "sample_id": "13155"}
+{"dataset": "fever", "query": "Saw II is unreleased.", "sample_id": "48083"}
+{"dataset": "fever", "query": "Lithuanians are of an ethnicity.", "sample_id": "151156"}
+{"dataset": "fever", "query": "Mogadishu is a city.", "sample_id": "181627"}
+{"dataset": "fever", "query": "Brick (film) was written by Michael Bay only.", "sample_id": "211781"}
+{"dataset": "fever", "query": "Ice-T's debut album was The Cars.", "sample_id": "149648"}
+{"dataset": "fever", "query": "Guns N' Roses is a hard rock band.", "sample_id": "155484"}
+{"dataset": "fever", "query": "Annie Lennox was named one of \"The 100 Greatest Singers of All Time.\"", "sample_id": "27583"}
+{"dataset": "fever", "query": "Night of the Living Dead is a series of seven romantic films.", "sample_id": "140242"}
+{"dataset": "fever", "query": "Brubaker has something to do with prison.", "sample_id": "222043"}
+{"dataset": "fever", "query": "The Baja 1000 was covered by Jim McKay one year.", "sample_id": "223278"}
+{"dataset": "fever", "query": "Francis I of France was a king.", "sample_id": "124540"}
+{"dataset": "fever", "query": "Michaela Watkins is a comedian.", "sample_id": "225283"}
+{"dataset": "fever", "query": "Aarhus is located on the east coast of the Jutland peninsula.", "sample_id": "26132"}
+{"dataset": "fever", "query": "The Colosseum is a wrestler from Italy.", "sample_id": "126678"}
+{"dataset": "fever", "query": "In 2012, Simi Valley, California, reported a higher median household income than that of the nation overall.", "sample_id": "183405"}
+{"dataset": "fever", "query": "Agent Raghav – Crime Branch was nominated for an award.", "sample_id": "93184"}
+{"dataset": "fever", "query": "China has no government.", "sample_id": "58076"}
+{"dataset": "fever", "query": "Animated programs have been produced by Fred Seibert.", "sample_id": "66579"}
+{"dataset": "fever", "query": "Curacao is the only ABC island.", "sample_id": "153914"}
+{"dataset": "fever", "query": "Anne Sullivan is still alive.", "sample_id": "173126"}
+{"dataset": "fever", "query": "Ann Richards was the head of the legislative branch of Texas's government.", "sample_id": "35382"}
+{"dataset": "fever", "query": "Warren Beatty was the co-writer, producer, and director of an epic drama movie.", "sample_id": "93878"}
+{"dataset": "fever", "query": "The album Cher was created by Cher.", "sample_id": "186927"}
+{"dataset": "fever", "query": "The King and I is based on a play.", "sample_id": "172292"}
+{"dataset": "fever", "query": "The great white shark does not prefer to prey on humans because it's a herbivore.", "sample_id": "145707"}
+{"dataset": "fever", "query": "Adobe Photoshop is incapable of being a software.", "sample_id": "69798"}
+{"dataset": "fever", "query": "Kate Walsh was only ever on CBS shows.", "sample_id": "37997"}
+{"dataset": "fever", "query": "Keegan-Michael Key has yet to appear at a White House Correspondents' Dinner.", "sample_id": "129996"}
+{"dataset": "fever", "query": "The Concert for Bangladesh is recognized as a highly successful and influential project.", "sample_id": "118044"}
+{"dataset": "fever", "query": "Birmingham is a sports team.", "sample_id": "110647"}
+{"dataset": "fever", "query": "Simon Cowell is someone that donates money to certain causes.", "sample_id": "27775"}
+{"dataset": "fever", "query": "Sancho Panza is a fictional character in a novel written by a Spanish writer born in 1616.", "sample_id": "173492"}
+{"dataset": "fever", "query": "Edmund H. North was British.", "sample_id": "56512"}
+{"dataset": "fever", "query": "Savages was created in 1954.", "sample_id": "219036"}
+{"dataset": "fever", "query": "Floyd Mayweather Jr. is boxes competitively.", "sample_id": "89682"}
+{"dataset": "fever", "query": "Aubrey Anderson-Emmons is an actress.", "sample_id": "41316"}
+{"dataset": "fever", "query": "A.J. Styles's weight class is heavyweight.", "sample_id": "142313"}
+{"dataset": "fever", "query": "The Washington Monument is the world's tallest obelisk.", "sample_id": "6387"}
+{"dataset": "fever", "query": "Match Point is a TV show.", "sample_id": "140083"}
+{"dataset": "fever", "query": "Ned Stark was introduced in 1996's A Game of Thrones.", "sample_id": "74648"}
+{"dataset": "fever", "query": "Rupert Murdoch is the Chairman of News Corporation.", "sample_id": "24448"}
+{"dataset": "fever", "query": "Henry VIII (TV serial) has an all-American cast.", "sample_id": "96137"}
+{"dataset": "fever", "query": "James Brolin was born in the 1940s.", "sample_id": "113882"}
+{"dataset": "fever", "query": "Helmand Province has zero airports.", "sample_id": "76199"}
+{"dataset": "fever", "query": "The Africa Cup of Nations is a football tournament.", "sample_id": "107543"}
+{"dataset": "fever", "query": "New Orleans is the birthplace of Anne Rice.", "sample_id": "166646"}
+{"dataset": "fever", "query": "Marvel vs. Capcom: Infinite retains the series' traditional character assists.", "sample_id": "58823"}
+{"dataset": "fever", "query": "Antigua and Barbuda was named after the Virgin of La Antigua in order to show respect to her.", "sample_id": "21720"}
+{"dataset": "fever", "query": "The White House Press Secretary is a junior official.", "sample_id": "128975"}
+{"dataset": "fever", "query": "The Silver Surfer is a dance move popular in East Asia.", "sample_id": "86472"}
+{"dataset": "fever", "query": "Humphrey Bogart was not ranked greatest male star of Classic American cinema in 1999.", "sample_id": "99849"}
+{"dataset": "fever", "query": "Michaela Watkins is an actress.", "sample_id": "225289"}
+{"dataset": "fever", "query": "Salman Rushdie started writing in 1982.", "sample_id": "112933"}
+{"dataset": "fever", "query": "Kelly Preston starred in multiple films like The Cat in the Hat, Old Dogs, and Broken Bridges.", "sample_id": "66175"}
+{"dataset": "fever", "query": "Leonard Nimoy was in Civilization IV.", "sample_id": "6250"}
+{"dataset": "fever", "query": "John Deighton developed swelling of the legs.", "sample_id": "107510"}
+{"dataset": "fever", "query": "A Good Day to Die Hard's director was John Moore.", "sample_id": "60854"}
+{"dataset": "fever", "query": "Sheryl Lee appeared in Café Society.", "sample_id": "65039"}
+{"dataset": "fever", "query": "Sam Claflin is a person.", "sample_id": "134349"}
+{"dataset": "fever", "query": "The Giver received a People's Choice Award nomination for Favorite Dramatic Movie.", "sample_id": "5037"}
+{"dataset": "fever", "query": "One Dance was Drake's first number one single in 34 countries.", "sample_id": "17278"}
+{"dataset": "fever", "query": "Al Jardine was unable to sing.", "sample_id": "178344"}
+{"dataset": "fever", "query": "Ivan Reitman directed Ashton Kutcher.", "sample_id": "133840"}
+{"dataset": "fever", "query": "B. R. Ambedkar spent his whole life in Portugal.", "sample_id": "64449"}
+{"dataset": "fever", "query": "The 1998 American action drama The Man in the Iron Mask went straight to video.", "sample_id": "174978"}
+{"dataset": "fever", "query": "Stephen Hillenburg developed an interest in art.", "sample_id": "5420"}
+{"dataset": "fever", "query": "Overexposed is a car.", "sample_id": "118545"}
+{"dataset": "fever", "query": "SpongeBob SquarePants is not an American series.", "sample_id": "73351"}
+{"dataset": "fever", "query": "Reign Over Me is a drama film released in 2010.", "sample_id": "83204"}
+{"dataset": "fever", "query": "Easy A is teen comedy movie from the United States.", "sample_id": "208156"}
+{"dataset": "fever", "query": "PBS is Italian.", "sample_id": "215279"}
+{"dataset": "fever", "query": "Charles Howard Hinton was a child during World War 1.", "sample_id": "53957"}
+{"dataset": "fever", "query": "Highway to Heaven ended its run before the 1990's.", "sample_id": "22187"}
+{"dataset": "fever", "query": "Jon Hamm received Primetime Emmy Award nominations.", "sample_id": "196162"}
+{"dataset": "fever", "query": "Duff McKagan is Canadian.", "sample_id": "107185"}
+{"dataset": "fever", "query": "Touchscreens are used in consoles.", "sample_id": "142891"}
+{"dataset": "fever", "query": "Foot Locker operates in 28 countries worldwide.", "sample_id": "188624"}
+{"dataset": "fever", "query": "Same Old Love is from a different album than Revival.", "sample_id": "68573"}
+{"dataset": "fever", "query": "The Incredibles 2 is a film.", "sample_id": "37924"}
+{"dataset": "fever", "query": "Jean-Michel Basquiat died at age 29.", "sample_id": "191261"}
+{"dataset": "fever", "query": "A Good Day to Die Hard was directed solely by Ridley Scott.", "sample_id": "98315"}
+{"dataset": "fever", "query": "Goosebumps (film) is based on The Hobbit by Scott Alexander and Larry Karaszewski.", "sample_id": "203386"}
+{"dataset": "fever", "query": "Akon has had more than ten songs certified as 1 × platinum.", "sample_id": "203038"}
+{"dataset": "fever", "query": "Vedam is a 2010 Indian soccer MVP.", "sample_id": "37265"}
+{"dataset": "fever", "query": "The last windstorm in Stanley Park was in 2006.", "sample_id": "5826"}
+{"dataset": "fever", "query": "Fritz Lang directed the film The Good German.", "sample_id": "179105"}
+{"dataset": "fever", "query": "Emma Watson is a French-British car.", "sample_id": "5705"}
+{"dataset": "fever", "query": "No Country for Old Men is a cat-and-mouse drama.", "sample_id": "53097"}
+{"dataset": "fever", "query": "Al Jardine sang lead vocals in a band.", "sample_id": "178348"}
+{"dataset": "fever", "query": "Doxycycline may cause headaches.", "sample_id": "124993"}
+{"dataset": "fever", "query": "Cthulhu is a gigantic Lovecraftian entity worshipped by cultists.", "sample_id": "116502"}
+{"dataset": "fever", "query": "A River Runs Through It has won an award.", "sample_id": "90208"}
+{"dataset": "fever", "query": "Sean Gunn was in Guardians of the Galaxy in 2015.", "sample_id": "181274"}
+{"dataset": "fever", "query": "Qui-Gon Jinn is a nonfiction character.", "sample_id": "153900"}
+{"dataset": "fever", "query": "The Chrysler Building was always the world's shortest building.", "sample_id": "105724"}
+{"dataset": "fever", "query": "Matt Bomer is American.", "sample_id": "33670"}
+{"dataset": "fever", "query": "Emperor Norton is not the basis of characters in many authors' books.", "sample_id": "122396"}
+{"dataset": "fever", "query": "Inside Llewyn Davis competed in the 66th Summer Olympics.", "sample_id": "121522"}
+{"dataset": "fever", "query": "Richard Dawson was born November 20th 1932.", "sample_id": "44380"}
+{"dataset": "fever", "query": "Soyuz was designed in the 1930s.", "sample_id": "152117"}
+{"dataset": "fever", "query": "The Wallace is a work of poetry.", "sample_id": "59242"}
+{"dataset": "fever", "query": "Basildon is in Denmark.", "sample_id": "112890"}
+{"dataset": "fever", "query": "Dilwale Dulhania Le Jayenge was all filmed in China.", "sample_id": "41923"}
+{"dataset": "fever", "query": "Joe Rogan appeared in a sitcom.", "sample_id": "156698"}
+{"dataset": "fever", "query": "Carey Hayes was born in Portland, Oregon.", "sample_id": "164399"}
+{"dataset": "fever", "query": "Penélope Cruz has modeled for the clothing company Mango.", "sample_id": "7013"}
+{"dataset": "fever", "query": "Luis Fonsi is a prime minister.", "sample_id": "56742"}
+{"dataset": "fever", "query": "Gaius Julius Caesar was only Spanish.", "sample_id": "205107"}
+{"dataset": "fever", "query": "The Battle of France happened during World War I.", "sample_id": "110703"}
+{"dataset": "fever", "query": "Brubaker is a 1950 film.", "sample_id": "222028"}
+{"dataset": "fever", "query": "Japan national football team had second round advancements in 2010.", "sample_id": "169936"}
+{"dataset": "fever", "query": "Bermuda Triangle is in the western part of the Himalayas.", "sample_id": "187000"}
+{"dataset": "fever", "query": "Lee Daniels received a nomination for an award.", "sample_id": "35031"}
+{"dataset": "fever", "query": "José Ferrer was a director of plays in the 20th century.", "sample_id": "51708"}
+{"dataset": "fever", "query": "An Education was created by a journalist.", "sample_id": "173929"}
+{"dataset": "fever", "query": "Talulah Riley did not appear in Pride & Prejudice.", "sample_id": "104205"}
+{"dataset": "fever", "query": "Meteora is not a rock album.", "sample_id": "86242"}
+{"dataset": "fever", "query": "Personality is affected by the development of abilities.", "sample_id": "121683"}
+{"dataset": "fever", "query": "The Romani people went extinct around 1,000 years ago.", "sample_id": "113688"}
+{"dataset": "fever", "query": "Bank of America has centers.", "sample_id": "478"}
+{"dataset": "fever", "query": "Earl Scruggs was born in January.", "sample_id": "173725"}
+{"dataset": "fever", "query": "Aphrodite is not in Greek mythology.", "sample_id": "44722"}
+{"dataset": "fever", "query": "Julie Bowen refused to ever become an actress.", "sample_id": "72918"}
+{"dataset": "fever", "query": "The science fiction television series Fringe first aired in 2008.", "sample_id": "171525"}
+{"dataset": "fever", "query": "Soul Food was created in 1997.", "sample_id": "610"}
+{"dataset": "fever", "query": "A View to a Kill is only directed by Chris Columbus.", "sample_id": "95991"}
+{"dataset": "fever", "query": "Milk is an American movie from 2008.", "sample_id": "177853"}
+{"dataset": "fever", "query": "East Timor is the place where Balibo (film) takes place.", "sample_id": "50681"}
+{"dataset": "fever", "query": "Ice-T made of a record of the hip-hop genre.", "sample_id": "29306"}
+{"dataset": "fever", "query": "DodgeBall: A True Underdog Story is a 2003 Canadian film.", "sample_id": "34073"}
+{"dataset": "fever", "query": "Absinthe is banned in Europe.", "sample_id": "106496"}
+{"dataset": "fever", "query": "The Nice Guys was directed by Wally Pfister.", "sample_id": "148152"}
+{"dataset": "fever", "query": "Ed Gagliardi died on October 13, 2005.", "sample_id": "193837"}
+{"dataset": "fever", "query": "Matteo Renzi was once the Prime Minister of Italy.", "sample_id": "172479"}
+{"dataset": "fever", "query": "Tom Kenny stars in The SpongeBob SquarePants Movie.", "sample_id": "139427"}
+{"dataset": "fever", "query": "Ding Yanyuhang is an amateur basketball player.", "sample_id": "162218"}
+{"dataset": "fever", "query": "A View to a Kill is a television series.", "sample_id": "141188"}
+{"dataset": "fever", "query": "One of the most influential bands of its time is Pearl Jam.", "sample_id": "157813"}
+{"dataset": "fever", "query": "Viola Davis has played supporting and minor roles in films and television series in the 1990s.", "sample_id": "151253"}
+{"dataset": "fever", "query": "Bhagat Singh was murdered.", "sample_id": "93855"}
+{"dataset": "fever", "query": "Resident Evil is a film.", "sample_id": "211009"}
+{"dataset": "fever", "query": "Bhagat Singh was a folk hero of the Indian independence movement.", "sample_id": "27863"}
+{"dataset": "fever", "query": "Taarak Mehta Ka Ooltah Chashmah is not produced by Neela Tele Films Private Limited.", "sample_id": "115128"}
+{"dataset": "fever", "query": "On December 27, 1931, Scotty Moore was born.", "sample_id": "45699"}
+{"dataset": "fever", "query": "Chinatown's screenplay had a writer.", "sample_id": "225792"}
+{"dataset": "fever", "query": "Ian Gillan is only Japanese.", "sample_id": "84737"}
+{"dataset": "fever", "query": "Project Y was a military base.", "sample_id": "112302"}
+{"dataset": "fever", "query": "Gin is a berry flavoured spirit.", "sample_id": "86914"}
+{"dataset": "fever", "query": "Knocked Up grossed $259 million worldwide.", "sample_id": "98146"}
+{"dataset": "fever", "query": "Mary of Teck's son married a Wallis Simpson.", "sample_id": "138375"}
+{"dataset": "fever", "query": "Tenacious D was released after 2005.", "sample_id": "216197"}
+{"dataset": "fever", "query": "The 66th Primetime Emmy Awards was hosted by an American comedian born in 1973.", "sample_id": "224184"}
+{"dataset": "fever", "query": "The Winds of Winter was not called \"very surprising and satisfying.\"", "sample_id": "6572"}
+{"dataset": "fever", "query": "Middle-earth is a real place.", "sample_id": "168975"}
+{"dataset": "fever", "query": "The Saturn Award for Best Fantasy Film is presented to the best film in a genre.", "sample_id": "164057"}
+{"dataset": "fever", "query": "The Dodo has been depicted with feet.", "sample_id": "64838"}
+{"dataset": "fever", "query": "Ice-T began his career as a rapper in the 1970s.", "sample_id": "85780"}
+{"dataset": "fever", "query": "Exotic Birds achieved mostly local success in Minneapolis.", "sample_id": "92791"}
+{"dataset": "fever", "query": "Brian De Palma directs television but has yet to direct film.", "sample_id": "225277"}
+{"dataset": "fever", "query": "Temple Grandin features Claire Danes playing an autistic woman who changed practices for the handling of livestock.", "sample_id": "40859"}
+{"dataset": "fever", "query": "Wales' population rapidly declined.", "sample_id": "44223"}
+{"dataset": "fever", "query": "Tijuana is on the Baja California Peninsula.", "sample_id": "199755"}
+{"dataset": "fever", "query": "Benjamin Franklin failed at earning the title of \"The First American.\"", "sample_id": "38210"}
+{"dataset": "fever", "query": "Pink is an actress.", "sample_id": "24204"}
+{"dataset": "fever", "query": "The Colosseum is in Venice.", "sample_id": "40626"}
+{"dataset": "fever", "query": "The Hunchback of Notre Dame is based off of a book.", "sample_id": "186320"}
+{"dataset": "fever", "query": "Sierra Morena is steeped in culture and tradition.", "sample_id": "23459"}
+{"dataset": "fever", "query": "PacSun sells products designed for young adults and has been successful.", "sample_id": "52523"}
+{"dataset": "fever", "query": "The Baja 1000 had Mickey Thompson as a participant.", "sample_id": "223279"}
+{"dataset": "fever", "query": "Sky UK is a British telecommunications company.", "sample_id": "113106"}
+{"dataset": "fever", "query": "Tinker Tailor Soldier Spy only stars Jason Bateman.", "sample_id": "202450"}

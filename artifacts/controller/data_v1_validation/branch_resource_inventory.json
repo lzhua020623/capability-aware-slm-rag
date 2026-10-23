@@ -1,0 +1,218 @@
+{
+  "branches": [
+    {
+      "ref": "origin/controller",
+      "commit": "30738f0d6acf13b125a695615e3c5794ee841832",
+      "tracked_files": 1119,
+      "matched_paths": 19
+    },
+    {
+      "ref": "origin/feature/-ce-70B",
+      "commit": "6f08f2fe2dc2dcf39b75177763207682b2890a31",
+      "tracked_files": 78,
+      "matched_paths": 5
+    },
+    {
+      "ref": "origin/feature/F500-c0c3",
+      "commit": "1238a4fca8fb5946f644cbbf7a04b00684d060e1",
+      "tracked_files": 60,
+      "matched_paths": 1
+    },
+    {
+      "ref": "origin/feature/diagnosis-probe-zheng",
+      "commit": "7c7863f98f87e892119481a79e23ca6dcebdced0",
+      "tracked_files": 122,
+      "matched_paths": 1
+    },
+    {
+      "ref": "origin/feature/fever-c1",
+      "commit": "6ebdfc99309d977019d4fb75a6a4b97766ad710a",
+      "tracked_files": 69,
+      "matched_paths": 7
+    },
+    {
+      "ref": "origin/feature/nq-c0-c1",
+      "commit": "bcb248cdb94fb828b01513555d2513cc9cbb921f",
+      "tracked_files": 54,
+      "matched_paths": 0
+    },
+    {
+      "ref": "origin/feature/nq-c3",
+      "commit": "8b03009d8ed5e516eba14c6947f3f0085adb1e48",
+      "tracked_files": 61,
+      "matched_paths": 0
+    },
+    {
+      "ref": "origin/feature/retrieval-enhancement",
+      "commit": "1d9778095f921735bdb16a21b5ef61ab73443c1c",
+      "tracked_files": 72,
+      "matched_paths": 0
+    },
+    {
+      "ref": "origin/feature/verification-answer-repair",
+      "commit": "5da1fe50d1e7f289d8859c6cfe9d8a4e296aec3b",
+      "tracked_files": 935,
+      "matched_paths": 11
+    },
+    {
+      "ref": "origin/main",
+      "commit": "058f10baa47083220f95edb39db8f106aa7e85d6",
+      "tracked_files": 62,
+      "matched_paths": 4
+    },
+    {
+      "ref": "origin/reranking",
+      "commit": "338ff34b039ed367220b0b916b48c4f7fc715e20",
+      "tracked_files": 134,
+      "matched_paths": 1
+    }
+  ],
+  "paths": [
+    {
+      "path": "artifacts/answer_repair/nq_train_dev_v1/confirmed/batch01_c1.jsonl",
+      "refs": [
+        "origin/controller",
+        "origin/feature/verification-answer-repair"
+      ]
+    },
+    {
+      "path": "artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch02_c1.jsonl",
+      "refs": [
+        "origin/controller",
+        "origin/feature/verification-answer-repair"
+      ]
+    },
+    {
+      "path": "artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch03_c1.jsonl",
+      "refs": [
+        "origin/controller",
+        "origin/feature/verification-answer-repair"
+      ]
+    },
+    {
+      "path": "artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch04_c1.jsonl",
+      "refs": [
+        "origin/controller",
+        "origin/feature/verification-answer-repair"
+      ]
+    },
+    {
+      "path": "artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch05_c1.jsonl",
+      "refs": [
+        "origin/controller",
+        "origin/feature/verification-answer-repair"
+      ]
+    },
+    {
+      "path": "artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch06_c1.jsonl",
+      "refs": [
+        "origin/controller",
+        "origin/feature/verification-answer-repair"
+      ]
+    },
+    {
+      "path": "artifacts/answer_repair/nq_train_dev_v1/inputs/nq_train_review_c1.jsonl",
+      "refs": [
+        "origin/controller",
+        "origin/feature/verification-answer-repair"
+      ]
+    },
+    {
+      "path": "data/annotations/nq_train_annotation_candidates_stats.json",
+      "refs": [
+        "origin/controller",
+        "origin/feature/verification-answer-repair",
+        "origin/main"
+      ]
+    },
+    {
+      "path": "results/preliminary/fever_c1_7b.jsonl",
+      "refs": [
+        "origin/controller",
+        "origin/feature/-ce-70B",
+        "origin/feature/diagnosis-probe-zheng",
+        "origin/feature/fever-c1",
+        "origin/reranking"
+      ]
+    },
+    {
+      "path": "results/preliminary/fever_c1_c3_persistent_failures.jsonl",
+      "refs": [
+        "origin/controller",
+        "origin/feature/-ce-70B",
+        "origin/feature/fever-c1"
+      ]
+    },
+    {
+      "path": "results/preliminary/fever_c1_c3_recoverability_summary.json",
+      "refs": [
+        "origin/controller",
+        "origin/feature/-ce-70B",
+        "origin/feature/fever-c1"
+      ]
+    },
+    {
+      "path": "results/preliminary/fever_c1_c3_recoverable.jsonl",
+      "refs": [
+        "origin/controller",
+        "origin/feature/-ce-70B",
+        "origin/feature/fever-c1"
+      ]
+    },
+    {
+      "path": "results/preliminary/fever_c1_top5.jsonl",
+      "refs": [
+        "origin/controller",
+        "origin/feature/-ce-70B",
+        "origin/feature/fever-c1"
+      ]
+    },
+    {
+      "path": "results/retrieval/fever_bge_ivfpq_meta.json",
+      "refs": [
+        "origin/controller",
+        "origin/feature/F500-c0c3"
+      ]
+    },
+    {
+      "path": "scripts/build_nq_train_bge_index.py",
+      "refs": [
+        "origin/controller",
+        "origin/feature/verification-answer-repair",
+        "origin/main"
+      ]
+    },
+    {
+      "path": "scripts/run_fever_c1_preliminary.py",
+      "refs": [
+        "origin/controller",
+        "origin/feature/fever-c1"
+      ]
+    },
+    {
+      "path": "scripts/run_nq_train_c1_generation.py",
+      "refs": [
+        "origin/controller",
+        "origin/feature/verification-answer-repair",
+        "origin/main"
+      ]
+    },
+    {
+      "path": "scripts/validate_nq_train_annotations.py",
+      "refs": [
+        "origin/controller",
+        "origin/feature/verification-answer-repair",
+        "origin/main"
+      ]
+    },
+    {
+      "path": "tests/test_fever_c1_preliminary.py",
+      "refs": [
+        "origin/controller",
+        "origin/feature/fever-c1"
+      ]
+    }
+  ],
+  "tracked_index_binaries": [],
+  "scope": "All remote branch trees; tracked filenames, including scripts, C1 outputs and metadata. Gitignored local/remote assets and archive interiors are not falsely counted as absent."
+}

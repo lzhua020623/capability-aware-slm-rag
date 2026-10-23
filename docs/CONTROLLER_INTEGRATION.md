@@ -6,6 +6,8 @@
 
 T1 的完整 CPU 回归为 648 项通过（新增 13 项协议测试），68 个参考文件无漂移，验证归档见 [protocol_v1](../artifacts/controller/protocol_v1/README.md)。下面第 4 节的 635 项是先前集成提交的历史验收数量。
 
+T2 已冻结 [两数据集的样本和完整评测保留池](CONTROLLER_DATA_V1.md)：NQ 7,564、FEVER 1,886 条禁止用于训练/调参；各抽 500 条为本轮最终子集，开发/选型各 200 条。NQ 配对输入已导出，FEVER 仅生成 query-only C1 任务；匹配索引、BGE revision、新 FEVER C1 仍待补齐，因此未宣称 T2 全部就绪。最新 CPU 回归 665 项通过。当前 NQ Train 的 ID/offset/corpus 资源格式也需在 T3 接入。
+
 ## 1. 来源与合并
 
 从 E 分支 `5da1fe5` 创建新分支，依次合并：
