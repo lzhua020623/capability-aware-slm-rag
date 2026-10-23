@@ -1,0 +1,34 @@
+{
+  "task": "T1",
+  "date": "2026-10-23",
+  "reference_commit": "86a7b126225f7cbc5ffe4c7af7db3137acbec9f5",
+  "command": "/tmp/e-xgrammar-20261022/bin/python -m unittest discover -s tests -v",
+  "tests_passed": 648,
+  "seconds": 42.731,
+  "new_protocol_tests": 13,
+  "python": "3.12.14",
+  "packages": {
+    "torch": "2.14.1",
+    "transformers": "5.16.1",
+    "scikit-learn": "1.9.1",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "PyYAML": "6.0.3",
+    "xgrammar": "0.2.8",
+    "sentence-transformers": null,
+    "faiss-cpu": null,
+    "accelerate": null,
+    "bitsandbytes": null
+  },
+  "environment_scope": "CPU regression only; not the planned CUDA deployment lock",
+  "gpu_inference_performed": false,
+  "sha256": {
+    "artifacts/controller/protocol_v1/checker_validation.json": "dad93b8c030fef2bd505a79eaef37b8eb589b3da7e4cd31fe6fecaeadc51b36b",
+    "artifacts/controller/protocol_v1/design_audit.json": "8b5f488ac3a81955dd0efcee6611123a0b406cffa5fb9eba5d60d14444c29a15",
+    "artifacts/controller/protocol_v1/execution_readiness.json": "8b5f488ac3a81955dd0efcee6611123a0b406cffa5fb9eba5d60d14444c29a15",
+    "artifacts/controller/protocol_v1/tests.log": "a1841d53f19270021c7ff7e048cc420c3dfc58c6956e19d13ae9c33921e4687a",
+    "scripts/check_controller_protocol.py": "153d2e5cc349e2eae441857d8fa5cc2663511b5817aba2cce3297ce5faf76583",
+    "tests/test_controller_protocol.py": "0c38951a153efdfcadb136c10b8e676738812b9b1431dab63825f8c9c9981f17",
+    "configs/controller/experiment_protocol_v1.json": "3edce74cc048e20f2a7a6bbe187564adb06f520397b1ea51a875a1faf2a8f9d0"
+  }
+}

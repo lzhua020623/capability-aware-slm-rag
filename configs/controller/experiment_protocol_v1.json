@@ -1,0 +1,413 @@
+{
+  "schema_version": "controller_experiment_design_v1",
+  "protocol_id": "controller_experiment_v1",
+  "date": "2026-10-23",
+  "state": "design_frozen_execution_pending",
+  "reference_commit": "86a7b126225f7cbc5ffe4c7af7db3137acbec9f5",
+  "reference_snapshot": {
+    "path": "configs/controller/protocol_v1_reference_sources.json",
+    "sha256": "9c640c3dd3613b8631e870d981f541de09bea4c138a59f643c8ebd235a0dfdf7"
+  },
+  "document": {
+    "path": "docs/CONTROLLER_EXPERIMENT_PROTOCOL_V1.md",
+    "sha256": "d12b5f45611086227039161fec99df86f58793b94e419f3e9fe79388ff771061"
+  },
+  "datasets": [
+    "nq",
+    "fever"
+  ],
+  "seed": 42,
+  "components": {
+    "generator": {
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+      "tokenizer_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+      "quantization": "nf4",
+      "compute_dtype": "float16",
+      "double_quant": true,
+      "do_sample": false,
+      "online_independent_nli": false
+    },
+    "retriever": {
+      "model": "BAAI/bge-base-en-v1.5",
+      "revision": null,
+      "revision_requirement": "T2: pin the weights used by the matching C1 index; do not silently use latest",
+      "original_context_k": 5,
+      "candidate_depth": 20,
+      "context_k": 5,
+      "rrf_k": 60,
+      "query_rewrite": false,
+      "fever_supported_at_T1": false,
+      "fever_T3_contract": {
+        "candidate_depth": 20,
+        "context_k": 5,
+        "rrf_k": 60,
+        "query": "original_claim",
+        "backend": "must match FEVER C1 index provenance",
+        "generation_prompt": "existing FEVER C1 prompt",
+        "acceptance": "parseable SUPPORTS/REFUTES; otherwise retain entering answer",
+        "semantic_support_guaranteed": false
+      }
+    },
+    "reranker": {
+      "model": "BAAI/bge-reranker-large",
+      "revision": "55611d7bca2a7133960a6d3b71e083071bbfc312",
+      "device": "cpu",
+      "dtype": "float32",
+      "activation": "Identity",
+      "max_length": 512
+    },
+    "refinement": {
+      "keep_k": 5,
+      "min_score": null,
+      "probe_hint_weight": 0.0,
+      "require_grounded": true,
+      "regenerate_when_unchanged": false
+    },
+    "diagnosis": {
+      "path": "models/diagnosis/diagnosis_v2_expanded_hierarchical.json",
+      "features": 27,
+      "output": "single_dominant_type"
+    },
+    "probe": {
+      "low": 0.5,
+      "high": 0.65,
+      "stage2_threshold": 0.5,
+      "max_new_tokens": 160,
+      "trigger_source": "src/probe/trigger.py"
+    },
+    "safe_binary": {
+      "max_stage1": 0.7,
+      "max_stage2": 0.5,
+      "override": "failure_to_correct_only"
+    },
+    "repair": {
+      "nq": {
+        "strategy": "short_answer_quote",
+        "prompt_version": "v7_short_answer_in_quote_lines"
+      },
+      "fever": {
+        "strategy": "verify_repair",
+        "prompt_version": "v3_balanced_examples"
+      },
+      "performance_promoted": false
+    }
+  },
+  "runtime_reference_config": {
+    "path": "configs/controller/integration_v1.json",
+    "values": {
+      "nq_repair_strategy": "short_answer_quote",
+      "fever_repair_strategy": "verify_repair",
+      "max_llm_calls": 4,
+      "max_retrieval_calls": 1,
+      "max_scoring_calls": 1,
+      "answer_max_new_tokens": 64,
+      "repair_max_new_tokens": 384
+    },
+    "note": "Existing general limits; T3 must enforce per-arm protocol budgets, including two scoring calls for Full."
+  },
+  "operation_bounds": {
+    "probe": {
+      "llm_calls": 1,
+      "retrieval_calls": 0,
+      "scoring_calls": 0,
+      "max_output_tokens": 160
+    },
+    "retrieve": {
+      "llm_calls": 1,
+      "retrieval_calls": 1,
+      "scoring_calls": 1,
+      "max_output_tokens": 64
+    },
+    "rerank": {
+      "llm_calls": 1,
+      "retrieval_calls": 0,
+      "scoring_calls": 1,
+      "max_output_tokens": 64
+    },
+    "repair": {
+      "llm_calls": 1,
+      "retrieval_calls": 0,
+      "scoring_calls": 0,
+      "max_output_tokens": 384
+    }
+  },
+  "arms": [
+    {
+      "id": "c1",
+      "role": "primary",
+      "execution": "sequence",
+      "stages": [],
+      "budget": {
+        "llm_calls": 0,
+        "retrieval_calls": 0,
+        "scoring_calls": 0,
+        "max_output_tokens": 0
+      },
+      "implementation_at_T1": "implemented",
+      "evaluation_scope": [
+        "development",
+        "selection",
+        "final"
+      ]
+    },
+    {
+      "id": "always_retrieve",
+      "role": "primary",
+      "execution": "sequence",
+      "stages": [
+        "retrieve"
+      ],
+      "budget": {
+        "llm_calls": 1,
+        "retrieval_calls": 1,
+        "scoring_calls": 1,
+        "max_output_tokens": 64
+      },
+      "implementation_at_T1": "nq_only",
+      "evaluation_scope": [
+        "development",
+        "selection",
+        "final"
+      ]
+    },
+    {
+      "id": "always_rerank",
+      "role": "primary",
+      "execution": "sequence",
+      "stages": [
+        "rerank"
+      ],
+      "budget": {
+        "llm_calls": 1,
+        "retrieval_calls": 0,
+        "scoring_calls": 1,
+        "max_output_tokens": 64
+      },
+      "implementation_at_T1": "implemented",
+      "evaluation_scope": [
+        "development",
+        "selection",
+        "final"
+      ]
+    },
+    {
+      "id": "always_repair",
+      "role": "primary",
+      "execution": "sequence",
+      "stages": [
+        "repair"
+      ],
+      "budget": {
+        "llm_calls": 1,
+        "retrieval_calls": 0,
+        "scoring_calls": 0,
+        "max_output_tokens": 384
+      },
+      "implementation_at_T1": "implemented",
+      "evaluation_scope": [
+        "development",
+        "selection",
+        "final"
+      ]
+    },
+    {
+      "id": "full_enhancement",
+      "role": "primary",
+      "execution": "sequence",
+      "stages": [
+        "retrieve",
+        "rerank",
+        "repair"
+      ],
+      "budget": {
+        "llm_calls": 3,
+        "retrieval_calls": 1,
+        "scoring_calls": 2,
+        "max_output_tokens": 512
+      },
+      "implementation_at_T1": "pending_T3",
+      "evaluation_scope": [
+        "development",
+        "selection",
+        "final"
+      ]
+    },
+    {
+      "id": "adaptive",
+      "role": "primary",
+      "execution": "optional_probe_then_one_or_none",
+      "stages": [
+        "retrieve",
+        "rerank",
+        "repair"
+      ],
+      "budget": {
+        "llm_calls": 2,
+        "retrieval_calls": 1,
+        "scoring_calls": 1,
+        "max_output_tokens": 544
+      },
+      "implementation_at_T1": "fever_retrieval_pending_T3",
+      "evaluation_scope": [
+        "development",
+        "selection",
+        "final"
+      ]
+    },
+    {
+      "id": "adaptive_no_probe",
+      "role": "diagnostic",
+      "execution": "one_or_none",
+      "stages": [
+        "retrieve",
+        "rerank",
+        "repair"
+      ],
+      "budget": {
+        "llm_calls": 1,
+        "retrieval_calls": 1,
+        "scoring_calls": 1,
+        "max_output_tokens": 384
+      },
+      "implementation_at_T1": "pending_T3",
+      "evaluation_scope": [
+        "development",
+        "selection"
+      ]
+    },
+    {
+      "id": "human_type_routed",
+      "role": "diagnostic",
+      "execution": "one_or_none",
+      "stages": [
+        "retrieve",
+        "rerank",
+        "repair"
+      ],
+      "budget": {
+        "llm_calls": 1,
+        "retrieval_calls": 1,
+        "scoring_calls": 1,
+        "max_output_tokens": 384
+      },
+      "implementation_at_T1": "pending_T3_reliable_label_subset_only",
+      "evaluation_scope": [
+        "development",
+        "selection"
+      ]
+    }
+  ],
+  "full_composition": {
+    "order": [
+      "retrieve",
+      "rerank",
+      "repair"
+    ],
+    "state_fields": [
+      "final_answer",
+      "final_evidence"
+    ],
+    "unchanged_answer": "preserve entering evidence per reference executor",
+    "stage_failure": "retain entering state; continue remaining stages within shared budget",
+    "budget_reset": false,
+    "diagnosis": false,
+    "probe": false
+  },
+  "data": {
+    "manifest": null,
+    "counts": null,
+    "ids": null,
+    "gold_sha256": null,
+    "index_manifest": null,
+    "required_before_inference": true,
+    "sampling": "eligibility-based random sample; no EM/failure-type/repairability filtering for primary cohort",
+    "reference_gold": "original NQ short answers and FEVER SUPPORTS/REFUTES, offline only",
+    "final_test": "team-exposure-checked, one final evaluation; not historical E 75/125 or previously exposed diagnosis test",
+    "ai_labels_are_human_gold": false,
+    "human_type_subset": "reliable offline type labels only; unknown excluded from type comparison with coverage reported"
+  },
+  "evaluation": {
+    "primary_metrics": {
+      "nq": "normalized_EM",
+      "fever": "label_accuracy"
+    },
+    "secondary_metrics": {
+      "nq": [
+        "token_F1"
+      ]
+    },
+    "paired_by": [
+      "dataset",
+      "sample_id"
+    ],
+    "require_frozen_manifest_completeness": true,
+    "require_same_c1_input_hash": true,
+    "retain_failed_and_unchanged_rows": true,
+    "bootstrap": {
+      "paired_unit": "sample",
+      "replicates": 10000,
+      "seed": 42,
+      "confidence": 0.95,
+      "interval": "percentile"
+    },
+    "confirmatory_comparisons": [
+      "nq:adaptive_vs_c1",
+      "fever:adaptive_vs_c1"
+    ],
+    "test": "two_sided_exact_McNemar",
+    "multiple_testing": "Holm, family size 2, alpha 0.05; all other comparisons exploratory",
+    "human_review": "union of changed answers in primary arms; separate semantic results and ambiguous bounds; no full semantic accuracy from changed-only review",
+    "cost_scope": "incremental_after_cached_C1; full totals only when shared C1 cost is traceable",
+    "missing_tokens": "null; never zero; no complete savings claim from partial token coverage",
+    "proposal_targets": {
+      "full_token_reduction_fraction": 0.2,
+      "max_accuracy_loss_percentage_points": 2.0,
+      "status": "engineering targets, unachieved; not statistical non-inferiority proof"
+    }
+  },
+  "iteration_policy": {
+    "baseline_runs": 1,
+    "optimization_rounds": 1,
+    "candidate_systems_after_baseline": 1,
+    "candidate_registration": "hash, rationale and scope before GPU outputs",
+    "selection": "T2 frozen selection split; promote only positive net gain, ties retain baseline",
+    "final_test_runs": 1,
+    "semantic_retries": 0,
+    "infrastructure_restart_limit": 1,
+    "restart_rule": "same input/code/model/environment, new output directory, preserve failed run; never select best per-item result",
+    "extensions_outside_baseline": [
+      "distillation",
+      "DPO",
+      "knowledge_base_cleaning",
+      "RSI"
+    ]
+  },
+  "execution_gates": [
+    {
+      "id": "T2_DATA",
+      "requirement": "Freeze eligible populations, N, paired IDs/input/gold hashes, selection/final partitions, precision and team-wide exposure audit."
+    },
+    {
+      "id": "T2_ASSETS",
+      "requirement": "Verify C1 provenance and matching corpus/index/metadata; pin BGE weights; unknown historical provenance must be disclosed before inference."
+    },
+    {
+      "id": "T3_ARMS",
+      "requirement": "Implement Full, FEVER retrieval, No Probe, offline human-type driver and per-arm budgets; no unsupported fallback counted as successful coverage."
+    },
+    {
+      "id": "T3_EVALUATOR",
+      "requirement": "Check complete frozen arm/ID manifest; paired intervals and Holm; missing-cost coverage; reliable human-type subset attribution."
+    },
+    {
+      "id": "T3_ENVIRONMENT",
+      "requirement": "Lock actual CUDA environment/hardware and pass engineering fixtures; CPU tests do not certify GPU readiness."
+    },
+    {
+      "id": "T3_EXECUTION_SEAL",
+      "requirement": "Create a separate immutable execution manifest referencing this design hash, source diffs/hashes, data and assets before real comparison."
+    }
+  ],
+  "execution_ready": false
+}

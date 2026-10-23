@@ -1,0 +1,19 @@
+{
+  "checks": [
+    {
+      "arguments": [],
+      "exit_code": 0,
+      "report": "design_audit.json"
+    },
+    {
+      "arguments": [
+        "--require-execution-ready"
+      ],
+      "exit_code": 2,
+      "report": "execution_readiness.json"
+    }
+  ],
+  "expected_execution_ready": false,
+  "runtime_policy_changed": false,
+  "gpu_inference_performed": false
+}
