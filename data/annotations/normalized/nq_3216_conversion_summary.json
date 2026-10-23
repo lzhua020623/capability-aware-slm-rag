@@ -1,0 +1,19 @@
+{
+  "source_file": "NQ_C1_3216_initial_labels(1).xlsx",
+  "all_records": 3216,
+  "trusted_records": 2698,
+  "manual_review_records": 518,
+  "all_label_distribution": {
+    "evidence_utilisation": 358,
+    "correct": 2412,
+    "evidence_insufficiency": 330,
+    "evidence_accessibility": 116
+  },
+  "trusted_label_distribution": {
+    "evidence_utilisation": 213,
+    "correct": 2136,
+    "evidence_insufficiency": 281,
+    "evidence_accessibility": 68
+  },
+  "important_note": "These files are annotation-derived Diagnosis development data, not a canonical raw C1 Reference-RAG result. The workbook stores retrieval scores rounded to 4 decimals and does not preserve all original C1 provenance metadata."
+}

@@ -2,7 +2,7 @@
 
 Frozen runtime interface for the Diagnosis layer. Code: `src/diagnosis/labels.py`, `src/diagnosis/schema.py`.
 
-The classifier, Probe, and Controller are not implemented yet. This document fixes only the labels and the input/output contract.
+This is the earlier design / interface specification. It fixes the labels and the input/output contract. The classifier, Evidence Probe, Safe Binary resolution and Controller are now implemented and frozen; the current implementation and integration interface are defined in `docs/DIAGNOSIS_PROBE_CONTROLLER_HANDOFF.md`, which takes precedence where the two differ.
 
 ## Runtime model
 

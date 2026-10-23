@@ -1,0 +1,14 @@
+{
+  "description": "Validation samples used to develop the Evidence Probe v1 prompts (smoke tests). Report full validation Probe results both on all triggered samples and on the unseen subset that excludes these IDs.",
+  "split": "validation",
+  "samples": [
+    {"dataset": "nq", "sample_id": "3724356943291190911"},
+    {"dataset": "fever", "sample_id": "2197"},
+    {"dataset": "nq", "sample_id": "-1608173516669914422"},
+    {"dataset": "nq", "sample_id": "7674856553874797177"},
+    {"dataset": "fever", "sample_id": "222046"},
+    {"dataset": "nq", "sample_id": "-1633243742828179624"},
+    {"dataset": "nq", "sample_id": "9148233787183514779"},
+    {"dataset": "fever", "sample_id": "55703"}
+  ]
+}
