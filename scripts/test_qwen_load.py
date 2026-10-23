@@ -15,7 +15,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.config import load_generator_config
-from src.generation.qwen import generate_greedy, load_qwen_nf4
+from src.generation.qwen import cpu_offload_enabled, generate_greedy, load_qwen_nf4
 
 
 def main() -> int:
@@ -38,6 +38,10 @@ def main() -> int:
     print(f"CUDA available: {torch.cuda.is_available()}")
     print(f"GPU name: {gpu_name}")
     print(f"GPU allocated memory: {allocated_mib:.1f} MiB")
+    print(f"CPU offload enabled: {cpu_offload_enabled()}")
+    print(f"device map: {getattr(model, 'hf_device_map', None)}")
+    if hasattr(model, "get_memory_footprint"):
+        print(f"model memory footprint: {model.get_memory_footprint() / (1024**3):.2f} GiB")
     print(f"simple generation result: {answer}")
     return 0
 

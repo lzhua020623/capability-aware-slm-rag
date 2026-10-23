@@ -4,6 +4,9 @@ from __future__ import annotations
 
 import gc
 import json
+import os
+import shutil
+import tempfile
 from pathlib import Path
 
 import faiss
@@ -25,6 +28,30 @@ def apply_prefix(prefix: str, text: str) -> str:
     if prefix.endswith(" "):
         return prefix + text
     return f"{prefix} {text}".strip()
+
+
+def write_faiss_index(index: faiss.Index, path: Path) -> None:
+    """Write a FAISS index, including to Unicode paths on Windows."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if os.name != "nt" or str(path).isascii():
+        faiss.write_index(index, str(path))
+        return
+    # Some Windows FAISS wheels use a narrow-character file API and cannot
+    # open paths containing Chinese or other non-ASCII characters.
+    with tempfile.TemporaryDirectory(prefix="faiss_index_") as temp_dir:
+        temp_path = Path(temp_dir) / "index.faiss"
+        faiss.write_index(index, str(temp_path))
+        shutil.copyfile(temp_path, path)
+
+
+def read_faiss_index(path: Path) -> faiss.Index:
+    """Read a FAISS index, including from Unicode paths on Windows."""
+    if os.name != "nt" or str(path).isascii():
+        return faiss.read_index(str(path))
+    with tempfile.TemporaryDirectory(prefix="faiss_index_") as temp_dir:
+        temp_path = Path(temp_dir) / "index.faiss"
+        shutil.copyfile(path, temp_path)
+        return faiss.read_index(str(temp_path))
 
 
 class E5FaissRetriever:
@@ -108,14 +135,14 @@ class E5FaissRetriever:
     def save(self, index_path: Path, meta_path: Path) -> None:
         if self.index is None:
             raise RuntimeError("FAISS index has not been built or loaded.")
-        index_path.parent.mkdir(parents=True, exist_ok=True)
-        faiss.write_index(self.index, str(index_path))
+        write_faiss_index(self.index, index_path)
+        meta_path.parent.mkdir(parents=True, exist_ok=True)
         with meta_path.open("w", encoding="utf-8") as handle:
             for item in self.metadata:
                 handle.write(json.dumps(item, ensure_ascii=False) + "\n")
 
     def load(self, index_path: Path, meta_path: Path) -> None:
-        self.index = faiss.read_index(str(index_path))
+        self.index = read_faiss_index(index_path)
         metadata = []
         with meta_path.open("r", encoding="utf-8") as handle:
             for line in handle:
