@@ -7,7 +7,7 @@ Windows 环境。PyTorch **不在** `requirements.txt` 里，需按本机硬件�
 当前正式 Retriever：**BGE + FAISS + Top-5**（`BAAI/bge-base-en-v1.5`）。Primary SLM：`Qwen/Qwen2.5-7B-Instruct`，4-bit NF4。第一次加载该模型时，Hugging Face 会把它下载到本地 cache（不在本仓库里）。
 
 **smoke test** = 工程验证（工程能否跑通）。  
-**Preliminary Recoverability Experiment** = 配置已冻结，实验尚未开始。见 [PRELIMINARY_EXPERIMENT.md](PRELIMINARY_EXPERIMENT.md)。
+**Preliminary Recoverability Experiment** = 配置已冻结，FEVER500 7B C0/C3 已完成。见 [实验结果](../results/preliminary/fever_c0_c3_summary.md) 和 [冻结协议](PRELIMINARY_EXPERIMENT.md)。
 
 ## 1. Clone repository / 克隆存储库
 
