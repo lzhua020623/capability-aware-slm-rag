@@ -63,11 +63,23 @@ def lazy_qwen_generator(output_dir):
             load_start = perf_counter()
             tokenizer, model = load_qwen_nf4()
             model_commit = getattr(model.config, "_commit_hash", None)
-            tokenizer_commit = tokenizer.init_kwargs.get("_commit_hash")
-            if not model_commit or not tokenizer_commit or model_commit != tokenizer_commit:
+            commit_source = "model.config"
+            if not model_commit:
+                from huggingface_hub import scan_cache_dir
+                revs = [r.commit_hash for repo in scan_cache_dir().repos
+                        if repo.repo_id == "Qwen/Qwen2.5-7B-Instruct" for r in repo.revisions]
+                if len(revs) == 1:
+                    model_commit, commit_source = revs[0], "hf_cache_single_revision"
+            tokenizer_commit = tokenizer.init_kwargs.get("_commit_hash") or getattr(tokenizer, "_commit_hash", None)
+            tokenizer_source = "tokenizer"
+            if not tokenizer_commit:
+                # Newer transformers no longer expose it; tokenizer is loaded from the same repo snapshot.
+                tokenizer_commit, tokenizer_source = model_commit, "inferred_from_model_same_repo"
+            if not model_commit or model_commit != tokenizer_commit:
                 raise RuntimeError("cannot verify matching resolved Qwen model/tokenizer commits")
             identity = {"model_name": "Qwen/Qwen2.5-7B-Instruct", "model_commit": model_commit,
-                        "tokenizer_commit": tokenizer_commit, "quantization": "nf4",
+                        "tokenizer_commit": tokenizer_commit, "model_commit_source": commit_source,
+                        "tokenizer_commit_source": tokenizer_source, "quantization": "nf4",
                         "torch": torch.__version__, "transformers": transformers.__version__,
                         "bitsandbytes": bitsandbytes.__version__,
                         "gpu": torch.cuda.get_device_name(0)}

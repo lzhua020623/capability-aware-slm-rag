@@ -228,6 +228,27 @@ class OfflineMetricsTests(unittest.TestCase):
     def evaluate(self):
         return evaluate_generation(self.refs, self.input, self.gpu, self.report, expected_count=6)
 
+    def test_explicit_win2_acceptance_still_rejects_source_and_config_changes(self):
+        self.generate()
+        package = Path(__file__).resolve().parents[1] / "docs/provenance/nq_p320_win2_package_manifest.json"
+        result = evaluate_generation(self.refs, self.input, self.gpu, self.report,
+                                     expected_count=6, package_manifest=package)
+        self.assertEqual(result["source_verification"]["mode"], "explicit_win2_manifest")
+        manifest_path = self.gpu / "run_manifest.json"
+        original = json.loads(manifest_path.read_text())
+        for field in ("source_sha256", "generator"):
+            bad = deepcopy(original)
+            if field == "source_sha256":
+                bad["run_metadata"][field]["src/generation/qwen.py"] = "0" * 64
+            else:
+                bad["run_metadata"][field]["max_new_tokens"] = 65
+            manifest_path.write_text(json.dumps(bad))
+            target = self.root / ("rejected_" + field)
+            with self.assertRaisesRegex(ValueError, "hashes differ"):
+                evaluate_generation(self.refs, self.input, self.gpu, target,
+                                    expected_count=6, package_manifest=package)
+            self.assertFalse(target.exists())
+
     def test_before_after_harm_rejection_and_false_rejection_denominators(self):
         self.generate()
         r = self.evaluate()

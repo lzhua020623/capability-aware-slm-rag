@@ -1,0 +1,24 @@
+{
+  "input_sha256": "a314f329cc4152808bacaf856fd2e979dac163946be4ae692dde58fb57d0e899",
+  "n": 2313,
+  "run_metadata": {
+    "policy": "P3-20",
+    "generator": {
+      "model_name": "Qwen/Qwen2.5-7B-Instruct",
+      "quantization": "nf4",
+      "load_in_4bit": true,
+      "do_sample": false,
+      "max_new_tokens": 64,
+      "temperature": 0.2
+    },
+    "source_sha256": {
+      "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+      "src/generation/qwen.py": "de8c2542a201fa86e2ceb445bbd6403e85f20b4a55ba08eeeac77238493d23c8",
+      "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+      "src/compensation/retrieval_enhancement/p3.py": "9674448180a21b6be897d334366af42e6b99646c9d128fff164d781c8381ef20",
+      "src/compensation/retrieval_enhancement/generation_replay.py": "bd29f254bef404f2417c0af7e0736f4099d70889d9ebad2ec638b68ed8c9968c",
+      "scripts/run_nq_p320_gpu_generation.py": "24231740f8bdee9b37e809467d096bd572a53c7662f7e77afaf7084be765bf39"
+    },
+    "qwen_revision": "not pinned in original C1; actual resolved commits saved in model_receipt.json"
+  }
+}

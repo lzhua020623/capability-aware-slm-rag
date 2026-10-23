@@ -1,0 +1,2 @@
+# Preserve the Windows evidence bytes used by audit.json SHA256 receipts.
+reports/phase6_3_20261023/evaluation/raw/** -text whitespace=cr-at-eol

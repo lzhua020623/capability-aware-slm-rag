@@ -6,7 +6,11 @@ provider is injected; importing or testing this module never loads a model.
 
 from __future__ import annotations
 
-import fcntl
+try:
+    import fcntl  # POSIX
+except ImportError:  # Windows
+    fcntl = None
+    import msvcrt
 import hashlib
 import json
 import os
@@ -159,7 +163,11 @@ def run_generation(input_path, output_dir, generate_fn, *, run_metadata, resume=
         target.mkdir(parents=True, exist_ok=False)
     manifest = {"input_sha256": sha256_file(input_path), "n": len(rows), "run_metadata": run_metadata}
     with (target / "writer.lock").open("a+") as lock:
-        fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        if fcntl is not None:
+            fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        else:
+            lock.seek(0)
+            msvcrt.locking(lock.fileno(), msvcrt.LK_NBLCK, 1)
         config_path = target / "run_manifest.json"
         if existing:
             if json.loads(config_path.read_text()) != manifest:

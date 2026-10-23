@@ -1,0 +1,584 @@
+{
+  "groups": {
+    "correct": {
+      "n": 1772,
+      "metrics": {
+        "base_em": {
+          "estimate": 0.48363431151241537,
+          "ci95": [
+            0.4604271652110047,
+            0.5069122615650111
+          ]
+        },
+        "final_em": {
+          "estimate": 0.4700902934537246,
+          "ci95": [
+            0.4469415663441472,
+            0.49336842052236457
+          ]
+        },
+        "raw_em": {
+          "estimate": 0.4554176072234763,
+          "ci95": [
+            0.4323514916596096,
+            0.478676601971606
+          ]
+        },
+        "base_f1": {
+          "estimate": 0.6689319737694011,
+          "ci95": [
+            0.6509415653712548,
+            0.6871386636763903
+          ]
+        },
+        "final_f1": {
+          "estimate": 0.6434812148901728,
+          "ci95": [
+            0.6244260974840675,
+            0.6624761167280386
+          ]
+        },
+        "raw_f1": {
+          "estimate": 0.6285680055479784,
+          "ci95": [
+            0.6094809987162199,
+            0.6476244734867086
+          ]
+        },
+        "em_delta": {
+          "estimate": -0.013544018058690745,
+          "ci95": [
+            -0.025959367945823927,
+            -0.001693002257336343
+          ]
+        },
+        "unguarded_em_delta": {
+          "estimate": -0.028216704288939052,
+          "ci95": [
+            -0.04232505643340858,
+            -0.015237020316027089
+          ]
+        },
+        "f1_delta": {
+          "estimate": -0.025450758879228107,
+          "ci95": [
+            -0.036605763030151235,
+            -0.014826101429710794
+          ]
+        },
+        "unguarded_f1_delta": {
+          "estimate": -0.04036396822142265,
+          "ci95": [
+            -0.05271746884390762,
+            -0.028492670834835816
+          ]
+        }
+      },
+      "guarded": {
+        "fixed": 49,
+        "broken": 73,
+        "net": -24,
+        "baseline_em_correct": 857,
+        "harm_rate": 0.08518086347724621,
+        "harm_rate_ci95": [
+          0.06829262511150432,
+          0.10577131812139802
+        ]
+      },
+      "unguarded": {
+        "fixed": 52,
+        "broken": 102,
+        "net": -50,
+        "baseline_em_correct": 857,
+        "harm_rate": 0.11901983663943991,
+        "harm_rate_ci95": [
+          0.09902210123498059,
+          0.14241777911816317
+        ]
+      },
+      "guard_rejected": 277,
+      "rejected_raw_em_correct": 16
+    },
+    "evidence_insufficiency": {
+      "n": 244,
+      "metrics": {
+        "base_em": {
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.015499661916827669
+          ]
+        },
+        "final_em": {
+          "estimate": 0.05737704918032787,
+          "ci95": [
+            0.03448247887605272,
+            0.09399263167327016
+          ]
+        },
+        "raw_em": {
+          "estimate": 0.05737704918032787,
+          "ci95": [
+            0.03448247887605272,
+            0.09399263167327016
+          ]
+        },
+        "base_f1": {
+          "estimate": 0.021133319019477032,
+          "ci95": [
+            0.012187512424151276,
+            0.03129165773151423
+          ]
+        },
+        "final_f1": {
+          "estimate": 0.10458569971378547,
+          "ci95": [
+            0.07256570705476588,
+            0.13919306593073563
+          ]
+        },
+        "raw_f1": {
+          "estimate": 0.11030043143013013,
+          "ci95": [
+            0.0782000829803367,
+            0.14497445080276775
+          ]
+        },
+        "em_delta": {
+          "estimate": 0.05737704918032787,
+          "ci95": [
+            0.028688524590163935,
+            0.0860655737704918
+          ]
+        },
+        "unguarded_em_delta": {
+          "estimate": 0.05737704918032787,
+          "ci95": [
+            0.028688524590163935,
+            0.0860655737704918
+          ]
+        },
+        "f1_delta": {
+          "estimate": 0.08345238069430844,
+          "ci95": [
+            0.052949129105783484,
+            0.11621124541169078
+          ]
+        },
+        "unguarded_f1_delta": {
+          "estimate": 0.08916711241065309,
+          "ci95": [
+            0.0586589295767854,
+            0.12231302775956131
+          ]
+        }
+      },
+      "guarded": {
+        "fixed": 14,
+        "broken": 0,
+        "net": 14,
+        "baseline_em_correct": 0,
+        "harm_rate": null,
+        "harm_rate_ci95": null
+      },
+      "unguarded": {
+        "fixed": 14,
+        "broken": 0,
+        "net": 14,
+        "baseline_em_correct": 0,
+        "harm_rate": null,
+        "harm_rate_ci95": null
+      },
+      "guard_rejected": 59,
+      "rejected_raw_em_correct": 0
+    },
+    "evidence_accessibility": {
+      "n": 68,
+      "metrics": {
+        "base_em": {
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.053471336520070537
+          ]
+        },
+        "final_em": {
+          "estimate": 0.1323529411764706,
+          "ci95": [
+            0.07122244410229805,
+            0.23280059745657733
+          ]
+        },
+        "raw_em": {
+          "estimate": 0.14705882352941177,
+          "ci95": [
+            0.08188817736343271,
+            0.24997394253308772
+          ]
+        },
+        "base_f1": {
+          "estimate": 0.08102240896358544,
+          "ci95": [
+            0.042623716153127926,
+            0.12362336601307189
+          ]
+        },
+        "final_f1": {
+          "estimate": 0.2192546136101499,
+          "ci95": [
+            0.1364309743505245,
+            0.30772131769374417
+          ]
+        },
+        "raw_f1": {
+          "estimate": 0.2374327181853133,
+          "ci95": [
+            0.1522686071977811,
+            0.33000595581369796
+          ]
+        },
+        "em_delta": {
+          "estimate": 0.1323529411764706,
+          "ci95": [
+            0.058823529411764705,
+            0.22058823529411764
+          ]
+        },
+        "unguarded_em_delta": {
+          "estimate": 0.14705882352941177,
+          "ci95": [
+            0.07352941176470588,
+            0.23529411764705882
+          ]
+        },
+        "f1_delta": {
+          "estimate": 0.1382322046465645,
+          "ci95": [
+            0.06289861900642608,
+            0.22256343713956173
+          ]
+        },
+        "unguarded_f1_delta": {
+          "estimate": 0.15641030922172788,
+          "ci95": [
+            0.07718477954907454,
+            0.24513344798703793
+          ]
+        }
+      },
+      "guarded": {
+        "fixed": 9,
+        "broken": 0,
+        "net": 9,
+        "baseline_em_correct": 0,
+        "harm_rate": null,
+        "harm_rate_ci95": null
+      },
+      "unguarded": {
+        "fixed": 10,
+        "broken": 0,
+        "net": 10,
+        "baseline_em_correct": 0,
+        "harm_rate": null,
+        "harm_rate_ci95": null
+      },
+      "guard_rejected": 8,
+      "rejected_raw_em_correct": 1
+    },
+    "evidence_utilisation": {
+      "n": 297,
+      "metrics": {
+        "base_em": {
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.012769047310675656
+          ]
+        },
+        "final_em": {
+          "estimate": 0.12121212121212122,
+          "ci95": [
+            0.0888527811292956,
+            0.16324498198485263
+          ]
+        },
+        "raw_em": {
+          "estimate": 0.12794612794612795,
+          "ci95": [
+            0.09465366284768297,
+            0.17074014003332483
+          ]
+        },
+        "base_f1": {
+          "estimate": 0.06324578073516703,
+          "ci95": [
+            0.046614387192273544,
+            0.0806050123519064
+          ]
+        },
+        "final_f1": {
+          "estimate": 0.20666827658717624,
+          "ci95": [
+            0.16762078685052606,
+            0.24651342719186484
+          ]
+        },
+        "raw_f1": {
+          "estimate": 0.21881852418994177,
+          "ci95": [
+            0.1790417347908676,
+            0.25961429956990495
+          ]
+        },
+        "em_delta": {
+          "estimate": 0.12121212121212122,
+          "ci95": [
+            0.08417508417508418,
+            0.15824915824915825
+          ]
+        },
+        "unguarded_em_delta": {
+          "estimate": 0.12794612794612795,
+          "ci95": [
+            0.09090909090909091,
+            0.16506734006733884
+          ]
+        },
+        "f1_delta": {
+          "estimate": 0.1434224958520092,
+          "ci95": [
+            0.10764402918203975,
+            0.18175721641236608
+          ]
+        },
+        "unguarded_f1_delta": {
+          "estimate": 0.15557274345477476,
+          "ci95": [
+            0.11904191847987221,
+            0.19501756006792142
+          ]
+        }
+      },
+      "guarded": {
+        "fixed": 36,
+        "broken": 0,
+        "net": 36,
+        "baseline_em_correct": 0,
+        "harm_rate": null,
+        "harm_rate_ci95": null
+      },
+      "unguarded": {
+        "fixed": 38,
+        "broken": 0,
+        "net": 38,
+        "baseline_em_correct": 0,
+        "harm_rate": null,
+        "harm_rate_ci95": null
+      },
+      "guard_rejected": 64,
+      "rejected_raw_em_correct": 2
+    },
+    "overall": {
+      "n": 2381,
+      "metrics": {
+        "base_em": {
+          "estimate": 0.3599328013439731,
+          "ci95": [
+            0.34089330348049796,
+            0.379423534549552
+          ]
+        },
+        "final_em": {
+          "estimate": 0.374632507349853,
+          "ci95": [
+            0.3554071589838096,
+            0.39426173502509576
+          ]
+        },
+        "raw_em": {
+          "estimate": 0.36497270054598907,
+          "ci95": [
+            0.34586730312720193,
+            0.3845130969527413
+          ]
+        },
+        "base_f1": {
+          "estimate": 0.510204749285174,
+          "ci95": [
+            0.4924544994192089,
+            0.5274933514215258
+          ]
+        },
+        "final_f1": {
+          "estimate": 0.5216536813890935,
+          "ci95": [
+            0.5036292738795206,
+            0.5390199210546278
+          ]
+        },
+        "raw_f1": {
+          "estimate": 0.5131752782952471,
+          "ci95": [
+            0.49521938842400204,
+            0.5306876621842671
+          ]
+        },
+        "em_delta": {
+          "estimate": 0.014699706005879883,
+          "ci95": [
+            0.0037799244015119695,
+            0.026039479210415793
+          ]
+        },
+        "unguarded_em_delta": {
+          "estimate": 0.00503989920201596,
+          "ci95": [
+            -0.007139857202855943,
+            0.017219655606887863
+          ]
+        },
+        "f1_delta": {
+          "estimate": 0.011448932103919432,
+          "ci95": [
+            0.0011183448762175628,
+            0.02191422719349029
+          ]
+        },
+        "unguarded_f1_delta": {
+          "estimate": 0.002970529010073084,
+          "ci95": [
+            -0.008658087784725833,
+            0.014233464304397902
+          ]
+        }
+      },
+      "guarded": {
+        "fixed": 108,
+        "broken": 73,
+        "net": 35,
+        "baseline_em_correct": 857,
+        "harm_rate": 0.08518086347724621,
+        "harm_rate_ci95": [
+          0.06829262511150432,
+          0.10577131812139802
+        ]
+      },
+      "unguarded": {
+        "fixed": 114,
+        "broken": 102,
+        "net": 12,
+        "baseline_em_correct": 857,
+        "harm_rate": 0.11901983663943991,
+        "harm_rate_ci95": [
+          0.09902210123498059,
+          0.14241777911816317
+        ]
+      },
+      "guard_rejected": 408,
+      "rejected_raw_em_correct": 19
+    }
+  },
+  "weighted": {
+    "em_delta": {
+      "estimate": 0.03899633952076052,
+      "ci95": [
+        0.024132660448087515,
+        0.05495414273891999
+      ]
+    },
+    "unguarded_em_delta": {
+      "estimate": 0.03426893153633867,
+      "ci95": [
+        0.019224200419055596,
+        0.05035685409246159
+      ]
+    },
+    "f1_delta": {
+      "estimate": 0.04979179200464948,
+      "ci95": [
+        0.03389735257738813,
+        0.06685480349736982
+      ]
+    },
+    "unguarded_f1_delta": {
+      "estimate": 0.04842729374329416,
+      "ci95": [
+        0.03210029612239602,
+        0.06577598287268574
+      ]
+    }
+  },
+  "generation_errors": 0,
+  "latency_seconds": {
+    "n": 2313,
+    "median": 0.7009952000007615,
+    "mean": 0.7720116158237293,
+    "sum": 1785.662867400286,
+    "excluding_first": {
+      "median": 0.7009836500001256,
+      "mean": 0.7594959950260732
+    }
+  },
+  "model_receipt": {
+    "identity": {
+      "model_name": "Qwen/Qwen2.5-7B-Instruct",
+      "model_commit": "a09a35458c702b33eeacc393d103063234e8bc28",
+      "tokenizer_commit": "a09a35458c702b33eeacc393d103063234e8bc28",
+      "model_commit_source": "model.config",
+      "tokenizer_commit_source": "inferred_from_model_same_repo",
+      "quantization": "nf4",
+      "torch": "2.6.0+cu124",
+      "transformers": "5.2.0",
+      "bitsandbytes": "0.50.2",
+      "gpu": "NVIDIA RTX 4000 SFF Ada Generation"
+    },
+    "model_load_seconds": 12.21363740000379
+  },
+  "bootstrap": {
+    "seed": 6302026,
+    "replicates": 10000
+  },
+  "routing": {
+    "revision": "338ff34b039ed367220b0b916b48c4f7fc715e20",
+    "source_sha256": {
+      "results/controller/controller_v1_validation.json": "800f45f495249c80b64e0d565448b0a6048fcc05890ac3b03706577342d7ee0e",
+      "results/diagnosis/diagnosis_v2_expanded_validation.json": "56d994bfe45fce2af4ce87e3f91621ca934c946c2ac658b0c7dd2b411dac443a",
+      "results/probe/probe_v2_expanded_validation.json": "6d970ea4765c105a566896bbda699976901b65980ab86068c9f6fb30b072cf23"
+    },
+    "validation_nq": 406,
+    "after_prompt_development_exclusion": 405,
+    "routed": 49,
+    "counts": {
+      "correct": 19,
+      "evidence_insufficiency": 23,
+      "evidence_accessibility": 0,
+      "evidence_utilisation": 7
+    },
+    "weights": {
+      "correct": 0.3877551020408163,
+      "evidence_insufficiency": 0.46938775510204084,
+      "evidence_accessibility": 0.0,
+      "evidence_utilisation": 0.14285714285714285
+    },
+    "note": "NQ validation final Controller actions only; no test files read"
+  },
+  "source_verification": {
+    "mode": "explicit_win2_manifest",
+    "manifest_sha256": "3c72eb6d5ba62714711b18ae71c7a1c78943f5f18565ab6e1342005a55d79f7d",
+    "source_sha256": {
+      "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+      "src/generation/qwen.py": "de8c2542a201fa86e2ceb445bbd6403e85f20b4a55ba08eeeac77238493d23c8",
+      "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+      "src/compensation/retrieval_enhancement/p3.py": "9674448180a21b6be897d334366af42e6b99646c9d128fff164d781c8381ef20",
+      "src/compensation/retrieval_enhancement/generation_replay.py": "bd29f254bef404f2417c0af7e0736f4099d70889d9ebad2ec638b68ed8c9968c",
+      "scripts/run_nq_p320_gpu_generation.py": "24231740f8bdee9b37e809467d096bd572a53c7662f7e77afaf7084be765bf39"
+    },
+    "reason": "Reviewed Windows locking and commit-receipt compatibility fixes; prompt, generation and guard unchanged"
+  },
+  "quick_computation_matches": {
+    "insufficiency_em_0_to_5.74": true,
+    "overall_em_35.99_to_37.46": true,
+    "broken_73": true,
+    "weighted_delta_em_3.90": true
+  }
+}

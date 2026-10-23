@@ -1,0 +1,24 @@
+{
+  "revision": "338ff34b039ed367220b0b916b48c4f7fc715e20",
+  "source_sha256": {
+    "results/controller/controller_v1_validation.json": "800f45f495249c80b64e0d565448b0a6048fcc05890ac3b03706577342d7ee0e",
+    "results/diagnosis/diagnosis_v2_expanded_validation.json": "56d994bfe45fce2af4ce87e3f91621ca934c946c2ac658b0c7dd2b411dac443a",
+    "results/probe/probe_v2_expanded_validation.json": "6d970ea4765c105a566896bbda699976901b65980ab86068c9f6fb30b072cf23"
+  },
+  "validation_nq": 406,
+  "after_prompt_development_exclusion": 405,
+  "routed": 49,
+  "counts": {
+    "correct": 19,
+    "evidence_insufficiency": 23,
+    "evidence_accessibility": 0,
+    "evidence_utilisation": 7
+  },
+  "weights": {
+    "correct": 0.3877551020408163,
+    "evidence_insufficiency": 0.46938775510204084,
+    "evidence_accessibility": 0.0,
+    "evidence_utilisation": 0.14285714285714285
+  },
+  "note": "NQ validation final Controller actions only; no test files read"
+}
