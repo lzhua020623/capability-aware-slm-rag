@@ -1,0 +1,14 @@
+/Users/leaf/Documents/GitHub/capability-aware-slm-rag/tests/test_controller_t4_completion.py:62: ResourceWarning: unclosed file <_io.TextIOWrapper name='/var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/tmpt88ujssu/outputs/predictions.jsonl' mode='r' encoding='UTF-8'>
+  records = [json.loads(line) for line in (output / 'predictions.jsonl').open()]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+nq: paired=500, C1 wrong=100, C1 wrong/C3 correct=60, C1 wrong/C3 wrong=40, Recoverable Failure Rate=0.6000
+Recoverable set: /var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/tmp2ktthkq9/out/nq_c1_c3_recoverable.jsonl
+Persistent-failure set: /var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/tmp2ktthkq9/out/nq_c1_c3_persistent_failures.jsonl
+Summary: /var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/tmp2ktthkq9/out/nq_c1_c3_recoverability_summary.json
+Checked NQ_C1_000_preliminary_annotations.xlsx: 1 rows
+Checked NQ_C1_000_preliminary_annotations.xlsx: 1 rows
+----------------------------------------------------------------------
+Ran 774 tests in 85.605s
+
+OK
+{"preflight": "passed", "n_inputs": 1, "nq_index_required": true}

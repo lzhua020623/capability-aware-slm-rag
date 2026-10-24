@@ -185,7 +185,7 @@ def main(argv=None):
                         handle.write(json.dumps(record, ensure_ascii=False, allow_nan=False) + '\n'); handle.flush()
                         state['n_predictions'] += 1
                         lean.append({k: record[k] for k in ('mode', 'dataset', 'cost', 'routing', 'answer_changed',
-                                                           'status', 'unresolved_failure')})
+                                                           'status', 'unresolved_failure', 'total_seconds')})
                         print(json.dumps({'dataset': ds, 'ordinal': ordinal, 'mode': mode,
                                           'n_predictions': state['n_predictions'], 'status': record['status']}), flush=True)
                         write(args.output_dir / 'manifest.json', state)

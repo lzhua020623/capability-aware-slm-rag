@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-25",
+  "full_suite_passed": 774,
+  "full_suite_seconds": 85.605,
+  "new_regression": "Complete 400-query x seven-arm real Controller run using fictional tools, including final summary and completion state. No CUDA, no benchmark QA.",
+  "targeted_after_test_file_handle_cleanup": "passed",
+  "inference_modules_prompts_and_parameters_changed": false,
+  "GPU_inference_rerun": false,
+  "change_scope": "Only add total_seconds to post-run summary projection; archive retains original failed manifest and predictions.",
+  "logs": {
+    "full_tests.log": "f093409d6e1f543e3e720ada50754c5c15916bac636885b30a775810e3f8bcf0",
+    "runner_completion_test.log": "9a6df738fee79622f25c64940bf0e4be4f9fa54dabaa1a377cf8ba2a690f8fa6"
+  }
+}
