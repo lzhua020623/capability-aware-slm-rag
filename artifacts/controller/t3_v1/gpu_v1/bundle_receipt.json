@@ -1,0 +1,11 @@
+{
+  "archive": "artifacts/controller/t3_v1/gpu_v1/controller_t3_gpu_v1.tar.gz",
+  "archive_sha256": "39094fab7ffb26afbe25ddfc77783d8f1be47297a775ec0a5b8c4bb13b56b578",
+  "bytes": 830241,
+  "checksum_index_sha256": "2ae5e998823a4aad70ff9f396c7b9db3e2a61257e430eb9fdd127799259d719c",
+  "execution_manifest_sha256": "59ca4580dda89c1a4044d05d4c00b04c74e8a438e6c7d2f4f9b595ffa5b4cd3d",
+  "n_files": 95,
+  "source_commit": "3fc45f827fb3285450b5307de9fc7969bf27956c",
+  "GPU_engineering_passed": false,
+  "T4_started": false
+}

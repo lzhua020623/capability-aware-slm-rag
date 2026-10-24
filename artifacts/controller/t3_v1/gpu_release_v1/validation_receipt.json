@@ -1,0 +1,19 @@
+{
+  "source_commit": "42c7974453a60ab06194f958e65a0c18311c22d1",
+  "archive_sha256": "ddd51973e9921402f914cf0ccb942e5450a8ca402f2bbcc58d1af2825415cffe",
+  "checksum_content_files_verified": 95,
+  "source_files_match_committed_blobs": 91,
+  "portable_test_count": 55,
+  "counts": {
+    "fever": 200,
+    "nq": 200
+  },
+  "no_gold_or_selection_or_final_files": true,
+  "preflight": "passed",
+  "GPU_engineering_passed": false,
+  "T4_started": false,
+  "validation_log_hashes": {
+    "portable_tests.log": "ba72684338c9d1ba60a61937080aae639dd0e8248da9909b1a224d61e83c2d87",
+    "preflight.log": "f1265b3e56043929568d199726baf42e13e776cdd290054b061e978ba72633f2"
+  }
+}
