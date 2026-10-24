@@ -1,0 +1,46 @@
+Collecting transformers==5.16.1 (from -r /Users/leaf/Documents/GitHub/capability-aware-slm-rag/requirements-answer-repair-v8.txt (line 3))
+  Using cached transformers-5.16.1-py3-none-any.whl.metadata (32 kB)
+Collecting accelerate==1.14.0 (from -r /Users/leaf/Documents/GitHub/capability-aware-slm-rag/requirements-answer-repair-v8.txt (line 4))
+  Using cached accelerate-1.14.0-py3-none-any.whl.metadata (19 kB)
+Collecting bitsandbytes==0.50.2 (from -r /Users/leaf/Documents/GitHub/capability-aware-slm-rag/requirements-answer-repair-v8.txt (line 5))
+  Downloading bitsandbytes-0.50.2-py3-none-manylinux_2_24_x86_64.whl.metadata (10 kB)
+Collecting PyYAML==6.0.3 (from -r /Users/leaf/Documents/GitHub/capability-aware-slm-rag/requirements-answer-repair-v8.txt (line 6))
+  Downloading pyyaml-6.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Collecting sentence-transformers==6.2.0 (from -r requirements-controller-t3.txt (line 5))
+  Using cached sentence_transformers-6.2.0-py3-none-any.whl.metadata (20 kB)
+Collecting scikit-learn==1.9.1 (from -r requirements-controller-t3.txt (line 6))
+  Downloading scikit_learn-1.9.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.3 kB)
+Collecting faiss-cpu==1.15.1 (from -r requirements-controller-t3.txt (line 7))
+  Downloading faiss_cpu-1.15.1-cp310-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (7.8 kB)
+Collecting numpy==2.5.4 (from -r requirements-controller-t3.txt (line 8))
+  Downloading numpy-2.5.4-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Collecting scipy==1.18.1 (from -r requirements-controller-t3.txt (line 9))
+  Downloading scipy-1.18.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+Using cached transformers-5.16.1-py3-none-any.whl (12.1 MB)
+Downloading accelerate-1.14.0-py3-none-any.whl (389 kB)
+Downloading bitsandbytes-0.50.2-py3-none-manylinux_2_24_x86_64.whl (43.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 43.1/43.1 MB 36.6 MB/s eta 0:00:00
+Downloading pyyaml-6.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (801 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 801.6/801.6 kB 15.1 MB/s eta 0:00:00
+Using cached sentence_transformers-6.2.0-py3-none-any.whl (760 kB)
+Downloading scikit_learn-1.9.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (9.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.1/9.1 MB 33.3 MB/s eta 0:00:00
+Downloading faiss_cpu-1.15.1-cp310-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (18.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.8/18.8 MB 32.5 MB/s eta 0:00:00
+Downloading numpy-2.5.4-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 31.4 MB/s eta 0:00:00
+Downloading scipy-1.18.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 37.6 MB/s eta 0:00:00
+Saved /private/tmp/controller-t3-linux-wheels/transformers-5.16.1-py3-none-any.whl
+Saved /private/tmp/controller-t3-linux-wheels/accelerate-1.14.0-py3-none-any.whl
+Saved /private/tmp/controller-t3-linux-wheels/bitsandbytes-0.50.2-py3-none-manylinux_2_24_x86_64.whl
+Saved /private/tmp/controller-t3-linux-wheels/pyyaml-6.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Saved /private/tmp/controller-t3-linux-wheels/sentence_transformers-6.2.0-py3-none-any.whl
+Saved /private/tmp/controller-t3-linux-wheels/scikit_learn-1.9.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+Saved /private/tmp/controller-t3-linux-wheels/faiss_cpu-1.15.1-cp310-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+Saved /private/tmp/controller-t3-linux-wheels/numpy-2.5.4-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+Saved /private/tmp/controller-t3-linux-wheels/scipy-1.18.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded transformers accelerate bitsandbytes PyYAML sentence-transformers scikit-learn faiss-cpu numpy scipy
+
+[notice] A new release of pip is available: 25.0.1 -> 26.2.2
+[notice] To update, run: /tmp/e-xgrammar-20261022/bin/python -m pip install --upgrade pip

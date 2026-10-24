@@ -5,9 +5,10 @@ from pathlib import Path
 import tarfile
 import tempfile
 import unittest
+import subprocess
 from unittest.mock import patch
 
-from scripts.prepare_controller_t3_gpu import prepare, notebook
+from scripts.prepare_controller_t3_gpu import prepare, notebook, read_source_commit, ROOT
 from scripts.run_controller_t4 import verify_manifest
 
 
@@ -50,6 +51,33 @@ class T3PackageTests(unittest.TestCase):
                     compile(''.join(cell['source']), '<frozen-notebook>', 'exec')
         with self.assertRaises(ValueError):
             notebook(receipt, engineering_only=False)
+
+    def test_sealer_rejects_staged_code_but_allows_unrelated_annotation_drafts(self):
+        name = subprocess.check_output(['git', 'config', 'user.name'], cwd=ROOT, text=True).strip()
+        email = subprocess.check_output(['git', 'config', 'user.email'], cwd=ROOT, text=True).strip()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            def git(*args):
+                return subprocess.run(['git', '-c', 'user.name=' + name, '-c', 'user.email=' + email, *args],
+                                      cwd=root, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            git('init'); (root / 'src').mkdir(); source = root / 'src/model.py'; source.write_text('old')
+            (root / 'tests').mkdir(); test_source = root / 'tests/check.py'; test_source.write_text('old test')
+            git('add', 'src/model.py', 'tests/check.py'); git('commit', '-m', 'Fixture for seal validation')
+            self.assertEqual(len(read_source_commit(root)), 40)
+            source.write_text('staged new implementation'); git('add', 'src/model.py')
+            with self.assertRaises(subprocess.CalledProcessError):
+                read_source_commit(root)
+            git('reset', '--hard', 'HEAD')  # disposable test repository only
+            test_source.write_text('staged test change'); git('add', 'tests/check.py')
+            with self.assertRaises(subprocess.CalledProcessError):
+                read_source_commit(root)
+            git('reset', '--hard', 'HEAD')
+            (root / 'data/annotations').mkdir(parents=True)
+            (root / 'data/annotations/user_draft.jsonl').write_text('preserve')
+            self.assertEqual(len(read_source_commit(root)), 40)
+            (root / 'src/new.py').write_text('uncommitted')
+            with self.assertRaises(ValueError):
+                read_source_commit(root)
 
 
 if __name__ == '__main__':

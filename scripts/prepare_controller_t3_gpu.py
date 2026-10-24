@@ -133,10 +133,12 @@ def sha(path):
 
 def read_source_commit(root):
     # No freezing uncommitted implementation or silently including unrelated work.
-    subprocess.run(['git', 'diff', '--exit-code', '--', 'src', 'scripts', 'configs/controller',
-                    'requirements-controller-t3.txt'], cwd=root, check=True, stdout=subprocess.PIPE)
+    paths = ('src', 'scripts', 'configs', 'tests', 'models/diagnosis',
+             'requirements-controller-t3.txt', 'requirements-answer-repair-v8.txt')
+    subprocess.run(['git', 'diff', 'HEAD', '--exit-code', '--', *paths],
+                   cwd=root, check=True, stdout=subprocess.PIPE)
     untracked = subprocess.check_output(['git', 'ls-files', '--others', '--exclude-standard', '--',
-                                        'src', 'scripts', 'configs/controller', 'requirements-controller-t3.txt'],
+                                        *paths],
                                        cwd=root, text=True).strip()
     if untracked:
         raise ValueError('Commit implementation before sealing GPU code')
@@ -177,7 +179,8 @@ def prepare(output, *, root=ROOT):
     sources = sorted((root / 'src').rglob('*.py'))
     sources += [root / p for p in RUNNERS]
     sources += [root / p for p in ('configs/base.yaml', 'configs/controller/integration_t3_v1.json',
-                policy_path, 'configs/controller/experiment_protocol_v1.json',
+                policy_path, 'configs/controller/t5_selection_supplement_v1.json',
+                'configs/controller/experiment_protocol_v1.json',
                 'configs/controller/nq_train_resources_v1.json', 'configs/controller/fever_resources_v1.json',
                 'models/diagnosis/diagnosis_v2_expanded_hierarchical.json',
                 'requirements-controller-t3.txt', 'requirements-answer-repair-v8.txt')]

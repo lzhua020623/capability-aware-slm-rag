@@ -1,0 +1,12 @@
+{
+  "tests_passed": 772,
+  "full_test_seconds": 55.868,
+  "GPU_engineering_passed": false,
+  "T4_started": false,
+  "module_parameters_prompts_or_frozen_code_changed": false,
+  "frozen_module_reference": "7112fee",
+  "files": {
+    "seal_guard_tests.log": "384ee75790243ec0bbe7dd8f155c7567b4089ca7484b6d96096920698f99e9d9",
+    "full_tests.log": "c83c106ca718d4c998196f48fa9f9f9c8f948d9e0ce7f211ef2f0986b931d417"
+  }
+}

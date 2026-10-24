@@ -1,0 +1,16 @@
+{
+  "schema_version": "controller_t5_selection_supplement_v1",
+  "date": "2026-10-24",
+  "registered_before_T4": true,
+  "parent": "configs/controller/t3_execution_policy_v1.json",
+  "loss_analysis": "Compute harm, missed-repair opportunities and action residuals separately per dataset; never average NQ EM with FEVER label accuracy",
+  "single_candidate": "Choose one target dataset/action/rule bottleneck on development; one concentrated candidate only",
+  "selection": {
+    "targeted_change": "Target dataset positive paired net correct gain; other dataset must not regress",
+    "cross_dataset_change": "Nonnegative paired net correct gain on both datasets and positive gain on at least one",
+    "ties": "Keep frozen baseline when no positive gain",
+    "semantic_review": "Unresolved human judgments remain separate bounds, never relabeled to pass selection",
+    "multiple_candidates_on_selection": false
+  },
+  "gate_limits": "This supplement changes no model, module prompt, diagnosis parameter, threshold, dataset role or T4 action; it clarifies the later one-candidate selection rule"
+}

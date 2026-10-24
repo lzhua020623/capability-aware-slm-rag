@@ -1,0 +1,18 @@
+{
+  "state": "CPU_and_transport_contracts_passed_browser_upload_blocked",
+  "tests_passed": 771,
+  "test_seconds": 76.454,
+  "GPU_engineering_passed": false,
+  "T4_started": false,
+  "frozen_module_paths_unchanged_vs": "7112fee",
+  "frozen_module_differences": [],
+  "browser_blocker": "cgWindowNotFound; user restoration requested asynchronously",
+  "resource_archive_bytes": 5700167663,
+  "linux_cp313_wheels_downloaded": 9,
+  "files": {
+    "resource_bundle_receipt.json": "71a6483f27628fc81fa0d7561a983cd581c3b108379b37721e9f4a00f9739656",
+    "resource_bundle_audit.json": "b4c06294a681402c2f65a6d8d44bb9be5d1e43f706abbbce12edfce037b4554a",
+    "linux_wheel_download.log": "f98f630d0f83b70ac2c0178c524b8f4466e1bf4ca474b557ef9dabb21efade5c",
+    "full_tests.log": "6af8e76b7becba1ea047bf00280160edc2a8297be848ddd1679cade07ee8e67c"
+  }
+}
