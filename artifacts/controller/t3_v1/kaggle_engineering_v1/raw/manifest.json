@@ -1,0 +1,9 @@
+{
+  "state": "engineering_completed",
+  "engineering_only": true,
+  "T4_started": false,
+  "manifest_sha256": "1ee47f8e24a17bbcc1723d4914db76cfce10da0147894773143fb36391fe7219",
+  "n_predictions": 0,
+  "quality_scored": false,
+  "engineering_passed": true
+}

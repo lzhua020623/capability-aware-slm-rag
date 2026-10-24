@@ -1,0 +1,15 @@
+{
+  "run.log": "7469069c602722295aa60b5d413a45fc25b5b5197781d8547e9c9f16b4f0c2fd",
+  "environment.json": "e42b4c117dff44be610afeb6243d19aea6ee98c82993dc70d491f006d547d74a",
+  "engineering_receipt.json": "5894f9f86dd87ef1537cacf0c9f703ca0005747a87f6d0077b9694bc06ffbf60",
+  "manifest.json": "5f210343b065ffaae9046d6413f57e0661d15195d0c980d55a96c06e2aab4b77",
+  "input_execution_manifest.json": "1ee47f8e24a17bbcc1723d4914db76cfce10da0147894773143fb36391fe7219",
+  "engineering_checks/nq_always_retrieve.json": "9978cf596a383f3c2967281a48ec1d1c859611047f15fc2b4c21aa85a0092034",
+  "engineering_checks/nq_always_rerank.json": "7cd559812023773717df662a4127de6b1a096b7015ec8a6cf94d66f33844d65b",
+  "engineering_checks/fever_always_repair.json": "d586a17b5786212ab6e1d9cea2195fa35b8d1025dba09a0f04da6bd01c8b8371",
+  "engineering_checks/fever_always_retrieve.json": "30142ca653adc9a5853957b5ffdbcdb32abed8f95f0ce1a73758569207c9d438",
+  "engineering_checks/fever_always_rerank.json": "f247557d266156b49ba3d5d48b1678694a7b89a48bce191dddb4f4c4251ce5d4",
+  "engineering_checks/fever_probe.json": "f7bd4ac29b4aa2a2a22b768def3fc7a5b9570dbce9ecc5c973c763652f73f3c3",
+  "engineering_checks/nq_always_repair.json": "4980341350aa03d959b587f42571bb13b2910173f82f29b7e92145fb590fa483",
+  "engineering_checks/nq_probe.json": "83efe1b08edab75dd9f1cfc1e7f93c1764a34681f0291d7686e8080693108a33"
+}

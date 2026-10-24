@@ -1,6 +1,6 @@
 # Controller T3 执行登记 · 2026-10-24
 
-当前先完成 T3，再启动一次 T4 开发比较。**尚未取得真实 CUDA 工程凭证，T4 未启动。** 本文和 [补充策略](../configs/controller/t3_execution_policy_v1.json) 是 T1 的新增执行修订，不覆盖冻结 T1/T2、历史 C1、E 提示或 Diagnosis 参数。运行输入严格不含 gold；选型集和最终保留集不进入本批。
+当前先完成 T3，再启动一次 T4 开发比较。**真实 CUDA 工程凭证已验收，T4 未启动，检索资源正在私有上传。** 结果与状态见[执行归档](../artifacts/controller/t3_v1/README.md)。本文和 [补充策略](../configs/controller/t3_execution_policy_v1.json) 是 T1 的新增执行修订，不覆盖冻结 T1/T2、历史 C1、E 提示或 Diagnosis 参数。运行输入严格不含 gold；选型集和最终保留集不进入本批。
 
 ## 方向复查
 

@@ -1,7 +1,7 @@
 {
   "date": "2026-10-24",
   "branch": "controller",
-  "state": "engineering_running_resource_uploading",
+  "state": "engineering_accepted_resource_uploading",
   "T3_local_implementation": "passed",
   "full_tests_passed": 773,
   "portable_tests_passed": 55,
@@ -16,17 +16,16 @@
   "source_commit": "42c7974453a60ab06194f958e65a0c18311c22d1",
   "archive_sha256": "ddd51973e9921402f914cf0ccb942e5450a8ca402f2bbcc58d1af2825415cffe",
   "GPU_engineering_started": true,
-  "GPU_engineering_passed": false,
+  "GPU_engineering_passed": true,
   "T4_started": false,
   "T4_predictions": 0,
   "new_quality_result_available": false,
   "cloud_GPU_time_consumed_for_T3_T4": null,
   "blocker": null,
   "next_steps": [
-    "Download and inspect engineering outputs; verify all eight long-input paths, CPU timing, budget traces and matching runtime.",
-    "Finish the private original retrieval-resource upload.",
-    "Bind accepted engineering receipt and original resources, then seal and run the single T4 development comparison.",
-    "Score offline and prepare changed-answer and flagged-trace review queues."
+    "Finish original retrieval-resource upload and attach the accepted engineering receipt privately.",
+    "Import the bound T4 notebook, retain original environment, and start one sealed 400-query seven-arm development run.",
+    "Verify execution seal, 2800 paired records and frozen environment before offline scoring."
   ],
   "resource_bundle": {
     "path": "data/processed/controller_resources/controller_t4_resource_bundle_v1.tar.gz",
@@ -42,5 +41,7 @@
   "validation_receipt": "gpu_release_v1/validation_receipt.json",
   "submission": "submission_v1.json",
   "notebook_url": "https://www.kaggle.com/code/yearo111/controller-t3-cuda-engineering-frozen-20261024",
-  "script_version_id": 361774673
+  "script_version_id": 361774673,
+  "GPU_engineering_validation": "kaggle_engineering_v1/validation_receipt.json",
+  "T4_launch_receipt": "t4_release_v1/launch_receipt.json"
 }

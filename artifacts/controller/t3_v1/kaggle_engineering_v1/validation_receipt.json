@@ -1,0 +1,32 @@
+{
+  "schema_version": "controller_t3_GPU_gate_acceptance_v1",
+  "accepted_at_UTC": "2026-10-24 11:24:59 UTC",
+  "script_version_id": 361774673,
+  "source_commit": "42c7974453a60ab06194f958e65a0c18311c22d1",
+  "output_zip_sha256": "99b34b1e65ee46877b02d2339f8f98b7c54a1b9945dca5e60b2b324f31252b7c",
+  "engineering_receipt_sha256": "5894f9f86dd87ef1537cacf0c9f703ca0005747a87f6d0077b9694bc06ffbf60",
+  "environment_sha256": "e42b4c117dff44be610afeb6243d19aea6ee98c82993dc70d491f006d547d74a",
+  "input_manifest_matches_frozen_release": true,
+  "long_paths_passed": 8,
+  "minimum_actual_input_tokens": 16005,
+  "short_paths_passed": 8,
+  "full_budgets_verified_for_both_datasets": true,
+  "cpu_scoring": [
+    {
+      "pairs": 5,
+      "seconds": 8.912503121999862,
+      "dtype": "float32",
+      "device": "cpu"
+    },
+    {
+      "pairs": 20,
+      "seconds": 34.49557725699992,
+      "dtype": "float32",
+      "device": "cpu"
+    }
+  ],
+  "compute_decision": "Keep registered CPU FP32 batch4 scorer; disclose CPU bottleneck. No module, prompt, precision or device change. Synthetic short two-token calls are not a benchmark runtime forecast.",
+  "passed": true,
+  "T4_started": false,
+  "quality_scored": false
+}

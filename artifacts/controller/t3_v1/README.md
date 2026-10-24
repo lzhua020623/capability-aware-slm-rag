@@ -1,6 +1,10 @@
 # Controller T3 / T4 当前执行状态
 
-2026-10-24：T3本地实现与执行前复查完成，773项完整回归通过。最终发布包解压后55项便携测试、400条输入预检与95个内容文件哈希全部通过；91个源码文件逐一匹配已提交的Git blob。用户恢复Chrome后，[真实CUDA工程验收V1](https://www.kaggle.com/code/yearo111/controller-t3-cuda-engineering-frozen-20261024?scriptVersionId=361774673)已显示Running，固定依赖安装和400条输入预检已通过，Qwen权重加载到339/339。工程结果尚未验收，T4尚未启动。完整5.7GB检索资源正在私有上传。[提交凭证](submission_v1.json)和[机器可读状态](cloud_status.json)记录当前进度。
+2026-10-24：T3本地实现与执行前复查完成，773项完整回归通过。最终发布包解压后55项便携测试、400条输入预检与95个内容文件哈希全部通过；91个源码文件逐一匹配已提交的Git blob。[真实CUDA工程验收V1](https://www.kaggle.com/code/yearo111/controller-t3-cuda-engineering-frozen-20261024?scriptVersionId=361774673)已成功结束（960秒），输出已下载并通过本地验收。八条长输入实际最少16005 tokens，八条短流程均无调用失败或预算阻断，两个Full均为3次Qwen/1次检索/2次评分。CPU FP32实测5对8.913秒、20对34.496秒，保持原登记设备/精度/批量。T4尚未启动，完整5.7GB检索资源正在私有上传。[提交凭证](submission_v1.json)为首次运行中观察；最新进度以[机器可读状态](cloud_status.json)为准。
+
+GPU原始ZIP、运行环境、逐调用凭证及[本地验收](kaggle_engineering_v1/validation_receipt.json)位于`kaggle_engineering_v1/`。ZIP SHA256为99b34b1e65ee46877b02d2339f8f98b7c54a1b9945dca5e60b2b324f31252b7c。工程运行没有读取gold、没有生成T4问答预测，也不证明增强质量提高。短虚构题的0.421秒调用中位数不可外推到真实开发集。
+
+[T4 Notebook](t4_release_v1/controller_t4_development_v1.ipynb)已编译校验，并在[启动登记](t4_release_v1/launch_receipt.json)绑定代码包、已验收CUDA凭证和原检索资源哈希。仍需资源上传完成；在首次问答前必须再核对真实检索回放和完整运行环境。冻结策略/输入清单中的启动状态保持封存时原值，实际启动状态由新的execution_seal记录。
 
 比较范围固定为两个数据集各200条development，七组共2800条配对记录；C1直接读缓存。人工类型组无可靠新标签，明确未执行；Oracle和路由回放离线计算，不新增GPU组。选型/最终题目及gold正文不进入GPU包。
 

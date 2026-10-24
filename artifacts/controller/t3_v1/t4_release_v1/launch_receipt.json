@@ -1,0 +1,26 @@
+{
+  "schema_version": "controller_t4_launch_receipt_v1",
+  "source_commit": "42c7974453a60ab06194f958e65a0c18311c22d1",
+  "code_bundle_receipt_sha256": "1746fb7f876aa6f5aee9891743c2dc0a72de6370520832224d0dab7befe141dd",
+  "engineering_receipt_sha256": "5894f9f86dd87ef1537cacf0c9f703ca0005747a87f6d0077b9694bc06ffbf60",
+  "resource_archive_sha256": "d8e84e8b0c4c472ab0c0fe23e3e79d24645456ab3322cb93a24fefe77272b5f4",
+  "notebook_sha256": "e357da198aed706eae883a3c9ebbd67f9673fb8ee6f2939a18669a78b7a3b04b",
+  "counts": {
+    "nq": 200,
+    "fever": 200
+  },
+  "modes": [
+    "c1",
+    "always_retrieve",
+    "always_rerank",
+    "always_repair",
+    "full_enhancement",
+    "adaptive",
+    "adaptive_no_probe"
+  ],
+  "expected_predictions": 2800,
+  "C1": "cached",
+  "T4_started": false,
+  "quality_scored": false,
+  "environment_policy": "Use same original environment as engineering V1; installed dependency versions and CPU runtime must match before first benchmark prediction."
+}
