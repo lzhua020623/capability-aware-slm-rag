@@ -1,0 +1,103 @@
+{
+  "schema_version": "fever_resource_structure_v1",
+  "passed": true,
+  "import_report_sha256": "3f7eb4d05dea50a07241d2a5a63f9392ddda6ca0209b239c191159dc896b3c64",
+  "structure": {
+    "ntotal": 5396106,
+    "d": 768,
+    "nlist": 4096,
+    "nprobe": 16,
+    "metric_type": 0,
+    "is_trained": true,
+    "by_residual": false,
+    "type": "IndexIVFPQ",
+    "m": 64,
+    "nbits": 8
+  },
+  "full_mapping_records": 5396106,
+  "faiss_version": "1.15.1",
+  "search_checks": [
+    {
+      "source_position": 0,
+      "source_passage_id": "1928_in_association_football",
+      "retrieved_top20_ids": [
+        "1928_in_association_football",
+        "1929_in_association_football",
+        "1978_in_association_football",
+        "1927_in_association_football",
+        "1918_in_association_football",
+        "1928_in_Brazilian_football",
+        "1910_in_association_football",
+        "1930_in_association_football",
+        "1976_in_association_football",
+        "1917_in_association_football",
+        "1928_in_sports",
+        "1922_in_association_football",
+        "1926_in_association_football",
+        "1975_in_association_football",
+        "1904_in_association_football",
+        "1912_in_association_football",
+        "1925_in_association_football",
+        "1914_in_association_football",
+        "1911_in_association_football",
+        "1876_in_association_football"
+      ]
+    },
+    {
+      "source_position": 2698053,
+      "source_passage_id": "La_Selva_del_Camp",
+      "retrieved_top20_ids": [
+        "La_Selva_del_Camp",
+        "Selva",
+        "Vilallonga_del_Camp",
+        "Selva,_Majorca",
+        "Serra_de_la_Mussara",
+        "Prades,_Baix_Camp",
+        "Vilanova_de_Prades",
+        "Les_Borges_del_Camp",
+        "Montbri\u00f3_del_Camp",
+        "Siles,_Spain",
+        "La_Selva_de_Mar",
+        "El_Port_de_la_Selva",
+        "Sierra_de_Algair\u00e9n",
+        "Sierra_del_Sueve",
+        "Tur\u00f3_de_la_Dona_Morta",
+        "El_Torcal_de_Antequera",
+        "La_Tirana",
+        "Selva_-LRB-disambiguation-RRB-",
+        "Lago_Las_Torres_National_Reserve",
+        "Selas"
+      ]
+    },
+    {
+      "source_position": 5396105,
+      "source_passage_id": "\u0141\u0119czyce,_Greater_Poland_Voivodeship",
+      "retrieved_top20_ids": [
+        "\u0141\u0119czyce,_Greater_Poland_Voivodeship",
+        "\u0141\u0119czyca,_Greater_Poland_Voivodeship",
+        "\u0141\u0119czyce,_Pomeranian_Voivodeship",
+        "Ma\u0142oszyce,_\u0141\u00f3d\u017a_Voivodeship",
+        "Leziona",
+        "U\u015bci\u0119cice",
+        "\u0141\u0119czycki",
+        "\u0141\u0119czyca,_Be\u0142chat\u00f3w_County",
+        "Luboszyce,_Opole_Voivodeship",
+        "Po\u0142\u0119cze",
+        "Lubie\u0144,_\u0141\u0119czyca_County",
+        "Przy\u0142\u0119czek",
+        "Czy\u017ce",
+        "Przy\u0142\u0119k,_Greater_Poland_Voivodeship",
+        "Be\u0142\u017cyce",
+        "Sielec,_Podkarpackie_Voivodeship",
+        "Trzebienie",
+        "Dzi\u0119cielec",
+        "Szyce,_Silesian_Voivodeship",
+        "Czarnoszyce"
+      ]
+    }
+  ],
+  "search_scope": "3 reconstructed PQ vectors, engineering lookup only; no question/gold read",
+  "semantic_bge_alignment_verified": false,
+  "quality_scored": false,
+  "formal_execution_ready": false
+}

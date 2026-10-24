@@ -157,6 +157,8 @@ def main(argv=None):
     parser.add_argument("--preflight", action="store_true")
     parser.add_argument("--nq-index", type=Path)
     parser.add_argument("--nq-metadata", type=Path)
+    parser.add_argument("--nq-resources", type=Path,
+                        help="Verified NQ Train corpus/index/IDs/offsets registry")
     args = parser.parse_args(argv)
     if args.smoke == (args.input is not None):
         parser.error("Choose exactly one of --smoke and --input")
@@ -171,11 +173,19 @@ def main(argv=None):
         parser.error("Output directory already exists; choose a new run directory")
     need_index = (not args.smoke and any(i.dataset.value == "nq" for i in items)
                   and any(m in ("adaptive", "always_retrieve") for m in modes))
-    if need_index and not args.preflight and not (args.nq_index and args.nq_metadata):
-        parser.error("NQ adaptive/retrieval runs require --nq-index and --nq-metadata from the C1 corpus")
+    if args.nq_resources and (args.nq_index or args.nq_metadata):
+        parser.error("Choose --nq-resources or the legacy --nq-index/--nq-metadata pair")
+    if bool(args.nq_index) != bool(args.nq_metadata):
+        parser.error("Provide both --nq-index and --nq-metadata")
+    if need_index and not args.preflight and not (args.nq_resources or (args.nq_index and args.nq_metadata)):
+        parser.error("NQ adaptive/retrieval runs require matching --nq-resources or --nq-index/--nq-metadata")
     for path in (args.nq_index, args.nq_metadata):
         if path is not None and not path.is_file():
             parser.error(f"Missing resource: {path}")
+    resource_receipt = None
+    if args.nq_resources:
+        from src.controller.nq_train_resources import validate_resources
+        _, _, resource_receipt = validate_resources(args.nq_resources, root=ROOT)
     args.output_dir.mkdir(parents=True)
     manifest = {"schema_version": "controller_run_v1", "smoke": args.smoke,
                 "preflight": args.preflight, "n_inputs": len(items), "modes": modes,
@@ -183,7 +193,8 @@ def main(argv=None):
                 "classifier_sha256": file_sha(args.classifier),
                 "input_sha256": file_sha(args.input) if args.input else None,
                 "commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-                "nq_index_required": need_index, "state": "preflight" if args.preflight else "running"}
+                "nq_index_required": need_index, "nq_train_resources": resource_receipt,
+                "state": "preflight" if args.preflight else "running"}
     write_json(args.output_dir / "manifest.json", manifest)
     if args.preflight:
         print(json.dumps({"preflight": "passed", "n_inputs": len(items), "nq_index_required": need_index}))
@@ -197,7 +208,7 @@ def main(argv=None):
         else:
             from src.controller.providers import load_pipeline
             pipeline, environment = load_pipeline(config, args.classifier, nq_index=args.nq_index,
-                                                  nq_metadata=args.nq_metadata)
+                                                  nq_metadata=args.nq_metadata, nq_resources=args.nq_resources)
         environment["resource_loading_seconds"] = perf_counter() - before
         # Input paths and hashes remain in the run manifest, never in Diagnosis.
         if args.nq_index:

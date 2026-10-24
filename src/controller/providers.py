@@ -20,7 +20,9 @@ def shared_repair_views(generator, config):
     return views
 
 
-def load_pipeline(config, classifier_path, *, nq_index=None, nq_metadata=None):
+def load_pipeline(config, classifier_path, *, nq_index=None, nq_metadata=None, nq_resources=None):
+    if nq_resources and (nq_index or nq_metadata):
+        raise ValueError("Choose NQ Train resources or the legacy index/metadata pair")
     import torch
     from sentence_transformers import CrossEncoder
     from src.compensation.qwen_repair import QwenRepairGenerator
@@ -43,7 +45,11 @@ def load_pipeline(config, classifier_path, *, nq_index=None, nq_metadata=None):
                                 model_name=RERANKER_MODEL)
     scorer.revision = RERANKER_REVISION
     retriever = None
-    if nq_index:
+    resource_receipt = None
+    if nq_resources:
+        from src.controller.nq_train_resources import load_backend
+        retriever, resource_receipt = load_backend(nq_resources, root=Path(__file__).resolve().parents[2])
+    elif nq_index:
         from src.retrieval.e5_faiss import E5FaissRetriever
         dense = E5FaissRetriever(BGE_MODEL_NAME, device="cpu", passage_prefix="",
                                 query_prefix=BGE_QUERY_INSTRUCTION)
@@ -57,5 +63,6 @@ def load_pipeline(config, classifier_path, *, nq_index=None, nq_metadata=None):
                    "reranker_device": "cpu", "reranker_dtype": "float32",
                    "reranker_activation": "Identity", "reranker_max_length": 512,
                    "nq_index": str(nq_index) if nq_index else None,
-                   "nq_metadata": str(nq_metadata) if nq_metadata else None}
+                   "nq_metadata": str(nq_metadata) if nq_metadata else None,
+                   "nq_train_resources": resource_receipt}
     return pipeline, environment

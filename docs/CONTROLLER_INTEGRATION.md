@@ -10,6 +10,8 @@ T2 已冻结 [两数据集的样本和完整评测保留池](CONTROLLER_DATA_V1.
 
 2026-10-24 已[取回 NQ Train 原语料/索引并恢复配套文件](NQ_TRAIN_INDEX_RECOVERY.md)，64 段独立 BGE 向量比对通过，最新 CPU 回归 681 项通过。所核验快照与历史 C1 revision 的区别保留在恢复记录中；FEVER 和 Controller provider 接入仍按原 T2/T3 待办推进，原冻结样本、保留池及算法提示不改。
 
+随后完成 [NQ 全量定位核对、Train provider 接入和 FEVER 资源导入](CONTROLLER_RESOURCE_ADAPTER_V1.md)。NQ 新增 `--nq-resources` 入口；FEVER 原包及全量 ID/原文顺序已验收，FEVER 动态 provider、新 C1 和其余 T3 组仍待完成。下方旧接口说明与历史验收数字保留；资源接入的新增验证见链接。
+
 ## 1. 来源与合并
 
 从 E 分支 `5da1fe5` 创建新分支，依次合并：

@@ -1,0 +1,84 @@
+{
+  "schema_version": "controller_resource_adapter_validation_v1",
+  "created_utc": "2026-10-24T01:32:45.932285+00:00",
+  "passed": true,
+  "scope": "Resource and CPU interface verification; no QA quality experiment",
+  "parent_commit": "393c82bea347c2bf084cb977f93eef4dfbf89260",
+  "source_files": {
+    "configs/controller/nq_train_resources_v1.json": "c53e57eeff49744a2aaf910da50cd3877fed79893db90e53f1952d2ccf453a9f",
+    "scripts/check_fever_controller_resources.py": "8c3292790f3309506cff0bb8c45e1ab5ac57059e6599d63199ed5022b3d4093f",
+    "scripts/check_nq_train_index_mapping.py": "5ab4b233e4033051fd9c97be56e91b6f6b93735b2c83bf65c3bcf67652edfae6",
+    "scripts/import_fever_controller_resources.py": "08224ab1364d6d5df0f9a6462a0f74de27605e97fbdeb34e2121303c55217b1c",
+    "scripts/replay_nq_controller_retrieval.py": "8733ab65fc81a9b6beda0d63a17a994fa7351fbb87ab9309bb6aa2cb14a4ef45",
+    "scripts/run_controller_integration.py": "7caa5f19d7485d17eab99c07ffb88b5f61cb99a2db8e3c1fdacbee7c34ce0ec3",
+    "src/controller/nq_train_resources.py": "1131a6494c24a0db157d5d8dbaacd136434fb08c4e05defb6da0b0bd5d95ff02",
+    "src/controller/providers.py": "ce8d1a79a8fd1d6f1dc809c7a2dcda17e606bac8dec13e24d1cbf0c64f21c489",
+    "src/retrieval/offset_corpus.py": "e10670d0d76e708d9c7db39624ac5600922b5e2dfe54966eb749125c7d975b18",
+    "src/retrieval/resource_import.py": "85e6271b0b7e029d987eb30208236aedcc62afc39459c5e7fac26704a7cc3d30",
+    "tests/test_fever_resource_validation.py": "1315b7f5ab8cde381df53e522d8776c3397d9285163ba80648a6cd5ab303df33",
+    "tests/test_nq_retrieval_replay.py": "0b87936f700d568b600bd08ed48fd51b02c213ef6b8343ab5425eedaefffaa01",
+    "tests/test_nq_train_resources.py": "3483e7f2362c73d38eb3d77f59b2f532aacd33004f8e1d875492e7749426f713",
+    "tests/test_offset_corpus.py": "fba32ab26affe4802c7175f6d90ffeba0ad7bdaaa69a23a7aeac3d2cbde8f2c6",
+    "tests/test_resource_import.py": "5975bc5d687043a4685c4215f6b40e1a10cc16bdaf9b012aae2b97b1b16812ee"
+  },
+  "checks": {
+    "artifacts/controller/nq_mapping_full_v1/validation.json": "cdff67e6dcdab1d7751623402a99b04a1cf80285b50c30f5daff93e840668ff1",
+    "artifacts/controller/nq_mapping_full_v1/retrieval_replay.json": "f74ab3d75e7010d102a23d05c762692c4cc582a05c19b16570c8179a3e778431",
+    "artifacts/controller/nq_mapping_full_v1/preflight/manifest.json": "c47fa2a8be40ab515b49e8552aa8f99184628bb6abaf26ed1bdd7611b5050907",
+    "artifacts/controller/fever_resources_v1/import_validation.json": "3f7eb4d05dea50a07241d2a5a63f9392ddda6ca0209b239c191159dc896b3c64",
+    "artifacts/controller/fever_resources_v1/structure_validation.json": "49ffb987228e84a13ff85254983cea327114a4e898c2da530e4864e4b41a7d72",
+    "artifacts/controller/resource_adapter_v1/protocol_check.json": "0ae6db144a92252b23d60c3720d313bc69ecbab8d0359a033f908e4f46305c45",
+    "artifacts/controller/resource_adapter_v1/data_check.json": "63a509d008e0523579e5678ecfd794ec1e647ea37a0204995ef7fcfe401154cd",
+    "artifacts/controller/resource_adapter_v1/tests.log": "6773c29dd1da4554a6bffc3d5d1fd9958468777541be6d674e3262b8ccb6faee"
+  },
+  "tests": {
+    "passed": 706,
+    "failed": 0,
+    "seconds": 62.946,
+    "command": "python -m unittest discover -s tests -v"
+  },
+  "nq": {
+    "complete_mapping_rows": 1224119,
+    "real_development_queries": 10,
+    "same_ordered_C1_top5": 10,
+    "top20_prefix_consistency": true,
+    "provider_wiring_verified": true,
+    "real_cuda_provider_tested": false
+  },
+  "fever": {
+    "full_order_mapping_rows": 5396106,
+    "original_metadata_matches_tracked": true,
+    "faiss_structure_and_lookup_passed": true,
+    "semantic_bge_alignment_verified": false,
+    "controller_provider_implemented": false,
+    "new_C1_generated": false
+  },
+  "environment": {
+    "python": "3.12.14",
+    "system": "macOS-26.5.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "packages": {
+      "numpy": "2.5.4",
+      "faiss-cpu": "1.15.1",
+      "sentence-transformers": "6.2.0",
+      "torch": "2.14.1",
+      "transformers": "5.16.1",
+      "scikit-learn": "1.9.1",
+      "huggingface-hub": "1.33.0"
+    },
+    "formal_cuda_environment": false
+  },
+  "t1_frozen_protocol_sha256": "3edce74cc048e20f2a7a6bbe187564adb06f520397b1ea51a875a1faf2a8f9d0",
+  "registered_reference_deltas": [
+    "scripts/run_controller_integration.py: explicit mutually exclusive resource registry and preflight receipt",
+    "src/controller/providers.py: NQ Train lazy resource loader alongside legacy full-text metadata"
+  ],
+  "algorithms_prompts_thresholds_and_splits_changed": false,
+  "formal_execution_ready": false,
+  "local_search_diagnostics": "One concurrent Mac run for each load mode; not a controlled performance benchmark or system quality metric",
+  "remaining": [
+    "FEVER BGE query compatibility/provider and fixed 900 C1 outputs",
+    "T3 full arms/budgets/evaluator",
+    "Actual CUDA environment and immutable execution seal"
+  ]
+}

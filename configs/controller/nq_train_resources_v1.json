@@ -1,0 +1,42 @@
+{
+  "schema_version": "controller_nq_train_resources_v1",
+  "dataset": "nq_train",
+  "model_name": "BAAI/bge-base-en-v1.5",
+  "verified_model_revision": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+  "query_instruction": "Represent this sentence for searching relevant passages: ",
+  "passage_prefix": "",
+  "embedding_dimension": 768,
+  "corpus_size": 1224119,
+  "files": {
+    "offsets": {
+      "path": "data/processed/indexes/nq_train_bge_base_offsets.npy",
+      "bytes": 9793080,
+      "sha256": "3e819f87f04f6069e27f0ba12f89493834cbb597e2e0d2d599aee585b63d2e5b"
+    },
+    "ids": {
+      "path": "data/processed/indexes/nq_train_bge_base_ids.jsonl",
+      "bytes": 37947689,
+      "sha256": "7d5d51f81ae3f89f4d7407b46b71f5c42804e418042e49c647435457f3715581"
+    },
+    "index": {
+      "path": "data/processed/indexes/nq_train_bge_base.index",
+      "bytes": 3760493613,
+      "sha256": "cd94b5cd2d5fec4736ba16197e2431a87d347640cd1c79da6a6daa2cac9bfd5d"
+    },
+    "corpus": {
+      "path": "data/processed/retrieval/nq_train_corpus.jsonl",
+      "bytes": 782900757,
+      "sha256": "c4ec2cc61aa091bd4cd6492b7cbdc53c8265395d9ac1b9b6307ac748daf6940d"
+    },
+    "recovery_metadata": {
+      "path": "data/processed/indexes/nq_train_bge_metadata.json",
+      "bytes": 4134,
+      "sha256": "c6ed43b627833dd6592a964e5e03eebfd1fad3ba627f2c66a568ad94e7914fbd"
+    },
+    "mapping_validation": {
+      "path": "artifacts/controller/nq_mapping_full_v1/validation.json",
+      "bytes": 3220,
+      "sha256": "cdff67e6dcdab1d7751623402a99b04a1cf80285b50c30f5daff93e840668ff1"
+    }
+  }
+}

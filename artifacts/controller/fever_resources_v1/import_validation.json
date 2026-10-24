@@ -1,0 +1,65 @@
+{
+  "schema_version": "fever_resource_import_v1",
+  "passed": true,
+  "frozen_t2_data_modified": false,
+  "archives": {
+    "c1": {
+      "name": "for_fever_c1.zip",
+      "bytes": 424325031,
+      "sha256": "46ef951ff98f46921519893f768583a83e6fa54c3006b992de0a22ba87a5a5d9"
+    },
+    "corpus": {
+      "name": "fever_corpus.zip",
+      "bytes": 1265030053,
+      "sha256": "a760c700e4591ec6c9104d6f56c00c8c545f8fa965716620fbf3f2fef02ef0a0"
+    }
+  },
+  "extracted": {
+    "fever_bge_ivfpq.index": {
+      "member": "for_fever_c1/fever_bge_ivfpq.index",
+      "bytes": 401921924,
+      "sha256": "a000e7e994a4da47ec1d7af9371eab3c9e4872b2eeefb2f786cb102b4528046b"
+    },
+    "fever_bge_ivfpq_ids.jsonl": {
+      "member": "for_fever_c1/fever_bge_ivfpq_ids.jsonl",
+      "bytes": 213760540,
+      "sha256": "9bcecd97153871da40edd6ebdee8b149a976174cf929685f77f5a34deba2539a"
+    },
+    "fever_bge_ivfpq_meta.json": {
+      "member": "for_fever_c1/fever_bge_ivfpq_meta.json",
+      "bytes": 601,
+      "sha256": "f4146debafd05ff4b78d8788265c9df8ceb59462d40883beb6ef70eda6e6c2be"
+    },
+    "fever_corpus.jsonl": {
+      "member": "fever_corpus.jsonl",
+      "bytes": 3522640169,
+      "sha256": "29dde612e13203ec37a566c2284d5e312eabc8e66277b972a6e643511fe65fd1"
+    }
+  },
+  "metadata_matches_tracked": true,
+  "mapping": {
+    "records_checked": 5396106,
+    "full_order_verified": true,
+    "embedding_reencoding_performed": false,
+    "fingerprints": {
+      "corpus": {
+        "bytes": 3522640169,
+        "sha256": "29dde612e13203ec37a566c2284d5e312eabc8e66277b972a6e643511fe65fd1"
+      },
+      "ids": {
+        "bytes": 213760540,
+        "sha256": "9bcecd97153871da40edd6ebdee8b149a976174cf929685f77f5a34deba2539a"
+      },
+      "offsets": {
+        "bytes": 43168976,
+        "sha256": "d764edc54e65a2f7d7255a2efbe7ec04c64b29758c15d965ee336a83202b485a"
+      }
+    }
+  },
+  "historical_dev_sha256": "09072a8314e57b5f2557366ae7a51e760e3a0a40220709e998aac82fcf28c8f2",
+  "remaining": [
+    "FAISS structural/search validation",
+    "FEVER Controller provider and C1 generation",
+    "Original BGE model revision not recorded in team metadata"
+  ]
+}

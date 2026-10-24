@@ -55,3 +55,5 @@ python -m unittest tests.test_nq_index_sidecar_recovery -v
 工具拒绝覆盖已有 sidecars。`--verify-embeddings` 未启用的记录会明确写 `performed=false`，不能当作通过向量顺序核验。
 
 本次实际运行及测试结果保存于 [验证目录](../artifacts/controller/nq_index_recovery_v1/README.md)。
+
+后续已对全部 1,224,119 个段落逐条检查 ID/offset/原文，并执行实际 seek 回读；这与此前 64 段向量比对是两个不同检查。Controller 的新资源注册及 offset provider 见 [资源接入说明](CONTROLLER_RESOURCE_ADAPTER_V1.md)，全量定位原始报告见 [validation.json](../artifacts/controller/nq_mapping_full_v1/validation.json)。

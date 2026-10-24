@@ -1,0 +1,15 @@
+{"extracted": "fever_bge_ivfpq.index"}
+{"extracted": "fever_bge_ivfpq_ids.jsonl"}
+{"extracted": "fever_bge_ivfpq_meta.json"}
+{"extracted": "fever_corpus.jsonl"}
+{"mapped": 500000}
+{"mapped": 1000000}
+{"mapped": 1500000}
+{"mapped": 2000000}
+{"mapped": 2500000}
+{"mapped": 3000000}
+{"mapped": 3500000}
+{"mapped": 4000000}
+{"mapped": 4500000}
+{"mapped": 5000000}
+{"passed": true, "report": "artifacts/controller/fever_resources_v1/import_validation.json"}

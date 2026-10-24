@@ -1,0 +1,2 @@
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 6146.34it/s]
+{"resource_checks_passed": true, "n_queries": 10, "same_ordered_top5_count": 10}

@@ -1,0 +1,7 @@
+{"checked": 200000}
+{"checked": 400000}
+{"checked": 600000}
+{"checked": 800000}
+{"checked": 1000000}
+{"checked": 1200000}
+{"passed": true, "records_checked": 1224119, "actual_seek_reads": 1224119, "output": "artifacts/controller/nq_mapping_full_v1/validation.json"}
