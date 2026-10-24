@@ -1,0 +1,35 @@
+{
+  "schema_version": "controller_t3_cloud_submission_v1",
+  "notebook_url": "https://www.kaggle.com/code/yearo111/controller-t3-cuda-engineering-frozen-20261024",
+  "script_version_id": 361774673,
+  "version": 1,
+  "observed_state": "Running",
+  "accelerator": "GPU T4 x2",
+  "internet": true,
+  "draft_session_started": false,
+  "purpose": "Engineering only, no T4 benchmark calls",
+  "code_dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-t3-frozen-engineering-20261024",
+  "code_dataset_files": 96,
+  "code_dataset_creation": "Successful (verified in Active Events and attached input)",
+  "frontend_create_response_warning": "Dataset was created despite frontend Unexpected end of JSON input; no duplicate upload submitted.",
+  "frozen_notebook_sha256": "cab3bdb421aeca8310a8dbf82e523d884d65f5d21809aeb019761e20f31236c1",
+  "bundle_receipt_sha256": "1746fb7f876aa6f5aee9891743c2dc0a72de6370520832224d0dab7befe141dd",
+  "preflight": {
+    "nq": 200,
+    "fever": 200,
+    "gold_read": false,
+    "state": "passed"
+  },
+  "dependencies": "Installed fixed direct versions successfully",
+  "last_observed_model_loading": "Qwen Loading weights 339/339 at 214.7 seconds",
+  "CUDA_engineering_passed": false,
+  "T4_started": false,
+  "retrieval_resource_upload": {
+    "expected_dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-t4-retrieval-resources-frozen-20261024",
+    "state": "uploading",
+    "creation_automatic_after_upload": true,
+    "bytes": 5700167663,
+    "last_observed_progress_percent": 7
+  },
+  "recorded_at_UTC": "2026-10-24 11:10:19 UTC"
+}

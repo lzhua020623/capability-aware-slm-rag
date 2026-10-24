@@ -1,6 +1,6 @@
 # Controller T3 / T4 当前执行状态
 
-2026-10-24：T3本地实现与执行前复查完成，773项完整回归通过。最终发布包解压后55项便携测试、400条输入预检与95个内容文件哈希全部通过；91个源码文件逐一匹配已提交的Git blob。真实CUDA工程检查尚未启动，T4尚未启动。Chrome电脑控制返回cgWindowNotFound，已异步请用户恢复窗口；这不是Kaggle模型任务失败，本轮没有消耗GPU运行额度。机器可读状态见[cloud_status.json](cloud_status.json)。
+2026-10-24：T3本地实现与执行前复查完成，773项完整回归通过。最终发布包解压后55项便携测试、400条输入预检与95个内容文件哈希全部通过；91个源码文件逐一匹配已提交的Git blob。用户恢复Chrome后，[真实CUDA工程验收V1](https://www.kaggle.com/code/yearo111/controller-t3-cuda-engineering-frozen-20261024?scriptVersionId=361774673)已显示Running，固定依赖安装和400条输入预检已通过，Qwen权重加载到339/339。工程结果尚未验收，T4尚未启动。完整5.7GB检索资源正在私有上传。[提交凭证](submission_v1.json)和[机器可读状态](cloud_status.json)记录当前进度。
 
 比较范围固定为两个数据集各200条development，七组共2800条配对记录；C1直接读缓存。人工类型组无可靠新标签，明确未执行；Oracle和路由回放离线计算，不新增GPU组。选型/最终题目及gold正文不进入GPU包。
 
@@ -12,4 +12,4 @@
 
 完整检索资源包只在本地忽略目录`data/processed/controller_resources/controller_t4_resource_bundle_v1.tar.gz`，5,700,167,663字节，SHA256为d8e84e8b0c4c472ab0c0fe23e3e79d24645456ab3322cb93a24fefe77272b5f4。解压流中14个成员逐一哈希通过，Git只保存资源清单和验收元数据。Linux/Python3.13九个固定直接依赖的wheel均已确认可下载；仍需GPU真实加载验收。
 
-恢复Chrome后先上传小代码包运行工程检查，测量8条14k长输入调用路径、真实CPU评分与短Full流程；复核时长/配额后，再绑定真实资源和已验收CUDA凭证，封存环境并启动T4。此后下载完整输出，做冻结回放/自动评分并生成NQ改答和AC6审核材料。若CPU时长不合预算，须在T4之前另登记计算配置，不能静默切换设备或精度。
+当前工程V1测量8条14k长输入调用路径、真实CPU评分与短Full流程；复核时长/配额后，再绑定真实资源和已验收CUDA凭证，封存环境并启动T4。此后下载完整输出，做冻结回放/自动评分并生成NQ改答和AC6审核材料。若CPU时长不合预算，须在T4之前另登记计算配置，不能静默切换设备或精度。
