@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-25",
+  "script_version_id": 361785012,
+  "archive_sha256": "be3b926b8f808cd39b1c32b64564e5e5619518bebd2585af3fd8f0a6616bc7a5",
+  "archive_bytes": 14232583,
+  "frozen_input_manifest_matches": true,
+  "source_policy_dataset_and_modes_match": true,
+  "environment_and_engineering_match": true,
+  "output_member_hashes_verified": 7,
+  "predictions_sha256": "972d5571b8f2e2263581c17a089a01f5c76498f7057e69e276d5206ddb30a1ad",
+  "acceptance": {
+    "complete": true,
+    "n_records": 2800,
+    "n_expected": 2800,
+    "required_modes": [
+      "c1",
+      "always_retrieve",
+      "always_rerank",
+      "always_repair",
+      "full_enhancement",
+      "adaptive",
+      "adaptive_no_probe"
+    ],
+    "execution_errors": 0
+  },
+  "runtime_manifest": {
+    "state": "failed",
+    "engineering_only": false,
+    "T4_started": true,
+    "manifest_sha256": "1ee47f8e24a17bbcc1723d4914db76cfce10da0147894773143fb36391fe7219",
+    "n_predictions": 2800,
+    "quality_scored": false,
+    "error": {
+      "type": "KeyError",
+      "message": "'total_seconds'"
+    }
+  },
+  "postprocessing_failure_only": true,
+  "summary_reconstructed_from_original_predictions": true,
+  "predictions_modified": false,
+  "new_GPU_calls": 0
+}

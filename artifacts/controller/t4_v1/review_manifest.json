@@ -1,0 +1,14 @@
+{
+  "NQ_changed_pairs": 104,
+  "NQ_unique_queries": 84,
+  "NQ_adaptive_changed_pairs": 14,
+  "adaptive_flagged_traces": 51,
+  "adaptive_flagged_by_dataset": {
+    "nq": 29,
+    "fever": 22
+  },
+  "routing_priority_cases": 20,
+  "all_human_judgments_pending": true,
+  "AC6": "At least 50 human-verified flagged queries and observed precision >=90%; not yet met by human evidence.",
+  "trace_criterion": "At least 50 complete traces, reviewer independence recorded; may overlap AC6 but judged separately."
+}

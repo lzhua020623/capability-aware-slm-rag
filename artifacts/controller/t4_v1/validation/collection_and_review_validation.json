@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-25",
+  "replay_outputs_match_original_CLI_bytes": true,
+  "replay_output_files_verified": 7,
+  "NQ_distinct_changed_pairs": 104,
+  "NQ_unique_queries": 84,
+  "adaptive_flagged_traces": 51,
+  "routing_priority_cases": 20,
+  "all_human_judgments_pending": true,
+  "relative_links_valid": true,
+  "current_status_separates_automatic_completion_and_human_review": true,
+  "original_2800_predictions_unchanged": true,
+  "original_gold_unchanged": true,
+  "new_GPU_calls": 0,
+  "passed": true
+}

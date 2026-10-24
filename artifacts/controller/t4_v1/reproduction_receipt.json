@@ -1,0 +1,17 @@
+{
+  "archive_sha256": "be3b926b8f808cd39b1c32b64564e5e5619518bebd2585af3fd8f0a6616bc7a5",
+  "records": 2800,
+  "validated_member_hashes": 7,
+  "new_GPU_calls": 0,
+  "predictions_modified": false,
+  "all_human_judgments_pending": true,
+  "files": {
+    "adaptive_flagged_trace_review.jsonl": "7175545c2cd809c31d1a9034fe86bb027b25c7b1cacf486d1c232ded8f7283aa",
+    "diagnostics.json": "9110228f2301977253b22c0d8753061b1040f8c7d18eebf9b07bd2afd15e2523",
+    "evaluation.json": "ed0d2875cb4938f3c96bca075652b68a11ad5e23c0c429c5affa7a19c6787f6d",
+    "nq_changed_answer_review.jsonl": "eef52a30db1b0fa2a0984d2c4c0b4207e5d61c3d9bbe284d0f170ef68b3cc77f",
+    "reconstructed_summary.json": "b488904e4cf6e3aa2c663099ab4206f006605613b2e396e53056836b8c2276a0",
+    "review_manifest.json": "16b9045660d08013f9d7f24a0844d86cdcbd8483f819bf4d47da2b09edd929be",
+    "routing_priority_review.jsonl": "9994819d52cb13435f250f1c9a1099f967d75ee2b2d1bdecd195e4cd5e811506"
+  }
+}

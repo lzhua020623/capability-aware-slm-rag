@@ -1,0 +1,79 @@
+{
+  "datasets": {
+    "nq": {
+      "full_stage_order": [
+        "C1",
+        "retrieve",
+        "rerank",
+        "E"
+      ],
+      "full_stage_correct": [
+        78,
+        85,
+        84,
+        72
+      ],
+      "incremental_stage_repairs": [
+        11,
+        3,
+        4
+      ],
+      "incremental_stage_regressions": [
+        4,
+        4,
+        16
+      ],
+      "always_E_invalid_output": 111,
+      "always_E_validation_errors": {
+        "QUOTE exceeds 60 words": 20,
+        "Excerpt is not a verbatim evidence slice on token boundaries": 50,
+        "RANK must be an evidence block number": 39,
+        "Expected exactly RANK, QUOTE and ANSWER lines": 1,
+        "ANSWER exceeds 20 words": 1
+      },
+      "missed_opportunities_by_action": {
+        "no_action": 10,
+        "evidence_refinement": 2,
+        "generation_repair": 1,
+        "retrieval_enhancement": 1
+      },
+      "probe_calls": 56
+    },
+    "fever": {
+      "full_stage_order": [
+        "C1",
+        "retrieve",
+        "rerank",
+        "E"
+      ],
+      "full_stage_correct": [
+        170,
+        171,
+        171,
+        166
+      ],
+      "incremental_stage_repairs": [
+        5,
+        3,
+        0
+      ],
+      "incremental_stage_regressions": [
+        4,
+        3,
+        5
+      ],
+      "always_E_invalid_output": 56,
+      "always_E_validation_errors": {
+        "Expecting ',' delimiter: line 1 column 392 (char 391)": 1,
+        "repair must change the initial answer; use keep": 8,
+        "Citation quote is not a verbatim evidence excerpt": 46,
+        "Expecting ',' delimiter: line 1 column 235 (char 234)": 1
+      },
+      "missed_opportunities_by_action": {
+        "no_action": 4,
+        "retrieval_enhancement": 1
+      },
+      "probe_calls": 53
+    }
+  }
+}

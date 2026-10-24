@@ -1,7 +1,7 @@
 {
-  "date": "2026-10-24",
+  "date": "2026-10-25",
   "branch": "controller",
-  "state": "T4_paired_development_inference_running",
+  "state": "T4_automatic_evaluation_complete_human_review_pending",
   "T3_local_implementation": "passed",
   "full_tests_passed": 773,
   "portable_tests_passed": 55,
@@ -18,15 +18,14 @@
   "GPU_engineering_started": true,
   "GPU_engineering_passed": true,
   "T4_started": true,
-  "T4_predictions": null,
-  "new_quality_result_available": false,
+  "T4_predictions": 2800,
+  "new_quality_result_available": true,
   "cloud_GPU_time_consumed_for_T3_T4": null,
   "blocker": null,
   "next_steps": [
-    "Let the single frozen T4 development run finish; no tuning or semantic retries.",
-    "Download complete outputs and execution seal; verify 2800 paired records, original source/resource/gold hashes and budget receipts.",
-    "Score NQ EM/F1 and FEVER labels offline; separate repairs, harms, route gaps, Probe and costs.",
-    "Prepare all distinct NQ changed-answer pairs, flagged failures and trace review queues; leave human judgments pending."
+    "Review NQ semantic correctness, prioritizing the 15 NQ routing cases and Adaptive changed answers, then close all 104 changed pairs.",
+    "Complete at least 50 flagged-query and 50 full-trace human judgments; keep AC6 precision and trace reviewer independence separate.",
+    "Choose one concentrated T5 candidate from validated development loss, confirm on independent selection, then freeze final evaluation."
   ],
   "resource_bundle": {
     "path": "data/processed/controller_resources/controller_t4_resource_bundle_v1.tar.gz",
@@ -43,14 +42,26 @@
   ],
   "validation_receipt": "gpu_release_v1/validation_receipt.json",
   "submission": "submission_v1.json",
-  "notebook_url": "https://www.kaggle.com/code/yearo111/controller-t3-cuda-engineering-frozen-20261024",
-  "script_version_id": 361774673,
+  "notebook_url": "https://www.kaggle.com/code/yearo111/controller-t3-cuda-engineering-frozen-20261024?scriptVersionId=361785012",
+  "script_version_id": 361785012,
   "GPU_engineering_validation": "kaggle_engineering_v1/validation_receipt.json",
   "T4_launch_receipt": "t4_release_v1/launch_receipt.json",
   "T4_job_submitted": true,
   "T4_job_script_version_id": 361785012,
   "T4_submission": "t4_release_v1/submission_v1.json",
-  "T4_predictions_observed_lower_bound": 9,
+  "T4_predictions_observed_lower_bound": 2800,
   "T4_complete": false,
-  "complete_T4_outputs_downloaded": false
+  "complete_T4_outputs_downloaded": true,
+  "T4_inference_complete": true,
+  "T4_offline_score_complete": true,
+  "quality_result_role": "development_descriptive_not_final_confirmation",
+  "T4_GPU_job_status": "failure",
+  "T4_failure_scope": "summary_KeyError_total_seconds_after_all_2800_predictions_saved",
+  "T4_result_archive": "artifacts/controller/t4_v1/completion_v1.json",
+  "engineering_script_version_id": 361774673,
+  "cloud_job_wall_seconds": {
+    "T3_engineering": 960.0,
+    "T4": 31265.1,
+    "scope": "Kaggle run elapsed; not per-device GPU active time or quota billing"
+  }
 }

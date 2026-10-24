@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-25",
+  "recorded_at_UTC": "2026-10-24 22:19:14 UTC",
+  "script_version_id": 361785012,
+  "Kaggle_job_status": "failure",
+  "Kaggle_wall_seconds": 31265.1,
+  "runtime_manifest_preserved": true,
+  "inference_complete": true,
+  "complete_pairs_validated": 2800,
+  "call_errors": 0,
+  "budget_blocks": 0,
+  "postprocessing_failure": {
+    "type": "KeyError",
+    "field": "total_seconds",
+    "phase": "summary_after_all_predictions_saved",
+    "current_code_fix_commit": "db74c1b",
+    "predictions_changed": false,
+    "GPU_rerun": false
+  },
+  "frozen_inference_source_commit": "42c7974453a60ab06194f958e65a0c18311c22d1",
+  "archive_sha256": "be3b926b8f808cd39b1c32b64564e5e5619518bebd2585af3fd8f0a6616bc7a5",
+  "automatic_evaluation": "completed; development_descriptive_not_final_confirmation",
+  "human_review": "pending",
+  "review_counts": {
+    "NQ_changed_pairs": 104,
+    "NQ_unique_queries": 84,
+    "NQ_adaptive_changed_pairs": 14,
+    "adaptive_flagged_traces": 51,
+    "adaptive_flagged_by_dataset": {
+      "nq": 29,
+      "fever": 22
+    },
+    "routing_priority_cases": 20,
+    "all_human_judgments_pending": true,
+    "AC6": "At least 50 human-verified flagged queries and observed precision >=90%; not yet met by human evidence.",
+    "trace_criterion": "At least 50 complete traces, reviewer independence recorded; may overlap AC6 but judged separately."
+  },
+  "final_test_executed": false,
+  "selection_executed": false,
+  "new_optimization_candidate_promoted": false,
+  "file_hashes": {
+    "evaluation.json": "ed0d2875cb4938f3c96bca075652b68a11ad5e23c0c429c5affa7a19c6787f6d",
+    "diagnostics.json": "9110228f2301977253b22c0d8753061b1040f8c7d18eebf9b07bd2afd15e2523",
+    "release_audit.json": "4c309f4d8fb4ea412b5d9723aff44570516cf241ff8979fe5f609e4f01ce4c1b",
+    "reconstructed_summary.json": "b488904e4cf6e3aa2c663099ab4206f006605613b2e396e53056836b8c2276a0",
+    "reproduction_receipt.json": "b45934f863f3ee7ea50acbcb746d631180e88baf6c3742d98134774212f51da1",
+    "review_manifest.json": "16b9045660d08013f9d7f24a0844d86cdcbd8483f819bf4d47da2b09edd929be"
+  }
+}

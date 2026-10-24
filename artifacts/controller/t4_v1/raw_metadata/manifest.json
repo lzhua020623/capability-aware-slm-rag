@@ -1,0 +1,12 @@
+{
+  "state": "failed",
+  "engineering_only": false,
+  "T4_started": true,
+  "manifest_sha256": "1ee47f8e24a17bbcc1723d4914db76cfce10da0147894773143fb36391fe7219",
+  "n_predictions": 2800,
+  "quality_scored": false,
+  "error": {
+    "type": "KeyError",
+    "message": "'total_seconds'"
+  }
+}
