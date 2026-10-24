@@ -75,6 +75,13 @@ def file_sha(path):
     return digest.hexdigest()
 
 
+def source_commit():
+    if (ROOT / '.git').exists():
+        return subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+    frozen = ROOT / 'execution_manifest.json'
+    return json.loads(frozen.read_text())['source_commit'] if frozen.is_file() else 'unknown_unregistered_archive'
+
+
 def code_manifest():
     paths = sorted((ROOT / "src").rglob("*.py"))
     paths += [Path(__file__).resolve(), ROOT / "configs/base.yaml"]
@@ -224,7 +231,7 @@ def main(argv=None):
                 "config": asdict(config), "source_files": code_manifest(),
                 "classifier_sha256": file_sha(args.classifier),
                 "input_sha256": file_sha(args.input) if args.input else None,
-                "commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+                "commit": source_commit(),
                 "nq_index_required": need_index, "nq_train_resources": resource_receipt,
                 'fever_resources_required': need_fever, 'fever_resources': fever_receipt,
                 "state": "preflight" if args.preflight else "running"}

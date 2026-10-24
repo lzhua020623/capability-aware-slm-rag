@@ -5,7 +5,7 @@ import unittest
 
 from scripts.run_controller_integration import smoke_inputs
 from src.controller.execution import DEFAULT_MODES, ExecutionConfig, fingerprint
-from src.controller.evaluation import analyze, holm, paired_noninferiority, paired_statistics, transition
+from src.controller.evaluation import analyze, holm, paired_noninferiority, paired_statistics, transition, replay_routes
 from tests.test_controller_integration import pipeline
 
 
@@ -89,6 +89,26 @@ class T3EvaluationTests(unittest.TestCase):
         row['cost']['input_tokens'] = None
         report = analyze(predictions, references, registration, replicates=10)
         self.assertIsNone(report['datasets']['nq']['cost_comparison']['incremental_token_reduction_estimate'])
+
+    def test_offline_replay_reuses_action_answers_but_cannot_invent_probe(self):
+        predictions, _, _ = self.fixture()
+        routes = [{'dataset': i.dataset.value, 'sample_id': i.sample_id, 'action': 'generation_repair'}
+                  for i in smoke_inputs()]
+        replay = replay_routes(predictions, routes)
+        self.assertEqual(replay['new_GPU_calls'], 0)
+        self.assertEqual(replay['records'][1]['final_answer'], 'Amber')
+        routes[0]['use_probe'] = True
+        with self.assertRaises(ValueError):
+            replay_routes(predictions, routes)
+
+    def test_replay_rejects_missing_routes_and_offline_fields(self):
+        predictions, _, _ = self.fixture()
+        with self.assertRaises(ValueError):
+            replay_routes(predictions, [])
+        routes = [{'dataset': i.dataset.value, 'sample_id': i.sample_id, 'action': 'no_action', 'gold': 'leak'}
+                  for i in smoke_inputs()]
+        with self.assertRaises(ValueError):
+            replay_routes(predictions, routes)
 
 
 if __name__ == '__main__':

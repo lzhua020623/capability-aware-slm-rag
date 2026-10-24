@@ -38,8 +38,16 @@ def unresolved_assessment(record):
     """
     reasons = []
     cost = record['cost']
-    if cost['failed_calls'] or cost['budget_blocks']:
+    if cost['failed_calls'] or cost['budget_blocks'] or record.get('error'):
         reasons.append('execution_or_budget_failure')
+    probe = record.get('routing', {}).get('probe') or {}
+    # Probe judged the entering answer, so its negative verdict must not be
+    # attached to a different final answer after a potentially valid repair.
+    if not record.get('answer_changed'):
+        if probe.get('answer_supported') == 'unsupported':
+            reasons.append('probe_rejects_unchanged_answer')
+        if probe.get('evidence_sufficiency') == 'insufficient':
+            reasons.append('probe_reports_insufficient_evidence')
     trace = record.get('module_trace') or {}
     traces = [trace]
     traces.extend(s.get('module_trace') or {} for s in trace.get('stages', []))

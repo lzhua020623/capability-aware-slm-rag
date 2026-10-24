@@ -11,7 +11,7 @@ from src.compensation.answer_repair import Generation
 from src.controller.execution import CallLog, BudgetExceeded, ExecutionConfig, fingerprint
 from src.controller.providers import shared_repair_views
 from src.controller.providers import load_pipeline
-from src.controller.runtime import configure_generation_runtime
+from src.controller.runtime import configure_generation_runtime, unresolved_assessment
 from tests.test_controller_integration import pipeline, diagnosis, Scorer
 
 
@@ -130,6 +130,17 @@ class T3ExecutionTests(unittest.TestCase):
         self.assertEqual(observed['predict']['batch_size'], 4)
         self.assertEqual(env['controller_generation_runtime']['prefill_chunk_size'], 256)
         self.assertIs(p.repair_generators['nq'].model, p.raw_generator.model)
+
+    def test_negative_probe_applies_only_to_the_unchanged_answer(self):
+        record = {'cost': {'failed_calls': 0, 'budget_blocks': 0}, 'answer_changed': False,
+                  'routing': {'probe': {'answer_supported': 'unsupported', 'evidence_sufficiency': 'insufficient'}}}
+        result = unresolved_assessment(record)
+        self.assertTrue(result['flagged'])
+        self.assertIn('probe_rejects_unchanged_answer', result['reasons'])
+        record['answer_changed'] = True
+        self.assertFalse(unresolved_assessment(record)['flagged'])
+        record['error'] = {'type': 'StructuralFailure'}
+        self.assertTrue(unresolved_assessment(record)['flagged'])
 
 
 if __name__ == '__main__':

@@ -96,11 +96,21 @@ def main(argv=None):
     parser.add_argument("--predictions", type=Path, required=True, nargs='+')
     parser.add_argument("--gold", type=Path, required=True, nargs='+')
     parser.add_argument('--execution-seal', type=Path)
+    parser.add_argument('--routes', type=Path, help='Offline candidate route JSONL; never an online input')
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
-    report = evaluate([r for p in args.predictions for r in rows(p)],
-                      [r for p in args.gold for r in rows(p)],
-                      registration=json.loads(args.execution_seal.read_text()) if args.execution_seal else None)
+    registration = json.loads(args.execution_seal.read_text()) if args.execution_seal else None
+    if registration is not None:
+        import hashlib
+        expected = sorted(d['offline_gold_sha256'] for d in registration['datasets'].values())
+        actual = sorted(hashlib.sha256(p.read_bytes()).hexdigest() for p in args.gold)
+        if actual != expected:
+            raise ValueError('Reference file hash differs from frozen offline gold; do not change aliases after inference')
+    predictions = [r for p in args.predictions for r in rows(p)]
+    report = evaluate(predictions, [r for p in args.gold for r in rows(p)], registration=registration)
+    if args.routes:
+        from src.controller.evaluation import replay_routes
+        report['counterfactual_replay'] = replay_routes(predictions, rows(args.routes))
     with args.output.open("x", encoding="utf-8") as handle:
         handle.write(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n")
     print(json.dumps({"groups": list(report["groups"]), "output": str(args.output)}))

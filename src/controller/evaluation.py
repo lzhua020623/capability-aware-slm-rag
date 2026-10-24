@@ -128,6 +128,53 @@ def transition(initial, final):
             'regression_rate': harmed / n_correct if n_correct else None}
 
 
+def replay_routes(predictions, routes):
+    """Reuse existing action outputs; NEVER invent unobserved Probe responses.
+
+    routes are offline candidate actions, not new online predictions. Costs
+    reconstructed from existing events are estimates, not fresh wall timings.
+    """
+    indexed = {(r['dataset'], str(r['sample_id']), r['mode']): r for r in predictions}
+    if len(indexed) != len(predictions):
+        raise ValueError('Duplicate cached predictions')
+    expected = {(ds, sid) for ds, sid, mode in indexed if mode == 'adaptive'}
+    decisions = {}
+    for route in routes:
+        if not {'dataset', 'sample_id', 'action'} <= set(route) or set(route) - {'dataset', 'sample_id', 'action', 'use_probe'}:
+            raise ValueError('Offline route schema contains unsupported fields')
+        key = (route['dataset'], str(route['sample_id']))
+        if key in decisions or key not in expected:
+            raise ValueError('Unpaired or duplicate replay route')
+        decisions[key] = route
+    if set(decisions) != expected:
+        raise ValueError('Replay routes must cover the common cohort')
+    mapping = {action.value: mode for mode, action in MODE_ACTION.items()}
+    results = []
+    for key in sorted(expected):
+        route = decisions[key]; adaptive = indexed[(*key, 'adaptive')]
+        if route['action'] not in mapping:
+            raise ValueError('Only observed keep/single-action outputs may be replayed')
+        chosen = indexed[(*key, mapping[route['action']])]
+        if chosen['input_sha256'] != adaptive['input_sha256']:
+            raise ValueError('Cannot replay different inputs')
+        probe = [e for e in adaptive['calls'] if e['kind'] == 'llm' and e['stage'] == 'probe' and e['attempted']]
+        use_probe = route.get('use_probe', bool(probe))
+        if type(use_probe) is not bool:
+            raise ValueError('use_probe must be boolean')
+        if use_probe and not probe:
+            raise ValueError('Unobserved Probe requires real inference, not replay')
+        events = chosen['calls'] + (probe if use_probe else [])
+        cost = {kind + '_calls': sum(e['kind'] == kind and e['attempted'] for e in events)
+                for kind in ('llm', 'retrieval', 'scoring')}
+        cost['provider_seconds_estimate'] = sum(e['seconds'] for e in events)
+        results.append({'dataset': key[0], 'sample_id': key[1], 'action': route['action'],
+                        'final_answer': chosen['final_answer'], 'input_sha256': chosen['input_sha256'],
+                        'source_mode': chosen['mode'], 'use_existing_probe': use_probe,
+                        'counterfactual_cost_estimate': cost})
+    return {'scope': 'offline counterfactual; no new GPU calls, not measured deployment latency',
+            'records': results, 'new_GPU_calls': 0}
+
+
 def dataset_analysis(rows, references, dataset, *, replicates=10000):
     grouped = {}
     for row in rows:
