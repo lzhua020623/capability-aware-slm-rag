@@ -2,6 +2,8 @@
 
 日期：2026-10-23。对应 [T1 实验协议](CONTROLLER_EXPERIMENT_PROTOCOL_V1.md)。
 
+2026-10-24 C1 补齐：新 FEVER 900 条已统一采集并通过输入/输出与环境验收，runtime 与指纹见 [fever_c1_completed_v1.json](../configs/controller/fever_c1_completed_v1.json)，完成报告见 [completed_v3](../artifacts/controller/fever_c1_v1/prefill_r2/completed_v3/README.md)。下文及原 T2 manifest 保留冻结时的状态，不覆盖其哈希；此新增登记只证明 FEVER C1 可用，正式 Controller 比较仍须通过 T3 执行验收。NQ 既有 C1、原划分和完整保留池不变。
+
 2026-10-24 资源进展：已从团队 Drive 取回 NQ Train 原语料和原索引，并[恢复 ID/offsets 与恢复记录](NQ_TRAIN_INDEX_RECOVERY.md)，64 处独立向量比对通过。本文及 `data_v1/asset_inventory.json` 保留 T2 冻结时的历史状态；当前 NQ 资源以新增恢复归档为准。FEVER 资源包内容、正式执行环境及 T3 provider 适配仍待验收，T2 不因此标为全部就绪。
 
 **已冻结样本、完整评测保留池、配对参考和曝光记录。T2 尚未全部验收：新 FEVER C1 和匹配检索资源仍待补齐。** 本次没有推理、训练、改答案或计算新模型准确率。

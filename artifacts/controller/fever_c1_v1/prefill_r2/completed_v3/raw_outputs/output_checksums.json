@@ -1,0 +1,13 @@
+{
+  "manifest.json": "f0cc7809b487e39e4722ba1c9590a8f8678bd8d3dfd581c5efa862af8fa97bef",
+  "environment.json": "a68dfb338ffcf1de03d32d46e8147b1f36b4fad45694145322610938c80f9709",
+  "engineering_smoke.json": "ab27c00b28470b2d7b59c41914fa67cae510fa431d28caa4bc407a985db9b3fb",
+  "collection_manifest.json": "64cf532f0628857a76b6854e5564507f068c13bc4de3389a1f4af7bd5767f7a4",
+  "run.log": "6a72bd8b7bcace1d8c4fdceaae0af968de98179cebb70133c74f14dd668d6d80",
+  "final_candidate/generations.jsonl": "a66b97c657198fea06509ae93ebb9f1c49d59541e753af3da8892edbf0ca7220",
+  "final_candidate/runtime.jsonl": "372e473ec8da640bda66dc66233572f04cc817ac54edbe9340c30a27b3df5688",
+  "development/generations.jsonl": "e98e0fc9320f9b65e8c694f3abee9045e8a395db9ad4ce48afcc01f2bd6ff1ca",
+  "development/runtime.jsonl": "dd617f0a3e0ae508b2e79a0ddf186c787652d37af5978b23246ce2f91a1b135a",
+  "selection/generations.jsonl": "ebfc4a71b3cd4a1906862f1622b9243a1105274faa3fc9596f0e9a9e02957a85",
+  "selection/runtime.jsonl": "ef77c2775eca9396999be526120c706914656a926a99ec8a23f974d3d3a8ee61"
+}

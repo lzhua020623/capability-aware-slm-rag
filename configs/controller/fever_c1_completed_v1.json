@@ -1,0 +1,47 @@
+{
+  "schema_version": "controller_fever_c1_output_registration_v1",
+  "version": 3,
+  "fever_c1_runtime_ready": true,
+  "formal_controller_comparison_ready": false,
+  "data_manifest": {
+    "path": "artifacts/controller/data_v1/manifest.json",
+    "sha256": "73178f7ce6501aa59ecf15463b266cb4cf89ee52b126a4fe375cb976c02e15c6"
+  },
+  "collection_manifest": {
+    "path": "artifacts/controller/fever_c1_v1/prefill_r2/collection/manifest.json",
+    "sha256": "64cf532f0628857a76b6854e5564507f068c13bc4de3389a1f4af7bd5767f7a4"
+  },
+  "completion_receipt": {
+    "path": "artifacts/controller/fever_c1_v1/prefill_r2/completed_v3/completion_receipt.json",
+    "sha256": "5887eaa8d65529fc0d925442aca9fcee4fbc0e2403041ccd87fb9c920ce22904"
+  },
+  "coverage_audit": {
+    "path": "artifacts/controller/fever_c1_v1/prefill_r2/completed_v3/coverage_audit.json",
+    "sha256": "e762f00de0ecc492389e30670fc25a4ab9d516fc5c24131bf14e1f8b52cb7438"
+  },
+  "runtime_files": {
+    "development": {
+      "path": "artifacts/controller/fever_c1_v1/prefill_r2/completed_v3/raw_outputs/development/runtime.jsonl",
+      "sha256": "dd617f0a3e0ae508b2e79a0ddf186c787652d37af5978b23246ce2f91a1b135a",
+      "rows": 200
+    },
+    "selection": {
+      "path": "artifacts/controller/fever_c1_v1/prefill_r2/completed_v3/raw_outputs/selection/runtime.jsonl",
+      "sha256": "ef77c2775eca9396999be526120c706914656a926a99ec8a23f974d3d3a8ee61",
+      "rows": 200
+    },
+    "final_candidate": {
+      "path": "artifacts/controller/fever_c1_v1/prefill_r2/completed_v3/raw_outputs/final_candidate/runtime.jsonl",
+      "sha256": "372e473ec8da640bda66dc66233572f04cc817ac54edbe9340c30a27b3df5688",
+      "rows": 500
+    }
+  },
+  "generation_runtime": {
+    "prefill_chunk_size": 256,
+    "long_fixture_min_input_tokens": 13000
+  },
+  "gold_in_runtime": false,
+  "previous_failed_outputs_included": false,
+  "quality_scored": false,
+  "final_candidate_usage": "Frozen final evaluation inputs; no prompt design, candidate selection or per-item answer review"
+}

@@ -1,5 +1,7 @@
 # FEVER 检索与新 C1 采集 · 2026-10-24
 
+**最新状态：FEVER C1 已完成并验收 900/900（开发 200、选型 200、最终候选 500）。** Kaggle Version #3 总运行 3,224.4 秒（53 分 44 秒），统一分块预填充，未混用旧失败输出。输入/输出哈希、完整顺序、证据、运行环境及原始生成核对通过。长输入工程 trace 实测 13,139 token，原 12,911-token OOM 题也已完成。详见 [完成报告](../artifacts/controller/fever_c1_v1/prefill_r2/completed_v3/README.md) 和 [runtime 注册](../configs/controller/fever_c1_completed_v1.json)。本轮验收不读取 gold、不评分，不代表 E 或 Controller 的提升；下面的旧状态按历史保留。
+
 已实现 Controller 的 FEVER P3-20 检索路径，并完成新 900 条题目的 Top5 准备及冻结 GPU 包。完整 CPU 回归 **726 项通过**。Qwen 对这 900 条的新答案须由独立 Kaggle/Colab 采集任务生成；打包、CPU 检索或测试通过均不等于已生成答案，也不代表增强收益。
 
 采集进度：2026-10-24 核查 [Kaggle 后台 Version #1](https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024) 已 Failed，44.5 秒，在 CPU preflight 因 `src.retrieval.__init__` 提前加载未安装的 FAISS 中止。77 个输入文件校验通过，Torch 2.11.0+cu128 / CUDA 12.8 / T4×2；尚未调用 Qwen，生成 **0/900**。失败日志和本地复现在 `artifacts/controller/fever_c1_v1/attempt1_failure/`。新的 900 条 C1 仍待完成和输出验收；NQ C1 不重跑。

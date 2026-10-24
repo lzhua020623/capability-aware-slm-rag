@@ -1,0 +1,18 @@
+{
+  "full_tests": {
+    "passed": true,
+    "count": 744,
+    "seconds": 84.214
+  },
+  "targeted_completed_run_tests": {
+    "passed": true,
+    "count": 7
+  },
+  "original_t2_sources_checked": 552,
+  "original_t2_integrity_passed": true,
+  "original_t2_manifest_unchanged": true,
+  "completion_verified": true,
+  "fever_c1_runtime_ready": true,
+  "formal_controller_comparison_ready": false,
+  "quality_scored": false
+}

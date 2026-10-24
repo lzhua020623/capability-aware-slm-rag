@@ -1,15 +1,15 @@
 {
   "schema_version": "controller_fever_c1_cloud_status_v1",
-  "updated_utc": "2026-10-24T05:04:17.453161+00:00",
-  "state": "running",
+  "updated_utc": "2026-10-24T07:40:51.890013+00:00",
+  "state": "completed",
   "platform": "Kaggle",
   "draft_url": "https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024/edit",
   "notebook_draft_created": true,
   "notebook_imported": true,
   "bundle_uploaded": true,
   "gpu_started": true,
-  "generation_completed": false,
-  "note": "Version 3 running, worker 272.8s logged 25/900 real rows. Sealed control flow therefore confirms all fictional engineering fixtures passed including >=13000-token input. Raw engineering trace, final coverage and output integrity await completed artifacts. Old 645 rows remain separate.",
+  "generation_completed": true,
+  "note": "Version 3 completed and downloaded: exact 900/900 (200/200/500), all 77 input hashes and 11 output hashes verified. Raw long fixture 13139 tokens passed; former OOM task completed. No gold read or QA scoring; prior failed 645 rows are separate.",
   "notebook_url": "https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024",
   "dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-fever-c1-900-prefill-r2-20261024",
   "dataset_visibility": "private",
@@ -29,7 +29,7 @@
   "cloud_input_integrity_confirmed": true,
   "collection_preflight_confirmed": true,
   "qwen_generation_confirmed": true,
-  "n_completed": null,
+  "n_completed": 900,
   "attempt_history": [
     {
       "version": 1,
@@ -44,13 +44,14 @@
     },
     {
       "version": 3,
-      "state": "running",
-      "receipt": "prefill_r2/submission_v3.json"
+      "state": "completed",
+      "receipt": "prefill_r2/submission_v3.json",
+      "completion_receipt": "prefill_r2/completed_v3/completion_receipt.json"
     }
   ],
   "prepared_revision": "prefill_r2",
   "script_version_id": 361681141,
-  "n_completed_lower_bound": 25,
+  "n_completed_lower_bound": 900,
   "archive_path": "prefill_r2/controller_fever_c1_gpu_v1.tar.gz",
   "bundle_receipt_path": "prefill_r2/bundle_receipt.json",
   "submission_receipt_path": "prefill_r2/submission_v3.json",
@@ -63,7 +64,11 @@
       "Tesla T4"
     ]
   },
-  "observed_counts": null,
+  "observed_counts": {
+    "development": 200,
+    "selection": 200,
+    "final_candidate": 500
+  },
   "long_context_engineering_confirmed": true,
   "previous_version_n_completed": 645,
   "generation_runtime": {
@@ -71,6 +76,10 @@
     "long_fixture_min_input_tokens": 13000
   },
   "last_failure_receipt_path": "attempt2_oom/failure_receipt.json",
-  "long_context_confirmation_scope": "Inferred from sealed runner reaching real generation: all 3 fictional fixtures, including measured >=13000 input tokens, gate run_collection. Raw engineering traces await final output audit.",
-  "runtime_observation_path": "prefill_r2/runtime_observation_v3.json"
+  "long_context_confirmation_scope": "Directly verified all 3 raw engineering traces, including 13139 input tokens. All 900 real input-token counts match frozen profile; prior 12911-token OOM task also completed.",
+  "runtime_observation_path": "prefill_r2/runtime_observation_v3.json",
+  "completion_receipt_path": "prefill_r2/completed_v3/completion_receipt.json",
+  "completion_audit_path": "prefill_r2/completed_v3/coverage_audit.json",
+  "output_registration_path": "configs/controller/fever_c1_completed_v1.json",
+  "wall_seconds": 3224.4
 }

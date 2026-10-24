@@ -1,0 +1,80 @@
+{
+  "schema_version": "controller_fever_c1_completion_receipt_v1",
+  "observed_utc": "2026-10-24T07:37:22.144150+00:00",
+  "version": 3,
+  "script_version_id": 361681141,
+  "state": "completed",
+  "counts": {
+    "development": 200,
+    "selection": 200,
+    "final_candidate": 500
+  },
+  "n_completed": 900,
+  "wall_seconds": 3224.4,
+  "outer_archive_sha256": "e75db1273be00db69b85d92e50bea8ebfc76fd162c61d31b89afd4bd271e9f7b",
+  "outer_archive_bytes": 12654698,
+  "inner_output_zip_sha256": "01172e3b21cb46eccea3664ff1bfb5fafdaef0cd800d8b5ed257cd3d0634c76a",
+  "cloud_output_zip_hash_matched": true,
+  "output_checksum_files_verified": 11,
+  "outer_and_inner_output_bytes_match": true,
+  "submitted_input_files_verified": 77,
+  "collection_manifest_sha256": "64cf532f0628857a76b6854e5564507f068c13bc4de3389a1f4af7bd5767f7a4",
+  "source_commit": "b9a50045e991bb0ad847317acdb0888b14128d87",
+  "engineering": {
+    "passed": true,
+    "llm_calls": 3,
+    "long_input_tokens": 13139,
+    "long_latency_seconds": 51.49647559499999,
+    "raw_trace_verified": true
+  },
+  "previous_oom_task": {
+    "sample_id": "81950",
+    "input_tokens": 12911,
+    "generation_record_present": true
+  },
+  "all_900_input_token_counts_match_frozen_profile": true,
+  "unknown_parsed_outputs": 0,
+  "noncanonical_raw_outputs": 105,
+  "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "packages": {
+    "torch": "2.11.0+cu128",
+    "transformers": "5.16.1",
+    "accelerate": "1.14.0",
+    "bitsandbytes": "0.50.2",
+    "PyYAML": "6.0.3"
+  },
+  "python": "3.13.15",
+  "parameter_devices": [
+    "cuda:0"
+  ],
+  "generation_runtime": {
+    "prefill_chunk_size": 256,
+    "long_fixture_min_input_tokens": 13000
+  },
+  "successful_generation_latency_seconds": 3000.2931396360004,
+  "mean_successful_generation_latency_seconds": 3.3336590440400005,
+  "successful_input_tokens": 1198856,
+  "successful_output_tokens_estimate_excluding_eos": 8125,
+  "model_loading_seconds": 129.40722021599998,
+  "cost_scope": "900 C1 generation calls; full wall additionally includes setup/load/3 synthetic engineering calls/export; CPU Top5 retrieval cost excluded",
+  "quality_scored": false,
+  "gold_read": false,
+  "final_answer_contents_displayed": false,
+  "previous_failed_answers_reused": false,
+  "formal_controller_comparison_ready": false,
+  "output_format_counts": {
+    "exact_label": 795,
+    "additional_text": 105,
+    "markup_or_quote_only": 0,
+    "multiple_distinct_labels": 0
+  },
+  "all_attempt_wall_seconds": 5086.0,
+  "all_attempt_cost_scope": "Kaggle reported run durations for failed v1, failed v2 and completed v3; CPU retrieval and human/software work excluded",
+  "effective_generation": {
+    "do_sample": false,
+    "max_new_tokens": 64,
+    "seed": 42,
+    "prefill_chunk_size": 256,
+    "evidence_basis": "Sealed generate_one / generate_greedy / QwenRepairGenerator / configure_prefill source, matched to the downloaded input code. environment.generation_config contains model defaults before per-call overrides."
+  }
+}

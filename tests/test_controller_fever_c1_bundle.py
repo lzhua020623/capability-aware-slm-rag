@@ -34,6 +34,10 @@ class RecordedC1SubmissionTests(unittest.TestCase):
             self.assertFalse(status['generation_completed'])
         if status['generation_completed']:
             self.assertTrue(status['qwen_generation_confirmed'])
+            completed=json.loads((folder/status['completion_receipt_path']).read_text())
+            self.assertEqual(completed['n_completed'],900)
+            self.assertEqual(status['observed_counts'],completed['counts'])
+            self.assertTrue(completed['cloud_output_zip_hash_matched'])
         if status.get('long_context_engineering_confirmed'):
             self.assertTrue(status['qwen_generation_confirmed'])
             observation=json.loads((folder/status['runtime_observation_path']).read_text())

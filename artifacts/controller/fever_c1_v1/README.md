@@ -1,5 +1,7 @@
 # FEVER 冻结 900 条 C1
 
+**当前：Kaggle Version #3 已成功完成并验收 900/900（200/200/500）。** 结果与完整验收说明在 [`prefill_r2/completed_v3/`](prefill_r2/completed_v3/README.md)，Controller runtime 注册在 `configs/controller/fever_c1_completed_v1.json`。77 个输入文件和 11 个输出文件哈希通过，13,139-token 虚构长输入及原 12,911-token OOM 样本均已完成。总运行 53 分 44 秒；本轮不读取 gold 或报告准确率。以下保留各轮准备、失败与提交历史。
+
 `collection/` 保存原 T2 900 条任务对应的真实 Top5，按 development200 / selection200 / final_candidate500 分开，尚不含新 C1 答案或 gold。manifest 固定全部 ID、题目来源、模型/提示、检索资源、源码和逐文件 SHA；`retrieval_preparation.log` 记录实际 CPU 准备。
 
 `controller_fever_c1_gpu_v1.tar.gz` 为冻结 GPU 输入，`bundle_receipt.json` 保存整个归档与校验索引哈希；对应 notebook 在仓库 `notebooks/controller_fever_c1_v1.ipynb`。Kaggle 只需约 2 MB 输入，不需大索引。

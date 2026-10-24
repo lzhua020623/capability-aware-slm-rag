@@ -1,0 +1,11 @@
+nq: paired=500, C1 wrong=100, C1 wrong/C3 correct=60, C1 wrong/C3 wrong=40, Recoverable Failure Rate=0.6000
+Recoverable set: /var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/tmpd1e19_vy/out/nq_c1_c3_recoverable.jsonl
+Persistent-failure set: /var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/tmpd1e19_vy/out/nq_c1_c3_persistent_failures.jsonl
+Summary: /var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/tmpd1e19_vy/out/nq_c1_c3_recoverability_summary.json
+Checked NQ_C1_000_preliminary_annotations.xlsx: 1 rows
+Checked NQ_C1_000_preliminary_annotations.xlsx: 1 rows
+----------------------------------------------------------------------
+Ran 744 tests in 84.214s
+
+OK
+{"preflight": "passed", "n_inputs": 1, "nq_index_required": true}

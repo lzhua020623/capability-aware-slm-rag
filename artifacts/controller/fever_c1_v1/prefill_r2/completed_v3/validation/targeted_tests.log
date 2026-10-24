@@ -1,0 +1,12 @@
+test_dropping_one_prediction_trace_cannot_pass_completed_acceptance (tests.test_controller_fever_c1_completed.CompletedC1Tests.test_dropping_one_prediction_trace_cannot_pass_completed_acceptance) ... ok
+test_long_fixture_nf4_runtime_and_every_real_input_length_are_observed (tests.test_controller_fever_c1_completed.CompletedC1Tests.test_long_fixture_nf4_runtime_and_every_real_input_length_are_observed) ... ok
+test_registered_900_outputs_match_cloud_zip_and_all_submitted_inputs (tests.test_controller_fever_c1_completed.CompletedC1Tests.test_registered_900_outputs_match_cloud_zip_and_all_submitted_inputs) ... ok
+test_failed_attempt_retains_645_exact_frozen_inputs_without_claiming_completion (tests.test_controller_fever_c1_output_audit.RecordedOutputTests.test_failed_attempt_retains_645_exact_frozen_inputs_without_claiming_completion) ... ok
+test_false_completion_and_wrong_manifest_binding_are_rejected (tests.test_controller_fever_c1_output_audit.RecordedOutputTests.test_false_completion_and_wrong_manifest_binding_are_rejected) ... ok
+test_package_has_exact_checksum_index_runtime_only_rows_and_compiled_notebook (tests.test_controller_fever_c1_bundle.C1BundleTests.test_package_has_exact_checksum_index_runtime_only_rows_and_compiled_notebook) ... ok
+test_submission_is_bound_to_frozen_private_input_and_does_not_claim_completion (tests.test_controller_fever_c1_bundle.RecordedC1SubmissionTests.test_submission_is_bound_to_frozen_private_input_and_does_not_claim_completion) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.471s
+
+OK

@@ -1,0 +1,10 @@
+{
+  "outer_archive_sha256": "e75db1273be00db69b85d92e50bea8ebfc76fd162c61d31b89afd4bd271e9f7b",
+  "outer_archive_bytes": 12654698,
+  "inner_output_zip_sha256": "01172e3b21cb46eccea3664ff1bfb5fafdaef0cd800d8b5ed257cd3d0634c76a",
+  "cloud_output_zip_hash_matched": true,
+  "output_checksum_files_verified": 11,
+  "outer_and_inner_output_bytes_match": true,
+  "submitted_input_files_verified": 77,
+  "collection_manifest_sha256": "64cf532f0628857a76b6854e5564507f068c13bc4de3389a1f4af7bd5767f7a4"
+}
