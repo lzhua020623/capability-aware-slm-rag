@@ -15,6 +15,7 @@ if str(ROOT) not in sys.path:
 from src.diagnosis.adapter import canonical_dataset
 from src.diagnosis.schema import normalize_sample_id
 from src.evaluation.answer_repair import score_answer, summarize_repairs
+from src.controller.execution import record_action
 
 
 def rows(path):
@@ -22,7 +23,11 @@ def rows(path):
         return [json.loads(line) for line in handle if line.strip()]
 
 
-def evaluate(predictions, references):
+def evaluate(predictions, references, *, registration=None):
+    registered_analysis = None
+    if registration is not None:
+        from src.controller.evaluation import analyze
+        registered_analysis = analyze(predictions, references, registration)
     gold = {}
     for row in references:
         key = (canonical_dataset(row["dataset"]), normalize_sample_id(row["sample_id"]))
@@ -55,7 +60,7 @@ def evaluate(predictions, references):
                 "input_tokens": r["cost"]["input_tokens"],
                 "output_tokens_estimate": r["cost"]["output_tokens_estimate"],
                 "changed": r["initial_answer"] != r["final_answer"], "status": r["status"],
-                "action": r["routing"]["decision"]["action"], "executed": r["executed"],
+                "action": record_action(r), "executed": r["executed"],
                 "retrieval_calls": r["cost"]["retrieval_calls"],
                 "scoring_calls": r["cost"]["scoring_calls"],
                 "failed_calls": r["cost"]["failed_calls"], "budget_blocks": r["cost"]["budget_blocks"]}
@@ -79,6 +84,7 @@ def evaluate(predictions, references):
                           for action in sorted({r["action"] for r in batch})},
         }
     return {"schema_version": "controller_offline_evaluation_v1", "groups": result,
+            "registered_analysis": registered_analysis,
             "scoring": "NQ normalized EM/token F1; FEVER label accuracy; not human semantic review",
             "cost_scope": "incremental after cached C1; resource loading excluded",
             "comparison": "paired within dataset; fixed-action decision labels are not diagnosis predictions",
@@ -87,11 +93,14 @@ def evaluate(predictions, references):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--predictions", type=Path, required=True)
-    parser.add_argument("--gold", type=Path, required=True)
+    parser.add_argument("--predictions", type=Path, required=True, nargs='+')
+    parser.add_argument("--gold", type=Path, required=True, nargs='+')
+    parser.add_argument('--execution-seal', type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
-    report = evaluate(rows(args.predictions), rows(args.gold))
+    report = evaluate([r for p in args.predictions for r in rows(p)],
+                      [r for p in args.gold for r in rows(p)],
+                      registration=json.loads(args.execution_seal.read_text()) if args.execution_seal else None)
     with args.output.open("x", encoding="utf-8") as handle:
         handle.write(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n")
     print(json.dumps({"groups": list(report["groups"]), "output": str(args.output)}))

@@ -1,0 +1,69 @@
+{
+  "schema_version": "controller_protocol_audit_v1",
+  "design_valid": true,
+  "execution_ready": false,
+  "errors": [],
+  "worktree_drift": [
+    {
+      "path": "scripts/evaluate_controller_integration.py",
+      "reference_sha256": "5d5b88273a2c1ef9ce6f1104b8bac40a9bec6587fd9edd461cf407fd8e4a7a14",
+      "worktree_sha256": "ea7d428133569f218ccafac2d8250ef1f891b755066aa4ed59a9bf4b51012d5b"
+    },
+    {
+      "path": "scripts/run_controller_integration.py",
+      "reference_sha256": "336aa499c54a635d0c43675944a85f100bb3763aebf0fe55c0c25a7ffd4e678e",
+      "worktree_sha256": "406e4c81b0118f88dd86cffecc8abc6df440fdf3c0dd814ac1ba9931ced6573c"
+    },
+    {
+      "path": "src/compensation/retrieval_enhancement/p3.py",
+      "reference_sha256": "9674448180a21b6be897d334366af42e6b99646c9d128fff164d781c8381ef20",
+      "worktree_sha256": "be91b6994f2a5fa38a4d2ef33f178201295e09ab0ba5c4da0e421e0d6d5291db"
+    },
+    {
+      "path": "src/controller/execution.py",
+      "reference_sha256": "ae576bbba2f7e0ffa400c9985cf53523b408ad875ce4d7666f1524b5e2f2a1cb",
+      "worktree_sha256": "eb9fe56e5d571b2de06c0f5f6fdaeff6ffe1d7bb08ba5b77a3de3c081ce02c5f"
+    },
+    {
+      "path": "src/controller/providers.py",
+      "reference_sha256": "8e73a7d481e9b3fe52b960aba565a2602c0a44f67d7628bda2aa704a8b97823f",
+      "worktree_sha256": "6ab8d7bea6f61195639c93dca39a741f242ff8c814b47d25f0cd3a5599b81e82"
+    },
+    {
+      "path": "src/retrieval/__init__.py",
+      "reference_sha256": "e9b4f2cb268485dac3f02ef10cb50cfe27af4be2a60e936337bf7c246e9037d9",
+      "worktree_sha256": "0580daa7cd88194aca358206275dc071e4ccfec3ad69b9e93e2ce2c8c2d305e6"
+    }
+  ],
+  "reference_files_verified": 68,
+  "scope": "T1 design integrity only; does not enforce or approve runner execution",
+  "protocol_id": "controller_experiment_v1",
+  "protocol_sha256": "3edce74cc048e20f2a7a6bbe187564adb06f520397b1ea51a875a1faf2a8f9d0",
+  "reference_commit": "86a7b126225f7cbc5ffe4c7af7db3137acbec9f5",
+  "execution_blockers": [
+    {
+      "id": "T2_DATA",
+      "requirement": "Freeze eligible populations, N, paired IDs/input/gold hashes, selection/final partitions, precision and team-wide exposure audit."
+    },
+    {
+      "id": "T2_ASSETS",
+      "requirement": "Verify C1 provenance and matching corpus/index/metadata; pin BGE weights; unknown historical provenance must be disclosed before inference."
+    },
+    {
+      "id": "T3_ARMS",
+      "requirement": "Implement Full, FEVER retrieval, No Probe, offline human-type driver and per-arm budgets; no unsupported fallback counted as successful coverage."
+    },
+    {
+      "id": "T3_EVALUATOR",
+      "requirement": "Check complete frozen arm/ID manifest; paired intervals and Holm; missing-cost coverage; reliable human-type subset attribution."
+    },
+    {
+      "id": "T3_ENVIRONMENT",
+      "requirement": "Lock actual CUDA environment/hardware and pass engineering fixtures; CPU tests do not certify GPU readiness."
+    },
+    {
+      "id": "T3_EXECUTION_SEAL",
+      "requirement": "Create a separate immutable execution manifest referencing this design hash, source diffs/hashes, data and assets before real comparison."
+    }
+  ]
+}

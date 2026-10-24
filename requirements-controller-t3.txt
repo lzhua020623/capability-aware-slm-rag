@@ -1,0 +1,9 @@
+# One isolated execution environment. Keep and record the host CUDA PyTorch.
+# Do not install requirements.txt: its historical Transformers pin lacks the
+# uniformly registered native prefill path used by this computation revision.
+-r requirements-answer-repair-v8.txt
+sentence-transformers==6.2.0
+scikit-learn==1.9.1
+faiss-cpu==1.15.1
+numpy==2.5.4
+scipy==1.18.1

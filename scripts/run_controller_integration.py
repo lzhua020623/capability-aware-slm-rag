@@ -23,7 +23,8 @@ if str(ROOT) not in sys.path:
 
 from src.compensation.answer_repair import Generation
 from src.compensation.retrieval_enhancement.p3 import RERANKER_MODEL, RERANKER_REVISION
-from src.controller.execution import ExecutionConfig, IntegratedController, MODES, validate_input
+from src.controller.execution import (ExecutionConfig, IntegratedController, MODES, DEFAULT_MODES,
+                                      record_action, validate_input)
 from src.diagnosis.adapter import c1_record_to_input
 from src.diagnosis.hierarchical_classifier import HierarchicalDiagnosisClassifier
 from src.diagnosis.schema import DiagnosisInput, EvidenceItem
@@ -91,7 +92,8 @@ def summarize(records):
             groups[f"{dataset}/{mode}"] = {
                 "n": len(rows), "changed": sum(r["answer_changed"] for r in rows),
                 "statuses": dict(Counter(r["status"] for r in rows)),
-                "actions": dict(Counter(r["routing"]["decision"]["action"] for r in rows)),
+                "actions": dict(Counter(record_action(r) for r in rows)),
+                "unresolved_flagged": sum(r.get('unresolved_failure', {}).get('flagged', False) for r in rows),
                 "llm_calls": sum(r["cost"]["llm_calls"] for r in rows),
                 "retrieval_calls": sum(r["cost"]["retrieval_calls"] for r in rows),
                 "scoring_calls": sum(r["cost"]["scoring_calls"] for r in rows),
@@ -151,9 +153,11 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path)
     parser.add_argument("--output-dir", type=Path, required=True)
-    parser.add_argument("--config", type=Path, default=ROOT / "configs/controller/integration_v1.json")
+    parser.add_argument("--config", type=Path, default=ROOT / "configs/controller/integration_t3_v1.json")
     parser.add_argument("--classifier", type=Path, default=DEFAULT_CLASSIFIER)
     parser.add_argument("--mode", choices=MODES, action="append")
+    parser.add_argument('--offline-human-types', type=Path,
+                        help='Offline comparator only; reliable confirmed types with provenance, never AI preliminary labels')
     parser.add_argument("--smoke", action="store_true")
     parser.add_argument("--preflight", action="store_true")
     parser.add_argument("--nq-index", type=Path)
@@ -165,16 +169,33 @@ def main(argv=None):
     if args.smoke == (args.input is not None):
         parser.error("Choose exactly one of --smoke and --input")
     config = ExecutionConfig(**json.loads(args.config.read_text(encoding="utf-8")))
-    modes = args.mode or (list(MODES) if args.smoke else ["adaptive"])
+    modes = args.mode or (list(DEFAULT_MODES) if args.smoke else ["adaptive"])
     if len(set(modes)) != len(modes):
         parser.error("Duplicate modes")
     items = smoke_inputs() if args.smoke else read_inputs(args.input)
+    human_types = {}
+    if 'human_type_routed' in modes:
+        if args.offline_human_types is None:
+            parser.error('Human-type comparator has no labels by default; supply reliable offline labels explicitly')
+        for row in (json.loads(line) for line in args.offline_human_types.read_text().splitlines() if line.strip()):
+            expected = {'dataset', 'sample_id', 'label', 'human_confirmed', 'provenance'}
+            if set(row) != expected or row['human_confirmed'] is not True or not row['provenance']:
+                parser.error('Human types require confirmed labels and provenance; no automatic AI-label promotion')
+            key = (row['dataset'], str(row['sample_id']))
+            if key in human_types:
+                parser.error('Duplicate human-type annotation')
+            human_types[key] = row['label']
+        if set(human_types) != {(i.dataset.value, i.sample_id) for i in items}:
+            parser.error('Select a reliable common subset explicitly; every input needs one human type')
+    elif args.offline_human_types:
+        parser.error('Offline human types may only be read by the named offline comparator')
     # New directory only: never overwrite a previous experiment or restart with
     # changed code. Interrupted predictions remain available for investigation.
     if args.output_dir.exists():
         parser.error("Output directory already exists; choose a new run directory")
     need_index = (not args.smoke and any(i.dataset.value == "nq" for i in items)
-                  and any(m in ("adaptive", "always_retrieve") for m in modes))
+                  and any(m in ("adaptive", "always_retrieve", 'full_enhancement',
+                                'adaptive_no_probe', 'human_type_routed') for m in modes))
     if args.nq_resources and (args.nq_index or args.nq_metadata):
         parser.error("Choose --nq-resources or the legacy --nq-index/--nq-metadata pair")
     if bool(args.nq_index) != bool(args.nq_metadata):
@@ -182,7 +203,8 @@ def main(argv=None):
     if need_index and not args.preflight and not (args.nq_resources or (args.nq_index and args.nq_metadata)):
         parser.error("NQ adaptive/retrieval runs require matching --nq-resources or --nq-index/--nq-metadata")
     need_fever = (not args.smoke and any(i.dataset.value == 'fever' for i in items)
-                  and any(m in ('adaptive', 'always_retrieve') for m in modes))
+                  and any(m in ('adaptive', 'always_retrieve', 'full_enhancement',
+                                'adaptive_no_probe', 'human_type_routed') for m in modes))
     if need_fever and not args.preflight and not args.fever_resources:
         parser.error('FEVER adaptive/retrieval runs require --fever-resources')
     for path in (args.nq_index, args.nq_metadata):
@@ -232,10 +254,14 @@ def main(argv=None):
         with (args.output_dir / "predictions.jsonl").open("x", encoding="utf-8") as handle:
             for item in items:
                 for mode in modes:
-                    record = pipeline.run(item, mode=mode)
+                    kwargs = ({'human_type': human_types[(item.dataset.value, item.sample_id)]}
+                              if mode == 'human_type_routed' else {})
+                    record = pipeline.run(item, mode=mode, **kwargs)
                     handle.write(json.dumps(record, ensure_ascii=False, allow_nan=False) + "\n")
                     handle.flush()
                     records.append(record)
+                    print(json.dumps({'dataset': item.dataset.value, 'mode': mode,
+                                      'completed_records': len(records), 'status': record['status']}), flush=True)
         summary = summarize(records)
         summary["smoke"] = args.smoke
         write_json(args.output_dir / "summary.json", summary)

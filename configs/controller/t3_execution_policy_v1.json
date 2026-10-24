@@ -1,0 +1,72 @@
+{
+  "schema_version": "controller_t3_execution_policy_v1",
+  "date": "2026-10-24",
+  "parent_design": "configs/controller/experiment_protocol_v1.json",
+  "runtime_config": "configs/controller/integration_t3_v1.json",
+  "role": "development",
+  "counts_per_dataset": 200,
+  "datasets": ["nq", "fever"],
+  "required_modes": ["c1", "always_retrieve", "always_rerank", "always_repair", "full_enhancement", "adaptive", "adaptive_no_probe"],
+  "human_type_comparator": {
+    "state": "not_executed_no_reliable_new_cohort_labels",
+    "interface_implemented": true,
+    "oracle_is_not_a_replacement_for_type_mapping_validation": true
+  },
+  "runtime_adapter": "FEVER initial answer parsed with existing parser; original text and original/effective hashes retained; no gold use",
+  "frozen_components": {
+    "diagnosis": "models/diagnosis/diagnosis_v2_expanded_hierarchical.json",
+    "probe_and_safe_binary": "unchanged",
+    "nq_E": "short_answer_quote",
+    "fever_E": "verify_repair",
+    "reranker_device": "cpu",
+    "reranker_dtype": "float32",
+    "reranker_batch_size": 4,
+    "prefill_chunk_size": 256
+  },
+  "engineering_gate": {
+    "minimum_input_tokens": 14000,
+    "paths": ["probe", "always_retrieve", "always_rerank", "always_repair"],
+    "datasets": ["nq", "fever"],
+    "all_calls_preserve_input": true,
+    "requires_real_CUDA_receipt_before_T4": true,
+    "semantic_success_not_required_for_engineering_acceptance": true,
+    "synthetic_outputs_not_benchmark_predictions": true
+  },
+  "statistics": {
+    "paired_bootstrap_replicates": 10000,
+    "seed": 42,
+    "bootstrap_CI": "percentile, two-sided 95%; one-sided 95% lower also descriptive",
+    "family_alpha": 0.05,
+    "family": ["nq:adaptive_vs_c1", "fever:adaptive_vs_c1", "nq:adaptive_vs_full_NI", "fever:adaptive_vs_full_NI"],
+    "C1_test": "two-sided exact McNemar",
+    "NI_margin": 0.02,
+    "NI_test": "conservative exact gain/loss Clopper-Pearson bounds with union bound, inverted to p-value; lower power explicitly disclosed",
+    "multiple_testing": "Holm across all four p-values; ordinary bootstrap bounds are not multiplicity-adjusted",
+    "development_results": "descriptive only, not final confirmatory evidence",
+    "AC5_token_target": 0.20,
+    "AC5_cost_scope": "Incremental after C1 separately reported; full-pipeline AC5 not certified without common C1 costs and complete token accounting"
+  },
+  "T5_decision": {
+    "optimization_rounds": 1,
+    "candidates_on_selection": 1,
+    "loss_units": "correct answers, not mixed with milliseconds or tokens",
+    "priority": "larger of avoidable_harm and missed_repair_opportunities; ties prioritize harm",
+    "disable_action_candidate": "Only if negative net on actual Adaptive-routed subset; global Always net negative alone is insufficient",
+    "routing_candidate": "Only existing cached fixed-action outputs may be replayed; new Probe calls or changed module inputs require new execution",
+    "module_candidate": "Only after observed fixed-action residual errors or harm on the relevant subset; no intrinsic-capability claim",
+    "selection_rule": "positive paired net gain vs frozen baseline; ties keep baseline",
+    "unknown_semantics": "NQ semantic review and unresolved bounds separate; do not promote on unconfirmed semantic claims"
+  },
+  "human_review": {
+    "NQ": "All distinct changed-answer pairs across main groups, de-duplicated; initial/final correctness separate",
+    "FEVER": "automatic label accuracy; evidence support, ambiguity and flagged failures still reviewed",
+    "AC6": "at least 50 flagged queries; observed precision >=0.90; report coverage; not yet fulfilled",
+    "trace_review": "at least 50 complete traces, reviewers not developing estimator; may overlap AC6 but report both criteria separately",
+    "flags": "operational warnings only; no gold or new model calls online; unflagged is unverified, never automatically success"
+  },
+  "excluded_from_T4": ["selection", "final_candidate", "RSI", "diagnosis_retraining", "SFT", "DPO", "knowledge_base_cleaning", "prompt_tuning"],
+  "baseline_runs": 1,
+  "semantic_retries": 0,
+  "infrastructure_restart_limit": 1,
+  "T4_ready": false
+}

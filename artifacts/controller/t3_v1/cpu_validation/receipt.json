@@ -1,0 +1,14 @@
+{
+  "state": "CPU_contracts_passed_GPU_engineering_pending",
+  "tests_passed": 762,
+  "test_seconds": 68.2,
+  "gpu_inference_run": false,
+  "T4_started": false,
+  "model_prompts_or_diagnosis_parameters_changed": false,
+  "policy_sha256": "45b76cdf9cfab2aebfcb73f285e53602d0724d46faffc6d6a78d04ca75de5c91",
+  "files": {
+    "data_check.json": "63a509d008e0523579e5678ecfd794ec1e647ea37a0204995ef7fcfe401154cd",
+    "full_tests.log": "6d850ba06af150e3cfa1358c3bd4fc5c23062378648dcdac9f4e6c6ad9f0bfbb",
+    "protocol_check.json": "8424dc84ec257cb80c23d0dbd65cafdee6c91dc8ed169230ee896d1a078ffc18"
+  }
+}

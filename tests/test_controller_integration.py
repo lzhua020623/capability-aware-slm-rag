@@ -261,9 +261,9 @@ class InputAndRunnerTests(unittest.TestCase):
             out = Path(directory) / "run"
             self.assertEqual(main(["--smoke", "--output-dir", str(out)]), 0)
             manifest = json.loads((out / "manifest.json").read_text())
-            self.assertEqual((manifest["state"], manifest["n_records"]), ("completed", 10))
+            self.assertEqual((manifest["state"], manifest["n_records"]), ("completed", 14))
             rows = [json.loads(line) for line in (out / "predictions.jsonl").read_text().splitlines()]
-            self.assertEqual(len(rows), 10)
+            self.assertEqual(len(rows), 14)
             unsupported = [r for r in rows if r["status"] == "unsupported_dataset"]
             self.assertEqual(len(unsupported), 0)
             fever_retrieval = next(r for r in rows if r['dataset'] == 'fever' and r['mode'] == 'always_retrieve')

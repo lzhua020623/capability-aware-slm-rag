@@ -8,6 +8,7 @@ from pathlib import Path
 from src.compensation.answer_repair import LINE_OUTPUT_STRATEGIES
 from src.compensation.retrieval_enhancement.p3 import RERANKER_MODEL, RERANKER_REVISION
 from src.controller.execution import IntegratedController
+from src.controller.runtime import configure_generation_runtime
 
 
 def shared_repair_views(generator, config):
@@ -38,11 +39,12 @@ def load_pipeline(config, classifier_path, *, nq_index=None, nq_metadata=None, n
     classifier = HierarchicalDiagnosisClassifier.load(Path(classifier_path))
     # Load the shared Qwen once. Only the stopping adapter differs for E.
     generator = QwenRepairGenerator(json_output=False)
+    configure_generation_runtime(generator, config.prefill_chunk_size)
     # P3-20's frozen CPU/FP32/raw-logit contract. The same scorer serves reranking.
     encoder = CrossEncoder(RERANKER_MODEL, revision=RERANKER_REVISION, device="cpu",
                            max_length=512, activation_fn=torch.nn.Identity(),
                            model_kwargs={"torch_dtype": torch.float32})
-    scorer = CrossEncoderScorer(lambda pairs: encoder.predict(pairs, show_progress_bar=False),
+    scorer = CrossEncoderScorer(lambda pairs: encoder.predict(pairs, batch_size=4, show_progress_bar=False),
                                 model_name=RERANKER_MODEL)
     scorer.revision = RERANKER_REVISION
     retriever = None

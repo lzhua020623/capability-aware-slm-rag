@@ -10,7 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from time import perf_counter
 
 from src.compensation.answer_repair import Generation, NQ_ONLY_STRATEGIES
@@ -19,14 +19,39 @@ from src.compensation.evidence_refinement import EvidenceRefiner
 from src.compensation.retrieval_enhancement.p3 import P320RetrievalEnhancer
 from src.controller.controller import ACTION_BY_LABEL, decide_action
 from src.controller.schema import ControllerAction, ControllerDecision
-from src.diagnosis.schema import DiagnosisInput
+from src.diagnosis.schema import DiagnosisInput, EvidenceItem
 from src.probe.probe import EvidenceProbe, PROBE_MAX_NEW_TOKENS
 from src.probe.schema import ProbeResult
 from src.probe.trigger import V2_EXPANDED_TRIGGER
+from src.controller.runtime import ADAPTER_VERSION, canonical_input, unresolved_assessment
 
 SCHEMA_VERSION = "controller_integration_v1"
-MODES = ("adaptive", "c1", "always_retrieve", "always_rerank", "always_repair")
-MODE_ACTION = dict(zip(MODES[1:], ControllerAction))
+MODES = ("adaptive", "c1", "always_retrieve", "always_rerank", "always_repair",
+         "full_enhancement", "adaptive_no_probe", "human_type_routed")
+DEFAULT_MODES = MODES[:-1]
+MODE_ACTION = dict(zip(MODES[1:5], ControllerAction))
+ARM_BUDGETS = {
+    'c1': (0, 0, 0, 0), 'always_retrieve': (1, 1, 1, 64),
+    'always_rerank': (1, 0, 1, 64), 'always_repair': (1, 0, 0, 384),
+    'full_enhancement': (3, 1, 2, 512), 'adaptive': (2, 1, 1, 544),
+    'adaptive_no_probe': (1, 1, 1, 384), 'human_type_routed': (1, 1, 1, 384),
+}
+
+
+def arm_config(config, mode):
+    bounds = ARM_BUDGETS[mode]
+    return replace(config, **{key: min(getattr(config, key), value) for key, value in zip(
+        ('max_llm_calls', 'max_retrieval_calls', 'max_scoring_calls', 'max_total_output_tokens'), bounds)})
+
+
+def decision_for(action, sample_id):
+    label = next(label for label, value in ACTION_BY_LABEL.items() if value == action)
+    return ControllerDecision(action, label, 1.0, False, False, sample_id)
+
+
+def record_action(record):
+    decision = record['routing'].get('decision')
+    return decision['action'] if decision is not None else record['mode']
 # No implicit loading of an NLI verifier. These are existing Qwen strategies.
 QWEN_STRATEGIES = frozenset({
     "verify_repair", "grounded_reanswer", "query_grounded", "guarded_reanswer",
@@ -50,6 +75,8 @@ class ExecutionConfig:
     max_scoring_calls: int = 1
     answer_max_new_tokens: int = 64
     repair_max_new_tokens: int = 384
+    max_total_output_tokens: int = 544
+    prefill_chunk_size: int = 256
 
     def __post_init__(self):
         for name in ("nq_repair_strategy", "fever_repair_strategy"):
@@ -58,10 +85,12 @@ class ExecutionConfig:
         if self.fever_repair_strategy in NQ_ONLY_STRATEGIES:
             raise ValueError("FEVER cannot use an NQ-only repair strategy")
         for name in ("max_llm_calls", "max_retrieval_calls", "max_scoring_calls",
-                     "answer_max_new_tokens", "repair_max_new_tokens"):
+                     "answer_max_new_tokens", "repair_max_new_tokens", "max_total_output_tokens"):
             value = getattr(self, name)
-            if type(value) is not int or value < (1 if name.endswith("tokens") else 0):
+            if type(value) is not int or value < (1 if name in ('answer_max_new_tokens', 'repair_max_new_tokens') else 0):
                 raise ValueError(f"Invalid {name}")
+        if type(self.prefill_chunk_size) is not int or self.prefill_chunk_size != 256:
+            raise ValueError('Register a separate runtime revision for a different prefill size')
 
 
 class BudgetExceeded(RuntimeError):
@@ -75,6 +104,7 @@ class CallLog:
         self.limits = {"llm": config.max_llm_calls, "retrieval": config.max_retrieval_calls,
                        "scoring": config.max_scoring_calls}
         self.events = []
+        self.max_output_tokens = config.max_total_output_tokens
 
     def invoke(self, kind, stage, arguments, fn):
         count = sum(e["kind"] == kind and e["attempted"] for e in self.events)
@@ -83,6 +113,11 @@ class CallLog:
         self.events.append(event)
         if count >= self.limits[kind]:
             raise BudgetExceeded(f"{kind} call budget exhausted")
+        if kind == 'llm':
+            requested = sum(e['arguments']['max_new_tokens'] for e in self.events
+                            if e['kind'] == 'llm' and e['attempted'])
+            if requested + arguments['max_new_tokens'] > self.max_output_tokens:
+                raise BudgetExceeded('Aggregate output-token allocation exhausted')
         event.update(attempted=True, status="started")
         started = perf_counter()
         try:
@@ -200,22 +235,25 @@ class IntegratedController:
         self.repair_generators, self.scorer, self.retriever = repair_generators, scorer, retriever
         self.config, self.trigger = config, trigger
 
-    def run(self, item: DiagnosisInput, *, mode="adaptive") -> dict:
+    def run(self, item: DiagnosisInput, *, mode="adaptive", human_type=None) -> dict:
         validate_input(item)
         if mode not in MODES:
             raise ValueError(f"Unknown execution mode {mode}")
+        original = item
+        item = canonical_input(item)
         started = perf_counter()
-        calls = CallLog(self.config)
+        effective_config = arm_config(self.config, mode)
+        calls = CallLog(effective_config)
         diagnosis = probe_result = decision = None
         probe_error = None
         diagnosis_seconds = 0.0
-        if mode == "adaptive":
+        if mode in ("adaptive", "adaptive_no_probe"):
             before = perf_counter()
             # A broken classifier is an infrastructure error, not a 'correct' label.
             diagnosis = self.classifier.diagnose(item)
             diagnosis_seconds = perf_counter() - before
-            triggered = self.trigger.should_probe(diagnosis.stage1_failure_probability,
-                                                  diagnosis.stage2_class_scores)
+            triggered = mode == 'adaptive' and self.trigger.should_probe(
+                diagnosis.stage1_failure_probability, diagnosis.stage2_class_scores)
             if triggered:
                 generator = MeteredGenerator(self.raw_generator, calls, "probe")
                 try:
@@ -226,25 +264,59 @@ class IntegratedController:
                     probe_error = {"type": type(exc).__name__, "message": str(exc)}
                     probe_result = ProbeResult.unparsable("", str(exc))
             decision = decide_action(diagnosis, triggered, probe_result, item.sample_id)
-        else:
+        elif mode in MODE_ACTION:
             # These are explicit action baselines, never predicted/oracle labels.
             action = MODE_ACTION[mode]
-            label = next(label for label, value in ACTION_BY_LABEL.items() if value == action)
-            decision = ControllerDecision(action, label, 1.0, False, False, item.sample_id)
-        action_result = self.execute(item, decision, calls=calls, probe_result=probe_result)
-        return {
+            decision = decision_for(action, item.sample_id)
+        elif mode == 'human_type_routed':
+            if human_type is None:
+                raise ValueError('Offline human-type mode requires a reliable explicit type; never infer from AI labels')
+            from src.diagnosis.labels import parse_label
+            decision = decision_for(ACTION_BY_LABEL[parse_label(human_type)], item.sample_id)
+        action_result = (self.execute_full(item, calls) if mode == 'full_enhancement' else
+                         self.execute(item, decision, calls=calls, probe_result=probe_result))
+        source = ('diagnosis' if mode in ('adaptive', 'adaptive_no_probe') else
+                  'offline_human_type' if mode == 'human_type_routed' else
+                  'fixed_sequence' if mode == 'full_enhancement' else 'fixed_action_baseline')
+        record = {
             "schema_version": SCHEMA_VERSION, "sample_id": item.sample_id,
             "dataset": item.dataset.value, "mode": mode,
             "input": asdict(item), "input_sha256": fingerprint(asdict(item)),
-            "config": asdict(self.config),
-            "routing": {"source": "diagnosis" if mode == "adaptive" else "fixed_action_baseline",
+            "initial_answer_raw": original.initial_answer,
+            "original_input_sha256": fingerprint(asdict(original)),
+            "input_adapter": {'version': ADAPTER_VERSION, 'changed': item != original},
+            "config": asdict(effective_config),
+            "routing": {"source": source,
                         "diagnosis": asdict(diagnosis) if diagnosis is not None else None,
                         "diagnosis_seconds": diagnosis_seconds,
                         "probe": asdict(probe_result) if probe_result is not None else None,
-                        "probe_error": probe_error, "decision": decision.to_dict()},
+                        "probe_error": probe_error, "decision": decision.to_dict() if decision else None},
             **action_result, "cost": calls.summary(), "calls": calls.events,
             "total_seconds": perf_counter() - started,
         }
+        record['unresolved_failure'] = unresolved_assessment(record)
+        return record
+
+    def execute_full(self, item, calls):
+        current = item
+        stages = []
+        for action in (ControllerAction.RETRIEVAL_ENHANCEMENT,
+                       ControllerAction.EVIDENCE_REFINEMENT, ControllerAction.GENERATION_REPAIR):
+            stage = self.execute(current, decision_for(action, item.sample_id), calls=calls)
+            stage['action'] = action.value
+            stage['input_sha256'] = fingerprint(asdict(current))
+            stages.append(stage)
+            current = replace(current, initial_answer=stage['final_answer'],
+                              evidence=[EvidenceItem(**row) for row in stage['final_evidence']])
+        failed = any(s['error'] or s['status'] in ('budget_exceeded', 'execution_failed', 'unsupported_dataset')
+                     for s in stages)
+        return {'initial_answer': item.initial_answer, 'final_answer': current.initial_answer,
+                'answer_changed': item.initial_answer != current.initial_answer,
+                'status': 'sequence_failed' if failed else 'sequence_completed',
+                'executed': any(s['executed'] for s in stages),
+                'module_trace': {'order': [s['action'] for s in stages], 'stages': stages},
+                'error': next((s['error'] for s in stages if s['error']), None),
+                'final_evidence': [asdict(e) for e in current.evidence]}
 
     def execute(self, item, decision, *, calls=None, probe_result=None):
         """Execute one already-resolved decision; useful for isolated module tests."""
@@ -301,7 +373,8 @@ class IntegratedController:
             if final != initial:
                 # A retained C1 answer keeps its original context. The attempted
                 # enhanced context is still retained in module_trace/call receipts.
-                result["final_evidence"] = selected
+                result["final_evidence"] = [{key: row[key] for key in ('rank', 'passage_id', 'text', 'score')}
+                                            for row in selected]
         except Exception as exc:
             result.update(status="execution_failed", error={"type": type(exc).__name__, "message": str(exc)})
         if any(e["status"] == "budget_exceeded" for e in calls.events):
