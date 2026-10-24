@@ -1,0 +1,17 @@
+test_empty_model_output_becomes_visible_unknown_never_binary_guess (tests.test_controller_fever_c1.C1ContractTests.test_empty_model_output_becomes_visible_unknown_never_binary_guess) ... ok
+test_engineering_smoke_uses_only_two_fictional_inputs (tests.test_controller_fever_c1.C1ContractTests.test_engineering_smoke_uses_only_two_fictional_inputs) ... ok
+test_exact_original_prompt_budget_and_raw_observation (tests.test_controller_fever_c1.C1ContractTests.test_exact_original_prompt_budget_and_raw_observation) ... ok
+test_offline_fields_duplicate_ids_bad_ranks_and_nonfinite_scores_rejected (tests.test_controller_fever_c1.C1ContractTests.test_offline_fields_duplicate_ids_bad_ranks_and_nonfinite_scores_rejected) ... ok
+test_all_900_fictional_tasks_are_generated_once_and_kept_separate (tests.test_controller_fever_c1.CollectionTests.test_all_900_fictional_tasks_are_generated_once_and_kept_separate) ... ok
+test_missing_or_reordered_rows_cannot_be_resealed_as_complete (tests.test_controller_fever_c1.CollectionTests.test_missing_or_reordered_rows_cannot_be_resealed_as_complete) ... ok
+test_provider_failure_preserves_partial_run_and_marks_failed (tests.test_controller_fever_c1.CollectionTests.test_provider_failure_preserves_partial_run_and_marks_failed) ... ok
+test_source_or_data_drift_fail_before_any_generation (tests.test_controller_fever_c1.CollectionTests.test_source_or_data_drift_fail_before_any_generation) ... ok
+test_chained_import_structure_and_query_replay_are_verified (tests.test_fever_resources_registry.FeverRegistryTests.test_chained_import_structure_and_query_replay_are_verified) ... ok
+test_failed_query_replay_or_different_revision_cannot_authorize_model (tests.test_fever_resources_registry.FeverRegistryTests.test_failed_query_replay_or_different_revision_cannot_authorize_model) ... ok
+test_resource_drift_even_with_rehashed_registry_is_caught_by_original_import (tests.test_fever_resources_registry.FeverRegistryTests.test_resource_drift_even_with_rehashed_registry_is_caught_by_original_import) ... ok
+test_unknown_dataset_and_missing_bindings_are_rejected (tests.test_fever_resources_registry.FeverRegistryTests.test_unknown_dataset_and_missing_bindings_are_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.274s
+
+OK

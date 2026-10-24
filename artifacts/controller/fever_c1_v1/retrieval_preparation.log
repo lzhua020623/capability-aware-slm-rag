@@ -1,0 +1,20 @@
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 3926.44it/s]
+{"retrieved": 50, "total": 900}
+{"retrieved": 100, "total": 900}
+{"retrieved": 150, "total": 900}
+{"retrieved": 200, "total": 900}
+{"retrieved": 250, "total": 900}
+{"retrieved": 300, "total": 900}
+{"retrieved": 350, "total": 900}
+{"retrieved": 400, "total": 900}
+{"retrieved": 450, "total": 900}
+{"retrieved": 500, "total": 900}
+{"retrieved": 550, "total": 900}
+{"retrieved": 600, "total": 900}
+{"retrieved": 650, "total": 900}
+{"retrieved": 700, "total": 900}
+{"retrieved": 750, "total": 900}
+{"retrieved": 800, "total": 900}
+{"retrieved": 850, "total": 900}
+{"retrieved": 900, "total": 900}
+{"retrieval_ready": true, "n": 900, "generation_performed": false}

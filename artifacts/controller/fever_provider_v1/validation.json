@@ -1,0 +1,104 @@
+{
+  "schema_version": "controller_fever_provider_validation_v1",
+  "created_utc": "2026-10-24T03:38:09.624033+00:00",
+  "passed": true,
+  "parent_commit": "6f7aa90c7c74f1be59ee30a988c0ccf02d137a19",
+  "tests": {
+    "passed": 726,
+    "failed": 0,
+    "seconds": 29.405
+  },
+  "source_files": {
+    "scripts/build_controller_fever_c1_bundle.py": "ac34ce8e5ea955f81c67d65a6d2a1c30eb6c50e88a25472570224f8195f00ccb",
+    "scripts/prepare_controller_fever_c1.py": "fa86e9b36a577504145aeed6af38b78613bdd20907d098a6f1b210f81edb9cbd",
+    "scripts/replay_fever_controller_retrieval.py": "11cd89f8c14937c3d6282c1b3ff54375dd3ecf9138c37b01c00d87b21c961f5b",
+    "scripts/run_controller_fever_c1.py": "7c36e5136d5d867a25f79315eb4a518704e665ee7317368767d3574453bd25c7",
+    "scripts/run_controller_integration.py": "77277b4d50e73d10eb0dec5ab21758455fca22dde7ddffd288737a173a536522",
+    "src/compensation/retrieval_enhancement/p3.py": "be91b6994f2a5fa38a4d2ef33f178201295e09ab0ba5c4da0e421e0d6d5291db",
+    "src/controller/execution.py": "a6ef3235e3f2e2d8f2933a16b3acc93186329c6ddbfa886fe28f6625a2d8a34b",
+    "src/controller/fever_c1.py": "a0d9e68c53bb3a86acd8e5da04161a6d7de43c5b23822455b3b08d080cfdc83a",
+    "src/controller/fever_resources.py": "7e10c01ae89a2fede4aa255e4a0edf4949855f9e0e6fe1e6f6db12211aea7590",
+    "src/controller/providers.py": "f82f6202efbe58dd33838f924f18eb7908e40a5640360c61d6697bd14b010820",
+    "src/retrieval/isolated_bge.py": "e86c151a57c7e76c459cdd562f7466fc435a892402db81d6da5593a476222cf8",
+    "tests/test_controller_fever_c1.py": "0b7ee43220694a5a1d523e67b4e0b518bf36d65d59b9e2155068662bc73d9675",
+    "tests/test_controller_fever_c1_bundle.py": "7be527ef14c648d0a517352e78dafe67973b764cff19940771ee8d04c49f7c7f",
+    "tests/test_controller_integration.py": "bf88acc6d2947a9efecb8b5f8b1fad505918586e58a829dd96a2595cf06b1511",
+    "tests/test_fever_controller_retrieval.py": "23ea8927996d7b2f4b4cf51c1b4eab6a657431000fe9f720d5b976b94002bddf",
+    "tests/test_fever_resources_registry.py": "0f7256d4bed59a5c166dd096289ad5ca38d4104c420ebcf61a7b01f1ba28eb0e",
+    "tests/test_isolated_bge.py": "fd651f9a32cab7209ea4656ff4774a2aa33fdfbc5b59c1fa1e8b1885baa11c2d"
+  },
+  "checks": {
+    "artifacts/controller/fever_provider_v1/query_replay.json": "a576c7a3e12bf0a450f913431a87bf8d72726932cd08eab9b1e3c147955e634f",
+    "artifacts/controller/fever_provider_v1/tests.log": "173dcf5cdabbe746e20fe4ffa35fdf6a81d1167bad75a1ffdd9cc5714691ab9a",
+    "artifacts/controller/fever_provider_v1/protocol_check.json": "cd04e623ce07d52b9d42e6509357818acd48144ead058277d15d5b284b2c64f8",
+    "artifacts/controller/fever_provider_v1/data_check.json": "63a509d008e0523579e5678ecfd794ec1e647ea37a0204995ef7fcfe401154cd",
+    "configs/controller/fever_resources_v1.json": "02642dfefea8594f4899576638b4a4bef9bf203af4f586fbfe9ecabb89befc7f",
+    "artifacts/controller/fever_c1_v1/collection/manifest.json": "8705054953e383d7943de1ebf94cb25bc07d38a4c6eeaa109d27078858a50632",
+    "artifacts/controller/fever_c1_v1/bundle_receipt.json": "4681035af5776094ec75db157c72544b2e2c556d634d16db46ead3eca922b53e"
+  },
+  "runtime": {
+    "fever_p320_implemented": true,
+    "legacy_nq_default_unchanged": true,
+    "fever_label_guard": "existing parse_fever_prediction; parseability is not semantic support",
+    "gold_or_ai_labels_in_runtime": false,
+    "new_prompts_added": false
+  },
+  "retrieval": {
+    "historical_queries": 10,
+    "same_ordered_top5": 10,
+    "snapshot": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+    "historical_snapshot_known": false,
+    "full_semantic_embedding_validation": false
+  },
+  "fever_c1": {
+    "retrieval_prepared": 900,
+    "development": 200,
+    "selection": 200,
+    "final_candidate": 500,
+    "gpu_bundle_files": 77,
+    "gpu_bundle_bytes": 2027671,
+    "real_gpu_generation_completed": false,
+    "quality_scored": false
+  },
+  "reference_design_sha256": "3edce74cc048e20f2a7a6bbe187564adb06f520397b1ea51a875a1faf2a8f9d0",
+  "registered_reference_deltas": [
+    {
+      "path": "scripts/run_controller_integration.py",
+      "reference_sha256": "336aa499c54a635d0c43675944a85f100bb3763aebf0fe55c0c25a7ffd4e678e",
+      "worktree_sha256": "77277b4d50e73d10eb0dec5ab21758455fca22dde7ddffd288737a173a536522"
+    },
+    {
+      "path": "src/compensation/retrieval_enhancement/p3.py",
+      "reference_sha256": "9674448180a21b6be897d334366af42e6b99646c9d128fff164d781c8381ef20",
+      "worktree_sha256": "be91b6994f2a5fa38a4d2ef33f178201295e09ab0ba5c4da0e421e0d6d5291db"
+    },
+    {
+      "path": "src/controller/execution.py",
+      "reference_sha256": "ae576bbba2f7e0ffa400c9985cf53523b408ad875ce4d7666f1524b5e2f2a1cb",
+      "worktree_sha256": "a6ef3235e3f2e2d8f2933a16b3acc93186329c6ddbfa886fe28f6625a2d8a34b"
+    },
+    {
+      "path": "src/controller/providers.py",
+      "reference_sha256": "8e73a7d481e9b3fe52b960aba565a2602c0a44f67d7628bda2aa704a8b97823f",
+      "worktree_sha256": "f82f6202efbe58dd33838f924f18eb7908e40a5640360c61d6697bd14b010820"
+    }
+  ],
+  "environment": {
+    "python": "3.12.14",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "packages": {
+      "numpy": "2.5.4",
+      "faiss-cpu": "1.15.1",
+      "sentence-transformers": "6.2.0",
+      "torch": "2.14.1",
+      "transformers": "5.16.1"
+    },
+    "formal_cuda_environment": false
+  },
+  "formal_execution_ready": false,
+  "remaining": [
+    "New 900 C1 GPU generation and output sealing",
+    "T3 Full/No Probe/human type budgets/evaluator",
+    "Actual CUDA execution environment and seal"
+  ]
+}

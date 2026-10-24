@@ -161,7 +161,7 @@ class MeteredRetriever:
 
     def retrieve(self, query, *, dataset, top_k):
         if self.provider is None:
-            raise RuntimeError("No matching NQ index provider configured")
+            raise RuntimeError("No matching index provider configured")
         def retrieve():
             value = self.provider.retrieve(query, dataset=dataset, top_k=top_k)
             # Fail inside the attempted call rather than leave an unserialisable
@@ -263,9 +263,11 @@ class IntegratedController:
         action = decision.action
         if action == ControllerAction.NO_ACTION:
             return result
-        if action == ControllerAction.RETRIEVAL_ENHANCEMENT and item.dataset.value != "nq":
+        fever_enabled = 'fever' in getattr(self.retriever, 'supported_datasets', ())
+        if (action == ControllerAction.RETRIEVAL_ENHANCEMENT and item.dataset.value == 'fever'
+                and not fever_enabled):
             result.update(status="unsupported_dataset", error={"type": "UnsupportedDataset",
-                          "message": "Frozen P3-20 supports NQ only; original FEVER answer retained"})
+                          "message": "No verified FEVER retrieval provider; original answer retained"})
             return result
         result["executed"] = True
         try:
@@ -274,7 +276,7 @@ class IntegratedController:
             regenerate = lambda prompt: generator.generate(prompt, self.config.answer_max_new_tokens).text
             if action == ControllerAction.RETRIEVAL_ENHANCEMENT:
                 native = P320RetrievalEnhancer(MeteredRetriever(self.retriever, calls), scorer,
-                                               regenerate).run(item, decision)
+                                               regenerate, enable_fever=fever_enabled).run(item, decision)
                 selected = native["evidence"]
                 final, status = native["final_answer"], native["status"]
                 result["error"] = native.get("error")

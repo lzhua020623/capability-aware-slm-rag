@@ -1,0 +1,187 @@
+{
+  "groups": {
+    "fever/adaptive": {
+      "n": 1,
+      "changed": 0,
+      "statuses": {
+        "no_action": 1
+      },
+      "actions": {
+        "no_action": 1
+      },
+      "llm_calls": 0,
+      "retrieval_calls": 0,
+      "scoring_calls": 0,
+      "input_tokens": 0,
+      "output_tokens_estimate": 0,
+      "total_seconds": 0.006125582964159548,
+      "failed_calls": 0,
+      "budget_blocks": 0
+    },
+    "nq/adaptive": {
+      "n": 1,
+      "changed": 1,
+      "statuses": {
+        "repaired": 1
+      },
+      "actions": {
+        "generation_repair": 1
+      },
+      "llm_calls": 2,
+      "retrieval_calls": 0,
+      "scoring_calls": 0,
+      "input_tokens": null,
+      "output_tokens_estimate": null,
+      "total_seconds": 0.02838804107159376,
+      "failed_calls": 0,
+      "budget_blocks": 0
+    },
+    "fever/always_repair": {
+      "n": 1,
+      "changed": 1,
+      "statuses": {
+        "repaired": 1
+      },
+      "actions": {
+        "generation_repair": 1
+      },
+      "llm_calls": 1,
+      "retrieval_calls": 0,
+      "scoring_calls": 0,
+      "input_tokens": null,
+      "output_tokens_estimate": null,
+      "total_seconds": 0.0016304160235449672,
+      "failed_calls": 0,
+      "budget_blocks": 0
+    },
+    "nq/always_repair": {
+      "n": 1,
+      "changed": 1,
+      "statuses": {
+        "repaired": 1
+      },
+      "actions": {
+        "generation_repair": 1
+      },
+      "llm_calls": 1,
+      "retrieval_calls": 0,
+      "scoring_calls": 0,
+      "input_tokens": null,
+      "output_tokens_estimate": null,
+      "total_seconds": 0.001002958044409752,
+      "failed_calls": 0,
+      "budget_blocks": 0
+    },
+    "fever/always_rerank": {
+      "n": 1,
+      "changed": 1,
+      "statuses": {
+        "answer_replaced": 1
+      },
+      "actions": {
+        "evidence_refinement": 1
+      },
+      "llm_calls": 1,
+      "retrieval_calls": 0,
+      "scoring_calls": 1,
+      "input_tokens": null,
+      "output_tokens_estimate": null,
+      "total_seconds": 0.0013009170070290565,
+      "failed_calls": 0,
+      "budget_blocks": 0
+    },
+    "nq/always_rerank": {
+      "n": 1,
+      "changed": 1,
+      "statuses": {
+        "answer_replaced": 1
+      },
+      "actions": {
+        "evidence_refinement": 1
+      },
+      "llm_calls": 1,
+      "retrieval_calls": 0,
+      "scoring_calls": 1,
+      "input_tokens": null,
+      "output_tokens_estimate": null,
+      "total_seconds": 11.886464625014924,
+      "failed_calls": 0,
+      "budget_blocks": 0
+    },
+    "fever/always_retrieve": {
+      "n": 1,
+      "changed": 1,
+      "statuses": {
+        "answer_replaced": 1
+      },
+      "actions": {
+        "retrieval_enhancement": 1
+      },
+      "llm_calls": 1,
+      "retrieval_calls": 1,
+      "scoring_calls": 1,
+      "input_tokens": null,
+      "output_tokens_estimate": null,
+      "total_seconds": 0.0013111670268699527,
+      "failed_calls": 0,
+      "budget_blocks": 0
+    },
+    "nq/always_retrieve": {
+      "n": 1,
+      "changed": 1,
+      "statuses": {
+        "answer_replaced": 1
+      },
+      "actions": {
+        "retrieval_enhancement": 1
+      },
+      "llm_calls": 1,
+      "retrieval_calls": 1,
+      "scoring_calls": 1,
+      "input_tokens": null,
+      "output_tokens_estimate": null,
+      "total_seconds": 0.0016083749942481518,
+      "failed_calls": 0,
+      "budget_blocks": 0
+    },
+    "fever/c1": {
+      "n": 1,
+      "changed": 0,
+      "statuses": {
+        "no_action": 1
+      },
+      "actions": {
+        "no_action": 1
+      },
+      "llm_calls": 0,
+      "retrieval_calls": 0,
+      "scoring_calls": 0,
+      "input_tokens": 0,
+      "output_tokens_estimate": 0,
+      "total_seconds": 0.0003802080173045397,
+      "failed_calls": 0,
+      "budget_blocks": 0
+    },
+    "nq/c1": {
+      "n": 1,
+      "changed": 0,
+      "statuses": {
+        "no_action": 1
+      },
+      "actions": {
+        "no_action": 1
+      },
+      "llm_calls": 0,
+      "retrieval_calls": 0,
+      "scoring_calls": 0,
+      "input_tokens": 0,
+      "output_tokens_estimate": 0,
+      "total_seconds": 0.0001705830218270421,
+      "failed_calls": 0,
+      "budget_blocks": 0
+    }
+  },
+  "quality_metrics": "not_scored; evaluate separately after predictions",
+  "cost_scope": "incremental_after_C1; add shared C1 cost for full-system totals",
+  "smoke": true
+}

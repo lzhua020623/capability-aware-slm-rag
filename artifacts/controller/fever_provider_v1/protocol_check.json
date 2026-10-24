@@ -1,0 +1,59 @@
+{
+  "schema_version": "controller_protocol_audit_v1",
+  "design_valid": true,
+  "execution_ready": false,
+  "errors": [],
+  "worktree_drift": [
+    {
+      "path": "scripts/run_controller_integration.py",
+      "reference_sha256": "336aa499c54a635d0c43675944a85f100bb3763aebf0fe55c0c25a7ffd4e678e",
+      "worktree_sha256": "77277b4d50e73d10eb0dec5ab21758455fca22dde7ddffd288737a173a536522"
+    },
+    {
+      "path": "src/compensation/retrieval_enhancement/p3.py",
+      "reference_sha256": "9674448180a21b6be897d334366af42e6b99646c9d128fff164d781c8381ef20",
+      "worktree_sha256": "be91b6994f2a5fa38a4d2ef33f178201295e09ab0ba5c4da0e421e0d6d5291db"
+    },
+    {
+      "path": "src/controller/execution.py",
+      "reference_sha256": "ae576bbba2f7e0ffa400c9985cf53523b408ad875ce4d7666f1524b5e2f2a1cb",
+      "worktree_sha256": "a6ef3235e3f2e2d8f2933a16b3acc93186329c6ddbfa886fe28f6625a2d8a34b"
+    },
+    {
+      "path": "src/controller/providers.py",
+      "reference_sha256": "8e73a7d481e9b3fe52b960aba565a2602c0a44f67d7628bda2aa704a8b97823f",
+      "worktree_sha256": "f82f6202efbe58dd33838f924f18eb7908e40a5640360c61d6697bd14b010820"
+    }
+  ],
+  "reference_files_verified": 68,
+  "scope": "T1 design integrity only; does not enforce or approve runner execution",
+  "protocol_id": "controller_experiment_v1",
+  "protocol_sha256": "3edce74cc048e20f2a7a6bbe187564adb06f520397b1ea51a875a1faf2a8f9d0",
+  "reference_commit": "86a7b126225f7cbc5ffe4c7af7db3137acbec9f5",
+  "execution_blockers": [
+    {
+      "id": "T2_DATA",
+      "requirement": "Freeze eligible populations, N, paired IDs/input/gold hashes, selection/final partitions, precision and team-wide exposure audit."
+    },
+    {
+      "id": "T2_ASSETS",
+      "requirement": "Verify C1 provenance and matching corpus/index/metadata; pin BGE weights; unknown historical provenance must be disclosed before inference."
+    },
+    {
+      "id": "T3_ARMS",
+      "requirement": "Implement Full, FEVER retrieval, No Probe, offline human-type driver and per-arm budgets; no unsupported fallback counted as successful coverage."
+    },
+    {
+      "id": "T3_EVALUATOR",
+      "requirement": "Check complete frozen arm/ID manifest; paired intervals and Holm; missing-cost coverage; reliable human-type subset attribution."
+    },
+    {
+      "id": "T3_ENVIRONMENT",
+      "requirement": "Lock actual CUDA environment/hardware and pass engineering fixtures; CPU tests do not certify GPU readiness."
+    },
+    {
+      "id": "T3_EXECUTION_SEAL",
+      "requirement": "Create a separate immutable execution manifest referencing this design hash, source diffs/hashes, data and assets before real comparison."
+    }
+  ]
+}

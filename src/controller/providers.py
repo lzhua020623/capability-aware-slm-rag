@@ -20,7 +20,8 @@ def shared_repair_views(generator, config):
     return views
 
 
-def load_pipeline(config, classifier_path, *, nq_index=None, nq_metadata=None, nq_resources=None):
+def load_pipeline(config, classifier_path, *, nq_index=None, nq_metadata=None, nq_resources=None,
+                  fever_resources=None):
     if nq_resources and (nq_index or nq_metadata):
         raise ValueError("Choose NQ Train resources or the legacy index/metadata pair")
     import torch
@@ -55,6 +56,14 @@ def load_pipeline(config, classifier_path, *, nq_index=None, nq_metadata=None, n
                                 query_prefix=BGE_QUERY_INSTRUCTION)
         dense.load(Path(nq_index), Path(nq_metadata))
         retriever = NQFaissBackend(dense, max_top_k=20)
+    fever_receipt = None
+    if fever_resources:
+        from src.controller.fever_resources import DatasetRetriever, load_backend as load_fever
+        fever_backend, fever_receipt = load_fever(fever_resources, root=Path(__file__).resolve().parents[2])
+        backends = {'fever': fever_backend}
+        if retriever is not None:
+            backends['nq'] = retriever
+        retriever = DatasetRetriever(backends)
     pipeline = IntegratedController(classifier, generator, shared_repair_views(generator, config),
                                     scorer, retriever, config=config)
     environment = {**generator.runtime_environment,
@@ -64,5 +73,5 @@ def load_pipeline(config, classifier_path, *, nq_index=None, nq_metadata=None, n
                    "reranker_activation": "Identity", "reranker_max_length": 512,
                    "nq_index": str(nq_index) if nq_index else None,
                    "nq_metadata": str(nq_metadata) if nq_metadata else None,
-                   "nq_train_resources": resource_receipt}
+                   "nq_train_resources": resource_receipt, 'fever_resources': fever_receipt}
     return pipeline, environment

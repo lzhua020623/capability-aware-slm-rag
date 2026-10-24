@@ -1,0 +1,51 @@
+{
+  "schema_version": "controller_fever_resources_v1",
+  "dataset": "fever",
+  "model_name": "BAAI/bge-base-en-v1.5",
+  "verified_model_revision": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+  "query_instruction": "Represent this sentence for searching relevant passages: ",
+  "passage_prefix": "",
+  "corpus_size": 5396106,
+  "files": {
+    "corpus": {
+      "path": "data/processed/controller_resources/fever_v1/fever_corpus.jsonl",
+      "bytes": 3522640169,
+      "sha256": "29dde612e13203ec37a566c2284d5e312eabc8e66277b972a6e643511fe65fd1"
+    },
+    "index": {
+      "path": "data/processed/controller_resources/fever_v1/fever_bge_ivfpq.index",
+      "bytes": 401921924,
+      "sha256": "a000e7e994a4da47ec1d7af9371eab3c9e4872b2eeefb2f786cb102b4528046b"
+    },
+    "ids": {
+      "path": "data/processed/controller_resources/fever_v1/fever_bge_ivfpq_ids.jsonl",
+      "bytes": 213760540,
+      "sha256": "9bcecd97153871da40edd6ebdee8b149a976174cf929685f77f5a34deba2539a"
+    },
+    "metadata": {
+      "path": "data/processed/controller_resources/fever_v1/fever_bge_ivfpq_meta.json",
+      "bytes": 601,
+      "sha256": "f4146debafd05ff4b78d8788265c9df8ceb59462d40883beb6ef70eda6e6c2be"
+    },
+    "offsets": {
+      "path": "data/processed/controller_resources/fever_v1/fever_bge_ivfpq_offsets.npy",
+      "bytes": 43168976,
+      "sha256": "d764edc54e65a2f7d7255a2efbe7ec04c64b29758c15d965ee336a83202b485a"
+    },
+    "import_report": {
+      "path": "artifacts/controller/fever_resources_v1/import_validation.json",
+      "bytes": 2156,
+      "sha256": "3f7eb4d05dea50a07241d2a5a63f9392ddda6ca0209b239c191159dc896b3c64"
+    },
+    "structure_report": {
+      "path": "artifacts/controller/fever_resources_v1/structure_validation.json",
+      "bytes": 3270,
+      "sha256": "49ffb987228e84a13ff85254983cea327114a4e898c2da530e4864e4b41a7d72"
+    },
+    "query_replay": {
+      "path": "artifacts/controller/fever_provider_v1/query_replay.json",
+      "bytes": 8920,
+      "sha256": "a576c7a3e12bf0a450f913431a87bf8d72726932cd08eab9b1e3c147955e634f"
+    }
+  }
+}

@@ -11,7 +11,7 @@
 
 集成说明、运行命令、已知限制和下一步见 [Controller 集成交接](docs/CONTROLLER_INTEGRATION.md)，
 来源与原始结果一致性见 [分支清单](artifacts/controller/integration_v1/branch_manifest.json)。
-当前 P3-20 检索增强只支持 NQ；FEVER 路由到该动作时明确返回 `unsupported_dataset` 并保留原答。
+P3-20 已补齐 FEVER 检索路径；真实运行需显式提供匹配资源。FEVER 新 900 条 Top5 与 GPU C1 采集包已准备，实际生成状态另行登记。
 
 ```bash
 python scripts/run_controller_integration.py --smoke --output-dir /tmp/controller-smoke-new
@@ -29,6 +29,7 @@ Smoke 使用虚构样本和假模型输出，只验证执行链路。真实推�
 | T2 样本、完整评测保留池与资源缺口 | [数据冻结 v1](docs/CONTROLLER_DATA_V1.md)：NQ 保留 7,564，FEVER 保留 1,886；新 FEVER C1 和执行验收仍待补齐 |
 | NQ 原索引配套文件及崩溃核对 | [资源恢复](docs/NQ_TRAIN_INDEX_RECOVERY.md)：ID/offsets 已恢复，64 处向量比对通过；附恢复包与 681 项 CPU 回归记录 |
 | NQ 全量定位、Controller Train 接口及 FEVER 资源 | [资源接入](docs/CONTROLLER_RESOURCE_ADAPTER_V1.md)：NQ 全量 1,224,119 段回读，FEVER 全量 5,396,106 段 ID/顺序核对；独立验收入库 |
+| FEVER Controller 检索与新 C1 | [采集说明](docs/CONTROLLER_FEVER_C1_V1.md)：10/10 历史检索回放一致，900 条真实 Top5、冻结 GPU 包与 726 项 CPU 回归 |
 | 合并前的全分支与数据审计 | [2026-10-23 审计](docs/PROJECT_AUDIT_AND_RSI_PLAN_20261023.md) |
 | Diagnosis / Probe / 原路由 | [冻结交接](docs/DIAGNOSIS_PROBE_CONTROLLER_HANDOFF.md) |
 | 重排 / 检索增强 | [重排说明](docs/EVIDENCE_REFINEMENT_RERANK.md) / [P3-20](src/compensation/retrieval_enhancement/README.md) |

@@ -127,6 +127,7 @@ def smoke_pipeline(config, classifier_path=DEFAULT_CLASSIFIER):
             return [float(i) for i in range(len(texts))]
 
     class Retriever:
+        supported_datasets = frozenset({'nq', 'fever'})
         def retrieve(self, query, *, dataset, top_k):
             return [{"passage_id": f"extra{i}", "text": "The capital of Luma is Amber.",
                      "score": 1.0 - i / 100} for i in range(top_k)]
@@ -159,6 +160,7 @@ def main(argv=None):
     parser.add_argument("--nq-metadata", type=Path)
     parser.add_argument("--nq-resources", type=Path,
                         help="Verified NQ Train corpus/index/IDs/offsets registry")
+    parser.add_argument('--fever-resources', type=Path, help='Verified FEVER IVFPQ resource registry')
     args = parser.parse_args(argv)
     if args.smoke == (args.input is not None):
         parser.error("Choose exactly one of --smoke and --input")
@@ -179,6 +181,10 @@ def main(argv=None):
         parser.error("Provide both --nq-index and --nq-metadata")
     if need_index and not args.preflight and not (args.nq_resources or (args.nq_index and args.nq_metadata)):
         parser.error("NQ adaptive/retrieval runs require matching --nq-resources or --nq-index/--nq-metadata")
+    need_fever = (not args.smoke and any(i.dataset.value == 'fever' for i in items)
+                  and any(m in ('adaptive', 'always_retrieve') for m in modes))
+    if need_fever and not args.preflight and not args.fever_resources:
+        parser.error('FEVER adaptive/retrieval runs require --fever-resources')
     for path in (args.nq_index, args.nq_metadata):
         if path is not None and not path.is_file():
             parser.error(f"Missing resource: {path}")
@@ -186,6 +192,10 @@ def main(argv=None):
     if args.nq_resources:
         from src.controller.nq_train_resources import validate_resources
         _, _, resource_receipt = validate_resources(args.nq_resources, root=ROOT)
+    fever_receipt = None
+    if args.fever_resources:
+        from src.controller.fever_resources import validate_resources as validate_fever
+        _, _, fever_receipt = validate_fever(args.fever_resources, root=ROOT)
     args.output_dir.mkdir(parents=True)
     manifest = {"schema_version": "controller_run_v1", "smoke": args.smoke,
                 "preflight": args.preflight, "n_inputs": len(items), "modes": modes,
@@ -194,6 +204,7 @@ def main(argv=None):
                 "input_sha256": file_sha(args.input) if args.input else None,
                 "commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
                 "nq_index_required": need_index, "nq_train_resources": resource_receipt,
+                'fever_resources_required': need_fever, 'fever_resources': fever_receipt,
                 "state": "preflight" if args.preflight else "running"}
     write_json(args.output_dir / "manifest.json", manifest)
     if args.preflight:
@@ -208,7 +219,8 @@ def main(argv=None):
         else:
             from src.controller.providers import load_pipeline
             pipeline, environment = load_pipeline(config, args.classifier, nq_index=args.nq_index,
-                                                  nq_metadata=args.nq_metadata, nq_resources=args.nq_resources)
+                                                  nq_metadata=args.nq_metadata, nq_resources=args.nq_resources,
+                                                  fever_resources=args.fever_resources)
         environment["resource_loading_seconds"] = perf_counter() - before
         # Input paths and hashes remain in the run manifest, never in Diagnosis.
         if args.nq_index:

@@ -1,0 +1,13 @@
+{
+  "schema_version": "controller_fever_c1_cloud_status_v1",
+  "updated_utc": "2026-10-24T03:37:38.457388+00:00",
+  "state": "awaiting_chrome_availability",
+  "platform": "Kaggle",
+  "draft_url": "https://www.kaggle.com/code/yearo111/notebookf4eb4a448a/edit",
+  "notebook_draft_created": true,
+  "notebook_imported": false,
+  "bundle_uploaded": false,
+  "gpu_started": false,
+  "generation_completed": false,
+  "note": "Local 900 Top5 and frozen GPU bundle complete; file picker focus switched to unrelated work; user availability requested before further UI actions"
+}

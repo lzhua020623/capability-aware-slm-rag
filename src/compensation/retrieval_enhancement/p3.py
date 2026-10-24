@@ -154,7 +154,9 @@ class P320RetrievalEnhancer:
     rewriting_enabled = False
 
     def __init__(self, retriever: RetrieverBackend, scorer: PinnedScorer,
-                 generate_fn: Callable[[str], str]):
+                 generate_fn: Callable[[str], str], *, enable_fever: bool = False):
+        if type(enable_fever) is not bool:
+            raise ValueError('enable_fever must be a boolean')
         if not callable(getattr(retriever, "retrieve", None)):
             raise TypeError("retriever must implement retrieve(query, *, dataset, top_k)")
         if not callable(scorer) or not callable(generate_fn):
@@ -166,6 +168,7 @@ class P320RetrievalEnhancer:
         self.retriever = retriever
         self.scorer = scorer
         self.generate_fn = generate_fn
+        self.enable_fever = enable_fever
 
     def retrieval_enhancement(self, item, decision) -> str:
         """Bind this method as retrieval_enhancement(item, decision) -> str."""
@@ -211,7 +214,7 @@ class P320RetrievalEnhancer:
 
         if action != "retrieval_enhancement":
             return finish("not_routed")
-        if dataset != "nq":
+        if dataset != "nq" and not (dataset == "fever" and self.enable_fever):
             record["reject_reason"] = "P3-20 supports NQ only"
             return finish("unsupported_dataset")
         stage = "retrieval"
@@ -219,7 +222,7 @@ class P320RetrievalEnhancer:
             record["retrieval_calls"] = 1
 
             def retrieve():
-                hits = self.retriever.retrieve(query, dataset="nq", top_k=CANDIDATE_DEPTH)
+                hits = self.retriever.retrieve(query, dataset=dataset, top_k=CANDIDATE_DEPTH)
                 pool = _evidence(hits, CANDIDATE_DEPTH)
                 # Retain both bodies for auditing if an ID/text conflict follows.
                 record["candidates"] = pool
@@ -246,7 +249,12 @@ class P320RetrievalEnhancer:
             if signature(record["evidence"]) == signature(base):
                 return finish("no_change")
             stage = "prompt"
-            record["prompt"] = timed("prompt", lambda: build_c1_prompt(query, record["evidence"]))
+            def prompt():
+                if dataset == 'fever':
+                    from src.generation.prompts import build_fever_rag_prompt
+                    return build_fever_rag_prompt(query, record['evidence'])
+                return build_c1_prompt(query, record['evidence'])
+            record["prompt"] = timed("prompt", prompt)
             stage = "generation"
             record["generation_calls"] = record["llm_calls"] = 1
             answer = timed("generation", lambda: self.generate_fn(record["prompt"]))
@@ -254,10 +262,19 @@ class P320RetrievalEnhancer:
                 raise TypeError("generate_fn must return a string")
             record["generated_answer"] = answer
             stage = "validation"
-            record["reject_reason"] = timed("validation", lambda: answer_rejection(answer, record["evidence"]))
+            def rejection():
+                if dataset == 'fever':
+                    from src.evaluation.fever import parse_fever_prediction
+                    return 'unparsable_fever_label' if parse_fever_prediction(answer) == 'UNKNOWN' else None
+                return answer_rejection(answer, record['evidence'])
+            record["reject_reason"] = timed("validation", rejection)
             if record["reject_reason"] is not None:
                 return finish("kept_original")
-            record["final_answer"] = answer.strip()
+            if dataset == 'fever':
+                from src.evaluation.fever import parse_fever_prediction
+                record['final_answer'] = parse_fever_prediction(answer)
+            else:
+                record["final_answer"] = answer.strip()
             return finish("answer_replaced")
         except Exception as exc:
             record["error"] = {"stage": stage, "type": type(exc).__name__, "message": str(exc)}

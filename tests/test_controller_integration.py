@@ -265,8 +265,10 @@ class InputAndRunnerTests(unittest.TestCase):
             rows = [json.loads(line) for line in (out / "predictions.jsonl").read_text().splitlines()]
             self.assertEqual(len(rows), 10)
             unsupported = [r for r in rows if r["status"] == "unsupported_dataset"]
-            self.assertEqual(len(unsupported), 1)
-            self.assertEqual(unsupported[0]["calls"], [])
+            self.assertEqual(len(unsupported), 0)
+            fever_retrieval = next(r for r in rows if r['dataset'] == 'fever' and r['mode'] == 'always_retrieve')
+            self.assertEqual(fever_retrieval['cost']['retrieval_calls'], 1)
+            self.assertEqual(fever_retrieval['status'], 'answer_replaced')
             with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
                 main(["--smoke", "--output-dir", str(out)])
 

@@ -1,0 +1,300 @@
+{
+  "schema_version": "fever_controller_query_replay_v1",
+  "passed": true,
+  "n_queries": 10,
+  "same_ordered_top5_count": 10,
+  "encoding": {
+    "model_name": "BAAI/bge-base-en-v1.5",
+    "revision": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+    "query_instruction": "Represent this sentence for searching relevant passages: ",
+    "passage_prefix": "",
+    "device": "cpu",
+    "batch_size": 16,
+    "max_seq_length": 512,
+    "execution": "isolated pinned CPU encoder; no FAISS"
+  },
+  "historical_c1_sha256": "4e3150e326f0b1dd1322f24faec3ba087da4b268a84cd0b9c636406706c23bd3",
+  "import_report_sha256": "3f7eb4d05dea50a07241d2a5a63f9392ddda6ca0209b239c191159dc896b3c64",
+  "structure_report_sha256": "49ffb987228e84a13ff85254983cea327114a4e898c2da530e4864e4b41a7d72",
+  "resource_fingerprints": {
+    "corpus": {
+      "path": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/data/processed/controller_resources/fever_v1/fever_corpus.jsonl",
+      "bytes": 3522640169,
+      "sha256": "29dde612e13203ec37a566c2284d5e312eabc8e66277b972a6e643511fe65fd1"
+    },
+    "index": {
+      "path": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/data/processed/controller_resources/fever_v1/fever_bge_ivfpq.index",
+      "bytes": 401921924,
+      "sha256": "a000e7e994a4da47ec1d7af9371eab3c9e4872b2eeefb2f786cb102b4528046b"
+    },
+    "ids": {
+      "path": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/data/processed/controller_resources/fever_v1/fever_bge_ivfpq_ids.jsonl",
+      "bytes": 213760540,
+      "sha256": "9bcecd97153871da40edd6ebdee8b149a976174cf929685f77f5a34deba2539a"
+    },
+    "metadata": {
+      "path": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/data/processed/controller_resources/fever_v1/fever_bge_ivfpq_meta.json",
+      "bytes": 601,
+      "sha256": "f4146debafd05ff4b78d8788265c9df8ceb59462d40883beb6ef70eda6e6c2be"
+    },
+    "offsets": {
+      "path": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/data/processed/controller_resources/fever_v1/fever_bge_ivfpq_offsets.npy",
+      "bytes": 43168976,
+      "sha256": "d764edc54e65a2f7d7255a2efbe7ec04c64b29758c15d965ee336a83202b485a"
+    }
+  },
+  "checks": [
+    {
+      "sample_id": "106023",
+      "reference_top5": [
+        "Boeing_787_Dreamliner",
+        "List_of_Boeing_777_operators",
+        "Propliner",
+        "Boeing_707",
+        "Boeing_717"
+      ],
+      "actual_top5": [
+        "Boeing_787_Dreamliner",
+        "List_of_Boeing_777_operators",
+        "Propliner",
+        "Boeing_707",
+        "Boeing_717"
+      ],
+      "same_ordered_ids": true,
+      "top5_scores": [
+        0.5652556419372559,
+        0.5093121528625488,
+        0.5090324878692627,
+        0.5046997666358948,
+        0.4990967810153961
+      ]
+    },
+    {
+      "sample_id": "42213",
+      "reference_top5": [
+        "Edward_Stanley_-LRB-bishop-RRB-",
+        "John_Bowdler",
+        "John_Dudley,_1st_Duke_of_Northumberland",
+        "Nicholas_Farnham",
+        "John_Nelson_-LRB-martyr-RRB-"
+      ],
+      "actual_top5": [
+        "Edward_Stanley_-LRB-bishop-RRB-",
+        "John_Bowdler",
+        "John_Dudley,_1st_Duke_of_Northumberland",
+        "Nicholas_Farnham",
+        "John_Nelson_-LRB-martyr-RRB-"
+      ],
+      "same_ordered_ids": true,
+      "top5_scores": [
+        0.4265061020851135,
+        0.42189082503318787,
+        0.42180636525154114,
+        0.4210466146469116,
+        0.4202791154384613
+      ]
+    },
+    {
+      "sample_id": "33955",
+      "reference_top5": [
+        "Wish_Upon",
+        "Get_Over_It_-LRB-film-RRB-",
+        "Make_a_Wish_-LRB-2011_film-RRB-",
+        "Wish_Upon_a_Star",
+        "Wishful_Thinking_-LRB-1997_film-RRB-"
+      ],
+      "actual_top5": [
+        "Wish_Upon",
+        "Get_Over_It_-LRB-film-RRB-",
+        "Make_a_Wish_-LRB-2011_film-RRB-",
+        "Wish_Upon_a_Star",
+        "Wishful_Thinking_-LRB-1997_film-RRB-"
+      ],
+      "same_ordered_ids": true,
+      "top5_scores": [
+        0.5207500457763672,
+        0.49556392431259155,
+        0.490877240896225,
+        0.49059581756591797,
+        0.48576775193214417
+      ]
+    },
+    {
+      "sample_id": "157048",
+      "reference_top5": [
+        "List_of_Saw_media",
+        "Saw_-LRB-franchise-RRB-",
+        "Saw_3D",
+        "Saw_IV",
+        "Saw_-LRB-2004_film-RRB-"
+      ],
+      "actual_top5": [
+        "List_of_Saw_media",
+        "Saw_-LRB-franchise-RRB-",
+        "Saw_3D",
+        "Saw_IV",
+        "Saw_-LRB-2004_film-RRB-"
+      ],
+      "same_ordered_ids": true,
+      "top5_scores": [
+        0.4543907344341278,
+        0.4429168105125427,
+        0.44220536947250366,
+        0.43207690119743347,
+        0.43061572313308716
+      ]
+    },
+    {
+      "sample_id": "203615",
+      "reference_top5": [
+        "The_Sugarland_Express",
+        "Steven_Spielberg",
+        "Slipstream_-LRB-unfinished_film-RRB-",
+        "Jaws_-LRB-film-RRB-",
+        "Traffic_-LRB-2000_film-RRB-"
+      ],
+      "actual_top5": [
+        "The_Sugarland_Express",
+        "Steven_Spielberg",
+        "Slipstream_-LRB-unfinished_film-RRB-",
+        "Jaws_-LRB-film-RRB-",
+        "Traffic_-LRB-2000_film-RRB-"
+      ],
+      "same_ordered_ids": true,
+      "top5_scores": [
+        0.5788022875785828,
+        0.4649125635623932,
+        0.45875284075737,
+        0.4586471617221832,
+        0.4573257565498352
+      ]
+    },
+    {
+      "sample_id": "113150",
+      "reference_top5": [
+        "Territory_of_Papua",
+        "Papua_-LRB-province-RRB-",
+        "Territory_of_Papua_and_New_Guinea",
+        "Papua_New_Guinea_at_the_1994_Commonwealth_Games",
+        "Territory_of_New_Guinea"
+      ],
+      "actual_top5": [
+        "Territory_of_Papua",
+        "Papua_-LRB-province-RRB-",
+        "Territory_of_Papua_and_New_Guinea",
+        "Papua_New_Guinea_at_the_1994_Commonwealth_Games",
+        "Territory_of_New_Guinea"
+      ],
+      "same_ordered_ids": true,
+      "top5_scores": [
+        0.5470764636993408,
+        0.5443273186683655,
+        0.5399659872055054,
+        0.5356030464172363,
+        0.5342795252799988
+      ]
+    },
+    {
+      "sample_id": "73329",
+      "reference_top5": [
+        "Muscarinic_acetylcholine_receptor",
+        "Nicotinic_acetylcholine_receptor",
+        "Acetylcholine_receptor",
+        "Muscarinic_acetylcholine_receptor_M1",
+        "Muscarinic_antagonist"
+      ],
+      "actual_top5": [
+        "Muscarinic_acetylcholine_receptor",
+        "Nicotinic_acetylcholine_receptor",
+        "Acetylcholine_receptor",
+        "Muscarinic_acetylcholine_receptor_M1",
+        "Muscarinic_antagonist"
+      ],
+      "same_ordered_ids": true,
+      "top5_scores": [
+        0.5716423392295837,
+        0.5506412386894226,
+        0.5489189028739929,
+        0.5464099049568176,
+        0.5463778376579285
+      ]
+    },
+    {
+      "sample_id": "141746",
+      "reference_top5": [
+        "List_of_Shadowhunters_episodes",
+        "Shadowhunters",
+        "The_Shadowhunter_Chronicles",
+        "The_X-Files_-LRB-franchise-RRB-",
+        "The_Vampire_Diaries"
+      ],
+      "actual_top5": [
+        "List_of_Shadowhunters_episodes",
+        "Shadowhunters",
+        "The_Shadowhunter_Chronicles",
+        "The_X-Files_-LRB-franchise-RRB-",
+        "The_Vampire_Diaries"
+      ],
+      "same_ordered_ids": true,
+      "top5_scores": [
+        0.5233117938041687,
+        0.5106419324874878,
+        0.4905121326446533,
+        0.48596227169036865,
+        0.47949931025505066
+      ]
+    },
+    {
+      "sample_id": "1251",
+      "reference_top5": [
+        "Watertown,_Massachusetts",
+        "Massachusetts",
+        "New_Bedford,_Massachusetts",
+        "Outline_of_Massachusetts",
+        "Geography_of_Massachusetts"
+      ],
+      "actual_top5": [
+        "Watertown,_Massachusetts",
+        "Massachusetts",
+        "New_Bedford,_Massachusetts",
+        "Outline_of_Massachusetts",
+        "Geography_of_Massachusetts"
+      ],
+      "same_ordered_ids": true,
+      "top5_scores": [
+        0.5897530913352966,
+        0.5677310824394226,
+        0.5542135834693909,
+        0.5538087487220764,
+        0.5526762008666992
+      ]
+    },
+    {
+      "sample_id": "201745",
+      "reference_top5": [
+        "North_Vietnam",
+        "People's_Army_of_Vietnam",
+        "Vietnam",
+        "State_of_Vietnam",
+        "Proclamation_of_Independence_of_the_Democratic_Republic_of_Vietnam"
+      ],
+      "actual_top5": [
+        "North_Vietnam",
+        "People's_Army_of_Vietnam",
+        "Vietnam",
+        "State_of_Vietnam",
+        "Proclamation_of_Independence_of_the_Democratic_Republic_of_Vietnam"
+      ],
+      "same_ordered_ids": true,
+      "top5_scores": [
+        0.5774053931236267,
+        0.564336895942688,
+        0.5639597177505493,
+        0.561378002166748,
+        0.5577659010887146
+      ]
+    }
+  ],
+  "quality_scored": false,
+  "scope": "Fixed first 10 historical C1 queries; no gold/prediction use, not final cohort"
+}

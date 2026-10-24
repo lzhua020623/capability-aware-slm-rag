@@ -12,6 +12,8 @@ T2 已冻结 [两数据集的样本和完整评测保留池](CONTROLLER_DATA_V1.
 
 随后完成 [NQ 全量定位核对、Train provider 接入和 FEVER 资源导入](CONTROLLER_RESOURCE_ADAPTER_V1.md)。NQ 新增 `--nq-resources` 入口；FEVER 原包及全量 ID/原文顺序已验收，FEVER 动态 provider、新 C1 和其余 T3 组仍待完成。下方旧接口说明与历史验收数字保留；资源接入的新增验证见链接。
 
+最新已完成 [FEVER provider 与新 900 条 C1 采集包](CONTROLLER_FEVER_C1_V1.md)，全仓库 726 项 CPU 回归通过；固定 10 条历史查询 Top5 ID/顺序全部复现。FEVER 动态补检索现可通过 `--fever-resources` 启用，新 C1 实际 GPU 状态单独登记。下方 FEVER unsupported 描述对应初始合并版本；Full/No Probe/人工类型组和正式 seal 仍待 T3。
+
 ## 1. 来源与合并
 
 从 E 分支 `5da1fe5` 创建新分支，依次合并：
