@@ -14,7 +14,9 @@ class T3GateTests(unittest.TestCase):
     def receipt(self):
         manifest = {'source_files': {'src/controller/execution.py': 'frozen'}, 'policy_sha256': 'policy'}
         environment = {'model_revision': 'fixed', 'packages': {'transformers': '5.16.1'},
-                       'controller_generation_runtime': {'prefill_chunk_size': 256}}
+                       'controller_generation_runtime': {'prefill_chunk_size': 256},
+                       'installed_packages': ['torch==2.11.0', 'transformers==5.16.1'],
+                       'CPU_runtime': {'machine': 'x86_64', 'logical_cpus': 4, 'torch_threads': 4}}
         receipt = {'passed': True, 'minimum_input_tokens': 14000, **manifest,
                    'engineering_environment': engineering_environment(environment),
                    'checks': [{'dataset': ds, 'path': mode, 'passed': True, 'minimum_actual_input_tokens': 14000,
@@ -44,6 +46,15 @@ class T3GateTests(unittest.TestCase):
                     [{**good, 'attempted': False}]):
             with self.assertRaises(RuntimeError):
                 inspect_engineering_calls(bad, 14000)
+
+    def test_full_dependency_lock_and_CPU_runtime_must_match_engineering_receipt(self):
+        receipt, manifest, environment = self.receipt()
+        changed = deepcopy(environment); changed['installed_packages'].append('different-tokenizer==1')
+        with self.assertRaises(ValueError):
+            accept_engineering(receipt, manifest, changed)
+        changed = deepcopy(environment); changed['CPU_runtime']['torch_threads'] = 2
+        with self.assertRaises(ValueError):
+            accept_engineering(receipt, manifest, changed)
 
     def test_selection_or_gold_packaged_scope_is_rejected_before_loading_models(self):
         for flag in ('contains_gold', 'contains_selection_or_final_inputs'):

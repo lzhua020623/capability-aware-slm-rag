@@ -8,6 +8,8 @@ from dataclasses import asdict
 import hashlib
 import importlib.metadata
 import json
+import os
+import platform
 from pathlib import Path
 import sys
 from time import perf_counter
@@ -64,7 +66,8 @@ def verify_manifest(root, manifest):
 def engineering_environment(environment):
     return {k: environment.get(k) for k in ('model_revision', 'tokenizer_revision', 'packages', 'cuda_version',
             'gpus', 'fourbit_module_count', 'fourbit_quant_types', 'quantization_config', 'parameter_devices',
-            'controller_generation_runtime', 'reranker_model', 'reranker_revision', 'reranker_device', 'reranker_dtype')}
+            'controller_generation_runtime', 'reranker_model', 'reranker_revision', 'reranker_device', 'reranker_dtype',
+            'installed_packages', 'CPU_runtime')}
 
 
 def accept_engineering(receipt, manifest, environment):
@@ -118,6 +121,13 @@ def main(argv=None):
         environment['model_loading_seconds'] = perf_counter() - started
         for name in ('sentence-transformers', 'scikit-learn', 'faiss-cpu', 'numpy', 'scipy'):
             environment['packages'][name] = importlib.metadata.version(name)
+        # Full version lock without pip direct-URL metadata or environment
+        # variables that could contain credentials. No hostnames are recorded.
+        environment['installed_packages'] = sorted({d.metadata['Name'] + '==' + d.version
+            for d in importlib.metadata.distributions() if d.metadata.get('Name')})
+        import torch
+        environment['CPU_runtime'] = {'machine': platform.machine(), 'logical_cpus': os.cpu_count(),
+                                      'torch_threads': torch.get_num_threads(), 'reranker_batch_size': 4}
         write(args.output_dir / 'environment.json', environment)
         if args.engineering_only:
             from src.controller.engineering import engineering_checks

@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-24",
+  "tests_passed": 773,
+  "full_test_seconds": 57.597,
+  "targeted_tests_passed": 8,
+  "targeted_test_seconds": 1.872,
+  "GPU_engineering_passed": false,
+  "T4_started": false,
+  "purpose": "Freeze installed dependency versions and CPU execution settings; reject mismatch with CUDA engineering receipt.",
+  "files": {
+    "full_tests.log": "633e08b5895f833e166edd83ac26350b8ebb5335097abd1ebbdf4d9ad6537e3f",
+    "targeted_tests.log": "c8b6f38c30da0b00aa29a8fd33447b3f86015b94969aa14e534c90a102067d2f"
+  }
+}
