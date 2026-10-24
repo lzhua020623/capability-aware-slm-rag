@@ -1,0 +1,6 @@
+{
+  "tests_passed": 5,
+  "tests_failed": 0,
+  "tests_log_sha256": "e65a1cd056ce1716f535a226a4da2400c8619226fe9854a338cb270ed39511e3",
+  "scope": "Version 3 submission binding and observed 25-row control-flow evidence, retained 645-row prefix, r2 uniform-runtime registration. Full GPU output audit remains pending."
+}

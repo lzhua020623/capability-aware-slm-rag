@@ -34,6 +34,11 @@ class RecordedC1SubmissionTests(unittest.TestCase):
             self.assertFalse(status['generation_completed'])
         if status['generation_completed']:
             self.assertTrue(status['qwen_generation_confirmed'])
+        if status.get('long_context_engineering_confirmed'):
+            self.assertTrue(status['qwen_generation_confirmed'])
+            observation=json.loads((folder/status['runtime_observation_path']).read_text())
+            self.assertGreaterEqual(observation['n_completed_lower_bound'],1)
+            self.assertEqual(observation['generation_runtime']['long_fixture_min_input_tokens'],13000)
 
 
 class C1BundleTests(unittest.TestCase):

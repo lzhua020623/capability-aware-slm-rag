@@ -14,6 +14,10 @@
 
 `prefill_r2/` 登记新的统一计算配置：全部 900 条原生 `prefill_chunk_size=256`，仍完整读取原 Top5、使用原 prompt、模型/量化、greedy 和 64 输出 token；正式采集前增加至少 13,000 token 的虚构长上下文工程检查。相对 r1 的冻结源码仅改变 C1 runner，记录完整差异。分块可能改变数值和时延，因此整批重跑，不与旧 645 条拼接，不按逐题正确性挑选输出。新 notebook 为 `notebooks/controller_fever_c1_prefill_r2.ipynb`，原包均保留。完整 CPU 回归 **741 项通过**，实际归档解压后在禁用 FAISS/Torch/Transformers/编码器的子进程通过 preflight；GPU 长输入验证以云端产物为准。
 
+新配置已提交 **Kaggle Version #3（361681141）**，配套私有输入为 `controller-fever-c1-900-prefill-r2-20261024`。18.0 秒通过云端 collection preflight，日志确认 256/13000 设置、77 文件输入校验及 T4×2 / Torch 2.11.0+cu128 / CUDA 12.8。提交凭证为 `prefill_r2/submission_v3.json`；仅有 Running/preflight 不能视为长输入检查或 900 条采集完成。
+
+后续日志于 **272.8 秒打印 25/900 条正式生成**，见 `prefill_r2/runtime_observation_v3.json`。冻结 runner 仅在三条虚构工程检查全部通过后开始正式采集，因此由控制流确认至少 13,000-token 虚构输入已通过；原始工程 trace 仍待最终导出核验。25 是日志下界，不能视为精确实时计数；900 条尚未完成验收。
+
 提交状态与冻结包绑定检查新增一项回归，当前完整 CPU 回归 **727 项通过**，见 `submission_validation/`。73 个冻结源码文件与 `8d0d033` 提交一致，归档 77 个内容文件全部通过哈希核验；原 GPU 包及采集算法未改动。
 
 执行命令、异常规则和当前范围见 [交接说明](../../../docs/CONTROLLER_FEVER_C1_V1.md)。

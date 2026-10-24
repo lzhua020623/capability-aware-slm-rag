@@ -1,0 +1,10 @@
+test_submission_is_bound_to_frozen_private_input_and_does_not_claim_completion (tests.test_controller_fever_c1_bundle.RecordedC1SubmissionTests.test_submission_is_bound_to_frozen_private_input_and_does_not_claim_completion) ... ok
+test_failed_attempt_retains_645_exact_frozen_inputs_without_claiming_completion (tests.test_controller_fever_c1_output_audit.RecordedOutputTests.test_failed_attempt_retains_645_exact_frozen_inputs_without_claiming_completion) ... ok
+test_false_completion_and_wrong_manifest_binding_are_rejected (tests.test_controller_fever_c1_output_audit.RecordedOutputTests.test_false_completion_and_wrong_manifest_binding_are_rejected) ... ok
+test_recorded_prefill_collection_has_exact_900_original_inputs (tests.test_controller_fever_c1_prefill_package.PrefillPackageTests.test_recorded_prefill_collection_has_exact_900_original_inputs) ... ok
+test_registration_preserves_inputs_and_declares_uniform_new_computation (tests.test_controller_fever_c1_prefill_package.PrefillPackageTests.test_registration_preserves_inputs_and_declares_uniform_new_computation) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 3.411s
+
+OK

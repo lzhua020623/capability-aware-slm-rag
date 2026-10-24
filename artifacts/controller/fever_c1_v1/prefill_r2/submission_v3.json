@@ -1,0 +1,30 @@
+{
+  "schema_version": "controller_fever_c1_submission_receipt_v1",
+  "observed_utc": "2026-10-24T05:00:05.870575+00:00",
+  "notebook_url": "https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024",
+  "dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-fever-c1-900-prefill-r2-20261024",
+  "version": 3,
+  "script_version_id": 361681141,
+  "local_source_commit": "b9a50045e991bb0ad847317acdb0888b14128d87",
+  "source_files_matched_to_commit": 73,
+  "archive_sha256": "cb5c8dd3348f0a3b150292aee23e403a8c4a129c44dc4dfd6428523eaf95d0a9",
+  "generation_runtime": {
+    "prefill_chunk_size": 256,
+    "long_fixture_min_input_tokens": 13000
+  },
+  "uniform_full_collection_run": true,
+  "reuse_previous_answers": false,
+  "observations": [
+    "Imported controller_fever_c1_prefill_r2.ipynb with r2 archive and checksum-index hashes",
+    "New private dataset created; only prefill r2 input attached",
+    "GPU T4 x2, Internet on, No persistence, Pin to original environment (2026-10-23)",
+    "Save & Run All (Commit), Run with GPU for this session, version FEVER C1 900 uniform prefill r2",
+    "Version 3 Running; Version 2 remains failed after 30 minutes 17 seconds",
+    "Worker input checksums: all 77 files passed",
+    "Worker 18.0s preflight passed: counts 200/200/500, gold_included false, prefill_chunk_size 256, long_fixture_min_input_tokens 13000",
+    "Worker torch 2.11.0+cu128, CUDA 12.8, Tesla T4 x2"
+  ],
+  "no_gold_uploaded": true,
+  "no_nq_c1_regeneration": true,
+  "scope": "New uniform computational revision; CPU preflight passed. CUDA long fixture and actual C1 generation not yet confirmed."
+}

@@ -1,7 +1,7 @@
 {
   "schema_version": "controller_fever_c1_cloud_status_v1",
-  "updated_utc": "2026-10-24T04:50:12.602632+00:00",
-  "state": "failed",
+  "updated_utc": "2026-10-24T05:04:17.453161+00:00",
+  "state": "running",
   "platform": "Kaggle",
   "draft_url": "https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024/edit",
   "notebook_draft_created": true,
@@ -9,18 +9,18 @@
   "bundle_uploaded": true,
   "gpu_started": true,
   "generation_completed": false,
-  "note": "Version 2 generated 645/900 (200/200/245) then CUDA OOM during 12911-token input prefill; archived and audited, no QA scoring. Uniform chunked-prefill revision in preparation.",
+  "note": "Version 3 running, worker 272.8s logged 25/900 real rows. Sealed control flow therefore confirms all fictional engineering fixtures passed including >=13000-token input. Raw engineering trace, final coverage and output integrity await completed artifacts. Old 645 rows remain separate.",
   "notebook_url": "https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024",
-  "dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-fever-c1-900-import-fix-r1-20261024",
+  "dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-fever-c1-900-prefill-r2-20261024",
   "dataset_visibility": "private",
-  "version": 2,
-  "version_name": "FEVER C1 900 import isolation r1",
+  "version": 3,
+  "version_name": "FEVER C1 900 uniform prefill r2",
   "submission_type": "Save & Run All (Commit)",
   "accelerator": "GPU T4 x2",
   "internet": true,
   "environment_setting": "Pin to original environment",
-  "bundle_sha256": "2e6a1f95a3e747448b11b5122a61550049b6f401231f9ebe2806a9c14bcb51b1",
-  "checksum_index_sha256": "91e446980019e12ebcd57f98e66f989f149b72f2215648ca1d1847a8269f27a6",
+  "bundle_sha256": "cb5c8dd3348f0a3b150292aee23e403a8c4a129c44dc4dfd6428523eaf95d0a9",
+  "checksum_index_sha256": "601b7070eab5ce5d689474590273b3a10f7182b55f9f52d4779df2e00feb9add",
   "planned_counts": {
     "development": 200,
     "selection": 200,
@@ -29,8 +29,7 @@
   "cloud_input_integrity_confirmed": true,
   "collection_preflight_confirmed": true,
   "qwen_generation_confirmed": true,
-  "n_completed": 645,
-  "failure_receipt_path": "attempt2_oom/failure_receipt.json",
+  "n_completed": null,
   "attempt_history": [
     {
       "version": 1,
@@ -42,15 +41,20 @@
       "state": "failed",
       "receipt": "transport_r1/submission_v2.json",
       "failure_receipt": "attempt2_oom/failure_receipt.json"
+    },
+    {
+      "version": 3,
+      "state": "running",
+      "receipt": "prefill_r2/submission_v3.json"
     }
   ],
-  "prepared_revision": "transport_r1",
-  "script_version_id": 361668830,
-  "n_completed_lower_bound": 645,
-  "archive_path": "transport_r1/controller_fever_c1_gpu_v1.tar.gz",
-  "bundle_receipt_path": "transport_r1/bundle_receipt.json",
-  "submission_receipt_path": "transport_r1/submission_v2.json",
-  "transport_revision": "import_isolation_r1",
+  "prepared_revision": "prefill_r2",
+  "script_version_id": 361681141,
+  "n_completed_lower_bound": 25,
+  "archive_path": "prefill_r2/controller_fever_c1_gpu_v1.tar.gz",
+  "bundle_receipt_path": "prefill_r2/bundle_receipt.json",
+  "submission_receipt_path": "prefill_r2/submission_v3.json",
+  "transport_revision": "uniform_chunked_prefill_r2",
   "worker_environment_observed": {
     "torch": "2.11.0+cu128",
     "cuda": "12.8",
@@ -59,9 +63,14 @@
       "Tesla T4"
     ]
   },
-  "observed_counts": {
-    "development": 200,
-    "selection": 200,
-    "final_candidate": 245
-  }
+  "observed_counts": null,
+  "long_context_engineering_confirmed": true,
+  "previous_version_n_completed": 645,
+  "generation_runtime": {
+    "prefill_chunk_size": 256,
+    "long_fixture_min_input_tokens": 13000
+  },
+  "last_failure_receipt_path": "attempt2_oom/failure_receipt.json",
+  "long_context_confirmation_scope": "Inferred from sealed runner reaching real generation: all 3 fictional fixtures, including measured >=13000 input tokens, gate run_collection. Raw engineering traces await final output audit.",
+  "runtime_observation_path": "prefill_r2/runtime_observation_v3.json"
 }

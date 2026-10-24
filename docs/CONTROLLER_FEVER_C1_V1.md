@@ -12,6 +12,10 @@
 
 `prefill_r2` 是明确登记的新计算配置：全部 900 条统一采用 `prefill_chunk_size=256`，保留所有输入 token、原 Top5、模型 revision、量化、原提示、greedy 和 64 输出 token。首次真实采集前运行原两条虚构检查及一条至少 13,000 token 的虚构长输入。分块可能影响数值和时延，故不把旧 645 条与新输出拼接；保留旧失败记录，新建完整运行。相对 r1 仅修改 C1 runner 的冻结源码。741 项 CPU 回归与实际解压归档的依赖隔离 preflight 通过，入口为 `notebooks/controller_fever_c1_prefill_r2.ipynb`；云端启动和 GPU 长输入验证见最新 `cloud_status.json`。
 
+新配置已提交 **Kaggle Version #3（361681141）**，原失败版本保留。日志确认 77 文件校验和 18.0 秒通过的 200/200/500 preflight，并明确打印 256-token 分块及 13,000-token 虚构工程检查配置。完成与否须以新输出验收为准。
+
+272.8 秒日志已打印 **25/900 正式样本生成**；根据冻结控制流，可确认包含至少 13,000-token 输入在内的三条虚构工程检查全部通过。此确认来自执行顺序与正式计数，原始工程 trace 尚待最终产物核验。运行仍未完成，不产生新的 QA 分数结论。
+
 ## 本轮复用与新增
 
 | 数据 | 处理 |
@@ -61,5 +65,7 @@ python scripts/run_controller_fever_c1.py \
 每条保存 Qwen 调用耗时和 token 数。当前成本范围为 C1 生成，CPU Top5 准备未逐题计时，不能据此声称已取得完整端到端 C1 成本。
 
 最终候选输出应封存，不逐题查看或据此继续优化。Full、No Probe、人工类型对照、分组预算、完整配对统计和正式执行 seal 仍按 T3 推进；此采集任务用于补齐 T2 基线，不是正式六组增强比较。
+
+本轮分块配置只由 C1 采集 runner 显式开启；正式 Controller 比较前，须统一登记其生成配置并验证长输入，不能假定其他 runner 已自动继承此配置，也不能跨配置直接比较成本。
 
 验收记录见 [fever_provider_v1](../artifacts/controller/fever_provider_v1/README.md)，GPU 任务状态见 [cloud_status.json](../artifacts/controller/fever_c1_v1/cloud_status.json)。
