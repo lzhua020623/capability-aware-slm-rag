@@ -1,0 +1,6 @@
+{
+  "tests_passed": 6,
+  "tests_failed": 0,
+  "tests_log_sha256": "87ef1c7106924ceb308362f98dd7129f8bae7aaa2aa2182eb35e922f30629ecc",
+  "scope": "Submission binding, single-source delta, exact input preservation, dependency-isolated CPU preflight; does not certify Qwen outputs"
+}

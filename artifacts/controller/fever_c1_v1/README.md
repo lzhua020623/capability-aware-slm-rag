@@ -10,6 +10,8 @@
 
 `transport_r1/` 是一次明确登记的运行修正：冻结源码只改 `src/retrieval/__init__.py` 的延迟导入，900 条题目、Top5、用途划分、模型 revision、原提示、量化与输出预算全部不变。原包、manifest、notebook、Version #1 提交记录全部保留。修正版 notebook 为 `notebooks/controller_fever_c1_transport_r1.ipynb`；新清单记录父 manifest 哈希和唯一源码差异。当前 CPU 完整回归 **733 项通过**，并从实际归档解压后禁用 FAISS/Torch/Transformers/编码器导入验证 preflight，见 `transport_r1/validation/`。云端是否开始/完成生成以 `cloud_status.json` 及后续原始输出验收为准。
 
+修正版已作为 **Kaggle Version #2** 后台运行，配套私有数据集为 `controller-fever-c1-900-import-fix-r1-20261024`；提交凭证在 `transport_r1/submission_v2.json`。云端 26.8 秒通过全部 77 文件校验，31.9 秒通过 collection preflight，已越过原失败点。900 条生成仍待完成及验收。
+
 提交状态与冻结包绑定检查新增一项回归，当前完整 CPU 回归 **727 项通过**，见 `submission_validation/`。73 个冻结源码文件与 `8d0d033` 提交一致，归档 77 个内容文件全部通过哈希核验；原 GPU 包及采集算法未改动。
 
 执行命令、异常规则和当前范围见 [交接说明](../../../docs/CONTROLLER_FEVER_C1_V1.md)。

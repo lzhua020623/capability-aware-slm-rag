@@ -1,0 +1,11 @@
+test_package_has_exact_checksum_index_runtime_only_rows_and_compiled_notebook (tests.test_controller_fever_c1_bundle.C1BundleTests.test_package_has_exact_checksum_index_runtime_only_rows_and_compiled_notebook) ... ok
+test_submission_is_bound_to_frozen_private_input_and_does_not_claim_completion (tests.test_controller_fever_c1_bundle.RecordedC1SubmissionTests.test_submission_is_bound_to_frozen_private_input_and_does_not_claim_completion) ... ok
+test_real_retry_preflight_works_without_faiss_torch_transformers_or_encoders (tests.test_controller_fever_c1_transport.RecordedTransportTests.test_real_retry_preflight_works_without_faiss_torch_transformers_or_encoders) ... ok
+test_recorded_revision_has_one_source_delta_and_original_input_fingerprints (tests.test_controller_fever_c1_transport.RecordedTransportTests.test_recorded_revision_has_one_source_delta_and_original_input_fingerprints) ... ok
+test_prompt_or_task_changes_cannot_be_registered_as_import_only_fix (tests.test_controller_fever_c1_transport.TransportTests.test_prompt_or_task_changes_cannot_be_registered_as_import_only_fix) ... ok
+test_registration_preserves_all_original_fields_and_bytes_except_declared_source (tests.test_controller_fever_c1_transport.TransportTests.test_registration_preserves_all_original_fields_and_bytes_except_declared_source) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.630s
+
+OK

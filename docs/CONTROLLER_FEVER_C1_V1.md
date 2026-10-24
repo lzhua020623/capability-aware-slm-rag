@@ -6,6 +6,8 @@
 
 修正版 `transport_r1` 只把 retrieval 包公开 API 改为延迟导入；原有 73 个冻结源码仅此一处变化，不安装或调用额外检索模型。原 900 条题目、Top5、顺序、划分、模型/提示/预算逐项保持。通过独立登记脚本生成派生清单，不覆盖原包；入口为 `notebooks/controller_fever_c1_transport_r1.ipynb`，与新私有输入配套。此修正发生在首次 Qwen 调用前，不属于看过 QA 结果后的策略优化。733 项 CPU 回归及从实际归档解压的无 FAISS/编码器 preflight 均通过，凭证在 `transport_r1/validation/`。
 
+修正版已提交 **Kaggle Version #2**（`scriptVersionId=361668830`），后台 Running。实际 worker 于 26.8 秒通过 77 文件校验，31.9 秒通过 200/200/500 collection preflight。此时只确认越过原依赖失败点，尚不把 Running 视为 900 条完成；最新运行状态见 `cloud_status.json`。
+
 ## 本轮复用与新增
 
 | 数据 | 处理 |

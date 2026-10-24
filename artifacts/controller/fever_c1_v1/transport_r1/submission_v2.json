@@ -1,0 +1,25 @@
+{
+  "schema_version": "controller_fever_c1_submission_receipt_v1",
+  "observed_utc": "2026-10-24T04:03:48.628070+00:00",
+  "notebook_url": "https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024",
+  "dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-fever-c1-900-import-fix-r1-20261024",
+  "version": 2,
+  "script_version_id": 361668830,
+  "local_source_commit": "702dbea2c44422618af7b1a8d1dd09837693cb89",
+  "archive_sha256": "2e6a1f95a3e747448b11b5122a61550049b6f401231f9ebe2806a9c14bcb51b1",
+  "observations": [
+    "Imported controller_fever_c1_transport_r1.ipynb; loader shows registered r1 archive/index hashes",
+    "Detached old dataset from new draft, preserving original private dataset and Version 1",
+    "Created new private dataset from transport_r1/controller_fever_c1_gpu_v1.tar.gz; only this dataset attached",
+    "Session: GPU T4 x2, Internet on, Pin to original environment, no persistence",
+    "Saved version FEVER C1 900 import isolation r1, Save & Run All (Commit), Run with GPU for this session",
+    "Version History: Version 2 Running; Version 1 failed after 44 seconds",
+    "Worker log 26.8s: all 77 input files passed",
+    "Worker log 31.9s: preflight passed, 200/200/500, gold_included false",
+    "Worker log 18.4s: torch 2.11.0+cu128, CUDA 12.8, Tesla T4 x2"
+  ],
+  "scope": "Infrastructure retry accepted and CPU preflight passed; no QA completion or quality claim",
+  "no_gold_uploaded": true,
+  "no_nq_c1_regeneration": true,
+  "source_files_matched_to_commit": 73
+}

@@ -1,7 +1,7 @@
 {
   "schema_version": "controller_fever_c1_cloud_status_v1",
-  "updated_utc": "2026-10-24T04:01:12.805997+00:00",
-  "state": "failed",
+  "updated_utc": "2026-10-24T04:03:48.628070+00:00",
+  "state": "running",
   "platform": "Kaggle",
   "draft_url": "https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024/edit",
   "notebook_draft_created": true,
@@ -9,34 +9,53 @@
   "bundle_uploaded": true,
   "gpu_started": true,
   "generation_completed": false,
-  "note": "Version 1 failed in CPU preflight before Qwen initialization; import isolation revision is being prepared. 0/900 C1 answers.",
+  "note": "Version 2 import isolation r1: 77 cloud input checksums and collection preflight passed; Qwen initialization/download in progress, generated coverage not yet observed.",
   "notebook_url": "https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024",
-  "dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-fever-c1-900-frozen-inputs-20261024",
+  "dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-fever-c1-900-import-fix-r1-20261024",
   "dataset_visibility": "private",
-  "version": 1,
-  "version_name": "Frozen FEVER C1 900 v1",
+  "version": 2,
+  "version_name": "FEVER C1 900 import isolation r1",
   "submission_type": "Save & Run All (Commit)",
   "accelerator": "GPU T4 x2",
   "internet": true,
   "environment_setting": "Pin to original environment",
-  "bundle_sha256": "88aba24a3dfccd2668a062391dd540d1703b5b103892eead52bde186f058a65d",
-  "checksum_index_sha256": "2b1b6e02a396b70bc9a2b11e0016e2d39161f81323cf5b080178d779cd46770d",
+  "bundle_sha256": "2e6a1f95a3e747448b11b5122a61550049b6f401231f9ebe2806a9c14bcb51b1",
+  "checksum_index_sha256": "91e446980019e12ebcd57f98e66f989f149b72f2215648ca1d1847a8269f27a6",
   "planned_counts": {
     "development": 200,
     "selection": 200,
     "final_candidate": 500
   },
   "cloud_input_integrity_confirmed": true,
-  "collection_preflight_confirmed": false,
+  "collection_preflight_confirmed": true,
   "qwen_generation_confirmed": false,
-  "n_completed": 0,
+  "n_completed": null,
   "failure_receipt_path": "attempt1_failure/failure_receipt.json",
   "attempt_history": [
     {
       "version": 1,
       "state": "failed",
       "receipt": "attempt1_failure/failure_receipt.json"
+    },
+    {
+      "version": 2,
+      "state": "running",
+      "receipt": "transport_r1/submission_v2.json"
     }
   ],
-  "prepared_revision": "transport_r1"
+  "prepared_revision": "transport_r1",
+  "script_version_id": 361668830,
+  "n_completed_lower_bound": 0,
+  "archive_path": "transport_r1/controller_fever_c1_gpu_v1.tar.gz",
+  "bundle_receipt_path": "transport_r1/bundle_receipt.json",
+  "submission_receipt_path": "transport_r1/submission_v2.json",
+  "transport_revision": "import_isolation_r1",
+  "worker_environment_observed": {
+    "torch": "2.11.0+cu128",
+    "cuda": "12.8",
+    "gpus": [
+      "Tesla T4",
+      "Tesla T4"
+    ]
+  }
 }
