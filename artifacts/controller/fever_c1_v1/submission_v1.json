@@ -1,0 +1,20 @@
+{
+  "schema_version": "controller_fever_c1_submission_receipt_v1",
+  "observed_utc": "2026-10-24T03:48:15.510415+00:00",
+  "notebook_url": "https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024",
+  "dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-fever-c1-900-frozen-inputs-20261024",
+  "version": 1,
+  "local_source_commit": "8d0d033",
+  "archive_sha256": "88aba24a3dfccd2668a062391dd540d1703b5b103892eead52bde186f058a65d",
+  "observations": [
+    "Import notebook: controller_fever_c1_v1.ipynb",
+    "Upload Data: private dataset, controller_fever_c1_gpu_v1.tar.gz (2.03 MB)",
+    "Dataset created successfully; input attached",
+    "Session options: GPU T4 x2; Internet on; Pin to original environment",
+    "Save version: Frozen FEVER C1 900 v1; Save & Run All (Commit); Run with GPU for this session",
+    "Active Events: Version #1 with GPU T4 x2; Running"
+  ],
+  "scope": "Native Kaggle UI submission evidence; not a result/coverage/model-output audit",
+  "no_gold_uploaded": true,
+  "no_nq_c1_regeneration": true
+}

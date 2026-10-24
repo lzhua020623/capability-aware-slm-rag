@@ -6,4 +6,8 @@
 
 `cloud_status.json` 只记录实际已确认的上传/提交/运行状态，不把已打包写成已推理。新答案生成后另存输出归档与验收，不覆盖 collection。最终候选答案继续封存，原 gold 不进入模型。
 
+2026-10-24 已提交 [Kaggle Version #1](https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024)，界面显示 **Running / GPU T4 x2**，Internet on。配套输入数据集为私有，完整提交凭证在 `submission_v1.json`。此状态不证明 900 条生成完成；运行环境、输入运行时校验和输出数量须在任务产物中验收。
+
+提交状态与冻结包绑定检查新增一项回归，当前完整 CPU 回归 **727 项通过**，见 `submission_validation/`。73 个冻结源码文件与 `8d0d033` 提交一致，归档 77 个内容文件全部通过哈希核验；原 GPU 包及采集算法未改动。
+
 执行命令、异常规则和当前范围见 [交接说明](../../../docs/CONTROLLER_FEVER_C1_V1.md)。

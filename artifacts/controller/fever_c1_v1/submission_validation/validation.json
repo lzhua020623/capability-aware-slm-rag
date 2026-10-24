@@ -1,0 +1,24 @@
+{
+  "schema_version": "controller_fever_c1_submission_validation_v1",
+  "validated_utc": "2026-10-24T03:50:09.192851+00:00",
+  "passed": true,
+  "tests": {
+    "passed": 727,
+    "failed": 0,
+    "seconds": 46.038
+  },
+  "source_matches_commit": "8d0d033",
+  "source_files_verified": 73,
+  "archive_files_verified": 77,
+  "submission_receipt_sha256": "8ff47cd63b30ebc8bca3dcdd921f3c681be292eb1d38f156bbd42d743231921d",
+  "cloud_status_sha256": "b525d19a96ac4b7b1ea723eaa4be04e4a97b36cb6a9759a28ccf9459970e9ee8",
+  "archive_sha256": "88aba24a3dfccd2668a062391dd540d1703b5b103892eead52bde186f058a65d",
+  "modified_test_sha256": "89051c3e4dac1991e45d3181726fbf90d845450220cc87903f03e1ac745d73db",
+  "observed_cloud_state": "running",
+  "version": 1,
+  "accelerator": "GPU T4 x2",
+  "internet_enabled": true,
+  "scope": "Submission and frozen-input integrity; generated outputs and real Qwen environment not audited yet",
+  "generation_completed": false,
+  "quality_scored": false
+}

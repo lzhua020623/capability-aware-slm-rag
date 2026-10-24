@@ -2,6 +2,8 @@
 
 已实现 Controller 的 FEVER P3-20 检索路径，并完成新 900 条题目的 Top5 准备及冻结 GPU 包。完整 CPU 回归 **726 项通过**。Qwen 对这 900 条的新答案须由独立 Kaggle/Colab 采集任务生成；打包、CPU 检索或测试通过均不等于已生成答案，也不代表增强收益。
 
+采集进度：2026-10-24 已提交 [Kaggle 后台 Version #1](https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024)，提交后界面确认为 Running，GPU T4 x2、Internet on。新的 900 条 C1 仍待完成和输出验收；NQ C1 不重跑。
+
 ## 本轮复用与新增
 
 | 数据 | 处理 |
