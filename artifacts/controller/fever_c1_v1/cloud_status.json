@@ -1,7 +1,7 @@
 {
   "schema_version": "controller_fever_c1_cloud_status_v1",
-  "updated_utc": "2026-10-24T03:48:15.510415+00:00",
-  "state": "running",
+  "updated_utc": "2026-10-24T04:01:12.805997+00:00",
+  "state": "failed",
   "platform": "Kaggle",
   "draft_url": "https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024/edit",
   "notebook_draft_created": true,
@@ -9,7 +9,7 @@
   "bundle_uploaded": true,
   "gpu_started": true,
   "generation_completed": false,
-  "note": "Kaggle Active Events explicitly shows Version #1 with GPU T4 x2, Running. Worker acceptance verified; generated-row coverage, model environment and quality remain unverified until output audit.",
+  "note": "Version 1 failed in CPU preflight before Qwen initialization; import isolation revision is being prepared. 0/900 C1 answers.",
   "notebook_url": "https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024",
   "dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-fever-c1-900-frozen-inputs-20261024",
   "dataset_visibility": "private",
@@ -26,7 +26,17 @@
     "selection": 200,
     "final_candidate": 500
   },
-  "cloud_input_integrity_confirmed": false,
+  "cloud_input_integrity_confirmed": true,
   "collection_preflight_confirmed": false,
-  "qwen_generation_confirmed": false
+  "qwen_generation_confirmed": false,
+  "n_completed": 0,
+  "failure_receipt_path": "attempt1_failure/failure_receipt.json",
+  "attempt_history": [
+    {
+      "version": 1,
+      "state": "failed",
+      "receipt": "attempt1_failure/failure_receipt.json"
+    }
+  ],
+  "prepared_revision": "transport_r1"
 }

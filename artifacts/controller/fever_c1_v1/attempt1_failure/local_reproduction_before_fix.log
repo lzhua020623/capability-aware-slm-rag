@@ -1,0 +1,36 @@
+test_fresh_c1_import_does_not_load_optional_retrieval_or_model_dependencies (tests.test_retrieval_lazy_exports.RetrievalImportTests.test_fresh_c1_import_does_not_load_optional_retrieval_or_model_dependencies) ... FAIL
+test_public_retrieval_names_remain_lazy_and_cache_resolved_objects (tests.test_retrieval_lazy_exports.RetrievalImportTests.test_public_retrieval_names_remain_lazy_and_cache_resolved_objects) ... FAIL
+
+======================================================================
+FAIL: test_fresh_c1_import_does_not_load_optional_retrieval_or_model_dependencies (tests.test_retrieval_lazy_exports.RetrievalImportTests.test_fresh_c1_import_does_not_load_optional_retrieval_or_model_dependencies)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/tests/test_retrieval_lazy_exports.py", line 23, in test_fresh_c1_import_does_not_load_optional_retrieval_or_model_dependencies
+    self.assertEqual(result.returncode,0,result.stdout+result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<string>", line 8, in <module>
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/src/controller/fever_c1.py", line 13, in <module>
+    from src.retrieval.offset_corpus import file_sha
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/src/retrieval/__init__.py", line 3, in <module>
+    from src.retrieval.e5_faiss import E5FaissRetriever
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/src/retrieval/e5_faiss.py", line 12, in <module>
+    import faiss
+  File "<string>", line 6, in find_spec
+ImportError: forbidden optional dependency: faiss
+
+
+======================================================================
+FAIL: test_public_retrieval_names_remain_lazy_and_cache_resolved_objects (tests.test_retrieval_lazy_exports.RetrievalImportTests.test_public_retrieval_names_remain_lazy_and_cache_resolved_objects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/tests/test_retrieval_lazy_exports.py", line 44, in test_public_retrieval_names_remain_lazy_and_cache_resolved_objects
+    self.assertEqual(result.returncode,0,result.stdout+result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<string>", line 5, in <module>
+AssertionError
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 27.092s
+
+FAILED (failures=2)

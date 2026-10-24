@@ -1,0 +1,28 @@
+{
+  "schema_version": "controller_fever_c1_attempt_failure_v1",
+  "observed_date": "2026-10-24",
+  "platform": "Kaggle",
+  "version": 1,
+  "script_version_id": 361665554,
+  "state": "failed",
+  "duration_seconds": 44.5,
+  "phase": "CPU collection preflight, before Qwen initialization",
+  "n_completed": 0,
+  "qwen_called": false,
+  "input_checksum_files_passed": 77,
+  "environment_observed": {
+    "torch": "2.11.0+cu128",
+    "cuda": "12.8",
+    "gpus": [
+      "Tesla T4",
+      "Tesla T4"
+    ]
+  },
+  "exception": "ModuleNotFoundError: No module named 'faiss'",
+  "root_cause": "src.retrieval.__init__ eagerly imports e5_faiss while C1 only needs offset_corpus.file_sha",
+  "log_sha256": "6bf1222680c6c4dd856e6c2cb1b0843898a0d5e48eea6bc6336b5c509374bb21",
+  "original_archive_sha256": "88aba24a3dfccd2668a062391dd540d1703b5b103892eead52bde186f058a65d",
+  "qa_outputs_exist": false,
+  "ui_output_size_is_qa_coverage": false,
+  "final_candidate_answers_inspected": false
+}

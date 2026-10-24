@@ -2,7 +2,9 @@
 
 已实现 Controller 的 FEVER P3-20 检索路径，并完成新 900 条题目的 Top5 准备及冻结 GPU 包。完整 CPU 回归 **726 项通过**。Qwen 对这 900 条的新答案须由独立 Kaggle/Colab 采集任务生成；打包、CPU 检索或测试通过均不等于已生成答案，也不代表增强收益。
 
-采集进度：2026-10-24 已提交 [Kaggle 后台 Version #1](https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024)，提交后界面确认为 Running，GPU T4 x2、Internet on。新的 900 条 C1 仍待完成和输出验收；NQ C1 不重跑。
+采集进度：2026-10-24 核查 [Kaggle 后台 Version #1](https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024) 已 Failed，44.5 秒，在 CPU preflight 因 `src.retrieval.__init__` 提前加载未安装的 FAISS 中止。77 个输入文件校验通过，Torch 2.11.0+cu128 / CUDA 12.8 / T4×2；尚未调用 Qwen，生成 **0/900**。失败日志和本地复现在 `artifacts/controller/fever_c1_v1/attempt1_failure/`。新的 900 条 C1 仍待完成和输出验收；NQ C1 不重跑。
+
+修正版 `transport_r1` 只把 retrieval 包公开 API 改为延迟导入；原有 73 个冻结源码仅此一处变化，不安装或调用额外检索模型。原 900 条题目、Top5、顺序、划分、模型/提示/预算逐项保持。通过独立登记脚本生成派生清单，不覆盖原包；入口为 `notebooks/controller_fever_c1_transport_r1.ipynb`，与新私有输入配套。此修正发生在首次 Qwen 调用前，不属于看过 QA 结果后的策略优化。733 项 CPU 回归及从实际归档解压的无 FAISS/编码器 preflight 均通过，凭证在 `transport_r1/validation/`。
 
 ## 本轮复用与新增
 

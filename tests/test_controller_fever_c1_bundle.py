@@ -14,9 +14,9 @@ class RecordedC1SubmissionTests(unittest.TestCase):
         root=Path(__file__).resolve().parents[1]
         folder=root/'artifacts/controller/fever_c1_v1'
         status=json.loads((folder/'cloud_status.json').read_text())
-        receipt=json.loads((folder/'bundle_receipt.json').read_text())
-        submitted=json.loads((folder/'submission_v1.json').read_text())
-        digest=hashlib.sha256((folder/'controller_fever_c1_gpu_v1.tar.gz').read_bytes()).hexdigest()
+        receipt=json.loads((folder/status.get('bundle_receipt_path','bundle_receipt.json')).read_text())
+        submitted=json.loads((folder/status.get('submission_receipt_path','submission_v1.json')).read_text())
+        digest=hashlib.sha256((folder/status.get('archive_path','controller_fever_c1_gpu_v1.tar.gz')).read_bytes()).hexdigest()
         self.assertEqual(status['bundle_sha256'],digest)
         self.assertEqual(submitted['archive_sha256'],digest)
         self.assertEqual(receipt['archive_sha256'],digest)

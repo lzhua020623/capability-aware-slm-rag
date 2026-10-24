@@ -6,7 +6,9 @@
 
 `cloud_status.json` 只记录实际已确认的上传/提交/运行状态，不把已打包写成已推理。新答案生成后另存输出归档与验收，不覆盖 collection。最终候选答案继续封存，原 gold 不进入模型。
 
-2026-10-24 已提交 [Kaggle Version #1](https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024)，界面显示 **Running / GPU T4 x2**，Internet on。配套输入数据集为私有，完整提交凭证在 `submission_v1.json`。此状态不证明 900 条生成完成；运行环境、输入运行时校验和输出数量须在任务产物中验收。
+2026-10-24 核查 [Kaggle Version #1](https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024) 已 **Failed**：44.5 秒，在 CPU preflight 导入 `file_sha` 时，`src.retrieval.__init__` 意外加载 FAISS 并因缺少 `faiss` 中止。77 个输入文件校验通过；Qwen 尚未初始化，**0/900** 条回答。原始日志、复现和失败凭证在 `attempt1_failure/`。界面显示的 95 个输出文件不等于 QA 结果。
+
+`transport_r1/` 是一次明确登记的运行修正：冻结源码只改 `src/retrieval/__init__.py` 的延迟导入，900 条题目、Top5、用途划分、模型 revision、原提示、量化与输出预算全部不变。原包、manifest、notebook、Version #1 提交记录全部保留。修正版 notebook 为 `notebooks/controller_fever_c1_transport_r1.ipynb`；新清单记录父 manifest 哈希和唯一源码差异。当前 CPU 完整回归 **733 项通过**，并从实际归档解压后禁用 FAISS/Torch/Transformers/编码器导入验证 preflight，见 `transport_r1/validation/`。云端是否开始/完成生成以 `cloud_status.json` 及后续原始输出验收为准。
 
 提交状态与冻结包绑定检查新增一项回归，当前完整 CPU 回归 **727 项通过**，见 `submission_validation/`。73 个冻结源码文件与 `8d0d033` 提交一致，归档 77 个内容文件全部通过哈希核验；原 GPU 包及采集算法未改动。
 

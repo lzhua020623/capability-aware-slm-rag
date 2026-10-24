@@ -1,0 +1,33 @@
+{
+  "full_tests": {
+    "count": 733,
+    "passed": true,
+    "seconds": 87.578
+  },
+  "targeted_tests": {
+    "count": 8,
+    "passed": true
+  },
+  "extracted_package_preflight": {
+    "passed": true,
+    "blocked_imports": [
+      "faiss",
+      "torch",
+      "sentence_transformers",
+      "transformers"
+    ],
+    "content_hashes_verified": 77
+  },
+  "source_delta": [
+    "src/retrieval/__init__.py"
+  ],
+  "semantic_inputs_unchanged": true,
+  "original_archive_preserved": true,
+  "counts": {
+    "development": 200,
+    "selection": 200,
+    "final_candidate": 500
+  },
+  "gold_uploaded": false,
+  "quality_scored": false
+}
