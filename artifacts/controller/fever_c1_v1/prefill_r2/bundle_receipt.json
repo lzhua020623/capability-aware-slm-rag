@@ -1,0 +1,8 @@
+{
+  "archive_sha256": "cb5c8dd3348f0a3b150292aee23e403a8c4a129c44dc4dfd6428523eaf95d0a9",
+  "archive_bytes": 2029161,
+  "checksum_index_sha256": "601b7070eab5ce5d689474590273b3a10f7182b55f9f52d4779df2e00feb9add",
+  "files": 77,
+  "gold_included": false,
+  "n_tasks": 900
+}

@@ -1,7 +1,7 @@
 {
   "schema_version": "controller_fever_c1_cloud_status_v1",
-  "updated_utc": "2026-10-24T04:03:48.628070+00:00",
-  "state": "running",
+  "updated_utc": "2026-10-24T04:50:12.602632+00:00",
+  "state": "failed",
   "platform": "Kaggle",
   "draft_url": "https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024/edit",
   "notebook_draft_created": true,
@@ -9,7 +9,7 @@
   "bundle_uploaded": true,
   "gpu_started": true,
   "generation_completed": false,
-  "note": "Version 2 import isolation r1: 77 cloud input checksums and collection preflight passed; Qwen initialization/download in progress, generated coverage not yet observed.",
+  "note": "Version 2 generated 645/900 (200/200/245) then CUDA OOM during 12911-token input prefill; archived and audited, no QA scoring. Uniform chunked-prefill revision in preparation.",
   "notebook_url": "https://www.kaggle.com/code/yearo111/controller-fever-c1-900-frozen-20261024",
   "dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-fever-c1-900-import-fix-r1-20261024",
   "dataset_visibility": "private",
@@ -28,9 +28,9 @@
   },
   "cloud_input_integrity_confirmed": true,
   "collection_preflight_confirmed": true,
-  "qwen_generation_confirmed": false,
-  "n_completed": null,
-  "failure_receipt_path": "attempt1_failure/failure_receipt.json",
+  "qwen_generation_confirmed": true,
+  "n_completed": 645,
+  "failure_receipt_path": "attempt2_oom/failure_receipt.json",
   "attempt_history": [
     {
       "version": 1,
@@ -39,13 +39,14 @@
     },
     {
       "version": 2,
-      "state": "running",
-      "receipt": "transport_r1/submission_v2.json"
+      "state": "failed",
+      "receipt": "transport_r1/submission_v2.json",
+      "failure_receipt": "attempt2_oom/failure_receipt.json"
     }
   ],
   "prepared_revision": "transport_r1",
   "script_version_id": 361668830,
-  "n_completed_lower_bound": 0,
+  "n_completed_lower_bound": 645,
   "archive_path": "transport_r1/controller_fever_c1_gpu_v1.tar.gz",
   "bundle_receipt_path": "transport_r1/bundle_receipt.json",
   "submission_receipt_path": "transport_r1/submission_v2.json",
@@ -57,5 +58,10 @@
       "Tesla T4",
       "Tesla T4"
     ]
+  },
+  "observed_counts": {
+    "development": 200,
+    "selection": 200,
+    "final_candidate": 245
   }
 }

@@ -1,0 +1,44 @@
+{
+  "schema_version": "controller_fever_c1_attempt_failure_v1",
+  "observed_utc": "2026-10-24T04:50:12.602632+00:00",
+  "platform": "Kaggle",
+  "version": 2,
+  "script_version_id": 361668830,
+  "state": "failed",
+  "duration_seconds": 1817.1,
+  "phase": "Qwen attention prefill during real C1 generation",
+  "n_completed": 645,
+  "counts": {
+    "development": 200,
+    "selection": 200,
+    "final_candidate": 245
+  },
+  "qwen_called": true,
+  "engineering_smoke_passed": true,
+  "collection_preflight_passed": true,
+  "all_input_hashes_passed": 77,
+  "exception": "CUDA OOM during generation",
+  "failed_next_task": {
+    "ordinal": 246,
+    "sample_id": "81950",
+    "input_tokens": 12911
+  },
+  "extra_allocation_gib": 17.39,
+  "gpu0_capacity_gib": 14.56,
+  "parameter_devices": [
+    "cuda:0"
+  ],
+  "exact_backend_kernel_observed": false,
+  "diagnosis": "Long-context SDPA prefill exceeded GPU 0 capacity; exact selected SDPA kernel is not logged. This is not proof of a model-quality failure.",
+  "inputs_truncated": false,
+  "predictions_scored": false,
+  "final_answers_printed": false,
+  "archive_sha256": "54f8361d1432b58f08369652dd1589cac9a7aa26b5b9228fc4ae14002fa113aa",
+  "log_sha256": "c15793162043a459be9de3f065b19dde11ce8fc7e11e9722e79ac7a6563cc2aa",
+  "next_execution": "New declared uniform 900-task chunked-prefill collection; no mixing previous 645 answers with new answers",
+  "references": [
+    "https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.scaled_dot_product_attention",
+    "https://github.com/huggingface/transformers/blob/v5.16.1/src/transformers/generation/utils.py"
+  ],
+  "downloaded_input_content_hashes_verified": 77
+}

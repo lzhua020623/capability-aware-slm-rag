@@ -6,7 +6,11 @@
 
 修正版 `transport_r1` 只把 retrieval 包公开 API 改为延迟导入；原有 73 个冻结源码仅此一处变化，不安装或调用额外检索模型。原 900 条题目、Top5、顺序、划分、模型/提示/预算逐项保持。通过独立登记脚本生成派生清单，不覆盖原包；入口为 `notebooks/controller_fever_c1_transport_r1.ipynb`，与新私有输入配套。此修正发生在首次 Qwen 调用前，不属于看过 QA 结果后的策略优化。733 项 CPU 回归及从实际归档解压的无 FAISS/编码器 preflight 均通过，凭证在 `transport_r1/validation/`。
 
-修正版已提交 **Kaggle Version #2**（`scriptVersionId=361668830`），后台 Running。实际 worker 于 26.8 秒通过 77 文件校验，31.9 秒通过 200/200/500 collection preflight。此时只确认越过原依赖失败点，尚不把 Running 视为 900 条完成；最新运行状态见 `cloud_status.json`。
+**Version #2（`scriptVersionId=361668830`）已因 CUDA OOM 失败**，总耗时 1817.1 秒，保留 645 条完整输出：开发 200、选型 200、最终候选 245。原始 ZIP、11 个输出文件、日志、输入长度清单和覆盖验收在 `attempt2_oom/`。输入/输出逐条顺序、证据全文、原提示及原始生成关系通过程序核对；没有逐题展示最终候选答案或计算 QA 分数。
+
+第 646 条有 12,911 个输入 token；日志确认 OOM 发生于 `scaled_dot_product_attention` 的预填充阶段，申请额外 17.39 GiB，而 GPU 0 总容量为 14.56 GiB。实际模型参数在 `cuda:0`，T4×2 不是合并的单卡显存。日志不含具体 SDPA kernel profiler 结果，因此后端回退只能视为可能机制。PyTorch 的 [SDPA 文档](https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.scaled_dot_product_attention) 说明其多种实现及 math 后端中间精度；冻结 Transformers 5.16.1 的 [`_prefill` 实现](https://github.com/huggingface/transformers/blob/v5.16.1/src/transformers/generation/utils.py) 提供原生分块预填充。
+
+`prefill_r2` 是明确登记的新计算配置：全部 900 条统一采用 `prefill_chunk_size=256`，保留所有输入 token、原 Top5、模型 revision、量化、原提示、greedy 和 64 输出 token。首次真实采集前运行原两条虚构检查及一条至少 13,000 token 的虚构长输入。分块可能影响数值和时延，故不把旧 645 条与新输出拼接；保留旧失败记录，新建完整运行。相对 r1 仅修改 C1 runner 的冻结源码。741 项 CPU 回归与实际解压归档的依赖隔离 preflight 通过，入口为 `notebooks/controller_fever_c1_prefill_r2.ipynb`；云端启动和 GPU 长输入验证见最新 `cloud_status.json`。
 
 ## 本轮复用与新增
 

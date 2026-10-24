@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "scope": "2 fictional engineering inputs; parseability, not QA quality",
+  "llm_calls": 2,
+  "traces": [
+    {
+      "sample_id": "engineering-0",
+      "dataset": "fever",
+      "prompt": "Based only on the provided evidence, determine whether the claim is supported or refuted. Return only SUPPORTS or REFUTES.\n\nEvidence:\n[1] Luma is a fictional country. Its capital is Amber.\n\n[2] Luma is a fictional country. Its capital is Amber.\n\n[3] Luma is a fictional country. Its capital is Amber.\n\n[4] Luma is a fictional country. Its capital is Amber.\n\n[5] Luma is a fictional country. Its capital is Amber.\n\nClaim: The capital of Luma is Amber.",
+      "generation": {
+        "text": "SUPPORTS",
+        "latency": 1.6608276059998843,
+        "input_tokens": 141,
+        "output_tokens_estimate": 3,
+        "raw_text": "SUPPORTS",
+        "contract_stopped": null
+      },
+      "parsed_label": "SUPPORTS",
+      "empty_output_as_unknown": false
+    },
+    {
+      "sample_id": "engineering-1",
+      "dataset": "fever",
+      "prompt": "Based only on the provided evidence, determine whether the claim is supported or refuted. Return only SUPPORTS or REFUTES.\n\nEvidence:\n[1] Luma is a fictional country. Its capital is Amber.\n\n[2] Luma is a fictional country. Its capital is Amber.\n\n[3] Luma is a fictional country. Its capital is Amber.\n\n[4] Luma is a fictional country. Its capital is Amber.\n\n[5] Luma is a fictional country. Its capital is Amber.\n\nClaim: The capital of Luma is Blue.",
+      "generation": {
+        "text": "REFUTES",
+        "latency": 0.3657902129998547,
+        "input_tokens": 141,
+        "output_tokens_estimate": 2,
+        "raw_text": "REFUTES",
+        "contract_stopped": null
+      },
+      "parsed_label": "REFUTES",
+      "empty_output_as_unknown": false
+    }
+  ]
+}

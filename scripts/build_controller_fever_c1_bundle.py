@@ -22,7 +22,7 @@ def cell(kind,text):
     return value
 
 
-def notebook(archive_sha,index_sha):
+def notebook(archive_sha,index_sha,runtime=None):
     loader=f'''import os, sys, json, hashlib, tarfile, shutil, subprocess
 from pathlib import Path
 import torch
@@ -72,7 +72,7 @@ print('输入全部校验通过:',len(checksums),'个文件；FEVER 200/200/500'
 subprocess.run([sys.executable,'scripts/run_controller_fever_c1.py','--collection','collection',
                 '--output-dir',str(OUTPUT),'--preflight'],cwd=BUNDLE,check=True)
 '''
-    run='''# 先进行两条虚构输入的工程检查，再一次性采集 900 条 C1。
+    run='''# 先进行虚构输入工程检查，再统一采集 900 条 C1。
 assert not OUTPUT.exists()
 log=WORK/'controller_fever_c1_v1.log'
 command=[sys.executable,'-u','scripts/run_controller_fever_c1.py','--collection','collection',
@@ -109,14 +109,17 @@ if not Path('/kaggle/working').exists():
     from google.colab import files
     files.download(str(archive))
 '''
-    values=[cell('markdown','''# Controller：FEVER 冻结 900 条 C1 采集
+    intro='''# Controller：FEVER 冻结 900 条 C1 采集
 
 启用 CUDA GPU 与 Internet，添加配套的私有实验包，依次运行。
 仅生成已有 Top-5 证据条件下的 C1，不运行增强或评测。开发/选型/最终候选为 200/200/500，输出分开。
 代码与输入逐文件校验；模型固定 Qwen2.5-7B-Instruct、NF4、greedy、64 输出 token。
 包内无 gold、人工标签、原始大索引或模型权重。保留所有未知回答；失败保留日志和部分输出。
 首次输出前代码与输入已冻结。最终候选答案封存，不能据此继续改 prompt 或选策略。
-''')]+[cell('code',x) for x in (loader,install,run,export)]
+'''
+    if runtime:
+        intro+=f"\n本版统一使用原生 chunked prefill={runtime['prefill_chunk_size']}，完整保留输入。正式 900 条前额外运行至少 {runtime['long_fixture_min_input_tokens']} 输入 token 的虚构长上下文工程检查。旧失败结果保留，新结果不与旧配置混合。\n"
+    values=[cell('markdown',intro)]+[cell('code',x) for x in (loader,install,run,export)]
     for value in values:
         if value['cell_type']=='code':compile(''.join(value['source']),'<notebook-cell>','exec')
     return {'cells':values,'metadata':{'kernelspec':{'display_name':'Python 3','language':'python','name':'python3'},
@@ -146,7 +149,7 @@ def build(collection,archive_path,notebook_path,*,root=ROOT):
     digest=hashlib.sha256(archive_path.read_bytes()).hexdigest()
     index_sha=hashlib.sha256(index).hexdigest()
     notebook_path.parent.mkdir(parents=True,exist_ok=True)
-    notebook_path.write_text(json.dumps(notebook(digest,index_sha),ensure_ascii=False,indent=2)+'\n')
+    notebook_path.write_text(json.dumps(notebook(digest,index_sha,manifest.get('generation_runtime')),ensure_ascii=False,indent=2)+'\n')
     return {'archive_sha256':digest,'archive_bytes':archive_path.stat().st_size,
             'checksum_index_sha256':index_sha,'files':len(checksums),'gold_included':False,'n_tasks':900}
 

@@ -1,0 +1,402 @@
+8.7s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+8.7s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+8.7s 3 0.00s - to python to disable frozen modules.
+8.7s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+9.4s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+9.4s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+9.4s 7 0.00s - to python to disable frozen modules.
+9.4s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+18.4s 9 {'torch': '2.11.0+cu128', 'cuda': '12.8', 'gpus': ['Tesla T4', 'Tesla T4']}
+26.8s 10 输入全部校验通过: 77 个文件；FEVER 200/200/500
+27.7s 11 Requirement already satisfied: transformers==5.16.1 in /usr/local/lib/python3.13/dist-packages (from -r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (5.16.1)
+27.7s 12 Requirement already satisfied: accelerate==1.14.0 in /usr/local/lib/python3.13/dist-packages (from -r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (1.14.0)
+27.9s 13 Collecting bitsandbytes==0.50.2 (from -r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 5))
+27.9s 14 Requirement already satisfied: transformers==5.16.1 in /usr/local/lib/python3.13/dist-packages (from -r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (5.16.1)
+27.9s 15 Requirement already satisfied: accelerate==1.14.0 in /usr/local/lib/python3.13/dist-packages (from -r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (1.14.0)
+27.9s 16 Collecting bitsandbytes==0.50.2 (from -r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 5))
+27.9s 17 Downloading bitsandbytes-0.50.2-py3-none-manylinux_2_24_x86_64.whl.metadata (10 kB)
+28.0s 18 Requirement already satisfied: PyYAML==6.0.3 in /usr/local/lib/python3.13/dist-packages (from -r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 6)) (6.0.3)
+28.0s 19 Requirement already satisfied: huggingface-hub<2.0,>=1.5.0 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (1.29.0)
+28.0s 20 Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (2.1.3)
+28.0s 21 Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (26.3)
+28.0s 22 Requirement already satisfied: regex>=2025.10.22 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (2025.11.3)
+28.0s 23 Requirement already satisfied: tokenizers<0.24.0,>=0.23.1 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (0.23.1)
+28.0s 24 Requirement already satisfied: typer in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (0.27.2)
+28.0s 25 Requirement already satisfied: safetensors>=0.8.0 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (0.8.0)
+28.0s 26 Requirement already satisfied: tqdm>=4.60 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (4.67.3)
+28.0s 27 Requirement already satisfied: psutil in /usr/local/lib/python3.13/dist-packages (from accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (5.9.5)
+28.0s 28 Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.13/dist-packages (from accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (2.11.0+cu128)
+28.0s 29 Requirement already satisfied: click<9.0.0,>=8.4.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (8.5.0)
+28.0s 30 Requirement already satisfied: filelock>=3.10.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (3.32.5)
+28.0s 31 Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (2025.12.0)
+28.0s 32 Requirement already satisfied: hf-xet<2.0.0,>=1.5.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (1.6.0)
+28.0s 33 Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (0.28.1)
+28.0s 34 Requirement already satisfied: typing-extensions>=4.1.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (4.16.0)
+28.0s 35 Requirement already satisfied: anyio in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (4.14.2)
+28.0s 36 Requirement already satisfied: certifi in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (2026.10.19)
+28.0s 37 Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (1.0.9)
+28.0s 38 Requirement already satisfied: idna in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (3.19)
+28.0s 39 Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.13/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (0.16.0)
+28.0s 40 Requirement already satisfied: setuptools<82 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (81.0.0)
+28.0s 41 Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (1.14.0)
+28.0s 42 Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (3.6.1)
+28.0s 43 Requirement already satisfied: jinja2 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (3.1.6)
+28.0s 44 Requirement already satisfied: cuda-toolkit==12.8.1 in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.8.1)
+28.0s 45 Requirement already satisfied: cuda-bindings<13,>=12.9.4 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.9.7)
+28.0s 46 Requirement already satisfied: nvidia-cudnn-cu12==9.19.0.56 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (9.19.0.56)
+28.0s 47 Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (0.7.1)
+28.0s 48 Requirement already satisfied: nvidia-nccl-cu12==2.28.9 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (2.28.9)
+28.0s 49 Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (3.4.5)
+28.0s 50 Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (3.6.0)
+28.0s 51 Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.8.4.1)
+28.0s 52 Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.8.90)
+28.0s 53 Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (11.3.3.83)
+28.1s 54 Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (1.13.1.3)
+28.1s 55 Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.8.90)
+28.1s 56 Requirement already satisfied: nvidia-curand-cu12==10.3.9.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (10.3.9.90)
+28.1s 57 Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (11.7.3.90)
+28.1s 58 Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.5.8.93)
+28.1s 59 Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.8.93)
+28.1s 60 Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.8.93)
+28.1s 61 Requirement already satisfied: nvidia-nvtx-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.8.90)
+28.1s 62 Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.13/dist-packages (from cuda-bindings<13,>=12.9.4->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (1.8.0)
+28.1s 63 Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.13/dist-packages (from sympy>=1.13.3->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (1.3.0)
+28.1s 64 Downloading bitsandbytes-0.50.2-py3-none-manylinux_2_24_x86_64.whl.metadata (10 kB)
+28.1s 65 Requirement already satisfied: PyYAML==6.0.3 in /usr/local/lib/python3.13/dist-packages (from -r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 6)) (6.0.3)
+28.1s 66 Requirement already satisfied: huggingface-hub<2.0,>=1.5.0 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (1.29.0)
+28.1s 67 Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (2.1.3)
+28.1s 68 Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (26.3)
+28.1s 69 Requirement already satisfied: regex>=2025.10.22 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (2025.11.3)
+28.1s 70 Requirement already satisfied: tokenizers<0.24.0,>=0.23.1 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (0.23.1)
+28.1s 71 Requirement already satisfied: typer in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (0.27.2)
+28.1s 72 Requirement already satisfied: safetensors>=0.8.0 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (0.8.0)
+28.1s 73 Requirement already satisfied: tqdm>=4.60 in /usr/local/lib/python3.13/dist-packages (from transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (4.67.3)
+28.1s 74 Requirement already satisfied: psutil in /usr/local/lib/python3.13/dist-packages (from accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (5.9.5)
+28.1s 75 Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.13/dist-packages (from accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (2.11.0+cu128)
+28.1s 76 Requirement already satisfied: click<9.0.0,>=8.4.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (8.5.0)
+28.1s 77 Requirement already satisfied: filelock>=3.10.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (3.32.5)
+28.1s 78 Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (2025.12.0)
+28.1s 79 Requirement already satisfied: hf-xet<2.0.0,>=1.5.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (1.6.0)
+28.1s 80 Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (0.28.1)
+28.1s 81 Requirement already satisfied: typing-extensions>=4.1.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (4.16.0)
+28.1s 82 Requirement already satisfied: anyio in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (4.14.2)
+28.1s 83 Requirement already satisfied: certifi in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (2026.10.19)
+28.1s 84 Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (1.0.9)
+28.1s 85 Requirement already satisfied: idna in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (3.19)
+28.1s 86 Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.13/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (0.16.0)
+28.1s 87 Requirement already satisfied: setuptools<82 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (81.0.0)
+28.1s 88 Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (1.14.0)
+28.1s 89 Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (3.6.1)
+28.1s 90 Requirement already satisfied: jinja2 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (3.1.6)
+28.1s 91 Requirement already satisfied: cuda-toolkit==12.8.1 in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.8.1)
+28.1s 92 Requirement already satisfied: cuda-bindings<13,>=12.9.4 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.9.7)
+28.1s 93 Requirement already satisfied: nvidia-cudnn-cu12==9.19.0.56 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (9.19.0.56)
+28.1s 94 Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (0.7.1)
+28.1s 95 Requirement already satisfied: nvidia-nccl-cu12==2.28.9 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (2.28.9)
+28.1s 96 Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (3.4.5)
+28.1s 97 Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.13/dist-packages (from torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (3.6.0)
+28.1s 98 Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.8.4.1)
+28.1s 99 Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.8.90)
+28.1s 100 Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (11.3.3.83)
+28.1s 101 Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (1.13.1.3)
+28.1s 102 Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.8.90)
+28.1s 103 Requirement already satisfied: nvidia-curand-cu12==10.3.9.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (10.3.9.90)
+28.1s 104 Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (11.7.3.90)
+28.1s 105 Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.5.8.93)
+28.1s 106 Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.8.93)
+28.1s 107 Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.8.93)
+28.1s 108 Requirement already satisfied: nvidia-nvtx-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == "Linux"->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (12.8.90)
+28.1s 109 Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.13/dist-packages (from cuda-bindings<13,>=12.9.4->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (1.8.0)
+28.1s 110 Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.13/dist-packages (from sympy>=1.13.3->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (1.3.0)
+28.1s 111 Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.13/dist-packages (from jinja2->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (3.0.3)
+28.2s 112 Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.13/dist-packages (from typer->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (1.5.4)
+28.2s 113 Requirement already satisfied: rich>=13.8.0 in /usr/local/lib/python3.13/dist-packages (from typer->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (13.9.4)
+28.2s 114 Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.13/dist-packages (from typer->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (0.0.5)
+28.2s 115 Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.13/dist-packages (from rich>=13.8.0->typer->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (4.2.0)
+28.2s 116 Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.13/dist-packages (from rich>=13.8.0->typer->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (2.21.0)
+28.2s 117 Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.13/dist-packages (from markdown-it-py>=2.2.0->rich>=13.8.0->typer->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (0.1.2)
+28.2s 118 Downloading bitsandbytes-0.50.2-py3-none-manylinux_2_24_x86_64.whl (43.1 MB)
+28.3s 119 Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.13/dist-packages (from jinja2->torch>=2.0.0->accelerate==1.14.0->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 4)) (3.0.3)
+28.3s 120 Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.13/dist-packages (from typer->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (1.5.4)
+28.3s 121 Requirement already satisfied: rich>=13.8.0 in /usr/local/lib/python3.13/dist-packages (from typer->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (13.9.4)
+28.3s 122 Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.13/dist-packages (from typer->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (0.0.5)
+28.3s 123 Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.13/dist-packages (from rich>=13.8.0->typer->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (4.2.0)
+28.3s 124 Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.13/dist-packages (from rich>=13.8.0->typer->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (2.21.0)
+28.3s 125 Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.13/dist-packages (from markdown-it-py>=2.2.0->rich>=13.8.0->typer->transformers==5.16.1->-r /kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/requirements-answer-repair-v8.txt (line 3)) (0.1.2)
+28.3s 126 Downloading bitsandbytes-0.50.2-py3-none-manylinux_2_24_x86_64.whl (43.1 MB)
+28.7s 127 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 43.1/43.1 MB 101.4 MB/s  0:00:00
+28.9s 128 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 43.1/43.1 MB 101.4 MB/s  0:00:00
+30.6s 129 Installing collected packages: bitsandbytes
+30.8s 130 Installing collected packages: bitsandbytes
+31.4s 131 Successfully installed bitsandbytes-0.50.2
+31.6s 132 Successfully installed bitsandbytes-0.50.2
+31.9s 133 {"preflight": "passed", "counts": {"development": 200, "selection": 200, "final_candidate": 500}, "gold_included": false}
+31.9s 134 {"preflight": "passed", "counts": {"development": 200, "selection": 200, "final_candidate": 500}, "gold_included": false}
+62.6s 135 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+65.3s 136 
+112.4s 137 Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+120.5s 138 Fetching 4 files:  25%|██▌       | 1/4 [00:47<02:21, 47.04s/it]
+128.0s 139 Fetching 4 files:  75%|███████▌  | 3/4 [00:55<00:15, 15.22s/it]
+128.0s 140 Fetching 4 files: 100%|██████████| 4/4 [01:02<00:00, 12.52s/it]
+128.0s 141 Fetching 4 files: 100%|██████████| 4/4 [01:02<00:00, 15.66s/it]
+139.3s 142 
+142.7s 143 Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+146.3s 144 Loading weights:   0%|          | 1/339 [00:03<19:27,  3.45s/it]
+146.5s 145 Loading weights:   1%|          | 2/339 [00:06<19:40,  3.50s/it]
+146.6s 146 Loading weights:   1%|          | 4/339 [00:07<07:43,  1.38s/it]
+146.8s 147 Loading weights:   4%|▎         | 12/339 [00:07<01:42,  3.20it/s]
+146.9s 148 Loading weights:   5%|▌         | 18/339 [00:07<00:57,  5.58it/s]
+147.0s 149 Loading weights:   9%|▊         | 29/339 [00:07<00:26, 11.51it/s]
+147.1s 150 Loading weights:  12%|█▏        | 40/339 [00:07<00:15, 18.85it/s]
+147.2s 151 Loading weights:  14%|█▍        | 48/339 [00:07<00:11, 24.72it/s]
+147.3s 152 Loading weights:  17%|█▋        | 56/339 [00:07<00:09, 30.45it/s]
+147.4s 153 Loading weights:  19%|█▉        | 65/339 [00:08<00:07, 38.77it/s]
+147.5s 154 Loading weights:  22%|██▏       | 76/339 [00:08<00:05, 50.42it/s]
+147.6s 155 Loading weights:  25%|██▌       | 85/339 [00:08<00:04, 57.79it/s]
+147.8s 156 Loading weights:  28%|██▊       | 94/339 [00:08<00:04, 60.14it/s]
+147.9s 157 Loading weights:  30%|███       | 103/339 [00:08<00:03, 61.84it/s]
+148.4s 158 Loading weights:  33%|███▎      | 113/339 [00:08<00:03, 69.77it/s]
+149.6s 159 Loading weights:  37%|███▋      | 124/339 [00:09<00:05, 38.94it/s]
+150.3s 160 Loading weights:  39%|███▊      | 131/339 [00:10<00:12, 16.81it/s]
+151.3s 161 Loading weights:  40%|████      | 136/339 [00:10<00:14, 13.60it/s]
+151.5s 162 Loading weights:  41%|████▏     | 140/339 [00:12<00:21,  9.17it/s]
+151.6s 163 Loading weights:  42%|████▏     | 143/339 [00:12<00:19, 10.25it/s]
+152.7s 164 Loading weights:  43%|████▎     | 146/339 [00:12<00:16, 11.57it/s]
+153.2s 165 Loading weights:  44%|████▍     | 149/339 [00:13<00:27,  6.86it/s]
+153.3s 166 Loading weights:  45%|████▍     | 151/339 [00:13<00:31,  5.98it/s]
+153.4s 167 Loading weights:  45%|████▌     | 154/339 [00:14<00:24,  7.51it/s]
+154.0s 168 Loading weights:  46%|████▌     | 156/339 [00:14<00:21,  8.57it/s]
+155.1s 169 Loading weights:  47%|████▋     | 160/339 [00:14<00:22,  7.96it/s]
+155.2s 170 Loading weights:  48%|████▊     | 162/339 [00:15<00:37,  4.72it/s]
+155.3s 171 Loading weights:  49%|████▉     | 166/339 [00:15<00:24,  6.96it/s]
+155.9s 172 Loading weights:  50%|████▉     | 168/339 [00:16<00:21,  8.01it/s]
+156.9s 173 Loading weights:  51%|█████     | 172/339 [00:16<00:21,  7.72it/s]
+157.0s 174 Loading weights:  51%|█████▏    | 174/339 [00:17<00:35,  4.63it/s]
+157.1s 175 Loading weights:  53%|█████▎    | 178/339 [00:17<00:23,  6.88it/s]
+157.7s 176 Loading weights:  53%|█████▎    | 180/339 [00:17<00:19,  7.98it/s]
+158.8s 177 Loading weights:  54%|█████▍    | 184/339 [00:18<00:20,  7.70it/s]
+158.9s 178 Loading weights:  55%|█████▍    | 186/339 [00:19<00:33,  4.63it/s]
+159.0s 179 Loading weights:  56%|█████▌    | 190/339 [00:19<00:21,  6.90it/s]
+159.5s 180 Loading weights:  57%|█████▋    | 192/339 [00:19<00:18,  7.99it/s]
+160.6s 181 Loading weights:  58%|█████▊    | 196/339 [00:20<00:18,  7.71it/s]
+160.7s 182 Loading weights:  58%|█████▊    | 198/339 [00:21<00:30,  4.63it/s]
+160.8s 183 Loading weights:  60%|█████▉    | 202/339 [00:21<00:19,  6.90it/s]
+161.4s 184 Loading weights:  60%|██████    | 204/339 [00:21<00:16,  8.01it/s]
+162.4s 185 Loading weights:  61%|██████▏   | 208/339 [00:22<00:17,  7.68it/s]
+162.6s 186 Loading weights:  62%|██████▏   | 210/339 [00:23<00:28,  4.61it/s]
+162.7s 187 Loading weights:  63%|██████▎   | 214/339 [00:23<00:18,  6.87it/s]
+163.2s 188 Loading weights:  64%|██████▎   | 216/339 [00:23<00:15,  7.96it/s]
+164.3s 189 Loading weights:  65%|██████▍   | 220/339 [00:23<00:15,  7.63it/s]
+164.4s 190 Loading weights:  65%|██████▌   | 222/339 [00:25<00:25,  4.59it/s]
+164.5s 191 Loading weights:  67%|██████▋   | 226/339 [00:25<00:16,  6.84it/s]
+165.1s 192 Loading weights:  67%|██████▋   | 228/339 [00:25<00:13,  7.93it/s]
+165.9s 193 Loading weights:  68%|██████▊   | 232/339 [00:25<00:13,  7.69it/s]
+166.0s 194 Loading weights:  69%|██████▉   | 234/339 [00:26<00:19,  5.30it/s]
+166.2s 195 Loading weights:  72%|███████▏  | 245/339 [00:26<00:07, 12.48it/s]
+166.3s 196 Loading weights:  76%|███████▌  | 256/339 [00:26<00:04, 20.66it/s]
+166.8s 197 Loading weights:  78%|███████▊  | 264/339 [00:27<00:02, 27.18it/s]
+167.3s 198 Loading weights:  80%|███████▉  | 270/339 [00:27<00:03, 19.64it/s]
+168.4s 199 Loading weights:  83%|████████▎ | 280/339 [00:28<00:02, 20.04it/s]
+168.5s 200 Loading weights:  84%|████████▍ | 284/339 [00:29<00:04, 11.23it/s]
+168.6s 201 Loading weights:  85%|████████▍ | 287/339 [00:29<00:04, 12.38it/s]
+169.7s 202 Loading weights:  86%|████████▌ | 290/339 [00:29<00:03, 13.72it/s]
+170.2s 203 Loading weights:  86%|████████▋ | 293/339 [00:30<00:06,  7.62it/s]
+170.3s 204 Loading weights:  87%|████████▋ | 295/339 [00:30<00:06,  6.60it/s]
+170.4s 205 Loading weights:  88%|████████▊ | 298/339 [00:30<00:04,  8.27it/s]
+170.9s 206 Loading weights:  89%|████████▉ | 301/339 [00:31<00:03, 10.31it/s]
+171.8s 207 Loading weights:  90%|████████▉ | 304/339 [00:31<00:04,  8.30it/s]
+172.0s 208 Loading weights:  90%|█████████ | 306/339 [00:32<00:06,  5.25it/s]
+172.5s 209 Loading weights:  92%|█████████▏| 312/339 [00:32<00:03,  8.72it/s]
+173.6s 210 Loading weights:  93%|█████████▎| 316/339 [00:33<00:02,  8.31it/s]
+173.7s 211 Loading weights:  94%|█████████▍| 318/339 [00:34<00:04,  5.17it/s]
+173.8s 212 Loading weights:  95%|█████████▍| 322/339 [00:34<00:02,  7.32it/s]
+174.3s 213 Loading weights:  96%|█████████▌| 324/339 [00:34<00:01,  8.35it/s]
+175.4s 214 Loading weights:  97%|█████████▋| 328/339 [00:35<00:01,  7.91it/s]
+175.5s 215 Loading weights:  97%|█████████▋| 330/339 [00:36<00:01,  4.76it/s]
+175.6s 216 Loading weights:  99%|█████████▊| 334/339 [00:36<00:00,  7.01it/s]
+175.6s 217 Loading weights:  99%|█████████▉| 336/339 [00:36<00:00,  8.08it/s]
+175.6s 218 Loading weights: 100%|██████████| 339/339 [00:36<00:00,  9.32it/s]
+224.0s 219 {"generated": 25, "total": 900}
+294.4s 220 {"generated": 50, "total": 900}
+364.6s 221 {"generated": 75, "total": 900}
+429.6s 222 {"generated": 100, "total": 900}
+484.3s 223 {"generated": 125, "total": 900}
+549.0s 224 {"generated": 150, "total": 900}
+612.6s 225 {"generated": 175, "total": 900}
+690.2s 226 {"generated": 200, "total": 900}
+762.1s 227 {"generated": 225, "total": 900}
+837.3s 228 {"generated": 250, "total": 900}
+904.4s 229 {"generated": 275, "total": 900}
+963.4s 230 {"generated": 300, "total": 900}
+1018.1s 231 {"generated": 325, "total": 900}
+1077.3s 232 {"generated": 350, "total": 900}
+1134.2s 233 {"generated": 375, "total": 900}
+1196.0s 234 {"generated": 400, "total": 900}
+1263.4s 235 {"generated": 425, "total": 900}
+1321.2s 236 {"generated": 450, "total": 900}
+1368.5s 237 {"generated": 475, "total": 900}
+1425.8s 238 {"generated": 500, "total": 900}
+1487.0s 239 {"generated": 525, "total": 900}
+1552.4s 240 {"generated": 550, "total": 900}
+1620.7s 241 {"generated": 575, "total": 900}
+1691.5s 242 {"generated": 600, "total": 900}
+1743.5s 243 {"generated": 625, "total": 900}
+1802.7s 244 CUDA OOM during generation for Qwen/Qwen2.5-7B-Instruct (4-bit NF4, bnb_4bit_compute_dtype=float16, device_map=auto). Refusing to fall back to any other model.
+1802.7s 245 CUDA memory allocated=5610.0 MiB, reserved=8326.0 MiB
+1802.7s 246 Traceback (most recent call last):
+1802.7s 247 File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/src/generation/qwen.py", line 186, in generate_greedy
+1802.7s 248 output_ids = model.generate(
+1802.7s 249 **inputs,
+1802.7s 250 ...<3 lines>...
+1802.7s 251 **({"stopping_criteria": stopping_criteria} if stopping_criteria is not None else {}),
+1802.7s 252 )
+1802.7s 253 File "/usr/local/lib/python3.13/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+1802.8s 254 return func(*args, **kwargs)
+1802.8s 255 File "/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py", line 2668, in generate
+1802.8s 256 result = decoding_method(
+1802.8s 257 self,
+1802.8s 258 ...<5 lines>...
+1802.8s 259 **model_kwargs,
+1802.8s 260 )
+1802.8s 261 File "/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py", line 2868, in _sample
+1802.8s 262 outputs = self._prefill(
+1802.8s 263 input_ids,
+1802.8s 264 ...<2 lines>...
+1802.8s 265 is_first_iteration=not generation_config.is_assistant,
+1802.8s 266 )
+1802.8s 267 File "/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py", line 3948, in _prefill
+1802.8s 268 return self(**model_inputs, return_dict=True)
+1802.8s 269 File "/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+1802.8s 270 return self._call_impl(*args, **kwargs)
+1802.8s 271 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+1802.8s 272 File "/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+1802.8s 273 return forward_call(*args, **kwargs)
+1802.8s 274 File "/usr/local/lib/python3.13/dist-packages/transformers/utils/generic.py", line 939, in wrapper
+1802.8s 275 output = func(self, *args, **kwargs)
+1802.8s 276 File "/usr/local/lib/python3.13/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 452, in forward
+1802.8s 277 outputs: BaseModelOutputWithPast = self.model(
+1802.8s 278 ~~~~~~~~~~^
+1802.8s 279 input_ids=input_ids,
+1802.8s 280 ^^^^^^^^^^^^^^^^^^^^
+1802.8s 281 ...<5 lines>...
+1802.8s 282 **kwargs,
+1802.8s 283 ^^^^^^^^^
+1802.8s 284 )
+1802.8s 285 ^
+1802.8s 286 File "/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+1802.8s 287 return self._call_impl(*args, **kwargs)
+1802.8s 288 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+1802.8s 289 File "/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+1802.8s 290 return forward_call(*args, **kwargs)
+1802.8s 291 File "/usr/local/lib/python3.13/dist-packages/transformers/utils/generic.py", line 1068, in wrapper
+1802.8s 292 output = func(self, *args, **kwargs)
+1802.8s 293 File "/usr/local/lib/python3.13/dist-packages/transformers/utils/output_capturing.py", line 262, in wrapper
+1802.8s 294 outputs = func(self, *args, **kwargs)
+1802.8s 295 File "/usr/local/lib/python3.13/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 388, in forward
+1802.8s 296 hidden_states = decoder_layer(
+1802.8s 297 hidden_states,
+1802.8s 298 ...<5 lines>...
+1802.8s 299 **kwargs,
+1802.8s 300 )
+1802.8s 301 File "/usr/local/lib/python3.13/dist-packages/transformers/modeling_layers.py", line 114, in __call__
+1802.8s 302 return super().__call__(*args, **kwargs)
+1802.8s 303 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+1802.8s 304 File "/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+1802.8s 305 return self._call_impl(*args, **kwargs)
+1802.8s 306 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+1802.8s 307 File "/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+1802.8s 308 return forward_call(*args, **kwargs)
+1802.8s 309 File "/usr/local/lib/python3.13/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 282, in forward
+1802.8s 310 hidden_states, _ = self.self_attn(
+1802.8s 311 ~~~~~~~~~~~~~~^
+1802.8s 312 hidden_states=hidden_states,
+1802.8s 313 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1802.8s 314 ...<5 lines>...
+1802.8s 315 **kwargs,
+1802.8s 316 ^^^^^^^^^
+1802.8s 317 )
+1802.8s 318 ^
+1802.8s 319 File "/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+1802.8s 320 return self._call_impl(*args, **kwargs)
+1802.8s 321 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+1802.8s 322 File "/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+1802.8s 323 return forward_call(*args, **kwargs)
+1802.8s 324 File "/usr/local/lib/python3.13/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 220, in forward
+1802.8s 325 attn_output, attn_weights = attention_interface(
+1802.8s 326 ~~~~~~~~~~~~~~~~~~~^
+1802.8s 327 self,
+1802.8s 328 ^^^^^
+1802.8s 329 ...<7 lines>...
+1802.8s 330 **kwargs,
+1802.8s 331 ^^^^^^^^^
+1802.8s 332 )
+1802.8s 333 ^
+1802.8s 334 File "/usr/local/lib/python3.13/dist-packages/transformers/integrations/sdpa_attention.py", line 158, in sdpa_attention_forward
+1802.8s 335 attn_output = torch.nn.functional.scaled_dot_product_attention(
+1802.8s 336 query,
+1802.8s 337 ...<6 lines>...
+1802.8s 338 **sdpa_kwargs,
+1802.8s 339 )
+1802.8s 340 torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 17.39 GiB. GPU 0 has a total capacity of 14.56 GiB of which 6.30 GiB is free. Including non-PyTorch memory, this process has 8.26 GiB memory in use. Of the allocated memory 7.01 GiB is allocated by PyTorch, and 1.12 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+1802.8s 341 
+1802.8s 342 The above exception was the direct cause of the following exception:
+1802.8s 343 
+1802.8s 344 Traceback (most recent call last):
+1802.8s 345 File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/scripts/run_controller_fever_c1.py", line 100, in <module>
+1802.8s 346 raise SystemExit(main())
+1802.8s 347 ~~~~^^
+1802.8s 348 File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/scripts/run_controller_fever_c1.py", line 91, in main
+1802.8s 349 state=run_collection(args.collection,args.output_dir,generator,environment=environment)
+1802.8s 350 File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/scripts/run_controller_fever_c1.py", line 50, in run_collection
+1802.9s 351 value,trace=generate_one(row,generator)
+1802.9s 352 ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+1802.9s 353 File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/src/controller/fever_c1.py", line 93, in generate_one
+1802.9s 354 generation = generator.generate(prompt, 64)
+1802.9s 355 File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/src/compensation/qwen_repair.py", line 80, in generate
+1802.9s 356 return self._generate(prompt, max_new_tokens)
+1802.9s 357 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+1802.9s 358 File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/src/compensation/qwen_repair.py", line 132, in _generate
+1802.9s 359 text, latency = generate_greedy(self.tokenizer, self.model, prompt, max_new_tokens,
+1802.9s 360 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1802.9s 361 stopping_criteria=stopping)
+1802.9s 362 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1802.9s 363 File "/usr/local/lib/python3.13/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+1802.9s 364 return func(*args, **kwargs)
+1802.9s 365 File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/src/generation/qwen.py", line 195, in generate_greedy
+1802.9s 366 _raise_cuda_oom(exc, str(generator["model_name"]), "generation")
+1802.9s 367 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1802.9s 368 File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/src/generation/qwen.py", line 75, in _raise_cuda_oom
+1802.9s 369 raise RuntimeError(
+1802.9s 370 ...<2 lines>...
+1802.9s 371 ) from exc
+1802.9s 372 RuntimeError: CUDA OOM during generation for Qwen/Qwen2.5-7B-Instruct. Not switching model or changing quantization.
+1808.7s 373 Traceback (most recent call last):
+1808.7s 374 File "<string>", line 1, in <module>
+1808.7s 375 import sys;import papermill as pm;pm.execute_notebook("__notebook__.ipynb","__notebook__.ipynb",progress_bar=False,log_output=True,stdout_file=sys.stdout,stderr_file=sys.stderr,allow_errors=False,timeout=43200)
+1808.7s 376 ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1808.7s 377 File "/usr/local/lib/python3.13/dist-packages/papermill/execute.py", line 131, in execute_notebook
+1808.7s 378 raise_for_execution_errors(nb, output_path)
+1808.7s 379 ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+1808.7s 380 File "/usr/local/lib/python3.13/dist-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+1808.7s 381 raise error
+1808.7s 382 papermill.exceptions.PapermillExecutionError:
+1808.7s 383 ---------------------------------------------------------------------------
+1808.7s 384 Exception encountered at "In [3]":
+1808.7s 385 ---------------------------------------------------------------------------
+1808.7s 386 RuntimeError                              Traceback (most recent call last)
+1808.7s 387 /tmp/ipykernel_23/1118757531.py in <cell line: 0>()
+1808.7s 388 22     if not (OUTPUT/'manifest.json').exists():
+1808.7s 389 23         (OUTPUT/'manifest.json').write_text(json.dumps({'state':'infrastructure_failed','returncode':returncode}))
+1808.7s 390 ---> 24     raise RuntimeError('本次采集失败，保留日志和部分输出；不要挑题重跑')
+1808.7s 391 25 print('C1 采集完成；此处不计算正确率，也不查看最终集逐题答案。')
+1808.7s 392 
+1808.7s 393 RuntimeError: 本次采集失败，保留日志和部分输出；不要挑题重跑
+1808.7s 394 
+1811.5s 395 /usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+1811.5s 396 cells[i][c] = re.sub('\\\\\|', '|', cell)
+1811.7s 397 /usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+1811.7s 398 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+1812.5s 399 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+1812.7s 400 [NbConvertApp] Writing 45270 bytes to __notebook__.ipynb
+1815.5s 401 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+1816.1s 402 [NbConvertApp] Writing 334277 bytes to __results__.html

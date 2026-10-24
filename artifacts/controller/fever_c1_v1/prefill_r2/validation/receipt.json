@@ -1,0 +1,22 @@
+{
+  "full_tests": {
+    "count": 741,
+    "passed": true,
+    "seconds": 254.937
+  },
+  "native_tiny_qwen2_regression": "full input retained, same greedy output, prefill query chunks bounded; CPU fixture, not a CUDA certification",
+  "extracted_bundle_preflight": {
+    "passed": true,
+    "blocked_imports": [
+      "faiss",
+      "torch",
+      "transformers",
+      "sentence_transformers"
+    ],
+    "content_files_verified": 77
+  },
+  "all_900_inputs_unchanged": true,
+  "quality_scored": false,
+  "gpu_long_fixture_required": true,
+  "old_outputs_combined_with_new": false
+}

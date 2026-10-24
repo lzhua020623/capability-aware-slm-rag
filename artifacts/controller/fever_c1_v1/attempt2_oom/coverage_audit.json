@@ -1,0 +1,26 @@
+{
+  "schema_version": "controller_fever_c1_coverage_audit_v1",
+  "state": "failed",
+  "n_completed": 645,
+  "n_expected": 900,
+  "counts": {
+    "development": 200,
+    "selection": 200,
+    "final_candidate": 245
+  },
+  "complete": false,
+  "exact_input_prefix": true,
+  "runtime_gold_isolated": true,
+  "output_hashes": {
+    "development/runtime.jsonl": "4693b2e33a16f2c308fdf83182c9b4eaf1fc14faa0e13f05679cef0485e62e5b",
+    "development/generations.jsonl": "a112869c2e91819831b181416620973b9c751d18c394ba39f1fa308f9098c6b6",
+    "selection/runtime.jsonl": "0609a52f5ec39cff75b4b7f5be8dd85e4ff23cb88dc31425a8bc0043202f2fc6",
+    "selection/generations.jsonl": "3bef0ffb9f8ae86be78988036900336c4eb32947799abadd1dd468db14a783c5",
+    "final_candidate/runtime.jsonl": "3516356977bfe20fed48fcd7f111d77f9e19962898b057cfbbe18df95e9f2473",
+    "final_candidate/generations.jsonl": "cfe21c80d9e40d6205f763e7a0bdff23db3daaf5ffc30c1c9c68cfb55ec98f28"
+  },
+  "successful_generation_latency_seconds": 1614.5931258720038,
+  "latency_scope": "Successful C1 calls only; failed call, engineering, loading and retrieval excluded",
+  "quality_scored": false,
+  "answers_printed": false
+}

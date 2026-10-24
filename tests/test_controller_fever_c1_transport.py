@@ -5,6 +5,7 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import tarfile
 import unittest
 
 from scripts.prepare_controller_fever_c1_transport_r1 import IMPORT_FIX, prepare
@@ -69,7 +70,7 @@ class RecordedTransportTests(unittest.TestCase):
 
     def test_real_retry_preflight_works_without_faiss_torch_transformers_or_encoders(self):
         root = Path(__file__).resolve().parents[1]
-        collection = root/'artifacts/controller/fever_c1_v1/transport_r1/collection'
+        archive = root/'artifacts/controller/fever_c1_v1/transport_r1/controller_fever_c1_gpu_v1.tar.gz'
         code = '''
 import importlib.abc, runpy, sys
 class Block(importlib.abc.MetaPathFinder):
@@ -82,8 +83,11 @@ sys.argv=['scripts/run_controller_fever_c1.py','--collection',sys.argv[1],
 runpy.run_path('scripts/run_controller_fever_c1.py',run_name='__main__')
 '''
         with tempfile.TemporaryDirectory() as temp:
-            result = subprocess.run([sys.executable, '-c', code, str(collection), temp+'/out'],
-                                    cwd=root, capture_output=True, text=True)
+            with tarfile.open(archive) as handle:
+                handle.extractall(temp, filter='data')
+            sealed_root = Path(temp)/'controller_fever_c1_gpu_v1'
+            result = subprocess.run([sys.executable, '-c', code, str(sealed_root/'collection'), temp+'/out'],
+                                    cwd=sealed_root, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stdout+result.stderr)
         self.assertEqual(json.loads(result.stdout)['counts'],
                          {'development':200,'selection':200,'final_candidate':500})

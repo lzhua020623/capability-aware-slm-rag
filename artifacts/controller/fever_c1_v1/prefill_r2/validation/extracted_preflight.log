@@ -1,0 +1,1 @@
+{"preflight": "passed", "counts": {"development": 200, "selection": 200, "final_candidate": 500}, "gold_included": false, "generation_runtime": {"prefill_chunk_size": 256, "long_fixture_min_input_tokens": 13000}}

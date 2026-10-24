@@ -18,7 +18,32 @@ def write_json(path,value):
     Path(path).write_text(json.dumps(value,ensure_ascii=False,indent=2,allow_nan=False)+'\n',encoding='utf-8')
 
 
-def engineering_smoke(generator):
+PREFILL_RUNTIME = {'prefill_chunk_size': 256, 'long_fixture_min_input_tokens': 13000}
+
+
+def generation_runtime(manifest):
+    """A registered computational revision; old sealed collections keep defaults."""
+    settings = manifest.get('generation_runtime')
+    if settings is None:
+        return None
+    if (settings != PREFILL_RUNTIME
+            or any(type(v) is not int for v in settings.values())):
+        raise ValueError('Unexpected C1 prefill runtime; register an explicit revision')
+    return dict(settings)
+
+
+def configure_prefill(generator, settings):
+    if settings is None:
+        return
+    config = generator.model.generation_config
+    if not hasattr(config, 'prefill_chunk_size'):
+        raise RuntimeError('Pinned Transformers must support native chunked prefill')
+    config.prefill_chunk_size = settings['prefill_chunk_size']
+    generator.runtime_environment['generation_runtime'] = dict(settings)
+    generator.runtime_environment['generation_config'] = config.to_dict()
+
+
+def engineering_smoke(generator, *, min_input_tokens=0):
     traces=[]
     for i,claim in enumerate(('The capital of Luma is Amber.', 'The capital of Luma is Blue.')):
         evidence=[{'rank':rank,'passage_id':f'fiction-{rank}',
@@ -27,9 +52,30 @@ def engineering_smoke(generator):
         _,trace=generate_one({'dataset':'fever','sample_id':f'engineering-{i}',
                               'query':claim,'evidence':evidence},generator)
         traces.append(trace)
+    if min_input_tokens:
+        # Synthetic text only. Exercise the longest sealed input's shape without
+        # generating a real-task answer twice, dropping evidence, or scoring gold.
+        from src.generation.prompts import build_fever_rag_prompt
+        from src.generation.qwen import apply_qwen_chat_template
+        import math
+        unit = ' Luma has hills.'
+        repeats = math.ceil(min_input_tokens/len(generator.tokenizer.encode(unit, add_special_tokens=False)))
+        evidence=[{'rank':rank,'passage_id':f'long-fiction-{rank}',
+                   'text':('Luma is fictional. Its capital is Amber.'+unit*repeats if rank==1
+                           else 'Luma is a fictional country. Its capital is Amber.'),
+                   'score':1-rank/10} for rank in range(1,6)]
+        row={'dataset':'fever','sample_id':'engineering-long-context',
+             'query':'The capital of Luma is Amber.','evidence':evidence}
+        prompt=build_fever_rag_prompt(row['query'],evidence)
+        measured=len(generator.tokenizer.encode(apply_qwen_chat_template(generator.tokenizer,prompt)))
+        if measured < min_input_tokens:
+            raise RuntimeError('Synthetic prefill fixture did not cover registered input length')
+        _,trace=generate_one(row,generator)
+        trace['fixture_min_input_tokens']=min_input_tokens
+        traces.append(trace)
     passed=all(r['parsed_label'] in ('SUPPORTS','REFUTES') for r in traces)
-    return {'passed':passed,'scope':'2 fictional engineering inputs; parseability, not QA quality',
-            'llm_calls':2,'traces':traces}
+    return {'passed':passed,'scope':'fictional engineering inputs; parseability and registered input shape, not QA quality',
+            'llm_calls':len(traces),'traces':traces}
 
 
 def run_collection(collection, output_dir, generator, *, root=ROOT, environment=None):
@@ -71,16 +117,19 @@ def main(argv=None):
     parser.add_argument('--preflight',action='store_true')
     args=parser.parse_args(argv)
     manifest, rows=verify_collection(args.collection,root=ROOT)
+    settings=generation_runtime(manifest)
     if args.output_dir.exists():
         parser.error('Use a new C1 output directory; failed/previous runs are preserved')
     if args.preflight:
-        print(json.dumps({'preflight':'passed','counts':{r:len(v) for r,v in rows.items()},'gold_included':False}))
+        print(json.dumps({'preflight':'passed','counts':{r:len(v) for r,v in rows.items()},
+                          'gold_included':False,'generation_runtime':settings}))
         return 0
     from src.compensation.qwen_repair import QwenRepairGenerator
     started=perf_counter();generator=QwenRepairGenerator(json_output=False)
+    configure_prefill(generator,settings)
     environment={**generator.runtime_environment,'resource_loading_seconds':perf_counter()-started,
                  'pip_freeze':subprocess.check_output([sys.executable,'-m','pip','freeze'],text=True).splitlines()}
-    engineering=engineering_smoke(generator)
+    engineering=engineering_smoke(generator, min_input_tokens=(settings or {}).get('long_fixture_min_input_tokens',0))
     if not engineering['passed']:
         args.output_dir.mkdir(parents=True,exist_ok=False)
         write_json(args.output_dir/'environment.json',environment)

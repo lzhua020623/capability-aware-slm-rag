@@ -1,0 +1,23 @@
+{
+  "schema_version": "controller_fever_c1_run_v1",
+  "state": "failed",
+  "counts": {
+    "development": 200,
+    "selection": 200,
+    "final_candidate": 500
+  },
+  "collection_manifest_sha256": "bc6aba81855f76171d2e93bcc6b8877c13eeed299377ca27504df7655705e5ac",
+  "quality_scored": false,
+  "n_completed": 645,
+  "files": {
+    "development/runtime.jsonl": "4693b2e33a16f2c308fdf83182c9b4eaf1fc14faa0e13f05679cef0485e62e5b",
+    "development/generations.jsonl": "a112869c2e91819831b181416620973b9c751d18c394ba39f1fa308f9098c6b6",
+    "selection/runtime.jsonl": "0609a52f5ec39cff75b4b7f5be8dd85e4ff23cb88dc31425a8bc0043202f2fc6",
+    "selection/generations.jsonl": "3bef0ffb9f8ae86be78988036900336c4eb32947799abadd1dd468db14a783c5"
+  },
+  "cost_scope": "C1 generation only; CPU retrieval archived separately",
+  "error": {
+    "type": "RuntimeError",
+    "message": "CUDA OOM during generation for Qwen/Qwen2.5-7B-Instruct. Not switching model or changing quantization."
+  }
+}

@@ -1,0 +1,238 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+Fetching 4 files:  25%|██▌       | 1/4 [00:47<02:21, 47.04s/it]
+Fetching 4 files:  75%|███████▌  | 3/4 [00:55<00:15, 15.22s/it]
+Fetching 4 files: 100%|██████████| 4/4 [01:02<00:00, 12.52s/it]
+Fetching 4 files: 100%|██████████| 4/4 [01:02<00:00, 15.66s/it]
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:03<19:27,  3.45s/it]
+Loading weights:   1%|          | 2/339 [00:06<19:40,  3.50s/it]
+Loading weights:   1%|          | 4/339 [00:07<07:43,  1.38s/it]
+Loading weights:   4%|▎         | 12/339 [00:07<01:42,  3.20it/s]
+Loading weights:   5%|▌         | 18/339 [00:07<00:57,  5.58it/s]
+Loading weights:   9%|▊         | 29/339 [00:07<00:26, 11.51it/s]
+Loading weights:  12%|█▏        | 40/339 [00:07<00:15, 18.85it/s]
+Loading weights:  14%|█▍        | 48/339 [00:07<00:11, 24.72it/s]
+Loading weights:  17%|█▋        | 56/339 [00:07<00:09, 30.45it/s]
+Loading weights:  19%|█▉        | 65/339 [00:08<00:07, 38.77it/s]
+Loading weights:  22%|██▏       | 76/339 [00:08<00:05, 50.42it/s]
+Loading weights:  25%|██▌       | 85/339 [00:08<00:04, 57.79it/s]
+Loading weights:  28%|██▊       | 94/339 [00:08<00:04, 60.14it/s]
+Loading weights:  30%|███       | 103/339 [00:08<00:03, 61.84it/s]
+Loading weights:  33%|███▎      | 113/339 [00:08<00:03, 69.77it/s]
+Loading weights:  37%|███▋      | 124/339 [00:09<00:05, 38.94it/s]
+Loading weights:  39%|███▊      | 131/339 [00:10<00:12, 16.81it/s]
+Loading weights:  40%|████      | 136/339 [00:10<00:14, 13.60it/s]
+Loading weights:  41%|████▏     | 140/339 [00:12<00:21,  9.17it/s]
+Loading weights:  42%|████▏     | 143/339 [00:12<00:19, 10.25it/s]
+Loading weights:  43%|████▎     | 146/339 [00:12<00:16, 11.57it/s]
+Loading weights:  44%|████▍     | 149/339 [00:13<00:27,  6.86it/s]
+Loading weights:  45%|████▍     | 151/339 [00:13<00:31,  5.98it/s]
+Loading weights:  45%|████▌     | 154/339 [00:14<00:24,  7.51it/s]
+Loading weights:  46%|████▌     | 156/339 [00:14<00:21,  8.57it/s]
+Loading weights:  47%|████▋     | 160/339 [00:14<00:22,  7.96it/s]
+Loading weights:  48%|████▊     | 162/339 [00:15<00:37,  4.72it/s]
+Loading weights:  49%|████▉     | 166/339 [00:15<00:24,  6.96it/s]
+Loading weights:  50%|████▉     | 168/339 [00:16<00:21,  8.01it/s]
+Loading weights:  51%|█████     | 172/339 [00:16<00:21,  7.72it/s]
+Loading weights:  51%|█████▏    | 174/339 [00:17<00:35,  4.63it/s]
+Loading weights:  53%|█████▎    | 178/339 [00:17<00:23,  6.88it/s]
+Loading weights:  53%|█████▎    | 180/339 [00:17<00:19,  7.98it/s]
+Loading weights:  54%|█████▍    | 184/339 [00:18<00:20,  7.70it/s]
+Loading weights:  55%|█████▍    | 186/339 [00:19<00:33,  4.63it/s]
+Loading weights:  56%|█████▌    | 190/339 [00:19<00:21,  6.90it/s]
+Loading weights:  57%|█████▋    | 192/339 [00:19<00:18,  7.99it/s]
+Loading weights:  58%|█████▊    | 196/339 [00:20<00:18,  7.71it/s]
+Loading weights:  58%|█████▊    | 198/339 [00:21<00:30,  4.63it/s]
+Loading weights:  60%|█████▉    | 202/339 [00:21<00:19,  6.90it/s]
+Loading weights:  60%|██████    | 204/339 [00:21<00:16,  8.01it/s]
+Loading weights:  61%|██████▏   | 208/339 [00:22<00:17,  7.68it/s]
+Loading weights:  62%|██████▏   | 210/339 [00:23<00:28,  4.61it/s]
+Loading weights:  63%|██████▎   | 214/339 [00:23<00:18,  6.87it/s]
+Loading weights:  64%|██████▎   | 216/339 [00:23<00:15,  7.96it/s]
+Loading weights:  65%|██████▍   | 220/339 [00:23<00:15,  7.63it/s]
+Loading weights:  65%|██████▌   | 222/339 [00:25<00:25,  4.59it/s]
+Loading weights:  67%|██████▋   | 226/339 [00:25<00:16,  6.84it/s]
+Loading weights:  67%|██████▋   | 228/339 [00:25<00:13,  7.93it/s]
+Loading weights:  68%|██████▊   | 232/339 [00:25<00:13,  7.69it/s]
+Loading weights:  69%|██████▉   | 234/339 [00:26<00:19,  5.30it/s]
+Loading weights:  72%|███████▏  | 245/339 [00:26<00:07, 12.48it/s]
+Loading weights:  76%|███████▌  | 256/339 [00:26<00:04, 20.66it/s]
+Loading weights:  78%|███████▊  | 264/339 [00:27<00:02, 27.18it/s]
+Loading weights:  80%|███████▉  | 270/339 [00:27<00:03, 19.64it/s]
+Loading weights:  83%|████████▎ | 280/339 [00:28<00:02, 20.04it/s]
+Loading weights:  84%|████████▍ | 284/339 [00:29<00:04, 11.23it/s]
+Loading weights:  85%|████████▍ | 287/339 [00:29<00:04, 12.38it/s]
+Loading weights:  86%|████████▌ | 290/339 [00:29<00:03, 13.72it/s]
+Loading weights:  86%|████████▋ | 293/339 [00:30<00:06,  7.62it/s]
+Loading weights:  87%|████████▋ | 295/339 [00:30<00:06,  6.60it/s]
+Loading weights:  88%|████████▊ | 298/339 [00:30<00:04,  8.27it/s]
+Loading weights:  89%|████████▉ | 301/339 [00:31<00:03, 10.31it/s]
+Loading weights:  90%|████████▉ | 304/339 [00:31<00:04,  8.30it/s]
+Loading weights:  90%|█████████ | 306/339 [00:32<00:06,  5.25it/s]
+Loading weights:  92%|█████████▏| 312/339 [00:32<00:03,  8.72it/s]
+Loading weights:  93%|█████████▎| 316/339 [00:33<00:02,  8.31it/s]
+Loading weights:  94%|█████████▍| 318/339 [00:34<00:04,  5.17it/s]
+Loading weights:  95%|█████████▍| 322/339 [00:34<00:02,  7.32it/s]
+Loading weights:  96%|█████████▌| 324/339 [00:34<00:01,  8.35it/s]
+Loading weights:  97%|█████████▋| 328/339 [00:35<00:01,  7.91it/s]
+Loading weights:  97%|█████████▋| 330/339 [00:36<00:01,  4.76it/s]
+Loading weights:  99%|█████████▊| 334/339 [00:36<00:00,  7.01it/s]
+Loading weights:  99%|█████████▉| 336/339 [00:36<00:00,  8.08it/s]
+Loading weights: 100%|██████████| 339/339 [00:36<00:00,  9.32it/s]
+{"generated": 25, "total": 900}
+{"generated": 50, "total": 900}
+{"generated": 75, "total": 900}
+{"generated": 100, "total": 900}
+{"generated": 125, "total": 900}
+{"generated": 150, "total": 900}
+{"generated": 175, "total": 900}
+{"generated": 200, "total": 900}
+{"generated": 225, "total": 900}
+{"generated": 250, "total": 900}
+{"generated": 275, "total": 900}
+{"generated": 300, "total": 900}
+{"generated": 325, "total": 900}
+{"generated": 350, "total": 900}
+{"generated": 375, "total": 900}
+{"generated": 400, "total": 900}
+{"generated": 425, "total": 900}
+{"generated": 450, "total": 900}
+{"generated": 475, "total": 900}
+{"generated": 500, "total": 900}
+{"generated": 525, "total": 900}
+{"generated": 550, "total": 900}
+{"generated": 575, "total": 900}
+{"generated": 600, "total": 900}
+{"generated": 625, "total": 900}
+CUDA OOM during generation for Qwen/Qwen2.5-7B-Instruct (4-bit NF4, bnb_4bit_compute_dtype=float16, device_map=auto). Refusing to fall back to any other model.
+CUDA memory allocated=5610.0 MiB, reserved=8326.0 MiB
+Traceback (most recent call last):
+  File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/src/generation/qwen.py", line 186, in generate_greedy
+    output_ids = model.generate(
+        **inputs,
+    ...<3 lines>...
+        **({"stopping_criteria": stopping_criteria} if stopping_criteria is not None else {}),
+    )
+  File "/usr/local/lib/python3.13/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py", line 2668, in generate
+    result = decoding_method(
+        self,
+    ...<5 lines>...
+        **model_kwargs,
+    )
+  File "/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py", line 2868, in _sample
+    outputs = self._prefill(
+        input_ids,
+    ...<2 lines>...
+        is_first_iteration=not generation_config.is_assistant,
+    )
+  File "/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py", line 3948, in _prefill
+    return self(**model_inputs, return_dict=True)
+  File "/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/transformers/utils/generic.py", line 939, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 452, in forward
+    outputs: BaseModelOutputWithPast = self.model(
+                                       ~~~~~~~~~~^
+        input_ids=input_ids,
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/transformers/utils/generic.py", line 1068, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/transformers/utils/output_capturing.py", line 262, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 388, in forward
+    hidden_states = decoder_layer(
+        hidden_states,
+    ...<5 lines>...
+        **kwargs,
+    )
+  File "/usr/local/lib/python3.13/dist-packages/transformers/modeling_layers.py", line 114, in __call__
+    return super().__call__(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 282, in forward
+    hidden_states, _ = self.self_attn(
+                       ~~~~~~~~~~~~~~^
+        hidden_states=hidden_states,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/transformers/models/qwen2/modeling_qwen2.py", line 220, in forward
+    attn_output, attn_weights = attention_interface(
+                                ~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<7 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/dist-packages/transformers/integrations/sdpa_attention.py", line 158, in sdpa_attention_forward
+    attn_output = torch.nn.functional.scaled_dot_product_attention(
+        query,
+    ...<6 lines>...
+        **sdpa_kwargs,
+    )
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 17.39 GiB. GPU 0 has a total capacity of 14.56 GiB of which 6.30 GiB is free. Including non-PyTorch memory, this process has 8.26 GiB memory in use. Of the allocated memory 7.01 GiB is allocated by PyTorch, and 1.12 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/scripts/run_controller_fever_c1.py", line 100, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/scripts/run_controller_fever_c1.py", line 91, in main
+    state=run_collection(args.collection,args.output_dir,generator,environment=environment)
+  File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/scripts/run_controller_fever_c1.py", line 50, in run_collection
+    value,trace=generate_one(row,generator)
+                ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/src/controller/fever_c1.py", line 93, in generate_one
+    generation = generator.generate(prompt, 64)
+  File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/src/compensation/qwen_repair.py", line 80, in generate
+    return self._generate(prompt, max_new_tokens)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/src/compensation/qwen_repair.py", line 132, in _generate
+    text, latency = generate_greedy(self.tokenizer, self.model, prompt, max_new_tokens,
+                    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                   stopping_criteria=stopping)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+  File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/src/generation/qwen.py", line 195, in generate_greedy
+    _raise_cuda_oom(exc, str(generator["model_name"]), "generation")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/input_91e446980019/controller_fever_c1_gpu_v1/src/generation/qwen.py", line 75, in _raise_cuda_oom
+    raise RuntimeError(
+    ...<2 lines>...
+    ) from exc
+RuntimeError: CUDA OOM during generation for Qwen/Qwen2.5-7B-Instruct. Not switching model or changing quantization.
