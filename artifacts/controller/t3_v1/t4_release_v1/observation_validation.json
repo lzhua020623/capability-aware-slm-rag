@@ -1,0 +1,12 @@
+{
+  "schema_version": "controller_t4_launch_observation_validation_v1",
+  "submission_sha256": "47e19e08fc6a4bb16cdcf4504ac8f973d2ebf228a1a47d50788eaff361a34f79",
+  "notebook_sha256": "e357da198aed706eae883a3c9ebbd67f9673fb8ee6f2939a18669a78b7a3b04b",
+  "source_files_verified_against_current_workspace": 91,
+  "engineering_receipt_bound": true,
+  "first_query_seven_arm_coverage": true,
+  "invalid_E_output_disclosed_without_tuning": true,
+  "partial_progress_not_reported_as_quality_or_completion": true,
+  "all_relative_document_links_valid": true,
+  "passed": true
+}

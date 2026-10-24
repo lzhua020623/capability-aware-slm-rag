@@ -1,0 +1,71 @@
+{
+  "schema_version": "controller_t4_cloud_submission_v1",
+  "recorded_at_UTC": "2026-10-24 11:47:19 UTC",
+  "notebook_url": "https://www.kaggle.com/code/yearo111/controller-t3-cuda-engineering-frozen-20261024?scriptVersionId=361785012",
+  "script_version_id": 361785012,
+  "version": 2,
+  "version_name": "T4 dev200x2 seven arms frozen baseline",
+  "observed_job_state": "Running",
+  "inference_started": true,
+  "phase": "paired_development_inference",
+  "observed_predictions": 9,
+  "code_source_commit": "42c7974453a60ab06194f958e65a0c18311c22d1",
+  "notebook_sha256": "e357da198aed706eae883a3c9ebbd67f9673fb8ee6f2939a18669a78b7a3b04b",
+  "launch_receipt_sha256": "0259609ab5cdb1265bb5e2c6737973146b2089da8b5f8bd655f260faae5847d4",
+  "inputs": {
+    "code": "https://www.kaggle.com/datasets/yearo111/controller-t3-frozen-engineering-20261024",
+    "accepted_engineering_receipt": "https://www.kaggle.com/datasets/yearo111/controller-t3-accepted-cuda-receipt-20261024",
+    "original_retrieval_resources": "https://www.kaggle.com/datasets/yearo111/controller-t4-retrieval-resources-frozen-20261024"
+  },
+  "inputs_attached": 3,
+  "resource_dataset_processed": true,
+  "resource_dataset_files": 15,
+  "resource_dataset_unpacked_display_size_GB": 8.77,
+  "UI_settings_verified": {
+    "accelerator": "GPU T4 x2",
+    "internet": true,
+    "persistence": "No persistence",
+    "environment": "Pin to original environment",
+    "draft_session_started": false
+  },
+  "inference_preconditions": "Original resource SHA256, exact full runtime/CPU configuration match, accepted eight-path CUDA receipt and historical ordered Top5 lookups; execution seal saved before first prediction.",
+  "quality_scored": false,
+  "observed_at_UTC": "2026-10-24 11:59:23 UTC",
+  "observed_predictions_scope": "lower bound in delayed live logs; not the current complete total",
+  "execution_seal_downloaded": false,
+  "complete_outputs_downloaded": false,
+  "full_pair_set_complete": false,
+  "startup_evidence": {
+    "portable_tests_passed": 55,
+    "portable_test_seconds": 18.238,
+    "input_preflight": {
+      "nq": 200,
+      "fever": 200,
+      "gold_read": false
+    },
+    "resource_binding_log": "Original retrieval assets and accepted CUDA receipt verified",
+    "resource_binding_log_seconds": 137.4,
+    "first_prediction_log_seconds": 483.8,
+    "first_query_all_seven_modes_observed": true,
+    "historical_lookup_and_runtime_gates": "Reaching a prediction proves the frozen runner passed both gates and saved execution seal; raw seal will be downloaded after completion.",
+    "observation_is_not_quality_evaluation": true
+  },
+  "first_query_statuses": {
+    "c1": "no_action",
+    "always_retrieve": "answer_replaced",
+    "always_rerank": "answer_replaced",
+    "always_repair": "invalid_output",
+    "full_enhancement": "sequence_completed",
+    "adaptive": "no_action",
+    "adaptive_no_probe": "answer_replaced"
+  },
+  "last_observed_prediction": {
+    "dataset": "nq",
+    "ordinal": 2,
+    "mode": "always_retrieve",
+    "n_predictions": 9,
+    "status": "answer_replaced",
+    "log_seconds": 545.9
+  },
+  "invalid_output_policy": "Frozen E fallback and operational review flag; retain input answer, count outcome in final evaluation; no prompt change or semantic retry."
+}
