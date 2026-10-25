@@ -1,0 +1,24 @@
+{
+  "round": "reconnect and corrected CUDA launch",
+  "checked_at": "2026-10-25T12:48:50.201924+00:00",
+  "before": {
+    "repository_head": "e1cf866",
+    "tracked_worktree_clean": true,
+    "only_untracked_user_annotation_untouched": true,
+    "registered_interface_revision": "evidence_id_v2a_v2_interface_r1",
+    "private_input_and_notebook": true
+  },
+  "after": {
+    "passed": true,
+    "full_tests": 816,
+    "targeted_transport_tests": 5,
+    "source_file_hashes_verified": 87,
+    "inference_source_unchanged": true,
+    "archive_and_uploaded_binary_equal": true,
+    "Kaggle_version_id": 362133401,
+    "actual_running_observed": true,
+    "engineering_acceptance_claimed": false,
+    "selection_or_final_started": false
+  },
+  "full_test_log_sha256": "56f155e637c1bc705df7993185098b5908c947fc70e494bcf6b37a3c9beb614a"
+}

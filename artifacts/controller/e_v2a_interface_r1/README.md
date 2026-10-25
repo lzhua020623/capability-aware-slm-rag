@@ -7,3 +7,5 @@
 本地完整 815 项回归通过；[实际源码的 CPU grammar 检查](../e_v2a_v1/validation/interface_r1_schema_cpu.json)覆盖六类虚构输入，合法结构可接受、已观察空 ID 组合被拒绝。独立[解包检查](validation/extracted_bundle_check.json)通过 90 个文件指纹、800 个输入及 25 项便携测试；800 个开发输入最长 6,522 tokens。以上不等于真实模型核验或 GPU 长输入验收通过。
 
 GPU 仍须先通过六个新虚构行为检查和两条至少 14k-token 的 XGrammar/prefill256 联合检查，之后才允许执行 800 次开发 E。任一门槛失败即停止，不再围绕这些题调整判断提示，不使用选型或 final 数据。
+
+修正版已于 2026-10-25 提交至 [Kaggle 私有运行版本 362133401](https://www.kaggle.com/code/yearo111/controller-e-v2a-interface-r1-20261025?scriptVersionId=362133401)，页面确认 GPU T4 x2 / Running；[启动记录](launch_v1.json)保留当时观察。启动不代表工程验收通过，后续结果另外归档，不覆盖启动记录或第一次失败。

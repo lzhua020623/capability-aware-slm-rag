@@ -1,6 +1,7 @@
 import base64
 import hashlib
 import json
+from pathlib import Path
 import tarfile
 import zipfile
 import unittest
@@ -9,6 +10,30 @@ from scripts.prepare_controller_e_v2a_transport import RELEASE, dataset_variant
 
 
 class TransportTests(unittest.TestCase):
+    def test_corrected_gpu_launch_uses_the_sealed_fresh_gate_bundle(self):
+        folder = Path(__file__).resolve().parents[1] / 'artifacts/controller/e_v2a_interface_r1'
+        launch = json.loads((folder / 'launch_v1.json').read_text())
+        transport = json.loads((folder / 'transport_v1/transport_receipt.json').read_text())
+        archive = folder / 'gpu_release_v1/controller_e_v2a_development_v1.tar.gz'
+        self.assertEqual(hashlib.sha256(archive.read_bytes()).hexdigest(), launch['archive_sha256'])
+        self.assertEqual(launch['archive_sha256'], transport['archive_sha256'])
+        self.assertEqual(launch['inference_source_commit'], transport['inference_source_commit'])
+        self.assertEqual(launch['privacy'], 'Private')
+        self.assertIsNone(launch['engineering_passed'])
+        self.assertIsNone(launch['development_predictions_confirmed'])
+        self.assertFalse(launch['selection_or_final_started'])
+        with tarfile.open(archive) as t:
+            prefix = 'controller_e_v2a_development_v1/'
+            manifest = json.load(t.extractfile(prefix + 'execution_manifest.json'))
+            cases = json.load(t.extractfile(prefix + 'engineering/cases.json'))
+            self.assertEqual(manifest['source_commit'], launch['inference_source_commit'])
+            self.assertEqual(manifest['engineering_revision'], 'evidence_id_v2a_v2_interface_r1')
+            self.assertEqual(len(cases), 6)
+            self.assertTrue(all(c['case_id'].startswith('v2a-r1-fiction-') for c in cases))
+            registration = json.load(t.extractfile(prefix + 'configs/controller/e_v2a_engineering_r1.json'))
+            self.assertTrue(registration['registered_before_corrected_GPU_run'])
+            self.assertEqual(registration['parent_development_predictions'], 0)
+
     def test_only_the_loader_changes_and_the_exact_archive_is_preserved(self):
         old = json.loads((RELEASE / 'controller_e_v2a_development_v1.ipynb').read_text())
         new = dataset_variant(old)

@@ -1,0 +1,28 @@
+{
+  "schema_version": "controller_e_v2a_kaggle_launch_v1",
+  "observed_at": "2026-10-25T12:46:05.063173+00:00",
+  "notebook_url": "https://www.kaggle.com/code/yearo111/controller-e-v2a-interface-r1-20261025?scriptVersionId=362133401",
+  "script_version_id": 362133401,
+  "version": 1,
+  "privacy": "Private",
+  "accelerator": "GPU T4 x2",
+  "status": "running",
+  "observed_stage": "dependency installation; six fresh fictional and two combined long-input CUDA checks not yet accepted",
+  "engineering_passed": null,
+  "development_predictions_confirmed": null,
+  "input_dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-e-v2a-interface-r1-frozen-20261025",
+  "input_dataset_private": true,
+  "input_dataset_filename": "controller_e_v2a_development_v1.tar.gz.bin",
+  "archive_sha256": "54cbca0d57d5d2733afac260c988f47a6bafef77dcef1bd56d3a188c638d1c50",
+  "transport_notebook_sha256": "3e7faba584eb04dec4862e9b7633fab4142dd086a8912d4e7ea65af953d8b941",
+  "inference_source_commit": "fa8bfd680055912386ed9c4a7dcae38d835cf820",
+  "UI_evidence": [
+    "Version #1 with GPU T4 x2 / Running",
+    "version page displays Private",
+    "corrected archive SHA visible in submitted cell",
+    "exact .tar.gz.bin file visible under the new private Dataset"
+  ],
+  "interface_correction": "registered r1; not a semantic-prompt optimization",
+  "selection_or_final_started": false,
+  "quota_display_at_submission": "10:26 / 30 hrs; displayed usage, not verified remaining quota"
+}
