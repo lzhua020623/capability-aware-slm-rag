@@ -1,0 +1,39 @@
+{
+  "trials": [
+    {
+      "threshold": 0.2,
+      "evaluation_n": 200,
+      "added_retrieval_calls": 107,
+      "fixed_vs_adaptive": 5,
+      "harmed_vs_adaptive": 2,
+      "net_EM": 3
+    },
+    {
+      "threshold": 0.3,
+      "evaluation_n": 200,
+      "added_retrieval_calls": 64,
+      "fixed_vs_adaptive": 2,
+      "harmed_vs_adaptive": 1,
+      "net_EM": 1
+    },
+    {
+      "threshold": 0.4,
+      "evaluation_n": 200,
+      "added_retrieval_calls": 26,
+      "fixed_vs_adaptive": 0,
+      "harmed_vs_adaptive": 0,
+      "net_EM": 0
+    }
+  ],
+  "attempts": 3,
+  "provisional_threshold": 0.2,
+  "candidate_frozen": false,
+  "promoted": false,
+  "pending": [
+    "15 user-confirmed routing reviews",
+    "frozen E v2a deployment mode",
+    "replay on v2a baseline"
+  ],
+  "scope": "post-T4 development frozen EM; not selection, human semantics or efficacy evidence",
+  "source_archive_sha256": "be3b926b8f808cd39b1c32b64564e5e5619518bebd2585af3fd8f0a6616bc7a5"
+}

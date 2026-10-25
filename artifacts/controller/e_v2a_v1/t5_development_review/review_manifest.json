@@ -1,0 +1,14 @@
+{
+  "n": 15,
+  "human_confirmed": 0,
+  "reference_visible": true,
+  "candidate_frozen": false,
+  "five_user_reported_semantic_harm_IDs": "pending user identification",
+  "files": {
+    "correct_keep_regression_ids.json": "e45d21645dd41d84b3991c46ed45bc07252a51eadce1ac7655f8bfcabde0bf96",
+    "routing15_review.html": "87512f0e7dda899baa1c5699956f7c361bc7a1c7152268abae101ee00eac5951",
+    "routing_search_development.json": "aad85788223a9e07c50dab905a44e8e76d201e2bb9a1023f1f48d3b27d51f856",
+    "replay_cache_audit.json": "000a84016b637721af940fd8fbf97023acc65ffc70fa9b0dcd849fb1c415915f",
+    "routing15_review.jsonl": "5b7676dabcf113a3e982a821a1b1a177104902c81dd4d0455acd4e88e5b1978c"
+  }
+}
