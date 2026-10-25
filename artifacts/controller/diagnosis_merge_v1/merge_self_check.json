@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-26",
+  "round": "compatible Diagnosis framework merge",
+  "checked_at_UTC": "2026-10-25T14:45:00.524036+00:00",
+  "before": {
+    "base_commit": "e602a69c2c3f18679041fb655243aec1bf0ba463",
+    "upstream_commit": "138d52aa22e0eee78637e01f981a030d7ad388df",
+    "author_identity": "Qihan Zhu <qzhu0160@uni.sydney.edu.au>",
+    "tracked_worktree_clean_before_merge": true
+  },
+  "after": {
+    "full_tests": 926,
+    "targeted_tests": 45,
+    "legacy_historical_decisions_checked": 800,
+    "legacy_decision_field_mismatches": 0,
+    "old_refinement_interfaces_preserved": true,
+    "lazy_exports_preserved": true,
+    "result_consistency_guards_tested": true,
+    "P60_activated": false,
+    "new_GPU_quality_results": 0,
+    "historical_hashes_verified": 4,
+    "r2_fixture_hash_unchanged": true,
+    "user_annotation_untouched": true
+  },
+  "preserved_upstream_assets_sha256": {
+    "configs/controller/p60_online_adapter.json": "a77910fb138b6c32bbdc94066c0bb31d4f0f039e98bc9ffef595a4ec8989cc83",
+    "models/controller/p60_online_adapter/hgb_3c.joblib": "0a7c35c9d2f5d26c43834f17822574e113edc986e4a851c934ac9ea9f50f3c1e",
+    "models/controller/p60_online_adapter/hgb_fail_gate.joblib": "13850ff33b22e72fae8e4ce4d0e3c4a26ce361a791639b362152cff093cfef51",
+    "models/controller/p60_online_adapter/hgb_rec_given_fail.joblib": "d27cec5d03114e6a648211dc1267cf9e2cbc4935a940ebdfa6b8117eb13905a4",
+    "models/diagnosis/diagnosis_v2_expanded_hierarchical.json": "ff361abb39de0682f2185aeffc575d7adb9305a64783d5cc476848cabd4967ec"
+  },
+  "remaining_P60_gates": [
+    "training/tuning/exposure IDs",
+    "real runtime feature provider and cost",
+    "real enhancement adapters plus budget receipts",
+    "separately registered effect comparison"
+  ],
+  "scope": "code compatibility and cached legacy routes; not P60 quality, E acceptance or final evaluation"
+}

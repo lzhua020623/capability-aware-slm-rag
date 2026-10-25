@@ -1,6 +1,16 @@
 """Compensation components, loaded independently of neighbouring modules."""
 
 __all__ = [
+    'ENHANCEMENT_ACTIONS',
+    'EnhancementExecutor',
+    'Enhancement',
+    'EvidenceRefinementEnhancement',
+    'GenerationRepairEnhancement',
+    'RetrievalEnhancement',
+    'EnhancementRequest',
+    'EnhancementResult',
+    'EnhancementStatus',
+
     "CrossEncoderScorer",
     "EvidenceRefiner",
     "RefinementConfig",
@@ -18,6 +28,16 @@ def __getattr__(name):
     from importlib import import_module
 
     modules = {
+        'ENHANCEMENT_ACTIONS': 'executor',
+        'EnhancementExecutor': 'executor',
+        'Enhancement': 'interface',
+        'EvidenceRefinementEnhancement': 'interface',
+        'GenerationRepairEnhancement': 'interface',
+        'RetrievalEnhancement': 'interface',
+        'EnhancementRequest': 'schema',
+        'EnhancementResult': 'schema',
+        'EnhancementStatus': 'schema',
+
         "EvidenceRefiner": "evidence_refinement", "evidence_refinement": "evidence_refinement",
         "CrossEncoderScorer": "rerank", "RelevanceScorer": "rerank", "rerank_evidence": "rerank",
         "RefinementConfig": "schema", "RefinementResult": "schema", "RefinementStatus": "schema",

@@ -204,8 +204,25 @@ class DecisionTests(unittest.TestCase):
         for fn in (resolve_final_diagnosis, route_controller, decide_action, decide_from_probed, run_controller):
             self.assertFalse(set(inspect.signature(fn).parameters) & forbidden, fn.__name__)
         fields = {f.name for f in dataclasses.fields(ControllerDecision)}
-        self.assertEqual(fields, {"action", "diagnosis_label", "diagnosis_confidence", "used_probe",
-                                  "probe_overrode_diagnosis", "sample_id", "needs_compensation"})
+        self.assertEqual(
+            fields,
+            {
+                "action",
+                "diagnosis_label",
+                "diagnosis_confidence",
+                "used_probe",
+                "probe_overrode_diagnosis",
+                "sample_id",
+                "selection_score",
+                "selection_lane",
+                "reason",
+                "primary_failure_type",
+                "active_failures",
+                "failure_scores",
+                "needs_compensation",
+                "needs_enhancement",
+            },
+        )
         source = (ROOT / "src" / "controller" / "controller.py").read_text(encoding="utf-8")
         for token in ("target_label", "metadata", "needs_manual_review", "gold_", "offline_evaluation"):
             self.assertNotIn(token, source)

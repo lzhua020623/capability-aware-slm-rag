@@ -1,0 +1,91 @@
+nq: paired=500, C1 wrong=100, C1 wrong/C3 correct=60, C1 wrong/C3 wrong=40, Recoverable Failure Rate=0.6000
+Recoverable set: /var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/tmpuczmzt7h/out/nq_c1_c3_recoverable.jsonl
+Persistent-failure set: /var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/tmpuczmzt7h/out/nq_c1_c3_persistent_failures.jsonl
+Summary: /var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/tmpuczmzt7h/out/nq_c1_c3_recoverability_summary.json
+{"gate_check": "v2a-r2-fiction-nq-supported_keep-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-supported_keep-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_repair-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_repair-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_no_candidate-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_no_candidate-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-missing_insufficient-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-missing_insufficient-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-conflict_insufficient-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-conflict_insufficient-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-supported_keep-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-supported_keep-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-contradicted_repair-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-contradicted_repair-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-missing_insufficient-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-missing_insufficient-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-conflict_insufficient-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-conflict_insufficient-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_repair-1-long", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-contradicted_repair-1-long", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-supported_keep-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-supported_keep-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_repair-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_repair-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_no_candidate-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_no_candidate-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-missing_insufficient-1", "passed": false, "failure_class": "semantic"}
+{"gate_check": "v2a-r2-fiction-nq-missing_insufficient-2", "passed": false, "failure_class": "semantic"}
+{"gate_check": "v2a-r2-fiction-nq-conflict_insufficient-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-conflict_insufficient-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-supported_keep-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-supported_keep-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-contradicted_repair-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-contradicted_repair-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-missing_insufficient-1", "passed": false, "failure_class": "semantic"}
+{"gate_check": "v2a-r2-fiction-fever-missing_insufficient-2", "passed": false, "failure_class": "semantic"}
+{"gate_check": "v2a-r2-fiction-fever-conflict_insufficient-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-conflict_insufficient-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_repair-1-long", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-contradicted_repair-1-long", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-supported_keep-1", "passed": false, "failure_class": "structure"}
+{"gate_check": "v2a-r2-fiction-nq-supported_keep-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_repair-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_repair-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_no_candidate-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_no_candidate-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-missing_insufficient-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-missing_insufficient-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-conflict_insufficient-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-conflict_insufficient-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-supported_keep-1", "passed": false, "failure_class": "structure"}
+{"gate_check": "v2a-r2-fiction-fever-supported_keep-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-contradicted_repair-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-contradicted_repair-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-missing_insufficient-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-missing_insufficient-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-conflict_insufficient-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-conflict_insufficient-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_repair-1-long", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-contradicted_repair-1-long", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-supported_keep-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-supported_keep-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_repair-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_repair-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_no_candidate-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_no_candidate-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-missing_insufficient-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-missing_insufficient-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-nq-conflict_insufficient-1", "passed": false, "failure_class": "execution"}
+{"gate_check": "v2a-r2-fiction-nq-conflict_insufficient-2", "passed": false, "failure_class": "execution"}
+{"gate_check": "v2a-r2-fiction-fever-supported_keep-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-supported_keep-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-contradicted_repair-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-contradicted_repair-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-missing_insufficient-1", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-missing_insufficient-2", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-conflict_insufficient-1", "passed": false, "failure_class": "execution"}
+{"gate_check": "v2a-r2-fiction-fever-conflict_insufficient-2", "passed": false, "failure_class": "execution"}
+{"gate_check": "v2a-r2-fiction-nq-contradicted_repair-1-long", "passed": true, "failure_class": null}
+{"gate_check": "v2a-r2-fiction-fever-contradicted_repair-1-long", "passed": true, "failure_class": null}
+Checked NQ_C1_000_preliminary_annotations.xlsx: 1 rows
+Checked NQ_C1_000_preliminary_annotations.xlsx: 1 rows
+----------------------------------------------------------------------
+Ran 926 tests in 77.035s
+
+OK
+{"preflight": "passed", "n_inputs": 1, "nq_index_required": true}
