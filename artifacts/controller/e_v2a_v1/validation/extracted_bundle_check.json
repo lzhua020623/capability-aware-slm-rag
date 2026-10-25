@@ -1,0 +1,32 @@
+{
+  "archive_sha256": "728c8ba512115825c3a4c362f5e4a51a3c860d74ad4d6e977dcaf93ca12adcf3",
+  "source_commit": "85604715a274c24cac79fad1c771e0612cf244ac",
+  "files_verified": 89,
+  "commands": [
+    {
+      "command": [
+        "scripts/run_controller_e_v2a.py",
+        "--preflight",
+        "--output-dir",
+        "/var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/controller-v2a-bundle-eychrqco/unused-output"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"passed\": true, \"n\": 800, \"contains_real_gold\": false}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "-m",
+        "unittest",
+        "tests.test_evidence_v2a",
+        "tests.test_controller_v2a_policy",
+        "-q"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "----------------------------------------------------------------------\nRan 23 tests in 24.406s\n\nOK\n"
+    }
+  ],
+  "GPU_run": false,
+  "status": "passed"
+}

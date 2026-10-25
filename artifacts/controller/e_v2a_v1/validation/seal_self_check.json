@@ -1,0 +1,20 @@
+{
+  "round": "seal and extracted-bundle audit",
+  "checked_at": "2026-10-25T11:55:19.382162+00:00",
+  "before": {
+    "source_commit": "85604715a274c24cac79fad1c771e0612cf244ac",
+    "source_clean_before_freeze": true,
+    "historical_hashes": "unchanged"
+  },
+  "after": {
+    "archive_sha256": "728c8ba512115825c3a4c362f5e4a51a3c860d74ad4d6e977dcaf93ca12adcf3",
+    "files_verified": 89,
+    "extracted_preflight": true,
+    "portable_tests": 23,
+    "last_full_tests": 809,
+    "GPU_run": false,
+    "human_confirmed": 0,
+    "source_code_changed": false,
+    "passed": true
+  }
+}
