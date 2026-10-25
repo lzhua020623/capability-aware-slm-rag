@@ -57,6 +57,7 @@ QWEN_STRATEGIES = frozenset({
     "verify_repair", "grounded_reanswer", "query_grounded", "guarded_reanswer",
     "extractive_reanswer", "short_answer_quote", "conservative_repair",
     "conservative_no_original_gate", "conservative_no_candidate_gate",
+    "evidence_id_v2a",
 })
 
 
@@ -77,8 +78,13 @@ class ExecutionConfig:
     repair_max_new_tokens: int = 384
     max_total_output_tokens: int = 544
     prefill_chunk_size: int = 256
+    nq_v2a_mode: str = "allow_repair"
+    fever_v2a_mode: str = "allow_repair"
 
     def __post_init__(self):
+        if any(getattr(self, n) not in ('allow_repair', 'verify_only', 'unavailable')
+               for n in ('nq_v2a_mode', 'fever_v2a_mode')):
+            raise ValueError('Unknown E v2a deployment mode')
         for name in ("nq_repair_strategy", "fever_repair_strategy"):
             if getattr(self, name) not in QWEN_STRATEGIES:
                 raise ValueError(f"Unsupported Qwen strategy: {getattr(self, name)}")
@@ -168,6 +174,19 @@ class MeteredGenerator:
 
     def generate(self, prompt, max_new_tokens):
         return self._call(prompt, max_new_tokens)
+
+    def generate_schema(self, prompt, max_new_tokens, schema):
+        metadata = {}
+        arguments = {'prompt': prompt, 'prompt_sha256': hashlib.sha256(prompt.encode()).hexdigest(),
+                     'max_new_tokens': max_new_tokens, 'schema': schema,
+                     'schema_sha256': fingerprint(schema)}
+        def generate():
+            value, observed = self.provider.generate_schema(prompt, max_new_tokens, schema)
+            metadata.update(observed)
+            return value
+        value = self.calls.invoke('llm', self.stage, arguments, generate)
+        self.calls.events[-1]['structured_decoder'] = metadata
+        return value, metadata
 
     def generate_labeled(self, prompt, max_new_tokens, *, labels, insufficient=False):
         return self._call(prompt, max_new_tokens, labels, insufficient)
@@ -363,8 +382,13 @@ class IntegratedController:
                             else self.config.fever_repair_strategy)
                 repair_generator = MeteredGenerator(self.repair_generators[item.dataset.value], calls,
                                                      "generation_repair")
-                native_result = generation_repair(item, decision, repair_generator, strategy=strategy,
-                                                 max_new_tokens=self.config.repair_max_new_tokens)
+                if strategy == 'evidence_id_v2a':
+                    mode = self.config.nq_v2a_mode if item.dataset.value == 'nq' else self.config.fever_v2a_mode
+                    native_result = generation_repair(item, decision, repair_generator, strategy=strategy,
+                        v2a_mode=mode, max_new_tokens=self.config.repair_max_new_tokens)
+                else:
+                    native_result = generation_repair(item, decision, repair_generator, strategy=strategy,
+                                                     max_new_tokens=self.config.repair_max_new_tokens)
                 native = {**asdict(native_result), "strategy": strategy}
                 selected = [asdict(e) for e in item.evidence]
                 final, status = native_result.final_answer, native_result.status

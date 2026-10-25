@@ -52,6 +52,9 @@ def unresolved_assessment(record):
     traces = [trace]
     traces.extend(s.get('module_trace') or {} for s in trace.get('stages', []))
     for native in traces:
+        verification = native.get('support_check') or {}
+        if verification.get('version') == 'evidence_id_v2a_v1' and verification.get('unresolved'):
+            reasons.extend('E_v2a:' + r for r in verification['unresolved_reasons'])
         if native.get('verdict') == 'insufficient':
             reasons.append('module_reports_insufficient_evidence')
         if native.get('validation_error'):

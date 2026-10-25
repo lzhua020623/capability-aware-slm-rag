@@ -17,7 +17,7 @@ from src.diagnosis import DatasetName, DiagnosisInput
 
 
 RUNTIME_STRATEGIES = ("verify_repair", "grounded_reanswer", "query_grounded", "guarded_reanswer",
-                      "extractive_reanswer", "fever_nli", "short_answer_quote", "fever_nli_anchored", *V8_STRATEGIES)
+                      "extractive_reanswer", "fever_nli", "short_answer_quote", "fever_nli_anchored", "evidence_id_v2a", *V8_STRATEGIES)
 
 
 class ResolvedDecision(Protocol):
@@ -66,6 +66,7 @@ def generation_repair(
     strategy: str = "verify_repair",
     verifier=None,
     max_new_tokens: int = DEFAULT_MAX_NEW_TOKENS,
+    v2a_mode: str = 'allow_repair',
 ) -> RepairResult:
     status = controller_route_status(request, decision)
     if status is not None:
@@ -79,6 +80,16 @@ def generation_repair(
         raise ValueError("The selected strategy does not support this dataset")
     if not any(item.text.strip() for item in request.evidence):
         return RepairResult(request.initial_answer, request.initial_answer, "skipped_no_evidence")
+    if strategy == 'evidence_id_v2a':
+        from src.compensation.evidence_v2a import repair
+        if generator is None:
+            from src.compensation.qwen_repair import QwenRepairGenerator
+            from src.compensation.qwen_v2a import QwenV2AGenerator
+            from src.controller.runtime import configure_generation_runtime
+            raw = QwenRepairGenerator(json_output=False)
+            configure_generation_runtime(raw)
+            generator = QwenV2AGenerator.from_shared(raw)
+        return repair(request, generator, mode=v2a_mode, max_new_tokens=max_new_tokens)
     if strategy in NLI_STRATEGIES:
         if verifier is None:
             from src.compensation.nli_repair import MNLIVerifier

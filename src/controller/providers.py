@@ -14,7 +14,14 @@ from src.controller.runtime import configure_generation_runtime
 def shared_repair_views(generator, config):
     """Separate stop settings, identical tokenizer/model objects; no second load."""
     views = {}
+    constrained = None
     for dataset, strategy in (("nq", config.nq_repair_strategy), ("fever", config.fever_repair_strategy)):
+        if strategy == 'evidence_id_v2a':
+            if constrained is None:
+                from src.compensation.qwen_v2a import QwenV2AGenerator
+                constrained = QwenV2AGenerator.from_shared(generator)
+            views[dataset] = constrained
+            continue
         view = copy(generator)
         view.json_output = strategy not in LINE_OUTPUT_STRATEGIES
         views[dataset] = view
@@ -76,4 +83,7 @@ def load_pipeline(config, classifier_path, *, nq_index=None, nq_metadata=None, n
                    "nq_index": str(nq_index) if nq_index else None,
                    "nq_metadata": str(nq_metadata) if nq_metadata else None,
                    "nq_train_resources": resource_receipt, 'fever_resources': fever_receipt}
+    if any(s == 'evidence_id_v2a' for s in (config.nq_repair_strategy, config.fever_repair_strategy)):
+        environment['E_v2a_runtime'] = next(v.runtime_environment for v in pipeline.repair_generators.values()
+                                          if hasattr(v, 'compiler'))
     return pipeline, environment

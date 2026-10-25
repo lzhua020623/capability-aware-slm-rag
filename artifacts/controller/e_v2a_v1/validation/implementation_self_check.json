@@ -1,0 +1,24 @@
+{
+  "round": "implementation",
+  "checked_at": "2026-10-25T01:23:39.819118+00:00",
+  "before": {
+    "registration_commit": "e3c8265",
+    "baseline_tests": 778,
+    "scope": "single-call interface, shared model, runtime accounting; no qualifier structure or model change"
+  },
+  "after": {
+    "full_tests": 801,
+    "seconds": 119.161,
+    "passed": true,
+    "targeted_new_tests": 23,
+    "historical_hashes": "unchanged",
+    "GPU_run": false,
+    "selection_or_final_gold_read": false,
+    "user_annotation_preserved": true
+  },
+  "limitations": [
+    "real XGrammar plus prefill256 CUDA gate pending",
+    "five semantic-harm IDs awaiting user identification",
+    "15 routing cases pending user confirmation"
+  ]
+}
