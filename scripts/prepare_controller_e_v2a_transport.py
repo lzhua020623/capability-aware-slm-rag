@@ -26,12 +26,13 @@ def dataset_variant(notebook):
     return nb
 
 
-def prepare(output):
+def prepare(output, release=RELEASE):
     output = Path(output)
+    release = Path(release)
     if output.exists(): raise FileExistsError('Preserve transport receipts')
-    receipt = json.loads((RELEASE / 'bundle_receipt.json').read_text())
-    original = RELEASE / 'controller_e_v2a_development_v1.ipynb'
-    archive = RELEASE / 'controller_e_v2a_development_v1.tar.gz'
+    receipt = json.loads((release / 'bundle_receipt.json').read_text())
+    original = release / 'controller_e_v2a_development_v1.ipynb'
+    archive = release / 'controller_e_v2a_development_v1.tar.gz'
     if hashlib.sha256(archive.read_bytes()).hexdigest() != receipt['archive_sha256']:
         raise ValueError('Frozen archive changed')
     if hashlib.sha256(original.read_bytes()).hexdigest() != receipt['notebook_sha256']:
@@ -58,4 +59,6 @@ def prepare(output):
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__); p.add_argument('--output-dir', required=True, type=Path)
-    print(json.dumps(prepare(p.parse_args().output_dir), indent=2))
+    p.add_argument('--release-dir', type=Path, default=RELEASE)
+    args = p.parse_args()
+    print(json.dumps(prepare(args.output_dir, args.release_dir), indent=2))

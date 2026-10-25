@@ -1,0 +1,41 @@
+{
+  "source_sha256": "2eabffe401b63920c5709e708ddf06a2ead1159e8c0dde49cbe7e4ec564b679d",
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "xgrammar": "0.2.8",
+  "GPU_used": false,
+  "seconds": 1.7528518330072984,
+  "results": [
+    {
+      "case_id": "v2a-r1-fiction-nq-supported_keep",
+      "valid_accepted": true,
+      "empty_IDs_rejected": true
+    },
+    {
+      "case_id": "v2a-r1-fiction-nq-unsupported_replace",
+      "valid_accepted": true,
+      "empty_IDs_rejected": true
+    },
+    {
+      "case_id": "v2a-r1-fiction-nq-insufficient_unresolved",
+      "valid_accepted": true,
+      "empty_IDs_rejected": true
+    },
+    {
+      "case_id": "v2a-r1-fiction-fever-supported_keep",
+      "valid_accepted": true,
+      "empty_IDs_rejected": true
+    },
+    {
+      "case_id": "v2a-r1-fiction-fever-unsupported_replace",
+      "valid_accepted": true,
+      "empty_IDs_rejected": true
+    },
+    {
+      "case_id": "v2a-r1-fiction-fever-insufficient_unresolved",
+      "valid_accepted": true,
+      "empty_IDs_rejected": true
+    }
+  ],
+  "scope": "real CPU grammar compilation, not model inference or semantic correctness"
+}

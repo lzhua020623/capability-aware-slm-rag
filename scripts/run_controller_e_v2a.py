@@ -37,23 +37,23 @@ def fictional_cases():
     for ds in ('nq', 'fever'):
         for kind in ('supported_keep', 'unsupported_replace', 'insufficient_unresolved'):
             missing = kind == 'insufficient_unresolved'
-            evidence = [EvidenceItem(1, 'fictional-velora',
-                'The fictional Velora Archive was designed by Nerin Sol. It is built from green basalt.', .9)]
+            evidence = [EvidenceItem(1, 'fictional-selen',
+                'The fictional Selen Observatory was designed by Veyra Lorn. It is built from gray marble.', .9)]
             evidence += [EvidenceItem(i, f'fictional-other-{i}',
                 f'Fictional archive {i} has a catalogue of unrelated maps and books.', .9 - i / 100)
                 for i in range(2, 6)]
-            query = ('When did the fictional Velora Archive open?' if missing else 'Who designed the fictional Velora Archive?') if ds == 'nq' else (
-                'The fictional Velora Archive opened in 2017.' if missing else
-                'The fictional Velora Archive was designed by Nerin Sol.')
-            initial = ('2017' if missing else 'Nerin Sol' if kind == 'supported_keep' else 'Erven Dale') if ds == 'nq' else (
+            query = ('When did the fictional Selen Observatory open?' if missing else 'Who designed the fictional Selen Observatory?') if ds == 'nq' else (
+                'The fictional Selen Observatory opened in 2019.' if missing else
+                'The fictional Selen Observatory was designed by Veyra Lorn.')
+            initial = ('2019' if missing else 'Veyra Lorn' if kind == 'supported_keep' else 'Nalo Kest') if ds == 'nq' else (
                 'REFUTES' if kind == 'unsupported_replace' else 'SUPPORTS')
-            item = DiagnosisInput(f'v2a-fiction-{ds}-{kind}', ds, query, evidence, initial)
+            item = DiagnosisInput(f'v2a-r1-fiction-{ds}-{kind}', ds, query, evidence, initial)
             cases.append({'case_id': item.sample_id, 'synthetic': True, 'input': asdict(item),
                 'expected': {'original_verification': 'supported' if kind == 'supported_keep' else
                              'unsupported' if kind == 'unsupported_replace' else 'insufficient',
                              'final_action': 'replace' if kind == 'unsupported_replace' else 'keep',
                              'unresolved': missing,
-                             'final_answer': ('Nerin Sol' if ds == 'nq' else 'SUPPORTS') if kind == 'unsupported_replace' else initial}})
+                             'final_answer': ('Veyra Lorn' if ds == 'nq' else 'SUPPORTS') if kind == 'unsupported_replace' else initial}})
     return cases
 
 

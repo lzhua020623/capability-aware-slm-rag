@@ -130,13 +130,14 @@ def prepare(output, root=ROOT):
     plan, ids, routed = frozen_plan(root)
     sources = [*sorted((root / 'src').rglob('*.py'))]
     sources += [root / n for n in ('scripts/run_controller_e_v2a.py', 'scripts/run_controller_integration.py',
-        'configs/base.yaml', POLICY, 'requirements-controller-e-v2a.txt', 'requirements-controller-t3.txt',
+        'configs/base.yaml', POLICY, 'configs/controller/e_v2a_engineering_r1.json', 'requirements-controller-e-v2a.txt', 'requirements-controller-t3.txt',
         'requirements-answer-repair-v8.txt', 'models/diagnosis/diagnosis_v2_expanded_hierarchical.json',
         'tests/__init__.py', 'tests/test_evidence_v2a.py', 'tests/test_controller_v2a_policy.py', 'tests/test_controller_integration.py')]
     payload = {str(p.relative_to(root)): p.read_bytes() for p in sources}
     plan_raw = ''.join(json.dumps(r, ensure_ascii=False) + '\n' for r in plan).encode()
     cases_raw = json.dumps(fictional_cases(), ensure_ascii=False, indent=2).encode()
     manifest = {'schema_version': 'controller_e_v2a_execution_v1', 'role': 'development',
+        'engineering_revision': 'evidence_id_v2a_v2_interface_r1',
         'source_commit': commit, 'source_files': {k: hashlib.sha256(v).hexdigest() for k, v in payload.items()},
         'sample_ids': ids, 'fixed_T4_E_routed_ids': routed, 'n_predictions': 800,
         'plan_sha256': hashlib.sha256(plan_raw).hexdigest(), 'cases_sha256': hashlib.sha256(cases_raw).hexdigest(),

@@ -1,0 +1,22 @@
+{
+  "round": "one interface correction r1",
+  "checked_at": "2026-10-25T12:31:02.249774+00:00",
+  "before": {
+    "failed_source_preserved": true,
+    "parent_real_development_predictions": 0,
+    "registration": "configs/controller/e_v2a_engineering_r1.json",
+    "scope": "role clarification and conditional source-ID schema; no semantic pipeline/budget/model change"
+  },
+  "after": {
+    "full_tests": 815,
+    "seconds": 60.177,
+    "passed": true,
+    "real_CPU_grammar_checks": 6,
+    "old_empty_ID_pattern_rejected": true,
+    "semantic_RULES_and_model_loading_unchanged": true,
+    "historical_hashes": "unchanged",
+    "fresh_fictional_gate": "Selen Observatory / Veyra Lorn",
+    "corrected_GPU_run": false,
+    "semantic_gain_claim": false
+  }
+}

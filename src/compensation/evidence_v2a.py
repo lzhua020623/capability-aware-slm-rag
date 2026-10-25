@@ -16,21 +16,32 @@ from src.diagnosis import DatasetName
 from src.evaluation.qa import normalize_answer
 from src.evaluation.fever import parse_fever_prediction
 
-VERSION = 'evidence_id_v2a_v1'
+VERSION = 'evidence_id_v2a_v2'
 MODES = ('allow_repair', 'verify_only', 'unavailable')
 LIMIT = 384
-FIELDS = ('original_verification', 'original_evidence_ids', 'candidate_answer',
-          'candidate_evidence_ids', 'reason')
+FIELDS = ('original_verification', 'verdict_evidence_ids', 'replacement_answer',
+          'replacement_evidence_ids', 'reason')
 
 
-def schema(units):
-    ids = {'type': 'array', 'items': {'type': 'string', 'enum': [u.id for u in units]},
-           'maxItems': 5}
-    return {'type': 'object', 'properties': {
-        'original_verification': {'enum': ['supported', 'unsupported', 'insufficient']},
-        'original_evidence_ids': ids, 'candidate_answer': {'type': 'string'},
-        'candidate_evidence_ids': ids, 'reason': {'type': 'string'}},
-        'required': list(FIELDS), 'additionalProperties': False}
+def schema(units, request=None):
+    def ids(minimum, maximum=5):
+        return {'type': 'array', 'items': {'$ref': '#/$defs/source_id'},
+                'minItems': minimum, 'maxItems': maximum}
+    branches = []
+    for status, replacement in (('supported', False), ('unsupported', False),
+                                ('unsupported', True), ('insufficient', False)):
+        answer = {'type': 'string', 'minLength': 1} if replacement else {'const': ''}
+        if replacement and request is not None and request.dataset == DatasetName.FEVER:
+            entering = parse_fever_prediction(request.initial_answer)
+            answer = {'enum': [v for v in ('SUPPORTS', 'REFUTES') if v != entering]}
+        props = {'original_verification': {'const': status},
+                 'verdict_evidence_ids': ids(0 if status == 'insufficient' else 1),
+                 'replacement_answer': answer,
+                 'replacement_evidence_ids': ids(1) if replacement else ids(0, 0),
+                 'reason': {'type': 'string', 'minLength': 1}}
+        branches.append({'type': 'object', 'properties': props,
+                         'required': list(FIELDS), 'additionalProperties': False})
+    return {'$defs': {'source_id': {'type': 'string', 'enum': [u.id for u in units]}}, 'anyOf': branches}
 
 
 def prompt(request, units):
@@ -47,17 +58,19 @@ def prompt(request, units):
     return (RULES + task + '\nIn ONE response separately verify the entering answer and '
         'optionally propose a minimal replacement. original_verification is supported, '
         'unsupported or insufficient. supported: keep even if a longer wording is possible; '
-        'candidate_answer is empty. unsupported: demonstrate the answer error and provide '
+        'replacement_answer is empty. unsupported: demonstrate the answer error and provide '
         'a candidate only if sufficient evidence exists. Without a qualified candidate leave '
         'it empty; this does not turn unsupported into supported. insufficient: leave the '
         'candidate empty; explain relevant evidence conflicts explicitly. For supported and '
-        'unsupported select 1-5 unique original_evidence_ids supporting the verdict. For '
-        'a candidate select 1-5 candidate_evidence_ids. Empty candidates have no IDs. '
+        'unsupported select 1-5 unique verdict_evidence_ids for the JUDGMENT: these facts '
+        'may support OR contradict the entering answer. replacement_answer is the NEW '
+        'correct answer, not the entering answer being checked. For a replacement select '
+        '1-5 replacement_evidence_ids. Empty replacements have no IDs. '
         'Use only exact sentence keys, never generate quotations. Return JSON only.\n'
         f'Query: {json.dumps(request.query, ensure_ascii=False)}\n'
         f'Entering answer: {json.dumps(request.initial_answer, ensure_ascii=False)}\n'
         f'Evidence: {context(request, units)}\n'
-        'Output JSON Schema: ' + json.dumps(schema(units), separators=(',', ':')))
+        'Output JSON Schema: ' + json.dumps(schema(units, request), separators=(',', ':')))
 
 
 def apply_mode(result, mode):
@@ -121,11 +134,11 @@ def repair(request, backend, *, mode='allow_repair', max_new_tokens=LIMIT):
         return finish('verification_incomplete', error='No evidence units')
     text = prompt(request, units)
     call = {'prompt_sha256': hashlib.sha256(text.encode()).hexdigest(),
-            'schema_sha256': hashlib.sha256(json.dumps(schema(units), sort_keys=True).encode()).hexdigest(),
+            'schema_sha256': hashlib.sha256(json.dumps(schema(units, request), sort_keys=True).encode()).hexdigest(),
             'max_new_tokens': LIMIT}
     trace['calls'].append(call)
     try:
-        observed, metadata = backend.generate_schema(text, LIMIT, schema(units))
+        observed, metadata = backend.generate_schema(text, LIMIT, schema(units, request))
         if not isinstance(observed, Generation):
             raise TypeError('Structured backend must return Generation')
         generated = observed
@@ -138,9 +151,9 @@ def repair(request, backend, *, mode='allow_repair', max_new_tokens=LIMIT):
             raise ValueError('Invalid original verification')
         if not isinstance(value['reason'], str) or not value['reason'].strip():
             raise ValueError('Nonempty verification reason required')
-        original = selected_units(value['original_evidence_ids'], units, required=verdict != 'insufficient')
+        original = selected_units(value['verdict_evidence_ids'], units, required=verdict != 'insufficient')
         citations = reconstruct_citations(request, original)
-        check.update(original_verification=verdict, original_evidence_ids=value['original_evidence_ids'],
+        check.update(original_verification=verdict, verdict_evidence_ids=value['verdict_evidence_ids'],
                      original_citations=[asdict(c) for c in citations],
                      reason=value['reason'], unresolved=verdict != 'supported',
                      unresolved_reasons=[] if verdict == 'supported' else [
@@ -149,9 +162,9 @@ def repair(request, backend, *, mode='allow_repair', max_new_tokens=LIMIT):
         call.setdefault('error', {'type': type(exc).__name__, 'message': str(exc)})
         return finish('verification_incomplete', error=str(exc))
 
-    candidate = value['candidate_answer']
+    candidate = value['replacement_answer']
     try:
-        chosen = selected_units(value['candidate_evidence_ids'], units, required=bool(candidate))
+        chosen = selected_units(value['replacement_evidence_ids'], units, required=bool(candidate))
         if not candidate and chosen:
             raise ValueError('An absent candidate must not carry source IDs')
     except (ValueError, TypeError) as exc:
@@ -165,8 +178,9 @@ def repair(request, backend, *, mode='allow_repair', max_new_tokens=LIMIT):
         return finish('kept' if verdict == 'supported' else 'insufficient_evidence' if verdict == 'insufficient'
                       else 'candidate_unavailable', citations=citations)
     if verdict != 'unsupported':
-        check.update(candidate_check='protected', contract_passed=True)
-        return finish('kept' if verdict == 'supported' else 'insufficient_evidence', citations=citations, candidate=candidate)
+        check.update(candidate_check='protected', contract_passed=False)
+        return finish('kept' if verdict == 'supported' else 'insufficient_evidence', citations=citations,
+                      error='Replacement forbidden for supported/insufficient verdict', candidate=candidate)
     candidate_citations = reconstruct_citations(request, chosen)
     try:
         if request.dataset == DatasetName.FEVER:

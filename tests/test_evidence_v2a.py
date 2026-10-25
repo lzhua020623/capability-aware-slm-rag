@@ -27,8 +27,8 @@ class Backend:
 
 
 def output(verdict='unsupported', answer='Amber', ids=None, original_ids=None):
-    return {'original_verification': verdict, 'original_evidence_ids': ['R1S1'] if original_ids is None else original_ids,
-            'candidate_answer': answer, 'candidate_evidence_ids': (['R1S1'] if answer else []) if ids is None else ids,
+    return {'original_verification': verdict, 'verdict_evidence_ids': ['R1S1'] if original_ids is None else original_ids,
+            'replacement_answer': answer, 'replacement_evidence_ids': (['R1S1'] if answer else []) if ids is None else ids,
             'reason': 'The evidence establishes the requested fact.'}
 
 
@@ -127,9 +127,30 @@ class V2ATests(unittest.TestCase):
 
     def test_schema_only_exposes_legal_source_keys_and_no_offline_labels(self):
         units = evidence_units(self.nq); s = schema(units)
-        self.assertFalse(s['additionalProperties'])
-        self.assertEqual(s['properties']['candidate_evidence_ids']['items']['enum'], [u.id for u in units])
-        self.assertNotIn('gold', s['properties'])
+        self.assertTrue(all(not b['additionalProperties'] for b in s['anyOf']))
+        self.assertEqual(s['$defs']['source_id']['enum'], [u.id for u in units])
+        self.assertTrue(all('gold' not in b['properties'] for b in s['anyOf']))
+
+    def test_conditional_schema_rejects_observed_empty_ids_before_generation(self):
+        from jsonschema import Draft202012Validator
+        validator = Draft202012Validator(schema(evidence_units(self.nq), self.nq))
+        for valid in (output(), output('supported', ''), output('unsupported', ''),
+                      output('insufficient', '', original_ids=[])):
+            self.assertTrue(validator.is_valid(valid), valid)
+        for invalid in (output(original_ids=[]), output(ids=[]), output('supported', 'Amber'),
+                        output('insufficient', 'Amber')):
+            self.assertFalse(validator.is_valid(invalid), invalid)
+        fever = Draft202012Validator(schema(evidence_units(self.fever), self.fever))
+        self.assertFalse(fever.is_valid(output(answer='REFUTES')))
+
+    def test_interface_r1_gate_uses_new_fictional_facts(self):
+        from scripts.run_controller_e_v2a import fictional_cases
+        cases = fictional_cases()
+        self.assertEqual(len(cases), 6)
+        text = json.dumps(cases)
+        self.assertNotIn('Velora', text)
+        self.assertNotIn('Nerin Sol', text)
+        self.assertTrue(all(c['case_id'].startswith('v2a-r1-fiction-') for c in cases))
 
     def test_registered_budget_and_modes_only(self):
         for kwargs in ({'mode': 'other'}, {'max_new_tokens': 385}):
