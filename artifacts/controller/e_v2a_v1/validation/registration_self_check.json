@@ -1,0 +1,19 @@
+{
+  "round": "registration",
+  "checked_at": "2026-10-25T01:13:50.023185+00:00",
+  "before": {
+    "branch": "controller",
+    "baseline_tests": 774,
+    "user_untracked_file_preserved": "data/annotations/assisted/answer_repair_v7_batch01_20261017.jsonl",
+    "selection_or_final_read": false
+  },
+  "after": {
+    "full_tests": 778,
+    "seconds": 97.075,
+    "passed": true,
+    "historical_hashes": "unchanged",
+    "GPU_run": false,
+    "human_judgments_fabricated": false
+  },
+  "policy_sha256": "e8de1f15239ad8a8abf8e6f4d90353c4f7042d277e7bffe115db9034e629bf6b"
+}

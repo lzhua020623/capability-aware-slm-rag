@@ -1,0 +1,117 @@
+{
+  "schema_version": "controller_e_v2a_amendment_v1",
+  "date": "2026-10-25",
+  "registration_stage": "after_T4_observation_before_v2a_inference_and_T5_search",
+  "parent_commit": "f32fa92f0edb3707ce092ae35679115421974308",
+  "historical_files_unchanged": {
+    "configs/controller/experiment_protocol_v1.json": "3edce74cc048e20f2a7a6bbe187564adb06f520397b1ea51a875a1faf2a8f9d0",
+    "configs/controller/t3_execution_policy_v1.json": "45b76cdf9cfab2aebfcb73f285e53602d0724d46faffc6d6a78d04ca75de5c91",
+    "configs/controller/t5_selection_supplement_v1.json": "6d50ae9de4049f53f8350cbb2b77b48877d90fe2d4c89b8ef4cecf043ea80114",
+    "artifacts/controller/t4_v1/controller_t4_development_v1_outputs.zip": "be3b926b8f808cd39b1c32b64564e5e5619518bebd2585af3fd8f0a6616bc7a5"
+  },
+  "scope": {
+    "engineering_revision": "E v2a single-call source-ID interface and constrained decoding",
+    "only_optimization_candidate": "NQ low-confidence no_action to retrieval_enhancement",
+    "unchanged": ["C1", "model_weights", "quantization", "Diagnosis", "Probe_trigger", "Probe_prompt", "Safe_Binary", "retrieval", "reranking", "data_splits", "gold", "reference_aliases"],
+    "deferred": ["qualifier_structure", "independent_verifier", "SFT", "DPO", "RSI", "knowledge_base_cleaning"]
+  },
+  "E": {
+    "strategy": "evidence_id_v2a",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "quantization": "nf4",
+    "calls": 1,
+    "max_new_tokens": 384,
+    "nq_max_answer_words": 20,
+    "decoder": "xgrammar",
+    "xgrammar_version": "0.2.8",
+    "prefill_chunk_size": 256,
+    "source_id_mapping": "reuse lossless v9 sentence offsets; reconstruct quotes in code",
+    "original_verification": ["supported", "unsupported", "insufficient", "incomplete"],
+    "candidate_check": ["absent", "passed", "invalid_source", "invalid_span", "protected"],
+    "final_action": ["keep", "replace"],
+    "supported_policy": "always keep the exact entering answer",
+    "unsupported_policy": "replace only a changed, source-valid candidate; NQ must be a continuous original span; FEVER must be the opposite legal label",
+    "insufficient_policy": "keep and flag; preserve evidence_conflict as a reason",
+    "failure_policy": "keep and flag incomplete; never invent a verification verdict",
+    "candidate_failure": "preserve independently valid original verdict; full contract compliance may still fail",
+    "semantic_status": "same fallible Qwen; source validity does not establish entailment"
+  },
+  "engineering_gate": {
+    "fresh_fictional_cases_per_dataset": 3,
+    "required_expected_actions": ["supported_keep", "unsupported_replace", "insufficient_unresolved"],
+    "all_expected_cases_must_pass": true,
+    "long_input_tokens_per_dataset": 14000,
+    "xgrammar_and_prefill_enabled_together": true,
+    "no_silent_decoder_or_prefill_fallback": true,
+    "real_development_min_contract_rate_per_dataset": 0.9,
+    "minimum_development_count_per_dataset": 200,
+    "insufficient_or_unresolved_review_line": 0.9,
+    "review_line_rule": "strictly above the line blocks activation pending review; never force an answer to meet it",
+    "invalid_and_failed_calls_remain_in_denominator": true
+  },
+  "deployment_mode": {
+    "modes": ["allow_repair", "verify_only", "unavailable"],
+    "engineering_failed": "unavailable: retain answer and flag verification incomplete; no v1 fallback selection",
+    "compliant_but_negative_or_unestimable": "verify_only",
+    "compliant_and_nonnegative": "allow_repair",
+    "reference_population": "per dataset, fixed T4 Adaptive generation_repair subset; initial/final frozen metric, not utilisation labels",
+    "reference_n": {"nq": 16, "fever": 0},
+    "reference_metric": {"nq": "frozen_normalized_EM", "fever": "frozen_label_accuracy"},
+    "weighted_net": "p_wrong * repair_rate - (1-p_wrong) * harm_rate; equivalently (fixed-harmed)/n on the fixed routed subset",
+    "no_routed_samples": "unestimable, default verify_only; never interpret as demonstrated zero risk",
+    "historical_0_28": "9/32 target-utilisation/correct ratio in exposed PRIMARY; not the FEVER ratio, not a universal gate",
+    "same_mode_in_all_E_arms": true,
+    "diagnostic_candidate_outputs": "save raw allow-repair outcomes once; offline derive the frozen deployment mode without new inference",
+    "not_a_positive_gain_claim": true
+  },
+  "development": {
+    "counts_per_dataset": 200,
+    "new_calls": {"always_repair": 400, "full_E_from_cached_entering_state": 400},
+    "cache_full": "reuse original pre-E state and first two stages, execute new E on that state; no standalone-E substitution",
+    "replay": "same complete module input, versions, hints and budgets; existing Probe calls only; estimated replay costs are not measured deployment latency",
+    "review_required_before_candidate_freeze": "15 NQ T4 routing-priority cases with user-confirmed semantics",
+    "regression_only": "five user-reported semantic E harms and 73 initially correct Adaptive keep cases; preserve per-ID review provenance, never effect evidence"
+  },
+  "routing_search": {
+    "dataset": "nq",
+    "eligible_action": "no_action",
+    "new_action": "retrieval_enhancement",
+    "eligible_T4_count": 153,
+    "evaluation_count": 200,
+    "variable": "minimum_stage1_failure_probability",
+    "grid": [0.2, 0.3, 0.4],
+    "comparison": ">=",
+    "probe": "use existing Diagnosis probability with or without Probe; never add Probe calls or interpret missing Probe as unsupported",
+    "existing_explicit_supported_probe": "fixed veto: retain the original action",
+    "tie_order": ["largest_frozen_EM_net_gain", "fewest_harms", "fewest_added_retrieval_calls", "largest_threshold"],
+    "nonpositive_best": "retain baseline, no candidate promotion",
+    "runtime_forbidden": ["gold", "human_correctness", "sample_id_based_rules"],
+    "preserve_diagnosis": true,
+    "selection_candidates": 1,
+    "search_attempts_must_be_logged": true
+  },
+  "selection": {
+    "counts_per_dataset": 200,
+    "gpu_modes": ["always_retrieve", "always_rerank", "always_repair", "adaptive"],
+    "cached": ["c1"],
+    "omit": ["full_enhancement", "adaptive_no_probe", "E_v1"],
+    "primary_decision": "positive NQ frozen EM paired net gain over original route with the same frozen E mode",
+    "semantic_veto": "negative semantic net gain or unresolved judgments able to reverse the nonnegative semantic conclusion => retain original route",
+    "fever_unchanged_by_design": true,
+    "no_new_thresholds_after_selection": true
+  },
+  "final": {
+    "counts_per_dataset": 500,
+    "modes": ["c1", "always_retrieve", "always_rerank", "always_repair", "full_enhancement", "adaptive"],
+    "runs": 1,
+    "E_mode_disclosure": "if verify_only, label Always Repair and Full as verification without E answer replacement",
+    "statistics": "retain T3 paired statistics, four-comparison Holm family and cost completeness limits",
+    "AC6": "at least 50 flagged samples independently checked; observed incorrect-or-unsupported precision >= 0.90",
+    "trace_review": "at least 50 complete traces; independent requirement from AC6"
+  },
+  "self_checks": {
+    "before_each_round": ["git branch/status and user-owned files", "scope and frozen hashes", "data role and gold isolation", "acceptance and remaining resource budget"],
+    "after_each_round": ["relevant tests and required full suite", "diff and historical hash audit", "no fabricated human judgments or GPU receipts", "single-user commit and handoff status"]
+  }
+}
