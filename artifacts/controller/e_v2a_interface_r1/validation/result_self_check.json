@@ -1,0 +1,30 @@
+{
+  "round": "corrected CUDA gate output audit and registered stop",
+  "checked_at": "2026-10-25T12:58:13.180555+00:00",
+  "before": {
+    "repository_head": "280d30b",
+    "tracked_worktree_clean": true,
+    "registered_stop_on_failed_gate": true,
+    "inference_source_frozen": "fa8bfd680055912386ed9c4a7dcae38d835cf820",
+    "selection_and_final_not_started": true
+  },
+  "after": {
+    "passed": true,
+    "full_tests": 823,
+    "targeted_tests": 12,
+    "historical_hashes_verified": 4,
+    "inference_source_files_unchanged": 87,
+    "output_checksums_verified": 8,
+    "original_zip_preserved": true,
+    "real_CUDA_gate_passed": false,
+    "short_behavior_checks_passed": 2,
+    "short_behavior_checks_attempted": 3,
+    "long_checks_attempted": 0,
+    "fever_checks_attempted": 0,
+    "real_development_predictions": 0,
+    "silent_retry_or_loosened_expectations": false,
+    "human_judgments_fabricated": false,
+    "user_annotation_untouched": true
+  },
+  "full_test_log_sha256": "aa015099650c2f8c0d491fb0e73baf7ed9820f649697393f3016a4734045102b"
+}

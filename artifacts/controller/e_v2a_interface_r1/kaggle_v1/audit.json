@@ -1,0 +1,83 @@
+{
+  "audit_passed": true,
+  "output_zip_sha256": "d720d4fbfb9d0b43c6d6e0de995759a5a99c16b9a9495beb70aa64b08ffb4ce4",
+  "checksums_verified": 8,
+  "source_commit": "fa8bfd680055912386ed9c4a7dcae38d835cf820",
+  "state": "failed",
+  "engineering_passed": false,
+  "gate_checks": [
+    {
+      "case_id": "v2a-r1-fiction-nq-insufficient_unresolved",
+      "dataset": "nq",
+      "passed": false,
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "2019"
+      },
+      "observed": {
+        "original_verification": "unsupported",
+        "final_action": "keep",
+        "unresolved": true
+      },
+      "observed_final_answer": "2019"
+    },
+    {
+      "case_id": "v2a-r1-fiction-nq-supported_keep",
+      "dataset": "nq",
+      "passed": true,
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "supported",
+        "final_action": "keep",
+        "unresolved": false,
+        "final_answer": "Veyra Lorn"
+      },
+      "observed": {
+        "original_verification": "supported",
+        "final_action": "keep",
+        "unresolved": false
+      },
+      "observed_final_answer": "Veyra Lorn"
+    },
+    {
+      "case_id": "v2a-r1-fiction-nq-unsupported_replace",
+      "dataset": "nq",
+      "passed": true,
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "Veyra Lorn"
+      },
+      "observed": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false
+      },
+      "observed_final_answer": "Veyra Lorn"
+    }
+  ],
+  "gate_checks_passed": 2,
+  "short_checks_completed": 3,
+  "long_checks_completed": 0,
+  "gate_datasets": {
+    "nq": 3
+  },
+  "n_development_predictions": 0,
+  "error": {
+    "type": "RuntimeError",
+    "message": "Fictional behavioral gate failed: v2a-r1-fiction-nq-insufficient_unresolved"
+  },
+  "quality_scored": false,
+  "promotion": false,
+  "scope": "export integrity and registered gates only; no benchmark or semantic gain claim",
+  "version_id": 362133401,
+  "observed_runtime_seconds": 234.8,
+  "notebook_url": "https://www.kaggle.com/code/yearo111/controller-e-v2a-interface-r1-20261025?scriptVersionId=362133401",
+  "deployment": "unavailable under the registered failed-gate policy; no real dataset verdicts produced",
+  "registered_stop_observed": true
+}

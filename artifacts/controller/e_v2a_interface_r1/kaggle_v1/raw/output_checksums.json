@@ -1,0 +1,10 @@
+{
+  "execution_seal.json": "8253adf307845414a62ef25690eec7ddb7fdae75fc7da8d39a63a4a4675a6db4",
+  "manifest.json": "b8283be88bdf879800af02802d63c51b75a1417044935da2ac4b3ced8dbb9bba",
+  "run.log": "fb10761900b31c9b32b0519f75dabccb6b0a105033fe2e4a2f4655f0b8b6c17a",
+  "environment.json": "371c9564d45542639e497cab624f6a8c18a4e32679600821a8ab5b32362f0ea2",
+  "input_execution_manifest.json": "b41ad5b5e627ea45f9d8e56bfb1d2106786eace31175aad471ba333a5c0dcb33",
+  "engineering/v2a-r1-fiction-nq-unsupported_replace.json": "596faf2a80e7e9b04aa3d9386247d534e8b99ed1a526b0226f5d3ffb1c1a93f5",
+  "engineering/v2a-r1-fiction-nq-insufficient_unresolved.json": "5c0ab55c596a9bde3698956aeef025dec00c66bf1cb75bc2739e11206f71a35c",
+  "engineering/v2a-r1-fiction-nq-supported_keep.json": "5b8a0d31be56c7168d3b60d08363211c08d49dfa89fb6a7de2e1183c9bbd1e02"
+}

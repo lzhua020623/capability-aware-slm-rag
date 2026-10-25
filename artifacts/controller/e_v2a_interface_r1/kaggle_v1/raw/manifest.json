@@ -1,0 +1,12 @@
+{
+  "state": "failed",
+  "engineering_passed": false,
+  "n_predictions": 0,
+  "quality_scored": false,
+  "role": "development",
+  "source_commit": "fa8bfd680055912386ed9c4a7dcae38d835cf820",
+  "error": {
+    "type": "RuntimeError",
+    "message": "Fictional behavioral gate failed: v2a-r1-fiction-nq-insufficient_unresolved"
+  }
+}

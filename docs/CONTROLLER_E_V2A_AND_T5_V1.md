@@ -2,7 +2,7 @@
 
 本修订在观察 T4 后、运行 v2a 和搜索路由前登记。T1/T3、T4 原始预测及 gold 保持原字节。E 接口修正与路由收益分开评估，不把修订冒充原先的预登记。机器协议见 [e_v2a_amendment_v1.json](../configs/controller/e_v2a_amendment_v1.json)。
 
-当前：登记、单次接口、共享模型的 XGrammar view、计费/回退、GPU 前置门槛与封存工具已实现；本地完整 809 项测试通过，见 [打包轮自检](../artifacts/controller/e_v2a_v1/validation/package_self_check.json)。[15 题审核页](../artifacts/controller/e_v2a_v1/t5_development_review/routing15_review.html)含原 Top-5、各动作实际证据和离线参考，人工仍为 0/15。真实 CUDA 联合工程门槛尚未验收，未产生 v2a 真实开发预测；五条语义误修的 ID 核对仍待用户确认。
+当前：登记、单次接口、共享模型的 XGrammar view、计费/回退、GPU 前置门槛与封存工具已实现。[接口修正 r1 的实际结果](../artifacts/controller/e_v2a_interface_r1/README.md)已封存：虚构 NQ 的保留、修复通过，缺证案例的核验类别与期望不符；结构有效且安全保留，并非本题误修。已按规则停止，真实开发预测 0，FEVER 和长输入未测，E 打通要求尚未验收；原 T4 不覆盖。[15 题审核页](../artifacts/controller/e_v2a_v1/t5_development_review/routing15_review.html)含原 Top-5、各动作实际证据和离线参考，人工仍为 0/15，路由候选未冻结。五条语义误修的 ID 核对仍待用户确认。
 
 已登记三阈值的开发回放：0.2 为 5 修好/2 改坏、净 EM +3，新增 107 次检索；0.3 为 2/1、净 +1，新增 64 次；0.4 为 0/0、新增 26 次。只用于设计，尚未冻结候选或晋升；语义收益待人工核对，详见 [全部尝试](../artifacts/controller/e_v2a_v1/t5_development_review/routing_search_development.json)。800 条历史 Adaptive/No Probe 的模块参数、输入与固定动作输出全部一致，凭据单独保留。
 

@@ -1,0 +1,27 @@
+{
+  "revision": "evidence_id_v2a_v2_interface_r1",
+  "registered_policy": "engineering_failed",
+  "policy_source": "configs/controller/e_v2a_amendment_v1.json#deployment_mode.engineering_failed",
+  "evidence_zip_sha256": "d720d4fbfb9d0b43c6d6e0de995759a5a99c16b9a9495beb70aa64b08ffb4ce4",
+  "Kaggle_version_id": 362133401,
+  "modes": {
+    "nq": "unavailable",
+    "fever": "unavailable"
+  },
+  "reason": "Global mandatory gate stopped on NQ evidence-absence verdict taxonomy; FEVER and long paths untested",
+  "real_development_predictions": 0,
+  "real_development_contract_rates": {
+    "nq": null,
+    "fever": null
+  },
+  "synthetic_NQ_contract_valid": {
+    "n": 3,
+    "passed": 3,
+    "not_development_compliance": true
+  },
+  "no_fabricated_runtime_verdicts": true,
+  "proposal_E_completion_accepted": false,
+  "T5_candidate_frozen": false,
+  "selection_or_final_started": false,
+  "next": "Review observed missing-evidence versus demonstrated-error distinction before any newly registered engineering run; do not loosen frozen expectations or silently retry"
+}
