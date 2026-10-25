@@ -1,0 +1,13 @@
+{
+  "archive_sha256": "d4e8d3e6ba0901fd6581e8be05e96e86206ff998e38207b81b79efb98f6ad882",
+  "transport_bin_identical": true,
+  "bundle_files_verified": 92,
+  "plan_entries": 800,
+  "gold_like_plan_keys": [],
+  "engineering_revision": "evidence_id_v2a_v3_definition_r2",
+  "gate_checks": 20,
+  "portable_tests_inside_extracted_bundle": {"command": "python -m unittest tests.test_evidence_v2a tests.test_controller_v2a_policy", "ran": 29, "result": "OK"},
+  "preflight": {"passed": true, "n": 800, "gate_checks": 20, "contains_real_gold": false},
+  "environment": "local CPU, Python with xgrammar 0.2.8; no CUDA",
+  "scope": "bundle integrity and CPU preflight only; not GPU acceptance or semantic correctness"
+}

@@ -1,0 +1,11 @@
+{
+  "bundle_name": "controller_e_v2a_r2_development",
+  "engineering_revision": "evidence_id_v2a_v3_definition_r2",
+  "archive_sha256": "d4e8d3e6ba0901fd6581e8be05e96e86206ff998e38207b81b79efb98f6ad882",
+  "archive_bytes": 1534610,
+  "notebook_sha256": "4e42171985ad9ce3ee17bd6b0de115d687a94de27e9eab2592d2505939fdc082",
+  "source_commit": "9d91a404c291a5fcd6475f249b72818c409bc9e2",
+  "n_predictions": 800,
+  "contains_real_gold": false,
+  "GPU_started": false
+}

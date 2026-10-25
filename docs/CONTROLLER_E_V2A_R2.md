@@ -1,5 +1,7 @@
 # E v2a r2：统一核验标签定义 · 2026-10-26 登记
 
+**状态（2026-10-26）**：已登记并实现，GPU 运行包已封存，见 [r2 运行包](../artifacts/controller/e_v2a_interface_r2/README.md)。GPU 尚未运行。
+
 r2 是在 r1 GPU 结果之后、实现与运行 r2 之前登记的**语义定义修订**，不是接口修正，也不是 bug 修复。机器协议见 [e_v2a_engineering_r2.json](../configs/controller/e_v2a_engineering_r2.json)。r1 的输出、审计和 `unavailable` 决定原样保留在 [e_v2a_interface_r1](../artifacts/controller/e_v2a_interface_r1/README.md)，r2 不覆盖它们。
 
 ## 为什么改

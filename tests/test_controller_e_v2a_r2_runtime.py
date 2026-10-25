@@ -205,5 +205,30 @@ class R2AuditTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'disagrees with recomputed'): self.export('semantic_only', claim)
 
 
+
+class R2ReleaseTests(unittest.TestCase):
+    def test_sealed_r2_bundle_binds_registration_fixtures_and_transport(self):
+        import tarfile
+        folder = ROOT / 'artifacts/controller/e_v2a_interface_r2'
+        receipt = json.loads((folder / 'gpu_release_v1/bundle_receipt.json').read_text())
+        archive = folder / 'gpu_release_v1' / (receipt['bundle_name'] + '.tar.gz')
+        raw = archive.read_bytes()
+        self.assertEqual(hashlib.sha256(raw).hexdigest(), receipt['archive_sha256'])
+        self.assertEqual((folder / 'transport_v1' / (receipt['bundle_name'] + '.tar.gz.bin')).read_bytes(), raw)
+        self.assertFalse(receipt['GPU_started'])
+        with tarfile.open(archive) as t:
+            prefix = receipt['bundle_name'] + '/'
+            manifest = json.load(t.extractfile(prefix + 'execution_manifest.json'))
+            fixtures = t.extractfile(prefix + FIXTURES).read()
+            prompt_source = t.extractfile(prefix + 'src/compensation/evidence_v2a.py').read()
+        self.assertEqual(manifest['engineering_revision'], 'evidence_id_v2a_v3_definition_r2')
+        self.assertEqual(manifest['source_commit'], receipt['source_commit'])
+        self.assertEqual(hashlib.sha256(fixtures).hexdigest(), json.loads(
+            (ROOT / 'configs/controller/e_v2a_engineering_r2.json').read_text())['gate']['fixtures_sha256'])
+        self.assertEqual(manifest['cases_sha256'], hashlib.sha256(fixtures).hexdigest())
+        self.assertIn(b"'contradicted': 'unsupported'", prompt_source)
+        self.assertEqual((manifest['gate_checks'], manifest['contains_real_gold']), (20, False))
+
+
 if __name__ == '__main__':
     unittest.main()
