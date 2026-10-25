@@ -1,0 +1,156 @@
+{
+  "revision": "evidence_id_v2a_v3_definition_r2",
+  "version_string": "evidence_id_v2a_v3",
+  "date": "2026-10-26",
+  "kind": "semantic label-definition revision (not an interface or bug fix); registered after r1 GPU output, before any r2 GPU run",
+  "registered_before_r2_implementation": true,
+  "parent": {
+    "revision": "evidence_id_v2a_v2_interface_r1",
+    "Kaggle_version": 362133401,
+    "output_sha256": "d720d4fbfb9d0b43c6d6e0de995759a5a99c16b9a9495beb70aa64b08ffb4ce4",
+    "gate_checks_passed": 2,
+    "development_predictions": 0,
+    "deployment_decision": "unavailable",
+    "preserved_unchanged": "artifacts/controller/e_v2a_interface_r1/"
+  },
+  "observed_r1_failure": "NQ missing-fact fixture: reason correctly said the evidence lacks the opening year, label was unsupported instead of insufficient; answer kept and flagged",
+  "hypothesis_not_established_cause": "Label asymmetry: FEVER text defined missing/conflicting evidence as insufficient, NQ text did not; the English word unsupported also describes absence of support",
+  "definitions": {
+    "applies_to": [
+      "nq",
+      "fever"
+    ],
+    "object": "the ENTERING ANSWER (NQ short answer; FEVER SUPPORTS/REFUTES label), judged only against supplied evidence",
+    "model_labels": {
+      "supported": "supported",
+      "contradicted": "unsupported",
+      "insufficient": "insufficient"
+    },
+    "supported": "evidence establishes the entering answer is correct; FEVER: SUPPORTS with the claim established, or REFUTES with the claim explicitly contradicted",
+    "contradicted": "evidence explicitly establishes the entering answer is wrong: a different value for the exact requested fact, or the entering answer ruled out; FEVER: the opposite label is established",
+    "insufficient": "neither established nor ruled out: requested fact absent (only related facts) or unresolved conflicting passages; absence of support is never contradiction",
+    "replacement": "only after contradicted; NQ continuous span <=20 words or empty; FEVER opposite legal label",
+    "raw_label_preserved": "support_check.model_label and trace keep the model-facing label; internal unsupported is a deterministic mapping",
+    "conflict_precedence": "incompatible passages without stated resolution are insufficient even if one matches; source name, authority, recency or rank never resolve; no invented reconciling events",
+    "never_abstain": "contradicted without a valid replacement keeps the entering answer and flags unresolved",
+    "nq_replacement_span": "shortest continuous evidence span that answers, <=20 words"
+  },
+  "type_check": {
+    "scope": "NQ replacement candidate only",
+    "rule": "question wh-type vs answer surface form (when/what year: time expression; how many/how much: number; who/where: a capitalised name)",
+    "effect": "warning recorded in support_check.type_warnings; never blocks, downgrades or changes an answer",
+    "automatic_protection": "deferred extension"
+  },
+  "unchanged": [
+    "Qwen model/revision/NF4/FP16",
+    "greedy, seed 42",
+    "single call",
+    "384 output tokens",
+    "XGrammar 0.2.8",
+    "prefill256",
+    "shared RULES text",
+    "sentence-ID mapping and citation reconstruction",
+    "schema branch structure and ID counts",
+    "NQ 20-word continuous span postcheck",
+    "FEVER opposite-label replacement",
+    "data IDs/gold/splits",
+    "routing search",
+    "development plan 800"
+  ],
+  "gate": {
+    "fixtures": "configs/controller/e_v2a_r2_fixtures.json",
+    "fixture_seal": "configs/controller/e_v2a_r2_fixture_seal.json",
+    "short_checks": 18,
+    "long_checks": 2,
+    "run_all_checks": true,
+    "pass_fields": [
+      "original_verification",
+      "final_action",
+      "unresolved",
+      "final_answer"
+    ],
+    "diagnostic_only": [
+      "key_evidence_cited",
+      "type_warnings",
+      "model_label"
+    ],
+    "failure_classes": {
+      "execution": "exception, failed or budget-blocked call, call not completed, token budget hit; long: input <14000 tokens, decoder not xgrammar or prefill not 256",
+      "structure": "contract not passed: incomplete verdict, invalid source IDs or invalid replacement span",
+      "semantic": "contract passed but a pass field differs from the sealed expectation"
+    },
+    "outcomes": {
+      "passed": "no failures",
+      "semantic_only": "at least one semantic failure, no execution/structure failure",
+      "failed": "any execution or structure failure"
+    },
+    "platform_interruption": "zero completed checks (no model output recorded): one identical relaunch of the same bundle allowed and recorded; otherwise the first run is final",
+    "fixtures_sha256": "423aef2ab7a5c84f2b93854a305ea798438ba11faaa3862f916fdb84b08b4b2c",
+    "fixture_seal_sha256": "43353502195118323b94dd0c586b307ee262e06bce6fba38c0a889911ba2135e",
+    "final_answer_rule": "normalized final answer in expected.acceptable_final_answers",
+    "long_construction": "fixtures.long: pad rank-5 passage of the two contradicted_repair bases until >=14000 prompt tokens, <=32384"
+  },
+  "development_branches": {
+    "passed": {
+      "calls": 800,
+      "arms": [
+        "always_repair",
+        "full_E"
+      ],
+      "E_mode": "allow_repair diagnostic outputs saved once; deployment mode derived offline, no regeneration"
+    },
+    "semantic_only": {
+      "calls": 400,
+      "arms": [
+        "always_repair"
+      ],
+      "E_mode": "verify_only for both datasets",
+      "full": "reuse cached stage-2 answers; E cost estimated from Always Repair and entering-state input tokens",
+      "status": "experimental verify-only; NOT E acceptance; FR12 repair not met"
+    },
+    "failed": {
+      "calls": 0,
+      "E_mode": "unavailable for both datasets",
+      "status": "E not accepted; report as limitation"
+    }
+  },
+  "global_E_mode": {
+    "granularity": "per dataset, identical in every arm that contains E",
+    "unavailable": "gate failed, or development contract rate <0.90 in either dataset (failed/invalid calls stay in the denominator)",
+    "verify_only": [
+      "gate semantic_only",
+      "insufficient-or-unresolved share >0.90 (pause and review; never force answers)",
+      "routed reference net <0 or unestimable",
+      "misrepair cap exceeded"
+    ],
+    "allow_repair": "gate passed, contract >=0.90, review line not exceeded, fixed routed subset net >=0, and misrepair cap satisfied",
+    "routed_reference": {
+      "nq": 16,
+      "fever": 0,
+      "metric": {
+        "nq": "frozen normalized EM",
+        "fever": "frozen label accuracy"
+      }
+    },
+    "misrepair_cap": {
+      "population": "Always Repair development, 200 per dataset, diagnostic allow-repair outputs",
+      "fever": "frozen-label harms (correct -> incorrect) must be 0",
+      "nq": "every changed answer is semantically reviewed by the user; confirmed plus pending semantic harms must be 0 (EM-flagged and EM-silent harms both count)",
+      "status": "recommended assumption pending user confirmation before the development result is opened",
+      "tightening": "the user may tighten (e.g. NQ frozen EM harms = 0) before development results are opened; never loosen afterwards"
+    },
+    "decision_inputs": "gate outcome, per-dataset development contract counts, review-line counts, fixed routed subset correctness, misrepair counts; offline only"
+  },
+  "cost": {
+    "gate_calls": "20, recorded separately, never development cost",
+    "development": "per-call input/output tokens and seconds from receipts",
+    "estimated": "any Full E cost in the semantic_only branch is labelled estimate, not measurement"
+  },
+  "stop": {
+    "no_r3_in_main_line": "further E semantic revisions are extensions after T8",
+    "no_prompt_iteration_on_r2_fixtures": true,
+    "r1_results_preserved": true,
+    "no_selection_or_final_data": true
+  },
+  "claims": "Passing fictional checks shows the label contract works on controlled inputs; it is not benchmark accuracy, entailment correctness or gain"
+}

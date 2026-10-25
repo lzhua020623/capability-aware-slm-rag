@@ -4,6 +4,8 @@
 
 当前：登记、单次接口、共享模型的 XGrammar view、计费/回退、GPU 前置门槛与封存工具已实现。[接口修正 r1 的实际结果](../artifacts/controller/e_v2a_interface_r1/README.md)已封存：虚构 NQ 的保留、修复通过，缺证案例的核验类别与期望不符；结构有效且安全保留，并非本题误修。已按规则停止，真实开发预测 0，FEVER 和长输入未测，E 打通要求尚未验收；原 T4 不覆盖。[15 题审核页](../artifacts/controller/e_v2a_v1/t5_development_review/routing15_review.html)含原 Top-5、各动作实际证据和离线参考，人工仍为 0/15，路由候选未冻结。五条语义误修的 ID 核对仍待用户确认。
 
+2026-10-26 另行登记 [r2 统一标签定义](CONTROLLER_E_V2A_R2.md)。r2 是语义定义修订，r1 结果原样保留。18+2 道新虚构验收题已在改提示之前经三轮独立盲审封存；验收运行全部检查，并按执行、结构、语义三类分别归类失败，开发阶段按三种分支执行；主线不安排 r3。
+
 已登记三阈值的开发回放：0.2 为 5 修好/2 改坏、净 EM +3，新增 107 次检索；0.3 为 2/1、净 +1，新增 64 次；0.4 为 0/0、新增 26 次。只用于设计，尚未冻结候选或晋升；语义收益待人工核对，详见 [全部尝试](../artifacts/controller/e_v2a_v1/t5_development_review/routing_search_development.json)。800 条历史 Adaptive/No Probe 的模块参数、输入与固定动作输出全部一致，凭据单独保留。
 
 2026-10-25 恢复 Chrome 后，Kaggle 在分配 GPU 前拒绝嵌入式 Notebook（源码超过 1 MB）。现运行入口改为 [transport_r2 短 Notebook](../artifacts/controller/e_v2a_v1/transport_r2/controller_e_v2a_development_v1_dataset.ipynb)，约 4 KB，从私有 Dataset 读取带 `.bin` 后缀的原压缩字节，避免自动解压。原 tar SHA256 仍为 `728c8ba512115825c3a4c362f5e4a51a3c860d74ad4d6e977dcaf93ca12adcf3`，推理源码、提示、预算、门槛未改，非语义重试。原嵌入式与中间传输文件仅保留审计。新增两个传输检查后完整 811 项回归通过。

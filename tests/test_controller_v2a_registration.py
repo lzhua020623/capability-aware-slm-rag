@@ -46,5 +46,43 @@ class RegistrationTests(unittest.TestCase):
         self.assertEqual(self.p['final']['runs'], 1)
 
 
+class R2RegistrationTests(unittest.TestCase):
+    def setUp(self):
+        self.r = json.loads((ROOT / 'configs/controller/e_v2a_engineering_r2.json').read_text())
+
+    def test_r2_is_a_registered_definition_revision_with_r1_preserved(self):
+        self.assertIn('semantic label-definition revision', self.r['kind'])
+        self.assertEqual(self.r['parent']['revision'], 'evidence_id_v2a_v2_interface_r1')
+        self.assertEqual(self.r['parent']['development_predictions'], 0)
+        self.assertTrue((ROOT / self.r['parent']['preserved_unchanged']).is_dir())
+        self.assertEqual(self.r['definitions']['model_labels'],
+                         {'supported': 'supported', 'contradicted': 'unsupported', 'insufficient': 'insufficient'})
+        self.assertEqual(self.r['definitions']['applies_to'], ['nq', 'fever'])
+
+    def test_r2_gate_binds_the_sealed_fixtures(self):
+        gate = self.r['gate']
+        for rel, digest in ((gate['fixtures'], gate['fixtures_sha256']), (gate['fixture_seal'], gate['fixture_seal_sha256'])):
+            self.assertEqual(hashlib.sha256((ROOT / rel).read_bytes()).hexdigest(), digest, rel)
+        self.assertEqual((gate['short_checks'], gate['long_checks']), (18, 2))
+        self.assertTrue(gate['run_all_checks'])
+        self.assertEqual(set(gate['failure_classes']), {'execution', 'structure', 'semantic'})
+        self.assertEqual(set(gate['outcomes']), {'passed', 'semantic_only', 'failed'})
+        self.assertNotIn('key_evidence_cited', gate['pass_fields'])
+
+    def test_r2_branches_mode_rule_and_stop_rules(self):
+        b = self.r['development_branches']
+        self.assertEqual((b['passed']['calls'], b['semantic_only']['calls'], b['failed']['calls']), (800, 400, 0))
+        self.assertEqual(b['semantic_only']['arms'], ['always_repair'])
+        self.assertIn('NOT E acceptance', b['semantic_only']['status'])
+        mode = self.r['global_E_mode']
+        self.assertEqual(mode['routed_reference']['nq'], 16)
+        self.assertIn('never loosen', mode['misrepair_cap']['tightening'])
+        self.assertIn('fever', mode['misrepair_cap'])
+        self.assertTrue(self.r['stop']['no_prompt_iteration_on_r2_fixtures'])
+        self.assertIn('no_r3_in_main_line', self.r['stop'])
+        for fixed in ('single call', '384 output tokens', 'XGrammar 0.2.8', 'prefill256'):
+            self.assertIn(fixed, self.r['unchanged'])
+
+
 if __name__ == '__main__':
     unittest.main()
