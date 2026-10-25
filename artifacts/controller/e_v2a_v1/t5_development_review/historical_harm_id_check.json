@@ -1,0 +1,156 @@
+{
+  "schema_version": "t5_historical_harm_id_check_v1",
+  "date": "2026-10-26",
+  "status": "pending_user_choice",
+  "question": "Which IDs are the registered \"five user-reported semantic E harms\" used only as regression material?",
+  "recommendation": "Source A: user-confirmed final_v1 regressions. Five were confirmed by 2026-10-21 (batch02); #21 was confirmed on 2026-10-22, so the current confirmed set is six. Source B is an agent-only read and is not human truth.",
+  "source_A_user_confirmed": {
+    "file": "data/annotations/human/answer_repair_final_v1_batch04_20261022.jsonl",
+    "sha256": "a4428440c55a1f1c5ec0569a36f7a5a355d6bc5394b2c595421c17742c738c2e",
+    "batch02_file": "data/annotations/human/answer_repair_final_v1_batch02_20261021.jsonl",
+    "batch02_sha256": "eadc94b22a1b8fb19ffec8da3036153fbe24be4c7773394d1ed9579801673a97",
+    "items": [
+      {
+        "review_number": 2,
+        "dataset": "nq",
+        "sample_id": "-3869689776609561239",
+        "source_run": "final_nq75",
+        "strategy": "short_answer_quote",
+        "query": "an increase in the average level of prices is called",
+        "initial_answer": "inflation",
+        "final_answer": "rise in the price level",
+        "confirmed_by_user": true,
+        "confirmed_on": "2026-10-21",
+        "in_batch02_five": true
+      },
+      {
+        "review_number": 3,
+        "dataset": "nq",
+        "sample_id": "7243818178627473072",
+        "source_run": "final_nq75",
+        "strategy": "short_answer_quote",
+        "query": "who led raids to hunt down suspected communists socialists and anarchists",
+        "initial_answer": "A. Mitchell Palmer",
+        "final_answer": "the United States Department of Justice",
+        "confirmed_by_user": true,
+        "confirmed_on": "2026-10-21",
+        "in_batch02_five": true
+      },
+      {
+        "review_number": 21,
+        "dataset": "nq",
+        "sample_id": "-7075267600383726230",
+        "source_run": "unseen_nq125",
+        "strategy": "short_answer_quote",
+        "query": "what does it mean when you flood your engine",
+        "initial_answer": "excessively rich air-fuel mixture that cannot be ignited",
+        "final_answer": "excessive liquid fuel enters the combustion chamber",
+        "confirmed_by_user": true,
+        "confirmed_on": "2026-10-22",
+        "in_batch02_five": false
+      },
+      {
+        "review_number": 28,
+        "dataset": "nq",
+        "sample_id": "-5906700244186843383",
+        "source_run": "unseen_nq125",
+        "strategy": "short_answer_quote",
+        "query": "what did audrey hepburn won a tony for",
+        "initial_answer": "Best Performance by a Leading Actress in a Play in Ondine",
+        "final_answer": "one competitive Tony Award",
+        "confirmed_by_user": true,
+        "confirmed_on": "2026-10-21",
+        "in_batch02_five": true
+      },
+      {
+        "review_number": 30,
+        "dataset": "nq",
+        "sample_id": "6300762469123268173",
+        "source_run": "unseen_nq125",
+        "strategy": "short_answer_quote",
+        "query": "when did nursing become a degree in australia",
+        "initial_answer": "early 1990s",
+        "final_answer": "1970s",
+        "confirmed_by_user": true,
+        "confirmed_on": "2026-10-21",
+        "in_batch02_five": true
+      },
+      {
+        "review_number": 34,
+        "dataset": "nq",
+        "sample_id": "-8695473978815241365",
+        "source_run": "unseen_nq125",
+        "strategy": "short_answer_quote",
+        "query": "the waxy substance secreted by glands in the ear is",
+        "initial_answer": "Earwax",
+        "final_answer": "a gray , orange , or yellowish waxy substance",
+        "confirmed_by_user": true,
+        "confirmed_on": "2026-10-21",
+        "in_batch02_five": true
+      }
+    ]
+  },
+  "source_B_agent_read_only": {
+    "file": "artifacts/answer_repair/v7_reviewed/kaggle_20261014/nq_short_answer_quote_heldout.jsonl",
+    "sha256": "0b2bd5bfdffd175064a0879a0f91e8dde887b0282514108fa9ff46d7f035651c",
+    "report": "docs/ANSWER_REPAIR_RESULTS_20261014_V7.md line 58",
+    "items": [
+      {
+        "dataset": "nq",
+        "sample_id": "3630714342371225513",
+        "strategy": "short_answer_quote",
+        "cohort": "v7 heldout146",
+        "query": "where did the term spirits for alcohol come from",
+        "initial_answer": "Middle Eastern alchemy",
+        "final_answer": "spirit of the original material",
+        "agent_read": "clear",
+        "confirmed_by_user": false
+      },
+      {
+        "dataset": "nq",
+        "sample_id": "-1145193137828819774",
+        "strategy": "short_answer_quote",
+        "cohort": "v7 heldout146",
+        "query": "who plays the grandmother in game of thrones",
+        "initial_answer": "Rigg",
+        "final_answer": "Lady Olenna Tyrell",
+        "agent_read": "clear",
+        "confirmed_by_user": false
+      },
+      {
+        "dataset": "nq",
+        "sample_id": "-7524627393810362735",
+        "strategy": "short_answer_quote",
+        "cohort": "v7 heldout146",
+        "query": "when did men's curling start in the olympics",
+        "initial_answer": "1998",
+        "final_answer": "1924",
+        "agent_read": "disputed",
+        "confirmed_by_user": false
+      },
+      {
+        "dataset": "nq",
+        "sample_id": "-2324904500814145665",
+        "strategy": "short_answer_quote",
+        "cohort": "v7 heldout146",
+        "query": "when was south african youth day first celebrated",
+        "initial_answer": "1976",
+        "final_answer": "16 June",
+        "agent_read": "clear",
+        "confirmed_by_user": false
+      },
+      {
+        "dataset": "nq",
+        "sample_id": "2776741854318333179",
+        "strategy": "short_answer_quote",
+        "cohort": "v7 heldout146",
+        "query": "who sings only love can break your heart",
+        "initial_answer": "Neil Young",
+        "final_answer": "Saint Etienne",
+        "agent_read": "clear",
+        "confirmed_by_user": false
+      }
+    ]
+  },
+  "use": "regression/debugging only; never effect evidence; never read at runtime"
+}
