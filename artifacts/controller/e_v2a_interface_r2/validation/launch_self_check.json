@@ -1,0 +1,23 @@
+{
+  "round": "first r2 private GPU launch",
+  "date": "2026-10-26",
+  "checked_at_UTC": "2026-10-25T23:16:00.376582+00:00",
+  "before": {
+    "source_commit": "e3ddead64ae25fe30b6c310e1e8a35e2b87c1652",
+    "source_and_fixtures_unchanged": true,
+    "first_attempt": true,
+    "private_destination": true
+  },
+  "after": {
+    "full_tests": 931,
+    "full_test_log_sha256": "9dd1dbf7ba59bc6e62108d75b2e64e58e82fbeb8c0a521aa8f670ab58cddf57c",
+    "run_id": 362285592,
+    "portable_tests_on_Kaggle": 32,
+    "preflight_inputs": 800,
+    "preflight_gates": 20,
+    "no_gate_acceptance_claim": true,
+    "P60_activated": false,
+    "selection_or_final_started": false
+  },
+  "scope": "launch receipt only; engineering outcome must be derived from preserved export"
+}

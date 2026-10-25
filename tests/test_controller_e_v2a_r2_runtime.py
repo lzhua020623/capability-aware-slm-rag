@@ -207,6 +207,21 @@ class R2AuditTests(unittest.TestCase):
 
 
 class R2ReleaseTests(unittest.TestCase):
+    def test_gpu_launch_binds_current_private_inputs_without_claiming_acceptance(self):
+        folder = ROOT / 'artifacts/controller/e_v2a_interface_r2'
+        launch = json.loads((folder / 'launch_v1.json').read_text())
+        current = json.loads((folder / 'current_release.json').read_text())
+        transport = json.loads((folder / current['transport_dir'] / 'transport_receipt.json').read_text())
+        self.assertEqual(launch['archive_sha256'], current['archive_sha256'])
+        self.assertEqual(launch['source_commit'], current['source_commit'])
+        self.assertEqual(launch['notebook_sha256'], transport['notebook_sha256'])
+        self.assertEqual(launch['input_filename'], transport['dataset_filename'])
+        self.assertEqual(launch['notebook_privacy'], 'Private')
+        self.assertEqual(launch['input_privacy'], 'Private')
+        self.assertIsNone(launch['engineering_outcome'])
+        self.assertIsNone(launch['development_predictions_confirmed'])
+        self.assertFalse(launch['selection_or_final_started'])
+
     def test_current_release_binds_shared_mode_and_exact_transport(self):
         import tarfile
         folder = ROOT / 'artifacts/controller/e_v2a_interface_r2'

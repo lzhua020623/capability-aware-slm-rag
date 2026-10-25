@@ -61,6 +61,10 @@ python scripts/audit_controller_e_v2a_outputs.py --archive <outputs.zip> --relea
 
 ## 尚未发生
 
-- GPU 尚未运行，开发预测数为 0。
+- GPU 已启动，验收尚待完成，开发预测数为 0。
 - 全局 E 模式要等开发结果和用户审核后再离线决定。
 - 全局启用要求两数据集冻结指标误修均为 0；NQ 语义误修及待定也均为 0，运行前已固定。
+
+## 首次 GPU 启动 · 2026-10-26
+
+已在 [Kaggle Version 1 / 362285592](https://www.kaggle.com/code/yearo111/controller-e-r2-shared-frozen-20261026?scriptVersionId=362285592) 确认 Running、Private、GPU T4×2。已通过包内 32 项测试和 800 输入／20 验收预检。首次启动观察见 [launch_v1.json](launch_v1.json)；此记录不代表真实语义或长输入门槛通过，后续结果另存，不覆盖本记录。

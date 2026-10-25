@@ -1,0 +1,33 @@
+{
+  "schema_version": "controller_e_v2a_r2_launch_v1",
+  "date": "2026-10-26",
+  "observed_at_UTC": "2026-10-25T23:13:06.660010+00:00",
+  "notebook_url": "https://www.kaggle.com/code/yearo111/controller-e-r2-shared-frozen-20261026?scriptVersionId=362285592",
+  "script_version_id": 362285592,
+  "version": 1,
+  "status": "running",
+  "notebook_privacy": "Private",
+  "accelerator_UI": "GPU T4 x2",
+  "internet_enabled": true,
+  "input_dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-e-r2-shared-v2-frozen-20261026",
+  "input_privacy": "Private",
+  "input_filename": "controller_e_v2a_r2_development.tar.gz.bin",
+  "archive_sha256": "589dd9750d9e21336e0312609c47ee42d4ae338a86c566da7c15c25cd461ab07",
+  "notebook_sha256": "71800d9bdde904e1dd081a5e407615df9f3bb6a83b6ab22b38020cf8c3c89864",
+  "source_commit": "e3ddead64ae25fe30b6c310e1e8a35e2b87c1652",
+  "engineering_outcome": null,
+  "development_predictions_confirmed": null,
+  "selection_or_final_started": false,
+  "P60_activated": false,
+  "observed_stage": "32 portable tests passed on Kaggle; gold-free preflight passed for 800 planned entries and 20 gates; real behavioral/long gate not yet accepted",
+  "UI_evidence": [
+    "Version #1 with GPU T4 x2 / Running",
+    "version page Private",
+    "dataset page Private and one .tar.gz.bin file, 1.55 MB",
+    "32 tests OK and preflight passed true n=800 gate_checks=20"
+  ],
+  "recovery": "Chrome restored; private Dataset creation completed despite stale upload dialog; mounted existing resource after editor refresh; no duplicate Dataset or GPU run",
+  "quota_at_submission": "10:30 / 30 hrs (usage display)",
+  "attempt": 1,
+  "semantic_retry": false
+}
