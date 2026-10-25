@@ -1,0 +1,13 @@
+{
+  "variant": "dataset_transport_r2_opaque_archive",
+  "archive_sha256": "54cbca0d57d5d2733afac260c988f47a6bafef77dcef1bd56d3a188c638d1c50",
+  "dataset_filename": "controller_e_v2a_development_v1.tar.gz.bin",
+  "original_notebook_sha256": "5b3dc553a8db06493a60b1ae852dd3dbde45abef1831c1c3aafe09e8b148f55b",
+  "notebook_sha256": "3e7faba584eb04dec4862e9b7633fab4142dd086a8912d4e7ea65af953d8b941",
+  "notebook_bytes": 4063,
+  "inference_source_commit": "fa8bfd680055912386ed9c4a7dcae38d835cf820",
+  "change": "only archive loader; same inference archive/model/prompt/engineering gate/budget",
+  "reason": "Kaggle rejected embedded notebook source >1 MB before GPU allocation",
+  "GPU_run_before_transport_change": false,
+  "semantic_retry": false
+}
