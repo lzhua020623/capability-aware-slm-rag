@@ -1,0 +1,12 @@
+{
+  "variant": "dataset_transport_r1",
+  "archive_sha256": "728c8ba512115825c3a4c362f5e4a51a3c860d74ad4d6e977dcaf93ca12adcf3",
+  "original_notebook_sha256": "733053c95e0dc586b0f8a54b2ca05b9e1cfdd21969ce5f86d0edaef89d3ee656",
+  "notebook_sha256": "1ac277af4e7f964f1785a854626f38c26020cbd99fcc3a374e0df4269cddf8f8",
+  "notebook_bytes": 3928,
+  "inference_source_commit": "85604715a274c24cac79fad1c771e0612cf244ac",
+  "change": "only archive loader; same inference archive/model/prompt/engineering gate/budget",
+  "reason": "Kaggle rejected embedded notebook source >1 MB before GPU allocation",
+  "GPU_run_before_transport_change": false,
+  "semantic_retry": false
+}

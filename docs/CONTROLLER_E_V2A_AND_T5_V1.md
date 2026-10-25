@@ -6,6 +6,8 @@
 
 已登记三阈值的开发回放：0.2 为 5 修好/2 改坏、净 EM +3，新增 107 次检索；0.3 为 2/1、净 +1，新增 64 次；0.4 为 0/0、新增 26 次。只用于设计，尚未冻结候选或晋升；语义收益待人工核对，详见 [全部尝试](../artifacts/controller/e_v2a_v1/t5_development_review/routing_search_development.json)。800 条历史 Adaptive/No Probe 的模块参数、输入与固定动作输出全部一致，凭据单独保留。
 
+2026-10-25 恢复 Chrome 后，Kaggle 在分配 GPU 前拒绝嵌入式 Notebook（源码超过 1 MB）。现运行入口改为 [transport_r2 短 Notebook](../artifacts/controller/e_v2a_v1/transport_r2/controller_e_v2a_development_v1_dataset.ipynb)，约 4 KB，从私有 Dataset 读取带 `.bin` 后缀的原压缩字节，避免自动解压。原 tar SHA256 仍为 `728c8ba512115825c3a4c362f5e4a51a3c860d74ad4d6e977dcaf93ca12adcf3`，推理源码、提示、预算、门槛未改，非语义重试。原嵌入式与中间传输文件仅保留审计。新增两个传输检查后完整 811 项回归通过。
+
 ## 开工和收工自检
 
 每个逻辑工作轮次先检查分支、用户已有文件、冻结指纹、数据角色、验收条件和 GPU 额度；收工检查测试、diff、冻结指纹、记录真实性，使用配置的唯一用户身份提交。原有未跟踪标注文件不纳入本轮提交。CPU 检查不能代替真实 CUDA 回执，辅助意见不能代替人审。

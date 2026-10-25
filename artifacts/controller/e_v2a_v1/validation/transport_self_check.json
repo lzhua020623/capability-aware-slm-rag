@@ -1,0 +1,22 @@
+{
+  "round": "dataset transport correction",
+  "checked_at": "2026-10-25T12:04:03.533710+00:00",
+  "before": {
+    "GPU_active_events": 0,
+    "failure": "Kaggle rejected kernel source >=1 MB before allocating GPU",
+    "frozen_archive_sha256": "728c8ba512115825c3a4c362f5e4a51a3c860d74ad4d6e977dcaf93ca12adcf3"
+  },
+  "after": {
+    "full_tests": 811,
+    "seconds": 124.541,
+    "passed": true,
+    "notebook_bytes": 4063,
+    "archive_byte_identical": true,
+    "inference_source_commit": "85604715a274c24cac79fad1c771e0612cf244ac",
+    "model_prompt_budget_gate_unchanged": true,
+    "private_dataset_created": true,
+    "GPU_run": false,
+    "historical_hashes": "unchanged",
+    "human_confirmed": 0
+  }
+}
