@@ -1,6 +1,10 @@
 # 项目进度与研究方向
 
-## 当前入口 · 2026-10-25
+## 当前入口 · 2026-10-26
+
+当前分支 `controller`。Diagnosis `138d52a` 的新框架已兼容合并，P60 未启用，默认 Diagnosis／Probe 路由不变，见 [集成审查](DIAGNOSIS_138D52A_INTEGRATION.md)。r2 首次 GPU 已完成：18 短题＋2 长题全部运行，10 项通过、结构失败 1、语义失败 9、执行失败 0；独立 ZIP 审计一致。按预登记将所有 E 组统一冻结为 unavailable，真实开发调用为 0，FR12 未验收，主线不再安排 r3。见 [原始结果](../artifacts/controller/e_v2a_interface_r2/kaggle_v1/README.md) 和 [当前 T1–T9](CONTROLLER_TASKS.md)。下一步是 17 题人工审核、固定 E 模式下的 NQ 路由候选回放和一次选型；选型与最终评测尚未开始。下方的分支与 E 状态为历史快照。
+
+## 历史入口 · 2026-10-25
 
 开发分支为 `controller`，历史分支已集成，T3真实GPU工程验收已通过。[T4完整开发结果](../artifacts/controller/t4_v1/README.md)已下载验收、离线评分并独立ZIP重放一致：两数据集各200条、七组2,800条齐全，调用/预算失败为0。GPU末尾汇总遗漏字段导致failure，预测不受影响，已修补并通过774项回归。Adaptive的NQ EM为78→78、FEVER标签170→174；单独E为NQ78→68、FEVER170→166。仅为开发观察，104个NQ改答对和51条警示轨迹仍待人工，未开始T5/选型/最终测试。旧预实验C1、NQ Train C1、新FEVER 900条C1和两套完整检索资源均已到位，不重跑已有C1。该入口优先于下方历史状态；T1/T2和gold不改。
 

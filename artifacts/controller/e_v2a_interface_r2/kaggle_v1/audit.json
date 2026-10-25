@@ -1,0 +1,633 @@
+{
+  "audit_passed": true,
+  "engineering_revision": "evidence_id_v2a_v3_definition_r2",
+  "output_zip_sha256": "9cf94fb3e8573213e0a86462690b7291b8801a176423e91e949d501323c2f28d",
+  "checksums_verified": 26,
+  "source_commit": "e3ddead64ae25fe30b6c310e1e8a35e2b87c1652",
+  "state": "stopped_gate_failed",
+  "engineering_outcome": "failed",
+  "engineering_passed": false,
+  "gate_checks": [
+    {
+      "case_id": "v2a-r2-fiction-fever-conflict_insufficient-1",
+      "kind": "conflict_insufficient",
+      "dataset": "fever",
+      "long": false,
+      "passed": false,
+      "failure_class": "semantic",
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "SUPPORTS",
+        "acceptable_final_answers": [
+          "SUPPORTS"
+        ]
+      },
+      "observed": {
+        "original_verification": "unsupported",
+        "model_label": "contradicted",
+        "final_action": "replace",
+        "unresolved": false
+      },
+      "observed_final_answer": "REFUTES",
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-conflict_insufficient-2",
+      "kind": "conflict_insufficient",
+      "dataset": "fever",
+      "long": false,
+      "passed": false,
+      "failure_class": "semantic",
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "REFUTES",
+        "acceptable_final_answers": [
+          "REFUTES"
+        ]
+      },
+      "observed": {
+        "original_verification": "unsupported",
+        "model_label": "contradicted",
+        "final_action": "replace",
+        "unresolved": false
+      },
+      "observed_final_answer": "SUPPORTS",
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-contradicted_repair-1-long",
+      "kind": "contradicted_repair",
+      "dataset": "fever",
+      "long": true,
+      "passed": false,
+      "failure_class": "semantic",
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "SUPPORTS",
+        "acceptable_final_answers": [
+          "SUPPORTS"
+        ]
+      },
+      "observed": {
+        "original_verification": "unsupported",
+        "model_label": "contradicted",
+        "final_action": "keep",
+        "unresolved": true
+      },
+      "observed_final_answer": "REFUTES",
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-contradicted_repair-1",
+      "kind": "contradicted_repair",
+      "dataset": "fever",
+      "long": false,
+      "passed": false,
+      "failure_class": "semantic",
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "SUPPORTS",
+        "acceptable_final_answers": [
+          "SUPPORTS"
+        ]
+      },
+      "observed": {
+        "original_verification": "supported",
+        "model_label": "supported",
+        "final_action": "keep",
+        "unresolved": false
+      },
+      "observed_final_answer": "REFUTES",
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "supported",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-contradicted_repair-2",
+      "kind": "contradicted_repair",
+      "dataset": "fever",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "REFUTES",
+        "acceptable_final_answers": [
+          "REFUTES"
+        ]
+      },
+      "observed": {
+        "original_verification": "unsupported",
+        "model_label": "contradicted",
+        "final_action": "replace",
+        "unresolved": false
+      },
+      "observed_final_answer": "REFUTES",
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-missing_insufficient-1",
+      "kind": "missing_insufficient",
+      "dataset": "fever",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "SUPPORTS",
+        "acceptable_final_answers": [
+          "SUPPORTS"
+        ]
+      },
+      "observed": {
+        "original_verification": "insufficient",
+        "model_label": "insufficient",
+        "final_action": "keep",
+        "unresolved": true
+      },
+      "observed_final_answer": "SUPPORTS",
+      "diagnostic": {
+        "key_evidence_cited": null,
+        "model_label": "insufficient",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-missing_insufficient-2",
+      "kind": "missing_insufficient",
+      "dataset": "fever",
+      "long": false,
+      "passed": false,
+      "failure_class": "semantic",
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "REFUTES",
+        "acceptable_final_answers": [
+          "REFUTES"
+        ]
+      },
+      "observed": {
+        "original_verification": "unsupported",
+        "model_label": "contradicted",
+        "final_action": "replace",
+        "unresolved": false
+      },
+      "observed_final_answer": "SUPPORTS",
+      "diagnostic": {
+        "key_evidence_cited": null,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-supported_keep-1",
+      "kind": "supported_keep",
+      "dataset": "fever",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "supported",
+        "final_action": "keep",
+        "unresolved": false,
+        "final_answer": "SUPPORTS",
+        "acceptable_final_answers": [
+          "SUPPORTS"
+        ]
+      },
+      "observed": {
+        "original_verification": "supported",
+        "model_label": "supported",
+        "final_action": "keep",
+        "unresolved": false
+      },
+      "observed_final_answer": "SUPPORTS",
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "supported",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-supported_keep-2",
+      "kind": "supported_keep",
+      "dataset": "fever",
+      "long": false,
+      "passed": false,
+      "failure_class": "semantic",
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "supported",
+        "final_action": "keep",
+        "unresolved": false,
+        "final_answer": "REFUTES",
+        "acceptable_final_answers": [
+          "REFUTES"
+        ]
+      },
+      "observed": {
+        "original_verification": "unsupported",
+        "model_label": "contradicted",
+        "final_action": "keep",
+        "unresolved": true
+      },
+      "observed_final_answer": "REFUTES",
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-conflict_insufficient-1",
+      "kind": "conflict_insufficient",
+      "dataset": "nq",
+      "long": false,
+      "passed": false,
+      "failure_class": "semantic",
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "1742",
+        "acceptable_final_answers": [
+          "1742"
+        ]
+      },
+      "observed": {
+        "original_verification": "supported",
+        "model_label": "supported",
+        "final_action": "keep",
+        "unresolved": false
+      },
+      "observed_final_answer": "1742",
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "supported",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-conflict_insufficient-2",
+      "kind": "conflict_insufficient",
+      "dataset": "nq",
+      "long": false,
+      "passed": false,
+      "failure_class": "semantic",
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "Edda Calloway",
+        "acceptable_final_answers": [
+          "Edda Calloway"
+        ]
+      },
+      "observed": {
+        "original_verification": "unsupported",
+        "model_label": "contradicted",
+        "final_action": "replace",
+        "unresolved": false
+      },
+      "observed_final_answer": "Simeon Thale",
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_no_candidate-1",
+      "kind": "contradicted_no_candidate",
+      "dataset": "nq",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "Doran Field",
+        "acceptable_final_answers": [
+          "Doran Field"
+        ]
+      },
+      "observed": {
+        "original_verification": "unsupported",
+        "model_label": "contradicted",
+        "final_action": "keep",
+        "unresolved": true
+      },
+      "observed_final_answer": "Doran Field",
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_no_candidate-2",
+      "kind": "contradicted_no_candidate",
+      "dataset": "nq",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "Lusk",
+        "acceptable_final_answers": [
+          "Lusk"
+        ]
+      },
+      "observed": {
+        "original_verification": "unsupported",
+        "model_label": "contradicted",
+        "final_action": "keep",
+        "unresolved": true
+      },
+      "observed_final_answer": "Lusk",
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_repair-1-long",
+      "kind": "contradicted_repair",
+      "dataset": "nq",
+      "long": true,
+      "passed": false,
+      "failure_class": "semantic",
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "Ilsa Marrow",
+        "acceptable_final_answers": [
+          "Ilsa Marrow",
+          "Ilsa Marrow alone"
+        ]
+      },
+      "observed": {
+        "original_verification": "supported",
+        "model_label": "supported",
+        "final_action": "keep",
+        "unresolved": false
+      },
+      "observed_final_answer": "Kerran Pell",
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "supported",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_repair-1",
+      "kind": "contradicted_repair",
+      "dataset": "nq",
+      "long": false,
+      "passed": false,
+      "failure_class": "structure",
+      "contract_passed": false,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "Ilsa Marrow",
+        "acceptable_final_answers": [
+          "Ilsa Marrow",
+          "Ilsa Marrow alone"
+        ]
+      },
+      "observed": {
+        "original_verification": "unsupported",
+        "model_label": "contradicted",
+        "final_action": "keep",
+        "unresolved": true
+      },
+      "observed_final_answer": "Kerran Pell",
+      "diagnostic": {
+        "key_evidence_cited": false,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_repair-2",
+      "kind": "contradicted_repair",
+      "dataset": "nq",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "1887",
+        "acceptable_final_answers": [
+          "1887",
+          "in 1887"
+        ]
+      },
+      "observed": {
+        "original_verification": "unsupported",
+        "model_label": "contradicted",
+        "final_action": "replace",
+        "unresolved": false
+      },
+      "observed_final_answer": "1887",
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-missing_insufficient-1",
+      "kind": "missing_insufficient",
+      "dataset": "nq",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "1964",
+        "acceptable_final_answers": [
+          "1964"
+        ]
+      },
+      "observed": {
+        "original_verification": "insufficient",
+        "model_label": "insufficient",
+        "final_action": "keep",
+        "unresolved": true
+      },
+      "observed_final_answer": "1964",
+      "diagnostic": {
+        "key_evidence_cited": null,
+        "model_label": "insufficient",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-missing_insufficient-2",
+      "kind": "missing_insufficient",
+      "dataset": "nq",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "Wren Adair",
+        "acceptable_final_answers": [
+          "Wren Adair"
+        ]
+      },
+      "observed": {
+        "original_verification": "insufficient",
+        "model_label": "insufficient",
+        "final_action": "keep",
+        "unresolved": true
+      },
+      "observed_final_answer": "Wren Adair",
+      "diagnostic": {
+        "key_evidence_cited": null,
+        "model_label": "insufficient",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-supported_keep-1",
+      "kind": "supported_keep",
+      "dataset": "nq",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "supported",
+        "final_action": "keep",
+        "unresolved": false,
+        "final_answer": "Oriel Vancombe",
+        "acceptable_final_answers": [
+          "Oriel Vancombe"
+        ]
+      },
+      "observed": {
+        "original_verification": "supported",
+        "model_label": "supported",
+        "final_action": "keep",
+        "unresolved": false
+      },
+      "observed_final_answer": "Oriel Vancombe",
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "supported",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-supported_keep-2",
+      "kind": "supported_keep",
+      "dataset": "nq",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "contract_passed": true,
+      "expected": {
+        "original_verification": "supported",
+        "final_action": "keep",
+        "unresolved": false,
+        "final_answer": "1903",
+        "acceptable_final_answers": [
+          "1903"
+        ]
+      },
+      "observed": {
+        "original_verification": "supported",
+        "model_label": "supported",
+        "final_action": "keep",
+        "unresolved": false
+      },
+      "observed_final_answer": "1903",
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "supported",
+        "type_warnings": []
+      }
+    }
+  ],
+  "gate_checks_passed": 10,
+  "failure_counts": {
+    "execution": 0,
+    "structure": 1,
+    "semantic": 9
+  },
+  "short_checks_completed": 18,
+  "long_checks_completed": 2,
+  "gate_datasets": {
+    "fever": 9,
+    "nq": 11
+  },
+  "development_branch_expected": 0,
+  "n_development_predictions": 0,
+  "error": null,
+  "quality_scored": false,
+  "promotion": false,
+  "scope": "export integrity and registered r2 gate classes only; no benchmark or semantic gain claim"
+}

@@ -1,0 +1,48 @@
+{
+  "scope": "20 fictional engineering checks only; not benchmark accuracy, semantic repair gain, or real-development compliance",
+  "Kaggle_wall_seconds_UI": 534.1,
+  "gate_calls": 20,
+  "completed_gate_calls": 20,
+  "input_tokens": 58096,
+  "output_tokens_estimate": 1586,
+  "summed_model_latency_seconds": 328.3174661690002,
+  "short_call_median_seconds": 6.505560431000049,
+  "dataset_counts": {
+    "fever": {
+      "n": 9,
+      "contract_passed": 9,
+      "behavior_passed": 3
+    },
+    "nq": {
+      "n": 11,
+      "contract_passed": 10,
+      "behavior_passed": 7
+    }
+  },
+  "long_checks": [
+    {
+      "case_id": "v2a-r2-fiction-fever-contradicted_repair-1-long",
+      "input_tokens": 17539,
+      "latency_seconds": 103.035233533,
+      "decoder": "xgrammar",
+      "xgrammar_version": "0.2.8",
+      "prefill_chunk_size": 256,
+      "execution_passed": true,
+      "contract_passed": true,
+      "behavior_passed": false
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_repair-1-long",
+      "input_tokens": 17514,
+      "latency_seconds": 99.29406542800007,
+      "decoder": "xgrammar",
+      "xgrammar_version": "0.2.8",
+      "prefill_chunk_size": 256,
+      "execution_passed": true,
+      "contract_passed": true,
+      "behavior_passed": false
+    }
+  ],
+  "development_calls": 0,
+  "cost_excludes": "No monetary cost estimate; model latency excludes setup and is not end-to-end AC5 cost; UI wall time is separately observed"
+}

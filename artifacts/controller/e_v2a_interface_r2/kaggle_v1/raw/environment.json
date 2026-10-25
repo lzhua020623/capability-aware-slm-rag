@@ -1,0 +1,58 @@
+{
+  "python": "3.13.15",
+  "packages": {
+    "torch": "2.11.0+cu128",
+    "transformers": "5.16.1",
+    "accelerate": "1.14.0",
+    "bitsandbytes": "0.50.2",
+    "PyYAML": "6.0.3"
+  },
+  "cuda_version": "12.8",
+  "gpus": [
+    {
+      "name": "Tesla T4",
+      "total_memory_bytes": 15636037632
+    },
+    {
+      "name": "Tesla T4",
+      "total_memory_bytes": 15636037632
+    }
+  ],
+  "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "json_output": false,
+  "labeled_output_stop_version": "single_response_v3_fact_first_audit",
+  "tokenizer_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "model_class": "transformers.models.qwen2.modeling_qwen2.Qwen2ForCausalLM",
+  "quantization_config": {
+    "quant_method": "bitsandbytes",
+    "_load_in_8bit": false,
+    "_load_in_4bit": true,
+    "llm_int8_threshold": 6.0,
+    "llm_int8_skip_modules": null,
+    "llm_int8_enable_fp32_cpu_offload": false,
+    "llm_int8_has_fp16_weight": false,
+    "bnb_4bit_quant_type": "nf4",
+    "bnb_4bit_use_double_quant": true,
+    "bnb_4bit_compute_dtype": "float16",
+    "bnb_4bit_quant_storage": "uint8",
+    "load_in_4bit": true,
+    "load_in_8bit": false
+  },
+  "fourbit_module_count": 196,
+  "fourbit_quant_types": [
+    "nf4"
+  ],
+  "parameter_devices": [
+    "cuda:0"
+  ],
+  "model_device_map": {},
+  "controller_generation_runtime": {
+    "prefill_chunk_size": 256,
+    "do_sample": false,
+    "scope": "shared Qwen: Probe, retrieval/rerank regeneration and E"
+  },
+  "xgrammar": "0.2.8",
+  "structured_decoder": "xgrammar_hf_logits_processor",
+  "v2a_shared_model": true,
+  "prefill_chunk_size": 256
+}

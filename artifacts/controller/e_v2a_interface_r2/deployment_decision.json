@@ -1,0 +1,47 @@
+{
+  "revision": "evidence_id_v2a_v3_definition_r2",
+  "registered_policy": "configs/controller/e_v2a_engineering_r2.json#development_branches.failed",
+  "Kaggle_version_id": 362285592,
+  "evidence_zip_sha256": "9cf94fb3e8573213e0a86462690b7291b8801a176423e91e949d501323c2f28d",
+  "source_commit": "e3ddead64ae25fe30b6c310e1e8a35e2b87c1652",
+  "engineering_outcome": "failed",
+  "mode_scope": "ONE shared mode, both datasets and all E arms",
+  "modes": {
+    "nq": {
+      "mode": "unavailable",
+      "reason": "r2_gate_failed",
+      "scope": "both_datasets_all_E_arms",
+      "provisional": false
+    },
+    "fever": {
+      "mode": "unavailable",
+      "reason": "r2_gate_failed",
+      "scope": "both_datasets_all_E_arms",
+      "provisional": false
+    }
+  },
+  "real_development_predictions": 0,
+  "real_development_contract_rates": {
+    "nq": null,
+    "fever": null
+  },
+  "synthetic_only_counts": {
+    "fever": {
+      "n": 9,
+      "contract_passed": 9,
+      "behavior_passed": 3
+    },
+    "nq": {
+      "n": 11,
+      "contract_passed": 10,
+      "behavior_passed": 7
+    }
+  },
+  "proposal_E_completion_accepted": false,
+  "T5_candidate_frozen": false,
+  "selection_or_final_started": false,
+  "P60_activated": false,
+  "r3_in_main_line": false,
+  "reason": "All 20 gates completed; one invalid replacement-source span and nine behavioral mismatches trigger the pre-registered execution/structure failure branch. This is not the semantic-only branch.",
+  "next": "Archive failure; no retry or new prompt in main. Continue human review and NQ-only routing under the shared unavailable E mode; any future E semantic revision is an extension after T8."
+}

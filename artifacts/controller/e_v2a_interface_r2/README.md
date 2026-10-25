@@ -2,6 +2,8 @@
 
 协议见 [CONTROLLER_E_V2A_R2.md](../../../docs/CONTROLLER_E_V2A_R2.md)，验收题封存记录见 [fixture_review](fixture_review/README.md)。
 
+**当前结果：首次 GPU 已结束，20 项中 10 项通过，结构失败 1、语义失败 9、执行失败 0。按预登记停止，开发调用为 0，全局 E 为 unavailable；主线不再安排 r3。** [原始结果与解释](kaggle_v1/README.md)、[离线部署决定](deployment_decision.json)均已保存。
+
 ## 当前执行包 v2
 
 执行入口为 [transport_v2 短 Notebook](transport_v2/controller_e_v2a_r2_development_dataset.ipynb)，配套同目录 `.tar.gz.bin`。源码提交 `e3ddead`，SHA256：`589dd9750d9e21336e0312609c47ee42d4ae338a86c566da7c15c25cd461ab07`。唯一当前指针见 [current_release.json](current_release.json)。
@@ -47,23 +49,23 @@ v2 对齐为两数据集共用离线 E 模式，并合入未启用 P60 的兼容
 
 - 完整回归测试通过。
 - [真实 XGrammar 0.2.8 编译](validation/r2_schema_cpu.json)：使用 Qwen 分词器。18 道题的理想输出全部被接受；r1 的旧标签 `unsupported`、非 insufficient 判断配空的核验 ID，都会被拒绝。短题提示最长 1,307 tokens；两道长题分别为 17,514 和 17,539 tokens。
-- [解包检查](validation/extracted_bundle_check.json)：92 个文件指纹一致；800 条开发输入中没有 gold 类字段；解包后 29 项便携测试和预检全部通过。
+- [当前 v2 解包检查](validation/extracted_bundle_v2_check.json)：101 个文件指纹一致；800 条开发输入中没有 gold 类字段；解包后 32 项便携测试和预检全部通过。原 v1 检查保留作历史记录。
 
 ## 独立复核
 
 拿到输出后，不需要调用模型、也不读 gold：
 
 ```bash
-python scripts/audit_controller_e_v2a_outputs.py --archive <outputs.zip> --release-dir artifacts/controller/e_v2a_interface_r2/gpu_release_v1
+python scripts/audit_controller_e_v2a_outputs.py --archive <outputs.zip> --release-dir artifacts/controller/e_v2a_interface_r2/gpu_release_v2
 ```
 
 审计脚本会根据原始记录重新计算每一项的失败类别和验收结果，并检查开发输出是否严格落在对应分支内：语义失败分支不得替换任何答案。
 
-## 尚未发生
+## 已执行的停止分支
 
-- GPU 已启动，验收尚待完成，开发预测数为 0。
-- 全局 E 模式要等开发结果和用户审核后再离线决定。
-- 全局启用要求两数据集冻结指标误修均为 0；NQ 语义误修及待定也均为 0，运行前已固定。
+- GPU 的 18 短题＋2 长题已完成，结果为 failed，开发预测数为 0。
+- 依据原登记，全局 E 模式已离线冻结为 unavailable，不执行 400／800 条开发，也不启动 r3。
+- 真实开发合规率未测，不填 0 或 100%；虚构题契约比例不替代该统计。运行前登记的启用门槛保留不改。
 
 ## 首次 GPU 启动 · 2026-10-26
 

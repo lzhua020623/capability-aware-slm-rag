@@ -1,0 +1,558 @@
+{
+  "outcome": "failed",
+  "passed": false,
+  "real_CUDA": true,
+  "n_checks": 20,
+  "failure_counts": {
+    "execution": 0,
+    "structure": 1,
+    "semantic": 9
+  },
+  "checks": [
+    {
+      "case_id": "v2a-r2-fiction-nq-supported_keep-1",
+      "kind": "supported_keep",
+      "dataset": "nq",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "reasons": [],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "supported",
+        "final_action": "keep",
+        "unresolved": false,
+        "final_answer": "Oriel Vancombe",
+        "acceptable_final_answers": [
+          "Oriel Vancombe"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "supported",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-supported_keep-2",
+      "kind": "supported_keep",
+      "dataset": "nq",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "reasons": [],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "supported",
+        "final_action": "keep",
+        "unresolved": false,
+        "final_answer": "1903",
+        "acceptable_final_answers": [
+          "1903"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "supported",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_repair-1",
+      "kind": "contradicted_repair",
+      "dataset": "nq",
+      "long": false,
+      "passed": false,
+      "failure_class": "structure",
+      "reasons": [
+        "contract_failed:unsupported:invalid_span"
+      ],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "Ilsa Marrow",
+        "acceptable_final_answers": [
+          "Ilsa Marrow",
+          "Ilsa Marrow alone"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": false,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_repair-2",
+      "kind": "contradicted_repair",
+      "dataset": "nq",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "reasons": [],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "1887",
+        "acceptable_final_answers": [
+          "1887",
+          "in 1887"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_no_candidate-1",
+      "kind": "contradicted_no_candidate",
+      "dataset": "nq",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "reasons": [],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "Doran Field",
+        "acceptable_final_answers": [
+          "Doran Field"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_no_candidate-2",
+      "kind": "contradicted_no_candidate",
+      "dataset": "nq",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "reasons": [],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "Lusk",
+        "acceptable_final_answers": [
+          "Lusk"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-missing_insufficient-1",
+      "kind": "missing_insufficient",
+      "dataset": "nq",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "reasons": [],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "1964",
+        "acceptable_final_answers": [
+          "1964"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": null,
+        "model_label": "insufficient",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-missing_insufficient-2",
+      "kind": "missing_insufficient",
+      "dataset": "nq",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "reasons": [],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "Wren Adair",
+        "acceptable_final_answers": [
+          "Wren Adair"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": null,
+        "model_label": "insufficient",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-conflict_insufficient-1",
+      "kind": "conflict_insufficient",
+      "dataset": "nq",
+      "long": false,
+      "passed": false,
+      "failure_class": "semantic",
+      "reasons": [
+        "original_verification:supported!=insufficient",
+        "unresolved:False!=True"
+      ],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "1742",
+        "acceptable_final_answers": [
+          "1742"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "supported",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-conflict_insufficient-2",
+      "kind": "conflict_insufficient",
+      "dataset": "nq",
+      "long": false,
+      "passed": false,
+      "failure_class": "semantic",
+      "reasons": [
+        "original_verification:unsupported!=insufficient",
+        "final_action:replace!=keep",
+        "unresolved:False!=True",
+        "final_answer"
+      ],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "Edda Calloway",
+        "acceptable_final_answers": [
+          "Edda Calloway"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-supported_keep-1",
+      "kind": "supported_keep",
+      "dataset": "fever",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "reasons": [],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "supported",
+        "final_action": "keep",
+        "unresolved": false,
+        "final_answer": "SUPPORTS",
+        "acceptable_final_answers": [
+          "SUPPORTS"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "supported",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-supported_keep-2",
+      "kind": "supported_keep",
+      "dataset": "fever",
+      "long": false,
+      "passed": false,
+      "failure_class": "semantic",
+      "reasons": [
+        "original_verification:unsupported!=supported",
+        "unresolved:True!=False"
+      ],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "supported",
+        "final_action": "keep",
+        "unresolved": false,
+        "final_answer": "REFUTES",
+        "acceptable_final_answers": [
+          "REFUTES"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-contradicted_repair-1",
+      "kind": "contradicted_repair",
+      "dataset": "fever",
+      "long": false,
+      "passed": false,
+      "failure_class": "semantic",
+      "reasons": [
+        "original_verification:supported!=unsupported",
+        "final_action:keep!=replace",
+        "final_answer"
+      ],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "SUPPORTS",
+        "acceptable_final_answers": [
+          "SUPPORTS"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "supported",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-contradicted_repair-2",
+      "kind": "contradicted_repair",
+      "dataset": "fever",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "reasons": [],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "REFUTES",
+        "acceptable_final_answers": [
+          "REFUTES"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-missing_insufficient-1",
+      "kind": "missing_insufficient",
+      "dataset": "fever",
+      "long": false,
+      "passed": true,
+      "failure_class": null,
+      "reasons": [],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "SUPPORTS",
+        "acceptable_final_answers": [
+          "SUPPORTS"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": null,
+        "model_label": "insufficient",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-missing_insufficient-2",
+      "kind": "missing_insufficient",
+      "dataset": "fever",
+      "long": false,
+      "passed": false,
+      "failure_class": "semantic",
+      "reasons": [
+        "original_verification:unsupported!=insufficient",
+        "final_action:replace!=keep",
+        "unresolved:False!=True",
+        "final_answer"
+      ],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "REFUTES",
+        "acceptable_final_answers": [
+          "REFUTES"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": null,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-conflict_insufficient-1",
+      "kind": "conflict_insufficient",
+      "dataset": "fever",
+      "long": false,
+      "passed": false,
+      "failure_class": "semantic",
+      "reasons": [
+        "original_verification:unsupported!=insufficient",
+        "final_action:replace!=keep",
+        "unresolved:False!=True",
+        "final_answer"
+      ],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "SUPPORTS",
+        "acceptable_final_answers": [
+          "SUPPORTS"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-conflict_insufficient-2",
+      "kind": "conflict_insufficient",
+      "dataset": "fever",
+      "long": false,
+      "passed": false,
+      "failure_class": "semantic",
+      "reasons": [
+        "original_verification:unsupported!=insufficient",
+        "final_action:replace!=keep",
+        "unresolved:False!=True",
+        "final_answer"
+      ],
+      "expected_input_tokens": null,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "REFUTES",
+        "acceptable_final_answers": [
+          "REFUTES"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_repair-1-long",
+      "kind": "contradicted_repair",
+      "dataset": "nq",
+      "long": true,
+      "passed": false,
+      "failure_class": "semantic",
+      "reasons": [
+        "original_verification:supported!=unsupported",
+        "final_action:keep!=replace",
+        "final_answer"
+      ],
+      "expected_input_tokens": 17514,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "Ilsa Marrow",
+        "acceptable_final_answers": [
+          "Ilsa Marrow",
+          "Ilsa Marrow alone"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "supported",
+        "type_warnings": []
+      }
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-contradicted_repair-1-long",
+      "kind": "contradicted_repair",
+      "dataset": "fever",
+      "long": true,
+      "passed": false,
+      "failure_class": "semantic",
+      "reasons": [
+        "final_action:keep!=replace",
+        "unresolved:True!=False",
+        "final_answer"
+      ],
+      "expected_input_tokens": 17539,
+      "synthetic": true,
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "SUPPORTS",
+        "acceptable_final_answers": [
+          "SUPPORTS"
+        ]
+      },
+      "diagnostic": {
+        "key_evidence_cited": true,
+        "model_label": "contradicted",
+        "type_warnings": []
+      }
+    }
+  ],
+  "scope": "18 sealed fictional behavioral checks plus two long XGrammar/prefill256 paths; not benchmark gain",
+  "manifest_sha256": "17feced572750ec16dcf0f1f09b92ffff1910052c8dea0bfd177bb73198f3759"
+}

@@ -1,0 +1,12 @@
+{
+  "state": "stopped_gate_failed",
+  "engineering_outcome": "failed",
+  "engineering_passed": false,
+  "development_branch": "failed",
+  "expected_predictions": 0,
+  "n_predictions": 0,
+  "quality_scored": false,
+  "role": "development",
+  "source_commit": "e3ddead64ae25fe30b6c310e1e8a35e2b87c1652",
+  "engineering_revision": "evidence_id_v2a_v3_definition_r2"
+}

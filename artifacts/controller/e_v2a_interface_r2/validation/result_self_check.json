@@ -1,0 +1,47 @@
+{
+  "round": "r2 first GPU export audit and stop decision",
+  "date": "2026-10-26",
+  "checked_at_UTC": "2026-10-25T23:26:09.522215+00:00",
+  "before": {
+    "HEAD": "be4110ab94f17731a51331009e343349b6d6e9b7",
+    "branch": "controller",
+    "inference_source_commit": "e3ddead64ae25fe30b6c310e1e8a35e2b87c1652",
+    "archive_sha256": "589dd9750d9e21336e0312609c47ee42d4ae338a86c566da7c15c25cd461ab07",
+    "attempt": 1,
+    "source_and_fixture_hashes_match_seal": true,
+    "no_selection_or_final_runtime": true
+  },
+  "after": {
+    "full_tests": 936,
+    "targeted_new_tests": 5,
+    "full_test_log": "validation/result_full_tests.log",
+    "full_test_log_sha256": "16ad9a047ad288a2de3c9e4e201c61948c225e6b2e84e0b4a8a38a6f5e8664b2",
+    "audit_passed": true,
+    "checksum_files_verified": 26,
+    "raw_members_byte_preserved": 27,
+    "gate_checks_completed": 20,
+    "gate_checks_passed": 10,
+    "failure_counts": {
+      "execution": 0,
+      "structure": 1,
+      "semantic": 9
+    },
+    "engineering_passed": false,
+    "real_development_predictions": 0,
+    "shared_E_mode": "unavailable",
+    "original_source_files_unchanged": 99,
+    "historical_archives_verified": {
+      "artifacts/controller/t4_v1/controller_t4_development_v1_outputs.zip": "be3b926b8f808cd39b1c32b64564e5e5619518bebd2585af3fd8f0a6616bc7a5",
+      "artifacts/controller/e_v2a_interface_r1/kaggle_v1/outputs.zip": "d720d4fbfb9d0b43c6d6e0de995759a5a99c16b9a9495beb70aa64b08ffb4ce4"
+    },
+    "changed_doc_links_checked": 5,
+    "human_reviews_confirmed": 0,
+    "P60_activated": false,
+    "r3_started": false,
+    "semantic_retry": false,
+    "selection_or_final_started": false,
+    "proposal_E_completion_accepted": false
+  },
+  "output_zip_sha256": "9cf94fb3e8573213e0a86462690b7291b8801a176423e91e949d501323c2f28d",
+  "scope": "Local tests and export audit passed; real GPU E gate failed. Do not conflate them."
+}
