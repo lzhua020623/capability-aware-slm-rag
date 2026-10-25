@@ -1,0 +1,9 @@
+{
+  "release_dir": "gpu_release_v2",
+  "transport_dir": "transport_v2",
+  "archive_sha256": "589dd9750d9e21336e0312609c47ee42d4ae338a86c566da7c15c25cd461ab07",
+  "source_commit": "e3ddead64ae25fe30b6c310e1e8a35e2b87c1652",
+  "supersedes_unrun_release": "gpu_release_v1",
+  "P60_activated": false,
+  "scope": "r2 labels and sealed 18+2 fixtures unchanged; shared offline mode aligned; compatible Diagnosis interfaces present but P60 not activated"
+}

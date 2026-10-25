@@ -1,0 +1,35 @@
+{
+  "source_commit": "e3ddead64ae25fe30b6c310e1e8a35e2b87c1652",
+  "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "all_development_inputs_checked": 800,
+  "groups": {
+    "nq/always_repair": {
+      "n": 200,
+      "max_tokens": 3154
+    },
+    "fever/always_repair": {
+      "n": 200,
+      "max_tokens": 6671
+    },
+    "nq/full_E": {
+      "n": 200,
+      "max_tokens": 3156
+    },
+    "fever/full_E": {
+      "n": 200,
+      "max_tokens": 6671
+    }
+  },
+  "maximum": {
+    "tokens": 6671,
+    "sample_id": "38210",
+    "group": "fever/always_repair"
+  },
+  "long_input_tokens": {
+    "v2a-r2-fiction-nq-contradicted_repair-1-long": 17514,
+    "v2a-r2-fiction-fever-contradicted_repair-1-long": 17539
+  },
+  "forbidden_runtime_keys": [],
+  "GPU_used": false,
+  "scope": "exact frozen prompts/tokenizer only; no generation or quality scoring"
+}

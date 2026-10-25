@@ -2,6 +2,12 @@
 
 协议见 [CONTROLLER_E_V2A_R2.md](../../../docs/CONTROLLER_E_V2A_R2.md)，验收题封存记录见 [fixture_review](fixture_review/README.md)。
 
+## 当前执行包 v2
+
+执行入口为 [transport_v2 短 Notebook](transport_v2/controller_e_v2a_r2_development_dataset.ipynb)，配套同目录 `.tar.gz.bin`。源码提交 `e3ddead`，SHA256：`589dd9750d9e21336e0312609c47ee42d4ae338a86c566da7c15c25cd461ab07`。唯一当前指针见 [current_release.json](current_release.json)。
+
+v2 对齐为两数据集共用离线 E 模式，并合入未启用 P60 的兼容接口。模型、核验提示、18＋2 封存题、单次 384-token 预算和分支调用数不变。原 v1 从未在 GPU 运行，保留原字节，不使用它提交本次实验。
+
 ## 历史未运行包 v1
 
 此包来自 `9d91a40`，生成于离线全局模式对齐之前，GPU 从未运行。保留原字节作审计，执行前改用随后封存的 v2；不把 v1 当作当前执行入口。
@@ -57,4 +63,4 @@ python scripts/audit_controller_e_v2a_outputs.py --archive <outputs.zip> --relea
 
 - GPU 尚未运行，开发预测数为 0。
 - 全局 E 模式要等开发结果和用户审核后再离线决定。
-- 误修上限的口径需要在打开开发结果之前由用户确认。
+- 全局启用要求两数据集冻结指标误修均为 0；NQ 语义误修及待定也均为 0，运行前已固定。

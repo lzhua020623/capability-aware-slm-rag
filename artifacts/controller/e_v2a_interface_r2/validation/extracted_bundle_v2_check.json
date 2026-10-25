@@ -1,0 +1,23 @@
+{
+  "archive_sha256": "589dd9750d9e21336e0312609c47ee42d4ae338a86c566da7c15c25cd461ab07",
+  "source_commit": "e3ddead64ae25fe30b6c310e1e8a35e2b87c1652",
+  "bundle_files_verified": 101,
+  "plan_entries": 800,
+  "gate_checks": 20,
+  "portable_test_log_tail": [
+    "----------------------------------------------------------------------",
+    "Ran 32 tests in 5.870s",
+    "",
+    "OK"
+  ],
+  "preflight": {
+    "passed": true,
+    "n": 800,
+    "gate_checks": 20,
+    "contains_real_gold": false
+  },
+  "transport_binary_identical": true,
+  "default_P60_activated": false,
+  "GPU_used": false,
+  "extracted_root": "/var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/controller-r2-v2-unpacked-f5_ug2dy/controller_e_v2a_r2_development"
+}

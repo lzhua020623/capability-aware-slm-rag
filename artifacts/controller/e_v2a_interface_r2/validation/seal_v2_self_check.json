@@ -1,0 +1,29 @@
+{
+  "round": "r2 v2 seal after compatible framework integration",
+  "date": "2026-10-26",
+  "checked_at_UTC": "2026-10-25T14:52:35.349035+00:00",
+  "before": {
+    "source_commit": "e3ddead64ae25fe30b6c310e1e8a35e2b87c1652",
+    "inference_sources_committed_clean": true,
+    "r2_first_GPU_not_started": true
+  },
+  "after": {
+    "full_tests": 927,
+    "portable_tests": 32,
+    "bundle_files_verified": 101,
+    "all_800_input_token_lengths_checked": true,
+    "maximum_development_input_tokens": 6671,
+    "long_input_tokens": {
+      "v2a-r2-fiction-nq-contradicted_repair-1-long": 17514,
+      "v2a-r2-fiction-fever-contradicted_repair-1-long": 17539
+    },
+    "old_unrun_v1_byte_preserved": true,
+    "global_shared_mode_in_frozen_config": true,
+    "P60_activated": false,
+    "new_GPU_predictions": 0,
+    "CPU_is_not_GPU_acceptance": true
+  },
+  "archive_sha256": "589dd9750d9e21336e0312609c47ee42d4ae338a86c566da7c15c25cd461ab07",
+  "full_test_log_sha256": "5a6a547ea70943ed5aaf7cef82179a462f8934de516962e763024739e58c0b63",
+  "launch_blocker": "Chrome cgWindowNotFound; reconnect and app inventory retried; no upload or GPU submission claimed"
+}

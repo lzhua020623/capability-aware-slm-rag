@@ -207,6 +207,24 @@ class R2AuditTests(unittest.TestCase):
 
 
 class R2ReleaseTests(unittest.TestCase):
+    def test_current_release_binds_shared_mode_and_exact_transport(self):
+        import tarfile
+        folder = ROOT / 'artifacts/controller/e_v2a_interface_r2'
+        current = json.loads((folder / 'current_release.json').read_text())
+        release = folder / current['release_dir']
+        transport = folder / current['transport_dir']
+        receipt = json.loads((release / 'bundle_receipt.json').read_text())
+        name = receipt['bundle_name']
+        archive = release / (name + '.tar.gz')
+        self.assertEqual(hashlib.sha256(archive.read_bytes()).hexdigest(), current['archive_sha256'])
+        self.assertEqual((transport / (name + '.tar.gz.bin')).read_bytes(), archive.read_bytes())
+        self.assertEqual(receipt['source_commit'], current['source_commit'])
+        with tarfile.open(archive) as t:
+            policy = json.load(t.extractfile(name + '/configs/controller/e_v2a_engineering_r2.json'))
+            self.assertEqual(policy['global_E_mode'], json.loads((ROOT / 'configs/controller/e_v2a_engineering_r2.json').read_text())['global_E_mode'])
+        self.assertFalse(current['P60_activated'])
+        self.assertEqual(current['supersedes_unrun_release'], 'gpu_release_v1')
+
     def test_sealed_r2_bundle_binds_registration_fixtures_and_transport(self):
         import tarfile
         folder = ROOT / 'artifacts/controller/e_v2a_interface_r2'
