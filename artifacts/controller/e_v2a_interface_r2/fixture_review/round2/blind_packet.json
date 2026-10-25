@@ -1,0 +1,607 @@
+{
+  "label_definitions": {
+    "scope": "Judge the ENTERING ANSWER (NQ short answer, FEVER label) against the supplied evidence only; never world knowledge.",
+    "supported": "The evidence establishes that the entering answer is correct. NQ: a passage states the requested fact and it matches the entering answer. FEVER: the evidence establishes the claim when the entering label is SUPPORTS, or explicitly contradicts the claim when the entering label is REFUTES.",
+    "contradicted": "The evidence explicitly establishes that the entering answer is wrong. NQ: the evidence gives a different value for the exact requested fact, or explicitly rules out the entering answer. FEVER: the evidence establishes the opposite label. Internal name: unsupported.",
+    "insufficient": "The evidence neither establishes nor rules out the entering answer: the requested fact is absent (only related facts are present), or relevant passages give conflicting values and the evidence itself does not resolve which is right. Absence of support is never contradiction. If passages give incompatible answers and the evidence does not state which is correct, the verdict is insufficient even when one passage matches the entering answer; source names, authority, recency or rank do not resolve a conflict.",
+    "replacement": "Only after contradicted. NQ: the shortest continuous evidence span (at most 20 words) that answers the requested fact, otherwise empty. FEVER: the opposite legal label.",
+    "final_action": "replace only when contradicted and a valid replacement exists; otherwise keep the entering answer",
+    "unresolved": "false only for supported, or contradicted with a replacement"
+  },
+  "cases": [
+    {
+      "blind_id": "C01",
+      "dataset": "nq",
+      "query_or_claim": "Who painted the fictional mural Harbor of Seven Bells?",
+      "entering_answer": "Kerran Pell",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-seven-bells-square",
+          "text": "The fictional Seven Bells Square is paved with gray cobblestones."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-harbor-of-seven-bells",
+          "text": "The fictional mural Harbor of Seven Bells was painted by Ilsa Marrow alone. Kerran Pell only built the wooden frame around it."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-harbor-murals",
+          "text": "Fictional harbor murals are often repainted after storms."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-pell-workshop",
+          "text": "The fictional Pell workshop makes picture frames and cabinets."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-bell-foundry",
+          "text": "A fictional bell foundry once stood at the end of the pier."
+        }
+      ]
+    },
+    {
+      "blind_id": "C02",
+      "dataset": "nq",
+      "query_or_claim": "Who was the first director of the fictional Ostrel Science Museum?",
+      "entering_answer": "Wren Adair",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-ostrel-customs-house",
+          "text": "The fictional old customs house of Ostrel was built from yellow stone."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-ostrel-science-museum",
+          "text": "The fictional Ostrel Science Museum opened in 1978 in the old customs house. Its largest gallery displays steam engines."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-ostrel-harbor",
+          "text": "The fictional town of Ostrel has a small fishing harbor."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-ostrel-museum-trust",
+          "text": "The fictional Ostrel Museum Trust raises money through an annual fair."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-steam-gallery",
+          "text": "Fictional steam engine galleries often run demonstrations on weekends."
+        }
+      ]
+    },
+    {
+      "blind_id": "C03",
+      "dataset": "nq",
+      "query_or_claim": "Who founded the fictional Tamsk Lantern Guild?",
+      "entering_answer": "Oriel Vancombe",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-tamsk-town",
+          "text": "The fictional river town of Tamsk sits on the Ferro River. Its market opens every Thursday."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-tamsk-lantern-guild",
+          "text": "The fictional Tamsk Lantern Guild was founded by Oriel Vancombe. The guild trains lamp makers and repairs street lanterns."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-lamp-craft",
+          "text": "Fictional lamp makers in the region work with brass and blown glass."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-ferro-river",
+          "text": "The fictional Ferro River floods its lower banks most springs."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-quill-harbor",
+          "text": "The fictional Quill Harbor archive stores old shipping charts."
+        }
+      ]
+    },
+    {
+      "blind_id": "C04",
+      "dataset": "fever",
+      "query_or_claim": "The fictional Quorra Ferry crosses the Tilden Strait.",
+      "entering_answer": "SUPPORTS",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-quorra-ferry",
+          "text": "According to the Tilden port guide, the fictional Quorra Ferry crosses the Tilden Strait twice a day. It carries cars and foot passengers."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-tilden-strait",
+          "text": "The fictional Tilden Strait is known for strong tides."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-ferry-tickets",
+          "text": "Fictional ferry tickets in the region are sold at harbor kiosks."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-gull-island",
+          "text": "The fictional Gull Island has a small lighthouse."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-coast-shipyards",
+          "text": "Fictional shipyards on the coast build fishing boats."
+        }
+      ]
+    },
+    {
+      "blind_id": "C05",
+      "dataset": "fever",
+      "query_or_claim": "The fictional composer Ansel Brighe wrote the opera Glass Orchard.",
+      "entering_answer": "REFUTES",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-varn-opera-house",
+          "text": "The fictional Varn Opera House seats nine hundred people."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-varn-composers-guild",
+          "text": "The fictional Composers Guild of Varn meets every autumn."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-glass-orchard",
+          "text": "Glass Orchard is a fictional opera written by the composer Ansel Brighe. It premiered at the Varn Opera House."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-orchard-songs",
+          "text": "Fictional orchard songs are sung at harvest festivals."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-opera-sets",
+          "text": "Fictional opera sets are often painted on canvas."
+        }
+      ]
+    },
+    {
+      "blind_id": "C06",
+      "dataset": "fever",
+      "query_or_claim": "The fictional Thornwick Theatre has more than eight hundred seats.",
+      "entering_answer": "SUPPORTS",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-harrow-square",
+          "text": "The fictional Harrow Square is lined with cafes."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-thornwick-theatre",
+          "text": "The fictional Thornwick Theatre stands on Harrow Square. It was designed by the architect Pia Lund."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-pia-lund",
+          "text": "Pia Lund was a fictional architect known for curved staircases."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-stage-lighting",
+          "text": "Fictional stage lighting once used limelight."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-thornwick-players",
+          "text": "The fictional Thornwick Players perform comedies each summer."
+        }
+      ]
+    },
+    {
+      "blind_id": "C07",
+      "dataset": "nq",
+      "query_or_claim": "When did the fictional Hessary Botanical Garden open to the public?",
+      "entering_answer": "1964",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-hessary-botanical-garden",
+          "text": "The fictional Hessary Botanical Garden was laid out by the gardener Tobin Reyes. It holds a large collection of mountain ferns."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-lume-canal",
+          "text": "The fictional Hessary Botanical Garden lies on the north bank of the Lume Canal."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-fern-society",
+          "text": "The fictional Fern Society publishes a yearly bulletin."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-tobin-reyes",
+          "text": "Tobin Reyes began planting the fictional Hessary Botanical Garden in 1951."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-greenhouses",
+          "text": "Fictional glass greenhouses need careful heating in winter."
+        }
+      ]
+    },
+    {
+      "blind_id": "C08",
+      "dataset": "fever",
+      "query_or_claim": "The fictional explorer Lio Vantis reached the summit of Mount Carrow.",
+      "entering_answer": "REFUTES",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-mount-carrow",
+          "text": "The fictional Mount Carrow is the highest peak in the Dell Range."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-dell-climbing-club",
+          "text": "The Dell Climbing Club register records that the fictional explorer Lio Vantis reached the summit of Mount Carrow."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-dell-guides",
+          "text": "Fictional guides in the Dell Range carry rope and lanterns."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-pike-climbing-club",
+          "text": "According to the Pike Climbing Club register, the fictional explorer Lio Vantis never stood on the summit of Mount Carrow."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-dell-huts",
+          "text": "Fictional mountain huts in the Dell Range sleep up to ten climbers."
+        }
+      ]
+    },
+    {
+      "blind_id": "C09",
+      "dataset": "fever",
+      "query_or_claim": "The fictional Mossgate Library was built from red brick.",
+      "entering_answer": "REFUTES",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-mossgate-town",
+          "text": "The fictional town of Mossgate has a weekly book market."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-mossgate-library",
+          "text": "The fictional Mossgate Library was built entirely from white limestone. No brick was used in its construction."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-coast-brickworks",
+          "text": "Fictional brickworks near the coast fired red clay bricks."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-reading-rooms",
+          "text": "Fictional reading rooms often have tall windows for daylight."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-limestone-quarry",
+          "text": "A fictional limestone quarry lies two miles east of Mossgate."
+        }
+      ]
+    },
+    {
+      "blind_id": "C10",
+      "dataset": "nq",
+      "query_or_claim": "In which city was the fictional poet Mirel Ostvane born?",
+      "entering_answer": "Lusk",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-lusk",
+          "text": "The fictional city of Lusk is known for its canals."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-lantern-prize",
+          "text": "The fictional Lantern Prize for poetry is awarded every spring."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-oak-press",
+          "text": "The fictional Oak Press printed small books of verse."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-mirel-ostvane",
+          "text": "The fictional poet Mirel Ostvane moved to Lusk at the age of thirty and was not born there. Surviving records do not name the poet's birthplace."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-lusk-canal-boats",
+          "text": "Fictional canal boats in Lusk are painted green."
+        }
+      ]
+    },
+    {
+      "blind_id": "C11",
+      "dataset": "fever",
+      "query_or_claim": "The fictional Brennock Abbey was founded in 1142.",
+      "entering_answer": "SUPPORTS",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-hale-county-history",
+          "text": "The fictional Brennock Abbey was founded in 1142, according to the Hale county history."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-brennock-village",
+          "text": "The fictional village of Brennock grows barley."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-marsh-county-history",
+          "text": "According to the Marsh county history, the founding of the fictional Brennock Abbey took place in 1231."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-barley-mill",
+          "text": "A fictional barley mill stands beside the abbey road."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-monastic-gardens",
+          "text": "Fictional monastic gardens grew herbs for medicine."
+        }
+      ]
+    },
+    {
+      "blind_id": "C12",
+      "dataset": "nq",
+      "query_or_claim": "Who designed the fictional Amberwick Clock Tower?",
+      "entering_answer": "Doran Field",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-amberwick-clock-tower",
+          "text": "Town records state that Doran Field had no part in designing the fictional Amberwick Clock Tower. The name of its designer was never recorded."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-amberwick-market",
+          "text": "The fictional Amberwick market sells wool and cheese."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-doran-field",
+          "text": "Doran Field was a fictional mayor of Amberwick."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-valley-clockmakers",
+          "text": "Fictional clockmakers in the valley used oak and brass gears."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-amberwick-bridge",
+          "text": "The fictional Amberwick Bridge crosses a narrow stream."
+        }
+      ]
+    },
+    {
+      "blind_id": "C13",
+      "dataset": "fever",
+      "query_or_claim": "The fictional Kestrel Dam was completed in 1948.",
+      "entering_answer": "SUPPORTS",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-kestrel-dam",
+          "text": "The fictional Kestrel Dam was completed in 1968 after twelve years of construction."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-kestrel-reservoir",
+          "text": "The fictional Kestrel Reservoir supplies water to two towns."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-dam-engineers",
+          "text": "Fictional dam engineers test concrete in cold weather."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-river-kest",
+          "text": "The fictional River Kest flows south into the sea."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-kestrel-power-station",
+          "text": "A fictional power station below the dam produces electricity."
+        }
+      ]
+    },
+    {
+      "blind_id": "C14",
+      "dataset": "nq",
+      "query_or_claim": "In what year was the fictional Brask Valley Railway completed?",
+      "entering_answer": "1903",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-brask-valley-railway",
+          "text": "Construction of the fictional Brask Valley Railway began in 1897. According to the Brask county gazette, the railway was completed in 1903."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-brask-mines",
+          "text": "The fictional Brask Valley mines produced tin and copper."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-hollis-dray",
+          "text": "Hollis Dray was a fictional surveyor who mapped the Brask hills."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-mountain-engines",
+          "text": "Fictional steam engines on mountain lines often carried extra sand for traction."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-orrin-station",
+          "text": "The fictional Orrin Station has two platforms and a small waiting room."
+        }
+      ]
+    },
+    {
+      "blind_id": "C15",
+      "dataset": "nq",
+      "query_or_claim": "When did the fictional Corvel Lighthouse first shine its lamp?",
+      "entering_answer": "1921",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-corvel-point",
+          "text": "The fictional Corvel Point is a rocky headland with strong currents."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-lamp-oil",
+          "text": "Fictional coastal lamps burned whale oil before kerosene."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-corvel-lighthouse",
+          "text": "The Corvel harbor almanac records that the fictional Corvel Lighthouse first shone its lamp in 1887. Its lamp was automated in 1921."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-keepers-guild",
+          "text": "The fictional Guild of Light Keepers trained new keepers each winter."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-sable-wreck",
+          "text": "The fictional ship Sable ran aground off Corvel Point."
+        }
+      ]
+    },
+    {
+      "blind_id": "C16",
+      "dataset": "nq",
+      "query_or_claim": "Who led the first expedition to the fictional Varrow Glacier?",
+      "entering_answer": "Edda Calloway",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-varrow-glacier",
+          "text": "The fictional Varrow Glacier feeds three mountain lakes."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-tarn-harbor-log",
+          "text": "The Tarn harbor log names Edda Calloway as the sole leader of the first expedition to the fictional Varrow Glacier."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-ice-tools",
+          "text": "Fictional ice axes of the period had wooden handles."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-bay-harbor-log",
+          "text": "According to the Bay harbor log, Simeon Thale was the only leader of the first fictional Varrow Glacier expedition."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-varrow-lakes",
+          "text": "The fictional lakes below Varrow Glacier freeze every winter."
+        }
+      ]
+    },
+    {
+      "blind_id": "C17",
+      "dataset": "nq",
+      "query_or_claim": "In what year was the fictional Lattimer Bell cast?",
+      "entering_answer": "1742",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-lattimer-bell",
+          "text": "The fictional Lattimer Bell was cast in 1742 at the town foundry."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-lattimer-church",
+          "text": "The fictional Lattimer church has a square stone tower."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-lattimer-bell-casting",
+          "text": "Casting of the fictional Lattimer Bell took place in 1758."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-lattimer-ringers",
+          "text": "Fictional bell ringers in Lattimer practice on Tuesday evenings."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-foundry-lane",
+          "text": "The fictional Foundry Lane runs beside the old river wall."
+        }
+      ]
+    },
+    {
+      "blind_id": "C18",
+      "dataset": "fever",
+      "query_or_claim": "The fictional chemist Odo Farran discovered the element vellium.",
+      "entering_answer": "REFUTES",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-odo-farran",
+          "text": "The fictional chemist Odo Farran taught at the College of Merrin for thirty years. Odo Farran wrote a textbook on mineral salts."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-vellium",
+          "text": "Vellium is a fictional element used in lamp filaments."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-college-of-merrin",
+          "text": "The fictional College of Merrin has a large chemistry library."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-mineral-salts",
+          "text": "Fictional mineral salts are mined from dry lake beds."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-lamp-filaments",
+          "text": "Fictional lamp filaments glow brighter when thinner."
+        }
+      ]
+    }
+  ]
+}

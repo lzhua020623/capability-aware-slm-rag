@@ -1,0 +1,55 @@
+{
+  "schema_version": "controller_e_v2a_r2_fixture_seal_v1",
+  "sealed_on": "2026-10-26",
+  "fixtures": "configs/controller/e_v2a_r2_fixtures.json",
+  "fixtures_sha256": "423aef2ab7a5c84f2b93854a305ea798438ba11faaa3862f916fdb84b08b4b2c",
+  "n_short": 18,
+  "n_long": 2,
+  "sealed_before_r2_prompt_change": true,
+  "E_prompt_source_at_seal": {
+    "src/compensation/evidence_v2a.py": "2eabffe401b63920c5709e708ddf06a2ead1159e8c0dde49cbe7e4ec564b679d",
+    "version": "evidence_id_v2a_v2 (r1, unchanged)"
+  },
+  "blind_review": {
+    "rounds": [
+      {
+        "folder": "round1",
+        "n": 18,
+        "agreement": 18,
+        "minor_flags": 3,
+        "major_flags": 0,
+        "reviewer": "fresh independent agent; saw only definitions and anonymised shuffled cases",
+        "changes_after": "first draft; 3 minor flags fixed (equal-standing sources, never reached, real-city name) plus precedence/shortest-span definitions and leak reduction"
+      },
+      {
+        "folder": "round2",
+        "n": 18,
+        "agreement": 18,
+        "minor_flags": 7,
+        "major_flags": 0,
+        "reviewer": "fresh independent agent; saw only definitions and anonymised shuffled cases",
+        "changes_after": "fresh agent on all 18 revised cases; required edits: neutral club names (C08), mirrored conflict passages and no-reconciliation rule (C17), explicit keep-and-flag rule; C12 template varied"
+      },
+      {
+        "folder": "round3",
+        "n": 3,
+        "agreement": 3,
+        "minor_flags": 3,
+        "major_flags": 0,
+        "reviewer": "fresh independent agent; saw only definitions and anonymised shuffled cases",
+        "changes_after": "fresh agent on the 3 edited cases only, final definitions; no required edits"
+      }
+    ],
+    "agent_review_is_not_human_truth": true
+  },
+  "long_length_estimate": {
+    "tokenizer": "Qwen/Qwen2.5-7B-Instruct a09a3545 (local CPU)",
+    "prompt": "r1 text, estimate only",
+    "input_tokens": {
+      "nq": 17361,
+      "fever": 17390
+    },
+    "note": "runtime recomputes with the r2 prompt and the same padding rule; window [14000, 32384]"
+  },
+  "rule": "Fixtures, expectations and acceptable answers are frozen from here; no edits or prompt iteration on these cases after any r2 GPU output"
+}

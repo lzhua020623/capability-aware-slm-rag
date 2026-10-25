@@ -1,0 +1,980 @@
+{
+  "schema_version": "controller_e_v2a_r2_fixtures_v1",
+  "namespace": "v2a-r2-fiction",
+  "written_before_r2_prompt_change": true,
+  "retired_names": [
+    "Selen",
+    "Veyra",
+    "Nalo Kest",
+    "Velora",
+    "Nerin"
+  ],
+  "label_definitions": {
+    "scope": "Judge the ENTERING ANSWER (NQ short answer, FEVER label) against the supplied evidence only; never world knowledge.",
+    "supported": "The evidence establishes that the entering answer is correct. NQ: a passage states the requested fact and it matches the entering answer. FEVER: the evidence establishes the claim when the entering label is SUPPORTS, or explicitly contradicts the claim when the entering label is REFUTES.",
+    "contradicted": "The evidence explicitly establishes that the entering answer is wrong. NQ: the evidence gives a different value for the exact requested fact, or explicitly rules out the entering answer. FEVER: the evidence establishes the opposite label. Internal name: unsupported.",
+    "insufficient": "The evidence neither establishes nor rules out the entering answer: the requested fact is absent (only related facts are present), or relevant passages give conflicting values and the evidence itself does not resolve which is right. Absence of support is never contradiction.",
+    "replacement": "Only after contradicted. NQ: a continuous evidence span of at most 20 words that answers the requested fact, otherwise empty. FEVER: the opposite legal label.",
+    "final_action": "replace only when contradicted and a valid replacement exists; otherwise keep the entering answer",
+    "unresolved": "false only for supported, or contradicted with a replacement"
+  },
+  "pass_fields": [
+    "original_verification",
+    "final_action",
+    "unresolved",
+    "final_answer"
+  ],
+  "diagnostic_only": {
+    "key_evidence_ids": "whether the selected verdict/replacement IDs include a registered key sentence; recorded, never a pass condition"
+  },
+  "long": {
+    "base_case_ids": [
+      "v2a-r2-fiction-nq-contradicted_repair-1",
+      "v2a-r2-fiction-fever-contradicted_repair-1"
+    ],
+    "padded_rank": 5,
+    "padding_unit": " Background fictional catalogue",
+    "terminator": ".",
+    "start_repetitions": 512,
+    "growth": 1.3,
+    "max_repetitions": 16384,
+    "minimum_input_tokens": 14000,
+    "maximum_input_tokens": 32384,
+    "case_id_suffix": "-long"
+  },
+  "cases": [
+    {
+      "case_id": "v2a-r2-fiction-nq-supported_keep-1",
+      "synthetic": true,
+      "kind": "supported_keep",
+      "input": {
+        "sample_id": "v2a-r2-fiction-nq-supported_keep-1",
+        "dataset": "nq",
+        "query": "Who founded the fictional Tamsk Lantern Guild?",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-tamsk-town",
+            "text": "The fictional river town of Tamsk sits on the Ferro River. Its market opens every Thursday.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-tamsk-lantern-guild",
+            "text": "The fictional Tamsk Lantern Guild was founded by Oriel Vancombe. The guild trains lamp makers and repairs street lanterns.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-lamp-craft",
+            "text": "Fictional lamp makers in the region work with brass and blown glass.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-ferro-river",
+            "text": "The fictional Ferro River floods its lower banks most springs.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-quill-harbor",
+            "text": "The fictional Quill Harbor archive stores old shipping charts.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "Oriel Vancombe"
+      },
+      "expected": {
+        "original_verification": "supported",
+        "final_action": "keep",
+        "unresolved": false,
+        "final_answer": "Oriel Vancombe"
+      },
+      "key_evidence_ids": [
+        "R2S1"
+      ]
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-supported_keep-2",
+      "synthetic": true,
+      "kind": "supported_keep",
+      "input": {
+        "sample_id": "v2a-r2-fiction-nq-supported_keep-2",
+        "dataset": "nq",
+        "query": "In what year was the fictional Brask Valley Railway completed?",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-brask-valley-railway",
+            "text": "Construction of the fictional Brask Valley Railway began in 1897. The fictional Brask Valley Railway was completed in 1903.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-brask-mines",
+            "text": "The fictional Brask Valley mines produced tin and copper.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-hollis-dray",
+            "text": "Hollis Dray was a fictional surveyor who mapped the Brask hills.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-mountain-engines",
+            "text": "Fictional steam engines on mountain lines often carried extra sand for traction.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-orrin-station",
+            "text": "The fictional Orrin Station has two platforms and a small waiting room.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "1903"
+      },
+      "expected": {
+        "original_verification": "supported",
+        "final_action": "keep",
+        "unresolved": false,
+        "final_answer": "1903"
+      },
+      "key_evidence_ids": [
+        "R1S2"
+      ]
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_repair-1",
+      "synthetic": true,
+      "kind": "contradicted_repair",
+      "input": {
+        "sample_id": "v2a-r2-fiction-nq-contradicted_repair-1",
+        "dataset": "nq",
+        "query": "Who painted the fictional mural Harbor of Seven Bells?",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-seven-bells-square",
+            "text": "The fictional Seven Bells Square is paved with gray cobblestones.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-harbor-of-seven-bells",
+            "text": "The fictional mural Harbor of Seven Bells was painted by Ilsa Marrow alone. Kerran Pell only built the wooden frame around it.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-harbor-murals",
+            "text": "Fictional harbor murals are often repainted after storms.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-pell-workshop",
+            "text": "The fictional Pell workshop makes picture frames and cabinets.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-bell-foundry",
+            "text": "A fictional bell foundry once stood at the end of the pier.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "Kerran Pell"
+      },
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "Ilsa Marrow"
+      },
+      "key_evidence_ids": [
+        "R2S1"
+      ]
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_repair-2",
+      "synthetic": true,
+      "kind": "contradicted_repair",
+      "input": {
+        "sample_id": "v2a-r2-fiction-nq-contradicted_repair-2",
+        "dataset": "nq",
+        "query": "When did the fictional Corvel Lighthouse first shine its lamp?",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-corvel-point",
+            "text": "The fictional Corvel Point is a rocky headland with strong currents.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-lamp-oil",
+            "text": "Fictional coastal lamps burned whale oil before kerosene.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-corvel-lighthouse",
+            "text": "The fictional Corvel Lighthouse first shone its lamp in 1887. Its lamp was automated in 1921.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-keepers-guild",
+            "text": "The fictional Guild of Light Keepers trained new keepers each winter.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-sable-wreck",
+            "text": "The fictional ship Sable ran aground off Corvel Point.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "1921"
+      },
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "1887"
+      },
+      "key_evidence_ids": [
+        "R3S1"
+      ]
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_no_candidate-1",
+      "synthetic": true,
+      "kind": "contradicted_no_candidate",
+      "input": {
+        "sample_id": "v2a-r2-fiction-nq-contradicted_no_candidate-1",
+        "dataset": "nq",
+        "query": "Who designed the fictional Amberwick Clock Tower?",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-amberwick-clock-tower",
+            "text": "Town records state that Doran Field had no part in designing the fictional Amberwick Clock Tower. The name of its designer was never recorded.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-amberwick-market",
+            "text": "The fictional Amberwick market sells wool and cheese.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-doran-field",
+            "text": "Doran Field was a fictional mayor of Amberwick.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-valley-clockmakers",
+            "text": "Fictional clockmakers in the valley used oak and brass gears.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-amberwick-bridge",
+            "text": "The fictional Amberwick Bridge crosses a narrow stream.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "Doran Field"
+      },
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "Doran Field"
+      },
+      "key_evidence_ids": [
+        "R1S1"
+      ]
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_no_candidate-2",
+      "synthetic": true,
+      "kind": "contradicted_no_candidate",
+      "input": {
+        "sample_id": "v2a-r2-fiction-nq-contradicted_no_candidate-2",
+        "dataset": "nq",
+        "query": "In which city was the fictional poet Mirel Ostrava born?",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-lusk",
+            "text": "The fictional city of Lusk is known for its canals.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-lantern-prize",
+            "text": "The fictional Lantern Prize for poetry is awarded every spring.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-oak-press",
+            "text": "The fictional Oak Press printed small books of verse.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-mirel-ostrava",
+            "text": "The fictional poet Mirel Ostrava moved to Lusk at the age of thirty and was not born there. Surviving records do not name the city of Ostrava's birth.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-lusk-canal-boats",
+            "text": "Fictional canal boats in Lusk are painted green.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "Lusk"
+      },
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "Lusk"
+      },
+      "key_evidence_ids": [
+        "R4S1"
+      ]
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-missing_insufficient-1",
+      "synthetic": true,
+      "kind": "missing_insufficient",
+      "input": {
+        "sample_id": "v2a-r2-fiction-nq-missing_insufficient-1",
+        "dataset": "nq",
+        "query": "When did the fictional Hessary Botanical Garden open to the public?",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-hessary-botanical-garden",
+            "text": "The fictional Hessary Botanical Garden was laid out by the gardener Tobin Reyes. It holds a large collection of mountain ferns.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-lume-canal",
+            "text": "The fictional Hessary Botanical Garden lies on the north bank of the Lume Canal.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-fern-society",
+            "text": "The fictional Fern Society publishes a yearly bulletin.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-tobin-reyes",
+            "text": "Tobin Reyes was a fictional gardener who also wrote about orchids.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-greenhouses",
+            "text": "Fictional glass greenhouses need careful heating in winter.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "1964"
+      },
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "1964"
+      },
+      "key_evidence_ids": []
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-missing_insufficient-2",
+      "synthetic": true,
+      "kind": "missing_insufficient",
+      "input": {
+        "sample_id": "v2a-r2-fiction-nq-missing_insufficient-2",
+        "dataset": "nq",
+        "query": "Who was the first director of the fictional Ostrel Science Museum?",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-ostrel-customs-house",
+            "text": "The fictional old customs house of Ostrel was built from yellow stone.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-ostrel-science-museum",
+            "text": "The fictional Ostrel Science Museum opened in 1978 in the old customs house. Its largest gallery displays steam engines.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-ostrel-harbor",
+            "text": "The fictional town of Ostrel has a small fishing harbor.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-ostrel-museum-trust",
+            "text": "The fictional Ostrel Museum Trust raises money through an annual fair.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-steam-gallery",
+            "text": "Fictional steam engine galleries often run demonstrations on weekends.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "Wren Adair"
+      },
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "Wren Adair"
+      },
+      "key_evidence_ids": []
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-conflict_insufficient-1",
+      "synthetic": true,
+      "kind": "conflict_insufficient",
+      "input": {
+        "sample_id": "v2a-r2-fiction-nq-conflict_insufficient-1",
+        "dataset": "nq",
+        "query": "In what year was the fictional Lattimer Bell cast?",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-oster-parish-ledger",
+            "text": "According to the Oster parish ledger, the fictional Lattimer Bell was cast in 1742.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-lattimer-church",
+            "text": "The fictional Lattimer church has a square stone tower.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-wend-parish-ledger",
+            "text": "The Wend parish ledger records that the fictional Lattimer Bell was cast in 1758.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-lattimer-ringers",
+            "text": "Fictional bell ringers in Lattimer practice on Tuesday evenings.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-foundry-lane",
+            "text": "The fictional Foundry Lane runs beside the old river wall.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "1742"
+      },
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "1742"
+      },
+      "key_evidence_ids": [
+        "R1S1",
+        "R3S1"
+      ]
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-conflict_insufficient-2",
+      "synthetic": true,
+      "kind": "conflict_insufficient",
+      "input": {
+        "sample_id": "v2a-r2-fiction-nq-conflict_insufficient-2",
+        "dataset": "nq",
+        "query": "Who led the first expedition to the fictional Varrow Glacier?",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-varrow-glacier",
+            "text": "The fictional Varrow Glacier feeds three mountain lakes.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-harbor-records",
+            "text": "Harbor records name Edda Calloway as the sole leader of the first expedition to the fictional Varrow Glacier.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-ice-tools",
+            "text": "Fictional ice axes of the period had wooden handles.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-expedition-register",
+            "text": "The expedition society register lists Simeon Thale as the only leader of the first fictional Varrow Glacier expedition.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-varrow-lakes",
+            "text": "The fictional lakes below Varrow Glacier freeze every winter.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "Edda Calloway"
+      },
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "Edda Calloway"
+      },
+      "key_evidence_ids": [
+        "R2S1",
+        "R4S1"
+      ]
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-supported_keep-1",
+      "synthetic": true,
+      "kind": "supported_keep",
+      "input": {
+        "sample_id": "v2a-r2-fiction-fever-supported_keep-1",
+        "dataset": "fever",
+        "query": "The fictional Quorra Ferry crosses the Tilden Strait.",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-quorra-ferry",
+            "text": "The fictional Quorra Ferry crosses the Tilden Strait twice a day. It carries cars and foot passengers.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-tilden-strait",
+            "text": "The fictional Tilden Strait is known for strong tides.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-ferry-tickets",
+            "text": "Fictional ferry tickets in the region are sold at harbor kiosks.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-gull-island",
+            "text": "The fictional Gull Island has a small lighthouse.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-coast-shipyards",
+            "text": "Fictional shipyards on the coast build fishing boats.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "SUPPORTS"
+      },
+      "expected": {
+        "original_verification": "supported",
+        "final_action": "keep",
+        "unresolved": false,
+        "final_answer": "SUPPORTS"
+      },
+      "key_evidence_ids": [
+        "R1S1"
+      ]
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-supported_keep-2",
+      "synthetic": true,
+      "kind": "supported_keep",
+      "input": {
+        "sample_id": "v2a-r2-fiction-fever-supported_keep-2",
+        "dataset": "fever",
+        "query": "The fictional Mossgate Library was built from red brick.",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-mossgate-town",
+            "text": "The fictional town of Mossgate has a weekly book market.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-mossgate-library",
+            "text": "The fictional Mossgate Library was built entirely from white limestone. No brick was used in its construction.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-coast-brickworks",
+            "text": "Fictional brickworks near the coast fired red clay bricks.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-reading-rooms",
+            "text": "Fictional reading rooms often have tall windows for daylight.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-limestone-quarry",
+            "text": "A fictional limestone quarry lies two miles east of Mossgate.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "REFUTES"
+      },
+      "expected": {
+        "original_verification": "supported",
+        "final_action": "keep",
+        "unresolved": false,
+        "final_answer": "REFUTES"
+      },
+      "key_evidence_ids": [
+        "R2S1",
+        "R2S2"
+      ]
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-contradicted_repair-1",
+      "synthetic": true,
+      "kind": "contradicted_repair",
+      "input": {
+        "sample_id": "v2a-r2-fiction-fever-contradicted_repair-1",
+        "dataset": "fever",
+        "query": "The fictional composer Ansel Brighe wrote the opera Glass Orchard.",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-varn-opera-house",
+            "text": "The fictional Varn Opera House seats nine hundred people.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-varn-composers-guild",
+            "text": "The fictional Composers Guild of Varn meets every autumn.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-glass-orchard",
+            "text": "Glass Orchard is a fictional opera written by the composer Ansel Brighe. It premiered at the Varn Opera House.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-orchard-songs",
+            "text": "Fictional orchard songs are sung at harvest festivals.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-opera-sets",
+            "text": "Fictional opera sets are often painted on canvas.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "REFUTES"
+      },
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "SUPPORTS"
+      },
+      "key_evidence_ids": [
+        "R3S1"
+      ]
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-contradicted_repair-2",
+      "synthetic": true,
+      "kind": "contradicted_repair",
+      "input": {
+        "sample_id": "v2a-r2-fiction-fever-contradicted_repair-2",
+        "dataset": "fever",
+        "query": "The fictional Kestrel Dam was completed in 1948.",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-kestrel-dam",
+            "text": "The fictional Kestrel Dam was completed in 1968 after twelve years of construction.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-kestrel-reservoir",
+            "text": "The fictional Kestrel Reservoir supplies water to two towns.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-dam-engineers",
+            "text": "Fictional dam engineers test concrete in cold weather.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-river-kest",
+            "text": "The fictional River Kest flows south into the sea.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-kestrel-power-station",
+            "text": "A fictional power station below the dam produces electricity.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "SUPPORTS"
+      },
+      "expected": {
+        "original_verification": "unsupported",
+        "final_action": "replace",
+        "unresolved": false,
+        "final_answer": "REFUTES"
+      },
+      "key_evidence_ids": [
+        "R1S1"
+      ]
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-missing_insufficient-1",
+      "synthetic": true,
+      "kind": "missing_insufficient",
+      "input": {
+        "sample_id": "v2a-r2-fiction-fever-missing_insufficient-1",
+        "dataset": "fever",
+        "query": "The fictional Thornwick Theatre has more than eight hundred seats.",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-harrow-square",
+            "text": "The fictional Harrow Square is lined with cafes.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-thornwick-theatre",
+            "text": "The fictional Thornwick Theatre stands on Harrow Square. It was designed by the architect Pia Lund.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-pia-lund",
+            "text": "Pia Lund was a fictional architect known for curved staircases.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-stage-lighting",
+            "text": "Fictional stage lighting once used limelight.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-thornwick-players",
+            "text": "The fictional Thornwick Players perform comedies each summer.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "SUPPORTS"
+      },
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "SUPPORTS"
+      },
+      "key_evidence_ids": []
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-missing_insufficient-2",
+      "synthetic": true,
+      "kind": "missing_insufficient",
+      "input": {
+        "sample_id": "v2a-r2-fiction-fever-missing_insufficient-2",
+        "dataset": "fever",
+        "query": "The fictional chemist Odo Farran discovered the element vellium.",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-odo-farran",
+            "text": "The fictional chemist Odo Farran taught at the College of Merrin for thirty years. Odo Farran wrote a textbook on mineral salts.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-vellium",
+            "text": "Vellium is a fictional element used in lamp filaments.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-college-of-merrin",
+            "text": "The fictional College of Merrin has a large chemistry library.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-mineral-salts",
+            "text": "Fictional mineral salts are mined from dry lake beds.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-lamp-filaments",
+            "text": "Fictional lamp filaments glow brighter when thinner.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "REFUTES"
+      },
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "REFUTES"
+      },
+      "key_evidence_ids": []
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-conflict_insufficient-1",
+      "synthetic": true,
+      "kind": "conflict_insufficient",
+      "input": {
+        "sample_id": "v2a-r2-fiction-fever-conflict_insufficient-1",
+        "dataset": "fever",
+        "query": "The fictional Brennock Abbey was founded in 1142.",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-hale-county-history",
+            "text": "The fictional Brennock Abbey was founded in 1142, according to the Hale county history.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-brennock-village",
+            "text": "The fictional village of Brennock grows barley.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-marsh-county-history",
+            "text": "According to the Marsh county history, the founding of the fictional Brennock Abbey took place in 1231.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-barley-mill",
+            "text": "A fictional barley mill stands beside the abbey road.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-monastic-gardens",
+            "text": "Fictional monastic gardens grew herbs for medicine.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "SUPPORTS"
+      },
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "SUPPORTS"
+      },
+      "key_evidence_ids": [
+        "R1S1",
+        "R3S1"
+      ]
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-conflict_insufficient-2",
+      "synthetic": true,
+      "kind": "conflict_insufficient",
+      "input": {
+        "sample_id": "v2a-r2-fiction-fever-conflict_insufficient-2",
+        "dataset": "fever",
+        "query": "The fictional explorer Lio Vantis reached the summit of Mount Carrow.",
+        "evidence": [
+          {
+            "rank": 1,
+            "passage_id": "fictional-mount-carrow",
+            "text": "The fictional Mount Carrow is the highest peak in the Dell Range.",
+            "score": 0.89
+          },
+          {
+            "rank": 2,
+            "passage_id": "fictional-dell-climbing-club",
+            "text": "The Dell Climbing Club register records that the fictional explorer Lio Vantis reached the summit of Mount Carrow.",
+            "score": 0.88
+          },
+          {
+            "rank": 3,
+            "passage_id": "fictional-dell-guides",
+            "text": "Fictional guides in the Dell Range carry rope and lanterns.",
+            "score": 0.87
+          },
+          {
+            "rank": 4,
+            "passage_id": "fictional-carrow-mountain-society",
+            "text": "According to the Carrow Mountain Society register, the fictional explorer Lio Vantis turned back before reaching the top of Mount Carrow.",
+            "score": 0.86
+          },
+          {
+            "rank": 5,
+            "passage_id": "fictional-dell-huts",
+            "text": "Fictional mountain huts in the Dell Range sleep up to ten climbers.",
+            "score": 0.85
+          }
+        ],
+        "initial_answer": "REFUTES"
+      },
+      "expected": {
+        "original_verification": "insufficient",
+        "final_action": "keep",
+        "unresolved": true,
+        "final_answer": "REFUTES"
+      },
+      "key_evidence_ids": [
+        "R2S1",
+        "R4S1"
+      ]
+    }
+  ]
+}

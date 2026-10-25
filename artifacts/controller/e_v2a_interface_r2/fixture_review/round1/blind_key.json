@@ -1,0 +1,20 @@
+{
+  "B01": "v2a-r2-fiction-nq-conflict_insufficient-2",
+  "B02": "v2a-r2-fiction-fever-conflict_insufficient-2",
+  "B03": "v2a-r2-fiction-fever-missing_insufficient-2",
+  "B04": "v2a-r2-fiction-fever-missing_insufficient-1",
+  "B05": "v2a-r2-fiction-fever-supported_keep-1",
+  "B06": "v2a-r2-fiction-fever-supported_keep-2",
+  "B07": "v2a-r2-fiction-nq-contradicted_repair-1",
+  "B08": "v2a-r2-fiction-nq-contradicted_no_candidate-2",
+  "B09": "v2a-r2-fiction-fever-contradicted_repair-1",
+  "B10": "v2a-r2-fiction-nq-supported_keep-1",
+  "B11": "v2a-r2-fiction-nq-supported_keep-2",
+  "B12": "v2a-r2-fiction-nq-conflict_insufficient-1",
+  "B13": "v2a-r2-fiction-nq-missing_insufficient-1",
+  "B14": "v2a-r2-fiction-fever-conflict_insufficient-1",
+  "B15": "v2a-r2-fiction-fever-contradicted_repair-2",
+  "B16": "v2a-r2-fiction-nq-contradicted_no_candidate-1",
+  "B17": "v2a-r2-fiction-nq-missing_insufficient-2",
+  "B18": "v2a-r2-fiction-nq-contradicted_repair-2"
+}

@@ -1,0 +1,53 @@
+{
+  "reviewer": "independent blind agent, round 3",
+  "cases": [
+    {
+      "blind_id": "D01",
+      "verdict": "insufficient",
+      "replacement": "",
+      "final_answer": "1742",
+      "final_action": "keep",
+      "unresolved": true,
+      "key_evidence": [
+        {"rank": 1, "sentence": 1},
+        {"rank": 3, "sentence": 1}
+      ],
+      "ambiguity": "minor",
+      "explanation": "Rank 1 says the Lattimer Bell was cast in 1742 (matches the entering answer). Rank 3 says it dates from 1758, 'the year it was cast'. These are incompatible values for the exact requested fact, and nothing in the evidence says which is right. Under the definition, a conflict the evidence does not resolve is insufficient even though one passage matches the entering answer. Rank and source title do not break the tie.",
+      "notes": "Rejected competing readings: (a) 'supported' because rank 1 matches and ranks higher, which the definition rules out because rank does not resolve conflicts; (b) 'contradicted' with replacement '1758', which would treat rank 3 as authoritative; (c) reconciling the two by assuming a recasting, which the definition forbids. No replacement because the verdict is not contradicted, so the entering answer is kept and flagged unresolved."
+    },
+    {
+      "blind_id": "D02",
+      "verdict": "insufficient",
+      "replacement": "",
+      "final_answer": "REFUTES",
+      "final_action": "keep",
+      "unresolved": true,
+      "key_evidence": [
+        {"rank": 2, "sentence": 1},
+        {"rank": 4, "sentence": 1}
+      ],
+      "ambiguity": "minor",
+      "explanation": "Rank 2 (Fenn Climbing Club register) records that Lio Vantis reached the summit of Mount Carrow, which supports the claim. Rank 4 (Pike Climbing Club register) says he never stood on the summit, which refutes it. The evidence gives no basis for preferring either register, so the conflict is unresolved. The entering label REFUTES is neither established nor ruled out.",
+      "notes": "Rejected competing readings: 'supported' (taking the Pike register as decisive for REFUTES) or 'contradicted' with replacement SUPPORTS (taking the Fenn register as decisive, or because it ranks higher). Source name and rank do not resolve conflicts under the definition. Inventing a second attempt to reconcile the two is not allowed. Entering label is kept and flagged unresolved."
+    },
+    {
+      "blind_id": "D03",
+      "verdict": "contradicted",
+      "replacement": "",
+      "final_answer": "Doran Field",
+      "final_action": "keep",
+      "unresolved": true,
+      "key_evidence": [
+        {"rank": 1, "sentence": 1},
+        {"rank": 1, "sentence": 2}
+      ],
+      "ambiguity": "minor",
+      "explanation": "Rank 1 sentence 1 explicitly rules out the entering answer: Doran Field 'took no part in designing it'. That meets the NQ contradicted definition ('explicitly rules out the entering answer'). Rank 1 sentence 2 says whoever drew the plans is unknown, and no other passage names a designer, so no evidence span answers the question. The replacement is empty. Per final_action, a contradicted answer with no valid replacement is kept and flagged unresolved.",
+      "notes": "Competing readings: (a) 'insufficient' because the true designer is absent. Rejected, because the entering answer is explicitly ruled out, which is contradiction and not mere absence. (b) Using 'unknown' or 'Whoever drew its plans is unknown' as the replacement. Rejected, because that span reports that the fact is unknown and does not name a designer. Rank 3 (Doran Field was a mayor) is related but irrelevant to authorship."
+    }
+  ],
+  "overall": {
+    "required_edits": "None to the entering answers. No case gets a replace action: D01 and D02 are unresolved conflicts (insufficient, keep), and D03 is contradicted but has no answering span (keep, unresolved=true). All three cases are flagged unresolved."
+  }
+}

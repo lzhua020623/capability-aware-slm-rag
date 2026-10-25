@@ -1,0 +1,112 @@
+{
+  "label_definitions": {
+    "scope": "Judge the ENTERING ANSWER (NQ short answer, FEVER label) against the supplied evidence only; never world knowledge.",
+    "supported": "The evidence establishes that the entering answer is correct. NQ: a passage states the requested fact and it matches the entering answer. FEVER: the evidence establishes the claim when the entering label is SUPPORTS, or explicitly contradicts the claim when the entering label is REFUTES.",
+    "contradicted": "The evidence explicitly establishes that the entering answer is wrong. NQ: the evidence gives a different value for the exact requested fact, or explicitly rules out the entering answer. FEVER: the evidence establishes the opposite label. Internal name: unsupported.",
+    "insufficient": "The evidence neither establishes nor rules out the entering answer: the requested fact is absent (only related facts are present), or relevant passages give conflicting values and the evidence itself does not resolve which is right. Absence of support is never contradiction. If passages give incompatible answers and the evidence does not state which is correct, the verdict is insufficient even when one passage matches the entering answer; source names, authority, recency or rank do not resolve a conflict, and unstated events (a recasting, a re-founding, a second attempt) must not be invented to reconcile it.",
+    "replacement": "Only after contradicted. NQ: the shortest continuous evidence span (at most 20 words) that answers the requested fact, otherwise empty. FEVER: the opposite legal label.",
+    "final_action": "replace only when contradicted and a valid replacement exists; otherwise keep the entering answer. The system never abstains: a contradicted answer without a replacement is kept as the final answer and flagged unresolved.",
+    "unresolved": "false only for supported, or contradicted with a replacement"
+  },
+  "cases": [
+    {
+      "blind_id": "D01",
+      "dataset": "nq",
+      "query_or_claim": "In what year was the fictional Lattimer Bell cast?",
+      "entering_answer": "1742",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-lattimer-bell-north",
+          "text": "The fictional Lattimer Bell was cast in 1742."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-lattimer-church",
+          "text": "The fictional Lattimer church has a square stone tower."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-lattimer-bell-south",
+          "text": "The fictional Lattimer Bell dates from 1758, the year it was cast."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-lattimer-ringers",
+          "text": "Fictional bell ringers in Lattimer practice on Tuesday evenings."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-foundry-lane",
+          "text": "The fictional Foundry Lane runs beside the old river wall."
+        }
+      ]
+    },
+    {
+      "blind_id": "D02",
+      "dataset": "fever",
+      "query_or_claim": "The fictional explorer Lio Vantis reached the summit of Mount Carrow.",
+      "entering_answer": "REFUTES",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-mount-carrow",
+          "text": "The fictional Mount Carrow is the highest peak in the Dell Range."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-fenn-climbing-club",
+          "text": "The Fenn Climbing Club register records that the fictional explorer Lio Vantis reached the summit of Mount Carrow."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-dell-guides",
+          "text": "Fictional guides in the Dell Range carry rope and lanterns."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-pike-climbing-club",
+          "text": "According to the Pike Climbing Club register, the fictional explorer Lio Vantis never stood on the summit of Mount Carrow."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-dell-huts",
+          "text": "Fictional mountain huts in the Dell Range sleep up to ten climbers."
+        }
+      ]
+    },
+    {
+      "blind_id": "D03",
+      "dataset": "nq",
+      "query_or_claim": "Who designed the fictional Amberwick Clock Tower?",
+      "entering_answer": "Doran Field",
+      "evidence": [
+        {
+          "rank": 1,
+          "title": "fictional-amberwick-clock-tower",
+          "text": "Doran Field opposed the building of the fictional Amberwick Clock Tower and took no part in designing it. Whoever drew its plans is unknown."
+        },
+        {
+          "rank": 2,
+          "title": "fictional-amberwick-market",
+          "text": "The fictional Amberwick market sells wool and cheese."
+        },
+        {
+          "rank": 3,
+          "title": "fictional-doran-field",
+          "text": "Doran Field was a fictional mayor of Amberwick."
+        },
+        {
+          "rank": 4,
+          "title": "fictional-valley-clockmakers",
+          "text": "Fictional clockmakers in the valley used oak and brass gears."
+        },
+        {
+          "rank": 5,
+          "title": "fictional-amberwick-bridge",
+          "text": "The fictional Amberwick Bridge crosses a narrow stream."
+        }
+      ]
+    }
+  ]
+}
