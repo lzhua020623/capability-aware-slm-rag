@@ -2,7 +2,9 @@
 
 协议见 [CONTROLLER_E_V2A_R2.md](../../../docs/CONTROLLER_E_V2A_R2.md)，验收题封存记录见 [fixture_review](fixture_review/README.md)。
 
-## 运行包
+## 历史未运行包 v1
+
+此包来自 `9d91a40`，生成于离线全局模式对齐之前，GPU 从未运行。保留原字节作审计，执行前改用随后封存的 v2；不把 v1 当作当前执行入口。
 
 源码提交为 `9d91a40`，压缩包 SHA256 为 `d4e8d3e6ba0901fd6581e8be05e96e86206ff998e38207b81b79efb98f6ad882`。
 

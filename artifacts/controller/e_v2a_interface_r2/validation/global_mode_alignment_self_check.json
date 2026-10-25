@@ -1,0 +1,22 @@
+{
+  "round": "task plan and global offline mode alignment",
+  "checked_at_UTC": "2026-10-25T14:40:12.814737+00:00",
+  "before": {
+    "handoff_source": "9d91a40",
+    "r2_GPU_started": false,
+    "user_annotation_preserved": true,
+    "merge_authorized": true
+  },
+  "after": {
+    "full_tests": 853,
+    "targeted_tests": 21,
+    "historical_hashes_verified": 4,
+    "fixture_bytes_unchanged": true,
+    "inference_prompt_and_runner_unchanged": true,
+    "mode_scope": "one shared mode for both datasets and all E arms",
+    "misrepair_cap": 0,
+    "P60_activated": false,
+    "r2_GPU_started": false
+  },
+  "full_test_log_sha256": "9e19af6d287c8c4090335020d1e9236a46b5386ae28508e9df41eb75ffde2ac5"
+}

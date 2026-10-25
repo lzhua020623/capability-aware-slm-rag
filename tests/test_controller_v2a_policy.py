@@ -64,13 +64,45 @@ class PolicyTests(unittest.TestCase):
     def test_r2_misrepair_cap_counts_pending_as_harm_and_needs_explicit_counts(self):
         s = stats()
         with self.assertRaises(ValueError): choose_r2_modes('passed', s)
-        s['nq']['misrepair'] = {'semantic_harms': 0, 'semantic_pending': 0}
-        self.assertEqual(choose_r2_modes('passed', s)['nq']['mode'], 'allow_repair')
-        self.assertEqual(choose_r2_modes('passed', s)['fever']['mode'], 'verify_only')
-        s['nq']['misrepair'] = {'semantic_harms': 0, 'semantic_pending': 1}
-        self.assertEqual(choose_r2_modes('passed', s)['nq']['reason'], 'misrepair_cap_exceeded')
+        s['nq']['misrepair'] = {'frozen_harms': 0, 'semantic_harms': 0, 'semantic_pending': 0}
+        s['fever']['misrepair'] = {'frozen_harms': 0}
+        result = choose_r2_modes('passed', s)
+        self.assertEqual({v['mode'] for v in result.values()}, {'allow_repair'})
+        self.assertIsNone(result['fever']['fever_routed_net_correct'])
+        s['nq']['misrepair']['semantic_pending'] = 1
+        result = choose_r2_modes('passed', s)
+        self.assertEqual({v['mode'] for v in result.values()}, {'verify_only'})
+        self.assertTrue(result['nq']['provisional'])
         s = stats(); s['nq']['contract_passed'] = 179
         self.assertEqual({v['mode'] for v in choose_r2_modes('passed', s).values()}, {'unavailable'})
+
+    def test_r2_either_dataset_harm_or_review_line_protects_both_datasets(self):
+        for ds, key in (('nq', 'frozen_harms'), ('nq', 'semantic_harms'), ('fever', 'frozen_harms')):
+            s = stats()
+            s['nq']['misrepair'] = {'frozen_harms': 0, 'semantic_harms': 0, 'semantic_pending': 0}
+            s['fever']['misrepair'] = {'frozen_harms': 0}
+            s[ds]['misrepair'][key] = 1
+            self.assertEqual({v['mode'] for v in choose_r2_modes('passed', s).values()}, {'verify_only'})
+        s = stats(); s['fever']['unresolved_or_insufficient'] = 181
+        self.assertEqual({v['reason'] for v in choose_r2_modes('passed', s).values()}, {'review_line_exceeded'})
+
+    def test_r2_semantic_only_still_requires_actual_development_compliance(self):
+        s = stats(); s['fever']['contract_passed'] = 179
+        result = choose_r2_modes('semantic_only', s)
+        self.assertEqual({v['mode'] for v in result.values()}, {'unavailable'})
+        s = stats(); s['nq']['n'] = 199
+        with self.assertRaises(ValueError): choose_r2_modes('semantic_only', s)
+        with self.assertRaises(ValueError): choose_r2_modes('passed', None)
+
+    def test_r2_net_counts_fixes_and_harms_but_does_not_replace_the_harm_guard(self):
+        s = stats()
+        s['nq']['misrepair'] = {'frozen_harms': 1, 'semantic_harms': 1, 'semantic_pending': 0}
+        s['fever']['misrepair'] = {'frozen_harms': 0}
+        s['nq']['routed'][0] = {'initial_correct': True, 'final_correct': False}
+        s['nq']['routed'][1] = {'initial_correct': False, 'final_correct': True}
+        result = choose_r2_modes('passed', s)
+        self.assertEqual(result['nq']['nq_routed_net_correct'], 0)
+        self.assertEqual({v['mode'] for v in result.values()}, {'verify_only'})
 
 
 if __name__ == '__main__': unittest.main()

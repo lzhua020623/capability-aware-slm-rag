@@ -22,10 +22,12 @@ Smoke 使用虚构样本和假模型输出，只验证执行链路。真实推�
 
 ## 当前入口
 
+当前 T1–T9 阶段、r2 分支条件与新增 Diagnosis 分层合并任务统一见 [任务清单](docs/CONTROLLER_TASKS.md)。r2 已实现，GPU 前正在对齐全局 E 模式并重新封存；P60 新路由不自动启用。
+
 | 需要了解的内容 | 入口 |
 |---|---|
 | 当前集成、运行、评测与下一步 | [Controller 集成交接](docs/CONTROLLER_INTEGRATION.md) |
-| T4 后 E 工程修正与唯一 NQ 路由候选 | [v2a/T5 修订登记](docs/CONTROLLER_E_V2A_AND_T5_V1.md)：[接口修正 r1 实际结果](artifacts/controller/e_v2a_interface_r1/README.md)中 NQ 保留、修复通过，证据不足的核验类别不符；已停止，开发输出 0，FEVER/长输入未测，未晋升策略 |
+| T4 后 E 修订与唯一 NQ 路由候选 | [r2 登记与分支规则](docs/CONTROLLER_E_V2A_R2.md)：18＋2 新验收题已独立复核封存，r2 已实现，GPU 尚未运行；[r1 原始失败](artifacts/controller/e_v2a_interface_r1/README.md)保留，未晋升策略 |
 | T1 冻结比较组、预算、评分和停止条件 | [统一实验协议 v1](docs/CONTROLLER_EXPERIMENT_PROTOCOL_V1.md)（设计已冻结；T2/T3 执行门槛待补） |
 | T2 样本、完整评测保留池与资源缺口 | [数据冻结 v1](docs/CONTROLLER_DATA_V1.md)：NQ 保留 7,564，FEVER 保留 1,886；新 FEVER C1 和执行验收仍待补齐 |
 | NQ 原索引配套文件及崩溃核对 | [资源恢复](docs/NQ_TRAIN_INDEX_RECOVERY.md)：ID/offsets 已恢复，64 处向量比对通过；附恢复包与 681 项 CPU 回归记录 |

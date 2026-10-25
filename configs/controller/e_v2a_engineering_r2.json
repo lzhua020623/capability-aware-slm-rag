@@ -115,36 +115,38 @@
     }
   },
   "global_E_mode": {
-    "granularity": "per dataset, identical in every arm that contains E",
+    "granularity": "ONE shared mode for both datasets and every arm that contains E",
     "unavailable": "gate failed, or development contract rate <0.90 in either dataset (failed/invalid calls stay in the denominator)",
     "verify_only": [
-      "gate semantic_only",
-      "insufficient-or-unresolved share >0.90 (pause and review; never force answers)",
-      "routed reference net <0 or unestimable",
-      "misrepair cap exceeded"
+      "gate semantic_only (experimental; labels unvalidated)",
+      "insufficient-or-unresolved share >0.90 in either dataset",
+      "NQ fixed routed-16 net <0",
+      "any Always Repair zero-harm guard fails; pending semantic review blocks promotion"
     ],
-    "allow_repair": "gate passed, contract >=0.90, review line not exceeded, fixed routed subset net >=0, and misrepair cap satisfied",
+    "allow_repair": "gate passed; both development contract rates >=0.90; neither review line exceeded; NQ routed-16 frozen-EM net >=0; Always Repair frozen harms=0 in EACH dataset; NQ confirmed semantic harms=0 and pending changed-answer reviews=0",
     "routed_reference": {
       "nq": 16,
       "fever": 0,
       "metric": {
         "nq": "frozen normalized EM",
         "fever": "frozen label accuracy"
-      }
+      },
+      "interpretation": "NQ net counts both fixes and harms, not just absence of harms. FEVER n=0 is unestimable; its global activation is additionally guarded by its own Always Repair 200, not inferred from NQ."
     },
     "misrepair_cap": {
       "population": "Always Repair development, 200 per dataset, diagnostic allow-repair outputs",
       "fever": "frozen-label harms (correct -> incorrect) must be 0",
-      "nq": "every changed answer is semantically reviewed by the user; confirmed plus pending semantic harms must be 0 (EM-flagged and EM-silent harms both count)",
-      "status": "recommended assumption pending user confirmation before the development result is opened",
-      "tightening": "the user may tighten (e.g. NQ frozen EM harms = 0) before development results are opened; never loosen afterwards"
+      "nq": "frozen-EM harms=0 AND user-confirmed semantic harms=0 AND pending semantic changed-answer reviews=0",
+      "status": "zero cap fixed before any r2 GPU/development output; conservative activation rule, not a statistical safety proof",
+      "tightening": "never loosen after opening results; frozen references and aliases unchanged"
     },
-    "decision_inputs": "gate outcome, per-dataset development contract counts, review-line counts, fixed routed subset correctness, misrepair counts; offline only"
+    "decision_inputs": "gate outcome, per-dataset development contract counts, review-line counts, fixed routed subset correctness, misrepair counts; offline only",
+    "semantic_only_development_check": "400 verify-only calls still require >=0.90 actual contract compliance in EACH dataset; otherwise global unavailable. Gate-only fallback without statistics is provisional."
   },
   "cost": {
     "gate_calls": "20, recorded separately, never development cost",
     "development": "per-call input/output tokens and seconds from receipts",
-    "estimated": "any Full E cost in the semantic_only branch is labelled estimate, not measurement"
+    "estimated": "Development Full E proxy estimated by dataset/input length from Always Repair, separately labelled; final confirmatory Full cost requires actual measurement or disclosed limits, never proxy AC5 certification"
   },
   "stop": {
     "no_r3_in_main_line": "further E semantic revisions are extensions after T8",
@@ -152,5 +154,13 @@
     "r1_results_preserved": true,
     "no_selection_or_final_data": true
   },
-  "claims": "Passing fictional checks shows the label contract works on controlled inputs; it is not benchmark accuracy, entailment correctness or gain"
+  "claims": "Passing fictional checks shows the label contract works on controlled inputs; it is not benchmark accuracy, entailment correctness or gain",
+  "offline_mode_alignment": {
+    "date": "2026-10-26",
+    "before_first_r2_GPU": true,
+    "reason": "Align per-dataset implementation with agreed shared E mode and zero-harm guard",
+    "semantic_prompt_changed": false,
+    "fixtures_changed": false,
+    "old_unrun_bundle": "gpu_release_v1 from 9d91a40; superseded for execution; preserve original bytes"
+  }
 }

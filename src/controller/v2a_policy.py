@@ -70,27 +70,60 @@ GATE_OUTCOMES = ('passed', 'semantic_only', 'failed')
 
 
 def choose_r2_modes(gate_outcome, dataset_stats):
-    """r2 adds the classified gate and the Always Repair misrepair cap.
+    """One offline mode for both datasets and every E arm.
 
-    misrepair is offline: FEVER counts frozen-label harms; NQ counts user-confirmed
-    plus still-pending semantic harms among all changed answers. Pending is harm.
+    The NQ routed 16 establish its routed net only; FEVER's zero routed
+    examples establish no safety claim. Both Always Repair cohorts must meet
+    the zero-harm guard. NQ additionally needs completed semantic review.
+    No development scores means only a preliminary semantic-only fallback.
     """
     if gate_outcome not in GATE_OUTCOMES:
         raise ValueError('Unregistered r2 gate outcome')
+
+    def shared(mode, reason, *, provisional=False, **details):
+        return {ds: {'mode': mode, 'reason': reason,
+                     'scope': 'both_datasets_all_E_arms', 'provisional': provisional,
+                     **details} for ds in ('nq', 'fever')}
+
     if gate_outcome == 'failed':
-        return {ds: {'mode': 'unavailable', 'reason': 'r2_gate_failed'} for ds in ('nq', 'fever')}
+        return shared('unavailable', 'r2_gate_failed')
+    if dataset_stats is None:
+        if gate_outcome == 'semantic_only':
+            return shared('verify_only', 'r2_gate_semantic_only_experimental', provisional=True)
+        raise ValueError('Complete development statistics required before allowing repair')
+    if set(dataset_stats) != {'nq', 'fever'}:
+        raise ValueError('Both complete development cohorts required')
+    for s in dataset_stats.values():
+        n = s['n']
+        if type(n) is not int or n < 200 or any(type(s[k]) is not int or not 0 <= s[k] <= n
+                for k in ('contract_passed', 'unresolved_or_insufficient')):
+            raise ValueError('Invalid complete development denominator')
+    if any(s['contract_passed'] / s['n'] < .9 for s in dataset_stats.values()):
+        return shared('unavailable', 'development_engineering_gate_failed')
     if gate_outcome == 'semantic_only':
-        return {ds: {'mode': 'verify_only', 'reason': 'r2_gate_semantic_only_experimental'} for ds in ('nq', 'fever')}
-    result = choose_deployment_modes(dataset_stats)
-    for ds, decision in result.items():
-        if decision['mode'] != 'allow_repair':
-            continue
+        return shared('verify_only', 'r2_gate_semantic_only_experimental')
+    if any(s['unresolved_or_insufficient'] / s['n'] > .9 for s in dataset_stats.values()):
+        return shared('verify_only', 'review_line_exceeded')
+    for ds, s in dataset_stats.items():
+        if len(s['routed']) != (16 if ds == 'nq' else 0):
+            raise ValueError('Wrong fixed T4 E reference count')
+    routed = dataset_stats['nq']['routed']
+    if any(type(r['initial_correct']) is not bool or type(r['final_correct']) is not bool for r in routed):
+        raise ValueError('Offline routed correctness must be explicit booleans')
+    net = sum(int(r['final_correct']) - int(r['initial_correct']) for r in routed)
+    if net < 0:
+        return shared('verify_only', 'routed_net_negative', nq_routed_net_correct=net)
+    harms = {}
+    for ds in ('nq', 'fever'):
         misrepair = dataset_stats[ds].get('misrepair')
-        keys = ('frozen_harms',) if ds == 'fever' else ('semantic_harms', 'semantic_pending')
+        keys = ('frozen_harms',) if ds == 'fever' else ('frozen_harms', 'semantic_harms', 'semantic_pending')
         if not isinstance(misrepair, dict) or any(type(misrepair.get(k)) is not int or misrepair[k] < 0 for k in keys):
             raise ValueError('Registered misrepair counts required before allowing repair')
-        harms = sum(misrepair[k] for k in keys)
-        decision['misrepair_counted'] = harms
-        if harms:
-            decision.update(mode='verify_only', reason='misrepair_cap_exceeded')
-    return result
+        # Only zero versus nonzero is used; overlapping harm sets are not a net count.
+        harms[ds] = dict(misrepair)
+    pending = harms['nq']['semantic_pending'] > 0
+    if any(harms[ds]['frozen_harms'] for ds in harms) or harms['nq']['semantic_harms'] or pending:
+        return shared('verify_only', 'misrepair_cap_exceeded', provisional=pending,
+                      harm_guards=harms, nq_routed_net_correct=net)
+    return shared('allow_repair', 'global_guards_passed', harm_guards=harms,
+                  nq_routed_net_correct=net, fever_routed_net_correct=None)
