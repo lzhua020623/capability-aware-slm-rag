@@ -1,0 +1,335 @@
+{
+  "source": "agent_assisted_review_only",
+  "human_confirmation": false,
+  "judged_methods": [
+    "initial",
+    "adaptive",
+    "always_retrieve"
+  ],
+  "notes": [
+    {
+      "review_id": "R01",
+      "agent_judgment": {
+        "initial_correct": true,
+        "adaptive_correct": true,
+        "always_retrieve_correct": true,
+        "category": "equivalent_alias",
+        "reason": "Hammond 在该歌曲上下文中指向 Albert Hammond。补全名字会改善 EM，但不是确定的语义修复。"
+      },
+      "anchors": [
+        {
+          "source": "original",
+          "rank": 1,
+          "quote": "written by Albert Hammond and Mike Hazlewood and sung by Hammond"
+        }
+      ]
+    },
+    {
+      "review_id": "R02",
+      "agent_judgment": {
+        "initial_correct": true,
+        "adaptive_correct": true,
+        "always_retrieve_correct": true,
+        "category": "equivalent_detail",
+        "reason": "原答已给 Louisville 与 Cleveland 两个端点，downtown 是证据明确提供的细节。删除它不构成语义修复。"
+      },
+      "anchors": [
+        {
+          "source": "original",
+          "rank": 1,
+          "quote": "Traveling east , the highway ends in downtown Cleveland , Ohio"
+        }
+      ]
+    },
+    {
+      "review_id": "R03",
+      "agent_judgment": {
+        "initial_correct": null,
+        "adaptive_correct": null,
+        "always_retrieve_correct": null,
+        "category": "underspecified_character",
+        "reason": "题目没有说明 Osha 还是 Ygritte。Tena 和 Leslie 分别有角色证据，先记题意歧义，不直接认定换人名就是误修。"
+      },
+      "anchors": [
+        {
+          "source": "original",
+          "rank": 3,
+          "quote": "and the wildling Osha in the HBO series Game of Thrones"
+        },
+        {
+          "source": "always_retrieve",
+          "rank": 5,
+          "quote": "For her role as wildling Ygritte in seasons two , three and four , Leslie"
+        }
+      ]
+    },
+    {
+      "review_id": "R04",
+      "agent_judgment": {
+        "initial_correct": true,
+        "adaptive_correct": true,
+        "always_retrieve_correct": true,
+        "category": "equivalent_alias",
+        "reason": "William McKinley、McKinley 和 President McKinley 在此上下文指同一总统；EM 差异不代表修复。"
+      },
+      "anchors": [
+        {
+          "source": "original",
+          "rank": 1,
+          "quote": "Republican President William McKinley"
+        }
+      ]
+    },
+    {
+      "review_id": "R05",
+      "agent_judgment": {
+        "initial_correct": true,
+        "adaptive_correct": true,
+        "always_retrieve_correct": true,
+        "category": "equivalent_scope",
+        "reason": "问题已限定 New France，fur trade 已回答经济活动；增加 North American 主要是写法细化。"
+      },
+      "anchors": [
+        {
+          "source": "original",
+          "rank": 1,
+          "quote": "development of the North American fur trade"
+        }
+      ]
+    },
+    {
+      "review_id": "R06",
+      "agent_judgment": {
+        "initial_correct": false,
+        "adaptive_correct": false,
+        "always_retrieve_correct": null,
+        "category": "relation_and_reference_conflict",
+        "reason": "C1 与 Adaptive 回答赛季开赛日期，问题问 league year。March 14 与检索证据中的 2018 league year 对应；问题未指定年份，仍需确认适用时间。冻结参考本身给出赛季开赛日，不能直接用于语义裁决。"
+      },
+      "anchors": [
+        {
+          "source": "original",
+          "rank": 2,
+          "quote": "The season is set begin on September 6 , 2018"
+        },
+        {
+          "source": "always_retrieve",
+          "rank": 2,
+          "quote": "The 2018 NFL League year began on March 14"
+        }
+      ]
+    },
+    {
+      "review_id": "R07",
+      "agent_judgment": {
+        "initial_correct": false,
+        "adaptive_correct": false,
+        "always_retrieve_correct": true,
+        "category": "likely_real_repair",
+        "reason": "third place 重复名次，没有回答获得什么。bronze medal 回答奖励类型，并有三等奖牌证据。"
+      },
+      "anchors": [
+        {
+          "source": "always_retrieve",
+          "rank": 4,
+          "quote": "third - place ( bronze )"
+        }
+      ]
+    },
+    {
+      "review_id": "R08",
+      "agent_judgment": {
+        "initial_correct": true,
+        "adaptive_correct": true,
+        "always_retrieve_correct": true,
+        "category": "equivalent_detail",
+        "reason": "原答已说明 Johns Island near Charleston，能定位这棵树。补 Angel Oak Park 是细化，不能仅按 EM 计作修复。"
+      },
+      "anchors": [
+        {
+          "source": "original",
+          "rank": 1,
+          "quote": "located in Angel Oak Park on Johns Island near Charleston , South Carolina"
+        }
+      ]
+    },
+    {
+      "review_id": "R09",
+      "agent_judgment": {
+        "initial_correct": false,
+        "adaptive_correct": false,
+        "always_retrieve_correct": null,
+        "category": "time_scope_reference_conflict",
+        "reason": "可见证据写 most recent success 为 2012 League Cup。参考 2005 可能混入 European Cup 范围；问题缺少时间与 major trophy 定义，不能把 2001→2005 自动计作语义修复。"
+      },
+      "anchors": [
+        {
+          "source": "original",
+          "rank": 3,
+          "quote": "their most recent success came in 2012 , when they won the League Cup"
+        }
+      ]
+    },
+    {
+      "review_id": "R10",
+      "agent_judgment": {
+        "initial_correct": false,
+        "adaptive_correct": false,
+        "always_retrieve_correct": true,
+        "category": "likely_real_repair",
+        "reason": "Union Cabinet 与证据中的美国最高法院提名程序不符。the Senate 回答拒绝或确认提名的主体，补检索结果更明确。"
+      },
+      "anchors": [
+        {
+          "source": "original",
+          "rank": 1,
+          "quote": "11 nominees were rejected in Senate roll - call votes"
+        },
+        {
+          "source": "always_retrieve",
+          "rank": 5,
+          "quote": "plenary power to the Senate to reject or confirm a nominee"
+        }
+      ]
+    },
+    {
+      "review_id": "R11",
+      "agent_judgment": {
+        "initial_correct": null,
+        "adaptive_correct": null,
+        "always_retrieve_correct": null,
+        "category": "broadcast_version_scope",
+        "reason": "TNT 在原 R1 有明确播出记录；Cartoon Network 在原 R5 有首播记录，原 R4 还涉及另一部动画。题目未限定版本、首播或时间；两答的证据存在不等于能唯一裁决，先待定。"
+      },
+      "anchors": [
+        {
+          "source": "original",
+          "rank": 1,
+          "quote": "also aired from January 15 , 2009 to March 26 , 2009 on TNT"
+        },
+        {
+          "source": "original",
+          "rank": 5,
+          "quote": "The Clone Wars premiered on October 3 , 2008 at 9 p.m. on Cartoon Network"
+        }
+      ]
+    },
+    {
+      "review_id": "R12",
+      "agent_judgment": {
+        "initial_correct": true,
+        "adaptive_correct": true,
+        "always_retrieve_correct": true,
+        "category": "equivalent_detail",
+        "reason": "证据明确由 directors 任命并获 Governor in Council 批准。删除 directly 或补冠词不构成新的任命主体，原答和改答可视为同义。"
+      },
+      "anchors": [
+        {
+          "source": "original",
+          "rank": 1,
+          "quote": "The Governor and Deputy Governor shall be appointed by the directors with the approval of the Governor in Council"
+        }
+      ]
+    },
+    {
+      "review_id": "R13",
+      "agent_judgment": {
+        "initial_correct": true,
+        "adaptive_correct": true,
+        "always_retrieve_correct": true,
+        "category": "equivalent_alias",
+        "reason": "Collingwood Football Club 与 Collingwood 指同一获胜球队，原答已正确，缩短名字只改变 EM。"
+      },
+      "anchors": [
+        {
+          "source": "original",
+          "rank": 1,
+          "quote": "was won by Collingwood by a margin of 48 points"
+        }
+      ]
+    },
+    {
+      "review_id": "R14",
+      "agent_judgment": {
+        "initial_correct": true,
+        "adaptive_correct": true,
+        "always_retrieve_correct": true,
+        "category": "equivalent_detail",
+        "reason": "题目要求当选者姓名，María Fernanda Espinosa 已回答。证据指 UNGA 主席；补 of Ecuador 不构成语义修复，报告保留机构范围说明。"
+      },
+      "anchors": [
+        {
+          "source": "original",
+          "rank": 3,
+          "quote": "María Fernanda Espinosa of Ecuador has been elected as the UNGA President"
+        }
+      ]
+    },
+    {
+      "review_id": "R15",
+      "agent_judgment": {
+        "initial_correct": false,
+        "adaptive_correct": false,
+        "always_retrieve_correct": true,
+        "category": "likely_real_repair",
+        "reason": "R1 明确 Robin Lee 翻唱 Black Velvet。Bret Michaels 的片段被截断，没有说明所翻唱歌曲，不能支持本题原答；Robin Lee 有直接对应证据。"
+      },
+      "anchors": [
+        {
+          "source": "original",
+          "rank": 1,
+          "quote": "Country music artist Robin Lee"
+        },
+        {
+          "source": "original",
+          "rank": 5,
+          "quote": "A country version by Bret Michaels appears on"
+        }
+      ]
+    },
+    {
+      "review_id": "R16",
+      "agent_judgment": {
+        "initial_correct": null,
+        "adaptive_correct": null,
+        "always_retrieve_correct": null,
+        "category": "counting_scope_conflict",
+        "reason": "这是阈值 0.2 新引入的 EM 误修之一（65→62）。两种集数在证据中同时出现，clip show 和电视电影的统计范围未澄清；保留原答更保守，语义对错待用户确认。"
+      },
+      "anchors": [
+        {
+          "source": "original",
+          "rank": 1,
+          "quote": "a total of 65 episodes ( including a clip show )"
+        },
+        {
+          "source": "original",
+          "rank": 5,
+          "quote": "62 episodes and a made - for - TV movie"
+        }
+      ]
+    },
+    {
+      "review_id": "R17",
+      "agent_judgment": {
+        "initial_correct": null,
+        "adaptive_correct": null,
+        "always_retrieve_correct": null,
+        "category": "temporal_conflict",
+        "reason": "这是阈值 0.2 新引入的另一条 EM 误修（Federer→Nadal）。检索后同时存在两条 current world number one，题目无时间点。不能用出现次数投票，也不查询今天的排名来覆盖历史评测，先记时点冲突并倾向保留原答。"
+      },
+      "anchors": [
+        {
+          "source": "original",
+          "rank": 2,
+          "quote": "The current world number one is Roger Federer"
+        },
+        {
+          "source": "always_retrieve",
+          "rank": 3,
+          "quote": "The current world number one is Rafael Nadal"
+        }
+      ]
+    }
+  ]
+}

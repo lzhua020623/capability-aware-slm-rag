@@ -1,0 +1,25 @@
+{
+  "round": "T5.7 assisted review source binding",
+  "checked_at_UTC": "2026-10-25T15:06:41.964831+00:00",
+  "before": {
+    "HEAD": "13dfcc4",
+    "role": "T4 exposed development only",
+    "selection_or_final_inputs_read": false,
+    "human_confirmation_expected": false
+  },
+  "after": {
+    "full_tests": 930,
+    "targeted_tests": 3,
+    "cases": 17,
+    "original_priority_cases": 15,
+    "additional_candidate_EM_harms": 2,
+    "human_confirmed": 0,
+    "quotes_exact_source_bound": true,
+    "HTML_cards": 17,
+    "human_preselected_options": 0,
+    "frozen_r2_source_files_unchanged": true,
+    "runtime_gold_or_routes_changed": false,
+    "GPU_started": false
+  },
+  "full_test_log_sha256": "8ecf65aea34638bb07c11ac0bc7a1cafb7b28446458a0f4e0ec56f973d76943b"
+}

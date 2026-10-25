@@ -1,0 +1,15 @@
+{
+  "cases": 17,
+  "original_priority_cases": 15,
+  "additional_candidate_EM_harms": 2,
+  "human_confirmed": 0,
+  "source_review_sha256": "5b7676dabcf113a3e982a821a1b1a177104902c81dd4d0455acd4e88e5b1978c",
+  "source_T4_sha256": "be3b926b8f808cd39b1c32b64564e5e5619518bebd2585af3fd8f0a6616bc7a5",
+  "agent_notes_sha256": "43e7b9673183b13ed6456a293d09d2e19b0f57943981819af54538428d7383af",
+  "runtime_or_gold_changed": false,
+  "candidate_frozen": false,
+  "scope": "reference-visible development assistance only; no new GPU inference or human labels",
+  "reference_visible": true,
+  "method_names_visible": true,
+  "blind_review": false
+}

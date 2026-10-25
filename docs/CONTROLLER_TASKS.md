@@ -38,7 +38,7 @@
 | T5.4 | Kaggle 20 项真实验收 | 未运行；语义失败也需完成执行/结构/长输入检查后才能判为 semantic_only |
 | T5.5 | 开发运行 | passed：800 次；semantic_only：400 次 Always Repair verify_only；failed：0 次 |
 | T5.6 | ZIP 独立审计与全局 E 模式冻结 | 两数据集真实合规率均需 ≥90%；NQ 路由 16 条净值不替代两数据集 Always Repair 误修保护；语义失败不算 E 验收通过 |
-| T5.7 | 人工审核（并行） | 15 条路由重点题、历史 5 条语义误修 ID、新 NQ 全部改答；73 条原对保留题仅作回归 |
+| T5.7 | 人工审核（并行） | [17 题辅助页](../artifacts/controller/t5_assisted_review_v1/review/review17.html)已准备：原 15＋候选 EM 误修补充 2，人审 0/17；历史 5 条语义误修 ID 和新 NQ 改答仍待确认；73 条原对保留题仅作回归 |
 | T5.8 | 开发回放、冻结至多一个 NQ 路由候选 | 网格 0.2/0.3/0.4，原 no_action 范围，已有 supported Probe 否决；E 模式与人审固定后再冻结 |
 | T5.9 | 选型确认一次 | 每数据集 200；Adaptive＋三 Always，C1 缓存；EM 净增 >0，语义净值及待定最坏下界均不得负；无合格候选保留原路由 |
 
