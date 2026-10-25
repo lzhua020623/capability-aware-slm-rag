@@ -6,7 +6,7 @@ import unittest
 from unittest.mock import patch
 
 from src.compensation.answer_repair import Generation
-from src.compensation.evidence_v2a import repair, apply_mode, schema, prompt
+from src.compensation.evidence_v2a import DEFINITIONS, MODEL_LABELS, repair, apply_mode, schema, prompt, type_warnings
 from src.compensation.evidence_id_repair import evidence_units
 from src.controller.execution import ExecutionConfig, fingerprint
 from src.controller.providers import shared_repair_views
@@ -26,7 +26,7 @@ class Backend:
         return Generation(text, .1, 100, 30), {'decoder': 'test_stub', **self.metadata}
 
 
-def output(verdict='unsupported', answer='Amber', ids=None, original_ids=None):
+def output(verdict='contradicted', answer='Amber', ids=None, original_ids=None):
     return {'original_verification': verdict, 'verdict_evidence_ids': ['R1S1'] if original_ids is None else original_ids,
             'replacement_answer': answer, 'replacement_evidence_ids': (['R1S1'] if answer else []) if ids is None else ids,
             'reason': 'The evidence establishes the requested fact.'}
@@ -62,7 +62,7 @@ class V2ATests(unittest.TestCase):
         self.assertTrue(result.changed)
 
     def test_missing_or_conflicting_evidence_preserves_answer_and_flags(self):
-        for v, ids in [('unsupported', ['R1S1']), ('insufficient', [])]:
+        for v, ids in [('contradicted', ['R1S1']), ('insufficient', [])]:
             r = repair(self.nq, Backend(output(v, '', original_ids=ids)))
             self.assertEqual(r.final_answer, self.nq.initial_answer)
             self.assertTrue(r.support_check['unresolved'])
@@ -121,7 +121,7 @@ class V2ATests(unittest.TestCase):
         self.assertEqual(r.final_answer, 'SUPPORTS')
         r = repair(self.fever, Backend(output('insufficient', '', original_ids=[])))
         self.assertEqual(r.final_answer, self.fever.initial_answer)
-        self.assertIn('missing/conflicting evidence', prompt(self.fever, evidence_units(self.fever)))
+        self.assertIn('Missing information is insufficient, NEVER contradicted', prompt(self.fever, evidence_units(self.fever)))
         expanded = replace(self.fever, initial_answer='SUPPORTS\nThe supplied passage supports it.')
         self.assertFalse(repair(expanded, Backend(output(answer='SUPPORTS'))).changed)
 
@@ -134,7 +134,7 @@ class V2ATests(unittest.TestCase):
     def test_conditional_schema_rejects_observed_empty_ids_before_generation(self):
         from jsonschema import Draft202012Validator
         validator = Draft202012Validator(schema(evidence_units(self.nq), self.nq))
-        for valid in (output(), output('supported', ''), output('unsupported', ''),
+        for valid in (output(), output('supported', ''), output('contradicted', ''),
                       output('insufficient', '', original_ids=[])):
             self.assertTrue(validator.is_valid(valid), valid)
         for invalid in (output(original_ids=[]), output(ids=[]), output('supported', 'Amber'),
@@ -142,6 +142,35 @@ class V2ATests(unittest.TestCase):
             self.assertFalse(validator.is_valid(invalid), invalid)
         fever = Draft202012Validator(schema(evidence_units(self.fever), self.fever))
         self.assertFalse(fever.is_valid(output(answer='REFUTES')))
+
+    def test_r2_one_definition_for_both_datasets_and_raw_label_kept(self):
+        texts = [prompt(r, evidence_units(r)) for r in (self.nq, self.fever)]
+        self.assertTrue(all(DEFINITIONS in text for text in texts))
+        self.assertTrue(all('unsupported' not in text.split('Query:')[0] for text in texts))
+        for r in (self.nq, self.fever):
+            consts = {b['properties']['original_verification']['const'] for b in schema(evidence_units(r), r)['anyOf']}
+            self.assertEqual(consts, set(MODEL_LABELS))
+        result = repair(self.nq, Backend(output()))
+        self.assertEqual(result.support_check['model_label'], 'contradicted')
+        self.assertEqual(result.support_check['original_verification'], 'unsupported')
+        self.assertEqual(result.support_check['version'], 'evidence_id_v2a_v3')
+        old_label = repair(self.nq, Backend(output('unsupported')))
+        self.assertEqual(old_label.verdict, 'incomplete')
+        self.assertEqual(old_label.final_answer, self.nq.initial_answer)
+
+    def test_type_check_only_records_warnings(self):
+        self.assertEqual(type_warnings('when did it open', 'gray marble'), ['time_question_without_time_expression'])
+        self.assertEqual(type_warnings('in what year was it cast', 'in 1742'), [])
+        self.assertEqual(type_warnings('how many arches', 'twelve'), [])
+        self.assertEqual(type_warnings('how many arches', 'several'), ['quantity_question_without_number'])
+        self.assertEqual(type_warnings('who painted it', 'Ilsa Marrow'), [])
+        self.assertEqual(type_warnings('where is it', 'on the hill'), ['place_question_without_name'])
+        self.assertEqual(type_warnings('what is a statute', 'an act'), [])
+        r = replace(self.nq, query='Who is the capital of Luma?')
+        result = repair(r, Backend(output(answer='The capital')))
+        self.assertEqual(result.support_check['type_warnings'], ['person_question_without_name'])
+        self.assertEqual(result.final_answer, 'The capital')
+        self.assertEqual(repair(self.fever, Backend(output(answer='SUPPORTS'))).support_check['type_warnings'], [])
 
     def test_interface_r1_gate_uses_new_fictional_facts(self):
         from scripts.run_controller_e_v2a import fictional_cases
@@ -159,7 +188,7 @@ class V2ATests(unittest.TestCase):
     def test_controller_meters_schema_call_and_sets_unresolved(self):
         config = ExecutionConfig(nq_repair_strategy='evidence_id_v2a')
         p = pipeline(config=config)
-        p.repair_generators['nq'] = Backend(output('unsupported', ''))
+        p.repair_generators['nq'] = Backend(output('contradicted', ''))
         r = p.run(self.nq, mode='always_repair')
         self.assertEqual(r['cost']['llm_calls'], 1)
         self.assertTrue(r['unresolved_failure']['flagged'])

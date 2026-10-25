@@ -14,13 +14,14 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path: sys.path.insert(0, str(ROOT))
-from scripts.run_controller_e_v2a import fictional_cases, sha, validate_plan
+from scripts.run_controller_e_v2a import BRANCHES, FIXTURES, REGISTRATION, SEAL, r2_fixtures, sha, validate_plan
 from scripts.run_controller_integration import runtime_input
 from src.controller.execution import fingerprint
 
 ARCHIVE = 'artifacts/controller/t4_v1/controller_t4_development_v1_outputs.zip'
 POLICY = 'configs/controller/e_v2a_amendment_v1.json'
-NAME = 'controller_e_v2a_development_v1'
+NAME = 'controller_e_v2a_r2_development'
+REVISION = 'evidence_id_v2a_v3_definition_r2'
 
 
 def frozen_plan(root=ROOT):
@@ -77,8 +78,8 @@ with tarfile.open(fileobj=io.BytesIO(raw),mode='r:gz') as t:
 ROOT=BASE/'{NAME}'
 for rel,h in json.loads((ROOT/'bundle_checksums.json').read_text()).items():
     assert hashlib.sha256((ROOT/rel).read_bytes()).hexdigest()==h,rel
-OUTPUT=WORK/'controller_e_v2a_development_v1_outputs'
-LOG=WORK/'controller_e_v2a_run.log'
+OUTPUT=WORK/'{NAME}_outputs'
+LOG=WORK/'{NAME}_run.log'
 os.environ['OMP_NUM_THREADS']='4'
 os.environ['TOKENIZERS_PARALLELISM']='false'
 os.chdir(ROOT)
@@ -99,7 +100,7 @@ finally:
     (OUTPUT/'input_execution_manifest.json').write_bytes((ROOT/'execution_manifest.json').read_bytes())
     checks={{str(p.relative_to(OUTPUT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in OUTPUT.rglob('*') if p.is_file()}}
     (OUTPUT/'output_checksums.json').write_text(json.dumps(checks,indent=2))
-    archive=WORK/'controller_e_v2a_development_v1_outputs.zip'
+    archive=WORK/'{NAME}_outputs.zip'
     with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,strict_timestamps=False) as z:
         for p in sorted(OUTPUT.rglob('*')):
             if p.is_file():z.write(p,str(p.relative_to(OUTPUT)))
@@ -111,11 +112,13 @@ finally:
                      'kaggle': {'accelerator': 'nvidiaTeslaT4', 'isGpuEnabled': True,
                                 'isInternetEnabled': True, 'language': 'python', 'sourceType': 'notebook'}},
         'cells': [{'cell_type': 'markdown', 'metadata': {}, 'source': [
-            '# Controller E v2a development frozen 20261025\n',
-            'Keep private. Same Qwen/NF4, one call/384 tokens. Six fresh fictional behavior checks and two '
-            '14k+ token XGrammar/prefill256 checks MUST pass before 800 development E invocations. '
-            'Full uses cached actual pre-E states. No index download, real gold, selection or final data; '
-            'no runtime quality scoring, tuning, retries or promotion. Partial outputs always exported.']},
+            '# Controller E v2a r2 development frozen 20261026\n',
+            'Keep private. Same Qwen/NF4, one call/384 tokens, unified r2 verification labels. All 18 sealed '
+            'fictional checks and two 14k+ token XGrammar/prefill256 checks run and are classified. Passed: '
+            '800 development E calls; semantic-only failure: 400 Always Repair verify-only calls; execution or '
+            'structure failure: stop (exit 3), E unavailable. Full uses cached actual pre-E states. No index '
+            'download, real gold, selection or final data; no runtime scoring, tuning, retries or promotion. '
+            'Outputs are always exported.']},
             {'cell_type': 'code', 'metadata': {}, 'execution_count': None, 'outputs': [], 'source': code.splitlines(keepends=True)}]}
 
 
@@ -130,20 +133,23 @@ def prepare(output, root=ROOT):
     plan, ids, routed = frozen_plan(root)
     sources = [*sorted((root / 'src').rglob('*.py'))]
     sources += [root / n for n in ('scripts/run_controller_e_v2a.py', 'scripts/run_controller_integration.py',
-        'configs/base.yaml', POLICY, 'configs/controller/e_v2a_engineering_r1.json', 'requirements-controller-e-v2a.txt', 'requirements-controller-t3.txt',
+        'configs/base.yaml', POLICY, 'configs/controller/e_v2a_engineering_r1.json', REGISTRATION, FIXTURES, SEAL,
+        'requirements-controller-e-v2a.txt', 'requirements-controller-t3.txt',
         'requirements-answer-repair-v8.txt', 'models/diagnosis/diagnosis_v2_expanded_hierarchical.json',
         'tests/__init__.py', 'tests/test_evidence_v2a.py', 'tests/test_controller_v2a_policy.py', 'tests/test_controller_integration.py')]
     payload = {str(p.relative_to(root)): p.read_bytes() for p in sources}
     plan_raw = ''.join(json.dumps(r, ensure_ascii=False) + '\n' for r in plan).encode()
-    cases_raw = json.dumps(fictional_cases(), ensure_ascii=False, indent=2).encode()
+    fixtures = r2_fixtures(root)
     manifest = {'schema_version': 'controller_e_v2a_execution_v1', 'role': 'development',
-        'engineering_revision': 'evidence_id_v2a_v2_interface_r1',
+        'engineering_revision': REVISION, 'bundle_name': NAME,
+        'gate_checks': len(fixtures['cases']) + len(fixtures['long']['base_case_ids']),
+        'development_branches': {k: list(v) for k, v in BRANCHES.items()},
         'source_commit': commit, 'source_files': {k: hashlib.sha256(v).hexdigest() for k, v in payload.items()},
         'sample_ids': ids, 'fixed_T4_E_routed_ids': routed, 'n_predictions': 800,
-        'plan_sha256': hashlib.sha256(plan_raw).hexdigest(), 'cases_sha256': hashlib.sha256(cases_raw).hexdigest(),
+        'plan_sha256': hashlib.sha256(plan_raw).hexdigest(), 'cases_sha256': sha(root / FIXTURES),
         'source_T4_archive_sha256': sha(root / ARCHIVE), 'contains_real_gold': False,
         'contains_selection_or_final_inputs': False, 'GPU_engineering_passed': False}
-    payload.update({'inputs/development_plan.jsonl': plan_raw, 'engineering/cases.json': cases_raw,
+    payload.update({'inputs/development_plan.jsonl': plan_raw,
                     'execution_manifest.json': (json.dumps(manifest, indent=2) + '\n').encode()})
     payload['bundle_checksums.json'] = json.dumps({k: hashlib.sha256(v).hexdigest() for k, v in payload.items()}, indent=2).encode()
     buffer = io.BytesIO()
@@ -158,7 +164,7 @@ def prepare(output, root=ROOT):
     nb = (json.dumps(notebook(raw, digest), ensure_ascii=False, indent=1) + '\n').encode()
     (output / (NAME + '.ipynb')).write_bytes(nb)
     (output / 'execution_manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
-    receipt = {'archive_sha256': digest, 'archive_bytes': len(raw),
+    receipt = {'bundle_name': NAME, 'engineering_revision': REVISION, 'archive_sha256': digest, 'archive_bytes': len(raw),
                'notebook_sha256': hashlib.sha256(nb).hexdigest(), 'source_commit': commit,
                'n_predictions': 800, 'contains_real_gold': False, 'GPU_started': False}
     (output / 'bundle_receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')

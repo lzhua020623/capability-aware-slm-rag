@@ -50,6 +50,12 @@ class TransportTests(unittest.TestCase):
         self.assertEqual(old['cells'][0], new['cells'][0])
         self.assertLess(len(json.dumps(new).encode()), 1_000_000)
 
+    def test_loader_uses_the_release_bundle_name(self):
+        old = json.loads((RELEASE / 'controller_e_v2a_development_v1.ipynb').read_text())
+        after = ''.join(dataset_variant(old, 'controller_e_v2a_r2_development')['cells'][1]['source'])
+        self.assertIn("rglob('controller_e_v2a_r2_development.tar.gz.bin')", after)
+        self.assertNotIn('controller_e_v2a_development_v1.tar.gz', after)
+
     def test_missing_or_duplicate_loader_is_rejected(self):
         old = json.loads((RELEASE / 'controller_e_v2a_development_v1.ipynb').read_text())
         for code in ('print("wrong notebook")', 'raw=base64.b64decode("x")\nraw=base64.b64decode("y")'):

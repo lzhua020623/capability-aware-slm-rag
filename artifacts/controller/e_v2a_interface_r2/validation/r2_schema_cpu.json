@@ -1,0 +1,151 @@
+{
+  "source_sha256": {
+    "src/compensation/evidence_v2a.py": "eae0328aa6cea8f2bd429e7bcc3b3dec65a640325da3474ec50372f30ca1c2e6",
+    "scripts/run_controller_e_v2a.py": "54cbd3581f02ca340ead856ed77b878e2bff6662a4847c16a2728a64fefb81a0"
+  },
+  "fixtures_sha256": "423aef2ab7a5c84f2b93854a305ea798438ba11faaa3862f916fdb84b08b4b2c",
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "xgrammar": "0.2.8",
+  "GPU_used": false,
+  "seconds": 1.7304039580048993,
+  "results": [
+    {
+      "case_id": "v2a-r2-fiction-nq-supported_keep-1",
+      "ideal_accepted": true,
+      "r1_label_rejected": null,
+      "empty_verdict_ids_rejected": true,
+      "prompt_tokens": 1285
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-supported_keep-2",
+      "ideal_accepted": true,
+      "r1_label_rejected": null,
+      "empty_verdict_ids_rejected": true,
+      "prompt_tokens": 1283
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_repair-1",
+      "ideal_accepted": true,
+      "r1_label_rejected": true,
+      "empty_verdict_ids_rejected": true,
+      "prompt_tokens": 1269
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_repair-2",
+      "ideal_accepted": true,
+      "r1_label_rejected": true,
+      "empty_verdict_ids_rejected": true,
+      "prompt_tokens": 1277
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_no_candidate-1",
+      "ideal_accepted": true,
+      "r1_label_rejected": true,
+      "empty_verdict_ids_rejected": true,
+      "prompt_tokens": 1257
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-contradicted_no_candidate-2",
+      "ideal_accepted": true,
+      "r1_label_rejected": true,
+      "empty_verdict_ids_rejected": true,
+      "prompt_tokens": 1272
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-missing_insufficient-1",
+      "ideal_accepted": true,
+      "r1_label_rejected": null,
+      "empty_verdict_ids_rejected": null,
+      "prompt_tokens": 1276
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-missing_insufficient-2",
+      "ideal_accepted": true,
+      "r1_label_rejected": null,
+      "empty_verdict_ids_rejected": null,
+      "prompt_tokens": 1272
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-conflict_insufficient-1",
+      "ideal_accepted": true,
+      "r1_label_rejected": null,
+      "empty_verdict_ids_rejected": null,
+      "prompt_tokens": 1256
+    },
+    {
+      "case_id": "v2a-r2-fiction-nq-conflict_insufficient-2",
+      "ideal_accepted": true,
+      "r1_label_rejected": null,
+      "empty_verdict_ids_rejected": null,
+      "prompt_tokens": 1262
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-supported_keep-1",
+      "ideal_accepted": true,
+      "r1_label_rejected": null,
+      "empty_verdict_ids_rejected": true,
+      "prompt_tokens": 1296
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-supported_keep-2",
+      "ideal_accepted": true,
+      "r1_label_rejected": null,
+      "empty_verdict_ids_rejected": true,
+      "prompt_tokens": 1291
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-contradicted_repair-1",
+      "ideal_accepted": true,
+      "r1_label_rejected": true,
+      "empty_verdict_ids_rejected": true,
+      "prompt_tokens": 1294
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-contradicted_repair-2",
+      "ideal_accepted": true,
+      "r1_label_rejected": true,
+      "empty_verdict_ids_rejected": true,
+      "prompt_tokens": 1277
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-missing_insufficient-1",
+      "ideal_accepted": true,
+      "r1_label_rejected": null,
+      "empty_verdict_ids_rejected": null,
+      "prompt_tokens": 1281
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-missing_insufficient-2",
+      "ideal_accepted": true,
+      "r1_label_rejected": null,
+      "empty_verdict_ids_rejected": null,
+      "prompt_tokens": 1301
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-conflict_insufficient-1",
+      "ideal_accepted": true,
+      "r1_label_rejected": null,
+      "empty_verdict_ids_rejected": null,
+      "prompt_tokens": 1287
+    },
+    {
+      "case_id": "v2a-r2-fiction-fever-conflict_insufficient-2",
+      "ideal_accepted": true,
+      "r1_label_rejected": null,
+      "empty_verdict_ids_rejected": null,
+      "prompt_tokens": 1307
+    }
+  ],
+  "long_cases": {
+    "v2a-r2-fiction-nq-contradicted_repair-1-long": {
+      "input_tokens": 17514,
+      "input_sha256": "b45551965c9081479f00bc36a093655a7bd42edd221c2fbc509f1460dc37aba4"
+    },
+    "v2a-r2-fiction-fever-contradicted_repair-1-long": {
+      "input_tokens": 17539,
+      "input_sha256": "94ba6912832ba281263e082d9a834902bb990ec372da2686174c8bb108195ed2"
+    }
+  },
+  "scope": "real CPU grammar compilation and tokenizer lengths, not model inference or semantic correctness"
+}

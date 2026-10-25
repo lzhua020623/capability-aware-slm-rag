@@ -1,6 +1,6 @@
 from copy import deepcopy
 import unittest
-from src.controller.v2a_policy import route_override, choose_deployment_modes
+from src.controller.v2a_policy import route_override, choose_deployment_modes, choose_r2_modes
 
 
 def row(dataset='nq', probability=.3, action='no_action', probe=None):
@@ -52,6 +52,25 @@ class PolicyTests(unittest.TestCase):
         self.assertEqual({v['mode'] for v in choose_deployment_modes(s).values()}, {'unavailable'})
         s = stats(); s['nq']['n'] = 199
         with self.assertRaises(ValueError): choose_deployment_modes(s)
+
+
+    def test_r2_gate_outcome_fixes_mode_before_any_development_statistic(self):
+        self.assertEqual({v['mode'] for v in choose_r2_modes('failed', None).values()}, {'unavailable'})
+        semantic = choose_r2_modes('semantic_only', None)
+        self.assertEqual({v['mode'] for v in semantic.values()}, {'verify_only'})
+        self.assertIn('experimental', semantic['nq']['reason'])
+        with self.assertRaises(ValueError): choose_r2_modes('passed_with_warnings', stats())
+
+    def test_r2_misrepair_cap_counts_pending_as_harm_and_needs_explicit_counts(self):
+        s = stats()
+        with self.assertRaises(ValueError): choose_r2_modes('passed', s)
+        s['nq']['misrepair'] = {'semantic_harms': 0, 'semantic_pending': 0}
+        self.assertEqual(choose_r2_modes('passed', s)['nq']['mode'], 'allow_repair')
+        self.assertEqual(choose_r2_modes('passed', s)['fever']['mode'], 'verify_only')
+        s['nq']['misrepair'] = {'semantic_harms': 0, 'semantic_pending': 1}
+        self.assertEqual(choose_r2_modes('passed', s)['nq']['reason'], 'misrepair_cap_exceeded')
+        s = stats(); s['nq']['contract_passed'] = 179
+        self.assertEqual({v['mode'] for v in choose_r2_modes('passed', s).values()}, {'unavailable'})
 
 
 if __name__ == '__main__': unittest.main()

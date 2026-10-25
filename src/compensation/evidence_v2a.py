@@ -2,10 +2,13 @@
 
 The original verdict survives an invalid candidate. Deployment protection is
 separate from the diagnostic candidate, so a saved run can be gated offline.
+r2: one label definition for both datasets; the model says contradicted and
+code maps it to the internal unsupported state, keeping the raw label.
 """
 from dataclasses import asdict, replace
 import hashlib
 import json
+import re
 
 from src.compensation.answer_repair import Citation, Generation, RepairResult
 from src.compensation.evidence_id_repair import (
@@ -16,11 +19,44 @@ from src.diagnosis import DatasetName
 from src.evaluation.qa import normalize_answer
 from src.evaluation.fever import parse_fever_prediction
 
-VERSION = 'evidence_id_v2a_v2'
+VERSION = 'evidence_id_v2a_v3'
 MODES = ('allow_repair', 'verify_only', 'unavailable')
 LIMIT = 384
 FIELDS = ('original_verification', 'verdict_evidence_ids', 'replacement_answer',
           'replacement_evidence_ids', 'reason')
+MODEL_LABELS = {'supported': 'supported', 'contradicted': 'unsupported', 'insufficient': 'insufficient'}
+DEFINITIONS = (
+    'Judge the ENTERING ANSWER against the evidence with exactly one label; the labels mean the same '
+    'for every dataset. supported: the evidence establishes that the entering answer is correct. '
+    'contradicted: the evidence explicitly establishes that the entering answer is wrong, because it '
+    'gives a different value for the exact requested fact or rules the entering answer out. '
+    'insufficient: the evidence neither establishes nor rules out the entering answer; the requested '
+    'fact is absent and only related facts appear, or relevant passages give incompatible answers and '
+    'the evidence does not state which is right. Missing information is insufficient, NEVER '
+    'contradicted. In a conflict, source names, authority, recency or rank do not decide, and unstated '
+    'events must not be invented to reconcile passages. '
+)
+_NUMBER_WORDS = ('one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen '
+                 'sixteen seventeen eighteen nineteen twenty thirty forty fifty sixty seventy eighty ninety '
+                 'hundred thousand million billion dozen').split()
+_MONTHS = ('january february march april may june july august september october november december '
+           'century decade spring summer autumn fall winter').split()
+_FUNCTION_WORDS = set('a an the in on at of to by for from with and or it its this that these those he she they'.split())
+
+
+def type_warnings(query, answer):
+    """Surface-form hints only; recorded, never used to block or change an answer."""
+    q, words = query.lower().strip(), re.findall(r"[A-Za-z]+|\d+", answer)
+    lower = {w.lower() for w in words}
+    has_number = any(w.isdigit() for w in words) or bool(lower & set(_NUMBER_WORDS))
+    has_name = any(w[0].isupper() and w.lower() not in _FUNCTION_WORDS for w in words if w.isalpha())
+    if q.startswith('when') or re.search(r'\bwhat (year|date)\b|\bwhich year\b', q):
+        return [] if has_number or lower & set(_MONTHS) else ['time_question_without_time_expression']
+    if re.search(r'\bhow (many|much)\b', q):
+        return [] if has_number else ['quantity_question_without_number']
+    if q.startswith('who') or q.startswith('where'):
+        return [] if has_name else [('person' if q.startswith('who') else 'place') + '_question_without_name']
+    return []
 
 
 def schema(units, request=None):
@@ -28,8 +64,8 @@ def schema(units, request=None):
         return {'type': 'array', 'items': {'$ref': '#/$defs/source_id'},
                 'minItems': minimum, 'maxItems': maximum}
     branches = []
-    for status, replacement in (('supported', False), ('unsupported', False),
-                                ('unsupported', True), ('insufficient', False)):
+    for status, replacement in (('supported', False), ('contradicted', False),
+                                ('contradicted', True), ('insufficient', False)):
         answer = {'type': 'string', 'minLength': 1} if replacement else {'const': ''}
         if replacement and request is not None and request.dataset == DatasetName.FEVER:
             entering = parse_fever_prediction(request.initial_answer)
@@ -46,23 +82,24 @@ def schema(units, request=None):
 
 def prompt(request, units):
     task = (
-        'FEVER: the query is the ORIGINAL claim; the entering answer is a SUPPORTS/REFUTES '
-        'label. Verify whether that label is justified. unsupported means the entering '
-        'label is demonstrated wrong, NOT merely that the claim lacks support. A replacement '
-        'REFUTES requires explicit contradictory evidence; missing/conflicting evidence is '
-        'insufficient. A candidate is only SUPPORTS or REFUTES.'
+        'FEVER: the query is the ORIGINAL claim and the entering answer is its SUPPORTS/REFUTES '
+        'label. The label is supported when it is SUPPORTS and the evidence establishes the claim, '
+        'or when it is REFUTES and the evidence explicitly contradicts the claim. The label is '
+        'contradicted when the evidence establishes the opposite label. A replacement is only the '
+        'opposite label.'
         if request.dataset == DatasetName.FEVER else
-        'NQ: verify whether the entering answer answers the requested fact. A replacement '
-        'must be a continuous exact span in selected original evidence, at most 20 words.'
+        'NQ: the entering answer is a short answer to the question. A replacement must be the '
+        'shortest continuous exact span in selected original evidence that answers the question, '
+        'at most 20 words.'
     )
-    return (RULES + task + '\nIn ONE response separately verify the entering answer and '
+    return (RULES + DEFINITIONS + task + '\nIn ONE response verify the entering answer and '
         'optionally propose a minimal replacement. original_verification is supported, '
-        'unsupported or insufficient. supported: keep even if a longer wording is possible; '
-        'replacement_answer is empty. unsupported: demonstrate the answer error and provide '
-        'a candidate only if sufficient evidence exists. Without a qualified candidate leave '
-        'it empty; this does not turn unsupported into supported. insufficient: leave the '
-        'candidate empty; explain relevant evidence conflicts explicitly. For supported and '
-        'unsupported select 1-5 unique verdict_evidence_ids for the JUDGMENT: these facts '
+        'contradicted or insufficient. supported: keep even if a longer wording is possible; '
+        'replacement_answer is empty. contradicted: provide a replacement only if the evidence '
+        'establishes the correct answer; otherwise leave it empty, which does not turn '
+        'contradicted into supported. insufficient: leave the replacement empty; name any '
+        'conflict in reason. For supported and '
+        'contradicted select 1-5 unique verdict_evidence_ids for the JUDGMENT: these facts '
         'may support OR contradict the entering answer. replacement_answer is the NEW '
         'correct answer, not the entering answer being checked. For a replacement select '
         '1-5 replacement_evidence_ids. Empty replacements have no IDs. '
@@ -110,9 +147,9 @@ def repair(request, backend, *, mode='allow_repair', max_new_tokens=LIMIT):
     if mode not in MODES or type(max_new_tokens) is not int or max_new_tokens != LIMIT:
         raise ValueError('E v2a requires a registered mode and 384-token allocation')
     units = evidence_units(request)
-    check = {'version': VERSION, 'original_verification': 'incomplete',
+    check = {'version': VERSION, 'original_verification': 'incomplete', 'model_label': None,
              'candidate_check': 'absent', 'final_action': 'keep', 'contract_passed': False,
-             'unresolved': True, 'unresolved_reasons': ['verification_incomplete']}
+             'unresolved': True, 'unresolved_reasons': ['verification_incomplete'], 'type_warnings': []}
     trace = {'version': VERSION, 'units': [asdict(u) for u in units], 'calls': [],
              'semantic_verifier': 'same_Qwen_not_independent'}
     generated = None
@@ -146,9 +183,10 @@ def repair(request, backend, *, mode='allow_repair', max_new_tokens=LIMIT):
         if metadata.get('hit_token_budget'):
             raise ValueError('Output reached the token budget; verification not accepted')
         value = strict_object(generated.text, FIELDS)
-        verdict = value['original_verification']
-        if verdict not in ('supported', 'unsupported', 'insufficient'):
+        if value['original_verification'] not in MODEL_LABELS:
             raise ValueError('Invalid original verification')
+        check['model_label'] = value['original_verification']
+        verdict = MODEL_LABELS[value['original_verification']]
         if not isinstance(value['reason'], str) or not value['reason'].strip():
             raise ValueError('Nonempty verification reason required')
         original = selected_units(value['verdict_evidence_ids'], units, required=verdict != 'insufficient')
@@ -163,6 +201,8 @@ def repair(request, backend, *, mode='allow_repair', max_new_tokens=LIMIT):
         return finish('verification_incomplete', error=str(exc))
 
     candidate = value['replacement_answer']
+    if request.dataset == DatasetName.NQ and isinstance(candidate, str) and candidate.strip():
+        check['type_warnings'] = type_warnings(request.query, candidate)
     try:
         chosen = selected_units(value['replacement_evidence_ids'], units, required=bool(candidate))
         if not candidate and chosen:

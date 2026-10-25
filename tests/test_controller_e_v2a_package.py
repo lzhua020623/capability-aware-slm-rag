@@ -4,11 +4,10 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from unittest.mock import patch
 
 from scripts.prepare_controller_e_v2a import frozen_plan, notebook
 from scripts.prepare_controller_t5_review import page, prepare as prepare_review
-from scripts.run_controller_e_v2a import fictional_cases, validate_plan, execute_one, check_expected, gate, long_case
+from scripts.run_controller_e_v2a import fictional_cases, validate_plan, execute_one, check_expected, long_case
 from src.controller.execution import ExecutionConfig
 from tests.test_controller_integration import pipeline
 from tests.test_evidence_v2a import Backend, output
@@ -42,20 +41,12 @@ class PackageTests(unittest.TestCase):
             exp = c['expected']
             p = pipeline(config=ExecutionConfig(nq_repair_strategy='evidence_id_v2a', fever_repair_strategy='evidence_id_v2a'))
             candidate = exp['final_answer'] if exp['final_action'] == 'replace' else ''
-            p.repair_generators[c['input']['dataset']] = Backend(output(exp['original_verification'], candidate,
+            label = {'unsupported': 'contradicted'}.get(exp['original_verification'], exp['original_verification'])
+            p.repair_generators[c['input']['dataset']] = Backend(output(label, candidate,
                 original_ids=[] if exp['original_verification'] == 'insufficient' else ['R1S1']))
             r = execute_one(p, {'input': c['input'], 'arm': 'engineering_unit_test'})
             self.assertTrue(check_expected(r, c), c['case_id'])
             self.assertEqual(r['cost']['llm_calls'], 1)
-
-    def test_failed_fictional_gate_stops_before_long_or_benchmark(self):
-        case = fictional_cases()[0]
-        bad = {'module_trace': {'support_check': {'contract_passed': False}},
-               'cost': {'failed_calls': 1, 'budget_blocks': 0}}
-        with tempfile.TemporaryDirectory() as td, patch('scripts.run_controller_e_v2a.execute_one', return_value=bad) as execute:
-            with self.assertRaises(RuntimeError): gate(object(), [case], Path(td))
-            self.assertEqual(execute.call_count, 1)
-            self.assertFalse(json.loads(next(Path(td).iterdir()).read_text())['passed'])
 
     def test_long_fixture_preserves_real_fact_and_bounds_prompt(self):
         class Tokenizer:
@@ -73,6 +64,7 @@ class PackageTests(unittest.TestCase):
         self.assertIn('finally:', code)
         self.assertIn('strict_timestamps=False', code)
         self.assertIn('requirements-controller-e-v2a.txt', code)
+        self.assertIn('controller_e_v2a_r2_development_outputs.zip', code)
         self.assertNotIn('while True', code)
 
     def test_review_generation_preserves_pending_humans_and_records_all_searches(self):

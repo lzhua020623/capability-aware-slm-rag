@@ -64,3 +64,33 @@ def choose_deployment_modes(dataset_stats):
                           'reason': 'routed_net_nonnegative' if net >= 0 else 'routed_net_negative',
                           'net_correct': net, 'weighted_net': net / len(routed), 'reference_n': len(routed)}
     return result
+
+
+GATE_OUTCOMES = ('passed', 'semantic_only', 'failed')
+
+
+def choose_r2_modes(gate_outcome, dataset_stats):
+    """r2 adds the classified gate and the Always Repair misrepair cap.
+
+    misrepair is offline: FEVER counts frozen-label harms; NQ counts user-confirmed
+    plus still-pending semantic harms among all changed answers. Pending is harm.
+    """
+    if gate_outcome not in GATE_OUTCOMES:
+        raise ValueError('Unregistered r2 gate outcome')
+    if gate_outcome == 'failed':
+        return {ds: {'mode': 'unavailable', 'reason': 'r2_gate_failed'} for ds in ('nq', 'fever')}
+    if gate_outcome == 'semantic_only':
+        return {ds: {'mode': 'verify_only', 'reason': 'r2_gate_semantic_only_experimental'} for ds in ('nq', 'fever')}
+    result = choose_deployment_modes(dataset_stats)
+    for ds, decision in result.items():
+        if decision['mode'] != 'allow_repair':
+            continue
+        misrepair = dataset_stats[ds].get('misrepair')
+        keys = ('frozen_harms',) if ds == 'fever' else ('semantic_harms', 'semantic_pending')
+        if not isinstance(misrepair, dict) or any(type(misrepair.get(k)) is not int or misrepair[k] < 0 for k in keys):
+            raise ValueError('Registered misrepair counts required before allowing repair')
+        harms = sum(misrepair[k] for k in keys)
+        decision['misrepair_counted'] = harms
+        if harms:
+            decision.update(mode='verify_only', reason='misrepair_cap_exceeded')
+    return result
