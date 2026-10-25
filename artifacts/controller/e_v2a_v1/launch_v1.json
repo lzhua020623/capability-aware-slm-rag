@@ -1,0 +1,27 @@
+{
+  "schema_version": "controller_e_v2a_kaggle_launch_v1",
+  "observed_at": "2026-10-25T12:07:05.023457+00:00",
+  "notebook_url": "https://www.kaggle.com/code/yearo111/controller-e-v2a-development-frozen-20261025?scriptVersionId=362122804",
+  "script_version_id": 362122804,
+  "version": 1,
+  "privacy": "Private",
+  "accelerator": "GPU T4 x2",
+  "status": "running",
+  "observed_stage": "installing registered dependencies; real CUDA behavioral/long-input gate not yet accepted",
+  "engineering_passed": null,
+  "development_predictions_confirmed": null,
+  "input_dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-e-v2a-frozen-development-20261025",
+  "input_dataset_private": true,
+  "input_dataset_filename": "controller_e_v2a_development_v1.tar.gz.bin",
+  "archive_sha256": "728c8ba512115825c3a4c362f5e4a51a3c860d74ad4d6e977dcaf93ca12adcf3",
+  "transport_notebook_sha256": "d00c5a10e4959c2f9d3416083294235c56010a37d5c011f2ef2bc864ad854f35",
+  "inference_source_commit": "85604715a274c24cac79fad1c771e0612cf244ac",
+  "UI_evidence": [
+    "Version #1 with GPU T4 x2 / Running",
+    "version page displays Private",
+    "pip output under e_v2a_728c8ba51211 after archive and payload verification"
+  ],
+  "earlier_commit_rejected_before_GPU": "embedded source exceeded 1 MB; no inference ran",
+  "semantic_retry": false,
+  "selection_or_final_started": false
+}

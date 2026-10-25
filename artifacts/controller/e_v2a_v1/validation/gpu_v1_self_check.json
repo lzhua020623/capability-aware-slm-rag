@@ -1,0 +1,25 @@
+{
+  "round": "GPU attempt v1 receipt and failure audit",
+  "checked_at": "2026-10-25T12:23:18.590711+00:00",
+  "before": {
+    "private": true,
+    "accelerator": "T4 x2",
+    "source_commit": "85604715a274c24cac79fad1c771e0612cf244ac",
+    "frozen_archive_sha256": "728c8ba512115825c3a4c362f5e4a51a3c860d74ad4d6e977dcaf93ca12adcf3"
+  },
+  "after": {
+    "full_tests": 813,
+    "seconds": 57.494,
+    "CPU_tests_passed": true,
+    "input_manifest_exact_match": true,
+    "raw_checksums_verified": 7,
+    "engineering_passed": false,
+    "development_predictions": 0,
+    "FEVER_checks": 0,
+    "long_checks": 0,
+    "semantic_gain_claim": false,
+    "historical_hashes": "unchanged",
+    "failed_outputs_preserved": true
+  },
+  "next": "one separately registered interface correction; no development run until fresh gates pass"
+}

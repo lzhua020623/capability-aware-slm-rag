@@ -1,0 +1,32 @@
+{
+  "revision": "evidence_id_v2a_v2_interface_r1",
+  "date": "2026-10-25",
+  "registered_before_corrected_GPU_run": true,
+  "parent_failed_Kaggle_version": 362122804,
+  "parent_output_sha256": "473b74e70d171dfc70937e86e2b5819ba9a1e7aadf14fc2763c46ae4d70923d1",
+  "parent_development_predictions": 0,
+  "observed_failure": "Correct raw unsupported verdict/reason; empty verdict evidence IDs and unchanged, ungrounded candidate; postcheck rejected",
+  "hypothesis_not_established_cause": "Original/candidate field names are ambiguous; schema permits ID combinations that declared postchecks reject",
+  "interface_changes": {
+    "original_evidence_ids": "verdict_evidence_ids: evidence for the judgment, including contradictory facts",
+    "candidate_answer": "replacement_answer: the NEW replacement, not the entering answer under review",
+    "candidate_evidence_ids": "replacement_evidence_ids",
+    "conditional_schema": "supported/unsupported verdicts require 1-5 IDs; nonempty replacements require 1-5 IDs; supported/insufficient produce empty replacements",
+    "FEVER": "unsupported replacement branch allows only opposite entering legal label",
+    "NQ": "unchanged exact continuous-source span and 20-word postcheck",
+    "enum_size": "one shared source-ID definition, not repeated per branch"
+  },
+  "unchanged": ["Qwen model/revision/NF4", "single call", "384 output tokens", "semantic RULES", "no fact-first step", "no independent verifier", "prefill256", "all source text", "data IDs/gold/splits", "routing search", "deployment thresholds"],
+  "fresh_fictional_gate": {
+    "namespace": "v2a-r1-fiction",
+    "entity": "Selen Observatory",
+    "correct_designer": "Veyra Lorn",
+    "wrong_designer": "Nalo Kest",
+    "missing_opening_year_claim": 2019,
+    "kinds_per_dataset": ["supported_keep", "unsupported_replace", "insufficient_unresolved"],
+    "old_Velora_cases": "retired from GPU gate; frozen failure remains a structural regression counterexample",
+    "require_all_six_plus_two_long_checks": true
+  },
+  "stop": "One explicitly registered interface correction; failed gate stops before development. Do not iterate judgment prompts on these cases.",
+  "claims": "CPU grammar acceptance/rejection is not CUDA compatibility, semantic correctness, or benchmark improvement"
+}

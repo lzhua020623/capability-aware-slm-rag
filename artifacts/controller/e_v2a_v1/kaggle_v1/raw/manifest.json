@@ -1,0 +1,12 @@
+{
+  "state": "failed",
+  "engineering_passed": false,
+  "n_predictions": 0,
+  "quality_scored": false,
+  "role": "development",
+  "source_commit": "85604715a274c24cac79fad1c771e0612cf244ac",
+  "error": {
+    "type": "RuntimeError",
+    "message": "Fictional behavioral gate failed: v2a-fiction-nq-unsupported_replace"
+  }
+}

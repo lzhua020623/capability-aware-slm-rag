@@ -1,0 +1,16 @@
+{
+  "output_zip_sha256": "473b74e70d171dfc70937e86e2b5819ba9a1e7aadf14fc2763c46ae4d70923d1",
+  "version_id": 362122804,
+  "status": "engineering_gate_failed",
+  "n_development_predictions": 0,
+  "short_cases_completed": 2,
+  "short_behavior_passed": 1,
+  "long_input_checks_run": 0,
+  "fever_checks_run": 0,
+  "failed_case": "v2a-fiction-nq-unsupported_replace",
+  "model_original_verdict": "unsupported (raw output correct on fictional fact)",
+  "contract_failure": "original_evidence_ids empty; replacement copied entering wrong name with no sources",
+  "semantic_gain_claim": false,
+  "checksums_verified": 7,
+  "outputs_preserved": true
+}
