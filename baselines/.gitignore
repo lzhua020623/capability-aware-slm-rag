@@ -1,0 +1,14 @@
+# Large run artifacts (keep directory placeholders via .gitkeep)
+outputs/**/*.jsonl
+outputs/**/*.json
+!outputs/**/.gitkeep
+
+__pycache__/
+*.py[cod]
+
+# Do not commit a hand-copied frozen split by accident unless explicitly intended.
+# The canonical frozen file may be placed here manually for local runs.
+# splits/*.json is allowed if the user intentionally tracks the frozen index;
+# ignore temporary copies:
+splits/*.tmp
+splits/*_copy.json

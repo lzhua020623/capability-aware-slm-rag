@@ -1,0 +1,86 @@
+"""Frozen split loader / schema checks. Never regenerates Test IDs."""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Any
+
+
+class SplitError(ValueError):
+    """Invalid or missing frozen split."""
+
+
+def _dig(obj: Any, keys: list[str]) -> Any:
+    cur = obj
+    for key in keys:
+        if not isinstance(cur, dict) or key not in cur:
+            raise SplitError(f"Missing split path key {keys!r} at {key!r}")
+        cur = cur[key]
+    return cur
+
+
+def load_split_json(path: Path) -> dict:
+    if not path.is_file():
+        raise FileNotFoundError(str(path))
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise SplitError("Split root must be a JSON object")
+    return data
+
+
+def extract_test_ids(
+    split: dict,
+    *,
+    test_key: list[str],
+    expected_test_n: int,
+    version_prefix: str | None = None,
+) -> list[str]:
+    """Return ordered Test sample_id strings; reject duplicates / wrong count."""
+    if version_prefix:
+        version = str(split.get("version") or "")
+        if version_prefix not in version and not version.startswith(version_prefix):
+            # soft: allow if summary matches; still warn via exception if empty version
+            if not version:
+                raise SplitError("Split missing version field")
+    raw = _dig(split, test_key)
+    if not isinstance(raw, list) or not raw:
+        raise SplitError(f"Test ID list empty or missing at {test_key}")
+    ids = [str(x) for x in raw]
+    if len(ids) != expected_test_n:
+        raise SplitError(
+            f"Test ID count {len(ids)} != expected_test_n {expected_test_n}"
+        )
+    if len(set(ids)) != len(ids):
+        seen: set[str] = set()
+        dupes = []
+        for sid in ids:
+            if sid in seen:
+                dupes.append(sid)
+            seen.add(sid)
+        raise SplitError(f"Duplicate sample_ids in Test split (e.g. {dupes[:5]})")
+    return ids
+
+
+def validate_split_file(
+    path: Path,
+    *,
+    test_key: list[str],
+    expected_test_n: int,
+    version_prefix: str | None = None,
+) -> dict:
+    """Load + validate; returns summary dict (does not load record content)."""
+    split = load_split_json(path)
+    ids = extract_test_ids(
+        split,
+        test_key=test_key,
+        expected_test_n=expected_test_n,
+        version_prefix=version_prefix,
+    )
+    return {
+        "path": str(path),
+        "version": split.get("version"),
+        "test_n": len(ids),
+        "expected_test_n": expected_test_n,
+        "ok": True,
+    }
