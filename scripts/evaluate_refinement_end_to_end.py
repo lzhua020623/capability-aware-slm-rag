@@ -153,6 +153,12 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--records", type=Path, default=DEFAULT_RECORDS)
     parser.add_argument("--split", type=Path, default=DEFAULT_SPLIT, help="restrict to these sample_ids (held-out)")
+    parser.add_argument(
+        "--no-split-filter",
+        action="store_true",
+        help="ignore --split. Needed for the harm arm: the split file lists accessibility samples only, "
+        "and the reranker never trained on any correct-labelled sample anyway.",
+    )
     parser.add_argument("--frozen-500", action="store_true", help="read the frozen NQ C1 500 instead of NQ_15")
     parser.add_argument("--labels", type=Path, default=ROOT / "data/annotations/normalized/nq_3216_labels_normalized.jsonl")
     parser.add_argument("--label", default="evidence_accessibility")
@@ -191,7 +197,7 @@ def main() -> None:
         split_note = "frozen NQ C1 500"
     else:
         records = [row for row in read_jsonl(args.records) if row["primary_label"] == args.label]
-        if args.split and args.split.exists():
+        if args.split and not args.no_split_filter and args.split.exists():
             held_out = {row["sample_id"] for row in read_jsonl(args.split)}
             records = [row for row in records if row["sample_id"] in held_out]
             split_note = f"held-out split {args.split.name}"
