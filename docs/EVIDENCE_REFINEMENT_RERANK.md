@@ -199,18 +199,7 @@ The grounding gate in step 5 remains the safeguard whenever pruning is turned
 on: if the answer-bearing passage was dropped, the regenerated answer will not
 be grounded in the kept evidence and the original answer stands.
 
-**Not yet measured:** whether a refined context actually changes the 7B's
-answer, and the EM/F1 gain or harm that follows. That needs a machine holding
-`Qwen/Qwen2.5-7B-Instruct` and the NQ index; this one has neither.
-The measurement to run there, on the routed samples only:
-
-* EM / F1 before and after, split by the true annotation label;
-* harm rate on routed samples whose initial answer was already correct;
-* `status` distribution and how often the grounding gate rejected a
-  replacement;
-* generation calls spent (one per sample that was not `no_change`);
-* `keep_k=5` against `keep_k=3`, to settle whether a shorter prompt helps
-  enough to pay for the dropped passages.
+Answer-level results are in section 6.
 
 ## 5. The trained reranker
 
@@ -294,7 +283,88 @@ never trained on (`results/compensation/rerank_frozen500_offline_finetuned.json`
 The fine-tuned model is better on its target class *and* on the already-correct
 samples, where the off-the-shelf large model was mildly harmful.
 
-## 6. Files
+## 6. Does it fix answers?
+
+Better ordering is not the goal; correct answers are. `scripts/evaluate_refinement_end_to_end.py`
+re-asks the generator with the refined evidence and scores EM / F1 against the
+offline gold answer.
+
+Setup: `qwen/qwen-2.5-7b-instruct` through an OpenAI-compatible endpoint,
+temperature 0, max_tokens 64, reranker `accessibility_v1`, `keep_k=5`. The
+"before" answer is regenerated through the same endpoint, because the stored C1
+answers came from local 4-bit NF4 and a hosted deployment serves fp16/bf16 —
+comparing across those would fold quantisation into the delta. So the absolute
+EM here is **not** comparable to the frozen baseline's 0.352; only the
+before/after difference is. The Controller is bypassed: every sample is treated
+as routed, which measures the module on a given class rather than the pipeline.
+
+**Target class** — 2,367 held-out accessibility samples
+(`results/compensation/refinement_end_to_end_accessibility.json`):
+
+| | before | after |
+|---|---|---|
+| EM | 0.0672 | **0.1107** |
+| token-F1 | 0.2784 | **0.3219** |
+
+156 answers fixed against 53 broken, net **+103** (McNemar 156:53, p < 1e-12).
+That is a 65% relative gain in exact match on the class this module exists for.
+
+**Harm arm** — 600 `correct` samples, i.e. what misrouting costs
+(`results/compensation/refinement_end_to_end_harm.json`):
+
+| | before | after |
+|---|---|---|
+| EM | 0.5283 | 0.4983 |
+| token-F1 | 0.7032 | 0.6750 |
+
+12 fixed against 30 broken, net **−18** (p ≈ 0.007). Reordering evidence is a
+two-way perturbation: it lifts buried evidence, and it also knocks over answers
+that were already stable.
+
+### The acceptance gate, measured
+
+The shipped gate rejects a replacement that is a refusal or is not grounded in
+the kept evidence. On the target class it rejected 209 of 2,367; auditing those
+rejections against the gold answer, 5 were right to reject and 3 were wrong.
+So the gate is close to neutral, and it does **not** explain the module's gain.
+
+`scripts/analyze_acceptance_policy.py` replays the stored answers under
+alternative rules (no new generation):
+
+| Policy | accessibility EM (n=2367) | net | `correct` EM (n=600) | net |
+|---|---|---|---|---|
+| keep everything (floor) | 0.0672 | 0 | 0.5283 | 0 |
+| accept everything (no gate) | 0.1098 | +101 | 0.4983 | −18 |
+| **grounded (shipped)** | **0.1107** | **+103** | 0.4983 | −18 |
+| keep the original when it is itself grounded | 0.0706 | +8 | 0.5267 | −1 |
+
+The last row looks like the harm fix and is not one: on accessibility samples
+the *wrong* initial answer is usually grounded too — the generator picked a
+plausible string out of a distractor passage — so protecting grounded originals
+blocks almost every repair as well. The two rules are the two ends of one
+trade-off, not an improvement over each other. The shipped gate stays.
+
+### What this means for deployment
+
+The module is strongly positive on its own class and mildly negative on
+already-correct samples, at comparable per-sample rates (+4.4pp against
+−3.0pp). Its value therefore depends entirely on routing precision, and the
+frozen Controller sends it 29 samples of which 1 is truly accessibility and 15
+are already correct (handoff section F). Those two groups alone — ignoring the
+10 insufficiency and 3 utilisation samples, which belong to the
+`retrieval_enhancement` and `generation_repair` owners and are deliberately not
+measured here — give a **net negative** expected effect behind today's router,
+even though the module itself works.
+
+One repaired accessibility sample pays for about 1.45 broken correct ones
+(+4.35pp against −3.0pp), so break-even needs at least one true accessibility
+sample per 1.45 already-correct ones routed here. Today the ratio is 1 to 15,
+which works out to about −0.4 EM points over those 29 samples. The bottleneck is Diagnosis precision for
+`evidence_accessibility` (0.034 on the frozen test), not the reranker. Until
+that improves, this module should run behind a higher-precision trigger rather
+than on every routed sample.
+
+## 7. Files
 
 | Path | Content |
 |---|---|
