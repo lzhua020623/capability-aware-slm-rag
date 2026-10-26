@@ -94,14 +94,17 @@ def main() -> None:
     gold = {key: reference[key]["gold_answer"] for key in ids}
     before = {key: reference[key]["initial_answer"] for key in ids}
 
-    evidence = {}
+    # The end-to-end rows carry answers only, so the query and evidence come from the records.
+    evidence, queries = {}, {}
+    wanted = set(ids)
     with args.records.open("r", encoding="utf-8") as handle:
         for line in handle:
             if not line.strip():
                 continue
             record = json.loads(line)
-            if record["sample_id"] in set(ids):
+            if record["sample_id"] in wanted:
                 evidence[record["sample_id"]] = " ".join(passage["text"] for passage in record["evidence"])
+                queries[record["sample_id"]] = record["query"]
     missing = [key for key in ids if key not in evidence]
     if missing:
         raise SystemExit(f"no evidence for {len(missing)} samples; wrong --records file?")
@@ -125,7 +128,7 @@ def main() -> None:
         chosen = {}
         for index, key in enumerate(ids, start=1):
             pair = unique_candidates([before[key], rows[key]["final_answer"]])
-            chosen[key] = pick(model, tokenizer, reference[key]["query"], evidence[key], pair, device, args.max_length)
+            chosen[key] = pick(model, tokenizer, queries[key], evidence[key], pair, device, args.max_length)
             if index % 500 == 0:
                 print(f"  two-way {name}: {index}/{len(ids)}")
         results[f"selector_two_way_{name}"] = score(chosen, gold)
@@ -136,7 +139,7 @@ def main() -> None:
 
     chosen_all = {}
     for index, key in enumerate(ids, start=1):
-        chosen_all[key] = pick(model, tokenizer, reference[key]["query"], evidence[key], all_candidates[key], device, args.max_length)
+        chosen_all[key] = pick(model, tokenizer, queries[key], evidence[key], all_candidates[key], device, args.max_length)
         if index % 500 == 0:
             print(f"  all-candidates: {index}/{len(ids)}")
     results["selector_all_candidates"] = score(chosen_all, gold)

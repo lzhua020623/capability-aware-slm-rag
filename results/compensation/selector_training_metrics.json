@@ -1,0 +1,34 @@
+{
+  "note": "pick@1 is the inference task: the correct answer must outscore the wrong answers of the same sample. Accuracy is reported only as a sanity check.",
+  "base_model": "BAAI/bge-reranker-base",
+  "output_dir": "models\\selector\\answer_selector_v1",
+  "hyperparameters": {
+    "epochs": 1,
+    "batch_size": 16,
+    "max_length": 384,
+    "learning_rate": 2e-05,
+    "warmup_ratio": 0.1,
+    "optimizer": "adamw8bit",
+    "seed": 42,
+    "train_examples": 150697
+  },
+  "before_training": {
+    "examples": 16788,
+    "samples_with_a_choice": 6476,
+    "pick_at_1": 0.6376,
+    "accuracy": 0.4168
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.4562,
+      "validation": {
+        "examples": 16788,
+        "samples_with_a_choice": 6476,
+        "pick_at_1": 0.817,
+        "accuracy": 0.7897
+      }
+    }
+  ],
+  "train_seconds": 5776.5
+}
