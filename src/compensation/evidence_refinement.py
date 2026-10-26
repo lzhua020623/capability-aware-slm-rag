@@ -222,7 +222,12 @@ class EvidenceRefiner:
         outcome = rerank_evidence(item.query, candidates, self._scorer, self.config, probe_result)
         outcome = self._prune(item, outcome)
         original_ids = tuple(passage.passage_id for passage in item.evidence)
-        unchanged = tuple(passage.passage_id for passage in outcome.evidence) == original_ids
+        # Compare the text too: pruning rewrites passages while keeping their ids.
+        def context(passages):
+            return tuple((passage.passage_id, passage.text) for passage in passages)
+
+        changed = context(outcome.evidence) != context(item.evidence)
+        unchanged = not changed
         if unchanged and not self.config.regenerate_when_unchanged:
             return RefinementResult(
                 status=RefinementStatus.NO_CHANGE,
@@ -235,6 +240,7 @@ class EvidenceRefiner:
                 candidate_pool_size=outcome.candidate_pool_size,
                 regenerated=False,
                 used_probe_hint=outcome.used_probe_hint,
+                evidence_changed=changed,
                 sample_id=item.sample_id,
             )
 
@@ -257,6 +263,7 @@ class EvidenceRefiner:
             used_probe_hint=outcome.used_probe_hint,
             reject_reason=reason,
             candidate_answer=answer,
+            evidence_changed=changed,
             sample_id=item.sample_id,
         )
 

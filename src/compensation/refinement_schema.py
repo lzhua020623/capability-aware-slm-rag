@@ -185,8 +185,11 @@ class RefinementResult:
     reject_reason: str | None = None
     candidate_answer: str | None = None
     sample_id: str | None = field(default=None, compare=False)
+    # Whether the context the generator saw differs. Pass it explicitly when a
+    # step rewrites passage text (pruning keeps every passage_id, so comparing
+    # ids alone would miss it); left as None it is derived from the ids.
+    evidence_changed: bool | None = None
     answer_changed: bool = field(init=False)
-    evidence_changed: bool = field(init=False)
     refined_passage_ids: tuple[str, ...] = field(init=False)
 
     def __post_init__(self) -> None:
@@ -223,7 +226,10 @@ class RefinementResult:
         refined_ids = tuple(item.passage_id for item in evidence)
         object.__setattr__(self, "refined_passage_ids", refined_ids)
         object.__setattr__(self, "answer_changed", self.final_answer != self.initial_answer)
-        object.__setattr__(self, "evidence_changed", refined_ids != self.original_passage_ids)
+        if self.evidence_changed is None:
+            object.__setattr__(self, "evidence_changed", refined_ids != self.original_passage_ids)
+        elif not isinstance(self.evidence_changed, bool):
+            raise TypeError("evidence_changed must be bool or None")
         self._check_status()
 
     def _check_status(self) -> None:

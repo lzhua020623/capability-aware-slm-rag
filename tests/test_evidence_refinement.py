@@ -424,6 +424,29 @@ class PruningTest(unittest.TestCase):
         result = refiner_for(rec).run(nq_item("p1", "p2"), decision())
         self.assertEqual(result.evidence[0].text, PASSAGES["p2"])
 
+    def test_pruning_alone_counts_as_a_change_and_triggers_regeneration(self):
+        # The regression that made the first Provence run a no-op: pruning keeps
+        # every passage_id, so comparing ids alone said "nothing changed".
+        rec = recorder(p1=0.9, p2=0.1)  # identity-like order: ids and order unchanged
+        pruner = StubPruner()
+        result = EvidenceRefiner(
+            rec.score, rec.generate, config=KEEP_ALL, prompt_builder=rec.prompt_builder, pruner=pruner
+        ).run(nq_item("p1", "p2"), decision())
+        self.assertTrue(result.evidence_changed)
+        self.assertTrue(result.regenerated)
+        self.assertEqual(len(rec.prompts), 1)
+        self.assertEqual(result.original_passage_ids, result.refined_passage_ids)
+
+    def test_a_pruner_that_returns_the_text_unchanged_is_still_a_no_change(self):
+        rec = recorder(p1=0.9, p2=0.1)
+        identity_pruner = StubPruner(replacement=[PASSAGES["p1"], PASSAGES["p2"]])
+        result = EvidenceRefiner(
+            rec.score, rec.generate, config=KEEP_ALL, prompt_builder=rec.prompt_builder, pruner=identity_pruner
+        ).run(nq_item("p1", "p2"), decision())
+        self.assertEqual(result.status, RefinementStatus.NO_CHANGE)
+        self.assertFalse(result.evidence_changed)
+        self.assertEqual(rec.prompts, [])
+
     def test_a_pruner_must_expose_prune(self):
         rec = recorder(p1=0.1)
         with self.assertRaises(TypeError):
