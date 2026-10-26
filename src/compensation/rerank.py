@@ -28,7 +28,7 @@ from collections.abc import Callable, Iterable, Sequence
 from dataclasses import dataclass
 from typing import Protocol, runtime_checkable
 
-from src.compensation.schema import DEFAULT_REFINEMENT_CONFIG, RefinementConfig
+from src.compensation.refinement_schema import DEFAULT_REFINEMENT_CONFIG, RefinementConfig
 from src.diagnosis.schema import DiagnosisInput, EvidenceItem
 from src.probe.schema import ProbeResult
 

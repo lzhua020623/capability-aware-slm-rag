@@ -11,7 +11,7 @@ from src.compensation.rerank import (
     build_candidate_pool,
     rerank_evidence,
 )
-from src.compensation.schema import RefinementConfig
+from src.compensation.refinement_schema import RefinementConfig
 from src.diagnosis.schema import DatasetName, DiagnosisInput, EvidenceItem
 from src.probe.schema import ProbeResult
 

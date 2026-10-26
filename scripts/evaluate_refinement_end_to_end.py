@@ -62,7 +62,7 @@ if str(ROOT) not in sys.path:
 
 from src.compensation.evidence_refinement import EvidenceRefiner, build_refinement_prompt  # noqa: E402
 from src.compensation.rerank import CrossEncoderScorer  # noqa: E402
-from src.compensation.schema import RefinementConfig  # noqa: E402
+from src.compensation.refinement_schema import RefinementConfig  # noqa: E402
 from src.config import load_generator_config  # noqa: E402
 from src.controller.schema import ControllerAction, ControllerDecision  # noqa: E402
 from src.diagnosis.labels import DiagnosisLabel  # noqa: E402

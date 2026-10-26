@@ -1,16 +1,26 @@
-"""Compensation / enhancement components."""
+"""Compensation / enhancement components.
 
-from src.compensation.evidence_refinement import EvidenceRefiner, evidence_refinement
-from src.compensation.rerank import CrossEncoderScorer, RelevanceScorer, rerank_evidence
-from src.compensation.schema import RefinementConfig, RefinementResult, RefinementStatus
+Public contracts and executor live here. Mock implementations are under
+``src.compensation.mocks`` and are **not** registered by default.
+"""
+
+from src.compensation.executor import ENHANCEMENT_ACTIONS, EnhancementExecutor
+from src.compensation.interface import (
+    Enhancement,
+    EvidenceRefinementEnhancement,
+    GenerationRepairEnhancement,
+    RetrievalEnhancement,
+)
+from src.compensation.schema import EnhancementRequest, EnhancementResult, EnhancementStatus
 
 __all__ = [
-    "CrossEncoderScorer",
-    "EvidenceRefiner",
-    "RefinementConfig",
-    "RefinementResult",
-    "RefinementStatus",
-    "RelevanceScorer",
-    "evidence_refinement",
-    "rerank_evidence",
+    "ENHANCEMENT_ACTIONS",
+    "Enhancement",
+    "EnhancementExecutor",
+    "EnhancementRequest",
+    "EnhancementResult",
+    "EnhancementStatus",
+    "EvidenceRefinementEnhancement",
+    "GenerationRepairEnhancement",
+    "RetrievalEnhancement",
 ]

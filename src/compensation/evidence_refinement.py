@@ -38,7 +38,7 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 
 from src.compensation.rerank import CandidateProvider, CrossEncoderScorer, RelevanceScorer, build_candidate_pool, rerank_evidence
-from src.compensation.schema import (
+from src.compensation.refinement_schema import (
     DEFAULT_REFINEMENT_CONFIG,
     REFUSAL_ANSWERS,
     RefinementConfig,

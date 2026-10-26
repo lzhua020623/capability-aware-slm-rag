@@ -16,7 +16,7 @@ from src.compensation.evidence_refinement import (
     is_refusal,
     rejection_reason,
 )
-from src.compensation.schema import RefinementConfig, RefinementResult, RefinementStatus
+from src.compensation.refinement_schema import RefinementConfig, RefinementResult, RefinementStatus
 from src.controller.schema import ControllerAction, ControllerDecision
 from src.diagnosis.labels import DiagnosisLabel
 from src.diagnosis.schema import DatasetName, DiagnosisInput, EvidenceItem

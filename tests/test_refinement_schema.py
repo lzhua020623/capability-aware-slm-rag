@@ -6,7 +6,7 @@ import dataclasses
 import math
 import unittest
 
-from src.compensation.schema import (
+from src.compensation.refinement_schema import (
     DEFAULT_REFINEMENT_CONFIG,
     RefinementConfig,
     RefinementResult,

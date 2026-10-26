@@ -70,24 +70,39 @@ is the normal case, and harm avoidance matters more than recall.
 
 ## 2. Interface
 
-Frozen contract (handoff section G): the module consumes `DiagnosisInput` and
-`ControllerDecision` and returns the final answer.
+The host pipeline dispatches through `EnhancementExecutor`
+(`docs/ENHANCEMENT_INTEGRATION_CONTRACT.md`): register one adapter per lane and
+the executor calls `enhance(EnhancementRequest) -> EnhancementResult`.
 
 ```python
+from src.compensation import EnhancementExecutor
 from src.compensation.evidence_refinement import EvidenceRefiner
-from src.controller.controller import run_controller
+from src.compensation.refinement_adapter import EvidenceRefinementAdapter
 from src.controller.schema import ControllerAction
 
 refiner = EvidenceRefiner.from_frozen_defaults()      # cross-encoder + Qwen2.5-7B NF4
-decision = run_controller(item, classifier, probe)
+executor = EnhancementExecutor()
+executor.register(ControllerAction.EVIDENCE_REFINEMENT, EvidenceRefinementAdapter(refiner))
+```
 
+`EvidenceRefinementAdapter` only converts schemas — the reranking, the
+acceptance rule and the thresholds all stay in `EvidenceRefiner`, so a direct
+call and the executor path return the same answer (asserted in
+`tests/test_refinement_adapter.py`). It lets exceptions reach the executor,
+which turns them into an `ERROR` result that keeps the initial answer.
+
+The earlier two-argument call from the original handoff still works and is what
+the adapter forwards to:
+
+```python
 if decision.action is ControllerAction.EVIDENCE_REFINEMENT:
-    final_answer = refiner(item, decision)            # the frozen two-argument call
+    final_answer = refiner(item, decision)
 ```
 
 | Entry point | Returns | Use |
 |---|---|---|
-| `refiner(item, decision)` | `str` | the frozen integration call |
+| `EvidenceRefinementAdapter(refiner).enhance(request)` | `EnhancementResult` | the host pipeline's lane |
+| `refiner(item, decision)` | `str` | the original two-argument call |
 | `evidence_refinement(item, decision, refiner)` | `str` | same, with the refiner passed explicitly |
 | `refiner.run(item, decision, probe_result=None)` | `RefinementResult` | full record for logging and offline evaluation |
 | `rerank_evidence(query, candidates, scorer, config, probe_result)` | `RerankOutcome` | reranking alone, no generation |
@@ -368,7 +383,8 @@ than on every routed sample.
 
 | Path | Content |
 |---|---|
-| `src/compensation/schema.py` | `RefinementConfig`, `RefinementResult`, `RefinementStatus`, forbidden-field guard |
+| `src/compensation/refinement_schema.py` | `RefinementConfig`, `RefinementResult`, `RefinementStatus`, forbidden-field guard |
+| `src/compensation/refinement_adapter.py` | `EvidenceRefinementAdapter`, the thin `Enhancement` wrapper |
 | `src/compensation/rerank.py` | `RelevanceScorer`, `CrossEncoderScorer`, `build_candidate_pool`, `rerank_evidence` |
 | `src/compensation/evidence_refinement.py` | `EvidenceRefiner`, `evidence_refinement`, grounding and acceptance rules |
 | `src/generation/backend.py` | pluggable generator: the frozen local Qwen, any OpenAI-compatible endpoint, or `echo` for dry runs |
@@ -378,4 +394,4 @@ than on every routed sample.
 | `scripts/compare_rerank_models.py` | paired comparison of rerankers (McNemar + bootstrap) |
 | `scripts/evaluate_rerank_accessibility.py` | retrieval-side evaluation on the frozen records |
 | `scripts/evaluate_refinement_end_to_end.py` | EM / F1 before and after, local or hosted generator |
-| `tests/test_compensation_*.py`, `tests/test_evidence_refinement.py`, `tests/test_rerank_training_data.py`, `tests/test_nq15_annotations.py`, `tests/test_generation_backend.py` | 117 tests; no model is loaded except the frozen prompt builders |
+| `tests/test_refinement_schema.py`, `tests/test_compensation_rerank.py`, `tests/test_evidence_refinement.py`, `tests/test_refinement_adapter.py`, `tests/test_rerank_training_data.py`, `tests/test_nq15_annotations.py`, `tests/test_generation_backend.py`, `tests/test_acceptance_policy.py` | 147 tests; no model is loaded except the frozen prompt builders |

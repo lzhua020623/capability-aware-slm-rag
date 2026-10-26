@@ -38,7 +38,7 @@ if str(ROOT) not in sys.path:
 
 from src.compensation.evidence_refinement import is_grounded, is_refusal  # noqa: E402
 from src.compensation.rerank import CrossEncoderScorer, rerank_evidence  # noqa: E402
-from src.compensation.schema import RefinementConfig  # noqa: E402
+from src.compensation.refinement_schema import RefinementConfig  # noqa: E402
 from src.diagnosis.schema import EvidenceItem  # noqa: E402
 from src.evaluation.qa import exact_match  # noqa: E402
 
