@@ -40,7 +40,7 @@
 | T5.6 | ZIP 独立审计与全局 E 模式冻结 | 已完成：[原始 ZIP 与审计](../artifacts/controller/e_v2a_interface_r2/kaggle_v1/README.md)，26 项校验一致；两数据集所有 E 组共用 unavailable，真实开发合规率未测，FR12 未验收 |
 | T5.7 | 人工审核（并行） | [17 题确认快照](../artifacts/controller/t5_human_review_v1/review/review17.html)：用户采用全部辅助意见，11 完整定案、6 未完整定案；属于辅助可见参考审核。T4 其余改答及历史 5 条语义误修 ID 仍待收口；73 条原对保留题仅作回归 |
 | T5.8 | 开发回放、冻结至多一个 NQ 路由候选 | 已完成：[唯一 0.2 候选](../artifacts/controller/t5_candidate_v1/README.md)，NQ EM 78→81，5 修好／2 改坏；语义净值范围 −11 到 +14。用户已采用重点队列含待定意见，仅冻结送选型，不晋升 |
-| T5.9 | 选型确认一次 | 每数据集 200；Adaptive＋三 Always，C1 缓存；EM 净增 >0，语义净值及待定最坏下界均不得负；无合格候选保留原路由 |
+| T5.9 | 选型确认一次 | [执行器与协议](CONTROLLER_T5_SELECTION_V1.md)已实现，待本轮验证及封存；每数据集 200、原 Adaptive＋三 Always＋缓存 C1，候选离线回放；GPU 尚未启动，未评分 |
 
 r2 的结果不改变冻结数据、预算或评分。E 不可用的比较组如实标注为保留策略，零调用／零误修不能作为修复能力或 AC6 语义标记精确率证据。
 

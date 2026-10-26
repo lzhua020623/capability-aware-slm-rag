@@ -1,0 +1,63 @@
+{
+  "schema_version": "controller_t5_selection_execution_v1",
+  "date": "2026-10-26",
+  "role": "selection",
+  "registered_before_selection_inference": true,
+  "candidate_path": "artifacts/controller/t5_candidate_v1/candidate.json",
+  "candidate_sha256": "2e6b0c7194fb1fdc11aa87ec2c9865c56a9b3bcf42c4803985ea4bd906f5039f",
+  "candidate_threshold": 0.2,
+  "dataset_counts": {
+    "nq": 200,
+    "fever": 200
+  },
+  "gpu_modes": [
+    "always_retrieve",
+    "always_rerank",
+    "always_repair",
+    "adaptive"
+  ],
+  "cached_modes": [
+    "c1"
+  ],
+  "expected_output_records": 2000,
+  "runtime_config": {
+    "nq_repair_strategy": "evidence_id_v2a",
+    "fever_repair_strategy": "evidence_id_v2a",
+    "max_llm_calls": 4,
+    "max_retrieval_calls": 1,
+    "max_scoring_calls": 2,
+    "answer_max_new_tokens": 64,
+    "repair_max_new_tokens": 384,
+    "max_total_output_tokens": 544,
+    "prefill_chunk_size": 256,
+    "nq_v2a_mode": "unavailable",
+    "fever_v2a_mode": "unavailable"
+  },
+  "engineering": {
+    "minimum_input_tokens": 14000,
+    "active_paths": [
+      "probe",
+      "always_retrieve",
+      "always_rerank"
+    ],
+    "datasets": [
+      "nq",
+      "fever"
+    ],
+    "long_checks": 6,
+    "inactive_E_checks": 2,
+    "semantic_success_required": false,
+    "E_acceptance_claim": false,
+    "real_CPU_FP32_pair_counts": [
+      5,
+      20
+    ]
+  },
+  "C1_policy": "Reuse cached inputs; never regenerate C1",
+  "selection_rule": "One candidate only. Frozen EM net >0; semantic net and unresolved worst-case lower bound >=0; otherwise retain original route, no alternate threshold search.",
+  "cost_scope": "Four live arms plus cached C1. Candidate offline replay costs are estimates; final deployment cost requires actual runtime measurement.",
+  "retry": "No automatic retry; preserve every prefix. Any infrastructure continuation must retain source, inputs and completed outputs.",
+  "no_development_or_final_inputs": true,
+  "no_runtime_gold": true,
+  "E_unavailable": "No E model calls or invented semantic verdicts; engineering flags are not AC6 semantic ground truth."
+}

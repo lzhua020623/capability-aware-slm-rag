@@ -1,0 +1,24 @@
+{
+  "round": "T5.9 selection execution implementation",
+  "checked_at_UTC": "2026-10-26T01:16:19.297080+00:00",
+  "before": {
+    "HEAD": "e814b6c2ea6bdf0cd3c915165bf99d6a2b37ed60",
+    "frozen_candidate_threshold": 0.2,
+    "candidate_precedes_selection_input_read": true,
+    "source_guard": "99 original r2 core source files must match before packaging"
+  },
+  "after": {
+    "full_tests": 955,
+    "new_tests_covered": 8,
+    "selection_runtime_inputs_automatically_validated": 400,
+    "selection_gold_scored": false,
+    "final_inputs_packaged": false,
+    "QA_gold_packaged": false,
+    "C1_regenerated": false,
+    "E_model_calls_planned": 0,
+    "active_long_engineering_paths": 6,
+    "GPU_started": false,
+    "promoted": false
+  },
+  "full_test_log_sha256": "0061bd5bfbd9659d8436371e721e1bd74f4b9d988c59774b7f252f6f31d00f75"
+}
