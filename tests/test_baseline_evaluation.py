@@ -51,6 +51,17 @@ class PromptAndSchemaTests(unittest.TestCase):
         text = build_closed_book_prompt("What is 2+2?")
         self.assertIn("Question: What is 2+2?", text)
         self.assertNotIn("Context:", text)
+        self.assertNotIn("using only the provided context", text)
+        self.assertIn("shortest answer span", text)
+
+    def test_closed_book_shares_format_with_rag_instruction(self):
+        from baselines._lib.prompts import CLOSED_BOOK_INSTRUCTION
+        from src.generation.qwen import PROMPT_INSTRUCTION
+
+        self.assertEqual(
+            PROMPT_INSTRUCTION.replace(" using only the provided context", ""),
+            CLOSED_BOOK_INSTRUCTION,
+        )
 
     def test_rag_prompt_from_main(self):
         prompt = build_rag_prompt("Q?", [{"text": "passage A"}])
