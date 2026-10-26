@@ -1,0 +1,17 @@
+{
+  "files_verified": 105,
+  "portable_tests": 45,
+  "portable_tests_log_sha256": "95ef841e546c523d63503e96e85016d92306bb1b8073d06d881ae20a7d29018a",
+  "portable_tests_passed": true,
+  "preflight": {
+    "preflight": true,
+    "role": "selection",
+    "nq": 200,
+    "fever": 200,
+    "gold_read": false
+  },
+  "archive_sha256": "151676a8c07008257086701c5dbced4fdc0b5e0f98f75f6e88caf98dcbae8f6f",
+  "source_commit": "7c281d0193a4d1e205cfbc23dca31d6d4a0ac861",
+  "extraction_contains_gold_files": false,
+  "GPU_started": false
+}

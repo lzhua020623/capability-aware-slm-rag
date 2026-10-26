@@ -1,0 +1,21 @@
+{
+  "round": "selection v2 package seal",
+  "checked_at_UTC": "2026-10-26T01:23:43.423315+00:00",
+  "before": {
+    "source_commit": "7c281d0193a4d1e205cfbc23dca31d6d4a0ac861",
+    "candidate_already_frozen": true,
+    "old_package_unrun": true
+  },
+  "after": {
+    "full_tests": 956,
+    "extracted_portable_tests": 45,
+    "files_verified": 105,
+    "selection_inputs": 400,
+    "contains_gold": false,
+    "GPU_started": false,
+    "quality_scored": false,
+    "new_E_semantic_revision": false
+  },
+  "archive_sha256": "151676a8c07008257086701c5dbced4fdc0b5e0f98f75f6e88caf98dcbae8f6f",
+  "notebook_sha256": "5e2c5050537702a780a2b628a882ee82cba3faef43b74d65b6c7836d8a9428a5"
+}

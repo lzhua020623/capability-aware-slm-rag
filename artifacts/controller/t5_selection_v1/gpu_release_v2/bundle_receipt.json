@@ -1,0 +1,11 @@
+{
+  "source_commit": "7c281d0193a4d1e205cfbc23dca31d6d4a0ac861",
+  "archive_sha256": "151676a8c07008257086701c5dbced4fdc0b5e0f98f75f6e88caf98dcbae8f6f",
+  "bytes": 852819,
+  "files": 106,
+  "notebook_sha256": "5e2c5050537702a780a2b628a882ee82cba3faef43b74d65b6c7836d8a9428a5",
+  "resource_dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-t4-retrieval-resources-frozen-20261024",
+  "resource_archive_sha256": "d8e84e8b0c4c472ab0c0fe23e3e79d24645456ab3322cb93a24fefe77272b5f4",
+  "GPU_started": false,
+  "quality_scored": false
+}
