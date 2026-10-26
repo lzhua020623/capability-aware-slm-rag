@@ -3,6 +3,8 @@ from io import StringIO
 import json
 from pathlib import Path
 import tarfile
+import subprocess
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -49,6 +51,12 @@ class T5SelectionTests(unittest.TestCase):
         with patch('scripts.run_controller_t5_selection.ROOT',self.root),redirect_stdout(StringIO()):
             self.assertEqual(main(['--preflight','--output-dir',str(self.folder/'unused')]),0)
         self.assertFalse((self.folder/'unused').exists())
+
+    def test_extracted_portable_suite_is_self_contained(self):
+        result=subprocess.run([sys.executable,'-m','unittest','tests.test_controller_integration',
+            'tests.test_evidence_v2a','-q'],cwd=self.root,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
+        self.assertEqual(result.returncode,0,result.stdout[-4000:])
+        self.assertIn('Ran 45 tests',result.stdout)
 
     def test_source_and_candidate_tampering_rejected(self):
         p=self.root/'inputs/candidate_policy.json';original=p.read_bytes()

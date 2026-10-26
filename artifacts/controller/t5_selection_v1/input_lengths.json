@@ -1,0 +1,19 @@
+{
+  "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "tokenizer_local_cache": true,
+  "counts_only_no_quality_scoring": true,
+  "datasets": {
+    "fever": {
+      "n": 200,
+      "max_probe_prompt_tokens": 3337,
+      "max_original_regeneration_prompt_tokens": 3070
+    },
+    "nq": {
+      "n": 200,
+      "max_probe_prompt_tokens": 2607,
+      "max_original_regeneration_prompt_tokens": 2109
+    }
+  },
+  "E_prompt_tokens": null,
+  "scope": "Complete original Top-5 active prompts; additional retrieval generates a different, untruncated runtime context guarded by the 14k engineering checks"
+}

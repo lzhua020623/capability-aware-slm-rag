@@ -1,0 +1,83 @@
+======================================================================
+ERROR: test_c1_mode_needs_no_gpu_or_index (tests.test_controller_integration.InputAndRunnerTests.test_c1_mode_needs_no_gpu_or_index)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/controller-t5-extracted-ed5j0bbb/controller_t5_selection_v1/tests/test_controller_integration.py", line 288, in test_c1_mode_needs_no_gpu_or_index
+    self.assertEqual(main(["--input", str(inp), "--output-dir", str(out), "--mode", "c1"]), 0)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/controller-t5-extracted-ed5j0bbb/controller_t5_selection_v1/scripts/run_controller_integration.py", line 178, in main
+    config = ExecutionConfig(**json.loads(args.config.read_text(encoding="utf-8")))
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/controller-t5-extracted-ed5j0bbb/controller_t5_selection_v1/configs/controller/integration_t3_v1.json'
+
+======================================================================
+ERROR: test_preflight_needs_no_models_or_index_and_writes_no_predictions (tests.test_controller_integration.InputAndRunnerTests.test_preflight_needs_no_models_or_index_and_writes_no_predictions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/controller-t5-extracted-ed5j0bbb/controller_t5_selection_v1/tests/test_controller_integration.py", line 279, in test_preflight_needs_no_models_or_index_and_writes_no_predictions
+    self.assertEqual(main(["--input", str(inp), "--output-dir", str(out), "--preflight"]), 0)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/controller-t5-extracted-ed5j0bbb/controller_t5_selection_v1/scripts/run_controller_integration.py", line 178, in main
+    config = ExecutionConfig(**json.loads(args.config.read_text(encoding="utf-8")))
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/controller-t5-extracted-ed5j0bbb/controller_t5_selection_v1/configs/controller/integration_t3_v1.json'
+
+======================================================================
+ERROR: test_real_nq_adaptive_requires_explicit_index_before_loading_models (tests.test_controller_integration.InputAndRunnerTests.test_real_nq_adaptive_requires_explicit_index_before_loading_models)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/controller-t5-extracted-ed5j0bbb/controller_t5_selection_v1/tests/test_controller_integration.py", line 297, in test_real_nq_adaptive_requires_explicit_index_before_loading_models
+    main(["--input", str(inp), "--output-dir", str(out)])
+  File "/private/var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/controller-t5-extracted-ed5j0bbb/controller_t5_selection_v1/scripts/run_controller_integration.py", line 178, in main
+    config = ExecutionConfig(**json.loads(args.config.read_text(encoding="utf-8")))
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/controller-t5-extracted-ed5j0bbb/controller_t5_selection_v1/configs/controller/integration_t3_v1.json'
+
+======================================================================
+ERROR: test_smoke_writes_real_receipts_and_rejects_overwrite (tests.test_controller_integration.InputAndRunnerTests.test_smoke_writes_real_receipts_and_rejects_overwrite)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/controller-t5-extracted-ed5j0bbb/controller_t5_selection_v1/tests/test_controller_integration.py", line 262, in test_smoke_writes_real_receipts_and_rejects_overwrite
+    self.assertEqual(main(["--smoke", "--output-dir", str(out)]), 0)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/controller-t5-extracted-ed5j0bbb/controller_t5_selection_v1/scripts/run_controller_integration.py", line 178, in main
+    config = ExecutionConfig(**json.loads(args.config.read_text(encoding="utf-8")))
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/controller-t5-extracted-ed5j0bbb/controller_t5_selection_v1/configs/controller/integration_t3_v1.json'
+
+======================================================================
+ERROR: test_interface_r1_gate_uses_new_fictional_facts (tests.test_evidence_v2a.V2ATests.test_interface_r1_gate_uses_new_fictional_facts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/zj/6djhy_4x7vx_7t8xcgt_v62c0000gn/T/controller-t5-extracted-ed5j0bbb/controller_t5_selection_v1/tests/test_evidence_v2a.py", line 176, in test_interface_r1_gate_uses_new_fictional_facts
+    from scripts.run_controller_e_v2a import fictional_cases
+ModuleNotFoundError: No module named 'scripts.run_controller_e_v2a'
+
+----------------------------------------------------------------------
+Ran 45 tests in 8.167s
+
+FAILED (errors=5)

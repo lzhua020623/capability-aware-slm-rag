@@ -1,0 +1,14 @@
+{
+  "stage": "local extraction only",
+  "GPU_started": false,
+  "uploaded": false,
+  "portable_tests": 45,
+  "portable_test_errors": 5,
+  "missing_test_dependencies": [
+    "configs/controller/integration_t3_v1.json",
+    "scripts/run_controller_e_v2a.py"
+  ],
+  "candidate_changed": false,
+  "inference_prompt_changed": false,
+  "action": "Preserve unrun v1; package both missing dependencies in v2; add actual extracted-suite regression"
+}

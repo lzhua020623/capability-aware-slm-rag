@@ -108,9 +108,9 @@ def prepare(output,root=ROOT):
             'offline_gold_sha256':file_sha(root/f'artifacts/controller/data_v1/offline/{ds}/selection/gold.jsonl'),
             'offline_gold_packaged':False}
     sources=sorted((root/'src').rglob('*.py'))+[root/p for p in (
-        'scripts/run_controller_integration.py','scripts/run_controller_t5_selection.py',
+        'scripts/run_controller_integration.py','scripts/run_controller_t5_selection.py','scripts/run_controller_e_v2a.py',
         'scripts/prepare_controller_t5_selection.py','scripts/prepare_controller_t3_gpu.py',
-        'configs/base.yaml',POLICY,'configs/controller/nq_train_resources_v1.json',
+        'configs/base.yaml',POLICY,'configs/controller/integration_t3_v1.json','configs/controller/nq_train_resources_v1.json',
         'configs/controller/fever_resources_v1.json','models/diagnosis/diagnosis_v2_expanded_hierarchical.json',
         'requirements-controller-e-v2a.txt','requirements-controller-t3.txt','requirements-answer-repair-v8.txt',
         'tests/__init__.py','tests/test_controller_integration.py','tests/test_evidence_v2a.py')]

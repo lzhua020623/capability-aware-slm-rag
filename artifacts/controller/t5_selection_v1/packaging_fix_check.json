@@ -1,0 +1,21 @@
+{
+  "round": "T5 selection package dependency correction",
+  "checked_at_UTC": "2026-10-26T01:21:46.783104+00:00",
+  "before": {
+    "unrun_package": "gpu_release_v1",
+    "GPU_started": false,
+    "uploaded": false,
+    "extracted_portable_errors": 5
+  },
+  "after": {
+    "full_tests": 956,
+    "new_extracted_suite_regression": true,
+    "extracted_tests_in_regression": 45,
+    "missing_dependencies_added": 2,
+    "candidate_changed": false,
+    "prompts_changed": false,
+    "core_99_source_files_changed": false,
+    "selection_inference_started": false
+  },
+  "test_log_sha256": "f8981c41e3e534ae617b447bbd52167609d0d91287b174c4a4f272f5380f3440"
+}
