@@ -51,6 +51,32 @@ def read_jsonl(path: Path) -> list[dict]:
         return [json.loads(line) for line in handle if line.strip()]
 
 
+def decompose_by_initial_correctness(rows: list[dict]) -> dict:
+    """Split outcomes by whether the generator's own first answer was already right.
+
+    The module can only damage a sample that was already correct -- a wrong
+    answer scores 0 before and after -- so these two rates, not the annotation
+    label, are what decide the net effect on any routed population.
+    """
+    right = [row for row in rows if row["em_before"] == 1]
+    wrong = [row for row in rows if row["em_before"] == 0]
+    broken = sum(row["em_after"] == 0 for row in right)
+    repaired = sum(row["em_after"] == 1 for row in wrong)
+    break_rate = broken / len(right) if right else 0.0
+    repair_rate = repaired / len(wrong) if wrong else 0.0
+    return {
+        "already_right": len(right),
+        "broken": broken,
+        "break_rate": round(break_rate, 4),
+        "already_wrong": len(wrong),
+        "repaired": repaired,
+        "repair_rate": round(repair_rate, 4),
+        # How many already-wrong samples must accompany each already-right one
+        # for the module to break even on a routed population.
+        "break_even_wrong_per_right": round(break_rate / repair_rate, 4) if repair_rate else None,
+    }
+
+
 def decide(policy: str, row: dict) -> str:
     """Which answer the policy reports for one sample."""
     initial, candidate = row["initial_answer"], row["candidate_answer"]
@@ -113,6 +139,13 @@ def main() -> None:
         }
         print(f"  {policy:28s} EM={summary[policy]['em']:.4f} fixed={fixed} broken={broken} net={fixed - broken:+d}")
 
+    decomposition = decompose_by_initial_correctness(rows)
+    print(
+        f"  already right {decomposition['already_right']} -> broken {decomposition['broken']} "
+        f"({decomposition['break_rate']:.2%}); already wrong {decomposition['already_wrong']} -> "
+        f"repaired {decomposition['repaired']} ({decomposition['repair_rate']:.2%}); "
+        f"break-even wrong:right = {decomposition['break_even_wrong_per_right']}"
+    )
     grounded_counts = {
         "initial_grounded": sum(row["initial_grounded"] for row in rows),
         "candidate_grounded": sum(row["candidate_grounded"] for row in rows),
@@ -129,6 +162,7 @@ def main() -> None:
                 "samples": total,
                 "config": payload["config"],
                 "grounding": grounded_counts,
+                "by_initial_correctness": decomposition,
                 "policies": summary,
             },
             indent=2,

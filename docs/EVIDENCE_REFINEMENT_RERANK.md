@@ -361,23 +361,52 @@ trade-off, not an improvement over each other. The shipped gate stays.
 
 ### What this means for deployment
 
-The module is strongly positive on its own class and mildly negative on
-already-correct samples, at comparable per-sample rates (+4.4pp against
-−3.0pp). Its value therefore depends entirely on routing precision, and the
-frozen Controller sends it 29 samples of which 1 is truly accessibility and 15
-are already correct (handoff section F). Those two groups alone — ignoring the
-10 insufficiency and 3 utilisation samples, which belong to the
-`retrieval_enhancement` and `generation_repair` owners and are deliberately not
-measured here — give a **net negative** expected effect behind today's router,
-even though the module itself works.
+The label a sample carries is not what decides whether this module helps it.
+Splitting both arms by whether the generator's own first answer was already
+correct:
 
-One repaired accessibility sample pays for about 1.45 broken correct ones
-(+4.35pp against −3.0pp), so break-even needs at least one true accessibility
-sample per 1.45 already-correct ones routed here. Today the ratio is 1 to 15,
-which works out to about −0.4 EM points over those 29 samples. The bottleneck is Diagnosis precision for
-`evidence_accessibility` (0.034 on the frozen test), not the reranker. Until
-that improves, this module should run behind a higher-precision trigger rather
-than on every routed sample.
+| Arm | first answer already right → broken | first answer wrong → repaired |
+|---|---|---|
+| accessibility (n=2,367) | 159 → **33.3%** | 2,208 → **7.07%** |
+| `correct` (n=600) | 317 → **9.46%** | 283 → 4.24% |
+
+The module can only damage a sample whose answer was already right; a wrong
+answer scores 0 either way, so reordering its evidence is free upside. That
+reframes misrouting: of the 29 samples the frozen Controller sends here, the 10
+insufficiency and 3 utilisation ones are wrong answers — they cost nothing and
+occasionally get repaired — while the 15 already-correct ones are the whole
+risk. (Those two classes belong to the `retrieval_enhancement` and
+`generation_repair` owners, and their repair rates are deliberately not
+measured here.)
+
+So the quantity that governs the net effect is the ratio of already-wrong to
+already-correct answers in whatever is routed in:
+
+```text
+net = wrong × repair_rate − right × break_rate
+break-even at  wrong : right  >=  0.0946 / 0.0707  ~=  1.34 : 1
+```
+
+Those two rates come from different arms on purpose: an already-correct sample
+that gets routed here resembles the `correct` arm (break rate 9.46%), while an
+already-wrong one resembles the accessibility arm (repair rate 7.07%). Within a
+single arm the ratio differs — 4.72 for accessibility, 2.23 for `correct`,
+both reported by `scripts/analyze_acceptance_policy.py` — because the
+already-correct samples inside the accessibility arm are the fragile ones the
+generator got right by luck, and they break at 33%, not 9%.
+
+Today's routed set is roughly 14 failures to 15 correct, about 0.93 : 1 —
+marginally below break-even, so mildly net negative rather than badly so.
+
+The P64 host pipeline adds `FrozenOnlineSelectionAdapter` ahead of the
+Controller, whose score subtracts `0.5 · z(p_corr_3c)`, i.e. it actively
+suppresses samples likely to be already correct. That is exactly the lever this
+module needs, and it is independent of the type-level precision problem:
+selection decides *whether* to enhance, while `failure_type` stays whatever
+Diagnosis said. The figure to watch is therefore not accessibility precision
+(0.034) but **the share of already-correct answers among the samples selected
+into this lane, which must stay below ~43%**. That number is not published in
+this branch.
 
 ## 7. Files
 

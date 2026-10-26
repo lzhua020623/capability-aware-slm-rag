@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import unittest
 
-from scripts.analyze_acceptance_policy import POLICIES, decide
+from scripts.analyze_acceptance_policy import POLICIES, decide, decompose_by_initial_correctness
 
 
 def row(
@@ -66,6 +66,43 @@ class DecideTest(unittest.TestCase):
         self.assertEqual(
             set(POLICIES), {"always_keep", "always_accept", "grounded", "protect_grounded_original"}
         )
+
+
+def outcome(before: int, after: int) -> dict:
+    return {"em_before": before, "em_after": after}
+
+
+class DecompositionTest(unittest.TestCase):
+    def test_counts_and_rates(self):
+        rows = [outcome(1, 0), outcome(1, 1), outcome(0, 1), outcome(0, 0), outcome(0, 0)]
+        stats = decompose_by_initial_correctness(rows)
+        self.assertEqual(stats["already_right"], 2)
+        self.assertEqual(stats["broken"], 1)
+        self.assertEqual(stats["break_rate"], 0.5)
+        self.assertEqual(stats["already_wrong"], 3)
+        self.assertEqual(stats["repaired"], 1)
+        self.assertAlmostEqual(stats["repair_rate"], 1 / 3, places=4)
+
+    def test_break_even_is_break_rate_over_repair_rate(self):
+        # 20% of correct answers broken, 10% of wrong ones repaired -> need 2 wrong per right.
+        rows = [outcome(1, 0)] + [outcome(1, 1)] * 4 + [outcome(0, 1)] + [outcome(0, 0)] * 9
+        stats = decompose_by_initial_correctness(rows)
+        self.assertEqual(stats["break_rate"], 0.2)
+        self.assertEqual(stats["repair_rate"], 0.1)
+        self.assertEqual(stats["break_even_wrong_per_right"], 2.0)
+
+    def test_no_repairs_means_no_break_even_ratio(self):
+        self.assertIsNone(decompose_by_initial_correctness([outcome(1, 0), outcome(0, 0)])["break_even_wrong_per_right"])
+
+    def test_empty_groups_do_not_divide_by_zero(self):
+        self.assertEqual(decompose_by_initial_correctness([])["break_rate"], 0.0)
+        self.assertEqual(decompose_by_initial_correctness([outcome(0, 0)])["break_rate"], 0.0)
+
+    def test_a_module_that_never_changes_anything_is_neutral(self):
+        rows = [outcome(1, 1)] * 5 + [outcome(0, 0)] * 5
+        stats = decompose_by_initial_correctness(rows)
+        self.assertEqual(stats["broken"], 0)
+        self.assertEqual(stats["repaired"], 0)
 
 
 if __name__ == "__main__":

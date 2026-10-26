@@ -16,6 +16,15 @@
     "candidate_grounded": 2040,
     "both_grounded": 1978
   },
+  "by_initial_correctness": {
+    "already_right": 159,
+    "broken": 53,
+    "break_rate": 0.3333,
+    "already_wrong": 2208,
+    "repaired": 156,
+    "repair_rate": 0.0707,
+    "break_even_wrong_per_right": 4.7179
+  },
   "policies": {
     "always_keep": {
       "em": 0.0672,
