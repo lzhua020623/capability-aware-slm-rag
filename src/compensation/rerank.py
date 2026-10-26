@@ -103,6 +103,21 @@ class ShuffleScorer:
         return scores
 
 
+class IdentityScorer:
+    """Scores every candidate equally, so `rerank_evidence` keeps the frozen order.
+
+    Used to hold ordering constant while another step (pruning) varies, so a
+    gain can be attributed to that step rather than to reordering.
+    """
+
+    model_name = "identity"
+
+    def __call__(self, query: str, texts: Sequence[str]) -> list[float]:
+        if not isinstance(query, str):
+            raise TypeError(f"query must be a string, got {type(query).__name__}")
+        return [0.0] * len(list(texts))
+
+
 SHUFFLE_PREFIX = "shuffle:"
 
 
@@ -115,6 +130,8 @@ def scorer_from_name(name: str) -> RelevanceScorer:
     """
     if not isinstance(name, str) or not name.strip():
         raise ValueError("scorer name must be a non-empty string")
+    if name == IdentityScorer.model_name:
+        return IdentityScorer()
     if name.startswith(SHUFFLE_PREFIX):
         seed = name[len(SHUFFLE_PREFIX) :]
         if not seed.lstrip("-").isdigit():

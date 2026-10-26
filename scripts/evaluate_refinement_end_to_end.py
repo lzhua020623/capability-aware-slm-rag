@@ -61,6 +61,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.compensation.evidence_refinement import EvidenceRefiner, build_refinement_prompt  # noqa: E402
+from src.compensation.pruning import MatchedRandomPruner, ProvencePruner  # noqa: E402
 from src.compensation.rerank import scorer_from_name  # noqa: E402
 from src.compensation.refinement_schema import RefinementConfig  # noqa: E402
 from src.config import load_generator_config  # noqa: E402
@@ -103,8 +104,18 @@ def to_input(record: dict) -> DiagnosisInput:
 
 
 def build_scorer(args, config: RefinementConfig):
-    """The cross-encoder, or the shuffle control that replaces it."""
+    """The cross-encoder, the shuffle control, or the identity (frozen order)."""
     return scorer_from_name(config.reranker_model)
+
+
+def build_pruner(args):
+    """Sentence-level pruning, its matched random control, or nothing."""
+    if args.pruner == "none":
+        return None, "none"
+    provence = ProvencePruner.from_pretrained(threshold=args.prune_threshold)
+    if args.pruner == "provence":
+        return provence, f"provence(threshold={args.prune_threshold})"
+    return MatchedRandomPruner(provence, seed=args.prune_seed), f"random-prune(seed={args.prune_seed})"
 
 
 def load_before_answers(path: Path) -> dict[str, str]:
@@ -129,8 +140,8 @@ def build_refiner(args, config: RefinementConfig):
     through it.
     """
     if args.backend == "frozen":
-        if args.scorer != "cross_encoder":
-            raise SystemExit("--scorer shuffle needs a hosted backend; the frozen loader builds its own scorer")
+        if args.scorer != "cross_encoder" or args.pruner != "none":
+            raise SystemExit("--scorer/--pruner need a hosted backend; the frozen loader builds its own scorer")
         return EvidenceRefiner.from_frozen_defaults(config=config), "frozen local Qwen2.5-7B NF4", False
 
     backend = build_backend(args.backend, args.generator_model, args.base_url, args.api_key)
@@ -140,7 +151,9 @@ def build_refiner(args, config: RefinementConfig):
         text, _latency = backend.generate(prompt, max_new_tokens)
         return text
 
-    return EvidenceRefiner(build_scorer(args, config), generate, config=config), backend.name, True
+    pruner, pruner_name = build_pruner(args)
+    refiner = EvidenceRefiner(build_scorer(args, config), generate, config=config, pruner=pruner)
+    return refiner, f"{backend.name} | pruner {pruner_name}", True
 
 
 def frozen_500_records(path: Path, label_file: Path, label: str) -> list[dict]:
@@ -188,11 +201,21 @@ def main() -> None:
     parser.add_argument("--save-rows", action="store_true")
     parser.add_argument(
         "--scorer",
-        choices=("cross_encoder", "shuffle"),
+        choices=("cross_encoder", "shuffle", "identity"),
         default="cross_encoder",
-        help="shuffle replaces the reranker with a seeded random order: the perturbation control",
+        help="shuffle replaces the reranker with a seeded random order (the perturbation control); "
+        "identity keeps the frozen Top-5 order, so another step can vary on its own",
     )
     parser.add_argument("--shuffle-seed", type=int, default=42)
+    parser.add_argument(
+        "--pruner",
+        choices=("none", "provence", "random"),
+        default="none",
+        help="provence prunes irrelevant sentences inside each kept passage; random removes as many "
+        "sentences but chooses them pseudo-randomly, the control for the perturbation pruning also causes",
+    )
+    parser.add_argument("--prune-threshold", type=float, default=0.1)
+    parser.add_argument("--prune-seed", type=int, default=42)
     parser.add_argument(
         "--before-from",
         type=Path,
@@ -241,7 +264,7 @@ def main() -> None:
         raise SystemExit("no records matched")
     print(f"{len(records)} {args.label} samples from {split_note}")
 
-    scorer_id = f"shuffle:{args.shuffle_seed}" if args.scorer == "shuffle" else args.model
+    scorer_id = {"shuffle": f"shuffle:{args.shuffle_seed}", "identity": "identity"}.get(args.scorer, args.model)
     config = RefinementConfig(keep_k=args.keep_k, reranker_model=scorer_id)
     print(f"loading scorer {config.reranker_model} and generator backend {args.backend}")
     refiner, generator_name, must_regenerate = build_refiner(args, config)
@@ -342,6 +365,9 @@ def main() -> None:
             "name": generator_name,
             "model": args.generator_model if args.backend != "frozen" else str(generator_config["model_name"]),
             "max_new_tokens": args.max_new_tokens,
+            "pruner": args.pruner,
+            "prune_threshold": args.prune_threshold if args.pruner != "none" else None,
+            "prune_seed": args.prune_seed if args.pruner == "random" else None,
             "before_answers": (
                 f"reused from {args.before_from.name}"
                 if stored_before is not None

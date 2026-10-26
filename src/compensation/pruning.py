@@ -30,6 +30,9 @@ from typing import Protocol, runtime_checkable
 
 PROVENCE_MODEL = "naver/provence-reranker-debertav3-v1"
 DEFAULT_THRESHOLD = 0.1
+# A 6 GB card thrashes at fp32/batch 32 (it spills to shared memory and runs ~38x
+# slower than fp16/batch 8). fp16 changes 0.7% of per-passage pruning decisions.
+DEFAULT_BATCH_SIZE = 8
 
 
 @runtime_checkable
@@ -56,7 +59,7 @@ def _fallback(pruned: str, original: str) -> str:
 class ProvencePruner:
     """Question-conditioned sentence pruning; also usable as a relevance scorer."""
 
-    def __init__(self, model, threshold: float = DEFAULT_THRESHOLD, batch_size: int = 32):
+    def __init__(self, model, threshold: float = DEFAULT_THRESHOLD, batch_size: int = DEFAULT_BATCH_SIZE):
         if not callable(getattr(model, "process", None)):
             raise TypeError("model must provide process(question, context, ...)")
         self.model = model
@@ -70,14 +73,18 @@ class ProvencePruner:
         model_name: str = PROVENCE_MODEL,
         threshold: float = DEFAULT_THRESHOLD,
         device: str | None = None,
+        half: bool | None = None,
         **kwargs,
     ):
-        """`device` defaults to CUDA when available; on CPU this model is ~15x slower."""
+        """`device` defaults to CUDA when available; `half` defaults to fp16 on CUDA."""
         import torch
         from transformers import AutoModel
 
         model = AutoModel.from_pretrained(model_name, trust_remote_code=True)
-        model.to(device or ("cuda" if torch.cuda.is_available() else "cpu"))
+        device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+        model.to(device)
+        if half if half is not None else str(device).startswith("cuda"):
+            model.half()
         model.eval()
         return cls(model, threshold=threshold, **kwargs)
 

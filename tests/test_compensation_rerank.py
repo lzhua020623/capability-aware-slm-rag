@@ -6,6 +6,7 @@ import math
 import unittest
 
 from src.compensation.rerank import (
+    IdentityScorer,
     ShuffleScorer,
     scorer_from_name,
     CrossEncoderScorer,
@@ -294,3 +295,21 @@ class ScorerFromNameTest(unittest.TestCase):
         for name in ("", "   ", None):
             with self.assertRaises(ValueError):
                 scorer_from_name(name)
+
+
+class IdentityScorerTest(unittest.TestCase):
+    def test_it_keeps_the_frozen_order(self):
+        request = item("p1", "p2", "p3")
+        outcome = rerank_evidence(request.query, request.evidence, IdentityScorer(), KEEP_ALL)
+        self.assertEqual([p.passage_id for p in outcome.evidence], ["p1", "p2", "p3"])
+        self.assertEqual(outcome.scores, (0.0, 0.0, 0.0))
+
+    def test_it_resolves_by_name(self):
+        self.assertIsInstance(scorer_from_name("identity"), IdentityScorer)
+
+    def test_it_validates_the_query(self):
+        with self.assertRaises(TypeError):
+            IdentityScorer()(None, ["a"])
+
+    def test_it_satisfies_the_scorer_protocol(self):
+        self.assertIsInstance(IdentityScorer(), RelevanceScorer)
