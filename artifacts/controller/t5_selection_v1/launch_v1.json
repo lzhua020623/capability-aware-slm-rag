@@ -1,0 +1,42 @@
+{
+  "schema_version": "controller_t5_selection_launch_v1",
+  "date": "2026-10-26",
+  "observed_at_UTC": "2026-10-26T02:09:41.215790+00:00",
+  "notebook_url": "https://www.kaggle.com/code/yearo111/controller-t5-selection-frozen-20261026?scriptVersionId=362316572",
+  "script_version_id": 362316572,
+  "version": 1,
+  "version_name": "T5 7c281d0 NQ0.2 Eoff 400 inputs",
+  "observed_status": "Running",
+  "observed_elapsed_seconds": 67.7,
+  "notebook_privacy": "Private",
+  "accelerator": "GPU T4 x2",
+  "internet_enabled": true,
+  "quota_display_before_submission": "10:39 / 30 hrs",
+  "environment_UI": "Latest Container Image",
+  "source_commit": "7c281d0193a4d1e205cfbc23dca31d6d4a0ac861",
+  "archive_sha256": "151676a8c07008257086701c5dbced4fdc0b5e0f98f75f6e88caf98dcbae8f6f",
+  "notebook_sha256": "5e2c5050537702a780a2b628a882ee82cba3faef43b74d65b6c7836d8a9428a5",
+  "input_code_dataset_title": "Controller T5 selection v2 frozen 20261026",
+  "input_code_dataset_privacy_at_creation": "Private",
+  "input_code_filename": "controller_t5_selection_v1.tar.gz.bin",
+  "input_resource_dataset_url": "https://www.kaggle.com/datasets/yearo111/controller-t4-retrieval-resources-frozen-20261024",
+  "both_inputs_confirmed_in_sidebar": true,
+  "dataset_counts": {
+    "nq": 200,
+    "fever": 200
+  },
+  "expected_records": 2000,
+  "candidate_threshold": 0.2,
+  "E_mode": {
+    "nq": "unavailable",
+    "fever": "unavailable"
+  },
+  "engineering_outcome": null,
+  "selection_started_confirmed": false,
+  "selection_predictions_confirmed": null,
+  "selection_quality_scored": false,
+  "candidate_promoted": false,
+  "attempt": 1,
+  "semantic_retry": false,
+  "recovery": "Original editor stopped rendering/responding; rebound app, reset CUA session and reopened same saved notebook. No duplicate upload or GPU submission. Version 1 Running confirmed only after the single Save & Run All."
+}

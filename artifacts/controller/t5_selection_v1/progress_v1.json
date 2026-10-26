@@ -1,0 +1,19 @@
+{
+  "script_version_id": 362316572,
+  "observed_at_UTC": "2026-10-26T02:14:25.534979+00:00",
+  "observed_status": "Running",
+  "observed_elapsed_seconds": 283.1,
+  "cloud_portable_tests_passed": 45,
+  "cloud_preflight": {
+    "role": "selection",
+    "nq": 200,
+    "fever": 200,
+    "gold_read": false
+  },
+  "active_engineering_completed": false,
+  "selection_prediction_count_confirmed": null,
+  "selection_quality_scored": false,
+  "candidate_promoted": false,
+  "scope": "Initial log observation only; final outcome must be audited from preserved export",
+  "resource_checksums_passed": true
+}

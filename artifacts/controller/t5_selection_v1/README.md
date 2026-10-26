@@ -10,4 +10,4 @@
 
 原 `gpu_release_v1` 没有上传／运行。实际解包发现便携测试缺少两项依赖，45 项中 5 项报错；原件及失败日志保留。v2 只补测试依赖，新增真实解包回归，候选、提示、预算、分支和输入不变，不是语义重试。
 
-当前 GPU 尚未启动；上传和启动观察后另立回执，不把本地封存当成真实验收。
+首次 GPU 已提交至 [Version 1 / 362316572](https://www.kaggle.com/code/yearo111/controller-t5-selection-frozen-20261026?scriptVersionId=362316572)，确认 Running、Private、GPU T4×2。见 [启动回执](launch_v1.json)。活动路径工程检查和真实选型预测尚待确认，不把启动当成验收或候选晋升；封存时的 `GPU_started=false` 历史字段保留。

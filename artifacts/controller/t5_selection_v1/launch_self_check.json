@@ -1,0 +1,32 @@
+{
+  "round": "First T5 selection GPU launch",
+  "checked_at_UTC": "2026-10-26T02:14:25.541634+00:00",
+  "before": {
+    "HEAD": "19e37782b0d4b610bd2fe925ef426d1e99c9c4eb",
+    "branch": "controller",
+    "frozen_source_commit": "7c281d0193a4d1e205cfbc23dca31d6d4a0ac861",
+    "package_sha256": "151676a8c07008257086701c5dbced4fdc0b5e0f98f75f6e88caf98dcbae8f6f",
+    "candidate_threshold": 0.2,
+    "E_mode": "unavailable",
+    "unrun_invalid_v1_not_uploaded": true
+  },
+  "after": {
+    "full_tests": 957,
+    "new_launch_binding_tests": 1,
+    "local_extracted_tests": 45,
+    "cloud_portable_tests": 45,
+    "cloud_gold_free_preflight_inputs": 400,
+    "cloud_resource_hashes_passed": true,
+    "GPU_running_confirmed": true,
+    "script_version_id": 362316572,
+    "notebook_private_confirmed": true,
+    "GPU_type": "T4 x2",
+    "engineering_outcome_confirmed": null,
+    "selection_predictions_confirmed": null,
+    "quality_scored": false,
+    "candidate_promoted": false,
+    "final_started": false,
+    "semantic_retry": false
+  },
+  "full_test_log_sha256": "0b2f563f8e6c684a9d376e03d0a6df340a1ab6f6f1cd84df395c1dc9b5730860"
+}
