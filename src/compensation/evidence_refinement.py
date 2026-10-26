@@ -35,8 +35,10 @@ Use `refiner.run(item, decision, probe_result)` when the caller wants the full
 
 from __future__ import annotations
 
+import dataclasses
 from collections.abc import Callable, Sequence
 
+from src.compensation.pruning import ContextPruner
 from src.compensation.rerank import CandidateProvider, CrossEncoderScorer, RelevanceScorer, build_candidate_pool, rerank_evidence
 from src.compensation.refinement_schema import (
     DEFAULT_REFINEMENT_CONFIG,
@@ -111,6 +113,7 @@ class EvidenceRefiner:
         config: RefinementConfig = DEFAULT_REFINEMENT_CONFIG,
         candidate_provider: CandidateProvider | None = None,
         prompt_builder: PromptBuilder = build_refinement_prompt,
+        pruner: ContextPruner | None = None,
     ):
         if not callable(scorer):
             raise TypeError("scorer must be callable")
@@ -122,11 +125,14 @@ class EvidenceRefiner:
             raise TypeError("candidate_provider must be callable or None")
         if not callable(prompt_builder):
             raise TypeError("prompt_builder must be callable")
+        if pruner is not None and not callable(getattr(pruner, "prune", None)):
+            raise TypeError("pruner must provide prune(query, texts) -> list[str]")
         self._scorer = scorer
         self._generate = generate_fn
         self.config = config
         self.candidate_provider = candidate_provider
         self._build_prompt = prompt_builder
+        self.pruner = pruner
 
     @classmethod
     def from_frozen_defaults(
@@ -180,6 +186,19 @@ class EvidenceRefiner:
             sample_id=item.sample_id,
         )
 
+    def _prune(self, item: DiagnosisInput, outcome):
+        """Drop irrelevant sentences inside the kept passages, keeping ids and order."""
+        if self.pruner is None or not outcome.evidence:
+            return outcome
+        texts = self.pruner.prune(item.query, [passage.text for passage in outcome.evidence])
+        if len(texts) != len(outcome.evidence):
+            raise RuntimeError(f"pruner returned {len(texts)} passages for {len(outcome.evidence)}")
+        pruned = tuple(
+            EvidenceItem(rank=passage.rank, passage_id=passage.passage_id, text=text, score=passage.score)
+            for passage, text in zip(outcome.evidence, texts)
+        )
+        return dataclasses.replace(outcome, evidence=pruned)
+
     def run(
         self,
         item: DiagnosisInput,
@@ -201,6 +220,7 @@ class EvidenceRefiner:
             return self._untouched(item, RefinementStatus.NO_CHANGE)
 
         outcome = rerank_evidence(item.query, candidates, self._scorer, self.config, probe_result)
+        outcome = self._prune(item, outcome)
         original_ids = tuple(passage.passage_id for passage in item.evidence)
         unchanged = tuple(passage.passage_id for passage in outcome.evidence) == original_ids
         if unchanged and not self.config.regenerate_when_unchanged:

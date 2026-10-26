@@ -353,3 +353,78 @@ class IntegrationContractTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class StubPruner:
+    """Keeps the first four words of each passage; records what it was asked to prune."""
+
+    def __init__(self, replacement=None):
+        self.replacement = replacement
+        self.seen = []
+
+    def prune(self, query, texts):
+        self.seen.append((query, list(texts)))
+        if self.replacement is not None:
+            return list(self.replacement)
+        return [" ".join(text.split()[:4]) for text in texts]
+
+
+class PruningTest(unittest.TestCase):
+    def test_pruning_rewrites_text_but_keeps_identity_and_order(self):
+        rec = recorder(p1=0.1, p2=0.9)
+        pruner = StubPruner()
+        refiner = EvidenceRefiner(
+            rec.score, rec.generate, config=KEEP_ALL, prompt_builder=rec.prompt_builder, pruner=pruner
+        )
+        result = refiner.run(nq_item("p1", "p2"), decision())
+        self.assertEqual([p.passage_id for p in result.evidence], ["p2", "p1"])
+        self.assertEqual([p.rank for p in result.evidence], [1, 2])
+        self.assertEqual(result.evidence[0].text, "Hamlet is a tragedy")
+        self.assertLess(len(result.evidence[0].text), len(PASSAGES["p2"]))
+        self.assertEqual(result.evidence[0].score, nq_item("p1", "p2").evidence[1].score)
+        self.assertEqual(pruner.seen[0][0], "who wrote hamlet")
+
+    def test_pruning_sees_the_kept_reordered_passages(self):
+        rec = recorder(p1=0.1, p2=0.9, p3=0.5)
+        pruner = StubPruner()
+        EvidenceRefiner(
+            rec.score, rec.generate, config=KEEP_TWO, prompt_builder=rec.prompt_builder, pruner=pruner
+        ).run(nq_item("p1", "p2", "p3"), decision())
+        seen = pruner.seen[0][1]
+        self.assertEqual(len(seen), 2)
+        self.assertEqual(seen[0], PASSAGES["p2"])
+
+    def test_grounding_is_checked_against_the_pruned_text(self):
+        # Reranking reorders, so the generator runs; the answer survives only in
+        # the sentence the pruner removed, so the candidate must be rejected.
+        rec = recorder("William Shakespeare", p1=0.1, p2=0.9)
+        pruner = StubPruner(replacement=["Hamlet is a tragedy", "Christopher Marlowe was an"])
+        result = EvidenceRefiner(
+            rec.score, rec.generate, config=KEEP_ALL, prompt_builder=rec.prompt_builder, pruner=pruner
+        ).run(nq_item("p1", "p2"), decision())
+        self.assertEqual(result.status, RefinementStatus.KEPT_ORIGINAL)
+        self.assertEqual(result.reject_reason, "not_grounded_in_kept_evidence")
+        self.assertEqual(result.final_answer, "Christopher Marlowe")
+
+    def test_a_pruner_that_changes_the_passage_count_is_an_error(self):
+        rec = recorder(p1=0.1, p2=0.9)
+        refiner = EvidenceRefiner(
+            rec.score,
+            rec.generate,
+            config=KEEP_ALL,
+            prompt_builder=rec.prompt_builder,
+            pruner=StubPruner(replacement=["only one"]),
+        )
+        item, routed = nq_item("p1", "p2"), decision()
+        with self.assertRaises(RuntimeError):
+            refiner.run(item, routed)
+
+    def test_no_pruner_leaves_the_text_untouched(self):
+        rec = recorder(p1=0.1, p2=0.9)
+        result = refiner_for(rec).run(nq_item("p1", "p2"), decision())
+        self.assertEqual(result.evidence[0].text, PASSAGES["p2"])
+
+    def test_a_pruner_must_expose_prune(self):
+        rec = recorder(p1=0.1)
+        with self.assertRaises(TypeError):
+            EvidenceRefiner(rec.score, rec.generate, pruner=object())
