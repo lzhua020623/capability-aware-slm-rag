@@ -1,0 +1,25 @@
+{
+  "note": "Offline re-scoring of answers that already existed; no generation. The oracle rows are upper bounds for a selector, not achievable results.",
+  "arms": {
+    "trained": "results/compensation/refinement_end_to_end_accessibility.json",
+    "shuffle": "results/compensation/refinement_end_to_end_shuffle_control.json",
+    "provence": "results/compensation/refinement_end_to_end_provence.json",
+    "randprune": "results/compensation/refinement_end_to_end_random_prune.json"
+  },
+  "summary": {
+    "samples": 2367,
+    "baseline_before": 0.0672,
+    "per_arm": {
+      "trained": 0.1107,
+      "shuffle": 0.1187,
+      "provence": 0.0925,
+      "randprune": 0.1014
+    },
+    "majority_vote_arms": 0.1018,
+    "majority_vote_with_before": 0.0913,
+    "oracle_before_or_first_arm": 0.1331,
+    "oracle_any_candidate": 0.2391,
+    "at_least_one_candidate_correct": 566,
+    "at_least_one_candidate_correct_rate": 0.2391
+  }
+}
