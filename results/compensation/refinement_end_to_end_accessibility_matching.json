@@ -1,0 +1,60 @@
+{
+  "note": "Sensitivity analysis only. The frozen exact match remains the headline metric; containment does not prove correctness.",
+  "source": "results\\compensation\\refinement_end_to_end_accessibility.json",
+  "label": "evidence_accessibility",
+  "samples": 2367,
+  "by_matching_rule": {
+    "exact_match (frozen)": {
+      "before": 0.0672,
+      "after": 0.1107,
+      "repaired": 156,
+      "broken": 53,
+      "net": 103
+    },
+    "containment": {
+      "before": 0.3414,
+      "after": 0.3891,
+      "repaired": 203,
+      "broken": 90,
+      "net": 113
+    },
+    "token_f1>=0.8": {
+      "before": 0.1005,
+      "after": 0.1496,
+      "repaired": 178,
+      "broken": 62,
+      "net": 116
+    },
+    "token_f1>=0.6": {
+      "before": 0.2019,
+      "after": 0.2543,
+      "repaired": 195,
+      "broken": 71,
+      "net": 124
+    }
+  },
+  "spans_run_before_answers": {
+    "answers": 2367,
+    "exact_match_wrong": 2208,
+    "wrong_but_contained": 649,
+    "wrong_but_contained_rate_of_wrong": 0.2939,
+    "wrong_but_shorter_span_of_gold": 543,
+    "wrong_but_shorter_span_rate_of_all": 0.2294,
+    "gold_words_median": 3,
+    "gold_words_p75": 6,
+    "gold_words_max": 89,
+    "answer_words_median": 2
+  },
+  "spans_annotated_answers": {
+    "answers": 2367,
+    "exact_match_wrong": 2367,
+    "wrong_but_contained": 649,
+    "wrong_but_contained_rate_of_wrong": 0.2742,
+    "wrong_but_shorter_span_of_gold": 545,
+    "wrong_but_shorter_span_rate_of_all": 0.2302,
+    "gold_words_median": 3,
+    "gold_words_p75": 6,
+    "gold_words_max": 89,
+    "answer_words_median": 2
+  }
+}
