@@ -1,0 +1,538 @@
+{
+  "attempts": 3,
+  "trials": [
+    {
+      "threshold": 0.2,
+      "evaluation_n": 200,
+      "baseline_EM_correct": 78,
+      "candidate_EM_correct": 81,
+      "fixed": 5,
+      "harmed": 2,
+      "net_EM": 3,
+      "overridden_routes": 107,
+      "changed_answer_pairs": 17,
+      "fully_adjudicated_changed_pairs": 4,
+      "semantic_net_bounds": [
+        -11,
+        14
+      ],
+      "changed_pairs": [
+        {
+          "sample_id": "-105267526819657938",
+          "review_id": null,
+          "before": "American",
+          "after": "Dartmouth College",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "-4638023203311656133",
+          "review_id": null,
+          "before": "Ronaldo",
+          "after": "Cristiano Ronaldo",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "-515584255351006165",
+          "review_id": "R04",
+          "before": "William McKinley",
+          "after": "McKinley",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": true,
+          "semantic_after": true,
+          "semantic_delta_bounds": [
+            0,
+            0
+          ]
+        },
+        {
+          "sample_id": "-5185985447470590623",
+          "review_id": "R05",
+          "before": "fur trade",
+          "after": "North American fur trade",
+          "frozen_EM_before": false,
+          "frozen_EM_after": true,
+          "semantic_before": true,
+          "semantic_after": true,
+          "semantic_delta_bounds": [
+            0,
+            0
+          ]
+        },
+        {
+          "sample_id": "-5328057821735888756",
+          "review_id": "R16",
+          "before": "65",
+          "after": "62",
+          "frozen_EM_before": true,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "-7605284362092955360",
+          "review_id": "R07",
+          "before": "third place",
+          "after": "bronze medal",
+          "frozen_EM_before": false,
+          "frozen_EM_after": true,
+          "semantic_before": false,
+          "semantic_after": true,
+          "semantic_delta_bounds": [
+            1,
+            1
+          ]
+        },
+        {
+          "sample_id": "-7762358559232952901",
+          "review_id": null,
+          "before": "1890",
+          "after": "August 9, 1890",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "-9088164694118943886",
+          "review_id": null,
+          "before": "2010",
+          "after": "July 2009",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "1934651882392853842",
+          "review_id": "R09",
+          "before": "2001",
+          "after": "2005",
+          "frozen_EM_before": false,
+          "frozen_EM_after": true,
+          "semantic_before": false,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            0,
+            1
+          ]
+        },
+        {
+          "sample_id": "3167877480619119258",
+          "review_id": null,
+          "before": "Fearne Cotton",
+          "after": "TV presenter Fearne Cotton",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "3688717678348212442",
+          "review_id": null,
+          "before": "1917",
+          "after": "17 July 1917",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "538314753001203199",
+          "review_id": "R17",
+          "before": "Roger Federer",
+          "after": "Rafael Nadal",
+          "frozen_EM_before": true,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "5865017245504972276",
+          "review_id": null,
+          "before": "sent a naval flotilla",
+          "after": "May 1",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "6611004415806360567",
+          "review_id": "R11",
+          "before": "TNT",
+          "after": "Cartoon Network",
+          "frozen_EM_before": false,
+          "frozen_EM_after": true,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "8452738524890894697",
+          "review_id": null,
+          "before": "Resurrection",
+          "after": "seventh season",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "8786057624660668617",
+          "review_id": null,
+          "before": "1605",
+          "after": "1608",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "8967884220672517987",
+          "review_id": "R13",
+          "before": "Collingwood Football Club",
+          "after": "Collingwood",
+          "frozen_EM_before": false,
+          "frozen_EM_after": true,
+          "semantic_before": true,
+          "semantic_after": true,
+          "semantic_delta_bounds": [
+            0,
+            0
+          ]
+        }
+      ],
+      "FEVER_answers_and_costs_unchanged": true,
+      "NQ_incremental_cost_delta_estimate": {
+        "llm_calls": 104,
+        "retrieval_calls": 107,
+        "scoring_calls": 107,
+        "provider_seconds_estimate": 1444.8788691940135
+      }
+    },
+    {
+      "threshold": 0.3,
+      "evaluation_n": 200,
+      "baseline_EM_correct": 78,
+      "candidate_EM_correct": 79,
+      "fixed": 2,
+      "harmed": 1,
+      "net_EM": 1,
+      "overridden_routes": 64,
+      "changed_answer_pairs": 11,
+      "fully_adjudicated_changed_pairs": 1,
+      "semantic_net_bounds": [
+        -9,
+        10
+      ],
+      "changed_pairs": [
+        {
+          "sample_id": "-105267526819657938",
+          "review_id": null,
+          "before": "American",
+          "after": "Dartmouth College",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "-4638023203311656133",
+          "review_id": null,
+          "before": "Ronaldo",
+          "after": "Cristiano Ronaldo",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "-515584255351006165",
+          "review_id": "R04",
+          "before": "William McKinley",
+          "after": "McKinley",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": true,
+          "semantic_after": true,
+          "semantic_delta_bounds": [
+            0,
+            0
+          ]
+        },
+        {
+          "sample_id": "-7762358559232952901",
+          "review_id": null,
+          "before": "1890",
+          "after": "August 9, 1890",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "1934651882392853842",
+          "review_id": "R09",
+          "before": "2001",
+          "after": "2005",
+          "frozen_EM_before": false,
+          "frozen_EM_after": true,
+          "semantic_before": false,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            0,
+            1
+          ]
+        },
+        {
+          "sample_id": "3167877480619119258",
+          "review_id": null,
+          "before": "Fearne Cotton",
+          "after": "TV presenter Fearne Cotton",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "3688717678348212442",
+          "review_id": null,
+          "before": "1917",
+          "after": "17 July 1917",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "538314753001203199",
+          "review_id": "R17",
+          "before": "Roger Federer",
+          "after": "Rafael Nadal",
+          "frozen_EM_before": true,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "5865017245504972276",
+          "review_id": null,
+          "before": "sent a naval flotilla",
+          "after": "May 1",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "6611004415806360567",
+          "review_id": "R11",
+          "before": "TNT",
+          "after": "Cartoon Network",
+          "frozen_EM_before": false,
+          "frozen_EM_after": true,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "8786057624660668617",
+          "review_id": null,
+          "before": "1605",
+          "after": "1608",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        }
+      ],
+      "FEVER_answers_and_costs_unchanged": true,
+      "NQ_incremental_cost_delta_estimate": {
+        "llm_calls": 63,
+        "retrieval_calls": 64,
+        "scoring_calls": 64,
+        "provider_seconds_estimate": 861.4649962960137
+      }
+    },
+    {
+      "threshold": 0.4,
+      "evaluation_n": 200,
+      "baseline_EM_correct": 78,
+      "candidate_EM_correct": 78,
+      "fixed": 0,
+      "harmed": 0,
+      "net_EM": 0,
+      "overridden_routes": 26,
+      "changed_answer_pairs": 4,
+      "fully_adjudicated_changed_pairs": 0,
+      "semantic_net_bounds": [
+        -4,
+        4
+      ],
+      "changed_pairs": [
+        {
+          "sample_id": "-4638023203311656133",
+          "review_id": null,
+          "before": "Ronaldo",
+          "after": "Cristiano Ronaldo",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "-7762358559232952901",
+          "review_id": null,
+          "before": "1890",
+          "after": "August 9, 1890",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "5865017245504972276",
+          "review_id": null,
+          "before": "sent a naval flotilla",
+          "after": "May 1",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        },
+        {
+          "sample_id": "8786057624660668617",
+          "review_id": null,
+          "before": "1605",
+          "after": "1608",
+          "frozen_EM_before": false,
+          "frozen_EM_after": false,
+          "semantic_before": null,
+          "semantic_after": null,
+          "semantic_delta_bounds": [
+            -1,
+            1
+          ]
+        }
+      ],
+      "FEVER_answers_and_costs_unchanged": true,
+      "NQ_incremental_cost_delta_estimate": {
+        "llm_calls": 25,
+        "retrieval_calls": 26,
+        "scoring_calls": 26,
+        "provider_seconds_estimate": 367.03315171000656
+      }
+    }
+  ],
+  "provisional_threshold": 0.2,
+  "baseline_correct": {
+    "nq": 78,
+    "fever": 174
+  },
+  "semantic_scope": "Only exact unchanged answers have zero delta automatically; unknown judgments remain interval bounds. Development bounds do not replace the later selection veto.",
+  "cache_checks": 800,
+  "new_GPU_calls": 0,
+  "selection_scored": false,
+  "final_scored": false
+}

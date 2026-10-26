@@ -1,0 +1,42 @@
+{
+  "schema_version": "controller_t5_candidate_v1",
+  "stage": "frozen_for_single_selection_not_promoted",
+  "threshold": 0.2,
+  "dataset": "nq",
+  "eligible_action": "no_action",
+  "new_action": "retrieval_enhancement",
+  "existing_supported_probe_veto": true,
+  "missing_probe": "use_existing_stage1_probability_without_new_Probe",
+  "E_mode": {
+    "nq": "unavailable",
+    "fever": "unavailable"
+  },
+  "search_grid": [
+    0.2,
+    0.3,
+    0.4
+  ],
+  "attempts": 3,
+  "selection_candidates": 1,
+  "selection_decision": "positive frozen EM; negative semantic net or negative unresolved lower bound vetoes promotion",
+  "development_review": "All 15 priorities adopted by user with six of 17 total cases still not fully adjudicated; no unknown relabeled",
+  "runtime_forbidden": [
+    "gold",
+    "human_correctness",
+    "sample_id_based_rules"
+  ],
+  "selection_scored": false,
+  "final_scored": false,
+  "promoted": false,
+  "source_hashes": {
+    "artifacts/controller/t4_v1/controller_t4_development_v1_outputs.zip": "be3b926b8f808cd39b1c32b64564e5e5619518bebd2585af3fd8f0a6616bc7a5",
+    "configs/controller/e_v2a_amendment_v1.json": "e8de1f15239ad8a8abf8e6f4d90353c4f7042d277e7bffe115db9034e629bf6b",
+    "artifacts/controller/e_v2a_interface_r2/deployment_decision.json": "ec4cc915306c799753503bb216bc88e79a16b74e48482eebfc197fb4cef9c13c",
+    "artifacts/controller/t5_human_review_v1/review/review17.jsonl": "ec88fd538a3f013019b6bc1a57975eccbd9b79711bed8a6022cb1ab6c40733af",
+    "artifacts/controller/t5_human_review_v1/review/manifest.json": "e51cf8f933226e054733d3f062f4a51f40453936b142112cd20add1129122fe8",
+    "artifacts/controller/t5_human_review_v1/confirmation.json": "b1bd6c5fba883b4996993a8cbc035b3180670e1b17ae2db45f99cf98efdb103a",
+    "artifacts/controller/data_v1/offline/nq/development/gold.jsonl": "90c05e0872d6056c65312ebab0a96925655548a4fef3d9e1e7f4ccaa75ae1166",
+    "artifacts/controller/data_v1/offline/fever/development/gold.jsonl": "46a4fd09dea942a20d8e0fb5655a8329eeb0d7eec256a33e916ededc9c36ff5c"
+  },
+  "analysis_code_sha256": "ad5bb06456c5df645e96ff64a19094113e59e9265c14a5aff565ec58ea5fe613"
+}

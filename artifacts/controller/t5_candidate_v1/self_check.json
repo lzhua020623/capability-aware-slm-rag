@@ -1,0 +1,29 @@
+{
+  "round": "T5.8 development-only shared-mode replay and candidate freeze",
+  "checked_at_UTC": "2026-10-26T01:08:51.888768+00:00",
+  "before": {
+    "HEAD": "28752aa2f8f6adc314241ec4ff09f9a462e94e05",
+    "branch": "controller",
+    "user_assistance_adoption_recorded": true,
+    "E_mode": "unavailable",
+    "selection_and_final_not_scored": true
+  },
+  "after": {
+    "full_tests": 947,
+    "targeted_tests": 5,
+    "cache_routes_verified": 800,
+    "replay_records": 1600,
+    "grid_attempts": 3,
+    "candidate_threshold": 0.2,
+    "candidate_for_selection_only": true,
+    "promoted": false,
+    "selection_runtime_read": false,
+    "selection_or_final_scored": false,
+    "new_GPU_calls": 0,
+    "unknown_labels_preserved": true,
+    "FEVER_unchanged": true,
+    "historical_hashes_verified": true
+  },
+  "full_test_log_sha256": "4636660bd2e29d2b89724c4b84f4a5f402b2ffc721bf97b506a5807cc30b33bc",
+  "candidate_sha256": "2e6b0c7194fb1fdc11aa87ec2c9865c56a9b3bcf42c4803985ea4bd906f5039f"
+}
