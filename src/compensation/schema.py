@@ -165,6 +165,11 @@ class RefinementResult:
     item's original retrieval score preserved; `rerank_scores` is aligned with
     it, or empty when no reranking took place. `sample_id` is for logging only
     and is excluded from equality.
+
+    `candidate_answer` is what the generator returned on the refined evidence,
+    kept even when it was rejected, so offline analysis can ask whether the
+    acceptance gate threw away answers that were in fact right. It is `None`
+    whenever no generation call was made.
     """
 
     status: RefinementStatus
@@ -178,6 +183,7 @@ class RefinementResult:
     regenerated: bool
     used_probe_hint: bool
     reject_reason: str | None = None
+    candidate_answer: str | None = None
     sample_id: str | None = field(default=None, compare=False)
     answer_changed: bool = field(init=False)
     evidence_changed: bool = field(init=False)
@@ -212,6 +218,8 @@ class RefinementResult:
                 raise TypeError(f"{name} must be bool")
         if self.reject_reason is not None and not isinstance(self.reject_reason, str):
             raise TypeError("reject_reason must be a string or None")
+        if self.candidate_answer is not None and not isinstance(self.candidate_answer, str):
+            raise TypeError("candidate_answer must be a string or None")
         refined_ids = tuple(item.passage_id for item in evidence)
         object.__setattr__(self, "refined_passage_ids", refined_ids)
         object.__setattr__(self, "answer_changed", self.final_answer != self.initial_answer)
@@ -233,6 +241,10 @@ class RefinementResult:
             raise ValueError("kept_original requires a reject_reason")
         if self.status is RefinementStatus.ANSWER_REPLACED and self.reject_reason is not None:
             raise ValueError("answer_replaced must not carry a reject_reason")
+        if self.candidate_answer is not None and not self.regenerated:
+            raise ValueError("candidate_answer requires a generation call")
+        if self.status is RefinementStatus.ANSWER_REPLACED and self.candidate_answer != self.final_answer:
+            raise ValueError("answer_replaced must report the accepted candidate as the final answer")
 
     def to_dict(self) -> dict:
         return {
@@ -250,6 +262,7 @@ class RefinementResult:
             "regenerated": self.regenerated,
             "used_probe_hint": self.used_probe_hint,
             "reject_reason": self.reject_reason,
+            "candidate_answer": self.candidate_answer,
         }
 
 

@@ -192,6 +192,7 @@ class RefinementOutcomeTest(unittest.TestCase):
         self.assertEqual(result.status, RefinementStatus.NO_CHANGE)
         self.assertEqual(result.final_answer, item.initial_answer)
         self.assertFalse(result.regenerated)
+        self.assertIsNone(result.candidate_answer)
         self.assertFalse(result.evidence_changed)
         self.assertEqual(rec.prompts, [])
         self.assertEqual(result.rerank_scores, (0.9, 0.5))
@@ -209,6 +210,7 @@ class RefinementOutcomeTest(unittest.TestCase):
         result = refiner_for(rec).run(item, decision())
         self.assertEqual(result.status, RefinementStatus.ANSWER_REPLACED)
         self.assertEqual(result.final_answer, "William Shakespeare")
+        self.assertEqual(result.candidate_answer, "William Shakespeare")
         self.assertTrue(result.answer_changed)
         self.assertTrue(result.evidence_changed)
         self.assertTrue(result.regenerated)
@@ -224,6 +226,7 @@ class RefinementOutcomeTest(unittest.TestCase):
         self.assertEqual(result.final_answer, "Christopher Marlowe")
         self.assertEqual(result.reject_reason, "not_grounded_in_kept_evidence")
         self.assertTrue(result.regenerated)
+        self.assertEqual(result.candidate_answer, "Ben Jonson")  # kept so offline analysis can audit the gate
 
     def test_refusal_is_rejected(self):
         rec = recorder("unknown", p1=0.1, p2=0.9)

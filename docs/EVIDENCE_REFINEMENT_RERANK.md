@@ -212,12 +212,100 @@ The measurement to run there, on the routed samples only:
 * `keep_k=5` against `keep_k=3`, to settle whether a shorter prompt helps
   enough to pay for the dropped passages.
 
-## 5. Files
+## 5. The trained reranker
+
+The NQ Train annotation round (the NQ_15 delivery, 74,097 labelled samples)
+turned accessibility from the scarcest class into the second largest:
+
+| Label | Count | Share |
+|---|---|---|
+| `correct` | 36,799 | 49.7% |
+| **`evidence_accessibility`** | **18,017** | **24.3%** |
+| `evidence_insufficiency` | 14,750 | 19.9% |
+| `evidence_utilisation` | 4,531 | 6.1% |
+
+### Supervision
+
+Accessibility samples carry their own passage-level labels once the gold answer
+is used: inside one sample's frozen Top-5 the answer-bearing passage is the
+positive and the distractors that outranked it are the negatives. No passage is
+retrieved that the frozen retriever did not already return.
+
+Of 18,017 annotated samples, 16,901 yield a positive (516 have none in the
+Top-5, 600 have no negative left). The positive sits at rank 1 in 8,906 of
+them — those only teach the model to hold still; the other ~6,900, where the
+answer sits at rank 2-5, are the signal.
+
+### Leak control
+
+1,131 samples were dropped because their question matches a frozen Dev/Test
+question (exact after normalisation, or token-Jaccard >= 0.6). The remaining
+15,770 were grouped the same way (13,965 groups) and whole groups were split
+70/15/15 with seed 42: **11,064 train / 2,339 validation / 2,367 test**, i.e.
+49,423 training pairs. No near-duplicate question straddles the split, and
+nothing the model trained on appears in the frozen evaluation.
+
+### Training
+
+`BAAI/bge-reranker-base` as a binary cross-encoder (BCE over the pairs),
+max_length 320, batch 16, lr 2e-5, 10% warmup, fp16 with 8-bit Adam, seed 42 —
+sized to fit a 6 GB GPU. `bge-reranker-large` does not fit for full fine-tuning
+on that card, which is why the smaller base model is the one that gets trained.
+
+```bash
+python scripts/normalize_nq15_annotations.py
+python scripts/build_rerank_training_data.py
+python scripts/train_rerank_accessibility.py --baseline BAAI/bge-reranker-large
+```
+
+The model lands in `models/reranker/accessibility_v1` (gitignored; retrain with
+the three commands above) and is used by setting one config field:
+
+```python
+config = RefinementConfig(reranker_model="models/reranker/accessibility_v1")
+refiner = EvidenceRefiner.from_frozen_defaults(config=config)
+```
+
+### Ordering results
+
+Held-out accessibility test split, 2,367 samples. `rank1` is how often the
+answer-bearing passage ends up first in its own Top-5; the comparison is paired
+(same samples, same passages), so the difference is tested with McNemar's exact
+test and a paired bootstrap (`results/compensation/rerank_model_comparison.json`).
+
+| Reranker | rank1 | MRR | vs `bge-reranker-large` |
+|---|---|---|---|
+| `BAAI/bge-reranker-large` (previous default) | 0.6261 | 0.7736 | — |
+| `BAAI/bge-reranker-base` (untrained) | 0.6210 | 0.7710 | −0.5pp, p = 0.61 |
+| **`accessibility_v1` (fine-tuned)** | **0.6591** | **0.7939** | **+3.3pp, p = 0.0014, 95% CI [+1.3, +5.3]** |
+
+The two off-the-shelf models are indistinguishable from each other, so the gain
+comes from training, not from the change of base model.
+
+On the frozen Dev 500 — a different NQ split, a different annotation round,
+never trained on (`results/compensation/rerank_frozen500_offline_finetuned.json`):
+
+| Label | n | answer-bearing at rank 1: before → `large` → **fine-tuned** |
+|---|---|---|
+| `evidence_accessibility` | 38 | 10 → 11 → **15** |
+| `correct` (harm check) | 375 | 219 → 243 → **250** |
+| `evidence_utilisation` | 33 | 21 → 17 → **22** |
+
+The fine-tuned model is better on its target class *and* on the already-correct
+samples, where the off-the-shelf large model was mildly harmful.
+
+## 6. Files
 
 | Path | Content |
 |---|---|
 | `src/compensation/schema.py` | `RefinementConfig`, `RefinementResult`, `RefinementStatus`, forbidden-field guard |
 | `src/compensation/rerank.py` | `RelevanceScorer`, `CrossEncoderScorer`, `build_candidate_pool`, `rerank_evidence` |
 | `src/compensation/evidence_refinement.py` | `EvidenceRefiner`, `evidence_refinement`, grounding and acceptance rules |
-| `scripts/evaluate_rerank_accessibility.py` | offline retrieval-side evaluation |
-| `tests/test_compensation_schema.py`, `tests/test_compensation_rerank.py`, `tests/test_evidence_refinement.py` | 68 tests, no model loaded except the frozen prompt builders |
+| `src/generation/backend.py` | pluggable generator: the frozen local Qwen, any OpenAI-compatible endpoint, or `echo` for dry runs |
+| `scripts/normalize_nq15_annotations.py` | the 15 returned NQ Train workbooks -> JSONL |
+| `scripts/build_rerank_training_data.py` | accessibility annotations -> training pairs, leak control, split |
+| `scripts/train_rerank_accessibility.py` | cross-encoder fine-tuning |
+| `scripts/compare_rerank_models.py` | paired comparison of rerankers (McNemar + bootstrap) |
+| `scripts/evaluate_rerank_accessibility.py` | retrieval-side evaluation on the frozen records |
+| `scripts/evaluate_refinement_end_to_end.py` | EM / F1 before and after, local or hosted generator |
+| `tests/test_compensation_*.py`, `tests/test_evidence_refinement.py`, `tests/test_rerank_training_data.py`, `tests/test_nq15_annotations.py`, `tests/test_generation_backend.py` | 117 tests; no model is loaded except the frozen prompt builders |

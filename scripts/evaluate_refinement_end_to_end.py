@@ -242,6 +242,8 @@ def main() -> None:
                 "f1_before": round(before_f1, 4),
                 "f1_after": round(after_f1, 4),
                 "reject_reason": result.reject_reason,
+                "candidate_answer": result.candidate_answer,
+                "candidate_em": exact_match(result.candidate_answer, gold) if result.candidate_answer else None,
             }
         )
         if index % 25 == 0 or index == len(records):
@@ -251,6 +253,9 @@ def main() -> None:
     total = len(rows)
     fixed = [row for row in rows if row["em_after"] > row["em_before"]]
     broken = [row for row in rows if row["em_after"] < row["em_before"]]
+    rejected = [row for row in rows if row["reject_reason"]]
+    gate_cost = [row for row in rejected if row["candidate_em"] and not row["em_before"]]
+    gate_saved = [row for row in rejected if row["em_before"] and not row["candidate_em"]]
     summary = {
         "samples": total,
         "em_before": round(sum(row["em_before"] for row in rows) / total, 4),
@@ -262,6 +267,11 @@ def main() -> None:
         "net_fixed": len(fixed) - len(broken),
         "answers_changed": sum(row["answer_changed"] for row in rows),
         "evidence_changed": sum(row["evidence_changed"] for row in rows),
+        "acceptance_gate": {
+            "rejected": len(rejected),
+            "rejected_but_candidate_was_right": len(gate_cost),
+            "rejected_and_rightly_so": len(gate_saved),
+        },
         "status_distribution": dict(statuses),
         "reject_reasons": dict(rejects),
         "seconds_per_sample": round((time.perf_counter() - start) / total, 3),

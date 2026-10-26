@@ -104,6 +104,7 @@ class RefinementResultTest(unittest.TestCase):
             status=RefinementStatus.ANSWER_REPLACED,
             evidence=kept,
             final_answer="Lyon",
+            candidate_answer="Lyon",
             original_passage_ids=("p1", "p2"),
             regenerated=True,
         )
@@ -127,6 +128,32 @@ class RefinementResultTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             result(candidate_pool_size=1)
 
+    def test_candidate_answer_requires_a_generation_call(self):
+        with self.assertRaises(ValueError):
+            result(candidate_answer="Lyon")
+        with self.assertRaises(TypeError):
+            result(status=RefinementStatus.KEPT_ORIGINAL, regenerated=True, reject_reason="r", candidate_answer=7)
+
+    def test_rejected_candidate_is_kept_for_analysis(self):
+        refined = result(
+            status=RefinementStatus.KEPT_ORIGINAL,
+            regenerated=True,
+            reject_reason="not_grounded_in_kept_evidence",
+            candidate_answer="Lyon",
+        )
+        self.assertEqual(refined.candidate_answer, "Lyon")
+        self.assertEqual(refined.final_answer, "Paris")
+        self.assertFalse(refined.answer_changed)
+
+    def test_accepted_candidate_must_be_the_final_answer(self):
+        with self.assertRaises(ValueError):
+            result(
+                status=RefinementStatus.ANSWER_REPLACED,
+                regenerated=True,
+                final_answer="Lyon",
+                candidate_answer="Nice",
+            )
+
     def test_status_invariants(self):
         with self.assertRaises(ValueError):  # a kept-answer status cannot change the answer
             result(status=RefinementStatus.NO_CHANGE, final_answer="Lyon")
@@ -146,7 +173,10 @@ class RefinementResultTest(unittest.TestCase):
     def test_valid_statuses(self):
         self.assertEqual(result(status=RefinementStatus.NOT_ROUTED).status, RefinementStatus.NOT_ROUTED)
         kept_original = result(
-            status=RefinementStatus.KEPT_ORIGINAL, regenerated=True, reject_reason="not_grounded_in_kept_evidence"
+            status=RefinementStatus.KEPT_ORIGINAL,
+            regenerated=True,
+            reject_reason="not_grounded_in_kept_evidence",
+            candidate_answer="Lyon",
         )
         self.assertTrue(kept_original.regenerated)
         self.assertFalse(kept_original.answer_changed)
@@ -215,6 +245,7 @@ class ForbiddenFieldTest(unittest.TestCase):
                 "regenerated",
                 "used_probe_hint",
                 "reject_reason",
+                "candidate_answer",
             },
         )
 

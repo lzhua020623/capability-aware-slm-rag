@@ -236,6 +236,7 @@ class EvidenceRefiner:
             regenerated=True,
             used_probe_hint=outcome.used_probe_hint,
             reject_reason=reason,
+            candidate_answer=answer,
             sample_id=item.sample_id,
         )
 
