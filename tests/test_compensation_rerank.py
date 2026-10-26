@@ -7,6 +7,7 @@ import unittest
 
 from src.compensation.rerank import (
     ShuffleScorer,
+    scorer_from_name,
     CrossEncoderScorer,
     RelevanceScorer,
     build_candidate_pool,
@@ -272,3 +273,24 @@ class ShuffleScorerTest(unittest.TestCase):
 
     def test_it_satisfies_the_scorer_protocol(self):
         self.assertIsInstance(ShuffleScorer(42), RelevanceScorer)
+
+
+class ScorerFromNameTest(unittest.TestCase):
+    def test_a_shuffle_name_rebuilds_the_control(self):
+        scorer = scorer_from_name("shuffle:7")
+        self.assertIsInstance(scorer, ShuffleScorer)
+        self.assertEqual(scorer.seed, 7)
+        self.assertEqual(scorer("q", ["a"]), ShuffleScorer(7)("q", ["a"]))
+
+    def test_a_negative_seed_is_accepted(self):
+        self.assertEqual(scorer_from_name("shuffle:-1").seed, -1)
+
+    def test_a_malformed_shuffle_name_is_rejected(self):
+        for name in ("shuffle:", "shuffle:abc", "shuffle:1.5"):
+            with self.assertRaises(ValueError):
+                scorer_from_name(name)
+
+    def test_an_empty_name_is_rejected(self):
+        for name in ("", "   ", None):
+            with self.assertRaises(ValueError):
+                scorer_from_name(name)

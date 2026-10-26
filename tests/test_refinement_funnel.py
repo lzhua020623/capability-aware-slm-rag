@@ -116,6 +116,17 @@ class FunnelTest(unittest.TestCase):
         stages = {stage["stage"][:2]: stage["samples"] for stage in build_funnel(rows)}
         self.assertEqual(stages["1."] + stages["2."] + stages["3."] + stages["4."], stages["al"])
 
+    def test_perturbation_buckets_partition_the_samples(self):
+        rows = [
+            row(["p1", "p2"], ["p1", "p2"], {"p1"}),   # top unchanged
+            row(["p1", "p2"], ["p2", "p1"], {"p2"}),   # top changed
+            row(["p1", "p2"], ["p2", "p1"], {"p1"}),   # top changed
+        ]
+        stages = {stage["stage"][:2]: stage["samples"] for stage in build_funnel(rows)}
+        self.assertEqual(stages["A."], 1)
+        self.assertEqual(stages["B."], 2)
+        self.assertEqual(stages["A."] + stages["B."], stages["al"])
+
     def test_substages_sum_to_their_parent(self):
         rows = [
             row(["p1", "p2"], ["p1", "p2"], {"p1"}),

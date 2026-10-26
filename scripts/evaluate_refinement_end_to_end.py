@@ -61,7 +61,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.compensation.evidence_refinement import EvidenceRefiner, build_refinement_prompt  # noqa: E402
-from src.compensation.rerank import CrossEncoderScorer, ShuffleScorer  # noqa: E402
+from src.compensation.rerank import scorer_from_name  # noqa: E402
 from src.compensation.refinement_schema import RefinementConfig  # noqa: E402
 from src.config import load_generator_config  # noqa: E402
 from src.controller.schema import ControllerAction, ControllerDecision  # noqa: E402
@@ -104,9 +104,7 @@ def to_input(record: dict) -> DiagnosisInput:
 
 def build_scorer(args, config: RefinementConfig):
     """The cross-encoder, or the shuffle control that replaces it."""
-    if args.scorer == "shuffle":
-        return ShuffleScorer(args.shuffle_seed)
-    return CrossEncoderScorer.from_pretrained(config.reranker_model)
+    return scorer_from_name(config.reranker_model)
 
 
 def load_before_answers(path: Path) -> dict[str, str]:
@@ -243,9 +241,9 @@ def main() -> None:
         raise SystemExit("no records matched")
     print(f"{len(records)} {args.label} samples from {split_note}")
 
-    config = RefinementConfig(keep_k=args.keep_k, reranker_model=args.model)
-    scorer_name = f"shuffle control (seed {args.shuffle_seed})" if args.scorer == "shuffle" else config.reranker_model
-    print(f"loading scorer {scorer_name} and generator backend {args.backend}")
+    scorer_id = f"shuffle:{args.shuffle_seed}" if args.scorer == "shuffle" else args.model
+    config = RefinementConfig(keep_k=args.keep_k, reranker_model=scorer_id)
+    print(f"loading scorer {config.reranker_model} and generator backend {args.backend}")
     refiner, generator_name, must_regenerate = build_refiner(args, config)
     regenerate_before = must_regenerate if args.regenerate_before is None else args.regenerate_before
     if must_regenerate and not regenerate_before:
@@ -344,8 +342,6 @@ def main() -> None:
             "name": generator_name,
             "model": args.generator_model if args.backend != "frozen" else str(generator_config["model_name"]),
             "max_new_tokens": args.max_new_tokens,
-            "scorer": "shuffle control" if args.scorer == "shuffle" else config.reranker_model,
-            "shuffle_seed": args.shuffle_seed if args.scorer == "shuffle" else None,
             "before_answers": (
                 f"reused from {args.before_from.name}"
                 if stored_before is not None

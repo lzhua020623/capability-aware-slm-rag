@@ -359,6 +359,58 @@ plausible string out of a distractor passage — so protecting grounded original
 blocks almost every repair as well. The two rules are the two ends of one
 trade-off, not an improvement over each other. The shipped gate stays.
 
+### The reranker is indistinguishable from shuffling
+
+A control run replaces the trained reranker with a seeded random permutation
+(`ShuffleScorer`) and changes nothing else — same samples, same evidence, same
+prompt, and the *same* "before" answers reused from the main run, so the two
+arms differ only in the ordering
+(`results/compensation/refinement_end_to_end_shuffle_control.json`).
+
+| | trained `accessibility_v1` | seeded shuffle |
+|---|---|---|
+| EM after | 0.1107 | **0.1187** |
+| token-F1 after | 0.3219 | 0.3274 |
+| repaired / broken | 156 / 53 | 187 / 65 |
+| net | +103 | **+122** |
+
+Paired on the 2,367 samples: 111 repaired only by the reranker, 130 only by
+shuffling; McNemar exact **p = 0.246**, paired bootstrap 95% CI on the EM
+difference **[−0.51pp, +2.07pp]**. The two are statistically
+indistinguishable, and the point estimate favours the random order.
+
+This is not because the reranker ranks badly. It ranks far better: it lifts the
+answer-bearing passage to rank 1 on 550 samples and drops it from rank 1 on
+197, against 296 and 743 for the shuffle. It wins decisively on the proxy
+objective and still repairs fewer answers.
+
+What repair actually tracks is whether the top of the context moved at all:
+
+| | rank 1 unchanged | rank 1 changed |
+|---|---|---|
+| trained reranker | 4.56% (n=987) | **9.09%** (n=1,221) |
+| seeded shuffle | 6.07% (n=428) | **9.04%** (n=1,780) |
+
+Conditional on perturbing the top passage, the repair rate is ~9% whether the
+new order is informed or random. The shuffle wins overall only because it
+perturbs more often (80.5% of samples against 55.2%). The effective ingredient
+is **re-asking the generator with a changed context**, not ranking quality.
+
+This replicates a published result on the same stack — Qwen2.5-7B, BGE
+retrieval, Top-5 — where reordering strategies were statistically equivalent to
+random shuffling ([arXiv:2505.15561](https://arxiv.org/abs/2505.15561)), and it
+is consistent with reranking surfacing *more* misleading passages near the top
+([arXiv:2505.06914](https://arxiv.org/abs/2505.06914)), which is the likely
+source of the harm measured above.
+
+So the +3.3pp rank-1 gain from fine-tuning is real but does not convert into
+answer accuracy. The cross-encoder is not justified by answer-level evidence:
+a fixed shuffle performs as well with no model, no GPU and no 1.1 GB artifact.
+The honest next step is to change the mechanism rather than the ranker —
+sentence-level pruning removes the distracting text instead of reordering it,
+and addresses the 48% of samples whose answer was already at rank 1, which no
+reordering can help.
+
 ### What this means for deployment
 
 The label a sample carries is not what decides whether this module helps it.

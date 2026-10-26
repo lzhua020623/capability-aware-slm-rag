@@ -37,7 +37,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.compensation.evidence_refinement import is_grounded, is_refusal  # noqa: E402
-from src.compensation.rerank import CrossEncoderScorer, rerank_evidence  # noqa: E402
+from src.compensation.rerank import rerank_evidence, scorer_from_name  # noqa: E402
 from src.compensation.refinement_schema import RefinementConfig  # noqa: E402
 from src.diagnosis.schema import EvidenceItem  # noqa: E402
 from src.evaluation.qa import exact_match  # noqa: E402
@@ -104,9 +104,9 @@ def main() -> None:
         raise SystemExit(f"{args.results} has no rows; re-run the evaluation with --save-rows")
     config = RefinementConfig(**{key: value for key, value in payload["config"].items()})
     records = {row["sample_id"]: row for row in read_jsonl(args.records)}
-    print(f"{len(rows)} rows | reranker {config.reranker_model} | keep_k {config.keep_k}")
+    print(f"{len(rows)} rows | scorer {config.reranker_model} | keep_k {config.keep_k}")
 
-    scorer = CrossEncoderScorer.from_pretrained(config.reranker_model)
+    scorer = scorer_from_name(config.reranker_model)
     for index, row in enumerate(rows, start=1):
         record = records[row["sample_id"]]
         evidence = [

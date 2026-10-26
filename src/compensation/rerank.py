@@ -103,6 +103,26 @@ class ShuffleScorer:
         return scores
 
 
+SHUFFLE_PREFIX = "shuffle:"
+
+
+def scorer_from_name(name: str) -> RelevanceScorer:
+    """Build the scorer a run recorded in `RefinementConfig.reranker_model`.
+
+    `shuffle:<seed>` rebuilds the control; anything else is a cross-encoder
+    path or hub id. Offline analyses use this so they reproduce the ordering
+    the run actually used instead of assuming a cross-encoder.
+    """
+    if not isinstance(name, str) or not name.strip():
+        raise ValueError("scorer name must be a non-empty string")
+    if name.startswith(SHUFFLE_PREFIX):
+        seed = name[len(SHUFFLE_PREFIX) :]
+        if not seed.lstrip("-").isdigit():
+            raise ValueError(f"Invalid shuffle scorer name {name!r}; expected {SHUFFLE_PREFIX}<int seed>")
+        return ShuffleScorer(int(seed))
+    return CrossEncoderScorer.from_pretrained(name)
+
+
 @dataclass(frozen=True)
 class RerankOutcome:
     """Reranked evidence in its new order, with the scores that produced it.

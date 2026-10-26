@@ -20,6 +20,20 @@
       "repair_rate": 0.0707
     },
     {
+      "stage": "A. rank 1 unchanged (context barely moved)",
+      "samples": 1061,
+      "already_wrong": 987,
+      "repaired": 45,
+      "repair_rate": 0.0456
+    },
+    {
+      "stage": "B. rank 1 changed (context perturbed)",
+      "samples": 1306,
+      "already_wrong": 1221,
+      "repaired": 111,
+      "repair_rate": 0.0909
+    },
+    {
       "stage": "1. no answer-bearing passage in Top-5 (out of scope)",
       "samples": 223,
       "already_wrong": 220,

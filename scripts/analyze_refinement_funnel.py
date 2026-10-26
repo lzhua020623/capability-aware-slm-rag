@@ -33,7 +33,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.compensation.rerank import CrossEncoderScorer, rerank_evidence  # noqa: E402
+from src.compensation.rerank import rerank_evidence, scorer_from_name  # noqa: E402
 from src.compensation.refinement_schema import RefinementConfig  # noqa: E402
 from src.diagnosis.schema import EvidenceItem  # noqa: E402
 from src.evaluation.qa import normalize_answer  # noqa: E402
@@ -97,8 +97,12 @@ def build_funnel(rows: list[dict]) -> list[dict]:
     promotable = [row for row in has_passage if not row["answer_at_rank1_before"]]
     promoted = [row for row in promotable if row["answer_at_rank1_after"]]
     not_promoted = [row for row in promotable if not row["answer_at_rank1_after"]]
+    unchanged_top = [row for row in rows if not row["rank1_changed"]]
+    changed_top = [row for row in rows if row["rank1_changed"]]
     return [
         bucket(rows, "all"),
+        bucket(unchanged_top, "A. rank 1 unchanged (context barely moved)"),
+        bucket(changed_top, "B. rank 1 changed (context perturbed)"),
         bucket(no_passage, "1. no answer-bearing passage in Top-5 (out of scope)"),
         bucket(already_first, "2. answer already at rank 1 before reranking (little to do)"),
         bucket(held, "2a.  ... and reranking kept it there"),
@@ -121,8 +125,8 @@ def main() -> None:
         raise SystemExit(f"{args.results} has no rows; re-run the evaluation with --save-rows")
     config = RefinementConfig(**payload["config"])
     records = {record["sample_id"]: record for record in read_jsonl(args.records)}
-    scorer = CrossEncoderScorer.from_pretrained(config.reranker_model)
-    print(f"{len(rows)} rows | reranker {config.reranker_model}")
+    scorer = scorer_from_name(config.reranker_model)
+    print(f"{len(rows)} rows | scorer {config.reranker_model}")
 
     for index, row in enumerate(rows, start=1):
         record = records[row["sample_id"]]
