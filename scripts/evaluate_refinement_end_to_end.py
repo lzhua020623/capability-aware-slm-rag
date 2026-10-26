@@ -61,7 +61,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.compensation.evidence_refinement import EvidenceRefiner, build_refinement_prompt  # noqa: E402
-from src.compensation.rerank import CrossEncoderScorer  # noqa: E402
+from src.compensation.rerank import CrossEncoderScorer, ShuffleScorer  # noqa: E402
 from src.compensation.refinement_schema import RefinementConfig  # noqa: E402
 from src.config import load_generator_config  # noqa: E402
 from src.controller.schema import ControllerAction, ControllerDecision  # noqa: E402
@@ -102,6 +102,26 @@ def to_input(record: dict) -> DiagnosisInput:
     )
 
 
+def build_scorer(args, config: RefinementConfig):
+    """The cross-encoder, or the shuffle control that replaces it."""
+    if args.scorer == "shuffle":
+        return ShuffleScorer(args.shuffle_seed)
+    return CrossEncoderScorer.from_pretrained(config.reranker_model)
+
+
+def load_before_answers(path: Path) -> dict[str, str]:
+    """Reuse the "before" answers of an earlier run so two runs differ only in the ordering.
+
+    Hosted inference is not bit-reproducible, so regenerating them would add
+    noise to a comparison whose whole point is the ordering.
+    """
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    rows = payload.get("rows")
+    if not rows:
+        raise SystemExit(f"{path} has no rows; re-run that evaluation with --save-rows")
+    return {row["sample_id"]: row["initial_answer"] for row in rows}
+
+
 def build_refiner(args, config: RefinementConfig):
     """The refiner plus a flag saying whether the stored C1 answer is still comparable.
 
@@ -111,6 +131,8 @@ def build_refiner(args, config: RefinementConfig):
     through it.
     """
     if args.backend == "frozen":
+        if args.scorer != "cross_encoder":
+            raise SystemExit("--scorer shuffle needs a hosted backend; the frozen loader builds its own scorer")
         return EvidenceRefiner.from_frozen_defaults(config=config), "frozen local Qwen2.5-7B NF4", False
 
     backend = build_backend(args.backend, args.generator_model, args.base_url, args.api_key)
@@ -120,8 +142,7 @@ def build_refiner(args, config: RefinementConfig):
         text, _latency = backend.generate(prompt, max_new_tokens)
         return text
 
-    scorer = CrossEncoderScorer.from_pretrained(config.reranker_model)
-    return EvidenceRefiner(scorer, generate, config=config), backend.name, True
+    return EvidenceRefiner(build_scorer(args, config), generate, config=config), backend.name, True
 
 
 def frozen_500_records(path: Path, label_file: Path, label: str) -> list[dict]:
@@ -168,6 +189,19 @@ def main() -> None:
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--save-rows", action="store_true")
     parser.add_argument(
+        "--scorer",
+        choices=("cross_encoder", "shuffle"),
+        default="cross_encoder",
+        help="shuffle replaces the reranker with a seeded random order: the perturbation control",
+    )
+    parser.add_argument("--shuffle-seed", type=int, default=42)
+    parser.add_argument(
+        "--before-from",
+        type=Path,
+        default=None,
+        help="reuse the before answers of an earlier run instead of regenerating them",
+    )
+    parser.add_argument(
         "--backend",
         default="frozen",
         help="frozen (local Qwen2.5-7B NF4), echo (dry run), or any OpenAI-compatible provider "
@@ -210,13 +244,26 @@ def main() -> None:
     print(f"{len(records)} {args.label} samples from {split_note}")
 
     config = RefinementConfig(keep_k=args.keep_k, reranker_model=args.model)
-    print(f"loading reranker {config.reranker_model} and generator backend {args.backend}")
+    scorer_name = f"shuffle control (seed {args.shuffle_seed})" if args.scorer == "shuffle" else config.reranker_model
+    print(f"loading scorer {scorer_name} and generator backend {args.backend}")
     refiner, generator_name, must_regenerate = build_refiner(args, config)
     regenerate_before = must_regenerate if args.regenerate_before is None else args.regenerate_before
     if must_regenerate and not regenerate_before:
         print("WARNING: comparing a hosted answer against the stored 4-bit NF4 answer mixes quantisation "
               "into the delta; --no-regenerate-before was asked for explicitly.")
-    print(f"generator: {generator_name} | before answers: {'regenerated' if regenerate_before else 'stored C1'}")
+    stored_before = None
+    if args.before_from:
+        stored_before = load_before_answers(args.before_from)
+        missing = [record["sample_id"] for record in records if record["sample_id"] not in stored_before]
+        if missing:
+            raise SystemExit(f"{args.before_from} is missing before answers for {len(missing)} samples")
+
+    before_note = (
+        f"reused from {args.before_from.name} ({len(stored_before)} answers)"
+        if stored_before is not None
+        else ("regenerated" if regenerate_before else "stored C1")
+    )
+    print(f"generator: {generator_name} | before answers: {before_note}")
 
     rows = []
     statuses: Counter[str] = Counter()
@@ -224,7 +271,9 @@ def main() -> None:
     start = time.perf_counter()
     for index, record in enumerate(records, start=1):
         item = to_input(record)
-        if regenerate_before:
+        if stored_before is not None:
+            item = dataclasses.replace(item, initial_answer=stored_before[record["sample_id"]])
+        elif regenerate_before:
             # Same backend, same frozen prompt, Top-5 in its original order.
             item = dataclasses.replace(item, initial_answer=refiner.generate(build_refinement_prompt(item, item.evidence)))
         result = refiner.run(item, ROUTED)
@@ -295,7 +344,13 @@ def main() -> None:
             "name": generator_name,
             "model": args.generator_model if args.backend != "frozen" else str(generator_config["model_name"]),
             "max_new_tokens": args.max_new_tokens,
-            "before_answers": "regenerated through the same backend" if regenerate_before else "stored frozen C1",
+            "scorer": "shuffle control" if args.scorer == "shuffle" else config.reranker_model,
+            "shuffle_seed": args.shuffle_seed if args.scorer == "shuffle" else None,
+            "before_answers": (
+                f"reused from {args.before_from.name}"
+                if stored_before is not None
+                else ("regenerated through the same backend" if regenerate_before else "stored frozen C1")
+            ),
         },
         "config": config.to_dict(),
         "summary": summary,
