@@ -10,4 +10,4 @@
 
 原 `gpu_release_v1` 没有上传／运行。实际解包发现便携测试缺少两项依赖，45 项中 5 项报错；原件及失败日志保留。v2 只补测试依赖，新增真实解包回归，候选、提示、预算、分支和输入不变，不是语义重试。
 
-首次 GPU 已提交至 [Version 1 / 362316572](https://www.kaggle.com/code/yearo111/controller-t5-selection-frozen-20261026?scriptVersionId=362316572)，确认 Running、Private、GPU T4×2。见 [启动回执](launch_v1.json)。活动路径工程检查和真实选型预测尚待确认，不把启动当成验收或候选晋升；封存时的 `GPU_started=false` 历史字段保留。
+首次 GPU [Version 1 / 362316572](https://www.kaggle.com/code/yearo111/controller-t5-selection-frozen-20261026?scriptVersionId=362316572) 已成功完成，2,000 条预测齐全，零调用／预算失败。独立核验和冻结评分见 [结果报告](kaggle_v1/README.md)：原 Adaptive 为 NQ 89→93、FEVER 163→164；唯一 NQ 0.2 候选相对原路由 93→90，按预登记拒绝晋升。15 个候选改答对的语义审核另列，不能把 EM 回退直接当作语义误修。原 [启动回执](launch_v1.json) 及封存时的 `GPU_started=false` 历史字段保留；最终测试未开始。

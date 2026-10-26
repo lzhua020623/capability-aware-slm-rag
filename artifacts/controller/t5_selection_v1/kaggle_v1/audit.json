@@ -1,0 +1,647 @@
+{
+  "schema_version": "controller_t5_selection_audit_v1",
+  "role": "selection_descriptive_not_final_test",
+  "archive_sha256": "2139d926fb32c6071b95ceae3035ac95c06e7da10118b9c8976e302bcb62a7bd",
+  "archive_bytes": 7339856,
+  "archive_checked_files": 17,
+  "source_commit": "7c281d0193a4d1e205cfbc23dca31d6d4a0ac861",
+  "reference_sha256": {
+    "fever": "4056c82f8a6145aacf69c4fc41795d8c0340f25ccc6cca7247f6fb99a29d575b",
+    "nq": "ac82f06e41896f4bd63aeb8fc8d45010158fdbd4bfb746c3bbbc5147e7d1eaf8"
+  },
+  "acceptance": {
+    "complete": true,
+    "n_records": 2000,
+    "n_expected": 2000,
+    "required_modes": [
+      "c1",
+      "always_retrieve",
+      "always_rerank",
+      "always_repair",
+      "adaptive"
+    ],
+    "execution_errors": 0
+  },
+  "active_long_checks_passed": 6,
+  "inactive_E_checks_passed": 2,
+  "historical_queries_reproduced": 2,
+  "adaptive_fixed_cache_checks": 400,
+  "groups": {
+    "fever": {
+      "c1": {
+        "n": 200,
+        "correct": 163,
+        "accuracy": 0.815,
+        "vs_C1": {
+          "n": 200,
+          "initial_correct": 163,
+          "initial_wrong": 37,
+          "fixed": 0,
+          "regressed": 0,
+          "net_correct": 0,
+          "repair_rate": 0.0,
+          "regression_rate": 0.0
+        },
+        "paired_vs_C1": {
+          "n": 200,
+          "gain": 0,
+          "loss": 0,
+          "difference": 0.0,
+          "bootstrap_two_sided_95": [
+            0.0,
+            0.0
+          ],
+          "bootstrap_one_sided_95_lower": 0.0,
+          "mcnemar_two_sided_p": 1.0,
+          "replicates": 10000,
+          "seed": 42
+        },
+        "changed_answers": 0,
+        "measured_incremental_cost": {
+          "n": 200,
+          "changed": 0,
+          "statuses": {
+            "no_action": 200
+          },
+          "actions": {
+            "no_action": 200
+          },
+          "unresolved_flagged": 0,
+          "llm_calls": 0,
+          "retrieval_calls": 0,
+          "scoring_calls": 0,
+          "input_tokens": 0,
+          "output_tokens_estimate": 0,
+          "total_seconds": 0.09514983998360549,
+          "failed_calls": 0,
+          "budget_blocks": 0
+        }
+      },
+      "always_retrieve": {
+        "n": 200,
+        "correct": 167,
+        "accuracy": 0.835,
+        "vs_C1": {
+          "n": 200,
+          "initial_correct": 163,
+          "initial_wrong": 37,
+          "fixed": 7,
+          "regressed": 3,
+          "net_correct": 4,
+          "repair_rate": 0.1891891891891892,
+          "regression_rate": 0.018404907975460124
+        },
+        "paired_vs_C1": {
+          "n": 200,
+          "gain": 7,
+          "loss": 3,
+          "difference": 0.02,
+          "bootstrap_two_sided_95": [
+            -0.01,
+            0.05
+          ],
+          "bootstrap_one_sided_95_lower": -0.005,
+          "mcnemar_two_sided_p": 0.34375,
+          "replicates": 10000,
+          "seed": 42
+        },
+        "changed_answers": 10,
+        "measured_incremental_cost": {
+          "n": 200,
+          "changed": 10,
+          "statuses": {
+            "answer_replaced": 199,
+            "no_change": 1
+          },
+          "actions": {
+            "retrieval_enhancement": 200
+          },
+          "unresolved_flagged": 0,
+          "llm_calls": 199,
+          "retrieval_calls": 200,
+          "scoring_calls": 200,
+          "input_tokens": 296962,
+          "output_tokens_estimate": 1859,
+          "total_seconds": 4135.128815860998,
+          "failed_calls": 0,
+          "budget_blocks": 0
+        }
+      },
+      "always_rerank": {
+        "n": 200,
+        "correct": 164,
+        "accuracy": 0.82,
+        "vs_C1": {
+          "n": 200,
+          "initial_correct": 163,
+          "initial_wrong": 37,
+          "fixed": 6,
+          "regressed": 5,
+          "net_correct": 1,
+          "repair_rate": 0.16216216216216217,
+          "regression_rate": 0.03067484662576687
+        },
+        "paired_vs_C1": {
+          "n": 200,
+          "gain": 6,
+          "loss": 5,
+          "difference": 0.005,
+          "bootstrap_two_sided_95": [
+            -0.025,
+            0.04
+          ],
+          "bootstrap_one_sided_95_lower": -0.02,
+          "mcnemar_two_sided_p": 1.0,
+          "replicates": 10000,
+          "seed": 42
+        },
+        "changed_answers": 32,
+        "measured_incremental_cost": {
+          "n": 200,
+          "changed": 32,
+          "statuses": {
+            "answer_replaced": 180,
+            "no_change": 20
+          },
+          "actions": {
+            "evidence_refinement": 200
+          },
+          "unresolved_flagged": 0,
+          "llm_calls": 180,
+          "retrieval_calls": 0,
+          "scoring_calls": 200,
+          "input_tokens": 236418,
+          "output_tokens_estimate": 1766,
+          "total_seconds": 1785.0572771130064,
+          "failed_calls": 0,
+          "budget_blocks": 0
+        }
+      },
+      "always_repair": {
+        "n": 200,
+        "correct": 163,
+        "accuracy": 0.815,
+        "vs_C1": {
+          "n": 200,
+          "initial_correct": 163,
+          "initial_wrong": 37,
+          "fixed": 0,
+          "regressed": 0,
+          "net_correct": 0,
+          "repair_rate": 0.0,
+          "regression_rate": 0.0
+        },
+        "paired_vs_C1": {
+          "n": 200,
+          "gain": 0,
+          "loss": 0,
+          "difference": 0.0,
+          "bootstrap_two_sided_95": [
+            0.0,
+            0.0
+          ],
+          "bootstrap_one_sided_95_lower": 0.0,
+          "mcnemar_two_sided_p": 1.0,
+          "replicates": 10000,
+          "seed": 42
+        },
+        "changed_answers": 0,
+        "measured_incremental_cost": {
+          "n": 200,
+          "changed": 0,
+          "statuses": {
+            "verification_unavailable": 200
+          },
+          "actions": {
+            "generation_repair": 200
+          },
+          "unresolved_flagged": 200,
+          "llm_calls": 0,
+          "retrieval_calls": 0,
+          "scoring_calls": 0,
+          "input_tokens": 0,
+          "output_tokens_estimate": 0,
+          "total_seconds": 0.7036494689955362,
+          "failed_calls": 0,
+          "budget_blocks": 0
+        }
+      },
+      "adaptive": {
+        "n": 200,
+        "correct": 164,
+        "accuracy": 0.82,
+        "vs_C1": {
+          "n": 200,
+          "initial_correct": 163,
+          "initial_wrong": 37,
+          "fixed": 1,
+          "regressed": 0,
+          "net_correct": 1,
+          "repair_rate": 0.02702702702702703,
+          "regression_rate": 0.0
+        },
+        "paired_vs_C1": {
+          "n": 200,
+          "gain": 1,
+          "loss": 0,
+          "difference": 0.005,
+          "bootstrap_two_sided_95": [
+            0.0,
+            0.015
+          ],
+          "bootstrap_one_sided_95_lower": 0.0,
+          "mcnemar_two_sided_p": 1.0,
+          "replicates": 10000,
+          "seed": 42
+        },
+        "changed_answers": 1,
+        "measured_incremental_cost": {
+          "n": 200,
+          "changed": 1,
+          "statuses": {
+            "no_action": 137,
+            "answer_replaced": 63
+          },
+          "actions": {
+            "no_action": 137,
+            "retrieval_enhancement": 63
+          },
+          "unresolved_flagged": 21,
+          "llm_calls": 111,
+          "retrieval_calls": 63,
+          "scoring_calls": 63,
+          "input_tokens": 148095,
+          "output_tokens_estimate": 4248,
+          "total_seconds": 1556.9204141130003,
+          "failed_calls": 0,
+          "budget_blocks": 0
+        }
+      }
+    },
+    "nq": {
+      "c1": {
+        "n": 200,
+        "correct": 89,
+        "accuracy": 0.445,
+        "vs_C1": {
+          "n": 200,
+          "initial_correct": 89,
+          "initial_wrong": 111,
+          "fixed": 0,
+          "regressed": 0,
+          "net_correct": 0,
+          "repair_rate": 0.0,
+          "regression_rate": 0.0
+        },
+        "paired_vs_C1": {
+          "n": 200,
+          "gain": 0,
+          "loss": 0,
+          "difference": 0.0,
+          "bootstrap_two_sided_95": [
+            0.0,
+            0.0
+          ],
+          "bootstrap_one_sided_95_lower": 0.0,
+          "mcnemar_two_sided_p": 1.0,
+          "replicates": 10000,
+          "seed": 42
+        },
+        "changed_answers": 0,
+        "measured_incremental_cost": {
+          "n": 200,
+          "changed": 0,
+          "statuses": {
+            "no_action": 200
+          },
+          "actions": {
+            "no_action": 200
+          },
+          "unresolved_flagged": 0,
+          "llm_calls": 0,
+          "retrieval_calls": 0,
+          "scoring_calls": 0,
+          "input_tokens": 0,
+          "output_tokens_estimate": 0,
+          "total_seconds": 0.07975638999732837,
+          "failed_calls": 0,
+          "budget_blocks": 0
+        }
+      },
+      "always_retrieve": {
+        "n": 200,
+        "correct": 89,
+        "accuracy": 0.445,
+        "vs_C1": {
+          "n": 200,
+          "initial_correct": 89,
+          "initial_wrong": 111,
+          "fixed": 9,
+          "regressed": 9,
+          "net_correct": 0,
+          "repair_rate": 0.08108108108108109,
+          "regression_rate": 0.10112359550561797
+        },
+        "paired_vs_C1": {
+          "n": 200,
+          "gain": 9,
+          "loss": 9,
+          "difference": 0.0,
+          "bootstrap_two_sided_95": [
+            -0.04,
+            0.04
+          ],
+          "bootstrap_one_sided_95_lower": -0.035,
+          "mcnemar_two_sided_p": 1.0,
+          "replicates": 10000,
+          "seed": 42
+        },
+        "changed_answers": 43,
+        "measured_incremental_cost": {
+          "n": 200,
+          "changed": 43,
+          "statuses": {
+            "answer_replaced": 173,
+            "kept_original": 20,
+            "no_change": 7
+          },
+          "actions": {
+            "retrieval_enhancement": 200
+          },
+          "unresolved_flagged": 20,
+          "llm_calls": 193,
+          "retrieval_calls": 200,
+          "scoring_calls": 200,
+          "input_tokens": 149820,
+          "output_tokens_estimate": 927,
+          "total_seconds": 2606.3462707949984,
+          "failed_calls": 0,
+          "budget_blocks": 0
+        }
+      },
+      "always_rerank": {
+        "n": 200,
+        "correct": 92,
+        "accuracy": 0.46,
+        "vs_C1": {
+          "n": 200,
+          "initial_correct": 89,
+          "initial_wrong": 111,
+          "fixed": 7,
+          "regressed": 4,
+          "net_correct": 3,
+          "repair_rate": 0.06306306306306306,
+          "regression_rate": 0.0449438202247191
+        },
+        "paired_vs_C1": {
+          "n": 200,
+          "gain": 7,
+          "loss": 4,
+          "difference": 0.015,
+          "bootstrap_two_sided_95": [
+            -0.015,
+            0.05
+          ],
+          "bootstrap_one_sided_95_lower": -0.01,
+          "mcnemar_two_sided_p": 0.548828125,
+          "replicates": 10000,
+          "seed": 42
+        },
+        "changed_answers": 32,
+        "measured_incremental_cost": {
+          "n": 200,
+          "changed": 32,
+          "statuses": {
+            "answer_replaced": 168,
+            "kept_original": 21,
+            "no_change": 11
+          },
+          "actions": {
+            "evidence_refinement": 200
+          },
+          "unresolved_flagged": 21,
+          "llm_calls": 189,
+          "retrieval_calls": 0,
+          "scoring_calls": 200,
+          "input_tokens": 135142,
+          "output_tokens_estimate": 900,
+          "total_seconds": 951.5366732060006,
+          "failed_calls": 0,
+          "budget_blocks": 0
+        }
+      },
+      "always_repair": {
+        "n": 200,
+        "correct": 89,
+        "accuracy": 0.445,
+        "vs_C1": {
+          "n": 200,
+          "initial_correct": 89,
+          "initial_wrong": 111,
+          "fixed": 0,
+          "regressed": 0,
+          "net_correct": 0,
+          "repair_rate": 0.0,
+          "regression_rate": 0.0
+        },
+        "paired_vs_C1": {
+          "n": 200,
+          "gain": 0,
+          "loss": 0,
+          "difference": 0.0,
+          "bootstrap_two_sided_95": [
+            0.0,
+            0.0
+          ],
+          "bootstrap_one_sided_95_lower": 0.0,
+          "mcnemar_two_sided_p": 1.0,
+          "replicates": 10000,
+          "seed": 42
+        },
+        "changed_answers": 0,
+        "measured_incremental_cost": {
+          "n": 200,
+          "changed": 0,
+          "statuses": {
+            "verification_unavailable": 200
+          },
+          "actions": {
+            "generation_repair": 200
+          },
+          "unresolved_flagged": 200,
+          "llm_calls": 0,
+          "retrieval_calls": 0,
+          "scoring_calls": 0,
+          "input_tokens": 0,
+          "output_tokens_estimate": 0,
+          "total_seconds": 0.2931376629994702,
+          "failed_calls": 0,
+          "budget_blocks": 0
+        }
+      },
+      "adaptive": {
+        "n": 200,
+        "correct": 93,
+        "accuracy": 0.465,
+        "vs_C1": {
+          "n": 200,
+          "initial_correct": 89,
+          "initial_wrong": 111,
+          "fixed": 4,
+          "regressed": 0,
+          "net_correct": 4,
+          "repair_rate": 0.036036036036036036,
+          "regression_rate": 0.0
+        },
+        "paired_vs_C1": {
+          "n": 200,
+          "gain": 4,
+          "loss": 0,
+          "difference": 0.02,
+          "bootstrap_two_sided_95": [
+            0.005,
+            0.04
+          ],
+          "bootstrap_one_sided_95_lower": 0.005,
+          "mcnemar_two_sided_p": 0.125,
+          "replicates": 10000,
+          "seed": 42
+        },
+        "changed_answers": 15,
+        "measured_incremental_cost": {
+          "n": 200,
+          "changed": 15,
+          "statuses": {
+            "answer_replaced": 24,
+            "no_action": 163,
+            "verification_unavailable": 10,
+            "kept_original": 3
+          },
+          "actions": {
+            "retrieval_enhancement": 9,
+            "no_action": 163,
+            "evidence_refinement": 18,
+            "generation_repair": 10
+          },
+          "unresolved_flagged": 17,
+          "llm_calls": 79,
+          "retrieval_calls": 9,
+          "scoring_calls": 27,
+          "input_tokens": 84442,
+          "output_tokens_estimate": 4108,
+          "total_seconds": 589.8733208239964,
+          "failed_calls": 0,
+          "budget_blocks": 0
+        }
+      }
+    }
+  },
+  "candidate_threshold": 0.2,
+  "candidate_comparison": {
+    "nq": {
+      "n": 200,
+      "original_adaptive_correct": 93,
+      "candidate_correct": 90,
+      "vs_original_adaptive": {
+        "n": 200,
+        "initial_correct": 93,
+        "initial_wrong": 107,
+        "fixed": 3,
+        "regressed": 6,
+        "net_correct": -3,
+        "repair_rate": 0.028037383177570093,
+        "regression_rate": 0.06451612903225806
+      },
+      "paired_vs_original_adaptive": {
+        "n": 200,
+        "gain": 3,
+        "loss": 6,
+        "difference": -0.015,
+        "bootstrap_two_sided_95": [
+          -0.045,
+          0.015
+        ],
+        "bootstrap_one_sided_95_lower": -0.04,
+        "mcnemar_two_sided_p": 0.5078125,
+        "replicates": 10000,
+        "seed": 42
+      },
+      "overridden_routes": 103,
+      "changed_answer_pairs": 15,
+      "semantic_review_pending": 15,
+      "semantic_net_bounds": [
+        -15,
+        15
+      ],
+      "incremental_cost_delta_estimate": {
+        "llm_calls": 100,
+        "retrieval_calls": 103,
+        "scoring_calls": 103,
+        "provider_seconds_estimate": 1347.0111711739974
+      }
+    },
+    "fever": {
+      "n": 200,
+      "original_adaptive_correct": 164,
+      "candidate_correct": 164,
+      "vs_original_adaptive": {
+        "n": 200,
+        "initial_correct": 164,
+        "initial_wrong": 36,
+        "fixed": 0,
+        "regressed": 0,
+        "net_correct": 0,
+        "repair_rate": 0.0,
+        "regression_rate": 0.0
+      },
+      "paired_vs_original_adaptive": {
+        "n": 200,
+        "gain": 0,
+        "loss": 0,
+        "difference": 0.0,
+        "bootstrap_two_sided_95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_one_sided_95_lower": 0.0,
+        "mcnemar_two_sided_p": 1.0,
+        "replicates": 10000,
+        "seed": 42
+      },
+      "overridden_routes": 0,
+      "changed_answer_pairs": 0,
+      "semantic_review_pending": 0,
+      "semantic_net_bounds": [
+        0,
+        0
+      ],
+      "incremental_cost_delta_estimate": {
+        "llm_calls": 0,
+        "retrieval_calls": 0,
+        "scoring_calls": 0,
+        "provider_seconds_estimate": 0.0
+      }
+    }
+  },
+  "decision": {
+    "candidate_promoted": false,
+    "status": "rejected",
+    "reason": "selection_frozen_EM_net_not_positive",
+    "retain_original_route": true,
+    "alternate_thresholds_evaluated": 0,
+    "final_evaluation_started": false
+  },
+  "new_GPU_calls": 0,
+  "statistical_scope": "Paired bootstrap/McNemar descriptive only; no final four-hypothesis Holm family without Full",
+  "cost_scope": "Measured costs exclude shared C1; candidate provider times are replay estimates, not deployment latency",
+  "semantic_scope": "NQ EM transitions are not human semantic verdicts; pending review cannot reverse the frozen EM rejection",
+  "E_scope": "Unavailable on both datasets; zero calls/changes do not demonstrate E quality or AC6 precision",
+  "analysis_source_sha256": {
+    "scripts/audit_controller_t5_selection.py": "52e6152b53d60b980a760801fc7fee1d011ac446ae7b1725d810d612b8def366",
+    "src/controller/evaluation.py": "a62718390cc55ead723a5f92ed794e473edc6441259957b151a79b1051ce9539",
+    "src/controller/v2a_policy.py": "9c5d7b077a0e54f852be5ceb6984e6c59c740edf323556da7ea9b40bd75e94be",
+    "src/evaluation/answer_repair.py": "896cbb5a1506fcf2bab02a9ada655279eb092939776a5cb2640a27dea9539147",
+    "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+    "src/evaluation/fever.py": "f8fac10584bffbafda1d627311624cb817f5ec725d9ade60493f281301bac2fa"
+  }
+}

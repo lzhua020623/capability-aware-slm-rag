@@ -1,0 +1,8 @@
+test_all_2800_saved_predictions_reach_completed_summary (tests.test_controller_t4_completion.T4CompletionTests.test_all_2800_saved_predictions_reach_completed_summary) ... ok
+test_conditional_schema_rejects_observed_empty_ids_before_generation (tests.test_evidence_v2a.V2ATests.test_conditional_schema_rejects_observed_empty_ids_before_generation) ... ok
+test_extracted_portable_suite_is_self_contained (tests.test_controller_t5_selection.T5SelectionTests.test_extracted_portable_suite_is_self_contained) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 35.401s
+
+OK

@@ -1,0 +1,13 @@
+{
+  "independent_process_replayed_raw_ZIP": true,
+  "all_five_outputs_byte_identical": true,
+  "new_GPU_calls": 0,
+  "final_inputs_read": false,
+  "sha256": {
+    "outputs.zip": "2139d926fb32c6071b95ceae3035ac95c06e7da10118b9c8976e302bcb62a7bd",
+    "audit.json": "edd868f9fc29d0e796c283a9de83b70969b7b5a270b5c93fcbc6f3484bf8b96d",
+    "decision.json": "4c340add8fb5db7e9f3906294229a52f5a22d47d70e96f90a0847bf39116f342",
+    "candidate_review15.jsonl": "8f0f09202c2a85784ff1cb0bc16ab7d5a2c7b48e59ce4a7bda60b72a5a256481",
+    "candidate_replay.jsonl": "445ba53e310e2d010c98e09cb0a5928ff94626858eeef412130ddea851625224"
+  }
+}

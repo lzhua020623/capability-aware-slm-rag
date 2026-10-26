@@ -1,0 +1,8 @@
+{
+  "candidate_promoted": false,
+  "status": "rejected",
+  "reason": "selection_frozen_EM_net_not_positive",
+  "retain_original_route": true,
+  "alternate_thresholds_evaluated": 0,
+  "final_evaluation_started": false
+}

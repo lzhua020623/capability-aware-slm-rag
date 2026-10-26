@@ -1,0 +1,69 @@
+{
+  "checked_at_UTC": "2026-10-26T09:58:23.643277+00:00",
+  "round": "T5 first selection output audit and frozen candidate decision",
+  "before": {
+    "branch": "controller",
+    "HEAD": "e8aeaedb474c064114e5b286bf57b26ee5d87289",
+    "preserved_user_file": "data/annotations/assisted/answer_repair_v7_batch01_20261017.jsonl",
+    "frozen_GPU_source_commit": "7c281d0193a4d1e205cfbc23dca31d6d4a0ac861",
+    "script_version_id": 362316572,
+    "scope": "Read completed first selection; no new GPU run, training, threshold search or final scoring"
+  },
+  "after": {
+    "export_files_checked": 17,
+    "prediction_records": 2000,
+    "unique_questions": 400,
+    "execution_errors": 0,
+    "active_long_checks_passed": 6,
+    "inactive_E_checks_passed": 2,
+    "historical_queries_reproduced": 2,
+    "adaptive_fixed_cache_checks": 400,
+    "independent_process_outputs_byte_identical": 5,
+    "new_regression_tests_passed": 8,
+    "dependency_rechecks_passed": 3,
+    "full_tests_passed": 965,
+    "full_test_seconds": 139.54,
+    "initial_local_full_check": "965 tests; 1 failure and 2 errors from missing sentence-transformers/jsonschema; original log retained",
+    "NQ_C1_correct": 89,
+    "NQ_original_Adaptive_correct": 93,
+    "NQ_candidate_correct": 90,
+    "FEVER_C1_correct": 163,
+    "FEVER_original_Adaptive_correct": 164,
+    "FEVER_candidate_correct": 164,
+    "candidate_promoted": false,
+    "candidate_rejected_by_frozen_EM": true,
+    "alternate_thresholds_evaluated": 0,
+    "E_mode": "unavailable",
+    "E_repair_acceptance_claim": false,
+    "candidate_semantic_reviews_pending": 15,
+    "new_GPU_calls": 0,
+    "final_quality_scored": false,
+    "runtime_prompts_models_or_route_modified": false
+  },
+  "local_validation_environment": {
+    "python": "Python 3.12.14",
+    "packages": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "scikit-learn": "1.9.1",
+      "torch": "2.14.1",
+      "transformers": "5.16.1",
+      "faiss-cpu": "1.15.1",
+      "sentence-transformers": "6.2.0",
+      "jsonschema": "4.26.0",
+      "xgrammar": "0.2.8"
+    }
+  },
+  "files_sha256": {
+    "README.md": "6f1c369d69ab5be92963381f5c24b1752825335eac3908ce7027457db1be51b1",
+    "audit.json": "edd868f9fc29d0e796c283a9de83b70969b7b5a270b5c93fcbc6f3484bf8b96d",
+    "candidate_replay.jsonl": "445ba53e310e2d010c98e09cb0a5928ff94626858eeef412130ddea851625224",
+    "candidate_review15.jsonl": "8f0f09202c2a85784ff1cb0bc16ab7d5a2c7b48e59ce4a7bda60b72a5a256481",
+    "decision.json": "4c340add8fb5db7e9f3906294229a52f5a22d47d70e96f90a0847bf39116f342",
+    "dependency_recheck.log": "38d4d6891b670effb63b0a1b49d340594c44c5a79f205bd87ff0ba29f725e45b",
+    "full_tests.log": "8cd76caed50d144cf99b32906e92c5d64acc250c32a2908994f24ecb5b2773b3",
+    "full_tests_missing_dependencies.log": "7120fba0690783c8a95267a07d84a9af42249443c591658896a393f1f51b1fb1",
+    "independent_replay.json": "d6c68e8ab28395e5477c9b0de893995558575738efb0469e75d4c8894179a1a8",
+    "outputs.zip": "2139d926fb32c6071b95ceae3035ac95c06e7da10118b9c8976e302bcb62a7bd"
+  }
+}
