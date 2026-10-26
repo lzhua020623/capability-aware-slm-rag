@@ -1,5 +1,7 @@
 # Controller 集成交接 · 2026-10-23
 
+2026-10-27 当前主线为 [10 月 24 日 Diagnosis／P60／P64](CONTROLLER_1024_BASELINE.md)，生产入口为 `src.pipeline.current.load_current_pipeline()`。下文保留原集成执行器和历史复现说明，旧命令不代表已经启用 P60。
+
 2026-10-26 当前阶段与新增合并任务见 [T1–T9 任务清单](CONTROLLER_TASKS.md)。Diagnosis 的 `138d52a` 将分层接入，保留现有默认计费执行器和 Probe；P60 的训练/调参曝光、在线特征、成本和效果待独立验收，不作为当前默认路由。E r2 的 [登记](CONTROLLER_E_V2A_R2.md)与全局模式在 GPU 前对齐；未启动选型或最终评测。
 
 2026-10-25 最新入口：[T4完整结果与解释](../artifacts/controller/t4_v1/README.md)。T3真实CUDA工程验收和本地验收已通过；T4的2,800条配对预测已验收、自动评分并独立ZIP重放一致，774项完整回归通过。Kaggle failure是保存全部预测之后的汇总KeyError，原manifest保留，当前汇总接口已修补。Adaptive：NQ EM持平78/200，FEVER170→174/200；人工语义/警示/轨迹验收未完成，未进行T5或最终评测。

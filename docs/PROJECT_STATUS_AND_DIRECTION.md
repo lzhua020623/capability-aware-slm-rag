@@ -1,6 +1,10 @@
 # 项目进度与研究方向
 
-## 当前入口 · 2026-10-26
+## 当前入口 · 2026-10-27
+
+用户指定后续以 10 月 24 日 Diagnosis `138d52a` 为基线，该提交已在 controller 历史中。新增 [当前基线登记与真实模块适配](CONTROLLER_1024_BASELINE.md)：C1 → Diagnosis → P60 → Controller → EnhancementExecutor，Probe OFF；生产入口为 `src.pipeline.current.load_current_pipeline()`，旧 T4/T5 入口只作历史复现。E 保持 unavailable。已接上真实增强实现并保留计量，当前仍缺原 78 维特征生成代码和三个 HGB 的训练／调参 ID 来源，生产检查明确停止；未启动 GPU 或宣称新路由收益。已有 T5 0.2 候选已拒绝，不能将它的结果当作 P60 的结果。当前任务见 [T1–T9](CONTROLLER_TASKS.md)。
+
+## 历史入口 · 2026-10-26
 
 当前分支 `controller`。Diagnosis `138d52a` 的新框架已兼容合并，P60 未启用，默认 Diagnosis／Probe 路由不变，见 [集成审查](DIAGNOSIS_138D52A_INTEGRATION.md)。r2 首次 GPU 已完成：18 短题＋2 长题全部运行，10 项通过、结构失败 1、语义失败 9、执行失败 0；独立 ZIP 审计一致。按预登记将所有 E 组统一冻结为 unavailable，真实开发调用为 0，FR12 未验收，主线不再安排 r3。见 [原始结果](../artifacts/controller/e_v2a_interface_r2/kaggle_v1/README.md) 和 [当前 T1–T9](CONTROLLER_TASKS.md)。17 题辅助意见已由用户采用，11 题完整定案、6 题仍未完整定案，见 [审核记录](../artifacts/controller/t5_human_review_v1/README.md)。已在固定 unavailable 模式下完成三阈值开发回放，冻结唯一 NQ 0.2 候选送一次选型：EM 78→81，语义净值仍可能为负，不宣称收益，见 [候选依据](../artifacts/controller/t5_candidate_v1/README.md)。首次选型 [Kaggle 362316572](https://www.kaggle.com/code/yearo111/controller-t5-selection-frozen-20261026?scriptVersionId=362316572) 已成功完成并独立审计：400 题／2,000 条完整，六项活动长路径和两条历史查询通过，调用／预算失败为 0。冻结评分下原 Adaptive 为 NQ 89→93、FEVER 163→164；唯一 NQ 0.2 候选相对原路由 93→90（3 修好／6 改坏），按规则拒绝晋升，保留原路由，不继续搜索其他阈值。见 [原始结果及选型报告](../artifacts/controller/t5_selection_v1/kaggle_v1/README.md)。NQ 的 15 个候选改答对语义审核仍 pending，不将 EM 回退当成人审误修；最终评测未开始。下方的分支与 E 状态为历史快照。
 

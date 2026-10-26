@@ -2,7 +2,22 @@
 
 本项目研究小参数模型 RAG 的诊断与动态增强：先用固定检索和生成模型产生 C1 答案，再由 Diagnosis、可选 Probe 和 Controller 选择补检索、重排过滤或答案核验与修复。Reference RAG 是共同实验底座。
 
-## Controller 集成分支（2026-10-23）
+## 当前主线：10 月 24 日 Diagnosis（2026-10-27）
+
+后续以 `feature/diagnosis-probe-zheng@138d52a` 的 Diagnosis／P60／P64 为基线，登记为 `configs/controller/current_baseline.json`。
+该提交已在 `controller` 历史中；本次补齐新 host 到真实增强模块的适配、调用计量和严格启动检查。
+新流程为 **C1 → Diagnosis → P60 → Controller → EnhancementExecutor**，Probe 按上游设计关闭。
+生产入口为 `src.pipeline.current.load_current_pipeline()`，见 [最新基线交接](docs/CONTROLLER_1024_BASELINE.md)。
+
+```bash
+python scripts/check_controller_current.py
+```
+
+目前检查明确报告原 78 维特征实现及 P60 训练／调参 ID 来源尚未交付，退出码为 2；不会补零、调用虚构实现或回退旧路由。
+E 继续 unavailable；代码接入与主线登记已完成，真实新路由效果尚未评测。
+此前 [T5 结果](artifacts/controller/t5_selection_v1/kaggle_v1/README.md)属于旧路由及其 0.2 候选，不能当作 P60 结果。
+
+## 历史 Controller 集成（2026-10-23）
 
 `controller` 已汇合当日全部 10 个远端分支的提交历史、功能实现和入库实验结果。
 统一入口从冻结 C1 输出开始，执行 Diagnosis → 可选 Probe → Safe Binary → 一条增强，
@@ -20,16 +35,16 @@ python -m unittest discover -s tests -v
 
 Smoke 使用虚构样本和假模型输出，只验证执行链路。真实推理需要 CUDA、匹配 C1 来源的 NQ 索引及元数据。
 
-## 当前入口
+## 资料入口
 
-当前 T1–T9 阶段、r2 分支条件与新增 Diagnosis 分层合并任务统一见 [任务清单](docs/CONTROLLER_TASKS.md)。r2 已实现并完成全局 E 模式对齐，v2 包引用兼容集成提交 `e3ddead`；P60 新路由未启用。
+当前 T1–T9 见 [任务清单](docs/CONTROLLER_TASKS.md)。后续主线以 [10 月 24 日 Diagnosis 接入](docs/CONTROLLER_1024_BASELINE.md)为准；下表包含历史协议和组件记录。
 
 | 需要了解的内容 | 入口 |
 |---|---|
 | 当前集成、运行、评测与下一步 | [Controller 集成交接](docs/CONTROLLER_INTEGRATION.md) |
-| T4 后 E 修订与唯一 NQ 路由候选 | [r2 登记与分支规则](docs/CONTROLLER_E_V2A_R2.md)：18＋2 新验收题已独立复核封存，r2 已实现，GPU 尚未运行；[r1 原始失败](artifacts/controller/e_v2a_interface_r1/README.md)保留，未晋升策略 |
+| T4 后 E 修订与唯一 NQ 路由候选 | [r2 登记与分支规则](docs/CONTROLLER_E_V2A_R2.md)：18＋2 新验收题已独立复核封存，r2 真实验收未通过，E unavailable；[r1 原始失败](artifacts/controller/e_v2a_interface_r1/README.md)保留，未晋升策略 |
 | T1 冻结比较组、预算、评分和停止条件 | [统一实验协议 v1](docs/CONTROLLER_EXPERIMENT_PROTOCOL_V1.md)（设计已冻结；T2/T3 执行门槛待补） |
-| T2 样本、完整评测保留池与资源缺口 | [数据冻结 v1](docs/CONTROLLER_DATA_V1.md)：NQ 保留 7,564，FEVER 保留 1,886；新 FEVER C1 和执行验收仍待补齐 |
+| T2 样本、完整评测保留池与资源缺口 | [数据冻结 v1](docs/CONTROLLER_DATA_V1.md)：NQ 保留 7,564，FEVER 保留 1,886；C1／检索资源已补齐，新 P60 的来源仍待核对 |
 | NQ 原索引配套文件及崩溃核对 | [资源恢复](docs/NQ_TRAIN_INDEX_RECOVERY.md)：ID/offsets 已恢复，64 处向量比对通过；附恢复包与 681 项 CPU 回归记录 |
 | NQ 全量定位、Controller Train 接口及 FEVER 资源 | [资源接入](docs/CONTROLLER_RESOURCE_ADAPTER_V1.md)：NQ 全量 1,224,119 段回读，FEVER 全量 5,396,106 段 ID/顺序核对；独立验收入库 |
 | FEVER Controller 检索与新 C1 | [采集说明](docs/CONTROLLER_FEVER_C1_V1.md)：10/10 历史检索回放一致，900 条真实 Top5、冻结 GPU 包与 726 项 CPU 回归 |

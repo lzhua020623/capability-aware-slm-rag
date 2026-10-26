@@ -1,0 +1,39 @@
+{
+  "schema_version": "controller_current_baseline_v1",
+  "baseline": "diagnosis_20261024_p60_p64_v1",
+  "registered_date": "2026-10-27",
+  "upstream_branch": "feature/diagnosis-probe-zheng",
+  "upstream_commit": "138d52aa22e0eee78637e01f981a030d7ad388df",
+  "user_instruction": "现在把1024更新的diagnose合进来 后续以这个最新的版本为主",
+  "classifier": "models/diagnosis/diagnosis_v2_expanded_hierarchical.json",
+  "selector_config": "configs/controller/p60_online_adapter.json",
+  "probe_enabled": false,
+  "E_mode": {
+    "nq": "unavailable",
+    "fever": "unavailable"
+  },
+  "feature_provider": null,
+  "training_provenance": null,
+  "execution_config": {
+    "nq_repair_strategy": "evidence_id_v2a",
+    "fever_repair_strategy": "evidence_id_v2a",
+    "max_llm_calls": 1,
+    "max_retrieval_calls": 1,
+    "max_scoring_calls": 1,
+    "answer_max_new_tokens": 64,
+    "repair_max_new_tokens": 384,
+    "max_total_output_tokens": 384,
+    "prefill_chunk_size": 256,
+    "nq_v2a_mode": "unavailable",
+    "fever_v2a_mode": "unavailable"
+  },
+  "frozen_assets": {
+    "configs/controller/p60_online_adapter.json": "a77910fb138b6c32bbdc94066c0bb31d4f0f039e98bc9ffef595a4ec8989cc83",
+    "models/diagnosis/diagnosis_v2_expanded_hierarchical.json": "ff361abb39de0682f2185aeffc575d7adb9305a64783d5cc476848cabd4967ec",
+    "models/controller/p60_online_adapter/hgb_fail_gate.joblib": "13850ff33b22e72fae8e4ce4d0e3c4a26ce361a791639b362152cff093cfef51",
+    "models/controller/p60_online_adapter/hgb_rec_given_fail.joblib": "d27cec5d03114e6a648211dc1267cf9e2cbc4935a940ebdfa6b8117eb13905a4",
+    "models/controller/p60_online_adapter/hgb_3c.joblib": "0a7c35c9d2f5d26c43834f17822574e113edc986e4a851c934ac9ea9f50f3c1e"
+  },
+  "legacy_experiments": "T4/T5 and their frozen runners remain historical comparators; no reinterpretation or automatic rerun",
+  "evaluation_status": "new_baseline_not_evaluated; register protocol and exposure before inference"
+}

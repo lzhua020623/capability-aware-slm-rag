@@ -1,5 +1,7 @@
 # Enhancement Integration Contract (P63/P64)
 
+2026-10-27: the user selected this upstream design as the future baseline. The real-module bridge and strict production loader are described in [the current handoff](CONTROLLER_1024_BASELINE.md). Original runtime features and P60 model usage provenance remain required before inference. The following 10/26 note describes historical T4/T5 execution.
+
 2026-10-26 integration note: this is an optional host contract. The current
 frozen experiment still uses `IntegratedController` with its metered providers
 and original Probe policy. P60 is not activated by this merge. See

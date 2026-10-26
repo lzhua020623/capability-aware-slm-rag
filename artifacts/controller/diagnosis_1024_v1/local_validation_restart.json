@@ -1,0 +1,7 @@
+{
+  "reason": "Local validation waited in read() on a generated tests/__pycache__/test_fever_c1_preliminary.cpython-312.pyc before running any test",
+  "evidence": "macOS sample and lsof on this validation process; original log remained zero bytes",
+  "action": "Terminate only the local validation process and use a separate PYTHONPYCACHEPREFIX; original cache and user files untouched",
+  "GPU_jobs_affected": 0,
+  "runtime_code_or_test_expectations_changed": false
+}

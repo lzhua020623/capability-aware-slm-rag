@@ -1,0 +1,1047 @@
+{
+  "source": "GitHub immutable commit tarball plus non-truncated recursive tree",
+  "branch": "feature/diagnosis-probe-zheng",
+  "commit": "138d52aa22e0eee78637e01f981a030d7ad388df",
+  "tracked_files": 142,
+  "tree_truncated": false,
+  "file_tree": [
+    {
+      "path": ".gitignore",
+      "sha": "7ab52fd00ab8972e9d49d814128bc5a0c093d07e",
+      "size": 148
+    },
+    {
+      "path": "README.md",
+      "sha": "25988fa94c42c4b39e19dd262346a10ecb17ba8a",
+      "size": 2007
+    },
+    {
+      "path": "configs/base.yaml",
+      "sha": "199a0afe9d0d9984ff4071528eee7d2eeebb4e61",
+      "size": 667
+    },
+    {
+      "path": "configs/controller/p60_online_adapter.json",
+      "sha": "22b00a1b79ccbdc11d95d618b3d7f2c8d00597ee",
+      "size": 3479
+    },
+    {
+      "path": "configs/preliminary.yaml",
+      "sha": "143e0e96d7fe5ea8aec9c7be0551cf8a4ab979d5",
+      "size": 4356
+    },
+    {
+      "path": "configs/probe/prompt_development_samples.json",
+      "sha": "b6a900bbdf5f436496246c84d7d11743e89467b9",
+      "size": 705
+    },
+    {
+      "path": "configs/splits/diagnosis_v1_split.json",
+      "sha": "af437742789bcf05af2877c5bff19d28cf629455",
+      "size": 22424
+    },
+    {
+      "path": "configs/splits/diagnosis_v2_expanded_split.json",
+      "sha": "6509bf09bd82cf5d3fde595573db2b8c35e73546",
+      "size": 93628
+    },
+    {
+      "path": "configs/splits/preliminary_fever_500.json",
+      "sha": "300e2969eddda2d83a66eb12802da2a20688da0f",
+      "size": 29240
+    },
+    {
+      "path": "configs/splits/preliminary_nq_500.json",
+      "sha": "a78c2eb13b381b5161e13430c3fda688f190254b",
+      "size": 13819
+    },
+    {
+      "path": "data/README.md",
+      "sha": "69f06063beed63c2addd9bd84939fc5c1e2422b7",
+      "size": 288
+    },
+    {
+      "path": "data/annotations/normalized/fever_500_labels.jsonl",
+      "sha": "366907012bba7d05d99eff1bc7cc2f209c5421cc",
+      "size": 105382
+    },
+    {
+      "path": "data/annotations/normalized/nq_3216_conversion_summary.json",
+      "sha": "785a41cbc2a0c01840bb12aae6e3d4320a9e2744",
+      "size": 706
+    },
+    {
+      "path": "data/annotations/normalized/nq_3216_diagnosis_inputs.jsonl",
+      "sha": "1cf78a92b2a18a9dcd9a4d50f5cbe710acd52810",
+      "size": 10810321
+    },
+    {
+      "path": "data/annotations/normalized/nq_3216_labels_normalized.jsonl",
+      "sha": "7fdf27a056560bb53590441608d73e267a9b272f",
+      "size": 705465
+    },
+    {
+      "path": "data/annotations/normalized/nq_500_labels.jsonl",
+      "sha": "a76569dfcb0464d51523d1ba6c261e5600f8fc40",
+      "size": 110884
+    },
+    {
+      "path": "data/processed/.gitkeep",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0
+    },
+    {
+      "path": "data/raw/.gitkeep",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0
+    },
+    {
+      "path": "docs/.gitkeep",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0
+    },
+    {
+      "path": "docs/DIAGNOSIS_PROBE_CONTROLLER_HANDOFF.md",
+      "sha": "a501eb23d50600c5b8d502a4ee7279f90fca4a1f",
+      "size": 11221
+    },
+    {
+      "path": "docs/DIAGNOSIS_PROBE_INTERFACE.md",
+      "sha": "3dff98e0f8eb0680fd447facdc074755dc89cf09",
+      "size": 3349
+    },
+    {
+      "path": "docs/ENHANCEMENT_INTEGRATION_CONTRACT.md",
+      "sha": "9f8961f76125771f5e68955b4139e598ac09d1e7",
+      "size": 7165
+    },
+    {
+      "path": "docs/PRELIMINARY_EXPERIMENT.md",
+      "sha": "57e6722f21e80232fc4d3e569b199b8b673fd08b",
+      "size": 4168
+    },
+    {
+      "path": "docs/RETRIEVAL_CONFIG.md",
+      "sha": "ddff51670c8b24043eb9fd813768b36757cbc550",
+      "size": 1445
+    },
+    {
+      "path": "docs/SETUP.md",
+      "sha": "3f4d1356f15efd7159f0764e0f48354f7d75873c",
+      "size": 6275
+    },
+    {
+      "path": "models/controller/p60_online_adapter/hgb_3c.joblib",
+      "sha": "ecdeb2e088761e26759739751f097220d0b3669f",
+      "size": 1923664
+    },
+    {
+      "path": "models/controller/p60_online_adapter/hgb_fail_gate.joblib",
+      "sha": "9d9fc85a09efb8a3ff142591f757820fe9bec28d",
+      "size": 717584
+    },
+    {
+      "path": "models/controller/p60_online_adapter/hgb_rec_given_fail.joblib",
+      "sha": "d30b6d21461b12500431348ae6c8cf21a1b91faf",
+      "size": 644688
+    },
+    {
+      "path": "models/diagnosis/diagnosis_v2_expanded_hierarchical.json",
+      "sha": "b83b020d64a96c35c9aee5e923e22523e1077db8",
+      "size": 10128
+    },
+    {
+      "path": "requirements.txt",
+      "sha": "245afb7bac7cb942d37947dd1dcf35fd4445cd26",
+      "size": 125
+    },
+    {
+      "path": "results/.gitkeep",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0
+    },
+    {
+      "path": "results/base_rag/fever_smoke_retrieval_ckpt.json",
+      "sha": "b3e49a12668a961af1e962a096b9ffe8a2c2c1fa",
+      "size": 70634
+    },
+    {
+      "path": "results/base_rag/fever_smoke_test.jsonl",
+      "sha": "8f7989cf14ca082ed8893f400d4abbaeed706136",
+      "size": 80983
+    },
+    {
+      "path": "results/base_rag/nq_smoke_test.jsonl",
+      "sha": "9dfa56c9094ba915bc63acdc85c8fab69e3873ec",
+      "size": 74071
+    },
+    {
+      "path": "results/base_rag/nq_smoke_test_7b.jsonl",
+      "sha": "2bd67ff3e22f95099e08c12204d43db848e3ca38",
+      "size": 4824
+    },
+    {
+      "path": "results/base_rag/nq_smoke_test_v2.jsonl",
+      "sha": "186af0283c79599ca60bc272a3092cb67921b40f",
+      "size": 5303
+    },
+    {
+      "path": "results/controller/controller_v1_test.json",
+      "sha": "692758ba8c563ce827b477909897baaa5174a067",
+      "size": 142937
+    },
+    {
+      "path": "results/controller/controller_v1_validation.json",
+      "sha": "eaee1bf2644eba9e8843e72933fae79186775cb0",
+      "size": 147189
+    },
+    {
+      "path": "results/diagnosis/diagnosis_hierarchical_validation.json",
+      "sha": "d443fa547ecedde1700130c3c881ee39400dee6f",
+      "size": 135013
+    },
+    {
+      "path": "results/diagnosis/diagnosis_v1_validation.json",
+      "sha": "34246f5a0318f7b985bf0354b9fa585834eed674",
+      "size": 110510
+    },
+    {
+      "path": "results/diagnosis/diagnosis_v2_expanded_test.json",
+      "sha": "d0d71ef737fd510d113a0c8755de4d5e994decf1",
+      "size": 163109
+    },
+    {
+      "path": "results/diagnosis/diagnosis_v2_expanded_validation.json",
+      "sha": "ae45e15bfb3cbf15e18ccf4d407b5d522cccb410",
+      "size": 262704
+    },
+    {
+      "path": "results/final/diagnosis_probe_controller_test_evaluation.json",
+      "sha": "0b7b05801a65ec40f5e328cf97676f42f28ffeb6",
+      "size": 35132
+    },
+    {
+      "path": "results/preliminary/fever_c1_7b.jsonl",
+      "sha": "48b0c428883619dc805f10109472d4c03cf83eb5",
+      "size": 3159886
+    },
+    {
+      "path": "results/preliminary/nq_c1_7b.jsonl",
+      "sha": "157613444fb50200d0e2398e7b141f46a427dfcd",
+      "size": 1886148
+    },
+    {
+      "path": "results/probe/probe_trigger_v2_expanded_search.json",
+      "sha": "18924df0567be432fc8d206e98db89a0c71608b7",
+      "size": 436038
+    },
+    {
+      "path": "results/probe/probe_v2_expanded_policy_comparison.json",
+      "sha": "5ab9dd5a2ef076720b83224de098360cd4a00e9e",
+      "size": 54894
+    },
+    {
+      "path": "results/probe/probe_v2_expanded_test.json",
+      "sha": "2efef132c9bbce17d0e6eef98e0f5cf14662d4cc",
+      "size": 382461
+    },
+    {
+      "path": "results/probe/probe_v2_expanded_validation.json",
+      "sha": "ee576f5d005b1189e9ac28512528b3867b9678d9",
+      "size": 489083
+    },
+    {
+      "path": "results/probe/probe_v2_safe_override_comparison.json",
+      "sha": "e9119cc8039609f4db07454a9a29a06ce373d7f4",
+      "size": 124351
+    },
+    {
+      "path": "results/retrieval/nq_bge_metrics.json",
+      "sha": "04282ea6bdc2d95a8b54a0312f77765d258ed452",
+      "size": 543
+    },
+    {
+      "path": "results/retrieval/nq_e5_metrics.json",
+      "sha": "2aa2ff2f1cee5f72e2647d5bfed283fe0d3bc622",
+      "size": 432
+    },
+    {
+      "path": "scripts/audit_nq_base_rag.py",
+      "sha": "2dcdaec189a4ee0f2c5ff660ee9cbad765ace84a",
+      "size": 4657
+    },
+    {
+      "path": "scripts/build_diagnosis_dataset.py",
+      "sha": "ca2b7ffb03276386415bd980366f3c9e36ab0785",
+      "size": 2372
+    },
+    {
+      "path": "scripts/build_diagnosis_splits.py",
+      "sha": "a86e1ca2c4d5f22dde911bb6075b402c086ceb40",
+      "size": 7680
+    },
+    {
+      "path": "scripts/build_diagnosis_v2_expanded_split.py",
+      "sha": "562d8e6b188638f9bca94d29b433733449f67de2",
+      "size": 3752
+    },
+    {
+      "path": "scripts/build_fever_index.py",
+      "sha": "598cc903732445909cb836caea8397117e659077",
+      "size": 13807
+    },
+    {
+      "path": "scripts/build_nq_2698_diagnosis_trusted.py",
+      "sha": "04824992ad62f501620b47edce2c2b76dba8f9ed",
+      "size": 6339
+    },
+    {
+      "path": "scripts/build_preliminary_manifests.py",
+      "sha": "ba1893e5aa148ed3ce93c2d7a677d55091524624",
+      "size": 5256
+    },
+    {
+      "path": "scripts/download_data.py",
+      "sha": "5c70f1e8374080b6d40100d9ba820800fb746015",
+      "size": 10991
+    },
+    {
+      "path": "scripts/evaluate_probe_integration_policies.py",
+      "sha": "d9e50f0b7f583a0bbf31d6b8bdbc034959d6563d",
+      "size": 7817
+    },
+    {
+      "path": "scripts/evaluate_probe_safe_override_v2.py",
+      "sha": "a4e8a3a80137abbf2275a807fe336e0e071f5565",
+      "size": 15475
+    },
+    {
+      "path": "scripts/evaluate_probe_v2_expanded_policies.py",
+      "sha": "aace43786072ebf9ef434b9b3e475f0525847a68",
+      "size": 8293
+    },
+    {
+      "path": "scripts/export_nq_3216_diagnosis_inputs.py",
+      "sha": "acfa419e1799baf10942ca18bf4cc66463b9414f",
+      "size": 5120
+    },
+    {
+      "path": "scripts/normalize_diagnosis_annotations.py",
+      "sha": "7cca04e849fb9dea6dff426b34cb528850c113a6",
+      "size": 9245
+    },
+    {
+      "path": "scripts/prepare_data.py",
+      "sha": "11aba7272b5f7f2fad5c343e96e58043fd17865f",
+      "size": 218
+    },
+    {
+      "path": "scripts/prepare_nq.py",
+      "sha": "133556276488fb82f0ef0f307ebead2afe7ad463",
+      "size": 7817
+    },
+    {
+      "path": "scripts/prepare_retrieval_data.py",
+      "sha": "fc9d5c25a110629aa2629e04e9889c26fe3988ec",
+      "size": 12255
+    },
+    {
+      "path": "scripts/run_controller_validation.py",
+      "sha": "1b634a069f006b6aca1701becca44bcc12e66f0a",
+      "size": 6568
+    },
+    {
+      "path": "scripts/run_fever_base_rag.py",
+      "sha": "123f4df354006d41c56b56c9151902b0b1febdfd",
+      "size": 8650
+    },
+    {
+      "path": "scripts/run_final_test_evaluation.py",
+      "sha": "9a0a8288c90296eaef5969aa7f4a420c93944eb3",
+      "size": 27576
+    },
+    {
+      "path": "scripts/run_nq_base_rag.py",
+      "sha": "74f26a126f1de96d06b66225ff8346e114576bcc",
+      "size": 7450
+    },
+    {
+      "path": "scripts/run_nq_bge_retriever.py",
+      "sha": "446dc52f77e8d425b61329c1c9511cc05b8364c8",
+      "size": 4804
+    },
+    {
+      "path": "scripts/run_nq_retriever.py",
+      "sha": "db082b376bfb682a3dc23c4831a86e6faa86522e",
+      "size": 4769
+    },
+    {
+      "path": "scripts/run_probe_smoke.py",
+      "sha": "a93737982649efe104e763cd3e094b9a24c664cb",
+      "size": 5562
+    },
+    {
+      "path": "scripts/run_probe_v2_expanded_validation.py",
+      "sha": "51cea77a1adb355506367b084d3db29c1943171d",
+      "size": 8010
+    },
+    {
+      "path": "scripts/run_probe_validation.py",
+      "sha": "25105e99c404453bd2c5937edc9665e55a3554fc",
+      "size": 13415
+    },
+    {
+      "path": "scripts/search_probe_trigger_v2_expanded.py",
+      "sha": "3e4081e72550237b648163f6afc4f7c7a284e4cf",
+      "size": 12167
+    },
+    {
+      "path": "scripts/test_qwen_load.py",
+      "sha": "970a32b4489d414dd9d62bef46d14646b89d3ea5",
+      "size": 1359
+    },
+    {
+      "path": "scripts/train_diagnosis_classifier.py",
+      "sha": "96f77453016db7deb024619be6a0da3cca1d13e0",
+      "size": 10833
+    },
+    {
+      "path": "scripts/train_diagnosis_hierarchical.py",
+      "sha": "cd3cdfd0ac3ffc230ab98ef31d1c0f1c40cf478e",
+      "size": 15209
+    },
+    {
+      "path": "scripts/train_diagnosis_v2_expanded.py",
+      "sha": "68c3e31f913560598db1ad2eb2bcc2773940eb1b",
+      "size": 2134
+    },
+    {
+      "path": "scripts/verify_data.py",
+      "sha": "93cfd7132ae56a9df91bf7a52f11f5c861005282",
+      "size": 3967
+    },
+    {
+      "path": "src/__init__.py",
+      "sha": "a8dcea2079786beb9cbb4bd67d0b41d7b3aca065",
+      "size": 48
+    },
+    {
+      "path": "src/compensation/__init__.py",
+      "sha": "2a1ddbce435f010a44c735e7cac4b66b0d358b34",
+      "size": 776
+    },
+    {
+      "path": "src/compensation/executor.py",
+      "sha": "0203071966fe07f88d0bd7cd0343ded3e0271e7d",
+      "size": 4515
+    },
+    {
+      "path": "src/compensation/interface.py",
+      "sha": "7756a6d899fc33929ca034fff340711d9909af7e",
+      "size": 1452
+    },
+    {
+      "path": "src/compensation/mocks.py",
+      "sha": "edce1f6e3a53a94514d76b95b689608ef021013c",
+      "size": 2262
+    },
+    {
+      "path": "src/compensation/schema.py",
+      "sha": "59e16197aad04c21464dcda106a6d3642e0c766f",
+      "size": 6934
+    },
+    {
+      "path": "src/config.py",
+      "sha": "545ebc4672db721295f159fcaaa10e140cfd2afe",
+      "size": 1314
+    },
+    {
+      "path": "src/controller/__init__.py",
+      "sha": "958cda852ac252146585c0338e88a973f8c6454f",
+      "size": 566
+    },
+    {
+      "path": "src/controller/controller.py",
+      "sha": "c880db275643b2a8aff2197ed58c69d984fc3f54",
+      "size": 15089
+    },
+    {
+      "path": "src/controller/failure_representation.py",
+      "sha": "b7e9c3777f0c76aee2df53b1474ac66e3d387221",
+      "size": 5420
+    },
+    {
+      "path": "src/controller/normalization.py",
+      "sha": "7797fc9ae663705f9737dc581f4426ea516b58b9",
+      "size": 1787
+    },
+    {
+      "path": "src/controller/schema.py",
+      "sha": "0d0aea79a654124b0355ecd39bff8026ef2f7283",
+      "size": 13860
+    },
+    {
+      "path": "src/controller/selection.py",
+      "sha": "b145570e60328519a288b571a7e9bad3aff520d8",
+      "size": 11454
+    },
+    {
+      "path": "src/diagnosis/__init__.py",
+      "sha": "391e306e4f82bf330ca72857847ddf02d9ba74c6",
+      "size": 275
+    },
+    {
+      "path": "src/diagnosis/adapter.py",
+      "sha": "2e5dc6873fbcf410f5111394414c5ce5ee2df950",
+      "size": 2941
+    },
+    {
+      "path": "src/diagnosis/annotations.py",
+      "sha": "fb4024b18c27af5955c5733ca620fe1b92e668cc",
+      "size": 3941
+    },
+    {
+      "path": "src/diagnosis/classifier.py",
+      "sha": "4ff606381adf5851ec4ff9578b1fe4646db2bda6",
+      "size": 9171
+    },
+    {
+      "path": "src/diagnosis/dev_dataset.py",
+      "sha": "c190e4a5212a779d73be6dc0a02e679c5d4b9df7",
+      "size": 3668
+    },
+    {
+      "path": "src/diagnosis/features.py",
+      "sha": "c06f37c16ea787877e3bc95b4a09a3f6ff8a9a5a",
+      "size": 6917
+    },
+    {
+      "path": "src/diagnosis/hierarchical_classifier.py",
+      "sha": "eb969ad01059ea22f8ddd331a7d288a249da81ca",
+      "size": 13112
+    },
+    {
+      "path": "src/diagnosis/labels.py",
+      "sha": "4462cafd2cc4cf288edadb1fae37760d5c512eaa",
+      "size": 1164
+    },
+    {
+      "path": "src/diagnosis/schema.py",
+      "sha": "ad0f9c15d124afd44813d4892e51ebb1cefe30ae",
+      "size": 5231
+    },
+    {
+      "path": "src/evaluation/__init__.py",
+      "sha": "f9950f92fbbfe2493aa113afae9955f51e023dd3",
+      "size": 550
+    },
+    {
+      "path": "src/evaluation/fever.py",
+      "sha": "8ff35eb92b4803b02fe6ad6bf8a9a37bfa91a801",
+      "size": 598
+    },
+    {
+      "path": "src/evaluation/qa.py",
+      "sha": "06d58db1b8201b4838acc30304a49b9443eba2b4",
+      "size": 1741
+    },
+    {
+      "path": "src/evaluation/recoverability.py",
+      "sha": "6cc622b0db42cae3cb0beaaa23151956020c9f77",
+      "size": 813
+    },
+    {
+      "path": "src/generation/__init__.py",
+      "sha": "716ae25038df2f1c6ffca97ae11ca6262ab9fddf",
+      "size": 377
+    },
+    {
+      "path": "src/generation/qwen.py",
+      "sha": "e6397583529681e3bca379f3d1a850f5154bfb7f",
+      "size": 6727
+    },
+    {
+      "path": "src/pipeline/__init__.py",
+      "sha": "1e2ee27e37c296e024dfa9e76cbb0ef1c9eadd6f",
+      "size": 446
+    },
+    {
+      "path": "src/pipeline/adaptive_rag.py",
+      "sha": "a235c5b53bfb66bbbfe275f761d2b7ab067e8b8c",
+      "size": 6970
+    },
+    {
+      "path": "src/pipeline/schema.py",
+      "sha": "b8ac0d76c416144295aa9ce83980f8eee834655c",
+      "size": 2940
+    },
+    {
+      "path": "src/probe/__init__.py",
+      "sha": "0d715c6a4417fe6ab423665c1479506a0123125d",
+      "size": 35
+    },
+    {
+      "path": "src/probe/pipeline.py",
+      "sha": "ae65eef3d7f07292c4f60d770951106a01ceb040",
+      "size": 1674
+    },
+    {
+      "path": "src/probe/probe.py",
+      "sha": "d143288a0fa5d5a74373a6a48d0d4ab5a95de440",
+      "size": 5462
+    },
+    {
+      "path": "src/probe/prompts.py",
+      "sha": "c634eddcbba89dc6b18f2fdb6a3849a85848fef1",
+      "size": 5290
+    },
+    {
+      "path": "src/probe/schema.py",
+      "sha": "51a57a4533109778109190729f965e4f5d170c9b",
+      "size": 12173
+    },
+    {
+      "path": "src/probe/trigger.py",
+      "sha": "ad70e10780fb2dcadc6ba879b51b142ae0f020c8",
+      "size": 3141
+    },
+    {
+      "path": "src/retrieval/__init__.py",
+      "sha": "adc36b22fad7fbde5cb67f7979c3d08683526954",
+      "size": 214
+    },
+    {
+      "path": "src/retrieval/e5_faiss.py",
+      "sha": "c8ce72ee9ee66412e4b72f1af70b57d68e55c9e6",
+      "size": 4989
+    },
+    {
+      "path": "src/retrieval/fever_ivfpq.py",
+      "sha": "bc2af65f276a9848de090353cc5ba8fa0589bbf4",
+      "size": 2601
+    },
+    {
+      "path": "tests/__init__.py",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0
+    },
+    {
+      "path": "tests/test_adaptive_rag_pipeline.py",
+      "sha": "dd6c5a795bc15609d4867c951fb72cb14c8291c9",
+      "size": 13871
+    },
+    {
+      "path": "tests/test_controller.py",
+      "sha": "2ffb03d49eaadf88e95634e911d93438082fedb5",
+      "size": 14204
+    },
+    {
+      "path": "tests/test_controller_routing.py",
+      "sha": "7c65f82b6a27a10969898333c107b9cb1e9e8423",
+      "size": 9722
+    },
+    {
+      "path": "tests/test_controller_selection.py",
+      "sha": "15ee53af9b4021c72c7be6f783c66f9f4ea3e09b",
+      "size": 10725
+    },
+    {
+      "path": "tests/test_diagnosis_adapter.py",
+      "sha": "5f59443a21f0b45738365aae38ae6a866b09b63e",
+      "size": 6534
+    },
+    {
+      "path": "tests/test_diagnosis_classifier.py",
+      "sha": "34a727501a9cbc7709d16b19b229b18dd48d0286",
+      "size": 7864
+    },
+    {
+      "path": "tests/test_diagnosis_dev_dataset.py",
+      "sha": "a493db6ab4b468005c1bd67f5b02ba6b3e3addb1",
+      "size": 7018
+    },
+    {
+      "path": "tests/test_diagnosis_features.py",
+      "sha": "28279af41c19a9c091e1eed54503ec794f0a7643",
+      "size": 7581
+    },
+    {
+      "path": "tests/test_diagnosis_hierarchical_classifier.py",
+      "sha": "f2507b80724a4ac28e2ee07f64fc88f29e2285a3",
+      "size": 8818
+    },
+    {
+      "path": "tests/test_diagnosis_schema.py",
+      "sha": "1ae0638e63531d14431ec6f7b8ef0a43519d7b1a",
+      "size": 6934
+    },
+    {
+      "path": "tests/test_diagnosis_splits.py",
+      "sha": "51587bb6d1c49d7715b605ac8ac9762526610ca1",
+      "size": 4108
+    },
+    {
+      "path": "tests/test_enhancement_interfaces.py",
+      "sha": "356706eb0bb5a4d61ed5a6395092feb8070d984a",
+      "size": 10309
+    },
+    {
+      "path": "tests/test_fr6_multi_failure_representation.py",
+      "sha": "754e554fcbb6871ac80a031c415ad242fefec4c6",
+      "size": 9443
+    },
+    {
+      "path": "tests/test_probe_mapping.py",
+      "sha": "438c7b5383948cfd01f94ae925980226ab366aeb",
+      "size": 10090
+    },
+    {
+      "path": "tests/test_probe_schema.py",
+      "sha": "a2d46d20ea3e5e220ceb719f92dc1b12985733b3",
+      "size": 3710
+    },
+    {
+      "path": "tests/test_probe_semantics.py",
+      "sha": "a83aa82d75dc20a7740c96ad4e260756495ac575",
+      "size": 7479
+    },
+    {
+      "path": "tests/test_probe_trigger.py",
+      "sha": "44a74a0d3a70440e3ad7df0c3bb0e6d646d2591e",
+      "size": 2735
+    },
+    {
+      "path": "tests/test_probe_trigger_v2.py",
+      "sha": "8d76f356097f4a4258ff6c6e8e7230d9d99ba23d",
+      "size": 8285
+    }
+  ],
+  "notebook_count": 0,
+  "feature_provider_definition_files": [
+    "src/pipeline/adaptive_rag.py",
+    "tests/test_adaptive_rag_pipeline.py"
+  ],
+  "p60_p26_named_paths": [
+    "configs/controller/p60_online_adapter.json",
+    "models/controller/p60_online_adapter/hgb_3c.joblib",
+    "models/controller/p60_online_adapter/hgb_fail_gate.joblib",
+    "models/controller/p60_online_adapter/hgb_rec_given_fail.joblib"
+  ],
+  "feature_positions": 78,
+  "unique_feature_names": 75,
+  "P60_feature_and_provider_references": {
+    "configs/controller/p60_online_adapter.json": [
+      {
+        "line": 2,
+        "text": "  \"version\": \"p60_online_adapter_v1\","
+      },
+      {
+        "line": 3,
+        "text": "  \"source\": \"EXP-P60\","
+      },
+      {
+        "line": 29,
+        "text": "    \"hgb_fail_gate\": \"models/controller/p60_online_adapter/hgb_fail_gate.joblib\","
+      },
+      {
+        "line": 30,
+        "text": "    \"hgb_rec_given_fail\": \"models/controller/p60_online_adapter/hgb_rec_given_fail.joblib\","
+      },
+      {
+        "line": 31,
+        "text": "    \"hgb_3c\": \"models/controller/p60_online_adapter/hgb_3c.joblib\""
+      },
+      {
+        "line": 61,
+        "text": "    \"p26_qa_support_max\","
+      },
+      {
+        "line": 62,
+        "text": "    \"p26_qa_support_mean_top3\","
+      },
+      {
+        "line": 63,
+        "text": "    \"p26_qa_support_first_rank\","
+      },
+      {
+        "line": 64,
+        "text": "    \"p26_qa_support_margin\","
+      },
+      {
+        "line": 65,
+        "text": "    \"p26_qa_support_concentration\","
+      },
+      {
+        "line": 66,
+        "text": "    \"p26_support_peak_dispersion\","
+      },
+      {
+        "line": 67,
+        "text": "    \"p26_top_support_margin\","
+      },
+      {
+        "line": 68,
+        "text": "    \"p26_evidence_agreement_mean\","
+      },
+      {
+        "line": 69,
+        "text": "    \"p26_evidence_agreement_min\","
+      },
+      {
+        "line": 70,
+        "text": "    \"p26_answer_evidence_max_similarity\","
+      },
+      {
+        "line": 71,
+        "text": "    \"p26_answer_evidence_top1_similarity\","
+      },
+      {
+        "line": 72,
+        "text": "    \"p26_answer_evidence_mean_topk\","
+      },
+      {
+        "line": 73,
+        "text": "    \"p26_qa_type_match\","
+      },
+      {
+        "line": 74,
+        "text": "    \"p26_s5_rerank_best_chunk\","
+      },
+      {
+        "line": 75,
+        "text": "    \"p26_s5_rerank_top1_passage\","
+      },
+      {
+        "line": 76,
+        "text": "    \"p26_chunk_max\","
+      },
+      {
+        "line": 77,
+        "text": "    \"p26_chunk_mean\","
+      },
+      {
+        "line": 78,
+        "text": "    \"p26_chunk_std\","
+      },
+      {
+        "line": 79,
+        "text": "    \"p26_pass_max\","
+      },
+      {
+        "line": 80,
+        "text": "    \"p26_pass_mean\","
+      },
+      {
+        "line": 81,
+        "text": "    \"p26_pass_std\","
+      },
+      {
+        "line": 82,
+        "text": "    \"p26_qtype_0\","
+      },
+      {
+        "line": 83,
+        "text": "    \"p26_qtype_1\","
+      },
+      {
+        "line": 84,
+        "text": "    \"p26_qtype_2\","
+      },
+      {
+        "line": 85,
+        "text": "    \"p26_qtype_3\","
+      },
+      {
+        "line": 86,
+        "text": "    \"p26_qtype_4\","
+      },
+      {
+        "line": 87,
+        "text": "    \"p26_qtype_5\","
+      },
+      {
+        "line": 88,
+        "text": "    \"p26_qtype_6\","
+      },
+      {
+        "line": 89,
+        "text": "    \"p26_qtype_7\","
+      },
+      {
+        "line": 90,
+        "text": "    \"p26_atype_0\","
+      },
+      {
+        "line": 91,
+        "text": "    \"p26_atype_1\","
+      },
+      {
+        "line": 92,
+        "text": "    \"p26_atype_2\","
+      },
+      {
+        "line": 93,
+        "text": "    \"p26_atype_3\","
+      },
+      {
+        "line": 94,
+        "text": "    \"p26_atype_4\","
+      },
+      {
+        "line": 95,
+        "text": "    \"p26_atype_5\","
+      }
+    ],
+    "docs/ENHANCEMENT_INTEGRATION_CONTRACT.md": [
+      {
+        "line": 184,
+        "text": "    selection_adapter=selection_adapter,  # frozen P60 artifacts"
+      },
+      {
+        "line": 185,
+        "text": "    feature_provider=feature_provider,    # loaded once"
+      }
+    ],
+    "src/controller/controller.py": [
+      {
+        "line": 14,
+        "text": "Frozen production-like path (P60/P61/P62): Probe OFF; SelectionDecision from"
+      }
+    ],
+    "src/controller/schema.py": [
+      {
+        "line": 53,
+        "text": "    \"\"\"Frozen online adapter lane (P60). Selection is not Enhancement routing.\"\"\""
+      }
+    ],
+    "src/controller/selection.py": [
+      {
+        "line": 1,
+        "text": "\"\"\"Frozen online two-lane selection adapter (P60 formalised)."
+      },
+      {
+        "line": 4,
+        "text": "Thresholds, z-stats and HGB artifacts are frozen from EXP-P60; this module does"
+      },
+      {
+        "line": 24,
+        "text": "DEFAULT_CONFIG_PATH = REPO_ROOT / \"configs\" / \"controller\" / \"p60_online_adapter.json\""
+      },
+      {
+        "line": 92,
+        "text": "    \"\"\"P60 C_two_lane_balanced online adapter: Lane1 p_insuff, Lane2 frozen D_combo.\"\"\""
+      },
+      {
+        "line": 195,
+        "text": "        # Correct Diagnosis never enters enhancement lanes (P57/P60 pred-fail pool semantics)."
+      }
+    ],
+    "src/pipeline/adaptive_rag.py": [
+      {
+        "line": 41,
+        "text": "    def features_for("
+      },
+      {
+        "line": 79,
+        "text": "        feature_provider: FeatureProvider,"
+      },
+      {
+        "line": 85,
+        "text": "        self.feature_provider = feature_provider"
+      },
+      {
+        "line": 107,
+        "text": "        features = self.feature_provider.features_for(item, diagnosis)"
+      },
+      {
+        "line": 180,
+        "text": "    feature_provider: FeatureProvider,"
+      },
+      {
+        "line": 189,
+        "text": "        feature_provider=feature_provider,"
+      }
+    ],
+    "tests/test_adaptive_rag_pipeline.py": [
+      {
+        "line": 81,
+        "text": "    def features_for(self, item, diagnosis):"
+      },
+      {
+        "line": 160,
+        "text": "        feature_provider=StubFeatures(),"
+      },
+      {
+        "line": 350,
+        "text": "            feature_provider=features,"
+      }
+    ],
+    "tests/test_controller_selection.py": [
+      {
+        "line": 1,
+        "text": "\"\"\"Tests for FrozenOnlineSelectionAdapter (P60 formal). No Test dataset, no gold.\"\"\""
+      },
+      {
+        "line": 96,
+        "text": "        self.assertEqual(adapter.version, \"p60_online_adapter_v1\")"
+      },
+      {
+        "line": 101,
+        "text": "        self.assertTrue((ROOT / \"models/controller/p60_online_adapter/hgb_fail_gate.joblib\").is_file())"
+      }
+    ]
+  },
+  "concrete_original_online_provider_found": false,
+  "P60_specific_training_tuning_calibration_ID_manifest_found": false,
+  "old_Diagnosis_split_files": [
+    "configs/splits/diagnosis_v1_split.json",
+    "configs/splits/diagnosis_v2_expanded_split.json"
+  ],
+  "absence_scope": "Tracked files at this commit only; not a claim about author local files or inaccessible Drive",
+  "source_file_sha256": {
+    "configs/controller/p60_online_adapter.json": "a77910fb138b6c32bbdc94066c0bb31d4f0f039e98bc9ffef595a4ec8989cc83",
+    "docs/ENHANCEMENT_INTEGRATION_CONTRACT.md": "3e69e14621cc1f315a83d56da2bb487cdf10a054ef3318172ee55a902ba1161b",
+    "src/controller/controller.py": "d211c09c35bbc6a440fd2fd48d9b5df3a18c308cc9c521697339c8de3db8576e",
+    "src/controller/schema.py": "f1a123b2f510c75779fe483570477622a93e410c56d1affd58e6a9fb5ffa63ba",
+    "src/controller/selection.py": "d481d9b6940aff49d7153c3497361e3223cf93eac4b8d6e9ef3a5423bbf2e4e2",
+    "src/pipeline/adaptive_rag.py": "db8031f6962d159ef0d2da0b5f2c09d8dec4ca8d1a7b41cf851f20426b64b2f9",
+    "tests/test_adaptive_rag_pipeline.py": "e3f7b00c1f4d95ae3accb6cc1cdb6f5a73ab7fc7127619601d8ac0e20e6a247f",
+    "tests/test_controller_selection.py": "3c6690593c92890439afbe38ff33d0b2edac4d0824d713bc5386b4d4e4159de6"
+  },
+  "model_metadata": {
+    "models/controller/p60_online_adapter/hgb_3c.joblib": {
+      "class": "HistGradientBoostingClassifier",
+      "n_features_in": 78,
+      "classes": [
+        0,
+        1,
+        2
+      ],
+      "matches_GitHub_blob": true,
+      "sha256": "0a7c35c9d2f5d26c43834f17822574e113edc986e4a851c934ac9ea9f50f3c1e",
+      "sample_ID_related_attributes": []
+    },
+    "models/controller/p60_online_adapter/hgb_fail_gate.joblib": {
+      "class": "HistGradientBoostingClassifier",
+      "n_features_in": 78,
+      "classes": [
+        0,
+        1
+      ],
+      "matches_GitHub_blob": true,
+      "sha256": "13850ff33b22e72fae8e4ce4d0e3c4a26ce361a791639b362152cff093cfef51",
+      "sample_ID_related_attributes": []
+    },
+    "models/controller/p60_online_adapter/hgb_rec_given_fail.joblib": {
+      "class": "HistGradientBoostingClassifier",
+      "n_features_in": 78,
+      "classes": [
+        0,
+        1
+      ],
+      "matches_GitHub_blob": true,
+      "sha256": "d27cec5d03114e6a648211dc1267cf9e2cbc4935a940ebdfa6b8117eb13905a4",
+      "sample_ID_related_attributes": []
+    }
+  }
+}

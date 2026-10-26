@@ -1,0 +1,21 @@
+{
+  "user_date": "2026-10-27",
+  "upstream_branch": "feature/diagnosis-probe-zheng",
+  "upstream_HEAD": "138d52aa22e0eee78637e01f981a030d7ad388df",
+  "already_ancestor_of_controller": true,
+  "new_upstream_merge_needed": false,
+  "new_current_baseline": "diagnosis_20261024_p60_p64_v1",
+  "old_T5_candidate_not_P60": true,
+  "Drive_search": {
+    "queries": [
+      "P60",
+      "P26",
+      "diagnosis"
+    ],
+    "outcome": "ACCESS_TOKEN_SCOPE_INSUFFICIENT",
+    "does_not_establish_file_absence": true
+  },
+  "teammate_messages_sent": 0,
+  "new_GPU_runs": 0,
+  "protected_pools_unchanged": true
+}

@@ -1,0 +1,756 @@
+{
+  "commits": [
+    {
+      "sha": "138d52aa22e0eee78637e01f981a030d7ad388df",
+      "date": "2026-10-24T11:18:03Z",
+      "subject": "feat: add multi-failure diagnosis controller and pluggable enhancement pipeline",
+      "files": [
+        {
+          "path": "configs/controller/p60_online_adapter.json",
+          "status": "added"
+        },
+        {
+          "path": "docs/ENHANCEMENT_INTEGRATION_CONTRACT.md",
+          "status": "added"
+        },
+        {
+          "path": "models/controller/p60_online_adapter/hgb_3c.joblib",
+          "status": "added"
+        },
+        {
+          "path": "models/controller/p60_online_adapter/hgb_fail_gate.joblib",
+          "status": "added"
+        },
+        {
+          "path": "models/controller/p60_online_adapter/hgb_rec_given_fail.joblib",
+          "status": "added"
+        },
+        {
+          "path": "src/compensation/__init__.py",
+          "status": "modified"
+        },
+        {
+          "path": "src/compensation/executor.py",
+          "status": "added"
+        },
+        {
+          "path": "src/compensation/interface.py",
+          "status": "added"
+        },
+        {
+          "path": "src/compensation/mocks.py",
+          "status": "added"
+        },
+        {
+          "path": "src/compensation/schema.py",
+          "status": "added"
+        },
+        {
+          "path": "src/controller/__init__.py",
+          "status": "modified"
+        },
+        {
+          "path": "src/controller/controller.py",
+          "status": "modified"
+        },
+        {
+          "path": "src/controller/failure_representation.py",
+          "status": "added"
+        },
+        {
+          "path": "src/controller/normalization.py",
+          "status": "added"
+        },
+        {
+          "path": "src/controller/schema.py",
+          "status": "modified"
+        },
+        {
+          "path": "src/controller/selection.py",
+          "status": "added"
+        },
+        {
+          "path": "src/pipeline/__init__.py",
+          "status": "added"
+        },
+        {
+          "path": "src/pipeline/adaptive_rag.py",
+          "status": "added"
+        },
+        {
+          "path": "src/pipeline/schema.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_adaptive_rag_pipeline.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_controller.py",
+          "status": "modified"
+        },
+        {
+          "path": "tests/test_controller_routing.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_controller_selection.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_enhancement_interfaces.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_fr6_multi_failure_representation.py",
+          "status": "added"
+        }
+      ]
+    },
+    {
+      "sha": "7c7863f98f87e892119481a79e23ca6dcebdced0",
+      "date": "2026-10-12T14:53:42Z",
+      "subject": "feat: add diagnosis probe controller pipeline",
+      "files": [
+        {
+          "path": "configs/probe/prompt_development_samples.json",
+          "status": "added"
+        },
+        {
+          "path": "configs/splits/diagnosis_v2_expanded_split.json",
+          "status": "added"
+        },
+        {
+          "path": "data/annotations/normalized/nq_3216_conversion_summary.json",
+          "status": "added"
+        },
+        {
+          "path": "data/annotations/normalized/nq_3216_diagnosis_inputs.jsonl",
+          "status": "added"
+        },
+        {
+          "path": "data/annotations/normalized/nq_3216_labels_normalized.jsonl",
+          "status": "added"
+        },
+        {
+          "path": "docs/DIAGNOSIS_PROBE_CONTROLLER_HANDOFF.md",
+          "status": "added"
+        },
+        {
+          "path": "docs/DIAGNOSIS_PROBE_INTERFACE.md",
+          "status": "modified"
+        },
+        {
+          "path": "models/diagnosis/diagnosis_v2_expanded_hierarchical.json",
+          "status": "added"
+        },
+        {
+          "path": "results/controller/controller_v1_test.json",
+          "status": "added"
+        },
+        {
+          "path": "results/controller/controller_v1_validation.json",
+          "status": "added"
+        },
+        {
+          "path": "results/diagnosis/diagnosis_hierarchical_validation.json",
+          "status": "added"
+        },
+        {
+          "path": "results/diagnosis/diagnosis_v2_expanded_test.json",
+          "status": "added"
+        },
+        {
+          "path": "results/diagnosis/diagnosis_v2_expanded_validation.json",
+          "status": "added"
+        },
+        {
+          "path": "results/final/diagnosis_probe_controller_test_evaluation.json",
+          "status": "added"
+        },
+        {
+          "path": "results/probe/probe_trigger_v2_expanded_search.json",
+          "status": "added"
+        },
+        {
+          "path": "results/probe/probe_v2_expanded_policy_comparison.json",
+          "status": "added"
+        },
+        {
+          "path": "results/probe/probe_v2_expanded_test.json",
+          "status": "added"
+        },
+        {
+          "path": "results/probe/probe_v2_expanded_validation.json",
+          "status": "added"
+        },
+        {
+          "path": "results/probe/probe_v2_safe_override_comparison.json",
+          "status": "added"
+        },
+        {
+          "path": "scripts/build_diagnosis_v2_expanded_split.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/build_nq_2698_diagnosis_trusted.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/evaluate_probe_integration_policies.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/evaluate_probe_safe_override_v2.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/evaluate_probe_v2_expanded_policies.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/export_nq_3216_diagnosis_inputs.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/run_controller_validation.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/run_final_test_evaluation.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/run_probe_smoke.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/run_probe_v2_expanded_validation.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/run_probe_validation.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/search_probe_trigger_v2_expanded.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/train_diagnosis_hierarchical.py",
+          "status": "modified"
+        },
+        {
+          "path": "scripts/train_diagnosis_v2_expanded.py",
+          "status": "added"
+        },
+        {
+          "path": "src/controller/__init__.py",
+          "status": "modified"
+        },
+        {
+          "path": "src/controller/controller.py",
+          "status": "added"
+        },
+        {
+          "path": "src/controller/schema.py",
+          "status": "added"
+        },
+        {
+          "path": "src/probe/pipeline.py",
+          "status": "added"
+        },
+        {
+          "path": "src/probe/probe.py",
+          "status": "added"
+        },
+        {
+          "path": "src/probe/prompts.py",
+          "status": "added"
+        },
+        {
+          "path": "src/probe/schema.py",
+          "status": "added"
+        },
+        {
+          "path": "src/probe/trigger.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_controller.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_probe_mapping.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_probe_schema.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_probe_semantics.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_probe_trigger.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_probe_trigger_v2.py",
+          "status": "added"
+        }
+      ]
+    },
+    {
+      "sha": "8c08e805eaa6db58c1cd1e825a0bb2cdd80af228",
+      "date": "2026-10-12T03:28:30Z",
+      "subject": "Implement Diagnosis v1 classifiers",
+      "files": [
+        {
+          "path": ".gitignore",
+          "status": "modified"
+        },
+        {
+          "path": "configs/splits/diagnosis_v1_split.json",
+          "status": "added"
+        },
+        {
+          "path": "results/diagnosis/diagnosis_v1_validation.json",
+          "status": "added"
+        },
+        {
+          "path": "scripts/build_diagnosis_splits.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/train_diagnosis_classifier.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/train_diagnosis_hierarchical.py",
+          "status": "added"
+        },
+        {
+          "path": "src/diagnosis/classifier.py",
+          "status": "added"
+        },
+        {
+          "path": "src/diagnosis/features.py",
+          "status": "added"
+        },
+        {
+          "path": "src/diagnosis/hierarchical_classifier.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_diagnosis_classifier.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_diagnosis_features.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_diagnosis_hierarchical_classifier.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_diagnosis_splits.py",
+          "status": "added"
+        }
+      ]
+    },
+    {
+      "sha": "82abd1b5fe70e7919a9e19301f5827604ea249bb",
+      "date": "2026-10-11T12:54:22Z",
+      "subject": "v1: Diagnosis prototype input",
+      "files": [
+        {
+          "path": "data/annotations/normalized/fever_500_labels.jsonl",
+          "status": "added"
+        },
+        {
+          "path": "data/annotations/normalized/nq_500_labels.jsonl",
+          "status": "added"
+        },
+        {
+          "path": "requirements.txt",
+          "status": "modified"
+        },
+        {
+          "path": "results/preliminary/fever_c1_7b.jsonl",
+          "status": "added"
+        },
+        {
+          "path": "results/preliminary/nq_c1_7b.jsonl",
+          "status": "added"
+        },
+        {
+          "path": "scripts/build_diagnosis_dataset.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/normalize_diagnosis_annotations.py",
+          "status": "added"
+        },
+        {
+          "path": "src/diagnosis/adapter.py",
+          "status": "added"
+        },
+        {
+          "path": "src/diagnosis/annotations.py",
+          "status": "added"
+        },
+        {
+          "path": "src/diagnosis/dev_dataset.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_diagnosis_adapter.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_diagnosis_dev_dataset.py",
+          "status": "added"
+        }
+      ]
+    },
+    {
+      "sha": "014bf4a682c82f604b622e1607f03243bf6ff4f0",
+      "date": "2026-10-11T10:04:04Z",
+      "subject": "Define diagnosis runtime interface",
+      "files": [
+        {
+          "path": "docs/DIAGNOSIS_PROBE_INTERFACE.md",
+          "status": "added"
+        },
+        {
+          "path": "src/diagnosis/__init__.py",
+          "status": "modified"
+        },
+        {
+          "path": "src/diagnosis/labels.py",
+          "status": "added"
+        },
+        {
+          "path": "src/diagnosis/schema.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/test_diagnosis_schema.py",
+          "status": "added"
+        }
+      ]
+    },
+    {
+      "sha": "c15977cb8ebbaa16a0ada809f72bd57d0893b120",
+      "date": "2026-09-18T12:35:37Z",
+      "subject": "Freeze preliminary experiment configuration",
+      "files": [
+        {
+          "path": "README.md",
+          "status": "modified"
+        },
+        {
+          "path": "configs/preliminary.yaml",
+          "status": "added"
+        },
+        {
+          "path": "configs/splits/preliminary_fever_500.json",
+          "status": "added"
+        },
+        {
+          "path": "configs/splits/preliminary_nq_500.json",
+          "status": "added"
+        },
+        {
+          "path": "docs/PRELIMINARY_EXPERIMENT.md",
+          "status": "added"
+        },
+        {
+          "path": "docs/SETUP.md",
+          "status": "modified"
+        },
+        {
+          "path": "scripts/build_fever_index.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/build_preliminary_manifests.py",
+          "status": "added"
+        },
+        {
+          "path": "src/config.py",
+          "status": "modified"
+        },
+        {
+          "path": "src/evaluation/__init__.py",
+          "status": "modified"
+        },
+        {
+          "path": "src/evaluation/recoverability.py",
+          "status": "added"
+        },
+        {
+          "path": "src/retrieval/__init__.py",
+          "status": "modified"
+        },
+        {
+          "path": "src/retrieval/fever_ivfpq.py",
+          "status": "added"
+        }
+      ]
+    },
+    {
+      "sha": "89d856d72e5a817383c380b6faa357f9a0a5e160",
+      "date": "2026-09-17T16:17:24Z",
+      "subject": "Switch primary SLM to Qwen2.5-7B and finalize reference setup",
+      "files": [
+        {
+          "path": "README.md",
+          "status": "modified"
+        },
+        {
+          "path": "configs/base.yaml",
+          "status": "modified"
+        },
+        {
+          "path": "docs/RETRIEVAL_CONFIG.md",
+          "status": "modified"
+        },
+        {
+          "path": "docs/SETUP.md",
+          "status": "modified"
+        },
+        {
+          "path": "requirements.txt",
+          "status": "modified"
+        },
+        {
+          "path": "results/base_rag/fever_smoke_retrieval_ckpt.json",
+          "status": "added"
+        },
+        {
+          "path": "results/base_rag/fever_smoke_test.jsonl",
+          "status": "added"
+        },
+        {
+          "path": "results/base_rag/nq_smoke_test.jsonl",
+          "status": "added"
+        },
+        {
+          "path": "results/base_rag/nq_smoke_test_7b.jsonl",
+          "status": "added"
+        },
+        {
+          "path": "results/base_rag/nq_smoke_test_v2.jsonl",
+          "status": "added"
+        },
+        {
+          "path": "scripts/audit_nq_base_rag.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/run_fever_base_rag.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/run_nq_base_rag.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/test_qwen_load.py",
+          "status": "added"
+        },
+        {
+          "path": "src/config.py",
+          "status": "added"
+        },
+        {
+          "path": "src/evaluation/__init__.py",
+          "status": "modified"
+        },
+        {
+          "path": "src/evaluation/fever.py",
+          "status": "added"
+        },
+        {
+          "path": "src/evaluation/qa.py",
+          "status": "added"
+        },
+        {
+          "path": "src/generation/__init__.py",
+          "status": "modified"
+        },
+        {
+          "path": "src/generation/qwen.py",
+          "status": "added"
+        },
+        {
+          "path": "src/retrieval/e5_faiss.py",
+          "status": "modified"
+        }
+      ]
+    },
+    {
+      "sha": "05c0feeffbfea1bec1ac8cac57e689980d6e7394",
+      "date": "2026-09-17T12:37:09Z",
+      "subject": "Freeze base retrieval configuration",
+      "files": [
+        {
+          "path": "configs/base.yaml",
+          "status": "modified"
+        },
+        {
+          "path": "docs/RETRIEVAL_CONFIG.md",
+          "status": "added"
+        },
+        {
+          "path": "results/retrieval/nq_bge_metrics.json",
+          "status": "added"
+        },
+        {
+          "path": "results/retrieval/nq_e5_metrics.json",
+          "status": "added"
+        },
+        {
+          "path": "scripts/download_data.py",
+          "status": "modified"
+        },
+        {
+          "path": "scripts/prepare_nq.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/prepare_retrieval_data.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/run_nq_bge_retriever.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/run_nq_retriever.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/verify_data.py",
+          "status": "added"
+        },
+        {
+          "path": "src/retrieval/__init__.py",
+          "status": "modified"
+        },
+        {
+          "path": "src/retrieval/e5_faiss.py",
+          "status": "added"
+        }
+      ]
+    },
+    {
+      "sha": "b53f84a8cd43640622eaf449ebd29d7525f9ec89",
+      "date": "2026-09-17T05:46:25Z",
+      "subject": "Initialize project structure and setup",
+      "files": [
+        {
+          "path": ".gitignore",
+          "status": "added"
+        },
+        {
+          "path": "README.md",
+          "status": "modified"
+        },
+        {
+          "path": "configs/base.yaml",
+          "status": "added"
+        },
+        {
+          "path": "data/README.md",
+          "status": "added"
+        },
+        {
+          "path": "data/processed/.gitkeep",
+          "status": "added"
+        },
+        {
+          "path": "data/raw/.gitkeep",
+          "status": "added"
+        },
+        {
+          "path": "docs/.gitkeep",
+          "status": "added"
+        },
+        {
+          "path": "docs/SETUP.md",
+          "status": "added"
+        },
+        {
+          "path": "requirements.txt",
+          "status": "added"
+        },
+        {
+          "path": "results/.gitkeep",
+          "status": "added"
+        },
+        {
+          "path": "scripts/download_data.py",
+          "status": "added"
+        },
+        {
+          "path": "scripts/prepare_data.py",
+          "status": "added"
+        },
+        {
+          "path": "src/__init__.py",
+          "status": "added"
+        },
+        {
+          "path": "src/compensation/__init__.py",
+          "status": "added"
+        },
+        {
+          "path": "src/controller/__init__.py",
+          "status": "added"
+        },
+        {
+          "path": "src/diagnosis/__init__.py",
+          "status": "added"
+        },
+        {
+          "path": "src/evaluation/__init__.py",
+          "status": "added"
+        },
+        {
+          "path": "src/generation/__init__.py",
+          "status": "added"
+        },
+        {
+          "path": "src/probe/__init__.py",
+          "status": "added"
+        },
+        {
+          "path": "src/retrieval/__init__.py",
+          "status": "added"
+        },
+        {
+          "path": "tests/__init__.py",
+          "status": "added"
+        }
+      ]
+    },
+    {
+      "sha": "bbc275733ab445426acaf890fe363f4ef25162b9",
+      "date": "2026-09-17T02:51:56Z",
+      "subject": "Initial commit",
+      "files": [
+        {
+          "path": "README.md",
+          "status": "added"
+        }
+      ]
+    }
+  ],
+  "complete_branch_history_pages": true,
+  "commit_count": 10
+}

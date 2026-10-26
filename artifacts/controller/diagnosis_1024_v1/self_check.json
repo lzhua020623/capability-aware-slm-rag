@@ -1,0 +1,58 @@
+{
+  "user_date": "2026-10-27",
+  "checked_at_UTC": "2026-10-26T22:32:26.690029+00:00",
+  "before": {
+    "branch": "controller",
+    "HEAD": "d0b3e86",
+    "user_instruction": "现在把1024更新的diagnose合进来 后续以这个最新的版本为主",
+    "followup_instruction": "查一下她那个分支是否有你需要的材料",
+    "preserved_untracked_user_file": "data/annotations/assisted/answer_repair_v7_batch01_20261017.jsonl"
+  },
+  "after": {
+    "upstream_commit": "138d52aa22e0eee78637e01f981a030d7ad388df",
+    "upstream_already_merged": true,
+    "duplicate_merge_created": false,
+    "current_baseline": "diagnosis_20261024_p60_p64_v1",
+    "registered_real_enhancement_actions": 3,
+    "old_router_run_not_called_on_new_path": true,
+    "Probe_enabled": false,
+    "E_mode": "unavailable",
+    "upstream_tracked_files_audited": 142,
+    "upstream_commits_audited": 10,
+    "original_HGB_models": 3,
+    "feature_positions": 78,
+    "unique_feature_names": 75,
+    "original_assets_byte_identical_to_upstream": 5,
+    "new_tests_passed": 17,
+    "full_tests_passed": 982,
+    "full_tests_seconds": 452.02,
+    "production_ready": false,
+    "missing": [
+      "runtime_78_feature_provider_not_delivered",
+      "P60_training_tuning_calibration_ID_provenance_not_delivered"
+    ],
+    "silent_legacy_fallback": false,
+    "new_GPU_runs": 0,
+    "model_training_runs": 0,
+    "new_quality_claim": false,
+    "final_quality_scored": false,
+    "Drive_search_result": "ACCESS_TOKEN_SCOPE_INSUFFICIENT; not evidence of absence",
+    "old_T5_archive_unchanged": true
+  },
+  "source_sha256": {
+    "src/pipeline/current.py": "a47d744ffaee8ab9863da7771505fe09519873376e0f949cfa597d2692e1e6e8",
+    "scripts/check_controller_current.py": "c4cd8b3d2cdea3570b52dc4369253c1a60cb33298f45aba025b1af211686cb7d",
+    "tests/test_controller_current.py": "4b23f3425232081c46dd070ae5fd4fb14bbd10f133e2061af531f054955362bd",
+    "configs/controller/current_baseline.json": "e0570fd6112d9ec166272c3516d1cbeb89f764738983e1a0c5ca33040b88251e"
+  },
+  "artifact_sha256": {
+    "README.md": "b6734113ad4a153fce0ad35adcacdd383774e3c298f829168b579eb5c8c9c4dd",
+    "full_tests.log": "2deb1e5e2de8ee1353ca441182dd55941b9c94cb6443e1617c54d5aa9ddfa951",
+    "local_validation_restart.json": "bf88c2741124954345b07e9adfef936785c06a1ec05b4f5a5303036779a7b29a",
+    "readiness.json": "cbf1a05c195eddd5575edeab22b0a0029508dc3f781f604f60f90eb36a67697a",
+    "source_receipt.json": "649273c365cdc974ec6a3fcaba5175104a083ba74476c95eb2ef8d21f172f5e2",
+    "targeted_tests.log": "d4655624015c3d178b803da7cff665ba38d12413d17551d30e0a8df10db3d19c",
+    "upstream_history_audit.json": "6fce9649233a3d1fb53b6b20eb1f2fe43242246c5a6ec2be59e02d753913f1c2",
+    "upstream_material_audit.json": "8248a51677362a813d8861afa5514bd0d62f280709ba081dc85142e3b334243d"
+  }
+}
