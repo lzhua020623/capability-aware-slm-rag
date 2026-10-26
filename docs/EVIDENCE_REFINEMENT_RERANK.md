@@ -406,10 +406,66 @@ source of the harm measured above.
 So the +3.3pp rank-1 gain from fine-tuning is real but does not convert into
 answer accuracy. The cross-encoder is not justified by answer-level evidence:
 a fixed shuffle performs as well with no model, no GPU and no 1.1 GB artifact.
-The honest next step is to change the mechanism rather than the ranker —
-sentence-level pruning removes the distracting text instead of reordering it,
-and addresses the 48% of samples whose answer was already at rank 1, which no
-reordering can help.
+
+### Pruning fails the same test
+
+Sentence-level pruning is the other mechanism the diagnosis suggests: strip the
+irrelevant text instead of reordering it, which also reaches the 48% of samples
+whose answer was already at rank 1. `ProvencePruner` wraps
+`naver/provence-reranker-debertav3-v1` and prunes each kept passage for the
+question; `MatchedRandomPruner` removes the same number of sentences from the
+same passage at random. Both arms freeze the passage order (`IdentityScorer`),
+so pruning is the only thing that varies.
+
+All four arms below share the same 2,367 held-out samples and the same
+regenerated "before" answers, so every pair is a paired comparison.
+
+| Arm | What varies | EM | token-F1 | repaired | broken | net |
+|---|---|---|---|---|---|---|
+| keep everything | nothing | 0.0672 | 0.2784 | 0 | 0 | 0 |
+| trained reranker | order | 0.1107 | 0.3219 | 156 | 53 | +103 |
+| seeded shuffle | order | **0.1187** | 0.3274 | 187 | 65 | **+122** |
+| Provence pruning | content | 0.0925 | 0.2990 | 129 | 69 | +60 |
+| matched random pruning | content | 0.1014 | 0.2836 | 168 | 87 | +81 |
+
+| Paired test | McNemar p | 95% CI on EM |
+|---|---|---|
+| trained reranker vs seeded shuffle | 0.246 | [−2.07pp, +0.51pp] |
+| Provence vs matched random pruning | 0.214 | [−2.24pp, +0.46pp] |
+| reordering vs pruning | **0.0115** | [+0.42pp, +3.21pp] |
+
+Informed pruning is indistinguishable from random pruning, exactly as informed
+ordering is indistinguishable from random ordering — and in both controls the
+random version's point estimate is slightly ahead. Pruning is also
+significantly *worse* than reordering, because it destroys information as well
+as noise: at threshold 0.1 it removes 47.7% of the context and deletes the
+answer string outright in 12% of the samples that had one, which shows up as
+69 and 87 broken answers against 53 and 65 for the ordering arms.
+
+### What actually works, and what it is worth
+
+Every arm beats doing nothing by a wide margin (+60 to +122 net repairs on
+2,208 wrong answers), and no arm's content-aware component beats its own random
+control. The effective ingredient is **perturbing the context and re-asking the
+generator once**, with a grounding gate to keep the answer when the new one is
+not supported. Ranking quality and pruning quality contribute nothing
+measurable on top of that.
+
+The cheapest correct implementation of this module is therefore a seeded
+shuffle plus the existing acceptance gate: no cross-encoder, no pruner, no GPU
+and no model artifacts. The trained reranker and Provence both cost real
+compute for no measurable answer-level return. This should be reported as a
+controlled negative result rather than as a reranking gain.
+
+The result is consistent with published findings on the same stack
+([arXiv:2505.15561](https://arxiv.org/abs/2505.15561), which also concludes
+that improvement must come from retrieval quality and generator robustness
+rather than passage positioning) and with reranking surfacing more misleading
+passages ([arXiv:2505.06914](https://arxiv.org/abs/2505.06914)).
+
+The obvious follow-up, untested here: if perturbation is the active ingredient,
+then several perturbed re-asks with a majority vote should beat one, and that
+costs only generation calls — no new model.
 
 ### What this means for deployment
 
@@ -466,6 +522,7 @@ this branch.
 |---|---|
 | `src/compensation/refinement_schema.py` | `RefinementConfig`, `RefinementResult`, `RefinementStatus`, forbidden-field guard |
 | `src/compensation/refinement_adapter.py` | `EvidenceRefinementAdapter`, the thin `Enhancement` wrapper |
+| `src/compensation/pruning.py` | `ProvencePruner` and its `MatchedRandomPruner` control |
 | `src/compensation/rerank.py` | `RelevanceScorer`, `CrossEncoderScorer`, `build_candidate_pool`, `rerank_evidence` |
 | `src/compensation/evidence_refinement.py` | `EvidenceRefiner`, `evidence_refinement`, grounding and acceptance rules |
 | `src/generation/backend.py` | pluggable generator: the frozen local Qwen, any OpenAI-compatible endpoint, or `echo` for dry runs |
@@ -474,5 +531,6 @@ this branch.
 | `scripts/train_rerank_accessibility.py` | cross-encoder fine-tuning |
 | `scripts/compare_rerank_models.py` | paired comparison of rerankers (McNemar + bootstrap) |
 | `scripts/evaluate_rerank_accessibility.py` | retrieval-side evaluation on the frozen records |
-| `scripts/evaluate_refinement_end_to_end.py` | EM / F1 before and after, local or hosted generator |
-| `tests/test_refinement_schema.py`, `tests/test_compensation_rerank.py`, `tests/test_evidence_refinement.py`, `tests/test_refinement_adapter.py`, `tests/test_rerank_training_data.py`, `tests/test_nq15_annotations.py`, `tests/test_generation_backend.py`, `tests/test_acceptance_policy.py` | 147 tests; no model is loaded except the frozen prompt builders |
+| `scripts/evaluate_refinement_end_to_end.py` | EM / F1 before and after, local or hosted generator, with `--scorer` and `--pruner` arms |
+| `scripts/analyze_refinement_funnel.py` | where in the chain a repair becomes impossible |
+| `tests/test_refinement_schema.py`, `tests/test_compensation_rerank.py`, `tests/test_evidence_refinement.py`, `tests/test_refinement_adapter.py`, `tests/test_rerank_training_data.py`, `tests/test_nq15_annotations.py`, `tests/test_generation_backend.py`, `tests/test_acceptance_policy.py`, `tests/test_refinement_funnel.py`, `tests/test_pruning.py` | 210 tests; no model is loaded except the frozen prompt builders |
