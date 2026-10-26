@@ -1,11 +1,14 @@
-"""Prediction I/O, resume, and aggregate EM/F1."""
+"""Prediction I/O, resume, aggregate metrics, and atomic reevaluate writes."""
 
 from __future__ import annotations
 
 import json
+import os
+import shutil
+from datetime import datetime, timezone
 from pathlib import Path
 
-from src.evaluation.qa import best_em_f1
+from baselines._lib.answer_scoring import aggregate_answer_metrics, score_answer
 
 
 def load_done_ids(predictions_path: Path) -> set[str]:
@@ -42,36 +45,38 @@ def read_predictions(predictions_path: Path) -> list[dict]:
     return rows
 
 
-def score_row(prediction: str, gold: list[str]) -> tuple[int, float]:
-    return best_em_f1(prediction, gold)
+def score_row(prediction: str, gold: list[str]) -> dict:
+    """Full automatic score dict (em/f1/normalized_match)."""
+    return score_answer(prediction, gold)
 
 
 def aggregate_metrics(rows: list[dict], *, mode: str) -> dict:
-    n = len(rows)
-    if n == 0:
-        return {"n": 0, "em": 0.0, "f1": 0.0, "mode": mode}
-    em_sum = 0.0
-    f1_sum = 0.0
-    for row in rows:
-        gold = row.get("gold") or []
-        if isinstance(gold, str):
-            gold = [gold]
-        pred = str(row.get("prediction") or "")
-        if "em" in row and "f1" in row:
-            em_sum += float(row["em"])
-            f1_sum += float(row["f1"])
-        else:
-            em, f1 = best_em_f1(pred, list(gold))
-            em_sum += em
-            f1_sum += f1
-    return {
-        "n": n,
-        "em": em_sum / n,
-        "f1": f1_sum / n,
-        "mode": mode,
-    }
+    return aggregate_answer_metrics(rows, mode=mode)
 
 
 def write_json(path: Path, obj: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(obj, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def backup_file(path: Path, backup_dir: Path) -> Path | None:
+    """Copy ``path`` into backup_dir with timestamp; return backup path or None."""
+    if not path.is_file():
+        return None
+    backup_dir.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    dest = backup_dir / f"{path.name}.{stamp}.bak"
+    shutil.copy2(path, dest)
+    return dest
+
+
+def atomic_write_jsonl(path: Path, rows: list[dict]) -> None:
+    """Write JSONL via temp file + os.replace."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    with tmp.open("w", encoding="utf-8", newline="\n") as handle:
+        for row in rows:
+            handle.write(json.dumps(row, ensure_ascii=False) + "\n")
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(tmp, path)

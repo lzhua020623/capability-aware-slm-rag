@@ -1,59 +1,88 @@
 # Baseline evaluation
 
-Independent baselines for fair comparison **before** Controller / Enhancement.
-No Diagnosis, Probe, Controller, or Enhancement code is used here.
+Two formal baselines on the same frozen NQ Test (before Controller / Enhancement):
 
-## Baselines
+| Baseline | Definition |
+|----------|------------|
+| **Qwen2.5-7B only** | `Qwen/Qwen2.5-7B-Instruct`, closed-book (no retrieval) |
+| **Qwen2.5-7B + matched RAG** | Same Qwen + NQ-Train matched BGE FAISS Top-5 + `context_fallback` |
 
-| Mode | Definition |
-|------|------------|
-| `qwen_only` | Qwen2.5-7B-Instruct, **no** retrieved evidence (closed-book). |
-| `rag` | Same Qwen + BGE-base + FAISS **Top-5** evidence → RAG prompt. |
-
-Shared across modes: same generator config (`configs/base.yaml`), same Test IDs, same gold, same EM/F1 (`src.evaluation.qa.best_em_f1`). The only intended variable is Top-5 RAG evidence.
+Same generator (`configs/base.yaml`), same Test IDs, same gold answers, same automatic EM / Token F1 / Normalized Accuracy.
 
 ## Frozen Test
 
-- Formal Test IDs come **only** from the original  
-  `diagnosis_nq_train_74097_split.json` (`splits.nq.test`, **n=11114**).
-- Place that file at `baselines/splits/diagnosis_nq_train_74097_split.json`  
-  (or pass `--split-file`).
-- **Do not** regenerate or guess IDs. If the file is missing, the runner exits with `FROZEN_SPLIT_MISSING`.
+- Split file: `baselines/splits/diagnosis_nq_train_74097_split.json`
+- IDs: `splits.nq.test` only, **n=11114**
+- **Do not re-split or regenerate Test IDs.** Missing file → `FROZEN_SPLIT_MISSING`.
 
-## Commands
+## Formal Test metrics (n=11114)
 
-Smoke (synthetic, no frozen Test; dry-run avoids GPU):
+Automatic metrics only; **LLM Judge is not included**.
 
-```bash
-python baselines/run_baseline_evaluation.py --mode qwen_only --smoke --dry-run
-python baselines/run_baseline_evaluation.py --mode rag --smoke --dry-run
-```
+**Qwen-only**
 
-Formal (after frozen split is in place; **not** run automatically):
+| Metric | Value |
+|--------|------:|
+| EM | 0.1072 |
+| Token F1 | 0.2068 |
+| Normalized Accuracy | 0.1078 |
+
+**Matched RAG** (`context_fallback`)
+
+| Metric | Value |
+|--------|------:|
+| EM | 0.2909 |
+| Token F1 | 0.4434 |
+| Normalized Accuracy | 0.2940 |
+| answer-in-context@5 | 0.6997 |
+
+**Invalidated (do not cite):** an earlier RAG Test used Dev index `nq_bge_base` (~99k) instead of the NQ-Train matched corpus/index. Reported ~EM 8.3% / F1 15% / normalized 8.4% is **void** due to retrieval corpus/index mismatch with `diagnosis_nq_train_74097`.
+
+## Matched RAG freeze
+
+- Generator: `Qwen/Qwen2.5-7B-Instruct`, NF4, greedy (`do_sample=false`), `max_new_tokens=64`
+- Retriever: `BAAI/bge-base-en-v1.5`, FAISS IndexFlatIP, Top-k=5
+- Index: `data/processed/indexes/nq_train_bge_base.index`
+- Ids / offsets / corpus:
+  - `data/processed/indexes/nq_train_bge_base_ids.jsonl`
+  - `data/processed/indexes/nq_train_bge_base_offsets.npy`
+  - `data/processed/retrieval/nq_train_corpus.jsonl`
+- Prompt: `context_fallback`
+- Config: `baselines/configs/rag_matched.json`
+
+## Formal run commands
+
+**Qwen-only**
 
 ```bash
 python baselines/run_baseline_evaluation.py --mode qwen_only --split-file baselines/splits/diagnosis_nq_train_74097_split.json
-python baselines/run_baseline_evaluation.py --mode rag --split-file baselines/splits/diagnosis_nq_train_74097_split.json
 ```
 
-Resume:
+**Matched RAG**
 
 ```bash
-python baselines/run_baseline_evaluation.py --mode rag --split-file baselines/splits/diagnosis_nq_train_74097_split.json --resume
+python baselines/run_baseline_evaluation.py --mode rag --config baselines/configs/rag_matched.json --eval-split test --rag-prompt context_fallback --split-file baselines/splits/diagnosis_nq_train_74097_split.json
 ```
 
-Validate split only:
+**Matched RAG resume**
 
 ```bash
-python baselines/run_baseline_evaluation.py --mode rag --validate-split-only --split-file baselines/splits/diagnosis_nq_train_74097_split.json
+python baselines/run_baseline_evaluation.py --mode rag --config baselines/configs/rag_matched.json --eval-split test --rag-prompt context_fallback --split-file baselines/splits/diagnosis_nq_train_74097_split.json --resume
 ```
 
 ## Outputs
 
-Under `baselines/outputs/<mode>/`:
+| Baseline | Directory |
+|----------|-----------|
+| Qwen-only | `baselines/outputs/qwen_only/` |
+| Matched RAG | `baselines/outputs/rag_matched_test_context_fallback/` |
 
-- `predictions.jsonl` — per-sample predictions (+ RAG passage ids/ranks)
-- `metrics.json` — aggregate EM / F1
-- `run_config.json` — frozen run settings
+Each run writes `predictions.jsonl`, `metrics.json`, `run_config.json`.
 
-Large outputs are gitignored via `baselines/.gitignore`.
+Large artifacts (`predictions.jsonl`, FAISS index, corpus, `_backup/`) are gitignored by default via `baselines/.gitignore` and should **not** be committed.
+
+## Automatic metrics
+
+- **EM** — exact match after standard answer normalization (`src.evaluation.qa.best_em_f1`)
+- **Token F1** — token-level F1 (same backend)
+- **Normalized Accuracy** — form-only match (Unicode / case / punctuation / articles / whitespace / separators). **Not** semantic similarity and **not** an LLM Judge.

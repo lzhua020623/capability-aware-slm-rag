@@ -10,11 +10,11 @@ from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 
+from baselines._lib.answer_scoring import score_answer  # noqa: E402
 from baselines._lib.metrics_io import (  # noqa: E402
     aggregate_metrics,
     append_prediction,
     load_done_ids,
-    score_row,
 )
 from baselines._lib.prompts import build_closed_book_prompt  # noqa: E402
 from baselines._lib.records_io import synthetic_smoke_records  # noqa: E402
@@ -32,11 +32,19 @@ from src.generation.qwen import build_rag_prompt  # noqa: E402
 
 class ConfigAndCLITests(unittest.TestCase):
     def test_mode_configs_exist(self):
-        for mode in ("qwen_only", "rag"):
-            cfg = load_mode_config(mode)
-            self.assertEqual(cfg["mode"], mode)
-            self.assertEqual(cfg["generator"]["model_name"], "Qwen/Qwen2.5-7B-Instruct")
-            self.assertEqual(cfg["split"]["expected_test_n"], 11114)
+        qwen = load_mode_config("qwen_only")
+        self.assertEqual(qwen["mode"], "qwen_only")
+        self.assertEqual(qwen["generator"]["model_name"], "Qwen/Qwen2.5-7B-Instruct")
+        self.assertEqual(qwen["split"]["expected_test_n"], 11114)
+
+        rag = load_mode_config("rag")
+        self.assertEqual(rag["mode"], "rag")
+        self.assertTrue(rag["_config_path"].endswith("rag_matched.json"))
+        self.assertEqual(rag["generator"]["model_name"], "Qwen/Qwen2.5-7B-Instruct")
+        self.assertEqual(rag["split"]["expected_n"]["test"], 11114)
+        self.assertIn("nq_train_bge_base.index", rag["retrieval"]["index_path"])
+        self.assertNotIn("nq_bge_base.index", rag["retrieval"]["index_path"])
+        self.assertEqual(rag["rag_prompt"]["default_style"], "context_fallback")
 
     def test_parse_mode_required(self):
         with self.assertRaises(SystemExit):
@@ -67,6 +75,22 @@ class PromptAndSchemaTests(unittest.TestCase):
         prompt = build_rag_prompt("Q?", [{"text": "passage A"}])
         self.assertIn("Context:", prompt)
         self.assertIn("[1] passage A", prompt)
+        self.assertIn("using only the provided context", prompt)
+
+    def test_rag_prompt_variants_differ_only_in_policy(self):
+        from baselines._lib.prompts import build_baseline_rag_prompt
+
+        passages = [{"text": "passage A"}]
+        only = build_baseline_rag_prompt("Q?", passages, prompt_style="context_only")
+        fall = build_baseline_rag_prompt("Q?", passages, prompt_style="context_fallback")
+        self.assertEqual(only, build_rag_prompt("Q?", passages))
+        self.assertIn("using only the provided context", only)
+        self.assertNotIn("using only the provided context", fall)
+        self.assertIn("you may use your own knowledge", fall)
+        self.assertIn("Context:\n[1] passage A\n\nQuestion: Q?", only)
+        self.assertIn("Context:\n[1] passage A\n\nQuestion: Q?", fall)
+        self.assertIn("shortest answer span", only)
+        self.assertIn("shortest answer span", fall)
 
     def test_output_schema_qwen_only(self):
         row = build_output_row(
@@ -78,7 +102,17 @@ class PromptAndSchemaTests(unittest.TestCase):
         )
         self.assertEqual(
             set(row),
-            {"sample_id", "query", "prediction", "gold", "mode", "em", "f1"},
+            {
+                "sample_id",
+                "query",
+                "prediction",
+                "gold",
+                "mode",
+                "em",
+                "f1",
+                "normalized_match",
+                "normalized_match_type",
+            },
         )
         self.assertNotIn("retrieved_passage_ids", row)
 
@@ -93,12 +127,14 @@ class PromptAndSchemaTests(unittest.TestCase):
         )
         self.assertEqual(row["retrieved_passage_ids"], ["p1"])
         self.assertEqual(row["retrieved_ranks"], [1])
+        self.assertIn("answer_in_context", row)
 
     def test_evaluator_is_main_qa(self):
-        em, f1 = score_row("Blue", ["blue"])
+        scored = score_answer("Blue", ["blue"])
         em2, f1_2 = best_em_f1("Blue", ["blue"])
-        self.assertEqual((em, f1), (em2, f1_2))
-        self.assertEqual(em, 1)
+        self.assertEqual(scored["em"], em2)
+        self.assertAlmostEqual(scored["f1"], f1_2)
+        self.assertEqual(scored["em"], 1)
 
 
 class SplitValidationTests(unittest.TestCase):
