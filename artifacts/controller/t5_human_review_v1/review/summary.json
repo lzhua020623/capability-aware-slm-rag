@@ -1,0 +1,23 @@
+{
+  "cases": 17,
+  "assistance_adopted": 17,
+  "fully_adjudicated": 11,
+  "partially_adjudicated": 2,
+  "unresolved_all_fields": 4,
+  "not_fully_adjudicated_ids": [
+    "R03",
+    "R06",
+    "R09",
+    "R11",
+    "R16",
+    "R17"
+  ],
+  "both_initial_and_retrieval_correct": 8,
+  "initial_wrong_retrieval_correct": 3,
+  "initial_correct_retrieval_wrong": 0,
+  "blind_review": false,
+  "candidate_frozen": false,
+  "route_promoted": false,
+  "runtime_or_gold_changed": false,
+  "scope": "Targeted 17-case assisted review only; not all changed answers, not 200-case semantic accuracy or candidate net gain"
+}

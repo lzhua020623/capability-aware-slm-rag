@@ -1,0 +1,41 @@
+{
+  "confirmation_id": "t5-review17-user-adoption-20261026-v1",
+  "date": "2026-10-26",
+  "source": "current_conversation_user_message",
+  "user_message_exact": "按照你判断的来",
+  "explicit_user_confirmation": true,
+  "decision": "adopt_assistance_preserve_unknowns",
+  "review_ids": [
+    "R01",
+    "R02",
+    "R03",
+    "R04",
+    "R05",
+    "R06",
+    "R07",
+    "R08",
+    "R09",
+    "R10",
+    "R11",
+    "R12",
+    "R13",
+    "R14",
+    "R15",
+    "R16",
+    "R17"
+  ],
+  "judged_fields": [
+    "initial_correct",
+    "adaptive_correct",
+    "always_retrieve_correct"
+  ],
+  "source_review_sha256": "913fa60f58536d8b7c823b4ae89c9f40fd514673917f04cdbdb31cb9b654069a",
+  "agent_notes_sha256": "43e7b9673183b13ed6456a293d09d2e19b0f57943981819af54538428d7383af",
+  "independent_blind_review": false,
+  "limitations": [
+    "Assisted judgments and references were visible before adoption",
+    "Null judgments remain unresolved",
+    "Other fixed-action answers are not adjudicated",
+    "This is not a complete changed-answer audit or a training-label release"
+  ]
+}

@@ -38,13 +38,13 @@
 | T5.4 | Kaggle 20 项真实验收 | 已完成并审计：Version 1 / 362285592；10 通过、1 结构失败、9 语义失败、0 执行失败，两长题均已执行；不是 semantic_only |
 | T5.5 | 开发运行 | 已执行 failed 停止分支：0 次；不启动 400／800 次开发，不追加 r3 |
 | T5.6 | ZIP 独立审计与全局 E 模式冻结 | 已完成：[原始 ZIP 与审计](../artifacts/controller/e_v2a_interface_r2/kaggle_v1/README.md)，26 项校验一致；两数据集所有 E 组共用 unavailable，真实开发合规率未测，FR12 未验收 |
-| T5.7 | 人工审核（并行） | [17 题辅助页](../artifacts/controller/t5_assisted_review_v1/review/review17.html)已准备：原 15＋候选 EM 误修补充 2，人审 0/17；历史 5 条语义误修 ID 和新 NQ 改答仍待确认；73 条原对保留题仅作回归 |
-| T5.8 | 开发回放、冻结至多一个 NQ 路由候选 | 网格 0.2/0.3/0.4，原 no_action 范围，已有 supported Probe 否决；E 已固定 unavailable，人审完成后再冻结 |
+| T5.7 | 人工审核（并行） | [17 题确认快照](../artifacts/controller/t5_human_review_v1/review/review17.html)：用户采用全部辅助意见，11 完整定案、6 未完整定案；属于辅助可见参考审核。T4 其余改答及历史 5 条语义误修 ID 仍待收口；73 条原对保留题仅作回归 |
+| T5.8 | 开发回放、冻结至多一个 NQ 路由候选 | 网格 0.2/0.3/0.4，原 no_action 范围，已有 supported Probe 否决；E 已固定 unavailable；审核 11 定案、6 待定，核对待定影响与覆盖后再冻结 |
 | T5.9 | 选型确认一次 | 每数据集 200；Adaptive＋三 Always，C1 缓存；EM 净增 >0，语义净值及待定最坏下界均不得负；无合格候选保留原路由 |
 
 r2 的结果不改变冻结数据、预算或评分。E 不可用的比较组如实标注为保留策略，零调用／零误修不能作为修复能力或 AC6 语义标记精确率证据。
 
-T5.7 审核页：[NQ 路由 15 题](../artifacts/controller/e_v2a_v1/t5_development_review/routing15_review.html)。辅助意见不填成人审。旧 T4 及 r1 失败结果保持原字节。
+T5.7 当前记录：[用户采用辅助意见](../artifacts/controller/t5_human_review_v1/README.md)。原 [15 题未审快照](../artifacts/controller/e_v2a_v1/t5_development_review/routing15_review.html) 和 [17 题辅助快照](../artifacts/controller/t5_assisted_review_v1/README.md) 保留；未获确认的代理判断仍不填成人审，用户采用也不消除待定值。旧 T4、r1 和 r2 失败结果保持原字节。
 
 ## T7–T9 的剩余验收
 

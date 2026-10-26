@@ -1,0 +1,12 @@
+{
+  "confirmation_sha256": "b1bd6c5fba883b4996993a8cbc035b3180670e1b17ae2db45f99cf98efdb103a",
+  "source_review_sha256": "913fa60f58536d8b7c823b4ae89c9f40fd514673917f04cdbdb31cb9b654069a",
+  "agent_notes_sha256": "43e7b9673183b13ed6456a293d09d2e19b0f57943981819af54538428d7383af",
+  "original_assistance_preserved": true,
+  "reference_visible": true,
+  "files": {
+    "summary.json": "3ddb5154765acd70dd4d309c083131f0f5c863b0211135f13f430f868e69cde1",
+    "review17.html": "33317ec74e53d9f11e97c091990b4755b67ea494a30ecf8dad55e571fa8887b6",
+    "review17.jsonl": "ec88fd538a3f013019b6bc1a57975eccbd9b79711bed8a6022cb1ab6c40733af"
+  }
+}

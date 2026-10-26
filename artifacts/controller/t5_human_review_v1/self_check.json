@@ -1,0 +1,76 @@
+{
+  "round": "T5.7 explicit user adoption of sealed assistance",
+  "checked_at_UTC": "2026-10-26T00:56:06.520969+00:00",
+  "before": {
+    "HEAD": "eaa92110e562bccb5b838badb81c82c9f4648921",
+    "branch": "controller",
+    "user_message_exact": "按照你判断的来",
+    "source_review_sha256": "913fa60f58536d8b7c823b4ae89c9f40fd514673917f04cdbdb31cb9b654069a",
+    "agent_notes_sha256": "43e7b9673183b13ed6456a293d09d2e19b0f57943981819af54538428d7383af",
+    "user_owned_untracked_annotation_excluded": true
+  },
+  "after": {
+    "full_tests": 942,
+    "new_targeted_tests": 6,
+    "full_test_log_sha256": "dbe72b393e51f0fc8f304d3b2826ebd1acf29028f6db4b3edc2e69c31ded33f4",
+    "assistance_adopted": 17,
+    "fully_adjudicated": 11,
+    "partial": 2,
+    "unresolved_all_fields": 4,
+    "original_assistance_unchanged": true,
+    "frozen_r2_source_files_unchanged": 99,
+    "runtime_or_gold_changed": false,
+    "new_GPU_calls": 0,
+    "candidate_frozen": false,
+    "route_promoted": false,
+    "independent_blind_review": false,
+    "confirmed_snapshot_browser_open_verified": false
+  },
+  "read_only_route_scope_check": {
+    "scope": "T4 NQ existing-route overrides only; not candidate acceptance, complete semantic audit or efficacy",
+    "threshold_0_2": {
+      "overrides": 107,
+      "same_exact_answer": 90,
+      "reviewed_changed_ids": [
+        "R16",
+        "R04",
+        "R05",
+        "R09",
+        "R13",
+        "R17",
+        "R07",
+        "R11"
+      ],
+      "unresolved_reviewed_changed": [
+        "R16",
+        "R09",
+        "R17",
+        "R11"
+      ],
+      "other_changed_answers_outside_review17": 9
+    },
+    "threshold_0_3": {
+      "overrides": 64,
+      "same_exact_answer": 53,
+      "reviewed_changed_ids": [
+        "R04",
+        "R09",
+        "R17",
+        "R11"
+      ],
+      "unresolved_reviewed_changed": [
+        "R09",
+        "R17",
+        "R11"
+      ],
+      "other_changed_answers_outside_review17": 7
+    },
+    "threshold_0_4": {
+      "overrides": 26,
+      "same_exact_answer": 22,
+      "reviewed_changed_ids": [],
+      "unresolved_reviewed_changed": [],
+      "other_changed_answers_outside_review17": 4
+    }
+  }
+}
