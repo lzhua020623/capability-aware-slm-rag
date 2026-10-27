@@ -1,0 +1,91 @@
+{
+  "note": "Paired McNemar exact test on exact match plus paired bootstrap CIs, same samples through the same frozen generator.",
+  "baseline": {
+    "name": "top50_rerank",
+    "config": {
+      "keep_k": 5,
+      "min_score": null,
+      "probe_hint_weight": 0.0,
+      "require_grounded": true,
+      "regenerate_when_unchanged": false,
+      "reranker_model": "models/reranker/accessibility_v1"
+    },
+    "summary": {
+      "samples": 2367,
+      "em_before": 0.0672,
+      "em_after": 0.1618,
+      "f1_before": 0.2784,
+      "f1_after": 0.3589,
+      "fixed": 291,
+      "broken": 67,
+      "net_fixed": 224,
+      "answers_changed": 1002,
+      "evidence_changed": 2361,
+      "seconds_per_sample": 1.75
+    }
+  },
+  "comparisons": [
+    {
+      "baseline": "top50_rerank",
+      "arm": "top50_ratio0.4",
+      "paired_samples": 2367,
+      "em_baseline": 0.1618,
+      "em_arm": 0.1825,
+      "only_baseline_correct": 64,
+      "only_arm_correct": 113,
+      "mcnemar_p": 0.0002846600434175882,
+      "em": {
+        "delta": 0.0207,
+        "ci95_low": 0.0097,
+        "ci95_high": 0.0317
+      },
+      "f1": {
+        "delta": 0.0218,
+        "ci95_low": 0.0121,
+        "ci95_high": 0.0315
+      }
+    },
+    {
+      "baseline": "top50_rerank",
+      "arm": "top50_ratio0.6",
+      "paired_samples": 2367,
+      "em_baseline": 0.1618,
+      "em_arm": 0.2003,
+      "only_baseline_correct": 84,
+      "only_arm_correct": 175,
+      "mcnemar_p": 1.6107036627485986e-08,
+      "em": {
+        "delta": 0.0384,
+        "ci95_low": 0.0258,
+        "ci95_high": 0.0515
+      },
+      "f1": {
+        "delta": 0.0366,
+        "ci95_low": 0.0249,
+        "ci95_high": 0.0486
+      }
+    },
+    {
+      "baseline": "top50_rerank",
+      "arm": "accessibility",
+      "paired_samples": 2367,
+      "em_baseline": 0.1618,
+      "em_arm": 0.1107,
+      "only_baseline_correct": 212,
+      "only_arm_correct": 91,
+      "mcnemar_p": 2.7990416519668003e-12,
+      "em": {
+        "delta": -0.0511,
+        "ci95_low": -0.0651,
+        "ci95_high": -0.0372
+      },
+      "f1": {
+        "delta": -0.037,
+        "ci95_low": -0.0509,
+        "ci95_high": -0.0232
+      }
+    }
+  ],
+  "iterations": 10000,
+  "seed": 42
+}
