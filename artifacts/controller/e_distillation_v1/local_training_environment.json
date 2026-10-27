@@ -1,0 +1,29 @@
+{
+  "machine_architecture": "arm64",
+  "CUDA_available": false,
+  "training_GPU_preflight_passed": false,
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "tokenizer_class": "Qwen2Tokenizer",
+  "tokenizer_vocab_size": 151665,
+  "tokenizer_files_sha256": {
+    "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+    "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+    "merges.txt": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+  },
+  "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+  "model_weights_loaded": false,
+  "tokenizer_network_downloads": 0,
+  "student_target_lengths_checked": false,
+  "tokenizer_cached": true,
+  "input_count": 500,
+  "input_tokens_min": 1395,
+  "input_tokens_median": 1965,
+  "input_tokens_p95": 2533,
+  "input_tokens_max": 3040,
+  "n_inputs_above_4096": 0,
+  "n_inputs_above_8192": 0,
+  "token_count_method": "len(chat_template(return_dict=True)[input_ids]), not len(BatchEncoding)",
+  "counts_are_not_teacher_API_token_or_price_estimates": true
+}

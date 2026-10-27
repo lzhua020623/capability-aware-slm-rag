@@ -21,6 +21,10 @@ Teacher visible outputs are not generated yet. Deployment/version, total spend/t
 
 - [108 component preflight checks](component_preflight_tests.log).
 - [20 preparation checks](preparation_tests.log), including role isolation, offline-gold stripping, exact task fingerprints, parser rejection and repeatable manifests.
-- Final full regression, source fingerprints and post-work self-check are archived with the validation commit.
+- **1281 tests passed in 118.292 seconds** against `2b74628122171d818138e6123e09f71611cfefeb`; see [full log](full_tests.log), [source fingerprints](source_snapshot.json), [post-work self-check](post_selfcheck.json) and [file fingerprints](checksums.json).
 
 The [pre-work snapshot](before.json) and the final self-check preserve the user's untracked annotation and original AGENTS.md. All old experiment packages/results, production configuration and v2a prompt/parser assets remain unchanged.
+
+Local pinned-tokenizer audit: 500 student prompts, median 1,965 tokens, p95 2,533, maximum 3,040. These are student input counts, not teacher API cost estimates. Output-target lengths remain unchecked because no teacher targets exist. Local machine has no CUDA; actual training needs a GPU preflight. See [environment audit](local_training_environment.json).
+
+Selection IDs are reserved for one confirmation; do not use them for prompt, routing or other-module development before that confirmation. Cross-component usage and the final execution gates still need sealing.

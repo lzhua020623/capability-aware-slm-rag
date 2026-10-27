@@ -1,0 +1,32 @@
+{
+  "schema_version": "e_distillation_preparation_selfcheck_v1",
+  "tested_source_commit": "2b74628122171d818138e6123e09f71611cfefeb",
+  "base_commit": "2349a08ffd00c29effcd9dac481ec6b7b9352c5a",
+  "tests": {
+    "passed": 1281,
+    "seconds": 118.292,
+    "result": "OK",
+    "model_downloads_disabled": true
+  },
+  "protected_files_unchanged": true,
+  "old_components_models_configurations_and_experiments_unchanged": true,
+  "current_readiness_matches_preflight": true,
+  "end_to_end_ready": false,
+  "teacher_pilot_tasks": 500,
+  "development_IDs": 500,
+  "selection_IDs": 500,
+  "teacher_API_calls": 0,
+  "GPU_benchmark_calls": 0,
+  "training_runs": 0,
+  "teacher_targets_generated": 0,
+  "semantic_targets_approved": 0,
+  "pending": [
+    "teacher deployment/version/endpoint and total token/spend budget",
+    "teacher pilot semantic gate",
+    "GPU training preflight and numeric promotion/fixture seal"
+  ],
+  "tracked_runtime_or_gold_exports": false,
+  "all_new_commits_single_user_author": true,
+  "official_test_rows_decoded_by_pilot_exporter": false,
+  "regression_scope": "existing historical fixtures/results under their frozen protocols; not a new team-test evaluation"
+}

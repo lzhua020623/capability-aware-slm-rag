@@ -1,0 +1,18 @@
+{
+  "schema_version": "e_distillation_preparation_checksums_v1",
+  "tested_source_commit": "2b74628122171d818138e6123e09f71611cfefeb",
+  "sha256": {
+    "README.md": "681a8fb33ccdb56d14e674ac996838900de0b66c53bd60a28e57227c9547e990",
+    "before.json": "6b76380520b05a515f54b6fa1184a82d87b44de53f212932ba21459c2bcf8709",
+    "component_preflight_tests.log": "115b860f78f7e24e0ac6538337154218b16fb4f5ecc6aab1b5aae2aeb352b7df",
+    "components.json": "ecd79e47414cc194c498689c60a9d2ff6cd2a57104d3137f653f203fd687c66f",
+    "full_tests.log": "74c55cdde408ed2d506e7b6d659515a17389ae6e22cf42afc90206c64f3c5fcf",
+    "local_training_environment.json": "89234098da32a77116597452e4723a1bac3c7a4cc492ce42b59ff5db239b2896",
+    "pilot_independent_replay.json": "402f076265d4f009bbe68085546438aee3376290b2c69bc3548fda09a1413d51",
+    "pilot_inputs_manifest.json": "d51a28838431c06059a7e8c05910447de53da9fd81733d37977649cb0fa760f0",
+    "post_selfcheck.json": "73f88927d7e2a559a2f5e4323527a91c5d5d88243406e019a2247c2a7cc166ea",
+    "preparation_tests.log": "6d530be867db59eb839b655ffa34bbb4c75bc85553040d72bb09d9635d1447a8",
+    "sample_manifest.json": "34e12aeb84b330ffa591becbbec85d5930a3da51902311d65b407ac7250acdae",
+    "source_snapshot.json": "ce0697d2fb92cb18d9a729e81323383f50c45ae6121b0bc35bcdd45c49a4b126"
+  }
+}

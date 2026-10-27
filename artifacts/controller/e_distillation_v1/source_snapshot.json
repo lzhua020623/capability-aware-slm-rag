@@ -1,0 +1,21 @@
+{
+  "tested_source_commit": "2b74628122171d818138e6123e09f71611cfefeb",
+  "sha256": {
+    "README.md": "aff57e93d6c7c312ac61866c7e9ef5c09620130b285f4357fbfca49a9568915a",
+    "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+    "configs/controller/current_baseline.json": "79439664e90ab4c1f39e4bedfc8b718ee2ea5669932f3067a3420ce240422024",
+    "configs/distillation/e_prep_v1.json": "d61a17cbbd06dcd6d7cd8f993c9fc391bffe4ead460ea3ed8b6be0573cca8b66",
+    "docs/CONTROLLER_TASKS.md": "c9409f4e8d858dc87755f922e0eeddb60a4ef9f61efd5a00fc52848b34122bbc",
+    "docs/E_DISTILLATION_V1.md": "2a2a91ab6509ed39ffe17c9ee3e7cb225bee74191ace566168528b7a92136b60",
+    "docs/PROJECT_STATUS_AND_DIRECTION.md": "e16e761c2d440df74800258566f3145a98efb871e27b2675def071776bbf73cd",
+    "scripts/prepare_e_distillation.py": "d9b1fcf18439839613bdcefdf07185500ee372ce9c503aca08005f9bcd0c41ae",
+    "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+    "src/compensation/evidence_id_repair.py": "ee23d1b90129fa1859835a9b59e01cd2058209dbf21fe4994d08db38cfc129c0",
+    "src/compensation/evidence_v2a.py": "eae0328aa6cea8f2bd429e7bcc3b3dec65a640325da3474ec50372f30ca1c2e6",
+    "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+    "src/data/team_nq.py": "3c31963201bd1347364efc7fea5edaf0ee1649b2a1908fe2cf8ed7c9a4aa51b8",
+    "src/distillation/__init__.py": "19027889eee286acbe37ac79f55dc770bdad9ca05e7b9bb31c383efec847218a",
+    "src/distillation/e_prep.py": "e28e83bbd1626f028b9a410893e151c3d5e416ed9390d5cad75bb672af6900a9",
+    "tests/test_e_distillation_prep.py": "da549aa95e9984575a4ad0b264c408f4165f2b41d5efaf55302afccdcb7a4248"
+  }
+}
