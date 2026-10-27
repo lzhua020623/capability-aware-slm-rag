@@ -61,6 +61,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.compensation.evidence_refinement import EvidenceRefiner, build_refinement_prompt  # noqa: E402
+from src.compensation.candidates import DEFAULT_TOP_N, IndexCandidateProvider  # noqa: E402
 from src.compensation.pruning import MatchedRandomPruner, ProvencePruner  # noqa: E402
 from src.compensation.rerank import scorer_from_name  # noqa: E402
 from src.compensation.refinement_schema import RefinementConfig  # noqa: E402
@@ -152,8 +153,12 @@ def build_refiner(args, config: RefinementConfig):
         return text
 
     pruner, pruner_name = build_pruner(args)
-    refiner = EvidenceRefiner(build_scorer(args, config), generate, config=config, pruner=pruner)
-    return refiner, f"{backend.name} | pruner {pruner_name}", True
+    provider = IndexCandidateProvider.from_frozen_artifacts(top_n=args.top_n) if args.top_n else None
+    refiner = EvidenceRefiner(
+        build_scorer(args, config), generate, config=config, candidate_provider=provider, pruner=pruner
+    )
+    pool_name = f"top-{args.top_n} re-retrieved" if args.top_n else "frozen Top-5"
+    return refiner, f"{backend.name} | pool {pool_name} | pruner {pruner_name}", True
 
 
 def frozen_500_records(path: Path, label_file: Path, label: str) -> list[dict]:
@@ -216,6 +221,13 @@ def main() -> None:
     )
     parser.add_argument("--prune-threshold", type=float, default=0.1)
     parser.add_argument("--prune-seed", type=int, default=42)
+    parser.add_argument(
+        "--top-n",
+        type=int,
+        default=None,
+        help=f"re-retrieve this many candidates from the frozen index before reranking "
+        f"(the usual recipe uses {DEFAULT_TOP_N}); omit to rerank only the frozen Top-5",
+    )
     parser.add_argument(
         "--before-from",
         type=Path,
@@ -365,6 +377,7 @@ def main() -> None:
             "name": generator_name,
             "model": args.generator_model if args.backend != "frozen" else str(generator_config["model_name"]),
             "max_new_tokens": args.max_new_tokens,
+            "candidate_pool": f"top-{args.top_n}" if args.top_n else "frozen top-5",
             "pruner": args.pruner,
             "prune_threshold": args.prune_threshold if args.pruner != "none" else None,
             "prune_seed": args.prune_seed if args.pruner == "random" else None,
