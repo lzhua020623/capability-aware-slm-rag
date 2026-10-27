@@ -371,6 +371,30 @@ class TeamBoundaryTests(unittest.TestCase):
                 evaluator.main(['--records', str(p), '--frozen-500', '--out', str(self.folder / 'result.json')])
             reader.assert_not_called(); model.assert_not_called()
 
+    def test_comparison_cache_cannot_decode_test_answers_before_model_loading(self):
+        from scripts import evaluate_refinement_end_to_end as evaluator
+        cache = self.folder / 'unregistered_cache.json'
+        cache.write_text('{"rows":[{"sample_id":"' + self.test_id + '","initial_answer":MUST_NOT_DECODE}]}')
+        with patch.object(evaluator, 'load_before_answers') as reader, \
+             patch.object(evaluator, 'build_refiner') as model, redirect_stdout(io.StringIO()):
+            with self.assertRaises(BoundaryError):
+                evaluator.main(['--records', str(self.source()), '--before-from', str(cache),
+                                '--out', str(self.folder / 'result.json')])
+            reader.assert_not_called(); model.assert_not_called()
+
+    def test_valid_comparison_cache_is_checked_before_model_loading(self):
+        from scripts import evaluate_refinement_end_to_end as evaluator
+        cache = self.folder / 'validation_cache.json'
+        cache.write_text(json.dumps({'rows':[{'sample_id':sid, 'initial_answer':'Fictional cache'}
+                                             for sid in self.validation[:2]]}))
+        with patch.object(evaluator, 'load_before_answers', wraps=evaluator.load_before_answers) as reader, \
+             patch.object(evaluator, 'build_refiner', side_effect=RuntimeError('fake-model-stop')) as model, \
+             redirect_stdout(io.StringIO()):
+            with self.assertRaisesRegex(RuntimeError, 'fake-model-stop'):
+                evaluator.main(['--records', str(self.source()), '--before-from', str(cache),
+                                '--out', str(self.folder / 'result.json')])
+            reader.assert_called_once(); model.assert_called_once()
+
     def test_reranker_comparison_cannot_select_test(self):
         from scripts import compare_rerank_models as compare
         with patch.object(compare, 'positive_ranks') as model, redirect_stdout(io.StringIO()), \

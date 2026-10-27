@@ -53,7 +53,7 @@ python scripts/audit_team_nq_data.py --ids-only --output-dir /tmp/team-nq-ids-ne
 3. 先按团队角色分开，再生成训练正负例；答案选择器的借用答案只来自同一角色，并记录 donor_sample_id。合成/增强样本需要可核查的 parent ID。
 4. 两个 builder 不再在 74,097 条上另做随机 70/15/15 或 90/10。新数据输出仅含 train/validation，没有 test.jsonl，且不覆盖旧目录。
 5. 两个 trainer 在任何模型加载、CUDA 设置及样本截取之前，验证策略源文件指纹、完整训练文件哈希、角色、donor/parent 及规范化问题交集。builder 另记录原始输入文件指纹。旧无回执数据必须重新准备。
-6. 重排 trainer 不读取或自动评分本地 test；重排比较和端到端组件评测默认使用登记后的 Validation。自定义子集和旧参数不能绕过用途检查。
+6. 重排 trainer 不读取或自动评分本地 test；重排比较和端到端组件评测默认使用登记后的 Validation。自定义子集、复用原答缓存和旧参数不能绕过用途检查；缓存也先核对 ID，再解码原答和加载模型。
 7. 当前生产入口默认 data_role=validation，逐题在 Diagnosis/增强前检查角色并记录策略/划分指纹。普通入口不能请求 test；FEVER 没有统一登记前也不能套用 NQ 的角色。低层虚构测试注入会明确标记未执行生产数据边界。
 8. 未来教师输入通过 teacher_input() 仅保留 sample_id、dataset、query、initial_answer、evidence；gold、AI 标签及额外证据标注不进入请求。教师数据生成限允许的 Train。
 

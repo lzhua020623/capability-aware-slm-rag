@@ -278,6 +278,25 @@ def main(argv=None) -> None:
         raise SystemExit("no records matched")
     print(f"{len(records)} {args.label} samples from {split_note}")
 
+    # A cached comparison answer is still supervised data. Check every cache
+    # ID before decoding its answers or loading any model/backend.
+    stored_before = None
+    if args.before_from:
+        cache_ids = ids_only(args.before_from)
+        if not cache_ids:
+            raise ValueError('Before-answer cache has no exact sample IDs')
+        if args.frozen_500:
+            if not cache_ids <= allowed:
+                raise ValueError('Historical answer cache is outside original frozen NQ 500')
+        else:
+            boundary.require(cache_ids, args.data_role)
+        stored_before = load_before_answers(args.before_from)
+        if set(stored_before) != cache_ids:
+            raise ValueError('Before-answer cache IDs are ambiguous')
+        missing = [record["sample_id"] for record in records if record["sample_id"] not in stored_before]
+        if missing:
+            raise SystemExit(f"{args.before_from} is missing before answers for {len(missing)} samples")
+
     scorer_id = {"shuffle": f"shuffle:{args.shuffle_seed}", "identity": "identity"}.get(args.scorer, args.model)
     config = RefinementConfig(keep_k=args.keep_k, reranker_model=scorer_id)
     print(f"loading scorer {config.reranker_model} and generator backend {args.backend}")
@@ -286,13 +305,6 @@ def main(argv=None) -> None:
     if must_regenerate and not regenerate_before:
         print("WARNING: comparing a hosted answer against the stored 4-bit NF4 answer mixes quantisation "
               "into the delta; --no-regenerate-before was asked for explicitly.")
-    stored_before = None
-    if args.before_from:
-        stored_before = load_before_answers(args.before_from)
-        missing = [record["sample_id"] for record in records if record["sample_id"] not in stored_before]
-        if missing:
-            raise SystemExit(f"{args.before_from} is missing before answers for {len(missing)} samples")
-
     before_note = (
         f"reused from {args.before_from.name} ({len(stored_before)} answers)"
         if stored_before is not None

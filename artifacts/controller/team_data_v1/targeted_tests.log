@@ -5,6 +5,7 @@ test_build_CLIs_use_the_role_boundaries_and_never_resplit (tests.test_team_nq_bo
 test_bundle_cannot_overwrite_prior_data_or_accept_a_changed_file (tests.test_team_nq_boundary.TeamBoundaryTests.test_bundle_cannot_overwrite_prior_data_or_accept_a_changed_file) ... ok
 test_changed_exposure_source_is_detected (tests.test_team_nq_boundary.TeamBoundaryTests.test_changed_exposure_source_is_detected) ... ok
 test_changed_split_or_registry_fails_closed (tests.test_team_nq_boundary.TeamBoundaryTests.test_changed_split_or_registry_fails_closed) ... ok
+test_comparison_cache_cannot_decode_test_answers_before_model_loading (tests.test_team_nq_boundary.TeamBoundaryTests.test_comparison_cache_cannot_decode_test_answers_before_model_loading) ... ok
 test_component_evaluator_cannot_bypass_roles_with_a_custom_subset (tests.test_team_nq_boundary.TeamBoundaryTests.test_component_evaluator_cannot_bypass_roles_with_a_custom_subset) ... ok
 test_current_loader_cannot_request_test_execution_before_GPU_loading (tests.test_team_nq_boundary.TeamBoundaryTests.test_current_loader_cannot_request_test_execution_before_GPU_loading) ... ok
 test_duplicate_and_ambiguous_ID_fields_are_rejected (tests.test_team_nq_boundary.TeamBoundaryTests.test_duplicate_and_ambiguous_ID_fields_are_rejected) ... ok
@@ -33,6 +34,7 @@ test_train_and_validation_allow_only_their_own_roles (tests.test_team_nq_boundar
 test_training_role_preflight_runs_before_models_or_CUDA (tests.test_team_nq_boundary.TeamBoundaryTests.test_training_role_preflight_runs_before_models_or_CUDA) ... ok
 test_unknown_numeric_and_non_string_IDs_are_not_coerced (tests.test_team_nq_boundary.TeamBoundaryTests.test_unknown_numeric_and_non_string_IDs_are_not_coerced) ... ok
 test_unrequested_validation_content_is_not_decoded (tests.test_team_nq_boundary.TeamBoundaryTests.test_unrequested_validation_content_is_not_decoded) ... ok
+test_valid_comparison_cache_is_checked_before_model_loading (tests.test_team_nq_boundary.TeamBoundaryTests.test_valid_comparison_cache_is_checked_before_model_loading) ... ok
 test_E_stays_unavailable_without_model_calls_or_fabricated_verification (tests.test_controller_current.CurrentIntegrationTests.test_E_stays_unavailable_without_model_calls_or_fabricated_verification) ... ok
 test_all_78_feature_positions_are_forwarded_without_transform (tests.test_controller_current.CurrentIntegrationTests.test_all_78_feature_positions_are_forwarded_without_transform) ... ok
 test_asset_hash_mismatch_blocks_startup (tests.test_controller_current.CurrentIntegrationTests.test_asset_hash_mismatch_blocks_startup) ... ok
@@ -92,6 +94,6 @@ test_pick_at_1_counts_the_best_scoring_answer_per_sample (tests.test_answer_sele
 test_samples_without_a_choice_are_excluded (tests.test_answer_selector.SummariseScoresTest.test_samples_without_a_choice_are_excluded) ... ok
 
 ----------------------------------------------------------------------
-Ran 92 tests in 3.217s
+Ran 94 tests in 4.589s
 
 OK
