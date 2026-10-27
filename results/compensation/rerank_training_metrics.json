@@ -1,0 +1,106 @@
+{
+  "note": "Trained on evidence_accessibility annotations only. rank1/mrr are per-sample over that sample's own frozen Top-5; they measure ordering, not final answer accuracy.",
+  "base_model": "BAAI/bge-reranker-base",
+  "output_dir": "models\\reranker\\accessibility_v1",
+  "hyperparameters": {
+    "epochs": 1,
+    "batch_size": 16,
+    "max_length": 320,
+    "learning_rate": 2e-05,
+    "warmup_ratio": 0.1,
+    "optimizer": "adamw8bit",
+    "seed": 42,
+    "train_pairs": 49423
+  },
+  "data": {
+    "train_examples": 11064,
+    "validation_examples": 2339,
+    "test_examples": 2367
+  },
+  "before_fine_tuning": {
+    "validation": {
+      "examples": 2339,
+      "rank1": 0.6152,
+      "mrr": 0.7687,
+      "rank_distribution": {
+        "1": 1439,
+        "2": 471,
+        "3": 239,
+        "4": 117,
+        "5": 73
+      }
+    },
+    "test": {
+      "examples": 2367,
+      "rank1": 0.621,
+      "mrr": 0.771,
+      "rank_distribution": {
+        "1": 1470,
+        "2": 458,
+        "3": 232,
+        "4": 143,
+        "5": 64
+      }
+    }
+  },
+  "after_fine_tuning": {
+    "validation": {
+      "examples": 2339,
+      "rank1": 0.6524,
+      "mrr": 0.7894,
+      "rank_distribution": {
+        "1": 1526,
+        "2": 405,
+        "3": 235,
+        "4": 100,
+        "5": 73
+      }
+    },
+    "test": {
+      "examples": 2367,
+      "rank1": 0.6591,
+      "mrr": 0.7939,
+      "rank_distribution": {
+        "1": 1560,
+        "2": 406,
+        "3": 224,
+        "4": 124,
+        "5": 53
+      }
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.4554,
+      "validation": {
+        "examples": 2339,
+        "rank1": 0.6524,
+        "mrr": 0.7894,
+        "rank_distribution": {
+          "1": 1526,
+          "2": 405,
+          "3": 235,
+          "4": 100,
+          "5": 73
+        }
+      }
+    }
+  ],
+  "off_the_shelf_baseline": {
+    "model": "BAAI/bge-reranker-large",
+    "test": {
+      "examples": 2367,
+      "rank1": 0.6261,
+      "mrr": 0.7736,
+      "rank_distribution": {
+        "1": 1482,
+        "2": 448,
+        "3": 229,
+        "4": 145,
+        "5": 63
+      }
+    }
+  },
+  "train_seconds": 1061.9
+}

@@ -1,0 +1,20 @@
+======================================================================
+ERROR: test_nq15_annotations (unittest.loader._FailedTest.test_nq15_annotations)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_nq15_annotations
+Traceback (most recent call last):
+  File "/Users/leaf/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/tests/test_nq15_annotations.py", line 8, in <module>
+    from scripts import normalize_nq15_annotations as normalizer
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/scripts/normalize_nq15_annotations.py", line 31, in <module>
+    import pandas as pd
+ModuleNotFoundError: No module named 'pandas'
+
+
+----------------------------------------------------------------------
+Ran 319 tests in 4.013s
+
+FAILED (errors=1)
+  retry 1/1 after JSONDecodeError; sleeping 1s

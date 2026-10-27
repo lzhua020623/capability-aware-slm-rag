@@ -1,0 +1,14 @@
+{
+  "base_commit": "5da8fa690bb04bd65f19ee9629b899d569fa0abe",
+  "sources": {
+    "origin/feature/retrieval-enhancement": "37e469e0bd101dc5a905f95aeca1cafdc6a07e9d",
+    "origin/feature/reranking-enhancement": "55832850640f5fe37c52a02779cc389a2e5f0276"
+  },
+  "protected_files_sha256": {
+    "AGENTS.md": "b748f439ef6d2a5455bc3471a6101cd6bcf5f2c67bd8ba75771ad510cc7fd66a",
+    "data/annotations/assisted/answer_repair_v7_batch01_20261017.jsonl": "119035fd23c89c9cd5f24c1a749b4f549a3c7aa268c38fedf51bc81e366bc4c3",
+    "configs/controller/current_baseline.json": "e0570fd6112d9ec166272c3516d1cbeb89f764738983e1a0c5ca33040b88251e",
+    "configs/controller/p60_online_adapter.json": "a77910fb138b6c32bbdc94066c0bb31d4f0f039e98bc9ffef595a4ec8989cc83"
+  },
+  "tracked_status": ""
+}

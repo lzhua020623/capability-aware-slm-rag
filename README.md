@@ -2,6 +2,14 @@
 
 本项目研究小参数模型 RAG 的诊断与动态增强：先用固定检索和生成模型产生 C1 答案，再由 Diagnosis、可选 Probe 和 Controller 选择补检索、重排过滤或答案核验与修复。Reference RAG 是共同实验底座。
 
+## 后续开发分支：controller_2（2026-10-27）
+
+`controller_2` 从 `controller@5da8fa6` 创建，合入补检索 `37e469e` 与重排 `5583285`。
+合并说明、兼容处理、验证记录及下一步见 [Controller 2 交接](docs/CONTROLLER2_INTEGRATION.md)。
+当前运行配置保持原样：新重排权重、句子裁剪和答案选择器均未晋升默认；E 仍 unavailable，P60 的两项材料仍待交付。
+后续 NQ 实验按团队 `feature/baseline-evaluation` 的 70/15/15 划分统一，test 为 11,114 条；
+该分支的划分和逐题 baseline 输出尚待接入，旧 T4/T5 数据与结果继续作为历史记录。
+
 ## 当前主线：10 月 24 日 Diagnosis（2026-10-27）
 
 后续以 `feature/diagnosis-probe-zheng@138d52a` 的 Diagnosis／P60／P64 为基线，登记为 `configs/controller/current_baseline.json`。

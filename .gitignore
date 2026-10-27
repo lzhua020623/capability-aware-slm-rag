@@ -9,6 +9,10 @@ data/annotations/*.xlsx
 models/
 checkpoints/
 .env
+
+# Raw annotation workbooks are local; normalized results are versioned.
+data/NQ_15/
+data/NQ_15*.zip
 # Preserve selected E experiment archives, results and review records.
 # Model caches, unpacked source copies and partial downloads stay local.
 artifacts/answer_repair/**

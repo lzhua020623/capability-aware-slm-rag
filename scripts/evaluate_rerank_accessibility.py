@@ -30,7 +30,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.compensation.rerank import CrossEncoderScorer, rerank_evidence  # noqa: E402
-from src.compensation.schema import DEFAULT_REFINEMENT_CONFIG, RefinementConfig  # noqa: E402
+from src.compensation.refinement_schema import DEFAULT_REFINEMENT_CONFIG, RefinementConfig  # noqa: E402
 from src.diagnosis.adapter import c1_record_to_input  # noqa: E402
 from src.diagnosis.schema import DiagnosisInput, EvidenceItem  # noqa: E402
 from src.evaluation.qa import normalize_answer  # noqa: E402

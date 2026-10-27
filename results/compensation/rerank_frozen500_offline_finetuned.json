@@ -1,0 +1,94 @@
+{
+  "note": "Offline evaluation. Gold answers and annotation labels are used here only to score reranking after the fact; the runtime refiner never sees them. No generator was run, so this says nothing about final answer accuracy.",
+  "config": {
+    "keep_k": 5,
+    "min_score": null,
+    "probe_hint_weight": 0.0,
+    "require_grounded": true,
+    "regenerate_when_unchanged": false,
+    "reranker_model": "models/reranker/accessibility_v1"
+  },
+  "inputs": {
+    "c1_records": "results\\preliminary\\nq_c1_7b.jsonl",
+    "labels": "data\\annotations\\normalized\\nq_3216_labels_normalized.jsonl",
+    "scored_samples": 500,
+    "trusted_only": false,
+    "label_filter": null
+  },
+  "metric_definitions": {
+    "answer_bearing_passage": "a passage containing the gold answer as a contiguous normalised token run",
+    "best_rank_before": "best answer-bearing rank in the frozen Top-5",
+    "best_rank_after": "best answer-bearing rank after reranking and pruning, None if none survived",
+    "answer_bearing_passage_lost_by_pruning": "had one in the Top-5, none left after pruning (harm)"
+  },
+  "elapsed_seconds": 27.06,
+  "summary": {
+    "all": {
+      "n": 500,
+      "with_answer_bearing_passage_in_top5": 365,
+      "answer_bearing_at_rank1_before": 251,
+      "answer_bearing_at_rank1_after": 287,
+      "mean_best_rank_before": 1.5452,
+      "mean_best_rank_after": 1.3726,
+      "answer_bearing_passage_kept": 365,
+      "answer_bearing_passage_lost_by_pruning": 0,
+      "promoted": 79,
+      "demoted": 39,
+      "order_changed": 473
+    },
+    "by_label": {
+      "correct": {
+        "n": 375,
+        "with_answer_bearing_passage_in_top5": 311,
+        "answer_bearing_at_rank1_before": 219,
+        "answer_bearing_at_rank1_after": 250,
+        "mean_best_rank_before": 1.5177,
+        "mean_best_rank_after": 1.3376,
+        "answer_bearing_passage_kept": 311,
+        "answer_bearing_passage_lost_by_pruning": 0,
+        "promoted": 66,
+        "demoted": 30,
+        "order_changed": 350
+      },
+      "evidence_accessibility": {
+        "n": 38,
+        "with_answer_bearing_passage_in_top5": 25,
+        "answer_bearing_at_rank1_before": 10,
+        "answer_bearing_at_rank1_after": 15,
+        "mean_best_rank_before": 1.92,
+        "mean_best_rank_after": 1.72,
+        "answer_bearing_passage_kept": 25,
+        "answer_bearing_passage_lost_by_pruning": 0,
+        "promoted": 7,
+        "demoted": 5,
+        "order_changed": 38
+      },
+      "evidence_insufficiency": {
+        "n": 54,
+        "with_answer_bearing_passage_in_top5": 2,
+        "answer_bearing_at_rank1_before": 1,
+        "answer_bearing_at_rank1_after": 0,
+        "mean_best_rank_before": 3,
+        "mean_best_rank_after": 2,
+        "answer_bearing_passage_kept": 2,
+        "answer_bearing_passage_lost_by_pruning": 0,
+        "promoted": 1,
+        "demoted": 1,
+        "order_changed": 54
+      },
+      "evidence_utilisation": {
+        "n": 33,
+        "with_answer_bearing_passage_in_top5": 27,
+        "answer_bearing_at_rank1_before": 21,
+        "answer_bearing_at_rank1_after": 22,
+        "mean_best_rank_before": 1.4074,
+        "mean_best_rank_after": 1.4074,
+        "answer_bearing_passage_kept": 27,
+        "answer_bearing_passage_lost_by_pruning": 0,
+        "promoted": 5,
+        "demoted": 3,
+        "order_changed": 31
+      }
+    }
+  }
+}

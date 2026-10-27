@@ -1,0 +1,79 @@
+{
+  "note": "Stage-by-stage account of where reranking can and cannot repair an answer. Gold answers are used only for scoring, after the answers existed.",
+  "source": "results\\compensation\\refinement_end_to_end_shuffle_control.json",
+  "label": "evidence_accessibility",
+  "config": {
+    "keep_k": 5,
+    "min_score": null,
+    "probe_hint_weight": 0.0,
+    "require_grounded": true,
+    "regenerate_when_unchanged": false,
+    "reranker_model": "shuffle:42"
+  },
+  "rank1_changed": 1906,
+  "funnel": [
+    {
+      "stage": "all",
+      "samples": 2367,
+      "already_wrong": 2208,
+      "repaired": 187,
+      "repair_rate": 0.0847
+    },
+    {
+      "stage": "A. rank 1 unchanged (context barely moved)",
+      "samples": 461,
+      "already_wrong": 428,
+      "repaired": 26,
+      "repair_rate": 0.0607
+    },
+    {
+      "stage": "B. rank 1 changed (context perturbed)",
+      "samples": 1906,
+      "already_wrong": 1780,
+      "repaired": 161,
+      "repair_rate": 0.0904
+    },
+    {
+      "stage": "1. no answer-bearing passage in Top-5 (out of scope)",
+      "samples": 223,
+      "already_wrong": 220,
+      "repaired": 0,
+      "repair_rate": 0.0
+    },
+    {
+      "stage": "2. answer already at rank 1 before reranking (little to do)",
+      "samples": 1147,
+      "already_wrong": 1053,
+      "repaired": 111,
+      "repair_rate": 0.1054
+    },
+    {
+      "stage": "2a.  ... and reranking kept it there",
+      "samples": 404,
+      "already_wrong": 364,
+      "repaired": 44,
+      "repair_rate": 0.1209
+    },
+    {
+      "stage": "2b.  ... and reranking pushed it off the top",
+      "samples": 743,
+      "already_wrong": 689,
+      "repaired": 67,
+      "repair_rate": 0.0972
+    },
+    {
+      "stage": "3. answer promoted to rank 1 by reranking (the intended effect)",
+      "samples": 296,
+      "already_wrong": 275,
+      "repaired": 30,
+      "repair_rate": 0.1091
+    },
+    {
+      "stage": "4. answer present but reranking did not surface it",
+      "samples": 701,
+      "already_wrong": 660,
+      "repaired": 46,
+      "repair_rate": 0.0697
+    }
+  ]
+}

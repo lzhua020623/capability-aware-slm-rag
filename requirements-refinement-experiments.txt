@@ -1,0 +1,4 @@
+# Additional dependency for the optional pruning/random-pruning experiments.
+# Install alongside the project's existing requirements. Download punkt_tab
+# explicitly before running the matched sentence-pruning controls.
+nltk==3.9.2

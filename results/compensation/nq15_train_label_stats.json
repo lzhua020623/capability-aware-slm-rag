@@ -1,0 +1,171 @@
+{
+  "source": "data\\NQ_15\\NQ_15批",
+  "workbooks": 15,
+  "rows": 74097,
+  "unique_sample_ids": 74097,
+  "label_distribution": {
+    "correct": 36799,
+    "evidence_accessibility": 18017,
+    "evidence_insufficiency": 14750,
+    "evidence_utilisation": 4531
+  },
+  "label_share": {
+    "correct": 0.4966,
+    "evidence_accessibility": 0.2432,
+    "evidence_insufficiency": 0.1991,
+    "evidence_utilisation": 0.0611
+  },
+  "per_file": [
+    {
+      "file": "NQ_C1_000_preliminary_annotations.xlsx",
+      "rows": 5000,
+      "labels": {
+        "correct": 2684,
+        "evidence_insufficiency": 916,
+        "evidence_accessibility": 1071,
+        "evidence_utilisation": 329
+      }
+    },
+    {
+      "file": "NQ_C1_001_preliminary_annotations.xlsx",
+      "rows": 5000,
+      "labels": {
+        "correct": 2427,
+        "evidence_accessibility": 1219,
+        "evidence_insufficiency": 960,
+        "evidence_utilisation": 394
+      }
+    },
+    {
+      "file": "NQ_C1_002_preliminary_annotations.xlsx",
+      "rows": 5000,
+      "labels": {
+        "evidence_accessibility": 1246,
+        "correct": 2397,
+        "evidence_insufficiency": 954,
+        "evidence_utilisation": 403
+      }
+    },
+    {
+      "file": "NQ_C1_003_preliminary_annotations.xlsx",
+      "rows": 5000,
+      "labels": {
+        "evidence_insufficiency": 936,
+        "evidence_accessibility": 1243,
+        "correct": 2436,
+        "evidence_utilisation": 385
+      }
+    },
+    {
+      "file": "NQ_C1_004_preliminary_annotations.xlsx",
+      "rows": 5000,
+      "labels": {
+        "correct": 2460,
+        "evidence_accessibility": 1190,
+        "evidence_insufficiency": 964,
+        "evidence_utilisation": 386
+      }
+    },
+    {
+      "file": "NQ_C1_005_preliminary_annotations.xlsx",
+      "rows": 5000,
+      "labels": {
+        "correct": 2440,
+        "evidence_accessibility": 1250,
+        "evidence_utilisation": 362,
+        "evidence_insufficiency": 948
+      }
+    },
+    {
+      "file": "NQ_C1_006_preliminary_annotations.xlsx",
+      "rows": 5000,
+      "labels": {
+        "evidence_insufficiency": 857,
+        "correct": 2425,
+        "evidence_accessibility": 1503,
+        "evidence_utilisation": 215
+      }
+    },
+    {
+      "file": "NQ_C1_007_preliminary_annotations.xlsx",
+      "rows": 5000,
+      "labels": {
+        "correct": 2419,
+        "evidence_utilisation": 218,
+        "evidence_accessibility": 1532,
+        "evidence_insufficiency": 831
+      }
+    },
+    {
+      "file": "NQ_C1_008_preliminary_annotations.xlsx",
+      "rows": 5000,
+      "labels": {
+        "correct": 2379,
+        "evidence_insufficiency": 903,
+        "evidence_accessibility": 1520,
+        "evidence_utilisation": 198
+      }
+    },
+    {
+      "file": "NQ_C1_009_preliminary_annotations.xlsx",
+      "rows": 5000,
+      "labels": {
+        "evidence_insufficiency": 1199,
+        "correct": 2301,
+        "evidence_utilisation": 202,
+        "evidence_accessibility": 1298
+      }
+    },
+    {
+      "file": "NQ_C1_010_preliminary_annotations.xlsx",
+      "rows": 5000,
+      "labels": {
+        "evidence_accessibility": 1228,
+        "evidence_insufficiency": 1217,
+        "correct": 2338,
+        "evidence_utilisation": 217
+      }
+    },
+    {
+      "file": "NQ_C1_011_preliminary_annotations.xlsx",
+      "rows": 5000,
+      "labels": {
+        "correct": 2212,
+        "evidence_utilisation": 234,
+        "evidence_accessibility": 1286,
+        "evidence_insufficiency": 1268
+      }
+    },
+    {
+      "file": "NQ_C1_012_preliminary_annotations.xlsx",
+      "rows": 5000,
+      "labels": {
+        "evidence_insufficiency": 965,
+        "correct": 2762,
+        "evidence_accessibility": 987,
+        "evidence_utilisation": 286
+      }
+    },
+    {
+      "file": "NQ_C1_013_preliminary_annotations.xlsx",
+      "rows": 5000,
+      "labels": {
+        "evidence_insufficiency": 983,
+        "correct": 2796,
+        "evidence_accessibility": 973,
+        "evidence_utilisation": 248
+      }
+    },
+    {
+      "file": "NQ_C1_014_preliminary_annotations.xlsx",
+      "rows": 4097,
+      "labels": {
+        "correct": 2323,
+        "evidence_insufficiency": 849,
+        "evidence_utilisation": 454,
+        "evidence_accessibility": 471
+      }
+    }
+  ],
+  "note": "annotation_reference (gold answer / gold passage) is offline supervision only and is kept out of the committed label file."
+}

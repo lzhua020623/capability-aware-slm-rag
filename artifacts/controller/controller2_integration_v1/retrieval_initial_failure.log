@@ -1,0 +1,15 @@
+======================================================================
+ERROR: test_explicit_win2_acceptance_still_rejects_source_and_config_changes (tests.test_retrieval_enhancement_generation.OfflineMetricsTests.test_explicit_win2_acceptance_still_rejects_source_and_config_changes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/tests/test_retrieval_enhancement_generation.py", line 234, in test_explicit_win2_acceptance_still_rejects_source_and_config_changes
+    result = evaluate_generation(self.refs, self.input, self.gpu, self.report,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/scripts/evaluate_nq_p320_generation.py", line 58, in evaluate_generation
+    raise ValueError("GPU input/config/source hashes differ from this evaluator")
+ValueError: GPU input/config/source hashes differ from this evaluator
+
+----------------------------------------------------------------------
+Ran 49 tests in 16.125s
+
+FAILED (errors=1)

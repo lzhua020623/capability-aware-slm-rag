@@ -2,6 +2,8 @@
 
 ## 当前入口 · 2026-10-27
 
+后续操作分支为 `controller_2`：从 `5da8fa6` 创建，已兼容汇合补检索 `37e469e` 和重排 `5583285`，见 [合并交接](CONTROLLER2_INTEGRATION.md)。新增重排训练、随机/裁剪对照、候选答案轨迹与补检索结果审计保留各自来源；当前默认权重和预算不变。E 蒸馏尚未开始，P60 缺失项继续阻止真实运行。用户指定后续 NQ 使用团队 51,866/11,117/11,114 划分；旧 T4/T5 保留，新划分、逐题 baseline 与训练曝光隔离待接入。
+
 用户指定后续以 10 月 24 日 Diagnosis `138d52a` 为基线，该提交已在 controller 历史中。新增 [当前基线登记与真实模块适配](CONTROLLER_1024_BASELINE.md)：C1 → Diagnosis → P60 → Controller → EnhancementExecutor，Probe OFF；生产入口为 `src.pipeline.current.load_current_pipeline()`，旧 T4/T5 入口只作历史复现。E 保持 unavailable。已接上真实增强实现并保留计量，当前仍缺原 78 维特征生成代码和三个 HGB 的训练／调参 ID 来源，生产检查明确停止；未启动 GPU 或宣称新路由收益。已有 T5 0.2 候选已拒绝，不能将它的结果当作 P60 的结果。当前任务见 [T1–T9](CONTROLLER_TASKS.md)。
 
 ## 历史入口 · 2026-10-26

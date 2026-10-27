@@ -6,12 +6,15 @@ import math
 import unittest
 
 from src.compensation.rerank import (
+    IdentityScorer,
+    ShuffleScorer,
+    scorer_from_name,
     CrossEncoderScorer,
     RelevanceScorer,
     build_candidate_pool,
     rerank_evidence,
 )
-from src.compensation.schema import RefinementConfig
+from src.compensation.refinement_schema import RefinementConfig
 from src.diagnosis.schema import DatasetName, DiagnosisInput, EvidenceItem
 from src.probe.schema import ProbeResult
 
@@ -221,3 +224,92 @@ class CrossEncoderScorerTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ShuffleScorerTest(unittest.TestCase):
+    def test_same_inputs_give_the_same_scores(self):
+        scorer = ShuffleScorer(42)
+        self.assertEqual(scorer("who wrote hamlet", ["a", "b", "c"]), scorer("who wrote hamlet", ["a", "b", "c"]))
+
+    def test_scores_do_not_depend_on_candidate_order(self):
+        scorer = ShuffleScorer(42)
+        forward = dict(zip(["a", "b", "c"], scorer("q", ["a", "b", "c"])))
+        backward = dict(zip(["c", "b", "a"], scorer("q", ["c", "b", "a"])))
+        self.assertEqual(forward, backward)
+
+    def test_different_seeds_give_different_orders(self):
+        texts = [f"passage {index}" for index in range(8)]
+        first = sorted(range(8), key=lambda i: ShuffleScorer(1)("q", texts)[i])
+        second = sorted(range(8), key=lambda i: ShuffleScorer(2)("q", texts)[i])
+        self.assertNotEqual(first, second)
+
+    def test_different_queries_give_different_orders(self):
+        texts = [f"passage {index}" for index in range(8)]
+        scorer = ShuffleScorer(42)
+        self.assertNotEqual(scorer("query one", texts), scorer("query two", texts))
+
+    def test_scores_are_floats_in_the_unit_interval(self):
+        scores = ShuffleScorer(42)("q", [f"p{index}" for index in range(50)])
+        self.assertTrue(all(isinstance(score, float) and 0.0 <= score < 1.0 for score in scores))
+
+    def test_no_texts_means_no_scores(self):
+        self.assertEqual(ShuffleScorer(42)("q", []), [])
+
+    def test_seed_and_query_are_validated(self):
+        with self.assertRaises(TypeError):
+            ShuffleScorer("42")
+        with self.assertRaises(TypeError):
+            ShuffleScorer(True)
+        scorer = ShuffleScorer(42)
+        with self.assertRaises(TypeError):
+            scorer(None, ["a"])
+
+    def test_it_drives_a_real_rerank(self):
+        request = item("p1", "p2", "p3")
+        outcome = rerank_evidence(request.query, request.evidence, ShuffleScorer(42), KEEP_ALL)
+        self.assertEqual(
+            sorted(passage.passage_id for passage in outcome.evidence), ["p1", "p2", "p3"]
+        )
+        self.assertEqual([passage.rank for passage in outcome.evidence], [1, 2, 3])
+
+    def test_it_satisfies_the_scorer_protocol(self):
+        self.assertIsInstance(ShuffleScorer(42), RelevanceScorer)
+
+
+class ScorerFromNameTest(unittest.TestCase):
+    def test_a_shuffle_name_rebuilds_the_control(self):
+        scorer = scorer_from_name("shuffle:7")
+        self.assertIsInstance(scorer, ShuffleScorer)
+        self.assertEqual(scorer.seed, 7)
+        self.assertEqual(scorer("q", ["a"]), ShuffleScorer(7)("q", ["a"]))
+
+    def test_a_negative_seed_is_accepted(self):
+        self.assertEqual(scorer_from_name("shuffle:-1").seed, -1)
+
+    def test_a_malformed_shuffle_name_is_rejected(self):
+        for name in ("shuffle:", "shuffle:abc", "shuffle:1.5"):
+            with self.assertRaises(ValueError):
+                scorer_from_name(name)
+
+    def test_an_empty_name_is_rejected(self):
+        for name in ("", "   ", None):
+            with self.assertRaises(ValueError):
+                scorer_from_name(name)
+
+
+class IdentityScorerTest(unittest.TestCase):
+    def test_it_keeps_the_frozen_order(self):
+        request = item("p1", "p2", "p3")
+        outcome = rerank_evidence(request.query, request.evidence, IdentityScorer(), KEEP_ALL)
+        self.assertEqual([p.passage_id for p in outcome.evidence], ["p1", "p2", "p3"])
+        self.assertEqual(outcome.scores, (0.0, 0.0, 0.0))
+
+    def test_it_resolves_by_name(self):
+        self.assertIsInstance(scorer_from_name("identity"), IdentityScorer)
+
+    def test_it_validates_the_query(self):
+        with self.assertRaises(TypeError):
+            IdentityScorer()(None, ["a"])
+
+    def test_it_satisfies_the_scorer_protocol(self):
+        self.assertIsInstance(IdentityScorer(), RelevanceScorer)

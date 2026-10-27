@@ -1,0 +1,74 @@
+======================================================================
+ERROR: test_different_seeds_can_pick_different_sentences (tests.test_pruning.MatchedRandomPrunerTest.test_different_seeds_can_pick_different_sentences)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/tests/test_pruning.py", line 113, in test_different_seeds_can_pick_different_sentences
+    tuple(MatchedRandomPruner(self.reference, seed=seed).prune("q", PASSAGES)) for seed in range(12)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/src/compensation/pruning.py", line 177, in prune
+    sentences = self.split(original)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/src/compensation/pruning.py", line 159, in split
+    from nltk.tokenize import sent_tokenize
+ModuleNotFoundError: No module named 'nltk'
+
+======================================================================
+ERROR: test_it_is_deterministic (tests.test_pruning.MatchedRandomPrunerTest.test_it_is_deterministic)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/tests/test_pruning.py", line 107, in test_it_is_deterministic
+    first = MatchedRandomPruner(self.reference, seed=42).prune("q", PASSAGES)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/src/compensation/pruning.py", line 177, in prune
+    sentences = self.split(original)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/src/compensation/pruning.py", line 159, in split
+    from nltk.tokenize import sent_tokenize
+ModuleNotFoundError: No module named 'nltk'
+
+======================================================================
+ERROR: test_it_keeps_the_same_number_of_sentences (tests.test_pruning.MatchedRandomPrunerTest.test_it_keeps_the_same_number_of_sentences)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/tests/test_pruning.py", line 102, in test_it_keeps_the_same_number_of_sentences
+    pruned = control.prune("who wrote hamlet", PASSAGES)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/src/compensation/pruning.py", line 177, in prune
+    sentences = self.split(original)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/src/compensation/pruning.py", line 159, in split
+    from nltk.tokenize import sent_tokenize
+ModuleNotFoundError: No module named 'nltk'
+
+======================================================================
+ERROR: test_keeping_everything_returns_the_original (tests.test_pruning.MatchedRandomPrunerTest.test_keeping_everything_returns_the_original)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/tests/test_pruning.py", line 130, in test_keeping_everything_returns_the_original
+    self.assertEqual(MatchedRandomPruner(reference, seed=1).prune("q", PASSAGES), PASSAGES)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/src/compensation/pruning.py", line 177, in prune
+    sentences = self.split(original)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/src/compensation/pruning.py", line 159, in split
+    from nltk.tokenize import sent_tokenize
+ModuleNotFoundError: No module named 'nltk'
+
+======================================================================
+ERROR: test_kept_sentences_stay_in_their_original_order (tests.test_pruning.MatchedRandomPrunerTest.test_kept_sentences_stay_in_their_original_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/tests/test_pruning.py", line 124, in test_kept_sentences_stay_in_their_original_order
+    pruned = control.prune("q", [text, "a . b ."])[0]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/src/compensation/pruning.py", line 177, in prune
+    sentences = self.split(original)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/src/compensation/pruning.py", line 159, in split
+    from nltk.tokenize import sent_tokenize
+ModuleNotFoundError: No module named 'nltk'
+
+----------------------------------------------------------------------
+Ran 206 tests in 8.620s
+
+FAILED (errors=5)

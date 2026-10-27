@@ -1,0 +1,16 @@
+{
+  "schema_version": "controller2_merge_sources_v1",
+  "branch": "controller_2",
+  "base_commit": "5da8fa690bb04bd65f19ee9629b899d569fa0abe",
+  "sources": {
+    "origin/feature/retrieval-enhancement": "37e469e0bd101dc5a905f95aeca1cafdc6a07e9d",
+    "origin/feature/reranking-enhancement": "55832850640f5fe37c52a02779cc389a2e5f0276"
+  },
+  "retrieval_merge_commit": "5c793c7c087247eb22e6b4153cbc309ef86818ac",
+  "current_runtime_registration_unchanged": true,
+  "new_candidate_models_enabled": false,
+  "new_GPU_or_API_inference": false,
+  "historical_archives_preserved": true,
+  "baseline_evaluation_branch_merged": false,
+  "full_regression": "pending_post_merge_commit"
+}

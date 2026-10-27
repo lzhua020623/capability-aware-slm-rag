@@ -215,6 +215,7 @@ class ForbiddenFieldTest(unittest.TestCase):
                 "regenerated",
                 "used_probe_hint",
                 "reject_reason",
+                "candidate_answer",
             },
         )
 

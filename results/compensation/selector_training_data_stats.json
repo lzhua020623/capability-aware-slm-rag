@@ -1,0 +1,30 @@
+{
+  "source_records": "data\\processed\\diagnosis\\nq15_train_records.jsonl",
+  "records_used": 64760,
+  "examples": 167485,
+  "example_sources": {
+    "positive_model_answer": 26653,
+    "negative_borrowed_gold": 64760,
+    "positive_gold": 38107,
+    "negative_model_answer": 37965
+  },
+  "skipped": {},
+  "splits": {
+    "train": {
+      "examples": 150697,
+      "positives": 58284,
+      "negatives": 92413,
+      "samples": 58284,
+      "path": "data\\processed\\selector\\train.jsonl"
+    },
+    "validation": {
+      "examples": 16788,
+      "positives": 6476,
+      "negatives": 10312,
+      "samples": 6476,
+      "path": "data\\processed\\selector\\validation.jsonl"
+    }
+  },
+  "seed": 42,
+  "note": "Examples are built within a sample and put gold-style strings on both sides, so neither the sample's annotation label nor the answer's writing style separates the classes."
+}

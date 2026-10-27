@@ -1,0 +1,58 @@
+{
+  "note": "Counterfactual over answers that already existed; no new generation. EM is normalised exact match against the offline gold answer.",
+  "source": "results\\compensation\\refinement_end_to_end_harm.json",
+  "label": "correct",
+  "samples": 600,
+  "config": {
+    "keep_k": 5,
+    "min_score": null,
+    "probe_hint_weight": 0.0,
+    "require_grounded": true,
+    "regenerate_when_unchanged": false,
+    "reranker_model": "models/reranker/accessibility_v1"
+  },
+  "grounding": {
+    "initial_grounded": 547,
+    "candidate_grounded": 523,
+    "both_grounded": 511
+  },
+  "by_initial_correctness": {
+    "already_right": 317,
+    "broken": 30,
+    "break_rate": 0.0946,
+    "already_wrong": 283,
+    "repaired": 12,
+    "repair_rate": 0.0424,
+    "break_even_wrong_per_right": 2.2319
+  },
+  "policies": {
+    "always_keep": {
+      "em": 0.5283,
+      "fixed": 0,
+      "broken": 0,
+      "net_fixed": 0,
+      "answers_changed": 0
+    },
+    "always_accept": {
+      "em": 0.4983,
+      "fixed": 13,
+      "broken": 31,
+      "net_fixed": -18,
+      "answers_changed": 116
+    },
+    "grounded": {
+      "em": 0.4983,
+      "fixed": 12,
+      "broken": 30,
+      "net_fixed": -18,
+      "answers_changed": 91
+    },
+    "protect_grounded_original": {
+      "em": 0.5267,
+      "fixed": 1,
+      "broken": 2,
+      "net_fixed": -1,
+      "answers_changed": 12
+    }
+  }
+}

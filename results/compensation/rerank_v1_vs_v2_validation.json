@@ -1,0 +1,51 @@
+{
+  "note": "Paired comparison on held-out accessibility samples. rank is the position of the answer-bearing passage inside that sample's own frozen Top-5; ties count against it. This measures ordering only, not final answer accuracy.",
+  "split": "validation",
+  "examples": 2339,
+  "max_length": 320,
+  "bootstrap_samples": 10000,
+  "seed": 42,
+  "models": {
+    "models/reranker/accessibility_v1": {
+      "rank1": 0.6524,
+      "mrr": 0.7894,
+      "rank_distribution": {
+        "1": 1526,
+        "2": 405,
+        "3": 235,
+        "4": 100,
+        "5": 73
+      },
+      "seconds": 64.0
+    },
+    "models/reranker/accessibility_v2": {
+      "rank1": 0.6558,
+      "mrr": 0.7924,
+      "rank_distribution": {
+        "1": 1534,
+        "2": 413,
+        "3": 218,
+        "4": 111,
+        "5": 63
+      },
+      "seconds": 62.3
+    }
+  },
+  "comparisons": {
+    "models/reranker/accessibility_v2": {
+      "vs": "models/reranker/accessibility_v1",
+      "rank1_difference": 0.0034,
+      "mcnemar": {
+        "wins": 121,
+        "losses": 113,
+        "discordant": 234,
+        "p_value": 0.64733
+      },
+      "paired_bootstrap": {
+        "mean": 0.0035,
+        "ci95_low": -0.0094,
+        "ci95_high": 0.0162
+      }
+    }
+  }
+}

@@ -13,6 +13,7 @@ __all__ = [
 
     "CrossEncoderScorer",
     "EvidenceRefiner",
+    "EvidenceRefinementAdapter",
     "RefinementConfig",
     "RefinementResult",
     "RefinementStatus",
@@ -39,8 +40,9 @@ def __getattr__(name):
         'EnhancementStatus': 'schema',
 
         "EvidenceRefiner": "evidence_refinement", "evidence_refinement": "evidence_refinement",
+        "EvidenceRefinementAdapter": "refinement_adapter",
         "CrossEncoderScorer": "rerank", "RelevanceScorer": "rerank", "rerank_evidence": "rerank",
-        "RefinementConfig": "schema", "RefinementResult": "schema", "RefinementStatus": "schema",
+        "RefinementConfig": "refinement_schema", "RefinementResult": "refinement_schema", "RefinementStatus": "refinement_schema",
     }
     if name not in modules:
         raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

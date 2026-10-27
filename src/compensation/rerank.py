@@ -23,12 +23,13 @@ only when `RefinementConfig.probe_hint_weight` is non-zero.
 
 from __future__ import annotations
 
+import hashlib
 import math
 from collections.abc import Callable, Iterable, Sequence
 from dataclasses import dataclass
 from typing import Protocol, runtime_checkable
 
-from src.compensation.schema import DEFAULT_REFINEMENT_CONFIG, RefinementConfig
+from src.compensation.refinement_schema import DEFAULT_REFINEMENT_CONFIG, RefinementConfig
 from src.diagnosis.schema import DiagnosisInput, EvidenceItem
 from src.probe.schema import ProbeResult
 
@@ -69,6 +70,74 @@ class CrossEncoderScorer:
             return []
         scores = self._predict([[query, text] for text in texts])
         return [float(score) for score in scores]
+
+
+class ShuffleScorer:
+    """Deterministic pseudo-random scores: a control, not a ranker.
+
+    Reordering evidence changes the prompt whether or not the new order is any
+    better, and a re-asked generator sometimes lands on a different answer for
+    that reason alone. Scoring a run with this measures how much of a reranker's
+    apparent repair rate is that perturbation rather than ranking. Published
+    work reports the same concern: on Qwen2.5-7B with BGE Top-5, rearranging
+    passages is statistically indistinguishable from shuffling them
+    (arXiv:2505.15561).
+
+    Scores hash (seed, query, passage text), so a run reproduces exactly and
+    does not depend on the order the candidates arrive in.
+    """
+
+    def __init__(self, seed: int = 42):
+        if isinstance(seed, bool) or not isinstance(seed, int):
+            raise TypeError(f"seed must be an int, got {type(seed).__name__}")
+        self.seed = seed
+        self.model_name = f"shuffle:{seed}"
+
+    def __call__(self, query: str, texts: Sequence[str]) -> list[float]:
+        if not isinstance(query, str):
+            raise TypeError(f"query must be a string, got {type(query).__name__}")
+        scores = []
+        for text in texts:
+            digest = hashlib.blake2b(repr((self.seed, query, text)).encode("utf-8"), digest_size=8).digest()
+            scores.append(int.from_bytes(digest, "big") / 2**64)
+        return scores
+
+
+class IdentityScorer:
+    """Scores every candidate equally, so `rerank_evidence` keeps the frozen order.
+
+    Used to hold ordering constant while another step (pruning) varies, so a
+    gain can be attributed to that step rather than to reordering.
+    """
+
+    model_name = "identity"
+
+    def __call__(self, query: str, texts: Sequence[str]) -> list[float]:
+        if not isinstance(query, str):
+            raise TypeError(f"query must be a string, got {type(query).__name__}")
+        return [0.0] * len(list(texts))
+
+
+SHUFFLE_PREFIX = "shuffle:"
+
+
+def scorer_from_name(name: str) -> RelevanceScorer:
+    """Build the scorer a run recorded in `RefinementConfig.reranker_model`.
+
+    `shuffle:<seed>` rebuilds the control; anything else is a cross-encoder
+    path or hub id. Offline analyses use this so they reproduce the ordering
+    the run actually used instead of assuming a cross-encoder.
+    """
+    if not isinstance(name, str) or not name.strip():
+        raise ValueError("scorer name must be a non-empty string")
+    if name == IdentityScorer.model_name:
+        return IdentityScorer()
+    if name.startswith(SHUFFLE_PREFIX):
+        seed = name[len(SHUFFLE_PREFIX) :]
+        if not seed.lstrip("-").isdigit():
+            raise ValueError(f"Invalid shuffle scorer name {name!r}; expected {SHUFFLE_PREFIX}<int seed>")
+        return ShuffleScorer(int(seed))
+    return CrossEncoderScorer.from_pretrained(name)
 
 
 @dataclass(frozen=True)
