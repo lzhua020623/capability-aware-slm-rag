@@ -1,0 +1,65 @@
+{
+  "schema_version": "e_distillation_offline_pilot_v1",
+  "protocol_sha256": "d61a17cbbd06dcd6d7cd8f993c9fc391bffe4ead460ea3ed8b6be0573cca8b66",
+  "sample_manifest_sha256": "8e19f5963f7595d2ae1c200d6eacf379a9565271a9b85e86d2c77afc1afe1f45",
+  "boundary": {
+    "policy_path": "configs/splits/team_nq_data_v1.json",
+    "policy_sha256": "0f1318a2e162aadb2c3b9dba1a9a1a8f1a43318eaf6b2faa9e428c0a58100d20",
+    "split_sha256": "7da01c94cd7b5f92076edebc80911ac891d3861a01cf6b40a1e5e6efb6482dc4",
+    "official_counts": {
+      "train": 51866,
+      "validation": 11117,
+      "test": 11114
+    },
+    "eligible_counts": {
+      "train": 46421,
+      "validation": 9440
+    },
+    "test_sealed": true,
+    "test_known_exposed": 603,
+    "labels_semantically_verified": false,
+    "external_training_IDs_verified": false
+  },
+  "n_tasks": 500,
+  "source": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/data/processed/external/nq_train_delivery_20261017",
+  "source_sha256": {
+    "nq_train_annotation_000.jsonl": "60a03259a7275284b4585755dbbc83138f6abb46ba94dd47c4c08064babe7a87",
+    "nq_train_annotation_001.jsonl": "a5ccfca2af087d0fcd236274dad57e3613b0546fae8caff366c2d2391396581b",
+    "nq_train_annotation_002.jsonl": "4885214758f18b1071c9a0860ac07c9e2f39f5c7b68be23dfe3720ff26e71b78",
+    "nq_train_annotation_003.jsonl": "2726bac8fa09dd89c09fdc4533dccdc339275ceae98df5baa0c41b07eba96930",
+    "nq_train_annotation_004.jsonl": "f7b65012f5a66217e3642d20eaefbe332326fc2b0e267280457164b9c6af7fd0",
+    "nq_train_annotation_005.jsonl": "e1aef80b2fd26f3d3d832a0819a68dfc9277f967faf105b8caaf49eb3a8ca4d7",
+    "nq_train_annotation_006.jsonl": "0975f945d254ca4a3983490b5d0c4e163a032ab61e981fc8c09cd9efedc10ef4",
+    "nq_train_annotation_007.jsonl": "51630aff40c605944c14672421fae9467e7577b65a1117744cac97fd20566f7c",
+    "nq_train_annotation_008.jsonl": "3c1f6a36e6f9b496afccda47d46d3fd4a2298019d4684f02f95265cdb377c320",
+    "nq_train_annotation_009.jsonl": "21ffd6f6eb7580bb0f048589b6f4b1b76ec2a70780379e118e7d5e9ea50ee0a4",
+    "nq_train_annotation_010.jsonl": "7344529c38013296d8d3bc2641a1635a03f666ea89d1069a729a957e0f322c54",
+    "nq_train_annotation_011.jsonl": "7849329a19e380c66eb65a67de75defd4fce5c3f15786698d0a4e85d92ae8fba",
+    "nq_train_annotation_012.jsonl": "302908930121240d6b28773c05c0e84bbaa835223eccf6d6e3e17d4b550c2988",
+    "nq_train_annotation_013.jsonl": "25ffa3fe664d8c118064f986eda10de2e635a49ac95053f7e0729927ca300903",
+    "nq_train_annotation_014.jsonl": "cf67526be016dbf1e697f4513cb5bb8c79de649b2271baeb32e5fb2fae1451f7"
+  },
+  "source_layout": "original_checksum_bound_delivery",
+  "files": {
+    "teacher_tasks.jsonl": {
+      "sha256": "fa35952aa9d7722420019d313116fe38b16e47cf25104aee4350fa0be477b5c0",
+      "bytes": 11271115
+    },
+    "offline_references.jsonl": {
+      "sha256": "f7007f88a5b96412c8f4e0593c1ec825c06dec6efd194dd571cbea5f74a784f7",
+      "bytes": 95296
+    }
+  },
+  "teacher_API_calls": 0,
+  "training_runs": 0,
+  "student_token_lengths_checked": false,
+  "semantic_targets_approved": 0,
+  "ready_for_API": false,
+  "ready_for_SFT": false,
+  "pending": [
+    "teacher deployment/version and total spend/token budget",
+    "teacher pilot generation and semantic acceptance",
+    "tokenizer/output-length and long-input GPU preflight",
+    "training/evaluation gate and fixture seal before SFT"
+  ]
+}

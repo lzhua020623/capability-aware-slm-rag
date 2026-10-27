@@ -1,0 +1,18 @@
+{
+  "schema_version": "e_pilot_independent_local_replay_v1",
+  "n_tasks": 500,
+  "all_original_15_shard_hashes_match": true,
+  "task_file_and_reference_hashes_match": true,
+  "all_task_prompts_schemas_fingerprints_rebuilt_exactly": true,
+  "sample_order_matches_frozen_manifest": true,
+  "teacher_ids_all_allowed_train": true,
+  "validation_and_test_runtime_rows_exported": 0,
+  "offline_reference_fields_separate": true,
+  "current_baseline_and_old_E_contract_unchanged": true,
+  "protected_user_files_unchanged": true,
+  "teacher_API_calls": 0,
+  "training_runs": 0,
+  "teacher_model_registered": false,
+  "semantic_targets_approved": 0,
+  "student_token_lengths_checked": false
+}

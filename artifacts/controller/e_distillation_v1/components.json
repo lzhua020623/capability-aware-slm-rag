@@ -1,0 +1,102 @@
+{
+  "schema_version": "e_distillation_component_audit_v1",
+  "components": [
+    {
+      "branch": "main",
+      "head": "058f10baa47083220f95edb39db8f106aa7e85d6",
+      "latest_head_in_ancestry": true,
+      "current_differences_in_selected_module_paths": []
+    },
+    {
+      "branch": "feature/diagnosis-probe-zheng",
+      "head": "138d52aa22e0eee78637e01f981a030d7ad388df",
+      "latest_head_in_ancestry": true,
+      "current_differences_in_selected_module_paths": [
+        "src/controller/data_preparation.py",
+        "src/controller/engineering.py",
+        "src/controller/evaluation.py",
+        "src/controller/execution.py",
+        "src/controller/fever_c1.py",
+        "src/controller/fever_resources.py",
+        "src/controller/nq_train_resources.py",
+        "src/controller/providers.py",
+        "src/controller/runtime.py",
+        "src/controller/v2a_policy.py",
+        "src/pipeline/current.py"
+      ]
+    },
+    {
+      "branch": "feature/retrieval-enhancement",
+      "head": "37e469e0bd101dc5a905f95aeca1cafdc6a07e9d",
+      "latest_head_in_ancestry": true,
+      "current_differences_in_selected_module_paths": []
+    },
+    {
+      "branch": "feature/reranking-enhancement",
+      "head": "55832850640f5fe37c52a02779cc389a2e5f0276",
+      "latest_head_in_ancestry": true,
+      "current_differences_in_selected_module_paths": [
+        "src/compensation/refinement_schema.py"
+      ]
+    },
+    {
+      "branch": "feature/verification-answer-repair",
+      "head": "5da1fe50d1e7f289d8859c6cfe9d8a4e296aec3b",
+      "latest_head_in_ancestry": true,
+      "current_differences_in_selected_module_paths": [
+        "src/compensation/evidence_v2a.py"
+      ]
+    },
+    {
+      "branch": "feature/baseline-evaluation",
+      "head": "387ddafc82bc939ebd27b3137d580db6ecb2e04a",
+      "latest_head_in_ancestry": false,
+      "current_differences_in_selected_module_paths": []
+    }
+  ],
+  "readiness": {
+    "baseline": "diagnosis_20261024_p60_p64_v1",
+    "upstream_commit": "138d52aa22e0eee78637e01f981a030d7ad388df",
+    "runtime_entry": "src.pipeline.current.load_current_pipeline",
+    "routing": "Diagnosis -> P60 -> Controller -> EnhancementExecutor",
+    "probe_enabled": false,
+    "ready_for_gpu": false,
+    "missing": [
+      "runtime_78_feature_provider_not_delivered",
+      "P60_training_tuning_calibration_ID_provenance_not_delivered"
+    ],
+    "legacy_fallback": false,
+    "benchmark_quality_evaluated": false,
+    "E_mode": {
+      "nq": "unavailable",
+      "fever": "unavailable"
+    },
+    "data_boundary": {
+      "policy_path": "configs/splits/team_nq_data_v1.json",
+      "policy_sha256": "0f1318a2e162aadb2c3b9dba1a9a1a8f1a43318eaf6b2faa9e428c0a58100d20",
+      "split_sha256": "7da01c94cd7b5f92076edebc80911ac891d3861a01cf6b40a1e5e6efb6482dc4",
+      "official_counts": {
+        "train": 51866,
+        "validation": 11117,
+        "test": 11114
+      },
+      "eligible_counts": {
+        "train": 46421,
+        "validation": 9440
+      },
+      "test_sealed": true,
+      "test_known_exposed": 603,
+      "labels_semantically_verified": false,
+      "external_training_IDs_verified": false
+    }
+  },
+  "notes": [
+    "Latest source ancestry does not certify trained weights or real GPU quality",
+    "Baseline branch intentionally not fully merged; exact team split is separately checksum-bound",
+    "Read-only remote refresh found no updates; both known fork heads unchanged"
+  ],
+  "end_to_end_ready": false,
+  "offline_E_preparation_allowed": true,
+  "teacher_API_calls": 0,
+  "training_runs": 0
+}

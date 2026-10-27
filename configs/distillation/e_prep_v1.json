@@ -1,0 +1,86 @@
+{
+  "schema_version": "e_distillation_prep_v1",
+  "scope": "NQ pilot preparation only; no API or training enabled",
+  "dataset": "nq",
+  "seed": "e_distillation_v1_20261027",
+  "teacher": {
+    "provider_candidate": "azure",
+    "model_id": null,
+    "model_version": null,
+    "deployment": null,
+    "endpoint": null,
+    "request_budget_registered": false,
+    "enabled": false
+  },
+  "student": {
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "role": "E adapter only; C1 base weights unchanged",
+    "method_candidate": "QLoRA SFT of teacher visible structured outputs",
+    "max_new_tokens": 384,
+    "max_reason_words": 60,
+    "token_length_check_required_before_SFT": true
+  },
+  "sampling": {
+    "pilot_per_AI_stratum": 125,
+    "strata": [
+      "correct",
+      "evidence_accessibility",
+      "evidence_insufficiency",
+      "evidence_utilisation"
+    ],
+    "development_n": 500,
+    "selection_n": 500,
+    "validation_sampling": "hash-uniform without reading questions, predictions or gold; development and selection disjoint",
+    "AI_strata_are_semantic_gold": false
+  },
+  "expansion": {
+    "candidate_accepted_examples": 5000,
+    "ceiling_accepted_examples": 10000,
+    "enabled": false,
+    "requires": [
+      "registered teacher version and total token/currency budget",
+      "teacher pilot structural and semantic acceptance",
+      "review policy and expansion sampling seal"
+    ]
+  },
+  "evaluation": {
+    "selection_confirmation_runs": 1,
+    "maximum_training_configurations": 2,
+    "test": "all 11114 official IDs stay sealed; no final inference in this preparation",
+    "metrics": [
+      "EM",
+      "token_F1",
+      "semantic fixes",
+      "semantic harms",
+      "net fixes",
+      "original-correct harm rate",
+      "format compliance",
+      "unresolved coverage",
+      "tokens",
+      "latency"
+    ],
+    "promotion": "not enabled; seal numeric gates and fixtures before training/evaluation; report uncertainty and veto semantic harm",
+    "FEVER": "not registered; not included"
+  },
+  "contract_assets": {
+    "src/compensation/evidence_v2a.py": "eae0328aa6cea8f2bd429e7bcc3b3dec65a640325da3474ec50372f30ca1c2e6",
+    "src/compensation/evidence_id_repair.py": "ee23d1b90129fa1859835a9b59e01cd2058209dbf21fe4994d08db38cfc129c0",
+    "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+    "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+    "src/data/team_nq.py": "3c31963201bd1347364efc7fea5edaf0ee1649b2a1908fe2cf8ed7c9a4aa51b8"
+  },
+  "never_in_teacher_prompt": [
+    "gold",
+    "annotation_reference",
+    "primary_label",
+    "EM/F1",
+    "Diagnosis label"
+  ],
+  "retired_r2": "unchanged; failed; no replacement of old frozen results",
+  "official_docs": [
+    "https://developers.openai.com/api/docs/guides/structured-outputs",
+    "https://huggingface.co/docs/trl/main/en/sft_trainer",
+    "https://huggingface.co/docs/peft/main/en/developer_guides/quantization"
+  ]
+}

@@ -8,6 +8,8 @@
 后续用途边界、603 条已知 test 曝光及保守开发池见 [数据对齐与边界](docs/TEAM_DATA_BOUNDARIES.md)。
 原始数据不缺；待交付的是团队新 baseline 的逐题输出，FEVER 划分仍待统一。
 
+E 的 [输出蒸馏准备](docs/E_DISTILLATION_V1.md)已启动：固定 Train 内 500 条教师试产及独立开发/选型清单，准备离线任务。教师 API、QLoRA/SFT 尚未执行，当前 E 继续 unavailable。
+
 `controller_2` 从 `controller@5da8fa6` 创建，合入补检索 `37e469e` 与重排 `5583285`。
 合并说明、兼容处理、验证记录及下一步见 [Controller 2 交接](docs/CONTROLLER2_INTEGRATION.md)。
 当前运行配置保持原样：新重排权重、句子裁剪和答案选择器均未晋升默认；E 仍 unavailable，P60 的两项材料仍待交付。

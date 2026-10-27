@@ -1,0 +1,30 @@
+{
+  "head": "2349a08ffd00c29effcd9dac481ec6b7b9352c5a",
+  "branch": "controller_2",
+  "refs": {
+    "refs/remotes/audit-elioshi/main": "c15977cb8ebbaa16a0ada809f72bd57d0893b120",
+    "refs/remotes/audit-mingchengshi/feature/F500-c0c3": "064447dfef655d26716e2529083901ee802ee0d9",
+    "refs/remotes/audit-mingchengshi/feature/fever-c1-person-c": "c3a32d6709bb35dddbff2820c82d4bc408151d03",
+    "refs/remotes/audit-mingchengshi/feature/nq-c0-c1": "bcb248cdb94fb828b01513555d2513cc9cbb921f",
+    "refs/remotes/audit-mingchengshi/feature/nq-c3-person-c": "e4e6dc4d67d9803e93fbacc96481c60e152c1345",
+    "refs/remotes/audit-mingchengshi/main": "c15977cb8ebbaa16a0ada809f72bd57d0893b120",
+    "refs/remotes/origin/HEAD": "058f10baa47083220f95edb39db8f106aa7e85d6",
+    "refs/remotes/origin/controller": "5da8fa690bb04bd65f19ee9629b899d569fa0abe",
+    "refs/remotes/origin/controller_2": "2349a08ffd00c29effcd9dac481ec6b7b9352c5a",
+    "refs/remotes/origin/feature/-ce-70B": "6f08f2fe2dc2dcf39b75177763207682b2890a31",
+    "refs/remotes/origin/feature/F500-c0c3": "1238a4fca8fb5946f644cbbf7a04b00684d060e1",
+    "refs/remotes/origin/feature/baseline-evaluation": "387ddafc82bc939ebd27b3137d580db6ecb2e04a",
+    "refs/remotes/origin/feature/diagnosis-probe-zheng": "138d52aa22e0eee78637e01f981a030d7ad388df",
+    "refs/remotes/origin/feature/fever-c1": "6ebdfc99309d977019d4fb75a6a4b97766ad710a",
+    "refs/remotes/origin/feature/nq-c0-c1": "bcb248cdb94fb828b01513555d2513cc9cbb921f",
+    "refs/remotes/origin/feature/nq-c3": "8b03009d8ed5e516eba14c6947f3f0085adb1e48",
+    "refs/remotes/origin/feature/reranking-enhancement": "55832850640f5fe37c52a02779cc389a2e5f0276",
+    "refs/remotes/origin/feature/retrieval-enhancement": "37e469e0bd101dc5a905f95aeca1cafdc6a07e9d",
+    "refs/remotes/origin/feature/verification-answer-repair": "5da1fe50d1e7f289d8859c6cfe9d8a4e296aec3b",
+    "refs/remotes/origin/main": "058f10baa47083220f95edb39db8f106aa7e85d6"
+  },
+  "protected_sha256": {
+    "AGENTS.md": "b748f439ef6d2a5455bc3471a6101cd6bcf5f2c67bd8ba75771ad510cc7fd66a",
+    "data/annotations/assisted/answer_repair_v7_batch01_20261017.jsonl": "119035fd23c89c9cd5f24c1a749b4f549a3c7aa268c38fedf51bc81e366bc4c3"
+  }
+}
