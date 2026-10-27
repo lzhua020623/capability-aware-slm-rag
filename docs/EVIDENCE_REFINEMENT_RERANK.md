@@ -71,19 +71,33 @@ is the normal case, and harm avoidance matters more than recall.
 ## 2. Interface
 
 The host pipeline dispatches through `EnhancementExecutor`
-(`docs/ENHANCEMENT_INTEGRATION_CONTRACT.md`): register one adapter per lane and
-the executor calls `enhance(EnhancementRequest) -> EnhancementResult`.
+(`docs/ENHANCEMENT_INTEGRATION_CONTRACT.md`). One call registers this lane with
+the configuration the measurements support:
 
 ```python
 from src.compensation import EnhancementExecutor
-from src.compensation.evidence_refinement import EvidenceRefiner
-from src.compensation.refinement_adapter import EvidenceRefinementAdapter
-from src.controller.schema import ControllerAction
+from src.compensation.plugin import register_refinement_plugin
 
-refiner = EvidenceRefiner.from_frozen_defaults()      # cross-encoder + Qwen2.5-7B NF4
 executor = EnhancementExecutor()
-executor.register(ControllerAction.EVIDENCE_REFINEMENT, EvidenceRefinementAdapter(refiner))
+register_refinement_plugin(executor)            # frozen local Qwen2.5-7B NF4
+# or: register_refinement_plugin(executor, generate_fn=my_hosted_call)
 ```
+
+That wires up the deeper candidate pool (Top-50), the trained cross-encoder,
+the frozen prompt and the acceptance gate. `top_n=None` falls back to reranking
+only the frozen Top-5, which section 6 shows is worth about a third as much;
+nothing picks that silently. Both the reranker and the pool index are
+gitignored build artifacts, and a missing one raises with the command that
+rebuilds it.
+
+| Entry point | Returns | Use |
+|---|---|---|
+| `register_refinement_plugin(executor, ...)` | the adapter | the one-call setup |
+| `build_refinement_plugin(...)` | `EvidenceRefinementAdapter` | build without registering |
+| `build_refiner(...)` | `EvidenceRefiner` | the refiner alone |
+| `refiner(item, decision)` | `str` | the original two-argument call |
+| `refiner.run(item, decision, probe_result=None)` | `RefinementResult` | full record for logging and offline evaluation |
+| `rerank_evidence(query, candidates, scorer, config, probe_result)` | `RerankOutcome` | reranking alone, no generation |
 
 `EvidenceRefinementAdapter` only converts schemas — the reranking, the
 acceptance rule and the thresholds all stay in `EvidenceRefiner`, so a direct
@@ -91,46 +105,24 @@ call and the executor path return the same answer (asserted in
 `tests/test_refinement_adapter.py`). It lets exceptions reach the executor,
 which turns them into an `ERROR` result that keeps the initial answer.
 
-The earlier two-argument call from the original handoff still works and is what
-the adapter forwards to:
+`EvidenceRefiner(scorer, generate_fn, config, candidate_provider, prompt_builder, pruner)`
+takes every collaborator by injection, so tests load no model. The
+`candidate_provider` is what widens the pool; without one the refiner sees only
+the evidence the generator already saw.
 
-```python
-if decision.action is ControllerAction.EVIDENCE_REFINEMENT:
-    final_answer = refiner(item, decision)
-```
-
-| Entry point | Returns | Use |
-|---|---|---|
-| `EvidenceRefinementAdapter(refiner).enhance(request)` | `EnhancementResult` | the host pipeline's lane |
-| `refiner(item, decision)` | `str` | the original two-argument call |
-| `evidence_refinement(item, decision, refiner)` | `str` | same, with the refiner passed explicitly |
-| `refiner.run(item, decision, probe_result=None)` | `RefinementResult` | full record for logging and offline evaluation |
-| `rerank_evidence(query, candidates, scorer, config, probe_result)` | `RerankOutcome` | reranking alone, no generation |
-
-`EvidenceRefiner(scorer, generate_fn, config, candidate_provider, prompt_builder)`
-takes every collaborator by injection, so tests load no model. The optional
-`candidate_provider(item) -> Iterable[EvidenceItem]` widens the candidate
-pool (for example a deeper Top-50 from the frozen index on a machine that has
-it); without it the pool is exactly the evidence the generator already saw.
-Extra candidates are appended after the original Top-5 and renumbered, so
-Probe rank hints keep pointing at the passages the Probe saw.
-
-`RefinementConfig`: `keep_k` (default 5, i.e. reorder and keep everything;
-capped at 5), `min_score` (default `None`), `probe_hint_weight` (default 0.0),
-`require_grounded` (default `True`), `regenerate_when_unchanged` (default
-`False`), `reranker_model` (default `BAAI/bge-reranker-large`). These are the
-module's own defaults, not a frozen project setting; section 4 explains why
-pruning is opt-in.
+`RefinementConfig`: `keep_k` (5), `min_score` (`None`), `probe_hint_weight`
+(0.0), `require_grounded` (`True`), `regenerate_when_unchanged` (`False`),
+`reranker_model`. `validated_config()` returns the measured setup.
 
 `RefinementResult` reports `status`, `initial_answer`, `final_answer`,
-`answer_changed`, the evidence before/after/dropped, `rerank_scores`,
-`candidate_pool_size`, `regenerated`, `used_probe_hint` and `reject_reason`.
-`status` is one of:
+`candidate_answer`, `answer_changed`, the evidence before/after/dropped,
+`rerank_scores`, `candidate_pool_size`, `regenerated`, `used_probe_hint` and
+`reject_reason`. `status` is one of:
 
 | Status | Meaning |
 |---|---|
 | `not_routed` | the action was not `evidence_refinement`; nothing was touched |
-| `no_change` | reranking reproduced the original order, so no generation call was spent |
+| `no_change` | refinement reproduced the original context, so no generation call was spent |
 | `kept_original` | the generator ran, the new answer was rejected |
 | `answer_replaced` | the new answer passed the acceptance check |
 
@@ -571,6 +563,9 @@ this branch.
 | `src/compensation/refinement_schema.py` | `RefinementConfig`, `RefinementResult`, `RefinementStatus`, forbidden-field guard |
 | `src/compensation/refinement_adapter.py` | `EvidenceRefinementAdapter`, the thin `Enhancement` wrapper |
 | `src/compensation/pruning.py` | `ProvencePruner` and its `MatchedRandomPruner` control |
+| `src/compensation/candidates.py` | `IndexCandidateProvider`, the deeper Top-N pool |
+| `src/compensation/plugin.py` | one-call build and registration of the validated setup |
+| `scripts/build_nq15_pool_index.py` | builds the stand-in candidate pool |
 | `src/compensation/rerank.py` | `RelevanceScorer`, `CrossEncoderScorer`, `build_candidate_pool`, `rerank_evidence` |
 | `src/compensation/evidence_refinement.py` | `EvidenceRefiner`, `evidence_refinement`, grounding and acceptance rules |
 | `src/generation/backend.py` | pluggable generator: the frozen local Qwen, any OpenAI-compatible endpoint, or `echo` for dry runs |
@@ -581,4 +576,4 @@ this branch.
 | `scripts/evaluate_rerank_accessibility.py` | retrieval-side evaluation on the frozen records |
 | `scripts/evaluate_refinement_end_to_end.py` | EM / F1 before and after, local or hosted generator, with `--scorer` and `--pruner` arms |
 | `scripts/analyze_refinement_funnel.py` | where in the chain a repair becomes impossible |
-| `tests/test_refinement_schema.py`, `tests/test_compensation_rerank.py`, `tests/test_evidence_refinement.py`, `tests/test_refinement_adapter.py`, `tests/test_rerank_training_data.py`, `tests/test_nq15_annotations.py`, `tests/test_generation_backend.py`, `tests/test_acceptance_policy.py`, `tests/test_refinement_funnel.py`, `tests/test_pruning.py` | 210 tests; no model is loaded except the frozen prompt builders |
+| `tests/test_refinement_schema.py`, `tests/test_compensation_rerank.py`, `tests/test_evidence_refinement.py`, `tests/test_refinement_adapter.py`, `tests/test_rerank_training_data.py`, `tests/test_nq15_annotations.py`, `tests/test_generation_backend.py`, `tests/test_acceptance_policy.py`, `tests/test_refinement_funnel.py`, `tests/test_pruning.py` | 292 tests; no model is loaded except the frozen prompt builders |
