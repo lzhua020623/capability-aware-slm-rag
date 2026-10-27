@@ -1,0 +1,27 @@
+{
+  "tested_source_commit": "a936187c564b2fbd3bc8547e63fc0e2965fddc82",
+  "sha256": {
+    "README.md": "90261ae3a0488daee06654ab5884c348559f71aed0f4a48b0ab952622c50f5da",
+    "artifacts/controller/e_distillation_v1/sample_manifest.json": "34e12aeb84b330ffa591becbbec85d5930a3da51902311d65b407ac7250acdae",
+    "configs/controller/current_baseline.json": "79439664e90ab4c1f39e4bedfc8b718ee2ea5669932f3067a3420ce240422024",
+    "configs/distillation/e_prep_v1.json": "d61a17cbbd06dcd6d7cd8f993c9fc391bffe4ead460ea3ed8b6be0573cca8b66",
+    "docs/CONTROLLER_TASKS.md": "c920d5eec44481435cd8439c76c81a60a3f882d5a7a674052dadf701a0888cd3",
+    "docs/E_DISTILLATION_V1.md": "7d466bc8646410138bd9cf6ee3102bca63296b384a7c8c20c387ad30deca6ad1",
+    "docs/PROJECT_STATUS_AND_DIRECTION.md": "f9e6b1ce3443a79c0d45c8e29ca8cde9fd00bcdddd387ee9f9c0e766f1d7c5ff",
+    "docs/RERANK_1D51856_INTEGRATION.md": "8f1f01bc7ed07b8bb907c52d657a1ec7dd5bd7881737a9b7dbf4b05bccbba219",
+    "results/compensation/answer_selector_evaluation.json": "c4418577a8d425168b49e74a278d50e37dd31a716f7f648923a0d32d8fc0cce2",
+    "results/compensation/selector_training_metrics.json": "be4365079b2fc24abc12d8fbc471aa271fe6d9047e1d7d3619771ef85c36cfc0",
+    "scripts/analyze_answer_selection.py": "644b044fd3c891d33572e78df798354a5a99737daa132d0897ca3f13c157e038",
+    "scripts/evaluate_answer_selector.py": "0ec2ff4afb0f83cff954989312bdfa574ff333ab683009e332e341fdbf60ae60",
+    "scripts/evaluate_refinement_end_to_end.py": "1de8bc25718584a43bbe440fd374262014dc37f03bd833584f47361d71cebe05",
+    "src/compensation/answer_repair.py": "26dea2175d36fb68a7ed0207a86a1cbfede5adab6a4f1c378cc2cd34231fcd64",
+    "src/compensation/candidates.py": "1d68073beba615fc72fdaa98cec6b6be5cf17c3e4ce6971a3f8bbefe0a037845",
+    "src/compensation/evidence_id_repair.py": "ee23d1b90129fa1859835a9b59e01cd2058209dbf21fe4994d08db38cfc129c0",
+    "src/compensation/evidence_v2a.py": "eae0328aa6cea8f2bd429e7bcc3b3dec65a640325da3474ec50372f30ca1c2e6",
+    "src/compensation/short_answer_repair.py": "f37fcb69bce4896c63f30b61a4d2b8c6ce6c772afe1b62747ef426b134c69a90",
+    "src/data/team_nq.py": "3c31963201bd1347364efc7fea5edaf0ee1649b2a1908fe2cf8ed7c9a4aa51b8",
+    "tests/test_answer_selection.py": "90528003e0befc277b405b8ae139b6a727b7e2fc999aa9f27cd84d2239c9372f",
+    "tests/test_candidates.py": "8df1b20c44d0cf7f13706c30082c52587e77488fa0a158e6d031703327288ee1",
+    "tests/test_rerank_latest_boundaries.py": "3548f958737faee5030cc0be2b5a910f7619795fbf9da4c3a89f0b00749b5bd5"
+  }
+}

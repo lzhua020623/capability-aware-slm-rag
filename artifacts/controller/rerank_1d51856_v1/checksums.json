@@ -1,0 +1,11 @@
+{
+  "tested_source_commit": "a936187c564b2fbd3bc8547e63fc0e2965fddc82",
+  "sha256": {
+    "README.md": "a63d060de5b74469c3216759ef3735be02330d7e97bc30108f885a24b8a06155",
+    "full_tests.log": "bab14569aa8a54d6115b27490549aa68c04e0df3207bc9a36b096bce376a33ca",
+    "integration.json": "20ff4072895c00736b196816f5d4db81a41e021e81579315d684199aef94127f",
+    "post_selfcheck.json": "ac07cb66b31e3fcbb26001b1763af97a0a5c3ea970d114c73fd4ab27fefa788c",
+    "source_snapshot.json": "64f6a96008157ac23a779a3743f59b860b9cc0c9c104a5101d725cba6488ee4d",
+    "targeted_tests.log": "2930882d949cccf10d7e1d74551327616cf9afe54846bae8ce29abb57e3ef478"
+  }
+}
