@@ -152,6 +152,10 @@ def build_refiner(args, config: RefinementConfig):
         return EvidenceRefiner.from_frozen_defaults(config=config), "frozen local Qwen2.5-7B NF4", False
 
     backend = build_backend(args.backend, args.generator_model, args.base_url, args.api_key)
+    # Hosted DNS here drops for minutes at a time; the backend default of 5 retries
+    # (about 31s of backoff) is not enough to ride that out.
+    if hasattr(backend, "max_retries"):
+        backend.max_retries = args.api_max_retries
     max_new_tokens = args.max_new_tokens
 
     def generate(prompt: str) -> str:
@@ -258,6 +262,12 @@ def main() -> None:
     parser.add_argument("--generator-model", default=None, help="model id at the hosted endpoint")
     parser.add_argument("--base-url", default=None, help="override the provider base URL")
     parser.add_argument("--api-key", default=None, help="defaults to $LLM_API_KEY")
+    parser.add_argument(
+        "--api-max-retries",
+        type=int,
+        default=20,
+        help="retries per hosted call; the backoff caps at 30s, so 20 rides out roughly 10 minutes of outage",
+    )
     parser.add_argument("--max-new-tokens", type=int, default=None, help="defaults to configs/base.yaml")
     parser.add_argument(
         "--regenerate-before",
