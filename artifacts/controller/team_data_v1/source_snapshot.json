@@ -1,0 +1,24 @@
+{
+  "source_commit": "e8c78e0d03b6d001e577943d455fb60797efe0a3",
+  "sha256": {
+    "README.md": "1d84bfdc20cce6669868a7fbb122f008b52d9133ec8fbac2d1f9e9889f30376c",
+    "baselines/splits/diagnosis_nq_train_74097_split.json": "7da01c94cd7b5f92076edebc80911ac891d3861a01cf6b40a1e5e6efb6482dc4",
+    "configs/controller/current_baseline.json": "79439664e90ab4c1f39e4bedfc8b718ee2ea5669932f3067a3420ce240422024",
+    "configs/splits/team_nq_data_v1.json": "0f1318a2e162aadb2c3b9dba1a9a1a8f1a43318eaf6b2faa9e428c0a58100d20",
+    "docs/CONTROLLER_TASKS.md": "e215eb900f52e6dfa3020810f1ee0d9916b650cdd645aae6cc50924fdc431e0e",
+    "docs/PROJECT_STATUS_AND_DIRECTION.md": "9b5a1f4fae9bb1f7457d728e43f3837671cec2985d7d06a3686476e48817f539",
+    "docs/TEAM_DATA_BOUNDARIES.md": "868f3d450dc8f0d304af96ed4b5abf8df9a5b7ab1986f366a459792d7816afbb",
+    "scripts/audit_team_nq_data.py": "162340a01eaebf20245a4b169ba10c7788493f775cccfb9363945f4417b82e08",
+    "scripts/build_rerank_training_data.py": "3c198c406ead44373bbd200909c9c5154789a698fb993e72536d72343ea44af3",
+    "scripts/build_selector_training_data.py": "b51d7ccfee8bae6c961ba52b924869059d36cc035fdadc06932c21a02198c55d",
+    "scripts/compare_rerank_models.py": "0d9315fa7080448f9eb8510e904fed8e7445b136444983a70594d777834e00a0",
+    "scripts/evaluate_refinement_end_to_end.py": "c4c30ad6ec52a7c04bbbe6ba00e3b3fa85ebf280791f7a11ccd147727a4afd91",
+    "scripts/train_answer_selector.py": "9ec34a6107bfde319633cf19cde41b93c909e96b6d68ef7c754d2690cf7fdd2d",
+    "scripts/train_rerank_accessibility.py": "3f5be0bcf9094d28bbbb0232dbd10411c53c4c02317ed74c7242c5b2464f67c8",
+    "src/data/__init__.py": "e58fe96820c724f40a942e7cd2fde903b514e1def2621a357569cdc89c13cfa1",
+    "src/data/team_nq.py": "3c31963201bd1347364efc7fea5edaf0ee1649b2a1908fe2cf8ed7c9a4aa51b8",
+    "src/pipeline/current.py": "9cce3ae6fc6b35b3aa666a6468ece8304e1ddd977f4dbaa3d4d95520c727ec98",
+    "tests/test_controller_current.py": "da29b51f35a29bcf4c20cfd119aef24348d6fffe650270e4a2c4406c38a0ed62",
+    "tests/test_team_nq_boundary.py": "52378b5fac4cd1543e2c4a6faea6220b7813f03c8086319f0816900dff55fd41"
+  }
+}

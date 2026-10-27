@@ -1,0 +1,28 @@
+{
+  "source_commit": "e8c78e0d03b6d001e577943d455fb60797efe0a3",
+  "protected_user_files_unchanged": true,
+  "historical_splits_packages_results_and_model_assets_unchanged": true,
+  "current_baseline_unchanged_except_data_boundary": true,
+  "final_source_audit_exact_replay": true,
+  "team_remote_head_verified": "387ddafc82bc939ebd27b3137d580db6ecb2e04a",
+  "official_split_and_order_unchanged": true,
+  "test_questions_evidence_gold_decoded": false,
+  "teacher_API_calls": 0,
+  "GPU_calls": 0,
+  "training_runs": 0,
+  "unchanged_user_untracked_file": "data/annotations/assisted/answer_repair_v7_batch01_20261017.jsonl",
+  "validation": {
+    "suite": "python -m unittest discover -s tests -p test_*.py -v",
+    "passed": 1261,
+    "seconds": 99.143,
+    "result": "OK",
+    "tested_source_commit": "e8c78e0d03b6d001e577943d455fb60797efe0a3",
+    "environment": "/tmp/capability-audit-20261023/venv/bin/python",
+    "HF_HUB_OFFLINE": "1"
+  },
+  "new_commit_identity": {
+    "author": "Qihan Zhu <qzhu0160@uni.sydney.edu.au>",
+    "committer": "Qihan Zhu <qzhu0160@uni.sydney.edu.au>",
+    "coauthors": []
+  }
+}

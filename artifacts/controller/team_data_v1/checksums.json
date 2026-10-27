@@ -1,0 +1,17 @@
+{
+  "schema_version": "team_nq_audit_checksums_v1",
+  "source_commit": "e8c78e0d03b6d001e577943d455fb60797efe0a3",
+  "sha256": {
+    "README.md": "3edf86db15041e12e2b50b10c6247ef3ec60a1086a9a797aa5e1d9662366a6f8",
+    "audit.json": "edf3ff5b695f9b765e6c6632e37956b696853c46a48becb9bab318689a0eb30f",
+    "before.json": "6fb74866f03f8dd4b315f5e1b97bf6c1de3008038d743d1b5619e04cb964e74e",
+    "full_tests.log": "2b51d7fae169300fbddd49a1cbb6a26ce6d2a679d068e03e0b4da6ea95746eef",
+    "known_exposure_ids.json": "c6aa7c614955a5280d9c2b482569b4ca6c3ad5cb28a77a008f424c97b1ac5557",
+    "post_selfcheck.json": "1355421c451760936d7e5022995c3b9a4eed10a49cc5f5e79cb5a43c15d321d1",
+    "pre_commit_selfcheck.json": "20947e659ccb6a89bff164e0819c6f9269aa4e9d700aebc3376175e9853b3f48",
+    "readiness.json": "83c2a36f89a95ef10ddb27296b2b3e15ad45caea22bda3c0f25466a2fc5c1214",
+    "source_audit.log": "b0965ea1a69fa4beb25908f29b36dc993554aa77211986c6aa0da040d129f41d",
+    "source_snapshot.json": "152daad416171e80146d8022bfa45218bb4380b42ce9a7a287e697e7fd626935",
+    "targeted_tests.log": "57b09f805c6cdc1db69797531b506c2d746dff8ed102d09a317e478bb19e36ab"
+  }
+}
