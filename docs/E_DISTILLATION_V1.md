@@ -1,6 +1,6 @@
 # E 输出蒸馏准备 · 2026-10-27
 
-分支 `controller_2`。本轮启动新的 NQ 蒸馏扩展，只准备数据、契约和离线教师任务；不覆盖旧 r2 失败结果，也不改变当前 E unavailable、C1 权重、检索资源或路由。真实教师输出、SFT 和 GPU 验收尚未开始。
+分支 `controller_2`。本轮启动新的 NQ 蒸馏扩展，已准备数据、契约和离线教师任务，并在 Azure 建好教师部署及受控试产入口；不覆盖旧 r2 失败结果，也不改变当前 E unavailable、C1 权重、检索资源或路由。真实教师输出、SFT 和 GPU 验收尚未开始。
 
 ## 组件复查结论
 
@@ -19,7 +19,31 @@
 - 输入仍只有 sample_id、dataset、query、initial_answer、Top-5。教师没有 gold、AI 标签、Diagnosis 结果、工具或外部检索。
 - 模型输出沿用 original_verification、verdict_evidence_ids、replacement_answer、replacement_evidence_ids、reason 五字段。supported 保留；contradicted 仅在有合格候选时替换；insufficient 保留并标记。最终动作由程序执行，不另训一套矛盾的动作字段。
 - 教师给出至多 60 词的简短可核查理由。学生输出预算仍为 384 tokens；词数限制不能代替真实 tokenizer 检查。教师的可见输出与内部推理总预算分别登记，不默认把 384 当作教师总预算。
-- 教师候选平台为 Azure，实际模型、版本、部署、endpoint 和预算尚未登记。密钥只放环境变量，不提交到仓库。当前工具没有网络发送能力。
+- 教师已选 Azure GPT-6.1 Sol `2026-09-29`、Global Standard 按量计费、100K TPM。部署 `elec5623-e-teacher-sol-v1` 的状态已核对为 Succeeded；原 ELEC5623 项目区域不支持该模型，因此使用用户同一订阅下已有的兼容项目，没有另建资源。密钥不提交到仓库。
+
+## 教师调用登记
+
+独立 [执行登记](../configs/distillation/e_teacher_sol_pilot_v1.json)引用原准备协议与完整任务指纹，原准备协议保持字节不变。选择 Sol 的原因是它提供结构化输出及推理能力，当前 Azure 公布的普通短输入单价为每百万输入 $2、输出 $10，低于 Astra 的 $10/$50；这不证明它在本任务上足够好，仍需试产验收。[Microsoft 价格表](https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/provisioned-throughput-sizing)
+
+- **版本限制**：Azure 当前策略仍为 `OnceNewDefaultVersionAvailable`，页面未能关闭自动升级。客户端要求每个 response.model 精确为 `gpt-6.1-sol-2026-09-29`；不匹配即停止，该条不接受。不能把部署本身写成禁止自动升级，也不能声称调用前已通过管理 API 实时验证版本。
+- **预算**：这一份试产账本最多 500 次请求、15 USD 的客户端费用上限。请求先预留完整输入包 UTF-8 字节数加 4096 的 token 上界，以及 4096 个总输出 token；拒绝输入上界超过 90K 的请求。按每百万输入 $5／输出 $15 保守记账，覆盖当前公布的输入缓存写入及长上下文单价。成功后按 usage 结算，reasoning 已在 completion_tokens 中，不重复计算。这是当前登记价格下的上界估计，不能当 Azure 账单，也不控制其他应用花费或未来价格变化。
+- **失败**：超时、用量缺失、版本不符、拒绝、截断、非法引用或契约不合规都立即停止，保留完整预留费用；不自动重试，不覆盖原响应。进程中断时已预留的请求同样阻止重发。
+- **默认运行**：无 `--execute` 仅验证。实际调用默认累计 3 条，继续运行使用同一固定目录和账本跳过已成功 ID；显式指定累计 500 才扩到完整试产。四种冻结 AI 分层轮流调用，预算停止不会只留下第一类。为低于部署限流，初版单进程最多每分钟 1 次，500 次至少约 8.5 小时；这不消耗本地 GPU。
+- **教师和学生预算分开**：教师 4096 含内部推理及可见输出，medium reasoning；只保存 provider 返回的可见 JSON、用量和请求信息，不请求隐藏思维链。学生目标仍须逐条验证不超过 Qwen 的 384 tokens。
+- **质量门槛**：扩量前全量来源/契约合规率至少 95%；按固定哈希抽审至多 50 条替换（至少需有 25 条），剩余名额在支持并保留、缺证并保留、明确错误但无候选三类间轮流补至共 100 条；稀少保留类全部纳入后再分配余量。三种核验标签各至少 10 条。语义正确至少 95 条，审核替换中不能有误修，待定按未通过；少于 100 个合规输出或修复/标签覆盖不足则不扩量。格式检查不会批准 SFT，所有入训目标另做 384-token 检查。该门槛是本次试产的工程决策，不能据此宣称总体误修率为零。
+
+```bash
+# 只做本地复核，不调用 Azure
+python scripts/run_e_teacher_pilot.py
+
+# 在本机终端配置实际 Azure v1 base endpoint；API key 不放命令行/聊天
+export AZURE_OPENAI_ENDPOINT='https://<已登记的资源>.services.ai.azure.com/openai/v1/'
+python scripts/run_e_teacher_pilot.py --execute --prompt-key
+# 同一账本下的后续完整试产（先核查前三条，不会重复已成功请求）
+python scripts/run_e_teacher_pilot.py --execute --prompt-key --total-requests 500
+```
+
+endpoint 必须与实际观察的资源哈希一致；其他资源、重定向、含 key 的 URL 均被拒绝。`--prompt-key` 用终端隐藏输入读取已有密钥，仅存本次进程内存；也可预先配置 `AZURE_OPENAI_API_KEY`。目前本机这两个环境变量未配置，没有发生真实 API 调用。不要发送密钥给对话。
 
 ## 样本安排
 
@@ -56,8 +80,8 @@ python scripts/prepare_e_distillation.py \
 
 ## 下一步和停止边界
 
-1. 登记实际教师部署、模型快照、输出/推理 token 与金额上限、重试策略，确认 provider 的 schema 子集。之后才加入和执行 API transport。
-2. 封存教师试产质量门槛与抽审办法；先产生 500 条教师输出，程序检查全量，按输出行为抽审并隔离分歧。缺少修复样例、全部保留或全部 insufficient 都不能算通过。
+1. 教师部署、执行预算、来源守卫及 API transport 已登记并实现；先提供本机凭据，实际执行默认 3 条连接/契约检查，观察 provider 返回版本、schema 和用量。失败立即停止，不静默换模型、放宽格式或另开账本。
+2. 前三条通过后，沿用同一账本产生至多 500 条教师输出并执行已登记质量审核。某类不足、全部保留或全部 insufficient 都不能通过扩量；不能拿被审核后的结果修改本轮门槛。
 3. 教师能力和来源检查通过后，再扩量并构建 SFT 数据；tokenizer 检查所有目标长度，截断不得移除依据后保留原监督。
 4. 实测训练环境并冻结至多两个训练配置、工程 fixtures、正确题误修上限、置信区间与晋升规则。任何训练前这些字段都必须具体化；本准备协议不冒充最终执行封存。
 5. 固定 C1、Top-5、提示、解码和预算，比较保留 C1、原 E、蒸馏 E。开发选择一个候选，Selection 确认一次；同时报告语义修复/误修、EM/F1、覆盖与成本。
