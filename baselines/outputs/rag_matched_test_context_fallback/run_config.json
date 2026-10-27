@@ -1,0 +1,33 @@
+{
+  "mode": "rag",
+  "smoke": false,
+  "generated_at": "2026-10-26T21:15:16.042902+00:00",
+  "config_path": "D:\\Liuzheng\\Australia\\2026semester2\\ELEC5623\\capability-aware-slm-rag\\baselines\\configs\\rag_matched.json",
+  "split_file": "D:\\Liuzheng\\Australia\\2026semester2\\ELEC5623\\capability-aware-slm-rag\\baselines\\splits\\diagnosis_nq_train_74097_split.json",
+  "dataset_file": "D:\\Liuzheng\\Australia\\2026semester2\\ELEC5623\\capability-aware-slm-rag\\data\\processed\\diagnosis\\nq_train_74097_diagnosis.jsonl",
+  "eval_split": "test",
+  "eval_n": 11114,
+  "rag_prompt_style": "context_fallback",
+  "generator": {
+    "model_name": "Qwen/Qwen2.5-7B-Instruct",
+    "quantization": "nf4",
+    "load_in_4bit": true,
+    "do_sample": false,
+    "max_new_tokens": 64,
+    "temperature": 0.2
+  },
+  "retrieval": {
+    "embedding_model": "BAAI/bge-base-en-v1.5",
+    "top_k": 5,
+    "backend": "corpus_offsets",
+    "index_path": "data/processed/indexes/nq_train_bge_base.index",
+    "ids_path": "data/processed/indexes/nq_train_bge_base_ids.jsonl",
+    "offsets_path": "data/processed/indexes/nq_train_bge_base_offsets.npy",
+    "corpus_path": "data/processed/retrieval/nq_train_corpus.jsonl",
+    "passage_prefix": "",
+    "query_prefix": "Represent this sentence for searching relevant passages: ",
+    "expected_ntotal": 1224119
+  },
+  "evaluator": "src.evaluation.qa.best_em_f1",
+  "status": "READY_FOR_FROZEN_TEST"
+}

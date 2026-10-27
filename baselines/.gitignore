@@ -1,7 +1,15 @@
-# Large run artifacts (keep directory placeholders via .gitkeep)
+# Large / temporary run artifacts (keep directory placeholders via .gitkeep)
 outputs/**/*.jsonl
 outputs/**/*.json
 !outputs/**/.gitkeep
+
+# Formal baseline Test artifacts (explicitly tracked)
+!outputs/qwen_only/predictions.jsonl
+!outputs/qwen_only/metrics.json
+!outputs/qwen_only/run_config.json
+!outputs/rag_matched_test_context_fallback/predictions.jsonl
+!outputs/rag_matched_test_context_fallback/metrics.json
+!outputs/rag_matched_test_context_fallback/run_config.json
 
 __pycache__/
 *.py[cod]
@@ -11,9 +19,29 @@ outputs/**/_backup/
 outputs/**/*.bak
 outputs/**/*.tmp
 
-# Do not commit a hand-copied frozen split by accident unless explicitly intended.
-# The canonical frozen file may be placed here manually for local runs.
-# splits/*.json is allowed if the user intentionally tracks the frozen index;
-# ignore temporary copies:
+# Secrets / local env (never commit)
+.env
+.env.*
+*.pem
+*secret*
+*credentials*
+
+# LLM Judge: ignore temps by default; allow formal full-run artifacts only
+outputs/judge/**
+!outputs/judge/.gitkeep
+!outputs/judge/qwen_only_full/
+!outputs/judge/qwen_only_full/judge_results.jsonl
+!outputs/judge/qwen_only_full/judge_summary.json
+!outputs/judge/qwen_only_full/run_config.json
+!outputs/judge/rag_matched_full/
+!outputs/judge/rag_matched_full/judge_results.jsonl
+!outputs/judge/rag_matched_full/judge_summary.json
+!outputs/judge/rag_matched_full/run_config.json
+
+judge/**/tmp/
+judge/**/*.request.json
+judge/**/*.response.json
+
+# Ignore temporary split copies
 splits/*.tmp
 splits/*_copy.json

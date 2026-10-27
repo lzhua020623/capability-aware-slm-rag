@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-10-27T01:39:52.037499+00:00",
+  "input": "D:\\Liuzheng\\Australia\\2026semester2\\ELEC5623\\capability-aware-slm-rag\\baselines\\outputs\\qwen_only\\predictions.jsonl",
+  "output_dir": "D:\\Liuzheng\\Australia\\2026semester2\\ELEC5623\\capability-aware-slm-rag\\baselines\\outputs\\judge\\qwen_only_full",
+  "limit": null,
+  "pilot_sample": null,
+  "seed": null,
+  "pilot_group_counts": null,
+  "pilot_manifest": null,
+  "resume": false,
+  "dry_run": false,
+  "live": true,
+  "judge_config": "D:\\Liuzheng\\Australia\\2026semester2\\ELEC5623\\capability-aware-slm-rag\\baselines\\judge\\judge_config.json",
+  "labels": [
+    "CORRECT",
+    "INCORRECT",
+    "UNCERTAIN"
+  ],
+  "max_output_tokens": 256,
+  "reasoning_effort": "low",
+  "max_api_retries": 2,
+  "format_retry": 1,
+  "temperature_sent": false,
+  "deployment_env": "AZURE_OPENAI_DEPLOYMENT",
+  "deployment_set": true,
+  "api_key_present": true,
+  "note": "API key/base URL never written to disk. temperature/top_p/logprobs omitted from Responses API."
+}

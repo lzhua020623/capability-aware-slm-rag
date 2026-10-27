@@ -8,3 +8,5 @@ data/processed/*
 models/
 checkpoints/
 .env
+.env.*
+*.pem
