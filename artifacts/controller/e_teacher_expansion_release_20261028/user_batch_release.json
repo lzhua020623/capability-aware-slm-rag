@@ -1,0 +1,531 @@
+{
+  "schema_version": "e_teacher_user_batch_release_v1",
+  "date": "2026-10-28",
+  "source": "user_chat",
+  "user_statements": [
+    "已完成审核，按结果登记",
+    "算全部通过 我在网页里面没有标注"
+  ],
+  "scope": "Authorize candidate collection for E distillation expansion; not automatic training",
+  "review_file": "artifacts/controller/e_teacher_pilot_20261028/review/semantic_review100.jsonl",
+  "review_sha256": "78e8e736dca8bf9e8337f781b5e1ef37ecf8f3b41e4dbecfd79037c179c1c0c8",
+  "accepted_review_items": [
+    {
+      "review_id": "T001",
+      "sample_id": "5894629501451522420",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T002",
+      "sample_id": "-6011272822575405817",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T003",
+      "sample_id": "-5281546968041708240",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T004",
+      "sample_id": "-4056666837836771617",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T005",
+      "sample_id": "7520665245453340363",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T006",
+      "sample_id": "-5057627655037144836",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T007",
+      "sample_id": "8579367662190494874",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T008",
+      "sample_id": "8691382226104642795",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T009",
+      "sample_id": "1706883873751813612",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T010",
+      "sample_id": "-4606924106960839317",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T011",
+      "sample_id": "-1555330919451400649",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T012",
+      "sample_id": "2321041436483558984",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T013",
+      "sample_id": "605169225112599424",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T014",
+      "sample_id": "-6273614404263886863",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T015",
+      "sample_id": "230892063087293565",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T016",
+      "sample_id": "245934759773692610",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T017",
+      "sample_id": "928896830850792634",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T018",
+      "sample_id": "7990461222923644687",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T019",
+      "sample_id": "-2162027628739835263",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T020",
+      "sample_id": "-4609991202983118161",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T021",
+      "sample_id": "6686974152959859528",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T022",
+      "sample_id": "-6258481075220777345",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T023",
+      "sample_id": "-7320954265326585053",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T024",
+      "sample_id": "-3286311755155436558",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T025",
+      "sample_id": "-5251228842391902787",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T026",
+      "sample_id": "-4113363838702353689",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T027",
+      "sample_id": "-5777809065867036217",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T028",
+      "sample_id": "-1269655826740533483",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T029",
+      "sample_id": "2084318263478086699",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T030",
+      "sample_id": "6615890465776677341",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T031",
+      "sample_id": "-5245728153065762613",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T032",
+      "sample_id": "-7680335511990847983",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T033",
+      "sample_id": "-5283034717117236954",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T034",
+      "sample_id": "-4509545159853328225",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T035",
+      "sample_id": "-2730281769920459215",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T036",
+      "sample_id": "-5626421037929411429",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T037",
+      "sample_id": "2304384755743337856",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T038",
+      "sample_id": "-724534686354795019",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T039",
+      "sample_id": "8791908167015761694",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T040",
+      "sample_id": "6784073943483321607",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T041",
+      "sample_id": "-5464707884749303530",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T042",
+      "sample_id": "1274973654835283738",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T043",
+      "sample_id": "-7644514309191792421",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T044",
+      "sample_id": "4567860334247954249",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T045",
+      "sample_id": "-3029622870514270046",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T046",
+      "sample_id": "-779369765088713610",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T047",
+      "sample_id": "-4023228204794711855",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T048",
+      "sample_id": "6227537348074681558",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T049",
+      "sample_id": "-1515157921633373173",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T050",
+      "sample_id": "-1830682055140547184",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T051",
+      "sample_id": "8949698932168903194",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T052",
+      "sample_id": "-5891389609896414944",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T053",
+      "sample_id": "-6118116932890697161",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T054",
+      "sample_id": "-607040494398560302",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T055",
+      "sample_id": "-4520938255742025898",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T056",
+      "sample_id": "7324426341488864704",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T057",
+      "sample_id": "8333803404739457840",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T058",
+      "sample_id": "-3960687639193066599",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T059",
+      "sample_id": "2788285020979961322",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T060",
+      "sample_id": "7373297047383704007",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T061",
+      "sample_id": "-5135655593473144767",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T062",
+      "sample_id": "-1474967411248045783",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T063",
+      "sample_id": "-1541588542142051635",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T064",
+      "sample_id": "-750942995737623629",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T065",
+      "sample_id": "7071510761927185291",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T066",
+      "sample_id": "-1200441726967526015",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T067",
+      "sample_id": "3952400784132187758",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T068",
+      "sample_id": "-6880563292873351695",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T069",
+      "sample_id": "6507918918814393230",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T070",
+      "sample_id": "-6237805564660511797",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T071",
+      "sample_id": "-3967787340318864058",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T072",
+      "sample_id": "5000388746217517632",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T073",
+      "sample_id": "8030551461718829649",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T074",
+      "sample_id": "-3164381425635279495",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T075",
+      "sample_id": "-8069899625747978823",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T076",
+      "sample_id": "-1623020508267626873",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T077",
+      "sample_id": "-8944542622120554223",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T078",
+      "sample_id": "-2021113184181850291",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T079",
+      "sample_id": "3036516634675152081",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T080",
+      "sample_id": "5504097724810321343",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T081",
+      "sample_id": "-6954877877631054534",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T082",
+      "sample_id": "-349576215208291951",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T083",
+      "sample_id": "1912866554066764892",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T084",
+      "sample_id": "3931452777876205964",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T085",
+      "sample_id": "4927668504983930868",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T086",
+      "sample_id": "6694028856511943166",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T087",
+      "sample_id": "-4385954251936959502",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T088",
+      "sample_id": "7439565752466368794",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T089",
+      "sample_id": "-3183154186968994710",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T090",
+      "sample_id": "-2359244837961924462",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T091",
+      "sample_id": "-6259409861140262112",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T092",
+      "sample_id": "-2959777565750311619",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T093",
+      "sample_id": "3603338325746233482",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T094",
+      "sample_id": "843190741896984423",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T095",
+      "sample_id": "6425479750329143813",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T096",
+      "sample_id": "-2029379714458210110",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T097",
+      "sample_id": "7926630223388921883",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T098",
+      "sample_id": "-2961147013604906021",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T099",
+      "sample_id": "3247395306719899353",
+      "accepted_by_user_batch_confirmation": true
+    },
+    {
+      "review_id": "T100",
+      "sample_id": "1257327245400315016",
+      "accepted_by_user_batch_confirmation": true
+    }
+  ],
+  "browser_item_annotations_received": false,
+  "itemwise_semantic_accuracy_measured": false,
+  "candidate_collection_authorized": true,
+  "training_authorized": false,
+  "original_itemized_gate_rewritten": false,
+  "provisional_training_quarantine": [
+    {
+      "sample_id": "-1555330919451400649",
+      "review_id": "T011",
+      "reason": "Assistant flags ambiguous Ark movement/event; preserve user batch acceptance and resolve before training"
+    },
+    {
+      "sample_id": "999058144445214262",
+      "review_id": null,
+      "reason": "Assistant flags Texans versus Texans/Chiefs entity alignment; resolve before training"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": "e_teacher_expansion_wave1_v1",
+  "scope": "NQ candidate collection only; no SFT approval",
+  "teacher_registration": {
+    "path": "configs/distillation/e_teacher_sol_pilot_v1.json",
+    "sha256": "209e5298371262070a4226fee7b7e16c71573bbddfc8a3ca1bf74e4d9b8235e7"
+  },
+  "user_release": {
+    "path": "artifacts/controller/e_teacher_expansion_release_20261028/user_batch_release.json",
+    "sha256": "5ccaac66d20c7a79a4290fc4a74a824b119ffae83e343e6e947cb9ef8fc0898d"
+  },
+  "pilot_sample_manifest": {
+    "path": "artifacts/controller/e_distillation_v1/sample_manifest.json",
+    "sha256": "34e12aeb84b330ffa591becbbec85d5930a3da51902311d65b407ac7250acdae"
+  },
+  "pilot_result_summary": {
+    "path": "artifacts/controller/e_teacher_pilot_20261028/audit_summary.json",
+    "sha256": "d71aca9b5596216c2e82ac509419a87d6cbf32f574f467f624ecc764c5e0c6ba"
+  },
+  "pilot_journal_sha256": "7804352125be57b2a5fb067824f00ff5e282a47553c9aa9f1351233e36c1f63e",
+  "sampling_seed": "e_expansion_wave1_20261028",
+  "reused_pilot_records": 500,
+  "target_accepted_training_examples": 5000,
+  "accepted_training_ceiling": 10000,
+  "currency": "USD",
+  "pilot_accounting_microusd": 6581520,
+  "transport_profile": "token_window_v2",
+  "max_inflight": 1,
+  "automatic_retries": 0,
+  "known_response_invalid_target": "To be sealed with the execution collector; no new requests currently enabled",
+  "unknown_charge_or_model_version_mismatch": "Keep full reservation and stop; no automatic retry",
+  "tokenizer_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "candidate_collection_enabled": false,
+  "budget_status": "draft; awaiting revised user budget choice after price reconciliation",
+  "training_enabled": false,
+  "semantic_approval_automatic": false,
+  "sample_manifest": "artifacts/controller/e_teacher_expansion_wave1_v1/sample_manifest.json",
+  "execution_receipt": "artifacts/controller/e_teacher_expansion_wave1_v1/execution_receipt.json",
+  "inputs_directory": "data/processed/e_distillation_v1/expansion_wave1_inputs_20261028",
+  "run_directory": "data/processed/e_distillation_v1/expansion_wave1_results_20261028",
+  "registered_on": "2026-10-28",
+  "status": "draft; collection disabled pending budget selection and execution seal",
+  "budget_selected": null,
+  "first_wave_total_candidates": null,
+  "primary_new_requests": null,
+  "max_prepared_new_inventory": 5000,
+  "pilot_published_price_estimate_usd": "3.42705",
+  "budget_options": {
+    "2000": {
+      "primary_new_requests": 1500,
+      "published_price_estimated_total_usd": "13.70820",
+      "proposed_cap_usd": 20
+    },
+    "5000": {
+      "primary_new_requests": 4500,
+      "published_price_estimated_total_usd": "34.27050",
+      "proposed_cap_usd": 40
+    }
+  },
+  "old_75_USD_proposal_withdrawn_before_execution": true
+}
