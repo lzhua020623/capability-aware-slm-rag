@@ -84,11 +84,11 @@ register_refinement_plugin(executor)            # frozen local Qwen2.5-7B NF4
 ```
 
 That wires up the deeper candidate pool (Top-50), the trained cross-encoder,
-the frozen prompt and the acceptance gate. `top_n=None` falls back to reranking
-only the frozen Top-5, which section 6 shows is worth about a third as much;
-nothing picks that silently. Both the reranker and the pool index are
-gitignored build artifacts, and a missing one raises with the command that
-rebuilds it.
+a relative score floor of 0.6, the frozen prompt and the acceptance gate.
+`top_n=None` falls back to reranking only the frozen Top-5, which section 6
+shows is worth about a third as much; nothing picks that silently. Both the
+reranker and the pool index are gitignored build artifacts, and a missing one
+raises with the command that rebuilds it.
 
 | Entry point | Returns | Use |
 |---|---|---|
@@ -110,9 +110,17 @@ takes every collaborator by injection, so tests load no model. The
 `candidate_provider` is what widens the pool; without one the refiner sees only
 the evidence the generator already saw.
 
-`RefinementConfig`: `keep_k` (5), `min_score` (`None`), `probe_hint_weight`
-(0.0), `require_grounded` (`True`), `regenerate_when_unchanged` (`False`),
-`reranker_model`. `validated_config()` returns the measured setup.
+`RefinementConfig`: `keep_k` (5), `min_score` (`None`), `min_score_ratio`
+(`None`), `probe_hint_weight` (0.0), `require_grounded` (`True`),
+`regenerate_when_unchanged` (`False`), `reranker_model`. Those are the neutral
+defaults; `validated_config()` returns the measured setup, which differs in one
+field -- `min_score_ratio=0.6`.
+
+`min_score` is an absolute cut and `min_score_ratio` a fraction of the sample's
+own best score. Only the relative one is measured and only it is safe: an
+absolute cut can discard every passage on a question whose scores all sit low,
+while the best passage always clears its own ratio, so the relative floor
+cannot empty a context.
 
 `RefinementResult` reports `status`, `initial_answer`, `final_answer`,
 `candidate_answer`, `answer_changed`, the evidence before/after/dropped,
@@ -131,10 +139,13 @@ the evidence the generator already saw.
 1. **Gate.** Any action other than `evidence_refinement` returns
    `not_routed` without calling the scorer or the generator.
 2. **Rerank.** Cross-encoder score per candidate, order by score, ties broken
-   on the original rank, keep `keep_k`, apply `min_score` if set but never
-   drop the best passage. The refined evidence keeps each passage's original
-   retrieval score in `EvidenceItem.score`; reranker scores are reported
-   separately.
+   on the original rank, keep `keep_k`, then apply the floors if set --
+   `min_score` absolutely, `min_score_ratio` as a fraction of this sample's
+   best -- never dropping the best passage. So `keep_k` is a ceiling on how
+   many passages are handed over, not a quota to fill: with the measured floor
+   the generator receives 2.77 on average rather than 5. The refined evidence
+   keeps each passage's original retrieval score in `EvidenceItem.score`;
+   reranker scores are reported separately.
 3. **Probe hints are off by default.** `supporting_ranks` back the *initial*
    answer, the one we were routed here to distrust, so a positive
    `probe_hint_weight` promotes the passages that contradict it. Since about
@@ -507,15 +518,41 @@ answers, the frozen Qwen2.5-7B prompt:
 | rerank within the frozen Top-5 | 5.00 | 0.1107 | 0.3219 | 156 | 53 | +103 |
 | 5 of 50, no threshold | 5.00 | 0.1618 | 0.3589 | 291 | 67 | +224 |
 | 5 of 50, ratio 0.4 | 3.54 | 0.1825 | 0.3807 | 334 | 61 | +273 |
-| **5 of 50, ratio 0.6** | **2.77** | **0.2003** | **0.3955** | **376** | **61** | **+315** |
+| **5 of 50, ratio 0.6 (the default)** | **2.77** | **0.2003** | **0.3955** | **376** | **61** | **+315** |
+| 5 of 50, ratio 0.8 | 1.90 | 0.2066 | 0.3975 | 388 | 58 | +330 |
+| the single best passage of 50 | 1.00 | 0.1990 | 0.3853 | 378 | 66 | +312 |
 
 | Paired test vs 5-of-50 without a threshold | McNemar p | 95% CI on EM |
 |---|---|---|
 | ratio 0.4 | 2.9e-04 | [+1.0pp, +3.2pp] |
 | ratio 0.6 | 1.6e-08 | [+2.6pp, +5.2pp] |
+| ratio 0.8 | 1.4e-08 | [+3.0pp, +6.0pp] |
+| keep 1 | 1.3e-05 | [+2.1pp, +5.3pp] |
 
 `scripts/compare_refinement_arms.py` runs those tests from the saved rows, so
 any two arms can be compared without re-running either.
+
+The curve rises to ratio 0.8 and falls at one passage, but the top of it is
+**flat, not peaked**, and that distinction decides the default:
+
+| Paired test | McNemar p | 95% CI on EM |
+|---|---|---|
+| ratio 0.8 vs ratio 0.6 | 0.24 | [-0.3pp, +1.7pp] |
+| keep 1 vs ratio 0.8 | 0.17 | [-1.8pp, +0.3pp] |
+| keep 1 vs ratio 0.6 | 0.90 | [-1.4pp, +1.1pp] |
+
+Everything from ratio 0.6 to a single passage is one indistinguishable
+plateau. Reading 0.8 off that as "the best setting" would be fitting the test
+set, so the default is **0.6**, the conservative end: it hands over 2.77
+passages instead of 1.90, loses a sample's only answer-bearing passage half as
+often (31 against 57 per 400 in the offline sweep), and the generator refuses
+less often (31 against 41 for 0.8 and 46 for one passage). A tighter floor also
+cuts deeper if the reranker is ever retrained and its score scale shifts.
+
+So the operating region, not the single number, is the finding: **roughly two
+to three well-chosen passages**. Both ends of the range are worse -- five fixed
+passages clearly (p = 1.6e-08), one passage only in F1 and refusal rate rather
+than in EM.
 
 Two things about that table are worth stating plainly. First, the threshold is
 **not** trading repairs against damage: as it tightens, repairs rise (291 ->
@@ -532,6 +569,13 @@ distractors it stops handing over. In other words the fixed `keep_k` was itself
 a source of the failure this module exists to repair: on a question with two
 good candidates, padding to five adds three passages the module *chose* as
 noise.
+
+That trade stops paying somewhere past ratio 0.6 -- which is why the plateau
+exists rather than the curve continuing up. By ratio 0.8 the floor is
+discarding a third of the answer-bearing passages, and the gain from the
+distractors it also discards no longer exceeds that; the generator starts
+refusing instead (41 refusals against 31), because on some questions nothing
+that survives the floor supports an answer.
 
 This also sharpens the pruning result above rather than contradicting it.
 Provence prunes sentences *inside* each kept passage and cannot change which
@@ -636,4 +680,4 @@ this branch.
 | `scripts/analyze_refinement_funnel.py` | where in the chain a repair becomes impossible |
 | `scripts/analyze_rerank_threshold.py` | score distribution and the absolute/relative threshold sweeps |
 | `scripts/compare_refinement_arms.py` | paired McNemar + bootstrap between any two saved arms |
-| `tests/test_refinement_schema.py`, `tests/test_compensation_rerank.py`, `tests/test_evidence_refinement.py`, `tests/test_refinement_adapter.py`, `tests/test_rerank_training_data.py`, `tests/test_nq15_annotations.py`, `tests/test_generation_backend.py`, `tests/test_acceptance_policy.py`, `tests/test_refinement_funnel.py`, `tests/test_pruning.py`, `tests/test_rerank_threshold.py`, `tests/test_refinement_arm_comparison.py`, `tests/test_plugin.py`, `tests/test_candidates.py`, `tests/test_pool_index.py` | 286 tests; no model is loaded except the frozen prompt builders |
+| `tests/test_refinement_schema.py`, `tests/test_compensation_rerank.py`, `tests/test_evidence_refinement.py`, `tests/test_refinement_adapter.py`, `tests/test_rerank_training_data.py`, `tests/test_nq15_annotations.py`, `tests/test_generation_backend.py`, `tests/test_acceptance_policy.py`, `tests/test_refinement_funnel.py`, `tests/test_pruning.py`, `tests/test_rerank_threshold.py`, `tests/test_refinement_arm_comparison.py`, `tests/test_plugin.py`, `tests/test_candidates.py`, `tests/test_pool_index.py` | 290 tests; no model is loaded except the frozen prompt builders |

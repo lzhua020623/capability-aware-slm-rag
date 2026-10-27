@@ -67,22 +67,42 @@
     },
     {
       "baseline": "top50_rerank",
-      "arm": "accessibility",
+      "arm": "top50_ratio0.8",
       "paired_samples": 2367,
       "em_baseline": 0.1618,
-      "em_arm": 0.1107,
-      "only_baseline_correct": 212,
-      "only_arm_correct": 91,
-      "mcnemar_p": 2.7990416519668003e-12,
+      "em_arm": 0.2066,
+      "only_baseline_correct": 121,
+      "only_arm_correct": 227,
+      "mcnemar_p": 1.4166000077584588e-08,
       "em": {
-        "delta": -0.0511,
-        "ci95_low": -0.0651,
-        "ci95_high": -0.0372
+        "delta": 0.0448,
+        "ci95_low": 0.03,
+        "ci95_high": 0.06
       },
       "f1": {
-        "delta": -0.037,
-        "ci95_low": -0.0509,
-        "ci95_high": -0.0232
+        "delta": 0.0386,
+        "ci95_low": 0.0246,
+        "ci95_high": 0.0527
+      }
+    },
+    {
+      "baseline": "top50_rerank",
+      "arm": "top50_keep1",
+      "paired_samples": 2367,
+      "em_baseline": 0.1618,
+      "em_arm": 0.199,
+      "only_baseline_correct": 156,
+      "only_arm_correct": 244,
+      "mcnemar_p": 1.2623791398931945e-05,
+      "em": {
+        "delta": 0.0372,
+        "ci95_low": 0.0211,
+        "ci95_high": 0.0532
+      },
+      "f1": {
+        "delta": 0.0265,
+        "ci95_low": 0.011,
+        "ci95_high": 0.0416
       }
     }
   ],

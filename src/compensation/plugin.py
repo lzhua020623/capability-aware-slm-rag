@@ -8,18 +8,33 @@ support, so a caller does not have to rediscover it.
 
 What the evidence says (held-out accessibility samples, 2,367, exact match):
 
-| setup                                   | EM     |
-|-----------------------------------------|--------|
-| keep the original answer                | 0.0672 |
-| rerank inside the frozen Top-5          | 0.1107 |
-| shuffle inside the frozen Top-5         | 0.1187 |
-| random 5 of 50                          | 0.0921 |
-| **cross-encoder 5 of 50 (this default)**| 0.1618 |
+| setup                                      | passages | EM     |
+|--------------------------------------------|----------|--------|
+| keep the original answer                   | 5.00     | 0.0672 |
+| random 5 of 50                             | 5.00     | 0.0921 |
+| rerank inside the frozen Top-5             | 5.00     | 0.1107 |
+| shuffle inside the frozen Top-5            | 5.00     | 0.1187 |
+| cross-encoder 5 of 50, no threshold        | 5.00     | 0.1618 |
+| cross-encoder 5 of 50, ratio 0.4           | 3.54     | 0.1825 |
+| **cross-encoder 5 of 50, ratio 0.6 (this)**| **2.77** | **0.2003** |
+| cross-encoder 5 of 50, ratio 0.8           | 1.90     | 0.2066 |
+| the single best passage of 50              | 1.00     | 0.1990 |
 
-Reordering a fixed five is indistinguishable from shuffling it; selecting five
-out of fifty beats every fixed-pool arm (p = 2.8e-12 against reranking inside
-the Top-5). So the default here is the deeper pool, and a caller who asks for
-the narrow version has to say so explicitly with `top_n=None`.
+Two decisions come out of that table. Reordering a fixed five is
+indistinguishable from shuffling it, while *selecting* five out of fifty beats
+every fixed-pool arm (p = 2.8e-12 against reranking inside the Top-5), so the
+deeper pool is the default and the narrow version has to be asked for with
+`top_n=None`. And handing over fewer than five, chosen by a floor relative to
+each question's own best score, beats handing over five (p = 1.6e-08 at ratio
+0.6), so a floor is on by default.
+
+The floor is 0.6 rather than the nominally better 0.8 because 0.6-to-1.0 is a
+plateau, not a peak: 0.8 is not distinguishable from 0.6 (p = 0.24, 95% CI
+[-0.3pp, +1.7pp]) and neither is keeping one passage (p = 0.17 against 0.8).
+Picking the sample maximum off a flat region is fitting the test set, so the
+default takes the conservative end of the plateau, which keeps 2.77 passages
+instead of 1.90, loses its only answer-bearing passage on half as many samples,
+and makes the generator refuse less often (31 refusals against 41 and 46).
 
 Registration:
 
@@ -58,6 +73,7 @@ POOL_INDEX = ROOT / "data" / "processed" / "indexes" / "nq15_pool_bge_base.index
 POOL_IDS = ROOT / "data" / "processed" / "indexes" / "nq15_pool_bge_base_ids.jsonl"
 VALIDATED_TOP_N = 50
 VALIDATED_KEEP_K = 5
+VALIDATED_MIN_SCORE_RATIO = 0.6
 
 REBUILD_RERANKER = (
     "python scripts/normalize_nq15_annotations.py && "
@@ -68,8 +84,12 @@ REBUILD_POOL = "python scripts/build_nq15_pool_index.py"
 
 
 def validated_config(reranker_model: str | Path = TRAINED_RERANKER) -> RefinementConfig:
-    """The config the measurements support: keep five, no pruning, trained cross-encoder."""
-    return RefinementConfig(keep_k=VALIDATED_KEEP_K, reranker_model=str(reranker_model))
+    """The config the measurements support: at most five, a relative floor, no pruning."""
+    return RefinementConfig(
+        keep_k=VALIDATED_KEEP_K,
+        min_score_ratio=VALIDATED_MIN_SCORE_RATIO,
+        reranker_model=str(reranker_model),
+    )
 
 
 def _require(path: Path, what: str, rebuild: str) -> None:

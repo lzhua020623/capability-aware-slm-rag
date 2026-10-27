@@ -12,6 +12,7 @@ from src.compensation.evidence_refinement import EvidenceRefiner
 from src.compensation.interface import Enhancement
 from src.compensation.plugin import (
     VALIDATED_KEEP_K,
+    VALIDATED_MIN_SCORE_RATIO,
     VALIDATED_TOP_N,
     build_refinement_plugin,
     build_refiner,
@@ -38,6 +39,26 @@ class ValidatedConfigTest(unittest.TestCase):
 
     def test_the_deeper_pool_is_the_default(self):
         self.assertEqual(VALIDATED_TOP_N, 50)
+
+    def test_the_relative_floor_is_on_by_default(self):
+        self.assertEqual(validated_config().min_score_ratio, VALIDATED_MIN_SCORE_RATIO)
+
+    def test_the_floor_is_relative_not_absolute(self):
+        # An absolute cut can empty a question's context; the relative one cannot,
+        # so only the relative field is set.
+        config = validated_config()
+        self.assertIsNotNone(config.min_score_ratio)
+        self.assertIsNone(config.min_score)
+
+    def test_the_floor_takes_the_conservative_end_of_the_plateau(self):
+        # 0.8 scored higher but is not distinguishable from 0.6 (p = 0.24), and
+        # cuts to 1.90 passages against 2.77.
+        self.assertEqual(VALIDATED_MIN_SCORE_RATIO, 0.6)
+
+    def test_the_refiner_carries_the_floor_through(self):
+        with mock.patch("src.compensation.plugin.scorer_from_name", return_value=lambda q, t: [0.0] * len(t)):
+            refiner = build_refiner(generate_fn=generate, config=validated_config("shuffle:42"), top_n=None)
+        self.assertEqual(refiner.config.min_score_ratio, VALIDATED_MIN_SCORE_RATIO)
 
 
 class MissingArtifactTest(unittest.TestCase):
