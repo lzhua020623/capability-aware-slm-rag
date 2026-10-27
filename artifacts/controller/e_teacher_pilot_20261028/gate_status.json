@@ -1,0 +1,21 @@
+{
+  "structural_gate_passed": true,
+  "review_coverage_sufficient": true,
+  "selected_n": 100,
+  "selected_replacements": 49,
+  "selected_labels": {
+    "contradicted": 58,
+    "supported": 21,
+    "insufficient": 21
+  },
+  "human_review_complete": false,
+  "semantic_correct": null,
+  "harmful_replacements": null,
+  "semantic_gate_passed": false,
+  "expansion_enabled": false,
+  "training_enabled": false,
+  "approved_for_SFT": 0,
+  "pending": [
+    "human semantic confirmation"
+  ]
+}

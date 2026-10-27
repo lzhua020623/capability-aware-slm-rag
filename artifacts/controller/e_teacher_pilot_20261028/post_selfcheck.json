@@ -1,0 +1,34 @@
+{
+  "tested_audit_source_commit": "6e02c4c99a375085ba6ed38583d34970d8d3b91b",
+  "full_tests": {
+    "passed": 1351,
+    "seconds": 116.778,
+    "result": "OK"
+  },
+  "actual_teacher_API_calls": 500,
+  "extra_API_calls_for_audit": 0,
+  "raw_members_verified": 503,
+  "summary_repeated_independently_equal": true,
+  "review_HTML_article_count": 100,
+  "replacement_review_fields": 49,
+  "browser_script_syntax": "node --check passed",
+  "human_reviews_prefilled": false,
+  "student_targets_over_384": 0,
+  "all_tokenizer_files_match_previous_frozen_snapshot": true,
+  "official_test_used": false,
+  "semantic_human_confirmed": 0,
+  "training_runs": 0,
+  "E_production_mode_changed": false,
+  "protected_fingerprints": {
+    "AGENTS.md": "b748f439ef6d2a5455bc3471a6101cd6bcf5f2c67bd8ba75771ad510cc7fd66a",
+    "data/annotations/assisted/answer_repair_v7_batch01_20261017.jsonl": "119035fd23c89c9cd5f24c1a749b4f549a3c7aa268c38fedf51bc81e366bc4c3",
+    "configs/controller/current_baseline.json": "79439664e90ab4c1f39e4bedfc8b718ee2ea5669932f3067a3420ce240422024",
+    "configs/distillation/e_prep_v1.json": "d61a17cbbd06dcd6d7cd8f993c9fc391bffe4ead460ea3ed8b6be0573cca8b66",
+    "baselines/splits/diagnosis_nq_train_74097_split.json": "7da01c94cd7b5f92076edebc80911ac891d3861a01cf6b40a1e5e6efb6482dc4",
+    "artifacts/controller/e_distillation_v1/sample_manifest.json": "34e12aeb84b330ffa591becbbec85d5930a3da51902311d65b407ac7250acdae",
+    "data/processed/e_distillation_v1/pilot_20261027/teacher_tasks.jsonl": "fa35952aa9d7722420019d313116fe38b16e47cf25104aee4350fa0be477b5c0"
+  },
+  "commit_author": "Qihan Zhu <qzhu0160@uni.sydney.edu.au>",
+  "commit_committer": "Qihan Zhu <qzhu0160@uni.sydney.edu.au>",
+  "commit_body_empty": true
+}

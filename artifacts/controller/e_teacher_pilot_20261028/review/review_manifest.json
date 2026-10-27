@@ -1,0 +1,23 @@
+{
+  "sampling": "SHA256(sample_id) ascending, no seed; replacements first then fixed round-robin keeps",
+  "n": 100,
+  "groups": {
+    "replace": 49,
+    "supported_keep": 21,
+    "insufficient_keep": 21,
+    "contradicted_no_candidate": 9
+  },
+  "semantic_human_confirmed": 0,
+  "approved_for_SFT": 0,
+  "selection_inputs": "behavior group and sample_id only, no reference/EM",
+  "files": {
+    "audit_summary.json": "d71aca9b5596216c2e82ac509419a87d6cbf32f574f467f624ecc764c5e0c6ba",
+    "gate_status.json": "c8024406c5c0631827ae8d5104b248a07b0d596d0ee101d5d240c7d781f864b3",
+    "audited_records.jsonl.gz": "0317adbdd7e7d788bc4c1f72b478c98da3712e33860036df59ef5ecf3f044100",
+    "review/semantic_review100.jsonl": "78e8e736dca8bf9e8337f781b5e1ef37ecf8f3b41e4dbecfd79037c179c1c0c8",
+    "review/semantic_review100.html": "f817081631bc886afc1b64df3c865dad328bb75ad0ee870f0b0ac0006d2385a2"
+  },
+  "original_local_export_manifest_sha256": "8b026b906cf656d5cf71e57c4e36ba0bc0d89f46f9b7c212e321f5a8ac7f49b7",
+  "files_relative_to_archive_root": true,
+  "audited_records_uncompressed_sha256": "04e67286cc35876576eebb09f756dd47505a391db0eedc43f54b8ca97e67f049"
+}

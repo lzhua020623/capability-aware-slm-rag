@@ -1,0 +1,22 @@
+{
+  "python": "3.12.14",
+  "architecture": "arm64",
+  "packages": {
+    "torch": "2.14.1",
+    "transformers": "5.16.1",
+    "sentence-transformers": "6.2.0",
+    "scikit-learn": "1.9.1",
+    "faiss-cpu": "1.15.1",
+    "numpy": "2.5.4",
+    "jsonschema": "4.26.0",
+    "nltk": "3.9.2",
+    "pandas": "3.1.0",
+    "openpyxl": "3.1.5"
+  },
+  "CUDA_available": false,
+  "model_weights_loaded": false,
+  "tokenizer_files_match_frozen_20261027": true,
+  "tokenizer_downloads": 0,
+  "validation_environment": "fresh isolated environment; historical temporary environment lacked pyvenv.cfg and ML dependencies",
+  "network_calls_for_auditing_or_tests": 0
+}

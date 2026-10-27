@@ -1,0 +1,16 @@
+{
+  "README.md": "4f846f1d1f56088b3e8df4c262f131f0d7c6ac2199d69ac3120673dbc6873f45",
+  "audit_environment.json": "998f9ad221214b9b28a37477f2c7163eafa237dffac2c67ba72d892282812aca",
+  "audit_summary.json": "d71aca9b5596216c2e82ac509419a87d6cbf32f574f467f624ecc764c5e0c6ba",
+  "audited_records.jsonl.gz": "0317adbdd7e7d788bc4c1f72b478c98da3712e33860036df59ef5ecf3f044100",
+  "full_tests.log": "0cbed4089580905543a912a66ad48de93d9c262a56825fba2c8ed094aabba2a9",
+  "gate_status.json": "c8024406c5c0631827ae8d5104b248a07b0d596d0ee101d5d240c7d781f864b3",
+  "offline_references.jsonl.gz": "7d6f481019451f56943cc139dc036e04422c9710d0ec1b6aa203ccee18517d8d",
+  "post_selfcheck.json": "e6599326ccc77a9bec42ab13d5d17c988a10cacfb9ea678c6cf25d3bc4555a4f",
+  "review/review_manifest.json": "c23d6b4766d5a7cf51598e6c723fda3e8c4e8fb03bd8488f51dcf7d6a409d7d3",
+  "review/semantic_review100.html": "f817081631bc886afc1b64df3c865dad328bb75ad0ee870f0b0ac0006d2385a2",
+  "review/semantic_review100.jsonl": "78e8e736dca8bf9e8337f781b5e1ef37ecf8f3b41e4dbecfd79037c179c1c0c8",
+  "runtime_bundle_manifest.json": "df3268a91b5445ede9463b3935ce5bedec397cacbf97dccefbfe54a2bd2aeab7",
+  "source_snapshot.json": "dc8af4cd5ffff5c46ff4186f78abf4c5f036c56d604574288b3128ff08e88e89",
+  "teacher_runtime_results.tar.gz": "96dd31c57b3250f736e330fc6d711db1db23b8f01c37804814fca7ac91e1be5a"
+}

@@ -1,0 +1,16 @@
+{
+  "tested_audit_source_commit": "6e02c4c99a375085ba6ed38583d34970d8d3b91b",
+  "files": {
+    "src/distillation/teacher_audit.py": "48c0177e0577dcd797fc7285914077e34981506fbd2def15b13df6c892691e7d",
+    "scripts/audit_e_teacher_pilot.py": "081bd08898cdff1f0c1bad227c3d62dc927f59d755796531527278284d8aaf02",
+    "tests/test_e_teacher_audit.py": "b9d024844150d860449553b9126574ab2ce2848cdca8188d647ed43b132470d2",
+    "src/distillation/teacher_pilot.py": "811c935cd2d5b8d4c0becd07d5f37bcce6117bf8f09081d33cd93aaded28c8f4",
+    "src/distillation/teacher_rate.py": "2d6085390d77061dc751e409c89e16bacb6e934cf4ef32129d0383d803929c4e",
+    "configs/distillation/e_teacher_sol_pilot_v1.json": "209e5298371262070a4226fee7b7e16c71573bbddfc8a3ca1bf74e4d9b8235e7",
+    "configs/distillation/e_teacher_transport_v2.json": "669de8e24305f517de1eec1b8d709d9ec29e0c7a243fcdf9b146156c0d5fd389",
+    "docs/E_TEACHER_PILOT_RESULTS_20261028.md": "6e2b75cb646bc1a3cd76688d219670402e2474d18afb9b1b7364eee7dc4681ec",
+    "docs/E_DISTILLATION_V1.md": "10ec2146232aa70ea9128b22a1a3de5ffa501ea7d88c57fc64bca4820d932aa5",
+    "docs/CONTROLLER_TASKS.md": "6c92042f21b40c417d1a247d49b5514289f9433605c38f1892ea0d40660d2143",
+    "docs/PROJECT_STATUS_AND_DIRECTION.md": "c4854e6f6e671b3fcb190cab705905edc0ad89539f3fd309e206e562e714eb1e"
+  }
+}

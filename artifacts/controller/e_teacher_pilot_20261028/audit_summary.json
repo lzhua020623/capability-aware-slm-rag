@@ -1,0 +1,64 @@
+{
+  "n": 500,
+  "complete": true,
+  "structural_provenance_passed": 500,
+  "structural_provenance_pass_rate": 1.0,
+  "verification_labels": {
+    "insufficient": 122,
+    "supported": 320,
+    "contradicted": 58
+  },
+  "actions": {
+    "keep": 451,
+    "replace": 49
+  },
+  "unresolved": 131,
+  "target_tokens_with_EOS": {
+    "min": 49,
+    "median": 75.0,
+    "max": 126,
+    "over_384": 0
+  },
+  "provider_tokens": {
+    "input": 1151856,
+    "completion_including_reasoning": 54816,
+    "reasoning_subset": 11575,
+    "cache_write_subset": 1150356,
+    "cached_input_subset": 0
+  },
+  "accounting_usd_upper_estimate": 6.58152,
+  "invoice_verified": false,
+  "transport_profiles": [
+    {
+      "before_ordinal": 21,
+      "kind": "transport_profile",
+      "profile": "token_window_v2",
+      "profile_sha256": "669de8e24305f517de1eec1b8d709d9ec29e0c7a243fcdf9b146156c0d5fd389",
+      "client_sha256": "811c935cd2d5b8d4c0becd07d5f37bcce6117bf8f09081d33cd93aaded28c8f4",
+      "scheduler_sha256": "2d6085390d77061dc751e409c89e16bacb6e934cf4ef32129d0383d803929c4e",
+      "request_body_unchanged": true
+    }
+  ],
+  "semantic_targets_approved": 0,
+  "student_training_runs": 0,
+  "population_representative": false,
+  "scope": "Balanced Train teacher pilot; not a trained-student or final-test evaluation",
+  "offline_EM_diagnostic": {
+    "C1_correct": 95,
+    "teacher_final_correct": 112,
+    "fixes": 18,
+    "harms": 1,
+    "semantic_review_done": false,
+    "is_population_or_student_gain": false
+  },
+  "v2_provider_created_span_minutes": 99.93333333333334,
+  "journal_sha256": "7804352125be57b2a5fb067824f00ff5e282a47553c9aa9f1351233e36c1f63e",
+  "tasks_sha256": "fa35952aa9d7722420019d313116fe38b16e47cf25104aee4350fa0be477b5c0",
+  "registration_sha256": "209e5298371262070a4226fee7b7e16c71573bbddfc8a3ca1bf74e4d9b8235e7",
+  "tokenizer": {
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "local_files_only": true,
+    "counts_include_EOS": true
+  }
+}
