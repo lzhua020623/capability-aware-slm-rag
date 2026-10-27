@@ -61,7 +61,13 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.compensation.evidence_refinement import EvidenceRefiner, build_refinement_prompt  # noqa: E402
-from src.compensation.candidates import DEFAULT_TOP_N, IndexCandidateProvider  # noqa: E402
+from src.compensation.candidates import (  # noqa: E402
+    DEFAULT_CORPUS,
+    DEFAULT_IDS,
+    DEFAULT_INDEX,
+    DEFAULT_TOP_N,
+    IndexCandidateProvider,
+)
 from src.compensation.pruning import MatchedRandomPruner, ProvencePruner  # noqa: E402
 from src.compensation.rerank import scorer_from_name  # noqa: E402
 from src.compensation.refinement_schema import RefinementConfig  # noqa: E402
@@ -153,7 +159,13 @@ def build_refiner(args, config: RefinementConfig):
         return text
 
     pruner, pruner_name = build_pruner(args)
-    provider = IndexCandidateProvider.from_frozen_artifacts(top_n=args.top_n) if args.top_n else None
+    provider = (
+        IndexCandidateProvider.from_frozen_artifacts(
+            corpus_path=args.pool_corpus, index_path=args.pool_index, ids_path=args.pool_ids, top_n=args.top_n
+        )
+        if args.top_n
+        else None
+    )
     refiner = EvidenceRefiner(
         build_scorer(args, config), generate, config=config, candidate_provider=provider, pruner=pruner
     )
@@ -225,9 +237,12 @@ def main() -> None:
         "--top-n",
         type=int,
         default=None,
-        help=f"re-retrieve this many candidates from the frozen index before reranking "
+        help=f"re-retrieve this many candidates from the index before reranking "
         f"(the usual recipe uses {DEFAULT_TOP_N}); omit to rerank only the frozen Top-5",
     )
+    parser.add_argument("--pool-corpus", type=Path, default=DEFAULT_CORPUS)
+    parser.add_argument("--pool-index", type=Path, default=DEFAULT_INDEX)
+    parser.add_argument("--pool-ids", type=Path, default=DEFAULT_IDS)
     parser.add_argument(
         "--before-from",
         type=Path,
