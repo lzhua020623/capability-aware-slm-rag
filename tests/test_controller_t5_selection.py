@@ -1,7 +1,9 @@
 from contextlib import redirect_stdout
 from io import StringIO
+import hashlib
 import json
 from pathlib import Path
+import shutil
 import tarfile
 import subprocess
 import sys
@@ -24,9 +26,37 @@ class T5SelectionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.temp=tempfile.TemporaryDirectory();cls.folder=Path(cls.temp.name)
-        # Package tests use the live working source, explicitly not a release.
+        cls.addClassCleanup(cls.temp.cleanup)
+        # The old selection may only be rebuilt from its frozen source. A new
+        # Controller merge must not silently rewrite that historical protocol.
+        release=ROOT/'artifacts/controller/t5_selection_v1/gpu_release_v2'
+        archive=release/(NAME+'.tar.gz')
+        receipt=json.loads((release/'bundle_receipt.json').read_text())
+        if hashlib.sha256(archive.read_bytes()).hexdigest()!=receipt['archive_sha256']:
+            raise ValueError('Historical T5 archive changed')
+        with tarfile.open(archive) as t:t.extractall(cls.folder/'frozen',filter='data')
+        cls.frozen_checkout=cls.folder/'frozen'/NAME
+        for name in ('artifacts','data'):
+            (cls.frozen_checkout/name).symlink_to(ROOT/name,target_is_directory=True)
+        frozen=json.loads((ROOT/'artifacts/controller/e_v2a_interface_r2/gpu_release_v2/execution_manifest.json').read_text())
+        for rel,digest in frozen['source_files'].items():
+            target=cls.frozen_checkout/rel
+            if not target.exists():
+                source=ROOT/rel
+                if hashlib.sha256(source.read_bytes()).hexdigest()!=digest:
+                    raise ValueError('Missing historical source changed: '+rel)
+                target.parent.mkdir(parents=True,exist_ok=True)
+                shutil.copyfile(source,target)
+        # This offline C1 registration is not shipped to GPU. Its selection
+        # receipt must still bind exactly the FEVER input in the frozen tar.
+        rel='configs/controller/fever_c1_completed_v1.json'
+        registration=json.loads((ROOT/rel).read_text())
+        sealed=json.loads((cls.frozen_checkout/'execution_manifest.json').read_text())
+        if registration['runtime_files']['selection']['sha256']!=sealed['datasets']['fever']['input_sha256']:
+            raise ValueError('Historical FEVER C1 registration changed')
+        shutil.copyfile(ROOT/rel,cls.frozen_checkout/rel)
         with patch('scripts.prepare_controller_t5_selection.read_source_commit',return_value='unit_test_uncommitted'):
-            cls.receipt=prepare(cls.folder/'release')
+            cls.receipt=prepare(cls.folder/'release',root=cls.frozen_checkout)
         with tarfile.open(cls.folder/'release'/(NAME+'.tar.gz')) as t:t.extractall(cls.folder/'extract',filter='data')
         cls.root=cls.folder/'extract'/NAME
         cls.manifest=json.loads((cls.root/'execution_manifest.json').read_text())
@@ -82,7 +112,14 @@ class T5SelectionTests(unittest.TestCase):
         with patch('scripts.prepare_controller_t5_selection.read_source_commit',return_value='unit'),patch(
                 'scripts.prepare_controller_t5_selection.file_sha',side_effect=tampered):
             with self.assertRaisesRegex(ValueError,'Frozen core source changed'):
-                prepare(self.folder/'bad_core')
+                prepare(self.folder/'bad_core',root=self.frozen_checkout)
+
+    def test_new_controller_sources_cannot_rebuild_the_historical_selection(self):
+        target=self.folder/'new_checkout'
+        with patch('scripts.prepare_controller_t5_selection.read_source_commit',return_value='unit_new_controller'):
+            with self.assertRaisesRegex(ValueError,'Frozen core source changed'):
+                prepare(target,root=ROOT)
+        self.assertFalse(target.exists())
 
     def test_notebook_checks_resource_hashes_and_always_exports_without_retry_or_scoring(self):
         nb=json.loads((self.folder/'release'/(NAME+'_dataset.ipynb')).read_text())

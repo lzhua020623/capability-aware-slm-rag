@@ -1,6 +1,6 @@
 # Controller 2 集成验证 · 2026-10-27
 
-来源与范围见 [交接](../../../..//docs/CONTROLLER2_INTEGRATION.md) 和 `merge_sources.json`。
+来源与范围见 [交接](../../../docs/CONTROLLER2_INTEGRATION.md) 和 `merge_sources.json`。
 
 - 补检索专项：50 项通过，`retrieval_tests.log`。
 - 重排与集成专项：329 项通过，`reranking_tests.log`；包括 6 项新增合并边界回归。
