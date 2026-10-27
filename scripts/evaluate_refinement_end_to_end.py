@@ -244,6 +244,13 @@ def main() -> None:
         help=f"re-retrieve this many candidates from the index before reranking "
         f"(the usual recipe uses {DEFAULT_TOP_N}); omit to rerank only the frozen Top-5",
     )
+    parser.add_argument(
+        "--min-score-ratio",
+        type=float,
+        default=None,
+        help="drop a kept passage scoring below this fraction of the sample's best; lets the number of "
+        "passages vary per question instead of always handing over keep_k of them",
+    )
     parser.add_argument("--pool-corpus", type=Path, default=DEFAULT_CORPUS)
     parser.add_argument("--pool-index", type=Path, default=DEFAULT_INDEX)
     parser.add_argument("--pool-ids", type=Path, default=DEFAULT_IDS)
@@ -302,7 +309,7 @@ def main() -> None:
     print(f"{len(records)} {args.label} samples from {split_note}")
 
     scorer_id = {"shuffle": f"shuffle:{args.shuffle_seed}", "identity": "identity"}.get(args.scorer, args.model)
-    config = RefinementConfig(keep_k=args.keep_k, reranker_model=scorer_id)
+    config = RefinementConfig(keep_k=args.keep_k, reranker_model=scorer_id, min_score_ratio=args.min_score_ratio)
     print(f"loading scorer {config.reranker_model} and generator backend {args.backend}")
     refiner, generator_name, must_regenerate = build_refiner(args, config)
     regenerate_before = must_regenerate if args.regenerate_before is None else args.regenerate_before
@@ -403,6 +410,7 @@ def main() -> None:
             "model": args.generator_model if args.backend != "frozen" else str(generator_config["model_name"]),
             "max_new_tokens": args.max_new_tokens,
             "candidate_pool": f"top-{args.top_n}" if args.top_n else "frozen top-5",
+            "min_score_ratio": args.min_score_ratio,
             "pruner": args.pruner,
             "prune_threshold": args.prune_threshold if args.pruner != "none" else None,
             "prune_seed": args.prune_seed if args.pruner == "random" else None,
