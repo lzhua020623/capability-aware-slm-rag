@@ -1,0 +1,127 @@
+{
+  "scope": "First three real Azure calls only; not the 500-task semantic gate",
+  "client_source_commit": "ada03c23f3fc16b716ff2c21888b6eb9432f4042",
+  "capture_HEAD": "f5831153ee118866698dd602f28086913bde37f1",
+  "execution_registration_sha256": "209e5298371262070a4226fee7b7e16c71573bbddfc8a3ca1bf74e4d9b8235e7",
+  "n_real_API_calls": 3,
+  "independent_response_journal_replay_passed": true,
+  "actual_model": "gpt-6.1-sol-2026-09-29",
+  "structural_provenance_pass_rate": 1.0,
+  "student_tokenizer": {
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "local_files_only": true,
+    "count": "visible JSON plus tokenizer.eos_token; no truncation"
+  },
+  "accounting_upper_estimate_usd": 0.04104,
+  "invoice_cost_verified": false,
+  "semantic_approved_for_SFT": 0,
+  "training_runs": 0,
+  "records": [
+    {
+      "sample_id": "-5561556239481239929",
+      "actual_model": "gpt-6.1-sol-2026-09-29",
+      "structural_provenance_passed": true,
+      "model_label": "insufficient",
+      "action": "keep",
+      "target_tokens_with_EOS": 86,
+      "accounting_microusd": 14895,
+      "raw_response_sha256": "3a1fd42f188eeb2b0951c9e4f625a605b457ff04befcb4ab92018a3fd8779e02",
+      "audit": {
+        "sample_id": "-5561556239481239929",
+        "structural_provenance_passed": true,
+        "semantic_verified": false,
+        "approved_for_SFT": false,
+        "student_target_token_length_checked": false,
+        "model_label": "insufficient",
+        "candidate_action": "keep",
+        "candidate_final_answer": "St. Patrick's Cathedral",
+        "candidate_unresolved": true,
+        "citations": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_0555385",
+            "quote": "The Cathedral of St. Patrick ( commonly called St. Patrick 's Cathedral ) is a decorated Neo-Gothic - style Roman Catholic cathedral church in the United States and a prominent landmark of New York City . "
+          },
+          {
+            "rank": 3,
+            "passage_id": "nq_p_0555395",
+            "quote": "St. Patrick 's Cathedral is the largest decorated Neo-Gothic - style Catholic cathedral in North America . "
+          }
+        ]
+      }
+    },
+    {
+      "sample_id": "-5220255566345102904",
+      "actual_model": "gpt-6.1-sol-2026-09-29",
+      "structural_provenance_passed": true,
+      "model_label": "supported",
+      "action": "keep",
+      "target_tokens_with_EOS": 66,
+      "accounting_microusd": 11480,
+      "raw_response_sha256": "bac72d51cb50224094e52c35a185a9b98e7a5abf2611fcf13c32516ad683fa4f",
+      "audit": {
+        "sample_id": "-5220255566345102904",
+        "structural_provenance_passed": true,
+        "semantic_verified": false,
+        "approved_for_SFT": false,
+        "student_target_token_length_checked": false,
+        "model_label": "supported",
+        "candidate_action": "keep",
+        "candidate_final_answer": "Gerry Rafferty and Joe Egan",
+        "candidate_unresolved": false,
+        "citations": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_0235654",
+            "quote": "`` Stuck in the Middle with You '' ( sometimes known as `` Stuck in the Middle '' ) is a song written by Gerry Rafferty and Joe Egan and originally performed by their band Stealers Wheel ."
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0235655",
+            "quote": "Gerry Rafferty provided the lead vocals , with Joe Egan singing harmony . "
+          }
+        ]
+      }
+    },
+    {
+      "sample_id": "999058144445214262",
+      "actual_model": "gpt-6.1-sol-2026-09-29",
+      "structural_provenance_passed": true,
+      "model_label": "supported",
+      "action": "keep",
+      "target_tokens_with_EOS": 70,
+      "accounting_microusd": 14665,
+      "raw_response_sha256": "eee9ef7324c572a4b9f00058f84440345117b2bfa9c05b29f2610672b3da8c2b",
+      "audit": {
+        "sample_id": "999058144445214262",
+        "structural_provenance_passed": true,
+        "semantic_verified": false,
+        "approved_for_SFT": false,
+        "student_target_token_length_checked": false,
+        "model_label": "supported",
+        "candidate_action": "keep",
+        "candidate_final_answer": "January 11, 1970",
+        "candidate_unresolved": false,
+        "citations": [
+          {
+            "rank": 1,
+            "passage_id": "nq_p_0949436",
+            "quote": "The Texans / Chiefs were the most victorious franchise in AFL history , compiling an 87 -- 48 -- 5 record from 1960 to 1969 . However , their victory on January 11 , 1970 remains the franchise 's only Super Bowl title to date ."
+          },
+          {
+            "rank": 5,
+            "passage_id": "nq_p_0605696",
+            "quote": "Super Bowl IV , the fourth and final AFL - NFL World Championship Game in professional American football , was played on January 11 , 1970 , at Tulane Stadium in New Orleans , Louisiana . "
+          }
+        ]
+      }
+    }
+  ],
+  "pending": [
+    "complete frozen pilot within the same journal and budget",
+    "review semantic quality, including Texans versus Texans/Chiefs entity ambiguity",
+    "apply frozen review and 384-token acceptance before SFT"
+  ],
+  "teacher_gold_received": false
+}
