@@ -47,6 +47,23 @@ endpoint 必须与实际观察的资源哈希一致；其他资源、重定向�
 
 首次检查实测：两次 supported、一次 insufficient，均保留原答，Qwen 目标含 EOS 分别 86、66、70 tokens；保守客户端费用合计 $0.04104，实际 Azure 账单未核实。它只验证连接与输出契约，没有覆盖真实替换，也不是教师语义通过。Texans 一题引用的是 Texans/Chiefs 旧球队链条，与离线参考存在实体对齐风险，必须进入语义待审；不能因为格式通过就加入 SFT。之后从同一账本第 4 条继续，完整试产质量门槛不变。
 
+## 节流补充 · transport v2
+
+500 条是 Azure 远端教师调用，本机 CPU 只发送请求，不运行教师模型。换到 Kaggle GPU 不会消除客户端等待；GPU 用于后续学生推理和 QLoRA。原每 61 秒一条是初版保守策略，已观察到单条服务时间约 2.5–7.3 秒后，新增独立 [transport v2 登记](../configs/distillation/e_teacher_transport_v2.json)，原教师登记、请求体、样本顺序、预算及质量门槛均保持原字节。
+
+v2 需显式启用，串行最多一条在途，任意滚动 61 秒完整 token 预留总额不超过 95K、请求数不超过 60，开始时间至少相隔 5 秒。按完整请求 UTF-8 字节上界＋4096 输入 allowance＋4096 最大输出预留；不按少量实际输出提前退还 rate 预留。全部 500 条预估范围 15,705–22,922 tokens/条，均通过窗口检查。[Microsoft 文档](https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/quota)说明 rate 估算包含输入和最大输出，与计费用量不同。
+
+```bash
+python scripts/run_e_teacher_pilot.py --execute --prompt-key \
+  --total-requests 500 --transport-profile token_window_v2
+```
+
+继续用同一个目录、进程锁和累计费用账本；已完成样本不重发。恢复时先等待一个完整窗口，清除旧进程未知的 rate 时间，再开始发送。新 profile 和客户端/调度器源码哈希在发送前追加到账本。原失败停止、不自动重试和不保存凭据保持不变。Azure 临时限流仍可触发停止，不能把 95K 本地估算写成服务保证。
+
+终端现在打印 resume、rate_wait 和 completed 进度，只含累计条数、标签/动作和保守费用，不打印问题、证据或凭据。正在运行的旧 Python 进程不会热更新；切换要在无未结算请求时停止旧进程，再用同一账本启动 v2、重新隐藏输入密钥。不能并行起两个 writer，不能强杀未结算请求后自动重发。
+
+离线模拟剩余 490 条：单条服务时间设为 5／15／30 秒时，v2 分别约 1.71／2.06／4.10 小时；旧策略约 8.30 小时。这是当前输入形状的调度模拟，不是 GPU 或 Azure 端到端实测，不承诺固定完成时间。真实连接和教师语义结果继续按原协议记录。
+
 ## 样本安排
 
 团队划分和旧保留池限制不变，使用 [NQ 用途边界](TEAM_DATA_BOUNDARIES.md)。

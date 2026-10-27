@@ -1,0 +1,22 @@
+{
+  "schema_version": "e_teacher_transport_v2",
+  "profile": "token_window_v2",
+  "parent_registration": "configs/distillation/e_teacher_sol_pilot_v1.json",
+  "parent_registration_sha256": "209e5298371262070a4226fee7b7e16c71573bbddfc8a3ca1bf74e4d9b8235e7",
+  "rolling_window_seconds": 61,
+  "token_reservation_cap": 95000,
+  "request_cap": 60,
+  "minimum_start_interval_seconds": 5,
+  "max_inflight": 1,
+  "resume_cooldown_seconds": 61,
+  "token_reservation": "complete JSON UTF-8 byte bound + 4096 input allowance + 4096 max completion tokens",
+  "unused_output_reservation_returned_to_rate_window": false,
+  "automatic_retries": 0,
+  "new_journal": false,
+  "new_sample_ids": false,
+  "request_body_changes": false,
+  "model_prompt_budget_or_quality_gate_changes": false,
+  "record_profile_and_source_hash_before_network": true,
+  "registered_on": "2026-10-27",
+  "official_source": "https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/quota"
+}

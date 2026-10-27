@@ -19,6 +19,7 @@ def main(argv=None):
     parser.add_argument('--total-requests', type=int, default=3,
                         help='Cumulative cap in the one registered journal, not additional calls')
     parser.add_argument('--prompt-key', action='store_true', help='Read an existing API key without echo or storage')
+    parser.add_argument('--transport-profile', choices=('legacy','token_window_v2'),default='legacy')
     args = parser.parse_args(argv)
     if args.prompt_key and not args.execute:
         parser.error('--prompt-key requires --execute')
@@ -30,7 +31,11 @@ def main(argv=None):
         environment = dict(os.environ)
         if args.prompt_key:
             environment['AZURE_OPENAI_API_KEY'] = getpass.getpass('Existing Azure API key (hidden): ')
-        result = run(ROOT, total_requests=args.total_requests, environment=environment)
+        print(json.dumps({'status':'starting','target_requests':args.total_requests,
+                          'transport_profile':args.transport_profile}),flush=True)
+        result = run(ROOT, total_requests=args.total_requests, environment=environment,
+            transport_profile=args.transport_profile,
+            progress=lambda event:print(json.dumps(event,ensure_ascii=False),flush=True))
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 

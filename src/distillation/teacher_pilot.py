@@ -15,6 +15,7 @@ from urllib.parse import urlsplit
 from src.data.team_nq import BoundaryError, TeamNQBoundary, read_json, sha
 from src.distillation.e_prep import (ROOT, load_protocol, teacher_task,
     validate_sample_manifest, audit_teacher_output, digest)
+from src.distillation.teacher_rate import PROFILE_PATH, TokenWindow, load_profile
 
 REGISTRATION = 'configs/distillation/e_teacher_sol_pilot_v1.json'
 
@@ -130,10 +131,19 @@ def send(base_url, key, body, timeout):
 
 
 def run(root=ROOT, *, total_requests=3, environment=os.environ, transport=send,
-        clock=time.monotonic, sleep=time.sleep):
+        clock=time.monotonic, sleep=time.sleep, transport_profile='legacy', progress=None):
     spec, tasks = preflight(root)
     if type(total_requests) is not int or not 1 <= total_requests <= spec['max_requests']:
         raise BoundaryError('Only 1-500 cumulative pilot requests are registered')
+    if transport_profile not in ('legacy','token_window_v2'):
+        raise BoundaryError('Unknown teacher transport profile')
+    rate_spec = load_profile(root,spec) if transport_profile == 'token_window_v2' else None
+    # Check the complete cohort's rate envelope before any credentials/network.
+    if rate_spec:
+        for task in tasks:
+            bound=reservation(request_body(task,spec),spec)['input_tokens_bound']
+            if bound+spec['max_completion_tokens_including_reasoning'] > rate_spec['token_reservation_cap']:
+                raise BoundaryError('Frozen pilot exceeds the transport token envelope')
     base_url = endpoint(spec, environment)
     key = environment.get(spec['key_environment'])
     if not isinstance(key, str) or not key.strip():
@@ -168,6 +178,18 @@ def run(root=ROOT, *, total_requests=3, environment=os.environ, transport=send,
         if [event['sample_id'] for event in reserved_events] != expected:
             raise BoundaryError('Pilot journal order differs from frozen task order')
         spent = sum(event['microusd'] for event in settlements.values())
+        if progress:
+            progress({'status':'resume','requests':len(reserved_events),'target_requests':total_requests,
+                'transport_profile':transport_profile,'accounting_usd_upper_estimate':spent/1_000_000})
+        rate = None
+        if rate_spec:
+            append({'kind':'transport_profile','profile':transport_profile,
+                'profile_sha256':sha(Path(root)/PROFILE_PATH),
+                'client_sha256':sha(Path(__file__)),
+                'scheduler_sha256':sha(Path(__file__).with_name('teacher_rate.py')),
+                'request_body_unchanged':True})
+            rate = TokenWindow(rate_spec,resumed=bool(reserved_events),clock=clock,
+                               sleep=sleep,progress=progress)
         # A resumed process conservatively starts a fresh minute before sending.
         last_start = clock() if reserved_events else None
         for task in tasks[len(reserved_events):total_requests]:
@@ -175,7 +197,9 @@ def run(root=ROOT, *, total_requests=3, environment=os.environ, transport=send,
             reserve = reservation(body, spec)
             if spent + reserve['microusd'] > spec['pilot_budget_microusd']:
                 break
-            if last_start is not None:
+            if rate is not None:
+                rate.acquire(reserve['input_tokens_bound']+body['max_completion_tokens'])
+            elif last_start is not None:
                 remaining = 61 - (clock() - last_start)
                 while remaining > 0:
                     sleep(min(30, remaining))  # deliberately <= one request / minute
@@ -200,6 +224,11 @@ def run(root=ROOT, *, total_requests=3, environment=os.environ, transport=send,
             append({'kind': 'settle', 'sample_id': sid, 'microusd': actual,
                 'accepted': True, 'provider_response_id': response.get('id'), 'audit': audit})
             spent += actual
+            if progress:
+                progress({'status':'completed','requests':sum(e['kind']=='reserve' for e in events),
+                    'target_requests':total_requests,'verification':audit['model_label'],
+                    'action':audit['candidate_action'],'accounting_usd_upper_estimate':spent/1_000_000,
+                    'semantic_targets_approved':0})
         return {'requests': sum(e['kind'] == 'reserve' for e in events),
             'accounting_usd_upper_estimate': spent / 1_000_000,
             'budget_usd': spec['pilot_budget_microusd'] / 1_000_000,
