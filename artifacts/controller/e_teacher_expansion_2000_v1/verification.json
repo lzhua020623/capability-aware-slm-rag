@@ -1,0 +1,55 @@
+{
+  "schema_version": "e_expansion_2000_offline_verification_v1",
+  "total_candidate_cap": 2000,
+  "reused_pilot": 500,
+  "new_tasks": 1500,
+  "new_runtime_rows_independently_matched_to_source": 1500,
+  "source_shards_checksum_verified": 15,
+  "initial_answer_and_Top5_unchanged": true,
+  "runtime_fields": [
+    "sample_id",
+    "dataset",
+    "query",
+    "initial_answer",
+    "evidence"
+  ],
+  "offline_references_physically_separate": true,
+  "live_preflight_reads_offline_references": false,
+  "validation_or_test_or_pilot_ID_overlap": 0,
+  "official_test_runtime_decoded": 0,
+  "full_request_rate_reservation_tokens": {
+    "min": 15310,
+    "median": 18089.0,
+    "max": 26128
+  },
+  "new_AI_strata": {
+    "correct": 375,
+    "evidence_accessibility": 375,
+    "evidence_insufficiency": 375,
+    "evidence_utilisation": 375
+  },
+  "published_price_estimated_total_usd": "13.70820",
+  "budget_usd": 20,
+  "new_API_calls": 0,
+  "training_runs": 0,
+  "automatic_further_expansion": false,
+  "archives": {
+    "teacher_tasks.jsonl.gz": {
+      "sha256": "f1f04883dd140f4641fb75d8ae08c16e254409a13dfb3f0fdaec2bb9561d80ca",
+      "bytes": 2643389,
+      "decompressed_sha256": "df879d33d7b2db41548650043d92eb194289195902c03a5016159aba0b9f2252"
+    },
+    "offline_references.jsonl.gz": {
+      "sha256": "310799e9a552d16e679a555ae1ad2d6712d2931d3fc412748f7baed94a31930b",
+      "bytes": 53003,
+      "decompressed_sha256": "d02931fb6e082c2b9f50115656a862ce81ca9506e0e1df8ec8e16d96d894b1a7"
+    }
+  },
+  "local_launcher": {
+    "path": "data/processed/e_distillation_v1/run_teacher_2000_collection.command",
+    "sha256": "86183a02faea2795f9b971fb5228e80f6cd496bccca363907c615b69d24985b6",
+    "secrets_stored": false
+  },
+  "student_efficacy_measured": false,
+  "ready_for_SFT": false
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": "e_expansion_2000_execution_v1",
+  "plan_sha256": "c4e1d2d4de972dd7a0302617d2cd4784a6ac3f21a6881eab1f1bafe88aab4c28",
+  "sample_manifest_sha256": "e034913eef4c985e5666b72620ebc155413ed2233be0252fbbbd37a1f682e675",
+  "n_new_tasks": 1500,
+  "reused_pilot_n": 500,
+  "files": {
+    "offline_references.jsonl": {
+      "sha256": "d02931fb6e082c2b9f50115656a862ce81ca9506e0e1df8ec8e16d96d894b1a7",
+      "bytes": 267246
+    },
+    "teacher_tasks.jsonl": {
+      "sha256": "df879d33d7b2db41548650043d92eb194289195902c03a5016159aba0b9f2252",
+      "bytes": 33457537
+    }
+  },
+  "assets": {
+    "src/distillation/expansion_prep.py": "cd0e027016e65933c0268cd7e287ddcc2e4a70893502812f5b4dec591da6adb1",
+    "src/distillation/expansion_collect.py": "3cd6d34fd010e7b4902c02038ed60592f372aa88b857853884fc73357d3be2b8",
+    "scripts/run_e_teacher_expansion.py": "b9c88496fe91963f54713a79af82d191696f8e8eeb866049fc2bec32d3291eb5",
+    "src/distillation/teacher_cost.py": "c1f2fb13fbff6ca1a965fe3d1147a64a28a040d41cf6f25912741c3bb078b7e2",
+    "src/distillation/e_prep.py": "e28e83bbd1626f028b9a410893e151c3d5e416ed9390d5cad75bb672af6900a9",
+    "src/distillation/teacher_pilot.py": "811c935cd2d5b8d4c0becd07d5f37bcce6117bf8f09081d33cd93aaded28c8f4",
+    "src/distillation/teacher_rate.py": "2d6085390d77061dc751e409c89e16bacb6e934cf4ef32129d0383d803929c4e",
+    "src/distillation/expansion_inventory.py": "0a5e63d9ce726764ea6128cf539933f94dae21cc05d0f88ffc7997174fc36f85",
+    "configs/distillation/e_teacher_transport_v2.json": "669de8e24305f517de1eec1b8d709d9ec29e0c7a243fcdf9b146156c0d5fd389",
+    "configs/distillation/e_prep_v1.json": "d61a17cbbd06dcd6d7cd8f993c9fc391bffe4ead460ea3ed8b6be0573cca8b66"
+  },
+  "source_delivery": {
+    "nq_train_annotation_000.jsonl": "60a03259a7275284b4585755dbbc83138f6abb46ba94dd47c4c08064babe7a87",
+    "nq_train_annotation_001.jsonl": "a5ccfca2af087d0fcd236274dad57e3613b0546fae8caff366c2d2391396581b",
+    "nq_train_annotation_002.jsonl": "4885214758f18b1071c9a0860ac07c9e2f39f5c7b68be23dfe3720ff26e71b78",
+    "nq_train_annotation_003.jsonl": "2726bac8fa09dd89c09fdc4533dccdc339275ceae98df5baa0c41b07eba96930",
+    "nq_train_annotation_004.jsonl": "f7b65012f5a66217e3642d20eaefbe332326fc2b0e267280457164b9c6af7fd0",
+    "nq_train_annotation_005.jsonl": "e1aef80b2fd26f3d3d832a0819a68dfc9277f967faf105b8caaf49eb3a8ca4d7",
+    "nq_train_annotation_006.jsonl": "0975f945d254ca4a3983490b5d0c4e163a032ab61e981fc8c09cd9efedc10ef4",
+    "nq_train_annotation_007.jsonl": "51630aff40c605944c14672421fae9467e7577b65a1117744cac97fd20566f7c",
+    "nq_train_annotation_008.jsonl": "3c1f6a36e6f9b496afccda47d46d3fd4a2298019d4684f02f95265cdb377c320",
+    "nq_train_annotation_009.jsonl": "21ffd6f6eb7580bb0f048589b6f4b1b76ec2a70780379e118e7d5e9ea50ee0a4",
+    "nq_train_annotation_010.jsonl": "7344529c38013296d8d3bc2641a1635a03f666ea89d1069a729a957e0f322c54",
+    "nq_train_annotation_011.jsonl": "7849329a19e380c66eb65a67de75defd4fce5c3f15786698d0a4e85d92ae8fba",
+    "nq_train_annotation_012.jsonl": "302908930121240d6b28773c05c0e84bbaa835223eccf6d6e3e17d4b550c2988",
+    "nq_train_annotation_013.jsonl": "25ffa3fe664d8c118064f986eda10de2e635a49ac95053f7e0729927ca300903",
+    "nq_train_annotation_014.jsonl": "cf67526be016dbf1e697f4513cb5bb8c79de649b2271baeb32e5fb2fae1451f7"
+  },
+  "only_selected_runtime_rows_decoded": 1500,
+  "official_test_runtime_read": false,
+  "API_calls": 0,
+  "training_runs": 0,
+  "ready_for_candidate_API": true,
+  "ready_for_SFT": false
+}

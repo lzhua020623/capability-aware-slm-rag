@@ -1,0 +1,15 @@
+{
+  "schema_version": "e_expansion_budget_acceptance_v1",
+  "date": "2026-10-28",
+  "source": "user_chat",
+  "effective_user_instruction": "先2000条 有效再扩量",
+  "superseded_user_instruction": "继续累计5,000条，预计约$34，封顶$40",
+  "selected_total_candidates": 2000,
+  "reuse_pilot": 500,
+  "new_requests": 1500,
+  "cumulative_budget_usd": 20,
+  "budget_basis": "Previously offered 2000-candidate option; published-price estimate, not an invoice",
+  "further_paid_expansion_automatic": false,
+  "efficacy_basis": "Trained student paired development performance, not teacher generation; selection kept for one final confirmation",
+  "training_enabled_by_this_record": false
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": "e_expansion_2000_self_check_v1",
+  "branch": "controller_2",
+  "base_commit": "55077ae",
+  "executed_source_assets": {
+    "src/distillation/expansion_prep.py": "cd0e027016e65933c0268cd7e287ddcc2e4a70893502812f5b4dec591da6adb1",
+    "src/distillation/expansion_collect.py": "3cd6d34fd010e7b4902c02038ed60592f372aa88b857853884fc73357d3be2b8",
+    "scripts/run_e_teacher_expansion.py": "b9c88496fe91963f54713a79af82d191696f8e8eeb866049fc2bec32d3291eb5",
+    "src/distillation/teacher_cost.py": "c1f2fb13fbff6ca1a965fe3d1147a64a28a040d41cf6f25912741c3bb078b7e2",
+    "src/distillation/e_prep.py": "e28e83bbd1626f028b9a410893e151c3d5e416ed9390d5cad75bb672af6900a9",
+    "src/distillation/teacher_pilot.py": "811c935cd2d5b8d4c0becd07d5f37bcce6117bf8f09081d33cd93aaded28c8f4",
+    "src/distillation/teacher_rate.py": "2d6085390d77061dc751e409c89e16bacb6e934cf4ef32129d0383d803929c4e",
+    "src/distillation/expansion_inventory.py": "0a5e63d9ce726764ea6128cf539933f94dae21cc05d0f88ffc7997174fc36f85",
+    "configs/distillation/e_teacher_transport_v2.json": "669de8e24305f517de1eec1b8d709d9ec29e0c7a243fcdf9b146156c0d5fd389",
+    "configs/distillation/e_prep_v1.json": "d61a17cbbd06dcd6d7cd8f993c9fc391bffe4ead460ea3ed8b6be0573cca8b66"
+  },
+  "plan_sha256": "c4e1d2d4de972dd7a0302617d2cd4784a6ac3f21a6881eab1f1bafe88aab4c28",
+  "execution_receipt_sha256": "a1ff426dad20d6713e6306570946afc323c2fcb5dd6f9907ed38b4ee50bd8b49",
+  "tests": {
+    "passed": 1383,
+    "failures": 0,
+    "log_sha256": "fd150c435de8cb8c689707b4cd0846dacfcdb7e59a08ebac88a52f0240e8e19c",
+    "new_collection_tests": 19
+  },
+  "environment": {
+    "python": "3.12.14",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "CUDA_required_for_collection": false
+  },
+  "protected_files_unchanged": {
+    "AGENTS.md": "b748f439ef6d2a5455bc3471a6101cd6bcf5f2c67bd8ba75771ad510cc7fd66a",
+    "data/annotations/assisted/answer_repair_v7_batch01_20261017.jsonl": "119035fd23c89c9cd5f24c1a749b4f549a3c7aa268c38fedf51bc81e366bc4c3",
+    "data/processed/e_distillation_v1/teacher_sol_pilot_20261027/journal.jsonl": "7804352125be57b2a5fb067824f00ff5e282a47553c9aa9f1351233e36c1f63e"
+  },
+  "latest_instruction": "先2000条 有效再扩量",
+  "new_requests_cap": 1500,
+  "reused_pilot": 500,
+  "cumulative_budget_usd": 20,
+  "offline_preflight_new_tasks": 1500,
+  "new_API_calls": 0,
+  "training_runs": 0,
+  "automatic_further_expansion": false,
+  "teacher_or_student_prompt_changes": false,
+  "original_E_production_mode_changed": false,
+  "student_efficacy_measured": false
+}

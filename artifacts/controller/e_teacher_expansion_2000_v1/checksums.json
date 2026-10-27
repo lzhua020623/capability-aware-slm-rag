@@ -1,0 +1,11 @@
+{
+  "README.md": "bb3b5e6897bb909453b07f7ae88a268dfcdd00e7ed629e992eb2ed3ae20a12cd",
+  "budget_acceptance.json": "70a8e677187dec9a31af77f4853b781269d2a2c895fa282174f9ab3cc446f909",
+  "execution_receipt.json": "a1ff426dad20d6713e6306570946afc323c2fcb5dd6f9907ed38b4ee50bd8b49",
+  "full_tests.log": "fd150c435de8cb8c689707b4cd0846dacfcdb7e59a08ebac88a52f0240e8e19c",
+  "offline_references.jsonl.gz": "310799e9a552d16e679a555ae1ad2d6712d2931d3fc412748f7baed94a31930b",
+  "sample_manifest.json": "e034913eef4c985e5666b72620ebc155413ed2233be0252fbbbd37a1f682e675",
+  "self_check.json": "6a4d319ff70db2811ee575b2a6f85d803bc0fe31e28792eba597ea7756480049",
+  "teacher_tasks.jsonl.gz": "f1f04883dd140f4641fb75d8ae08c16e254409a13dfb3f0fdaec2bb9561d80ca",
+  "verification.json": "157abc7297711813899d97aa58ea535bd716d5df03b0daa4acbc88fe10e4976b"
+}
