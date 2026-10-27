@@ -442,20 +442,67 @@ as noise: at threshold 0.1 it removes 47.7% of the context and deletes the
 answer string outright in 12% of the samples that had one, which shows up as
 69 and 87 broken answers against 53 and 65 for the ordering arms.
 
-### What actually works, and what it is worth
+### Widening the pool is what works
 
-Every arm beats doing nothing by a wide margin (+60 to +122 net repairs on
-2,208 wrong answers), and no arm's content-aware component beats its own random
-control. The effective ingredient is **perturbing the context and re-asking the
-generator once**, with a grounding gate to keep the answer when the new one is
-not supported. Ranking quality and pruning quality contribute nothing
-measurable on top of that.
+Everything above reorders or prunes the frozen Top-5. That is only the last
+step of the usual reranking recipe, which retrieves a deeper pool first:
+bi-encoder Top-N (N of 20-50), cross-encoder over all N, keep the best k. The
+difference matters, because the deeper form can change *which* passages the
+generator sees, not just their order.
 
-The cheapest correct implementation of this module is therefore a seeded
-shuffle plus the existing acceptance gate: no cross-encoder, no pruner, no GPU
-and no model artifacts. The trained reranker and Provence both cost real
-compute for no measurable answer-level return. This should be reported as a
-controlled negative result rather than as a reranking gain.
+The project's 1.2M-passage corpus is not on this machine, so the pool was built
+from the passages the annotated records already carry: 197,964 distinct
+passages, 16.2% of the full corpus
+(`scripts/build_nq15_pool_index.py`). Re-retrieving with the frozen BGE
+reproduces the original Top-5 with 99.9% overlap, so the pipeline is faithful;
+recall is below the real corpus, so any gain here is a lower bound.
+
+Same 2,367 held-out samples, same reused "before" answers, N=50, k=5:
+
+| Arm | EM | token-F1 | repaired | broken | net |
+|---|---|---|---|---|---|
+| keep everything | 0.0672 | 0.2784 | 0 | 0 | 0 |
+| rerank within the frozen Top-5 | 0.1107 | 0.3219 | 156 | 53 | +103 |
+| shuffle within the frozen Top-5 | 0.1187 | 0.3274 | 187 | 65 | +122 |
+| random 5 out of 50 (control) | 0.0921 | 0.2555 | 131 | 72 | +59 |
+| **cross-encoder 5 out of 50** | **0.1618** | **0.3589** | **291** | 67 | **+224** |
+
+| Paired test | McNemar p | 95% CI on EM |
+|---|---|---|
+| vs random 5 of 50 | 2.0e-16 | [+5.3pp, +8.6pp] |
+| vs shuffle within Top-5 | 6.5e-08 | [+2.8pp, +5.9pp] |
+| vs rerank within Top-5 | 2.8e-12 | [+3.6pp, +6.6pp] |
+
+This is the first intervention in the whole investigation that beats both its
+own random control and every narrower variant, and it is not close.
+
+The mechanism is not what the earlier framing assumed. Choosing 5 of 50 keeps
+only 2.64 of the original Top-5 (random keeps 0.44), and it **lowers** how
+often the answer string is present at all, from 92.0% to 84.0%, while raising
+how often it sits first, from 50.5% to 58.5%. So the gain does not come from
+recovering a missing answer -- on this evaluation set the answer was already
+present for 90% of samples, and for every one of the 482 whose gold passage was
+missing. It comes from **replacing distracting passages with better ones**,
+which is exactly what no amount of reordering inside a fixed five can do.
+
+That reconciles the negative results above rather than overturning them:
+permuting a fixed context does nothing, and swapping its contents does a great
+deal.
+
+### What ordering alone is worth
+
+Restricted to the frozen Top-5, every arm beats doing nothing by a wide margin
+(+60 to +122 net repairs on 2,208 wrong answers), and no arm's content-aware
+component beats its own random control. Within a fixed set of passages the
+effective ingredient is only **perturbing the context and re-asking the
+generator once**, with the grounding gate keeping the answer when the new one
+is not supported; ranking quality and pruning quality add nothing measurable.
+
+So the narrow claim stands: a cross-encoder that merely reorders five fixed
+passages is not worth its compute, and a seeded shuffle matches it. The claim
+does **not** extend to reranking as normally practised, which selects those
+five from a much larger pool and is worth +4.3pp EM over the best fixed-pool
+arm (previous section).
 
 The result is consistent with published findings on the same stack
 ([arXiv:2505.15561](https://arxiv.org/abs/2505.15561), which also concludes
@@ -463,9 +510,10 @@ that improvement must come from retrieval quality and generator robustness
 rather than passage positioning) and with reranking surfacing more misleading
 passages ([arXiv:2505.06914](https://arxiv.org/abs/2505.06914)).
 
-The obvious follow-up, untested here: if perturbation is the active ingredient,
-then several perturbed re-asks with a majority vote should beat one, and that
-costs only generation calls — no new model.
+Majority voting over several perturbed re-asks was tried and does not help
+(0.1018 against 0.1187 for the best single arm): the generator repeats the same
+wrong answer across perturbations, so the vote buries the minority correct
+one.
 
 ### What this means for deployment
 
