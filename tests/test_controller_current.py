@@ -224,18 +224,32 @@ class CurrentIntegrationTests(unittest.TestCase):
             (data/'evaluation_reserve_ids.json').write_text(json.dumps({'nq':['protected'], 'fever':[]}))
             (data/'selection_ids.json').write_text(json.dumps({'nq':{'selection':['selected']}, 'fever':{'selection':[]}}))
             models = {p:h for p,h in CONFIG['frozen_assets'].items() if p.startswith('models/controller/p60_online_adapter/')}
-            rows = [{'model':p, 'dataset':'nq', 'sample_id':'training-only', 'role':'training'} for p in models]
+            from src.data.team_nq import TeamNQBoundary
+            boundary = TeamNQBoundary(ROOT)
+            training_id = boundary.allowed_ids('train')[0]
+            rows = [{'model':p, 'dataset':'nq', 'sample_id':training_id, 'role':'training'} for p in models]
             payload = {'complete':True, 'model_sha256':models, 'records':rows}
             path = root / 'provenance.json'
             def check():
                 path.write_text(json.dumps(payload))
                 spec = {'path':'provenance.json','sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
-                return provenance_issues(root, spec, CONFIG)
+                with patch('src.pipeline.current.TeamNQBoundary', return_value=boundary):
+                    return provenance_issues(root, spec, CONFIG)
             self.assertEqual(check(), [])
             for forbidden in ('protected', 'selected'):
                 payload['records'][0]['sample_id'] = forbidden
                 self.assertIn('P60_training_or_tuning_overlaps_protected_or_selection_IDs', check())
-            payload['records'][0]['sample_id'] = 'training-only'
+            for forbidden in (boundary.splits['test'][0], boundary.allowed_ids('validation')[0],
+                              '999999999999999999999999999', int(training_id)):
+                payload['records'][0]['sample_id'] = forbidden
+                self.assertIn('P60_IDs_outside_registered_team_roles', check())
+            payload['records'][0].update(sample_id=boundary.allowed_ids('validation')[0], role='calibration')
+            self.assertEqual(check(), [])
+            payload['records'][0].update(dataset='fever', sample_id='fictional-unregistered')
+            self.assertIn('P60_FEVER_source_needs_separate_team_registration', check())
+            payload['records'][0]['dataset'] = 'nq'
+            payload['records'][0]['role'] = 'training'
+            payload['records'][0]['sample_id'] = training_id
             payload['records'] = payload['records'][:1]
             self.assertIn('P60_provenance_does_not_cover_all_three_models', check())
 

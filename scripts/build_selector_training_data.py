@@ -22,9 +22,11 @@ sample therefore contributes a gold answer as a positive **and** a gold answer
 borrowed from another sample as a negative, putting the same style on both
 sides; the model's own wrong answer is the second negative.
 
-Leak control matches the reranker's: nothing from the accessibility validation
-or test split, and nothing whose question is close to a frozen Dev/Test
-question.
+The current CLI partitions by the frozen team train/validation roles BEFORE
+building examples or borrowing answers. Donors stay in their own role and are
+recorded by ID. Old reserve/selection restrictions also apply; test is sealed.
+The output is a checksum-bound bundle, not a new random split. These remain
+weak supervision labels, not independently verified semantic gold.
 
 Usage:
     python scripts/build_selector_training_data.py
@@ -47,13 +49,9 @@ if str(ROOT) not in sys.path:
 from scripts.build_rerank_training_data import held_out_filter, tokens  # noqa: E402
 from src.evaluation.qa import exact_match  # noqa: E402
 
-DEFAULT_RECORDS = ROOT / "data" / "processed" / "diagnosis" / "nq15_train_records.jsonl"
-DEFAULT_SPLIT_DIR = ROOT / "data" / "processed" / "rerank"
-DEFAULT_HELD_OUT = ROOT / "data" / "annotations" / "normalized" / "nq_3216_diagnosis_inputs.jsonl"
-DEFAULT_OUT_DIR = ROOT / "data" / "processed" / "selector"
-DEFAULT_STATS = ROOT / "results" / "compensation" / "selector_training_data_stats.json"
+DEFAULT_RECORDS = ROOT / "data" / "processed" / "external" / "nq_train_delivery_20261017"
+DEFAULT_OUT_DIR = ROOT / "data" / "processed" / "team_nq_v1" / "selector"
 SEED = 42
-VALIDATION_FRACTION = 0.1
 
 
 def read_jsonl(path: Path) -> list[dict]:
@@ -82,7 +80,7 @@ def build_examples(records: list[dict], seed: int = SEED) -> tuple[list[dict], C
     reasons: Counter[str] = Counter()
     rng = random.Random(seed)
     golds = [gold_answer(record) for record in records]
-    pool = [text for text in golds if text]
+    pool = [(record["sample_id"], text) for record, text in zip(records, golds) if text]
     examples: list[dict] = []
 
     for record, gold in zip(records, golds):
@@ -106,9 +104,11 @@ def build_examples(records: list[dict], seed: int = SEED) -> tuple[list[dict], C
         # Hard negative in the positives' own writing style: another sample's gold
         # answer, unless it happens to be right here too.
         for _ in range(8):
-            borrowed = rng.choice(pool)
+            donor_id, borrowed = rng.choice(pool)
             if borrowed != gold and not exact_match(borrowed, gold):
-                examples.append(example(record, borrowed, 0, "borrowed_gold"))
+                borrowed_example = example(record, borrowed, 0, "borrowed_gold")
+                borrowed_example["donor_sample_id"] = donor_id
+                examples.append(borrowed_example)
                 reasons["negative_borrowed_gold"] += 1
                 break
         else:
@@ -117,79 +117,21 @@ def build_examples(records: list[dict], seed: int = SEED) -> tuple[list[dict], C
     return examples, reasons
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+def main(argv=None) -> None:
+    from src.data.team_nq import TeamNQBoundary, prepare_training_bundle
+    parser = argparse.ArgumentParser(description="Build selector data separately within team train/validation")
     parser.add_argument("--records", type=Path, default=DEFAULT_RECORDS)
-    parser.add_argument("--split-dir", type=Path, default=DEFAULT_SPLIT_DIR)
-    parser.add_argument("--held-out", type=Path, default=DEFAULT_HELD_OUT)
     parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT_DIR)
-    parser.add_argument("--stats-out", type=Path, default=DEFAULT_STATS)
-    parser.add_argument("--max-records", type=int, default=None, help="cap the records used (smoke runs)")
-    parser.add_argument("--jaccard", type=float, default=0.6)
-    args = parser.parse_args()
-
-    records = read_jsonl(args.records)
-    print(f"{len(records)} annotated records")
-
-    evaluated = set()
-    for split in ("validation", "test"):
-        path = args.split_dir / f"{split}.jsonl"
-        if path.exists():
-            evaluated |= {row["sample_id"] for row in read_jsonl(path)}
-    records = [record for record in records if record["sample_id"] not in evaluated]
-    print(f"{len(records)} left after removing the {len(evaluated)} accessibility validation/test samples")
-
-    too_close, held_out_size = held_out_filter(args.held_out, args.jaccard)
-    records = [record for record in records if not too_close(tokens(record["query"]))]
-    print(f"{len(records)} left after removing questions close to the {held_out_size} frozen Dev/Test ones")
-    if args.max_records:
-        records = records[: args.max_records]
-
-    examples, reasons = build_examples(records)
-    rng = random.Random(SEED)
-    by_sample: dict[str, list[dict]] = {}
-    for item in examples:
-        by_sample.setdefault(item["sample_id"], []).append(item)
-    sample_ids = sorted(by_sample)
-    rng.shuffle(sample_ids)
-    cut = int(len(sample_ids) * (1 - VALIDATION_FRACTION))
-    splits = {
-        "train": [item for sample_id in sample_ids[:cut] for item in by_sample[sample_id]],
-        "validation": [item for sample_id in sample_ids[cut:] for item in by_sample[sample_id]],
-    }
-
-    args.out_dir.mkdir(parents=True, exist_ok=True)
-    counts = {}
-    for name, rows in splits.items():
-        path = args.out_dir / f"{name}.jsonl"
-        with path.open("w", encoding="utf-8") as handle:
-            for row in rows:
-                handle.write(json.dumps(row, ensure_ascii=False) + "\n")
-        positives = sum(row["label"] for row in rows)
-        counts[name] = {
-            "examples": len(rows),
-            "positives": positives,
-            "negatives": len(rows) - positives,
-            "samples": len({row["sample_id"] for row in rows}),
-            "path": str(path.relative_to(ROOT)),
-        }
-        print(f"  {name:11s} {len(rows):7d} examples ({positives} positive) over {counts[name]['samples']} samples")
-
-    stats = {
-        "source_records": str(args.records.relative_to(ROOT)),
-        "records_used": reasons["records"],
-        "examples": len(examples),
-        "example_sources": {key: value for key, value in reasons.items() if key.startswith(("positive", "negative"))},
-        "skipped": {key: value for key, value in reasons.items() if key.startswith("skipped")},
-        "splits": counts,
-        "seed": SEED,
-        "note": "Examples are built within a sample and put gold-style strings on both sides, so neither "
-        "the sample's annotation label nor the answer's writing style separates the classes.",
-    }
-    args.stats_out.parent.mkdir(parents=True, exist_ok=True)
-    args.stats_out.write_text(json.dumps(stats, indent=2, ensure_ascii=False), encoding="utf-8")
-    print(json.dumps({k: stats[k] for k in ("examples", "example_sources", "skipped")}, indent=2, ensure_ascii=False))
-    print(f"wrote {args.stats_out}")
+    parser.add_argument("--max-records", type=int, default=None, help="cap per role for engineering smoke")
+    args = parser.parse_args(argv)
+    if args.max_records is not None and args.max_records < 1:
+        parser.error("--max-records must be positive")
+    boundary = TeamNQBoundary(ROOT)
+    def build(rows):
+        return build_examples(rows[:args.max_records] if args.max_records is not None else rows)
+    report = prepare_training_bundle(boundary, args.records, args.out_dir, build, component="answer_selector")
+    print(json.dumps({"boundary": report["boundary"], "role_examples":
+        {r: spec["examples"] for r, spec in report["role_files"].items()}}, indent=2))
 
 
 if __name__ == "__main__":

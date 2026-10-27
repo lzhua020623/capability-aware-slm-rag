@@ -1,0 +1,43 @@
+{
+  "schema_version": "team_nq_boundary_v1",
+  "source_branch": "feature/baseline-evaluation",
+  "source_commit": "387ddafc82bc939ebd27b3137d580db6ecb2e04a",
+  "team_split": {
+    "path": "baselines/splits/diagnosis_nq_train_74097_split.json",
+    "sha256": "7da01c94cd7b5f92076edebc80911ac891d3861a01cf6b40a1e5e6efb6482dc4",
+    "version": "diagnosis_nq_train_74097_rep08"
+  },
+  "label_index": {
+    "path": "data/annotations/normalized/nq15_train_labels.jsonl",
+    "sha256": "ad3fe8412dd5de0b1a028253d6c10ad51f16b41d9b29b2c12f884403f648ea50"
+  },
+  "legacy_reserve": {
+    "path": "artifacts/controller/data_v1/evaluation_reserve_ids.json",
+    "sha256": "43bee6035df34346c6d98f3e0cdaf6411e4e104116d85a08ca6e519c7b86cb86"
+  },
+  "legacy_selection": {
+    "path": "artifacts/controller/data_v1/selection_ids.json",
+    "sha256": "82d76471170ae732fac7270e53b392c51d64c8caa7bc3083087e6597f8fff6f0"
+  },
+  "known_exposure": {
+    "path": "artifacts/controller/team_data_v1/known_exposure_ids.json",
+    "sha256": "c6aa7c614955a5280d9c2b482569b4ca6c3ad5cb28a77a008f424c97b1ac5557"
+  },
+  "roles": {
+    "train": "team train minus full legacy reserve and legacy Controller selection",
+    "validation": "team validation minus full legacy reserve, legacy Controller selection and all registered downstream exposure",
+    "test": "all 11114 IDs and their order unchanged; execution requires separate T7 protocol"
+  },
+  "source_supervision": "AI initial Diagnosis labels; not verified human gold",
+  "content_alignment": "Historical original 15-shard C1/gold/evidence delivery exists locally and is checksum-bound; new matched baseline predictions and original generator revision remain unverified",
+  "FEVER": "No team split registered; do not infer FEVER alignment from this NQ policy",
+  "legacy_experiments": "Frozen packages/splits/results are historical and remain byte-identical",
+  "source_delivery": {
+    "manifest": {
+      "path": "data/annotations/nq_train_delivery/manifest.json",
+      "sha256": "565b694d1caae3e3c22b47f3be90ca68a944196a641a6d15a5306252b4df7346"
+    },
+    "default_local_directory": "data/processed/external/nq_train_delivery_20261017",
+    "C1_scope": "Historical 74097 C1; not the new context_fallback baseline test output"
+  }
+}

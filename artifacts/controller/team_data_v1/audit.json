@@ -1,0 +1,200 @@
+{
+  "schema_version": "team_nq_alignment_audit_v1",
+  "boundary": {
+    "policy_path": "configs/splits/team_nq_data_v1.json",
+    "policy_sha256": "0f1318a2e162aadb2c3b9dba1a9a1a8f1a43318eaf6b2faa9e428c0a58100d20",
+    "split_sha256": "7da01c94cd7b5f92076edebc80911ac891d3861a01cf6b40a1e5e6efb6482dc4",
+    "official_counts": {
+      "train": 51866,
+      "validation": 11117,
+      "test": 11114
+    },
+    "eligible_counts": {
+      "train": 46421,
+      "validation": 9440
+    },
+    "test_sealed": true,
+    "test_known_exposed": 603,
+    "labels_semantically_verified": false,
+    "external_training_IDs_verified": false
+  },
+  "official_split_byte_identical": true,
+  "local_label_ID_population": {
+    "n": 74097,
+    "missing": 0,
+    "extra": 0,
+    "duplicates": 0
+  },
+  "train_validation_label_count_metadata_matches": true,
+  "label_counts": {
+    "train": {
+      "correct": 27216,
+      "evidence_insufficiency": 9625,
+      "evidence_accessibility": 12498,
+      "evidence_utilisation": 2527
+    },
+    "validation": {
+      "correct": 5439,
+      "evidence_accessibility": 2832,
+      "evidence_insufficiency": 2251,
+      "evidence_utilisation": 595
+    }
+  },
+  "eligible_AI_label_counts": {
+    "train": {
+      "correct": 24370,
+      "evidence_insufficiency": 8621,
+      "evidence_accessibility": 11166,
+      "evidence_utilisation": 2264
+    },
+    "validation": {
+      "evidence_accessibility": 2180,
+      "evidence_insufficiency": 1986,
+      "evidence_utilisation": 515,
+      "correct": 4759
+    }
+  },
+  "legacy_controller_by_team_role": {
+    "final_candidate": {
+      "train": 338,
+      "validation": 77,
+      "test": 85
+    },
+    "selection": {
+      "train": 133,
+      "validation": 40,
+      "test": 27
+    },
+    "development": {
+      "train": 135,
+      "validation": 31,
+      "test": 34
+    }
+  },
+  "exposure_sources": [
+    {
+      "path": "configs/splits/answer_repair_nq_train_exposure_registry_20261022.json",
+      "canonical_n": 426,
+      "by_team_role": {
+        "train": 280,
+        "validation": 77,
+        "test": 69
+      }
+    },
+    {
+      "path": "artifacts/controller/data_v1/selection_ids.json",
+      "canonical_n": 400,
+      "by_team_role": {
+        "train": 268,
+        "validation": 71,
+        "test": 61
+      }
+    },
+    {
+      "path": "results/compensation/refinement_end_to_end_accessibility.json",
+      "canonical_n": 2367,
+      "by_team_role": {
+        "train": 1599,
+        "validation": 373,
+        "test": 395
+      }
+    },
+    {
+      "path": "results/compensation/refinement_end_to_end_harm.json",
+      "canonical_n": 600,
+      "by_team_role": {
+        "train": 445,
+        "validation": 72,
+        "test": 83
+      }
+    },
+    {
+      "path": "results/compensation/refinement_end_to_end_pilot.json",
+      "canonical_n": 200,
+      "by_team_role": {
+        "train": 135,
+        "validation": 31,
+        "test": 34
+      }
+    },
+    {
+      "path": "results/compensation/refinement_end_to_end_provence.json",
+      "canonical_n": 2367,
+      "by_team_role": {
+        "train": 1599,
+        "validation": 373,
+        "test": 395
+      }
+    },
+    {
+      "path": "results/compensation/refinement_end_to_end_random_prune.json",
+      "canonical_n": 2367,
+      "by_team_role": {
+        "train": 1599,
+        "validation": 373,
+        "test": 395
+      }
+    },
+    {
+      "path": "results/compensation/refinement_end_to_end_shuffle_control.json",
+      "canonical_n": 2367,
+      "by_team_role": {
+        "train": 1599,
+        "validation": 373,
+        "test": 395
+      }
+    }
+  ],
+  "known_exposure_unique": 3759,
+  "known_test_exposure": 603,
+  "test_outside_registered_exposure": 10511,
+  "remaining_test_unseen_proven": false,
+  "FEVER_team_alignment": "not_registered",
+  "test_question_evidence_gold_decoded": false,
+  "model_training_or_API_inference": false,
+  "original_delivery": {
+    "shards": 15,
+    "all_shard_hashes_match": true,
+    "raw_role_counts": {
+      "source_train": 51866,
+      "source_validation": 11117,
+      "skipped_validation": 1677,
+      "source_test": 11114,
+      "skipped_test": 11114,
+      "skipped_train": 5445
+    },
+    "structure": {
+      "train": {
+        "inspected": 46421
+      },
+      "validation": {
+        "inspected": 9440
+      }
+    },
+    "structural_issue_ids": {
+      "train": [],
+      "validation": []
+    },
+    "normalized_query_fingerprints_crossing_admitted_roles": 0,
+    "semantic_answer_correctness_verified": false,
+    "historical_C1_is_new_context_fallback_baseline": false
+  },
+  "paired_baseline_files": {
+    "baselines/outputs/rag_matched_test_context_fallback/predictions.jsonl": false,
+    "baselines/outputs/rag_matched_test_context_fallback/metrics.json": false,
+    "baselines/outputs/rag_matched_test_context_fallback/run_config.json": false
+  },
+  "old_local_training_files": {
+    "data/processed/rerank/train.jsonl": false,
+    "data/processed/rerank/validation.jsonl": false,
+    "data/processed/selector/train.jsonl": false,
+    "data/processed/selector/validation.jsonl": false
+  },
+  "unverified": [
+    "AI labels are not human gold; no semantic-clean claim",
+    "Exact label counts do not prove every per-ID label matches the absent original Diagnosis records",
+    "P60 and previously trained reranker/selector usage IDs not delivered",
+    "Near-duplicate question checks against sealed test content were not performed",
+    "New matched baseline C1 predictions/recipe alignment is pending; historical C1 remains distinct"
+  ]
+}

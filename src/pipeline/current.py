@@ -21,6 +21,7 @@ from src.controller.schema import ControllerAction
 from src.controller.selection import FrozenOnlineSelectionAdapter
 from src.diagnosis.schema import DiagnosisInput, EvidenceItem
 from src.pipeline.adaptive_rag import build_adaptive_pipeline
+from src.data.team_nq import BoundaryError, TeamNQBoundary
 
 ROOT = Path(__file__).resolve().parents[2]
 REGISTRATION = 'configs/controller/current_baseline.json'
@@ -48,6 +49,10 @@ def provenance_issues(root, spec, config):
     forbidden = {(ds, str(sid)) for ds in ('nq', 'fever')
                  for sid in protected[ds] + selected[ds]['selection']}
     covered = set()
+    try:
+        boundary = TeamNQBoundary(root)
+    except BoundaryError:
+        return ['team_data_boundary_missing_or_changed']
     for row in records:
         if (set(row) != {'model', 'dataset', 'sample_id', 'role'} or row['model'] not in expected
                 or row['dataset'] not in ('nq', 'fever')
@@ -55,6 +60,18 @@ def provenance_issues(root, spec, config):
             return ['P60_provenance_invalid_usage_record']
         if (row['dataset'], str(row['sample_id'])) in forbidden:
             return ['P60_training_or_tuning_overlaps_protected_or_selection_IDs']
+        if row['dataset'] == 'fever':
+            return ['P60_FEVER_source_needs_separate_team_registration']
+        if row['dataset'] == 'nq':
+            try:
+                if not isinstance(row['sample_id'], str):
+                    raise BoundaryError('P60 IDs must be exact strings')
+                roles = ('train',) if row['role'] == 'training' else ('train', 'validation')
+                if not any(row['sample_id'] in boundary.eligible[r] for r in roles):
+                    raise BoundaryError('P60 data outside registered role')
+                boundary.require([row['sample_id']], next(r for r in roles if row['sample_id'] in boundary.eligible[r]))
+            except BoundaryError:
+                return ['P60_IDs_outside_registered_team_roles']
         covered.add(row['model'])
     return [] if covered == set(expected) else ['P60_provenance_does_not_cover_all_three_models']
 
@@ -64,6 +81,11 @@ def readiness(root=ROOT):
     root = Path(root)
     config = json.loads((root / REGISTRATION).read_text())
     missing = []
+    try:
+        data_boundary = TeamNQBoundary(root).receipt()
+    except BoundaryError as exc:
+        data_boundary = {'valid': False, 'error': str(exc)}
+        missing.append('team_data_boundary_missing_or_changed')
     for rel, expected in config['frozen_assets'].items():
         if not (root / rel).is_file() or file_sha(root / rel) != expected:
             missing.append('asset_missing_or_changed:' + rel)
@@ -86,7 +108,7 @@ def readiness(root=ROOT):
             'routing': 'Diagnosis -> P60 -> Controller -> EnhancementExecutor',
             'probe_enabled': False, 'ready_for_gpu': not missing, 'missing': missing,
             'legacy_fallback': False, 'benchmark_quality_evaluated': False,
-            'E_mode': config['E_mode']}
+            'E_mode': config['E_mode'], 'data_boundary': data_boundary}
 
 
 class MeteredEnhancementAdapter:
@@ -161,10 +183,15 @@ class CheckedFeatures:
 
 
 class CurrentPipeline:
-    def __init__(self, host, features, config):
+    def __init__(self, host, features, config, *, data_boundary=None, data_role=None):
         self.host, self.features, self.config = host, features, config
+        self.data_boundary, self.data_role = data_boundary, data_role
 
     def run_from_item(self, item):
+        if self.data_boundary is not None:
+            if item.dataset.value != 'nq':
+                raise BoundaryError('FEVER production data roles need a separate team registration')
+            self.data_boundary.require([item.sample_id], self.data_role)
         canonical = canonical_input(item)
         result = self.host.run_from_item(canonical)
         cost = result.enhancement_result.metadata.get('enhancement_cost')
@@ -174,13 +201,18 @@ class CurrentPipeline:
             'baseline': 'diagnosis_20261024_p60_p64_v1',
             'dataset': canonical.dataset.value, 'initial_answer_raw': item.initial_answer,
             'feature_provider': self.features.last_receipt,
+            'data_role': self.data_role,
+            'data_boundary': ({'enforced': True,
+                'policy_sha256': self.data_boundary.receipt()['policy_sha256'],
+                'split_sha256': self.data_boundary.policy['team_split']['sha256']}
+                if self.data_boundary is not None else {'enforced': False, 'scope': 'engineering_injection'}),
             'enhancement_cost': cost,
             'cost_scope': 'enhancement calls measured; feature cost separately reported, cached C1 excluded',
             'E_mode': 'unavailable', 'quality_evaluated': False})
 
 
 def wire_latest_pipeline(execution_backend, feature_provider, *, selection_adapter=None, root=ROOT,
-                         require_feature_costs=False):
+                         require_feature_costs=False, data_boundary=None, data_role=None):
     """Wire real modules; injections also support explicitly fictional tests.
 
     Production callers use load_current_pipeline, which additionally checks
@@ -201,12 +233,14 @@ def wire_latest_pipeline(execution_backend, feature_provider, *, selection_adapt
         executor.register(action, adapter)
     host = build_adaptive_pipeline(classifier=execution_backend.classifier,
         selection_adapter=selector, feature_provider=features, executor=executor)
-    return CurrentPipeline(host, features, expected)
+    return CurrentPipeline(host, features, expected, data_boundary=data_boundary, data_role=data_role)
 
 
-def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None):
+def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None, data_role='validation'):
     """Current production entry. Missing inputs stop; never run old routing."""
     root = Path(root)
+    if data_role not in ('train', 'validation'):
+        raise BoundaryError('Final test execution requires a separately sealed T7 protocol')
     receipt = readiness(root)
     if not receipt['ready_for_gpu']:
         raise RuntimeError('Latest Diagnosis integration not ready: ' + '; '.join(receipt['missing']))
@@ -221,5 +255,6 @@ def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None)
     provider = getattr(module, spec['factory'])(execution_backend=backend)
     if not callable(getattr(provider, 'runtime_receipt', None)):
         raise ValueError('Production feature provider must report its runtime costs')
-    return wire_latest_pipeline(backend, provider, root=root, require_feature_costs=True), {
+    return wire_latest_pipeline(backend, provider, root=root, require_feature_costs=True,
+        data_boundary=TeamNQBoundary(root), data_role=data_role), {
         **environment, 'current_baseline': receipt, 'probe_enabled': False}

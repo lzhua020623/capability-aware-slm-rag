@@ -14,6 +14,10 @@ at rank 4-5 may be lost; that is a known limit of this first version.
 Defaults fit a 6 GB GPU: `BAAI/bge-reranker-base`, max_length 384, batch 16,
 fp16, 8-bit Adam when bitsandbytes is present.
 
+The current CLI requires a team-role bundle with donor provenance, validates
+every row before model loading, and reports validation metrics only. No test
+file is read and existing model/output directories are preserved.
+
 Usage:
     python scripts/train_answer_selector.py
     python scripts/train_answer_selector.py --max-train-examples 2000 --epochs 1
@@ -38,9 +42,9 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-DEFAULT_DATA_DIR = ROOT / "data" / "processed" / "selector"
-DEFAULT_OUT_DIR = ROOT / "models" / "selector" / "answer_selector_v1"
-DEFAULT_METRICS = ROOT / "results" / "compensation" / "selector_training_metrics.json"
+DEFAULT_DATA_DIR = ROOT / "data" / "processed" / "team_nq_v1" / "selector"
+DEFAULT_OUT_DIR = ROOT / "models" / "selector" / "answer_selector_team_v1"
+DEFAULT_METRICS = ROOT / "results" / "compensation" / "team_nq_v1" / "selector_training_metrics.json"
 DEFAULT_BASE_MODEL = "BAAI/bge-reranker-base"
 ANSWER_MARKER = " [ANSWER] "
 SEED = 42
@@ -146,7 +150,7 @@ def build_optimizer(model, learning_rate: float):
         return torch.optim.AdamW(model.parameters(), lr=learning_rate), "adamw"
 
 
-def main() -> None:
+def main(argv=None) -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
     parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT_DIR)
@@ -160,16 +164,21 @@ def main() -> None:
     parser.add_argument("--warmup-ratio", type=float, default=0.1)
     parser.add_argument("--max-train-examples", type=int, default=None)
     parser.add_argument("--eval-limit", type=int, default=None)
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
+    from src.data.team_nq import TeamNQBoundary
+    if args.out_dir.exists() or args.metrics_out.exists():
+        raise FileExistsError("Preserve existing model/metrics; choose new output paths")
+    if args.epochs < 1:
+        parser.error("--epochs must be positive")
+    parts, data_receipt = TeamNQBoundary(ROOT).read_training_bundle(args.data_dir, component='answer_selector')
+    train_rows, validation_rows = parts["train"], parts["validation"]
+    if args.max_train_examples:
+        train_rows = train_rows[:args.max_train_examples]
+    if args.eval_limit:
+        validation_rows = validation_rows[:args.eval_limit]
     set_seed(SEED)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    train_rows = read_jsonl(args.data_dir / "train.jsonl")
-    validation_rows = read_jsonl(args.data_dir / "validation.jsonl")
-    if args.max_train_examples:
-        train_rows = train_rows[: args.max_train_examples]
-    if args.eval_limit:
-        validation_rows = validation_rows[: args.eval_limit]
 
     tokenizer = AutoTokenizer.from_pretrained(args.model)
     model = AutoModelForSequenceClassification.from_pretrained(args.model, num_labels=1).to(device)
@@ -243,6 +252,9 @@ def main() -> None:
             "seed": SEED,
             "train_examples": len(train_rows),
         },
+        "data_boundary": data_receipt["boundary"],
+        "training_role_files": data_receipt["role_files"],
+        "test_evaluation": "not performed; separate final protocol required",
         "before_training": before,
         "history": history,
         "train_seconds": round(time.perf_counter() - start, 1),

@@ -1,0 +1,36 @@
+{
+  "baseline": "diagnosis_20261024_p60_p64_v1",
+  "upstream_commit": "138d52aa22e0eee78637e01f981a030d7ad388df",
+  "runtime_entry": "src.pipeline.current.load_current_pipeline",
+  "routing": "Diagnosis -> P60 -> Controller -> EnhancementExecutor",
+  "probe_enabled": false,
+  "ready_for_gpu": false,
+  "missing": [
+    "runtime_78_feature_provider_not_delivered",
+    "P60_training_tuning_calibration_ID_provenance_not_delivered"
+  ],
+  "legacy_fallback": false,
+  "benchmark_quality_evaluated": false,
+  "E_mode": {
+    "nq": "unavailable",
+    "fever": "unavailable"
+  },
+  "data_boundary": {
+    "policy_path": "configs/splits/team_nq_data_v1.json",
+    "policy_sha256": "0f1318a2e162aadb2c3b9dba1a9a1a8f1a43318eaf6b2faa9e428c0a58100d20",
+    "split_sha256": "7da01c94cd7b5f92076edebc80911ac891d3861a01cf6b40a1e5e6efb6482dc4",
+    "official_counts": {
+      "train": 51866,
+      "validation": 11117,
+      "test": 11114
+    },
+    "eligible_counts": {
+      "train": 46421,
+      "validation": 9440
+    },
+    "test_sealed": true,
+    "test_known_exposed": 603,
+    "labels_semantically_verified": false,
+    "external_training_IDs_verified": false
+  }
+}

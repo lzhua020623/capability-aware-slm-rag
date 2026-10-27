@@ -4,11 +4,15 @@
 
 ## 后续开发分支：controller_2（2026-10-27）
 
+团队 NQ 原始 70/15/15 划分已按原字节接入；ID、初标数量元数据和 15 个本地 C1 分片已核对。
+后续用途边界、603 条已知 test 曝光及保守开发池见 [数据对齐与边界](docs/TEAM_DATA_BOUNDARIES.md)。
+原始数据不缺；待交付的是团队新 baseline 的逐题输出，FEVER 划分仍待统一。
+
 `controller_2` 从 `controller@5da8fa6` 创建，合入补检索 `37e469e` 与重排 `5583285`。
 合并说明、兼容处理、验证记录及下一步见 [Controller 2 交接](docs/CONTROLLER2_INTEGRATION.md)。
 当前运行配置保持原样：新重排权重、句子裁剪和答案选择器均未晋升默认；E 仍 unavailable，P60 的两项材料仍待交付。
 后续 NQ 实验按团队 `feature/baseline-evaluation` 的 70/15/15 划分统一，test 为 11,114 条；
-该分支的划分和逐题 baseline 输出尚待接入，旧 T4/T5 数据与结果继续作为历史记录。
+该划分已接入，逐题 baseline 输出仍待交付；旧 T4/T5 数据与结果继续作为历史记录。
 
 ## 当前主线：10 月 24 日 Diagnosis（2026-10-27）
 

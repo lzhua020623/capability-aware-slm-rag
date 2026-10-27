@@ -71,10 +71,9 @@ from src.diagnosis.schema import DatasetName, DiagnosisInput, EvidenceItem  # no
 from src.evaluation.qa import exact_match, token_f1  # noqa: E402
 from src.generation.backend import build_backend  # noqa: E402
 
-DEFAULT_RECORDS = ROOT / "data" / "processed" / "diagnosis" / "nq15_train_records.jsonl"
-DEFAULT_SPLIT = ROOT / "data" / "processed" / "rerank" / "test.jsonl"
+DEFAULT_RECORDS = ROOT / "data" / "processed" / "external" / "nq_train_delivery_20261017"
 DEFAULT_MODEL = "models/reranker/accessibility_v1"
-DEFAULT_OUT = ROOT / "results" / "compensation" / "refinement_end_to_end.json"
+DEFAULT_OUT = ROOT / "results" / "compensation" / "team_nq_v1" / "refinement_validation.json"
 
 ROUTED = ControllerDecision(
     action=ControllerAction.EVIDENCE_REFINEMENT,
@@ -181,15 +180,15 @@ def frozen_500_records(path: Path, label_file: Path, label: str) -> list[dict]:
     return records
 
 
-def main() -> None:
+def main(argv=None) -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--records", type=Path, default=DEFAULT_RECORDS)
-    parser.add_argument("--split", type=Path, default=DEFAULT_SPLIT, help="restrict to these sample_ids (held-out)")
+    parser.add_argument("--split", type=Path, default=None, help="optional subset inside the registered team data role")
+    parser.add_argument("--data-role", choices=("train", "validation"), default="validation")
     parser.add_argument(
         "--no-split-filter",
         action="store_true",
-        help="ignore --split. Needed for the harm arm: the split file lists accessibility samples only, "
-        "and the reranker never trained on any correct-labelled sample anyway.",
+        help="legacy compatibility flag; it cannot bypass the team role or supplied subset checks",
     )
     parser.add_argument("--frozen-500", action="store_true", help="read the frozen NQ C1 500 instead of NQ_15")
     parser.add_argument("--labels", type=Path, default=ROOT / "data/annotations/normalized/nq_3216_labels_normalized.jsonl")
@@ -239,7 +238,9 @@ def main() -> None:
         help="re-ask the backend on the original order instead of reading the stored C1 answer "
         "(default: on for every backend except frozen)",
     )
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
+    if args.out.exists():
+        raise FileExistsError('Preserve existing evaluation; choose a new output path')
 
     generator_config = load_generator_config()
     if args.max_new_tokens is None:
@@ -248,16 +249,29 @@ def main() -> None:
         args.generator_model = str(generator_config["model_name"])
 
     if args.frozen_500:
+        from src.data.team_nq import ids_only
+        allowed = set(json.loads((ROOT / 'configs/splits/preliminary_nq_500.json').read_text())['ids'])
+        incoming = ids_only(args.records)
+        if not incoming or not incoming <= allowed:
+            raise ValueError('Historical mode only accepts the original frozen NQ 500 IDs')
         records = frozen_500_records(args.records, args.labels, args.label)
-        split_note = "frozen NQ C1 500"
+        split_note = "historical frozen NQ C1 500; not the team final test"
+        boundary_receipt = None
     else:
-        records = [row for row in read_jsonl(args.records) if row["primary_label"] == args.label]
-        if args.split and not args.no_split_filter and args.split.exists():
-            held_out = {row["sample_id"] for row in read_jsonl(args.split)}
+        from src.data.team_nq import TeamNQBoundary, ids_only
+        boundary = TeamNQBoundary(ROOT)
+        boundary_receipt = boundary.receipt()
+        selected, _ = boundary.read_role_records(args.records, roles=(args.data_role,))
+        records = [row for row in selected[args.data_role] if row["primary_label"] == args.label]
+        split_note = 'registered team ' + args.data_role + '; final test sealed'
+        if args.split:
+            if not args.split.is_file():
+                raise FileNotFoundError(args.split)
+            held_out = ids_only(args.split)
+            if not held_out:
+                raise ValueError('Requested subset has no sample IDs')
+            boundary.require(held_out, args.data_role)
             records = [row for row in records if row["sample_id"] in held_out]
-            split_note = f"held-out split {args.split.name}"
-        else:
-            split_note = "all records (no split filter)"
     if args.limit:
         records = records[: args.limit]
     if not records:
@@ -360,6 +374,7 @@ def main() -> None:
         "label": args.label,
         "source": str(args.records.relative_to(ROOT)) if args.records.is_relative_to(ROOT) else str(args.records),
         "split": split_note,
+        "data_boundary": boundary_receipt,
         "generator": {
             "backend": args.backend,
             "name": generator_name,

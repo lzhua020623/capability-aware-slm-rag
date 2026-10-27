@@ -10,8 +10,11 @@ Only accessibility samples are trained on, as commissioned. That is a
 deliberately narrow signal: the model learns to pull the answer-bearing
 passage above the distractors that outranked it. Whether it also hurts
 already-correct samples is not knowable from this training set and is measured
-separately on the frozen Dev 500 by
-`scripts/evaluate_rerank_accessibility.py`.
+separately on the registered team validation role. Historical frozen-500
+results remain separate and are not the current team test.
+
+The CLI validates the entire registered train/validation bundle before model
+loading or limiting examples, and never reads or scores a test file.
 
 Metrics on held-out examples: `rank1` is how often the positive outscores every
 distractor of the same sample, `mrr` the mean reciprocal rank of the positive.
@@ -45,9 +48,9 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-DEFAULT_DATA_DIR = ROOT / "data" / "processed" / "rerank"
-DEFAULT_OUT_DIR = ROOT / "models" / "reranker" / "accessibility_v1"
-DEFAULT_METRICS = ROOT / "results" / "compensation" / "rerank_training_metrics.json"
+DEFAULT_DATA_DIR = ROOT / "data" / "processed" / "team_nq_v1" / "rerank"
+DEFAULT_OUT_DIR = ROOT / "models" / "reranker" / "accessibility_team_v1"
+DEFAULT_METRICS = ROOT / "results" / "compensation" / "team_nq_v1" / "rerank_training_metrics.json"
 DEFAULT_BASE_MODEL = "BAAI/bge-reranker-base"
 SEED = 42
 
@@ -139,7 +142,7 @@ def build_optimizer(model, learning_rate: float) -> tuple[torch.optim.Optimizer,
         return torch.optim.AdamW(model.parameters(), lr=learning_rate), "adamw"
 
 
-def main() -> None:
+def main(argv=None) -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
     parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT_DIR)
@@ -154,26 +157,30 @@ def main() -> None:
     parser.add_argument("--warmup-ratio", type=float, default=0.1)
     parser.add_argument("--max-train-pairs", type=int, default=None, help="cap the training pairs (smoke runs)")
     parser.add_argument("--eval-limit", type=int, default=None, help="cap the evaluated examples")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
+    from src.data.team_nq import TeamNQBoundary
+    if args.out_dir.exists() or args.metrics_out.exists():
+        raise FileExistsError("Preserve existing model/metrics; choose new output paths")
+    if args.epochs < 1:
+        parser.error("--epochs must be positive")
+    # Validate all rows before limits, CUDA setup or model downloads. Training
+    # never reads test.jsonl; final evaluation is a separate frozen operation.
+    parts, data_receipt = TeamNQBoundary(ROOT).read_training_bundle(args.data_dir, component='reranker')
+    train_examples, validation_examples = parts["train"], parts["validation"]
+    if args.eval_limit:
+        validation_examples = validation_examples[:args.eval_limit]
     set_seed(SEED)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    train_examples = read_jsonl(args.data_dir / "train.jsonl")
-    validation_examples = read_jsonl(args.data_dir / "validation.jsonl")
-    test_examples = read_jsonl(args.data_dir / "test.jsonl")
-    if args.eval_limit:
-        validation_examples = validation_examples[: args.eval_limit]
-        test_examples = test_examples[: args.eval_limit]
 
     tokenizer = AutoTokenizer.from_pretrained(args.model)
     model = AutoModelForSequenceClassification.from_pretrained(args.model, num_labels=1).to(device)
 
     print(f"device={device} model={args.model}")
-    print(f"train {len(train_examples)} examples | validation {len(validation_examples)} | test {len(test_examples)}")
+    print(f"train {len(train_examples)} examples | validation {len(validation_examples)} | final test sealed")
 
     before = {
         "validation": score_examples(model, tokenizer, validation_examples, device, args.max_length, args.eval_batch_size),
-        "test": score_examples(model, tokenizer, test_examples, device, args.max_length, args.eval_batch_size),
     }
     print("before fine-tuning:", json.dumps({key: {k: v for k, v in value.items() if k != 'rank_distribution'} for key, value in before.items()}))
 
@@ -226,7 +233,6 @@ def main() -> None:
 
     after = {
         "validation": history[-1]["validation"] if history else before["validation"],
-        "test": score_examples(model, tokenizer, test_examples, device, args.max_length, args.eval_batch_size),
     }
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
@@ -241,9 +247,9 @@ def main() -> None:
         baseline_model = AutoModelForSequenceClassification.from_pretrained(args.baseline, num_labels=1).to(device)
         baseline = {
             "model": args.baseline,
-            "test": score_examples(baseline_model, baseline_tokenizer, test_examples, device, args.max_length, args.eval_batch_size),
+            "validation": score_examples(baseline_model, baseline_tokenizer, validation_examples, device, args.max_length, args.eval_batch_size),
         }
-        print("baseline:", json.dumps({k: v for k, v in baseline["test"].items() if k != "rank_distribution"}))
+        print("baseline:", json.dumps({k: v for k, v in baseline["validation"].items() if k != "rank_distribution"}))
 
     metrics = {
         "note": "Trained on evidence_accessibility annotations only. rank1/mrr are per-sample over that "
@@ -263,8 +269,10 @@ def main() -> None:
         "data": {
             "train_examples": len(train_examples),
             "validation_examples": len(validation_examples),
-            "test_examples": len(test_examples),
         },
+        "data_boundary": data_receipt["boundary"],
+        "training_role_files": data_receipt["role_files"],
+        "test_evaluation": "not performed; separate final protocol required",
         "before_fine_tuning": before,
         "after_fine_tuning": after,
         "history": history,
@@ -274,7 +282,7 @@ def main() -> None:
     args.metrics_out.parent.mkdir(parents=True, exist_ok=True)
     with args.metrics_out.open("w", encoding="utf-8") as handle:
         json.dump(metrics, handle, indent=2, ensure_ascii=False)
-    print(json.dumps({"before": before["test"]["rank1"], "after": after["test"]["rank1"], "mrr": after["test"]["mrr"]}, indent=2))
+    print(json.dumps({"before": before["validation"]["rank1"], "after": after["validation"]["rank1"], "mrr": after["validation"]["mrr"]}, indent=2))
     print(f"saved model to {args.out_dir}")
     print(f"wrote {args.metrics_out}")
 

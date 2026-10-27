@@ -35,5 +35,9 @@
     "models/controller/p60_online_adapter/hgb_3c.joblib": "0a7c35c9d2f5d26c43834f17822574e113edc986e4a851c934ac9ea9f50f3c1e"
   },
   "legacy_experiments": "T4/T5 and their frozen runners remain historical comparators; no reinterpretation or automatic rerun",
-  "evaluation_status": "new_baseline_not_evaluated; register protocol and exposure before inference"
+  "evaluation_status": "new_baseline_not_evaluated; register protocol and exposure before inference",
+  "data_boundary": {
+    "path": "configs/splits/team_nq_data_v1.json",
+    "sha256": "0f1318a2e162aadb2c3b9dba1a9a1a8f1a43318eaf6b2faa9e428c0a58100d20"
+  }
 }

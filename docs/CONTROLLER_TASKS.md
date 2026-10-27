@@ -2,12 +2,14 @@
 
 2026-10-27。用户指定以 10 月 24 日 Diagnosis `138d52a` 为后续主线，见 [新基线登记](CONTROLLER_1024_BASELINE.md)。旧 T1–T5 保持历史冻结；新 P60 的特征、来源和执行协议尚未就绪，不把切换主线当成效果验收。沿用原阶段编号。
 
-后续开发已迁至 `controller_2`，兼容合并补检索 `37e469e` 与重排 `5583285`，见 [合并交接](CONTROLLER2_INTEGRATION.md)。用户最新要求 NQ 统一采用团队 `feature/baseline-evaluation@387ddaf` 的划分：Train 51,866、Validation 11,117、Test 11,114。旧配置和封存包不覆盖；新划分注册、曝光核对及逐题 baseline 交付仍为待办。
+后续开发已迁至 `controller_2`，兼容合并补检索 `37e469e` 与重排 `5583285`，见 [合并交接](CONTROLLER2_INTEGRATION.md)。NQ 统一采用团队 `feature/baseline-evaluation@387ddaf` 的划分：Train 51,866、Validation 11,117、Test 11,114。旧配置和封存包不覆盖。
+
+本轮 [T2 数据对齐与边界](TEAM_DATA_BOUNDARIES.md)已接入原始 split，核对 74,097 个 ID、初标数量元数据与本地 15 个 C1 分片；当前保守允许池为 Train 46,421、Validation 9,440，Test 仍为完整 11,114。已知下游 test 曝光扩大核对为 603 条。训练/评测入口已加入角色与来源检查；新 baseline 逐题输出、FEVER 统一和已有训练模型的原始使用 ID 仍待交付。
 
 | 阶段 | 内容 | 状态 |
 |---|---|---|
 | T1 | 协议、比较组、预算、指标与停止规则 | 已冻结；修订另立版本 |
-| T2 | 数据划分、共同 C1、检索资源、曝光隔离 | 历史资源已就绪；待注册团队 NQ 70/15/15 与 11,114 条 test、交付逐题 baseline 并登记至少 130 条历史曝光；旧保留池不解封，FEVER 另行统一 |
+| T2 | 数据划分、共同 C1、检索资源、曝光隔离 | NQ 原始 split/ID/结构体检与用途守卫已完成；已知 test 曝光 603，保守可用 Train 46,421、Validation 9,440；旧保留池不解封，新 baseline 逐题输出、模型使用 ID 与 FEVER 统一待补 |
 | T3 | 集成执行器、预算与轨迹、CUDA 工程验收 | 两增强路线最新兼容合并至 controller_2；当前默认配置不变，原在线特征/来源及真实新主线验收待补 |
 | T4 | 两数据集各 200 条开发基线 | 2,800 条已验收；语义、标记和轨迹人工审核未收口 |
 | T5 | E r2 前置修订与唯一 NQ 路由候选 | 一次选型已完成；r2 停止、E unavailable；0.2 候选按冻结 EM 拒绝，保留原路由，审核另行收口 |

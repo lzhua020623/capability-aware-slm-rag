@@ -1,0 +1,12 @@
+{
+  "base_commit": "e44a1892a9873586564c856e04e649eb03ebeda6",
+  "branch": "controller_2",
+  "protected_files_unchanged": true,
+  "current_baseline_change": "data_boundary registration only; other fields identical",
+  "code_parses": 12,
+  "teacher_API_calls": 0,
+  "GPU_calls": 0,
+  "training_runs": 0,
+  "test_supervision_decoded": false,
+  "scope": "role/ID alignment and admitted-role structural audit; not semantic label acceptance"
+}

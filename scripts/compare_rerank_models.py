@@ -30,8 +30,8 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-DEFAULT_DATA_DIR = ROOT / "data" / "processed" / "rerank"
-DEFAULT_OUT = ROOT / "results" / "compensation" / "rerank_model_comparison.json"
+DEFAULT_DATA_DIR = ROOT / "data" / "processed" / "team_nq_v1" / "rerank"
+DEFAULT_OUT = ROOT / "results" / "compensation" / "team_nq_v1" / "rerank_model_comparison.json"
 DEFAULT_MODELS = (
     "BAAI/bge-reranker-large",
     "BAAI/bge-reranker-base",
@@ -124,18 +124,22 @@ def summarise(ranks: list[int]) -> dict:
     }
 
 
-def main() -> None:
+def main(argv=None) -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
-    parser.add_argument("--split", default="test")
+    parser.add_argument("--split", choices=("train", "validation"), default="validation")
     parser.add_argument("--models", nargs="+", default=list(DEFAULT_MODELS))
     parser.add_argument("--max-length", type=int, default=320)
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--bootstrap", type=int, default=BOOTSTRAP_SAMPLES)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
-    examples = read_jsonl(args.data_dir / f"{args.split}.jsonl")
+    from src.data.team_nq import TeamNQBoundary
+    if args.out.exists():
+        raise FileExistsError('Preserve existing comparison; choose a new output path')
+    parts, data_receipt = TeamNQBoundary(ROOT).read_training_bundle(args.data_dir, component='reranker')
+    examples = parts[args.split]
     if args.limit:
         examples = examples[: args.limit]
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -168,6 +172,7 @@ def main() -> None:
         "answer-bearing passage inside that sample's own frozen Top-5; ties count against it. "
         "This measures ordering only, not final answer accuracy.",
         "split": args.split,
+        "data_boundary": data_receipt['boundary'],
         "examples": len(examples),
         "max_length": args.max_length,
         "bootstrap_samples": args.bootstrap,

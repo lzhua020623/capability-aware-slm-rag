@@ -1,0 +1,9 @@
+{
+  "branch": "controller_2",
+  "commit": "e44a1892a9873586564c856e04e649eb03ebeda6",
+  "protected_files_sha256": {
+    "AGENTS.md": "b748f439ef6d2a5455bc3471a6101cd6bcf5f2c67bd8ba75771ad510cc7fd66a",
+    "data/annotations/assisted/answer_repair_v7_batch01_20261017.jsonl": "119035fd23c89c9cd5f24c1a749b4f549a3c7aa268c38fedf51bc81e366bc4c3"
+  },
+  "source_commit": "387ddafc82bc939ebd27b3137d580db6ecb2e04a"
+}
