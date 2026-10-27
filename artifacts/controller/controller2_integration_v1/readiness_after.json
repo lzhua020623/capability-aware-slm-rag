@@ -1,0 +1,18 @@
+{
+  "baseline": "diagnosis_20261024_p60_p64_v1",
+  "upstream_commit": "138d52aa22e0eee78637e01f981a030d7ad388df",
+  "runtime_entry": "src.pipeline.current.load_current_pipeline",
+  "routing": "Diagnosis -> P60 -> Controller -> EnhancementExecutor",
+  "probe_enabled": false,
+  "ready_for_gpu": false,
+  "missing": [
+    "runtime_78_feature_provider_not_delivered",
+    "P60_training_tuning_calibration_ID_provenance_not_delivered"
+  ],
+  "legacy_fallback": false,
+  "benchmark_quality_evaluated": false,
+  "E_mode": {
+    "nq": "unavailable",
+    "fever": "unavailable"
+  }
+}

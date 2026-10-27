@@ -1,0 +1,20 @@
+{
+  "tested_commit": "6b759a41c59b84345b6fa79212dbab3a78346118",
+  "source_tree_objects": {
+    "src": "ab7b3e9d788a56adb31a6f599308c591a912b750",
+    "scripts": "4809447f1812f11e4da0c5139c83915c0a76cb80",
+    "tests": "2341cbe5eb70ccea2865aedd806149fa2d920c31",
+    "configs": "1c3ff46b266d5cee2a19e869cbb094e309607108",
+    "models": "3ef82aea572b7156d633986b3da9bbe3ee097ad0"
+  },
+  "requirements_sha256": {
+    "requirements-answer-repair-contract.txt": "8310938de5bb27f40928ebc83805aec175cc1ec7891448c3e0d98a28512128d4",
+    "requirements-answer-repair-v8.txt": "1de7e702c31c04b9b6ba5f143d9745b53681107c7bd56b922e114dcff4dd5c62",
+    "requirements-answer-repair.txt": "be6bb6fd5697011033b198085be76ec9e0c987301ccac91b0da7970e4b7e1245",
+    "requirements-controller-e-v2a.txt": "546d94d83d13ea01237c1833136992f8ce54f9704f204b3bb54b94a724d2473b",
+    "requirements-controller-t3.txt": "d81a1d548e476c3f56e619616d333bf3d994277cdb4209364f671996d4d3181c",
+    "requirements-controller.txt": "8c4f9d831629ccf55f6a29e14557710fe8be40e55140eb024792b47c41337bb0",
+    "requirements-refinement-experiments.txt": "b499eca749a7030abb9a7ad5885335bee2cf5522330b9283cc5962f7115b7678",
+    "requirements.txt": "4a086ad8fdeb36dc6a498300be8971625091e3ce0f36d7e1e6d4cf7324904183"
+  }
+}

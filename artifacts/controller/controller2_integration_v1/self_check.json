@@ -1,0 +1,66 @@
+{
+  "schema_version": "controller2_merge_self_check_v1",
+  "before_receipt": "before.json",
+  "branch": "controller_2",
+  "tested_commit": "6b759a41c59b84345b6fa79212dbab3a78346118",
+  "source_heads_merged": {
+    "origin/feature/retrieval-enhancement": "37e469e0bd101dc5a905f95aeca1cafdc6a07e9d",
+    "origin/feature/reranking-enhancement": "55832850640f5fe37c52a02779cc389a2e5f0276"
+  },
+  "both_source_heads_are_ancestors": true,
+  "original_controller_branch_preserved": true,
+  "protected_files_unchanged": {
+    "AGENTS.md": true,
+    "data/annotations/assisted/answer_repair_v7_batch01_20261017.jsonl": true,
+    "configs/controller/current_baseline.json": true,
+    "configs/controller/p60_online_adapter.json": true
+  },
+  "historical_frozen_paths_changed": [],
+  "upstream_result_bytes_preserved": true,
+  "full_tests": {
+    "passed": true,
+    "count": 1224,
+    "seconds": 104.634,
+    "errors": 0,
+    "failures": 0
+  },
+  "targeted_tests": {
+    "retrieval": 50,
+    "reranking_and_integration": 329,
+    "historical_selection": 10
+  },
+  "python_files_parsed": 43,
+  "production_readiness": {
+    "expected_exit_code": 2,
+    "ready_for_gpu": false,
+    "missing": [
+      "runtime_78_feature_provider_not_delivered",
+      "P60_training_tuning_calibration_ID_provenance_not_delivered"
+    ]
+  },
+  "E_mode": {
+    "nq": "unavailable",
+    "fever": "unavailable"
+  },
+  "new_model_candidates_enabled": false,
+  "new_GPU_or_teacher_API_run": false,
+  "user_annotation_staged": false,
+  "created_commits": {
+    "5c793c7c087247eb22e6b4153cbc309ef86818ac": {
+      "author": "Qihan Zhu <qzhu0160@uni.sydney.edu.au>",
+      "committer": "Qihan Zhu <qzhu0160@uni.sydney.edu.au>",
+      "body_empty": true
+    },
+    "eb8a13c1f3ba7933969b2799835c29243f65cb4a": {
+      "author": "Qihan Zhu <qzhu0160@uni.sydney.edu.au>",
+      "committer": "Qihan Zhu <qzhu0160@uni.sydney.edu.au>",
+      "body_empty": true
+    },
+    "6b759a41c59b84345b6fa79212dbab3a78346118": {
+      "author": "Qihan Zhu <qzhu0160@uni.sydney.edu.au>",
+      "committer": "Qihan Zhu <qzhu0160@uni.sydney.edu.au>",
+      "body_empty": true
+    }
+  },
+  "final_validation_commit": "This receipt is versioned by the final audit-only Git commit."
+}

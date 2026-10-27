@@ -12,5 +12,13 @@
   "new_GPU_or_API_inference": false,
   "historical_archives_preserved": true,
   "baseline_evaluation_branch_merged": false,
-  "full_regression": "pending_post_merge_commit"
+  "full_regression": {
+    "passed": true,
+    "tests": 1224,
+    "seconds": 104.634,
+    "log": "full_tests.log",
+    "GPU": false
+  },
+  "reranking_merge_commit": "eb8a13c1f3ba7933969b2799835c29243f65cb4a",
+  "historical_test_fix_commit": "6b759a41c59b84345b6fa79212dbab3a78346118"
 }
