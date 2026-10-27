@@ -1,0 +1,13 @@
+{
+  "tested_source_commit": "41d30be3e1f6642a4fa871533353f2f40017e3a2",
+  "files": {
+    "configs/distillation/e_teacher_transport_v2.json": "669de8e24305f517de1eec1b8d709d9ec29e0c7a243fcdf9b146156c0d5fd389",
+    "configs/distillation/e_teacher_sol_pilot_v1.json": "209e5298371262070a4226fee7b7e16c71573bbddfc8a3ca1bf74e4d9b8235e7",
+    "src/distillation/teacher_rate.py": "2d6085390d77061dc751e409c89e16bacb6e934cf4ef32129d0383d803929c4e",
+    "src/distillation/teacher_pilot.py": "811c935cd2d5b8d4c0becd07d5f37bcce6117bf8f09081d33cd93aaded28c8f4",
+    "scripts/run_e_teacher_pilot.py": "0ee137c861711eabe7e5acc588da5937cd2bae35394e8dfc8cd3790851b307f3",
+    "tests/test_e_teacher_rate.py": "383b8217dc2e2d15062cdd6c5e6a776ebb26cb9f5aebeec33888477107e5c664",
+    "docs/E_DISTILLATION_V1.md": "f0a1dd7474578a2050ac117b497ebfa9503eaa95f6c16ad4db5bac0e25193076",
+    "docs/CONTROLLER_TASKS.md": "50ffbae884c9f8826f3744366dfb467afb524f88edcea913c926fdaf42754033"
+  }
+}

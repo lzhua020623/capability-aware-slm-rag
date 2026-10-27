@@ -1,0 +1,20 @@
+{
+  "type": "offline pacing simulation, not a measured Azure end-to-end runtime",
+  "remaining_tasks_at_snapshot": 490,
+  "already_completed": 10,
+  "legacy_minimum_hours": 8.3,
+  "scenarios": [
+    {
+      "assumed_service_seconds_per_request": 5,
+      "estimated_hours": 1.71
+    },
+    {
+      "assumed_service_seconds_per_request": 15,
+      "estimated_hours": 2.06
+    },
+    {
+      "assumed_service_seconds_per_request": 30,
+      "estimated_hours": 4.1
+    }
+  ]
+}

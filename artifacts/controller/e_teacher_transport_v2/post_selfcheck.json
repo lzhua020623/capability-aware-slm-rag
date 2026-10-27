@@ -1,0 +1,38 @@
+{
+  "tested_source_commit": "41d30be3e1f6642a4fa871533353f2f40017e3a2",
+  "full_tests": {
+    "passed": 1339,
+    "seconds": 135.815,
+    "result": "OK"
+  },
+  "targeted_tests": {
+    "passed": 34,
+    "seconds": 8.639,
+    "result": "OK"
+  },
+  "AST_unchanged_from_ada03c2": [
+    "registration",
+    "preflight",
+    "endpoint",
+    "request_body",
+    "reservation",
+    "usage_cost",
+    "audit_response",
+    "send",
+    "NoRedirect"
+  ],
+  "protected_files_and_original_data_unchanged": true,
+  "parent_teacher_registration_unchanged": true,
+  "source_API_calls_during_tests": 0,
+  "actual_v2_throughput_measured": false,
+  "snapshot_old_run": {
+    "reserved": 17,
+    "settled": 17,
+    "failed": 0,
+    "writer_running": true,
+    "not_stopped_or_restarted_by_this_change": true
+  },
+  "student_training_started": false,
+  "production_E_promoted": false,
+  "fast_launcher_sha256": "eedfa5f1f2f436e8e82bad5c06a46e8ef3839221949da5f00c1b76177ed96cb0"
+}
