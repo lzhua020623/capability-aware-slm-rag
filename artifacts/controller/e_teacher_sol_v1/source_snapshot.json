@@ -1,0 +1,12 @@
+{
+  "tested_source_commit": "ada03c23f3fc16b716ff2c21888b6eb9432f4042",
+  "files": {
+    "configs/distillation/e_teacher_sol_pilot_v1.json": "209e5298371262070a4226fee7b7e16c71573bbddfc8a3ca1bf74e4d9b8235e7",
+    "src/distillation/teacher_pilot.py": "977f04ef9fb8a2971ac5a5f0e4470bf24c6de47db6e35bccd0c89cb5cdf50901",
+    "scripts/run_e_teacher_pilot.py": "818e4b4292b3775bb4fa7f65f5d779caa2ccb83f3cc91e522e40cd8e738e0a35",
+    "tests/test_e_teacher_pilot.py": "ee06e907eb167a05144758ace3362b4db0b935be5d76ad10db88f63cde5b7861",
+    "docs/E_DISTILLATION_V1.md": "68f82b8398899969b1516f6764c100d412d82a6bff104502fa8bc39c1b38ea75",
+    "docs/CONTROLLER_TASKS.md": "9a005db85cee17e780ef0f96a3c20469853305f9335086fc25520b778a650b26",
+    "docs/PROJECT_STATUS_AND_DIRECTION.md": "1ec348747559071402944b6154d4d4fb472b7074fcf5d61c05c8d7587c7492e5"
+  }
+}

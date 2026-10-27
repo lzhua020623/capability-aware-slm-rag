@@ -1,0 +1,17 @@
+{
+  "observed_on": "2026-10-27",
+  "source": "Authenticated Azure Foundry deployment details UI",
+  "model": "gpt-6.1-sol",
+  "version": "2026-09-29",
+  "deployment": "elec5623-e-teacher-sol-v1",
+  "status": "Succeeded",
+  "deployment_type": "GlobalStandard",
+  "TPM": 100000,
+  "RPM": 100,
+  "upgrade_policy": "OnceNewDefaultVersionAvailable",
+  "automatic_upgrade_disabled": false,
+  "no_new_project_or_resource_created": true,
+  "API_credentials_in_archive": false,
+  "account_credit_and_identifiers_in_archive": false,
+  "response_version_verified_by_real_call": false
+}
