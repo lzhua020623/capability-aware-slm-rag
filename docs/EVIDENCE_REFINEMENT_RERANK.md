@@ -481,6 +481,64 @@ That reconciles the negative results above rather than overturning them:
 permuting a fixed context does nothing, and swapping its contents does a great
 deal.
 
+### Handing over fewer passages works better still
+
+Selecting 5 of 50 still hands the generator exactly five passages on every
+question, whether or not five are worth reading. Step 4 of the usual recipe
+fixes that with a score threshold, and this module had never used one
+(`RefinementConfig.min_score` defaulted to `None`).
+
+An absolute threshold is the obvious form and the wrong one. Cross-encoder
+scores are not calibrated across questions, so one cut has to serve a question
+whose best passage scores 0.9 and one whose best scores 0.3; it empties the
+second question's context entirely. A **relative** floor -- keep a passage
+scoring at least `min_score_ratio` of *this* question's best -- adapts per
+question, and because the best passage always clears its own ratio the context
+can never be emptied. Measured on the same selected passages
+(`scripts/analyze_rerank_threshold.py`), the relative form dominates the
+absolute one at every matched level: at ~40% of distractors removed, 15 samples
+lose their only answer-bearing passage against 41 for the absolute cut.
+
+End to end, same 2,367 held-out samples, N=50, k=5, same reused "before"
+answers, the frozen Qwen2.5-7B prompt:
+
+| Arm | passages handed over | EM | token-F1 | repaired | broken | net |
+|---|---|---|---|---|---|---|
+| rerank within the frozen Top-5 | 5.00 | 0.1107 | 0.3219 | 156 | 53 | +103 |
+| 5 of 50, no threshold | 5.00 | 0.1618 | 0.3589 | 291 | 67 | +224 |
+| 5 of 50, ratio 0.4 | 3.54 | 0.1825 | 0.3807 | 334 | 61 | +273 |
+| **5 of 50, ratio 0.6** | **2.77** | **0.2003** | **0.3955** | **376** | **61** | **+315** |
+
+| Paired test vs 5-of-50 without a threshold | McNemar p | 95% CI on EM |
+|---|---|---|
+| ratio 0.4 | 2.9e-04 | [+1.0pp, +3.2pp] |
+| ratio 0.6 | 1.6e-08 | [+2.6pp, +5.2pp] |
+
+`scripts/compare_refinement_arms.py` runs those tests from the saved rows, so
+any two arms can be compared without re-running either.
+
+Two things about that table are worth stating plainly. First, the threshold is
+**not** trading repairs against damage: as it tightens, repairs rise (291 ->
+334 -> 376) while breakages fall slightly (67 -> 61 -> 61). It is not a
+precision/recall knob at the answer level; it is a straight gain. Second, the
+gain is not the grounding gate becoming more permissive -- the gate rejects
+slightly *more* as the threshold tightens (266 -> 285 -> 296), so it is working
+against the trend, not producing it.
+
+What the threshold removes is the module's own padding. At ratio 0.6 it keeps
+45% of the distractors it used to keep and 82% of the answer-bearing passages,
+and the 18% of answer passages it throws away cost less than the 55% of
+distractors it stops handing over. In other words the fixed `keep_k` was itself
+a source of the failure this module exists to repair: on a question with two
+good candidates, padding to five adds three passages the module *chose* as
+noise.
+
+This also sharpens the pruning result above rather than contradicting it.
+Provence prunes sentences *inside* each kept passage and cannot change which
+passages reach the generator; the relative floor drops whole passages and can.
+The level that matters is passage membership, which is the same conclusion the
+pool-widening result reached from the other direction.
+
 ### What ordering alone is worth
 
 Restricted to the frozen Top-5, every arm beats doing nothing by a wide margin
@@ -576,4 +634,6 @@ this branch.
 | `scripts/evaluate_rerank_accessibility.py` | retrieval-side evaluation on the frozen records |
 | `scripts/evaluate_refinement_end_to_end.py` | EM / F1 before and after, local or hosted generator, with `--scorer` and `--pruner` arms |
 | `scripts/analyze_refinement_funnel.py` | where in the chain a repair becomes impossible |
-| `tests/test_refinement_schema.py`, `tests/test_compensation_rerank.py`, `tests/test_evidence_refinement.py`, `tests/test_refinement_adapter.py`, `tests/test_rerank_training_data.py`, `tests/test_nq15_annotations.py`, `tests/test_generation_backend.py`, `tests/test_acceptance_policy.py`, `tests/test_refinement_funnel.py`, `tests/test_pruning.py` | 292 tests; no model is loaded except the frozen prompt builders |
+| `scripts/analyze_rerank_threshold.py` | score distribution and the absolute/relative threshold sweeps |
+| `scripts/compare_refinement_arms.py` | paired McNemar + bootstrap between any two saved arms |
+| `tests/test_refinement_schema.py`, `tests/test_compensation_rerank.py`, `tests/test_evidence_refinement.py`, `tests/test_refinement_adapter.py`, `tests/test_rerank_training_data.py`, `tests/test_nq15_annotations.py`, `tests/test_generation_backend.py`, `tests/test_acceptance_policy.py`, `tests/test_refinement_funnel.py`, `tests/test_pruning.py`, `tests/test_rerank_threshold.py`, `tests/test_refinement_arm_comparison.py`, `tests/test_plugin.py`, `tests/test_candidates.py`, `tests/test_pool_index.py` | 286 tests; no model is loaded except the frozen prompt builders |
