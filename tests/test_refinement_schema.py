@@ -93,7 +93,15 @@ class RefinementConfigTest(unittest.TestCase):
             DEFAULT_REFINEMENT_CONFIG.keep_k = 5  # type: ignore[misc]
         self.assertEqual(
             set(DEFAULT_REFINEMENT_CONFIG.to_dict()),
-            {"keep_k", "min_score", "probe_hint_weight", "require_grounded", "regenerate_when_unchanged", "reranker_model"},
+            {
+                "keep_k",
+                "min_score",
+                "min_score_ratio",
+                "probe_hint_weight",
+                "require_grounded",
+                "regenerate_when_unchanged",
+                "reranker_model",
+            },
         )
 
 

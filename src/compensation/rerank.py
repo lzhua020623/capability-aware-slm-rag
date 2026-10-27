@@ -231,6 +231,11 @@ def rerank_evidence(
     if config.min_score is not None:
         above_floor = [index for index in kept if scores[index] >= config.min_score]
         kept = above_floor or kept[:1]
+    if config.min_score_ratio is not None and kept:
+        # Relative to this sample's own best, so the cut travels across questions
+        # whose score scales differ. The best passage always clears it.
+        floor = config.min_score_ratio * max(scores[index] for index in kept)
+        kept = [index for index in kept if scores[index] >= floor] or kept[:1]
 
     kept_set = set(kept)
     evidence = tuple(
