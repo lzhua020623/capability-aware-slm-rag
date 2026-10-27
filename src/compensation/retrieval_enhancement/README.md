@@ -98,3 +98,58 @@ full reranker revision, unique sample IDs/count/order, and ordered Top-5 against
 stored P3-20 selections. It does not open Gold/answer/Diagnosis datasets. It
 writes selections, source checksums and an explicit pass/fail report; incomplete
 or mismatching results are errors, never successful consistency claims.
+
+## Phase 6-1 GPU generation handoff (no retrieval on GPU)
+
+`scripts/prepare_nq_p320_generation.py` reconstructs P3-20 from checksummed saved
+scores, validates all 2381 IDs against the existing split exclusions, joins
+observable C1 predictions from `nq_3216_diagnosis_inputs.jsonl`, and exports only
+changed ordered Top-5 contexts. GPU JSONL has exactly `sample_id`, `question`,
+`initial_answer`, `evidence`; passages have only `rank`, `passage_id`, `text`.
+
+The output `nq_p320_gpu_generation.zip` is the only GPU transfer artifact.
+`mac_offline_only/references.jsonl` stays on Mac and contains offline Gold/labels.
+No model/index, original annotations or Frozen/test inputs are packaged. Original
+C1 predictions are annotation-derived, not a fully traceable canonical C1 run.
+Canonical Metadata text is preserved; existing C1 Unicode differences are audited,
+not decoded or silently overwritten.
+
+GPU entry point (from the extracted `gpu_bundle` directory):
+
+```sh
+python -B scripts/run_nq_p320_gpu_generation.py --input generation_inputs.jsonl --output-dir gpu_results --limit 20
+python -B scripts/run_nq_p320_gpu_generation.py --input generation_inputs.jsonl --output-dir gpu_results --resume
+```
+
+It reuses the frozen Qwen C1 loader/prompt/settings and Phase 6-0 answer guard.
+Each terminal record is appended, checksummed and fsynced. Resume validates the
+input/config/source hashes and skips the exact completed prefix. An interrupted
+write is preserved as a backup before tail repair; complete corruption fails.
+A generator error saves an explicit fallback and stops the session. That failed
+row stays in evaluation and is not automatically retried. The first generation
+timing includes lazy model initialization; the GPU model receipt separately
+records load time, actual matching model/tokenizer commits and dependencies.
+Original C1 did not pin Qwen weights, so original-weight parity remains unverified.
+
+After returning the entire `gpu_results` directory to Mac:
+
+```sh
+python3 -B scripts/evaluate_nq_p320_generation.py \
+  --reference /path/to/mac_offline_only/references.jsonl \
+  --input /path/to/gpu_bundle/generation_inputs.jsonl \
+  --gpu-output-dir /path/to/returned/gpu_results \
+  --output-dir /path/to/new/offline_report
+```
+
+The evaluator requires complete changed-sample results and all 2381 references.
+It includes unchanged predictions and explicit generation failures in full-set
+EM/F1, reports the four AI-label strata, and uses these denominators:
+
+- correct-class harm: Base EM=1 -> Final EM=0 / Base EM=1 within label=correct.
+- guard rejection: rejected / successful string generations; errors are separate.
+- rejected-but-correct: raw EM=1 / guard-rejected answers.
+
+GPU time is unknown before hardware measurement. For 2313 generations, planning
+scenarios of 2/5/10 seconds per sample imply 1h17m / 3h13m / 6h26m plus model
+setup. These are arithmetic scenarios, not measured GPU throughput. Calibrate
+on the first 20, separating model-load time, before forecasting the remaining run.

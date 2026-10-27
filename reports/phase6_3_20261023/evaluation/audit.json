@@ -1,0 +1,53 @@
+{
+  "zip_sha256": "5a7b92da20e2e3ed227b475cd12d03691ad9e986e6bbcfd35b7f89cdc9ab602e",
+  "reference_sha256": "422509f40cc4897634c6bf24f73b5e64cee6fb1042e083b7af784518027dcb64",
+  "verified_package_files": {
+    "README.txt": "aedd5a7e276ce1cee5e9abec3c4c593bcefa654d29e3447558e9ff1a6d53d728",
+    "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+    "generation_inputs.jsonl": "a314f329cc4152808bacaf856fd2e979dac163946be4ae692dde58fb57d0e899",
+    "requirements-gpu.txt": "31852acbfbd4124b754d39debca2b827a7691639983179cefeee834e55e75425",
+    "scripts/run_nq_p320_gpu_generation.py": "24231740f8bdee9b37e809467d096bd572a53c7662f7e77afaf7084be765bf39",
+    "src/__init__.py": "a54def8f254ea77cf89df6eec69911b8a06a922f098c0260296ee53a77fb66b7",
+    "src/compensation/__init__.py": "e6a14ed2a66bb3844648fbd04ec796a198b10f84933b661b410da1af95d51cb9",
+    "src/compensation/retrieval_enhancement/__init__.py": "bc8a4ae1d724f0acdfa0854be77fdddce299e3b78e9cf76d7d6cf668f52e4113",
+    "src/compensation/retrieval_enhancement/adapters.py": "720878cb51a8089c6928366ddfac38835704c4f01395cecb3d85c6e23571d8d7",
+    "src/compensation/retrieval_enhancement/enhancer.py": "6bb682d360acfe76203b0f10b79e8f36c3391c863765fd9b3a8d827b054ecdf9",
+    "src/compensation/retrieval_enhancement/evaluation.py": "d082c84cfeba6c7138ff4b102279233a0612c24f9fb7c4a3d07451a55a740417",
+    "src/compensation/retrieval_enhancement/fusion.py": "1eeaf9a7c88422d9500aa1f5e0d9d3f46940e5c4b23367a3b534dd472f7140a2",
+    "src/compensation/retrieval_enhancement/generation_replay.py": "bd29f254bef404f2417c0af7e0736f4099d70889d9ebad2ec638b68ed8c9968c",
+    "src/compensation/retrieval_enhancement/p3.py": "9674448180a21b6be897d334366af42e6b99646c9d128fff164d781c8381ef20",
+    "src/compensation/retrieval_enhancement/replay.py": "4ea56d235455dd3c52eda185193acda0b2ba61e041eda944cf899f2dcf9dcdcd",
+    "src/compensation/retrieval_enhancement/rewriting.py": "e545b248fbe55260f2b7f3560de85c07cc575d72e2902ab167a72a0debe008ea",
+    "src/compensation/retrieval_enhancement/types.py": "f0c5ba2ef7b999e3b37616b8a32db50f6364b9ed66d25e8e52d896a31e4ab32c",
+    "src/config.py": "9b2c12efa927872022fb626a1479944e660c4f3a21de25cd0beae8f17e2be9e1",
+    "src/evaluation/__init__.py": "45da70e1184a66129a5b3ca8a3e776906f31781006b4b4257fbd213b8ca54cfd",
+    "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+    "src/evaluation/recoverability.py": "2fc8451f54952cfb7ccc6bbe1d945f2f091e3863a06ce3c6415f60d5e45aa4e1",
+    "src/generation/__init__.py": "59f7c1600b5430abd57b2353211fbe9d48305b29970737e649e6cd42b23311db",
+    "src/generation/qwen.py": "de8c2542a201fa86e2ceb445bbd6403e85f20b4a55ba08eeeac77238493d23c8"
+  },
+  "source_verification": {
+    "mode": "explicit_win2_manifest",
+    "manifest_sha256": "3c72eb6d5ba62714711b18ae71c7a1c78943f5f18565ab6e1342005a55d79f7d",
+    "source_sha256": {
+      "configs/base.yaml": "c9138855c6b0d4e86815604aab4acff4d8686f7c776e0a3ad03b3004313b0a8f",
+      "src/generation/qwen.py": "de8c2542a201fa86e2ceb445bbd6403e85f20b4a55ba08eeeac77238493d23c8",
+      "src/evaluation/qa.py": "05cbec1af73a460634ce1e49646da86d8ed3861988507a866b821e9a5bd76c4f",
+      "src/compensation/retrieval_enhancement/p3.py": "9674448180a21b6be897d334366af42e6b99646c9d128fff164d781c8381ef20",
+      "src/compensation/retrieval_enhancement/generation_replay.py": "bd29f254bef404f2417c0af7e0736f4099d70889d9ebad2ec638b68ed8c9968c",
+      "scripts/run_nq_p320_gpu_generation.py": "24231740f8bdee9b37e809467d096bd572a53c7662f7e77afaf7084be765bf39"
+    },
+    "reason": "Reviewed Windows locking and commit-receipt compatibility fixes; prompt, generation and guard unchanged"
+  },
+  "complete_ordered_guard_verified": 2313,
+  "unchanged": 68,
+  "generation_errors": 0,
+  "raw_file_sha256": {
+    "session_487d5b89f6014dc48aa43cedeff779de.json": "36f324b42726c57ca13c9f0b4ad35e251d832acc115e2d90301a9846ee250e63",
+    "writer.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "session_3e3262af3f614734b554f4bf9d01afab.json": "4c8df9ba5932afbeb0b681126af5d94db6183d8f360a40b9c60d64d7abcfce6f",
+    "model_receipt.json": "a2704d80557f807583a06e007339c4f50a42df084c9591c176a04a7001668b6f",
+    "results.jsonl": "fbaf677251503d5c8a5d148f37f2b4c5b0f4924915ac42da97d56dd1bf3d2d8f",
+    "run_manifest.json": "233d06fa9ad832190b57cee9bea8358a87b632f6815fb9e1e27d6fc425c64496"
+  }
+}
