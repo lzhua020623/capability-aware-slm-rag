@@ -61,6 +61,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.compensation.evidence_refinement import EvidenceRefiner, build_refinement_prompt  # noqa: E402
+from src.compensation.candidates import DEFAULT_TOP_N, IndexCandidateProvider  # noqa: E402
 from src.compensation.pruning import MatchedRandomPruner, ProvencePruner  # noqa: E402
 from src.compensation.rerank import scorer_from_name  # noqa: E402
 from src.compensation.refinement_schema import RefinementConfig  # noqa: E402
@@ -139,8 +140,8 @@ def build_refiner(args, config: RefinementConfig):
     through it.
     """
     if args.backend == "frozen":
-        if args.scorer != "cross_encoder" or args.pruner != "none":
-            raise SystemExit("--scorer/--pruner need a hosted backend; the frozen loader builds its own scorer")
+        if args.scorer != "cross_encoder" or args.pruner != "none" or args.top_n is not None:
+            raise SystemExit("--scorer/--pruner/--top-n need a hosted backend; the frozen loader fixes its own pool and scorer")
         return EvidenceRefiner.from_frozen_defaults(config=config), "frozen local Qwen2.5-7B NF4", False
 
     backend = build_backend(args.backend, args.generator_model, args.base_url, args.api_key)
@@ -151,8 +152,12 @@ def build_refiner(args, config: RefinementConfig):
         return text
 
     pruner, pruner_name = build_pruner(args)
-    refiner = EvidenceRefiner(build_scorer(args, config), generate, config=config, pruner=pruner)
-    return refiner, f"{backend.name} | pruner {pruner_name}", True
+    provider = IndexCandidateProvider.from_frozen_artifacts(top_n=args.top_n) if args.top_n else None
+    refiner = EvidenceRefiner(
+        build_scorer(args, config), generate, config=config, candidate_provider=provider, pruner=pruner
+    )
+    pool_name = f"top-{args.top_n} re-retrieved" if args.top_n else "frozen Top-5"
+    return refiner, f"{backend.name} | pool {pool_name} | pruner {pruner_name}", True
 
 
 def frozen_500_records(path: Path, label_file: Path, label: str) -> list[dict]:
@@ -216,6 +221,13 @@ def main(argv=None) -> None:
     parser.add_argument("--prune-threshold", type=float, default=0.1)
     parser.add_argument("--prune-seed", type=int, default=42)
     parser.add_argument(
+        "--top-n",
+        type=int,
+        default=None,
+        help=f"re-retrieve this many candidates from the frozen index before reranking "
+        f"(the usual recipe uses {DEFAULT_TOP_N}); omit to rerank only the frozen Top-5",
+    )
+    parser.add_argument(
         "--before-from",
         type=Path,
         default=None,
@@ -239,6 +251,8 @@ def main(argv=None) -> None:
         "(default: on for every backend except frozen)",
     )
     args = parser.parse_args(argv)
+    if args.top_n is not None and (args.top_n < 1 or args.backend == 'frozen'):
+        parser.error('--top-n must be positive and requires a non-frozen backend; the frozen pool cannot be changed')
     if args.out.exists():
         raise FileExistsError('Preserve existing evaluation; choose a new output path')
 
@@ -392,6 +406,7 @@ def main(argv=None) -> None:
             "name": generator_name,
             "model": args.generator_model if args.backend != "frozen" else str(generator_config["model_name"]),
             "max_new_tokens": args.max_new_tokens,
+            "candidate_pool": f"top-{args.top_n}" if args.top_n else "frozen top-5",
             "pruner": args.pruner,
             "prune_threshold": args.prune_threshold if args.pruner != "none" else None,
             "prune_seed": args.prune_seed if args.pruner == "random" else None,

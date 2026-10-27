@@ -1,0 +1,33 @@
+{
+  "schema_version": "rerank_latest_integration_v1",
+  "upstream_head": "1d518562daa97ad555657a1965db4b8e02815c69",
+  "previous_head": "55832850640f5fe37c52a02779cc389a2e5f0276",
+  "merge_parent": "0f668b28b5aa10c09038b8e99279624347ef8b9d",
+  "imported_commits": [
+    "12aa2c669fe663e1f1a7b7242680d0446167260a",
+    "56d952f9325ffdf86473a5bb0dc2cb2f4289a165",
+    "1d518562daa97ad555657a1965db4b8e02815c69"
+  ],
+  "upstream_files": [
+    "results/compensation/answer_selector_evaluation.json",
+    "results/compensation/selector_training_metrics.json",
+    "scripts/analyze_answer_selection.py",
+    "scripts/evaluate_answer_selector.py",
+    "scripts/evaluate_refinement_end_to_end.py",
+    "src/compensation/candidates.py",
+    "tests/test_answer_selection.py",
+    "tests/test_candidates.py"
+  ],
+  "deep_pool_enabled_in_current_controller": false,
+  "new_selector_promoted": false,
+  "new_GPU_benchmark_calls": 0,
+  "pilot_teacher_calls": 0,
+  "training_runs": 0,
+  "current_components_original_blockers_unchanged": true,
+  "local_faiss_and_sentence_transformers_import_without_models": "passed",
+  "initial_unit_attempts": [
+    "native exit 139 under test module substitution",
+    "17 native-extension reload import errors under whole sys.modules restoration"
+  ],
+  "corrected_test_injection": "inject native dependency factory; never replace/restore the whole module cache"
+}

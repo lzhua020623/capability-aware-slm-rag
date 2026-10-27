@@ -1,0 +1,29 @@
+{
+  "note": "Offline re-scoring of answers that already existed; the selector adds no generation. Every candidate is judged against the frozen Top-5 evidence.",
+  "selector": "E:\\Sydney\\26S2\\ELEC5623\\Project\\capability-aware-slm-rag\\models\\selector\\answer_selector_v1",
+  "arms": {
+    "trained": "results/compensation/refinement_end_to_end_accessibility.json",
+    "shuffle": "results/compensation/refinement_end_to_end_shuffle_control.json",
+    "provence": "results/compensation/refinement_end_to_end_provence.json",
+    "randprune": "results/compensation/refinement_end_to_end_random_prune.json"
+  },
+  "samples": 2367,
+  "exact_match": {
+    "baseline_before": 0.0672,
+    "arm_trained": 0.1107,
+    "arm_shuffle": 0.1187,
+    "arm_provence": 0.0925,
+    "arm_randprune": 0.1014,
+    "majority_vote": 0.1018,
+    "oracle_all_candidates": 0.2391,
+    "selector_two_way_trained": 0.0997,
+    "oracle_two_way_trained": 0.1331,
+    "selector_two_way_shuffle": 0.1073,
+    "oracle_two_way_shuffle": 0.1462,
+    "selector_two_way_provence": 0.0866,
+    "oracle_two_way_provence": 0.1217,
+    "selector_two_way_randprune": 0.1005,
+    "oracle_two_way_randprune": 0.1381,
+    "selector_all_candidates": 0.1407
+  }
+}

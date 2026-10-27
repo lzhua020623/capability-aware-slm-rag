@@ -10,6 +10,8 @@
 
 E 的 [输出蒸馏准备](docs/E_DISTILLATION_V1.md)已启动：固定 Train 内 500 条教师试产及独立开发/选型清单，准备离线任务。教师 API、QLoRA/SFT 尚未执行，当前 E 继续 unavailable。
 
+收尾发现重排分支新增三次提交，已兼容接入至 `1d51856`，见 [最新重排集成](docs/RERANK_1D51856_INTEGRATION.md)。深候选池保持显式实验开关，不改变生产 Top-5，也不改变 E 教师输入。
+
 `controller_2` 从 `controller@5da8fa6` 创建，合入补检索 `37e469e` 与重排 `5583285`。
 合并说明、兼容处理、验证记录及下一步见 [Controller 2 交接](docs/CONTROLLER2_INTEGRATION.md)。
 当前运行配置保持原样：新重排权重、句子裁剪和答案选择器均未晋升默认；E 仍 unavailable，P60 的两项材料仍待交付。

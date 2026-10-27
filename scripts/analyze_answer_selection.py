@@ -51,6 +51,14 @@ def load_arms(specs: list[str]) -> dict[str, dict[str, dict]]:
     return arms
 
 
+def unique_candidates(answers: list[str]) -> list[str]:
+    """Deduplicate on the normalised form, keeping the first spelling seen."""
+    seen: dict[str, str] = {}
+    for answer in answers:
+        seen.setdefault(normalize_answer(answer), answer)
+    return list(seen.values())
+
+
 def majority_vote(candidates: list[str], fallback: str) -> str:
     """The most repeated answer; the fallback when every candidate differs.
 

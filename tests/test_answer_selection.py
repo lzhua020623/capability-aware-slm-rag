@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import unittest
 
-from scripts.analyze_answer_selection import best_candidate, majority_vote, score
+from scripts.analyze_answer_selection import best_candidate, majority_vote, score, unique_candidates
 
 
 class MajorityVoteTest(unittest.TestCase):
@@ -62,6 +62,20 @@ class OrderingPropertyTest(unittest.TestCase):
         candidates = ["Lyon", "Lyon", "Paris"]
         voted = {"a": majority_vote(candidates, "Nice")}
         self.assertEqual(score(voted, gold), 0.0)
+
+
+class UniqueCandidatesTest(unittest.TestCase):
+    def test_duplicates_collapse_on_the_normalised_form(self):
+        self.assertEqual(unique_candidates(["Paris", "paris.", "Lyon"]), ["Paris", "Lyon"])
+
+    def test_the_first_spelling_survives(self):
+        self.assertEqual(unique_candidates(["the Globe .", "Globe"]), ["the Globe ."])
+
+    def test_an_empty_list_stays_empty(self):
+        self.assertEqual(unique_candidates([]), [])
+
+    def test_a_single_candidate_is_unchanged(self):
+        self.assertEqual(unique_candidates(["Paris"]), ["Paris"])
 
 
 if __name__ == "__main__":
