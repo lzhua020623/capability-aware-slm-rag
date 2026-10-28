@@ -1,0 +1,72 @@
+{
+  "note": "Paired McNemar exact test on exact match plus paired bootstrap CIs, same samples through the same frozen generator.",
+  "baseline": {
+    "name": "top50_ratio0.6",
+    "config": {
+      "keep_k": 5,
+      "min_score": null,
+      "min_score_ratio": 0.6,
+      "probe_hint_weight": 0.0,
+      "require_grounded": true,
+      "regenerate_when_unchanged": false,
+      "reranker_model": "models/reranker/accessibility_v1"
+    },
+    "summary": {
+      "samples": 2367,
+      "em_before": 0.0672,
+      "em_after": 0.2003,
+      "f1_before": 0.2784,
+      "f1_after": 0.3955,
+      "fixed": 376,
+      "broken": 61,
+      "net_fixed": 315,
+      "answers_changed": 1130,
+      "evidence_changed": 2364,
+      "seconds_per_sample": 1.608
+    }
+  },
+  "comparisons": [
+    {
+      "baseline": "top50_ratio0.6",
+      "arm": "top50_ratio0.8",
+      "paired_samples": 2367,
+      "em_baseline": 0.2003,
+      "em_arm": 0.2066,
+      "only_baseline_correct": 62,
+      "only_arm_correct": 77,
+      "mcnemar_p": 0.23493150329059706,
+      "em": {
+        "delta": 0.0063,
+        "ci95_low": -0.0034,
+        "ci95_high": 0.0165
+      },
+      "f1": {
+        "delta": 0.002,
+        "ci95_low": -0.0075,
+        "ci95_high": 0.0116
+      }
+    },
+    {
+      "baseline": "top50_ratio0.6",
+      "arm": "top50_keep1",
+      "paired_samples": 2367,
+      "em_baseline": 0.2003,
+      "em_arm": 0.199,
+      "only_baseline_correct": 120,
+      "only_arm_correct": 117,
+      "mcnemar_p": 0.8966702477067263,
+      "em": {
+        "delta": -0.0013,
+        "ci95_low": -0.0139,
+        "ci95_high": 0.0114
+      },
+      "f1": {
+        "delta": -0.0102,
+        "ci95_low": -0.0226,
+        "ci95_high": 0.002
+      }
+    }
+  ],
+  "iterations": 10000,
+  "seed": 42
+}

@@ -61,7 +61,13 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.compensation.evidence_refinement import EvidenceRefiner, build_refinement_prompt  # noqa: E402
-from src.compensation.candidates import DEFAULT_TOP_N, IndexCandidateProvider  # noqa: E402
+from src.compensation.candidates import (  # noqa: E402
+    DEFAULT_CORPUS,
+    DEFAULT_IDS,
+    DEFAULT_INDEX,
+    DEFAULT_TOP_N,
+    IndexCandidateProvider,
+)
 from src.compensation.pruning import MatchedRandomPruner, ProvencePruner  # noqa: E402
 from src.compensation.rerank import scorer_from_name  # noqa: E402
 from src.compensation.refinement_schema import RefinementConfig  # noqa: E402
@@ -145,6 +151,10 @@ def build_refiner(args, config: RefinementConfig):
         return EvidenceRefiner.from_frozen_defaults(config=config), "frozen local Qwen2.5-7B NF4", False
 
     backend = build_backend(args.backend, args.generator_model, args.base_url, args.api_key)
+    # Hosted DNS here drops for minutes at a time; the backend default of 5 retries
+    # (about 31s of backoff) is not enough to ride that out.
+    if hasattr(backend, "max_retries"):
+        backend.max_retries = args.api_max_retries
     max_new_tokens = args.max_new_tokens
 
     def generate(prompt: str) -> str:
@@ -152,7 +162,13 @@ def build_refiner(args, config: RefinementConfig):
         return text
 
     pruner, pruner_name = build_pruner(args)
-    provider = IndexCandidateProvider.from_frozen_artifacts(top_n=args.top_n) if args.top_n else None
+    provider = (
+        IndexCandidateProvider.from_frozen_artifacts(
+            corpus_path=args.pool_corpus, index_path=args.pool_index, ids_path=args.pool_ids, top_n=args.top_n
+        )
+        if args.top_n
+        else None
+    )
     refiner = EvidenceRefiner(
         build_scorer(args, config), generate, config=config, candidate_provider=provider, pruner=pruner
     )
@@ -224,9 +240,19 @@ def main(argv=None) -> None:
         "--top-n",
         type=int,
         default=None,
-        help=f"re-retrieve this many candidates from the frozen index before reranking "
+        help=f"re-retrieve this many candidates from the index before reranking "
         f"(the usual recipe uses {DEFAULT_TOP_N}); omit to rerank only the frozen Top-5",
     )
+    parser.add_argument(
+        "--min-score-ratio",
+        type=float,
+        default=None,
+        help="drop a kept passage scoring below this fraction of the sample's best; lets the number of "
+        "passages vary per question instead of always handing over keep_k of them",
+    )
+    parser.add_argument("--pool-corpus", type=Path, default=DEFAULT_CORPUS)
+    parser.add_argument("--pool-index", type=Path, default=DEFAULT_INDEX)
+    parser.add_argument("--pool-ids", type=Path, default=DEFAULT_IDS)
     parser.add_argument(
         "--before-from",
         type=Path,
@@ -242,6 +268,12 @@ def main(argv=None) -> None:
     parser.add_argument("--generator-model", default=None, help="model id at the hosted endpoint")
     parser.add_argument("--base-url", default=None, help="override the provider base URL")
     parser.add_argument("--api-key", default=None, help="defaults to $LLM_API_KEY")
+    parser.add_argument(
+        "--api-max-retries",
+        type=int,
+        default=20,
+        help="retries per hosted call; the backoff caps at 30s, so 20 rides out roughly 10 minutes of outage",
+    )
     parser.add_argument("--max-new-tokens", type=int, default=None, help="defaults to configs/base.yaml")
     parser.add_argument(
         "--regenerate-before",
@@ -312,7 +344,7 @@ def main(argv=None) -> None:
             raise SystemExit(f"{args.before_from} is missing before answers for {len(missing)} samples")
 
     scorer_id = {"shuffle": f"shuffle:{args.shuffle_seed}", "identity": "identity"}.get(args.scorer, args.model)
-    config = RefinementConfig(keep_k=args.keep_k, reranker_model=scorer_id)
+    config = RefinementConfig(keep_k=args.keep_k, reranker_model=scorer_id, min_score_ratio=args.min_score_ratio)
     print(f"loading scorer {config.reranker_model} and generator backend {args.backend}")
     refiner, generator_name, must_regenerate = build_refiner(args, config)
     regenerate_before = must_regenerate if args.regenerate_before is None else args.regenerate_before
@@ -407,6 +439,7 @@ def main(argv=None) -> None:
             "model": args.generator_model if args.backend != "frozen" else str(generator_config["model_name"]),
             "max_new_tokens": args.max_new_tokens,
             "candidate_pool": f"top-{args.top_n}" if args.top_n else "frozen top-5",
+            "min_score_ratio": args.min_score_ratio,
             "pruner": args.pruner,
             "prune_threshold": args.prune_threshold if args.pruner != "none" else None,
             "prune_seed": args.prune_seed if args.pruner == "random" else None,

@@ -313,3 +313,56 @@ class IdentityScorerTest(unittest.TestCase):
 
     def test_it_satisfies_the_scorer_protocol(self):
         self.assertIsInstance(IdentityScorer(), RelevanceScorer)
+
+
+class RelativeScoreFloorTest(unittest.TestCase):
+    """min_score_ratio drops passages scoring below a fraction of the sample's own best."""
+
+    def scored(self, scores, **config):
+        request = item(*[f"p{index}" for index in range(1, len(scores) + 1)])
+        table = {f"passage p{index + 1}": score for index, score in enumerate(scores)}
+        return rerank_evidence(
+            request.query, request.evidence, ScoreTable(table), RefinementConfig(keep_k=5, **config)
+        )
+
+    def test_it_keeps_only_what_clears_the_fraction(self):
+        kept = self.scored([0.9, 0.5, 0.3, 0.2, 0.1], min_score_ratio=0.5)
+        self.assertEqual([p.passage_id for p in kept.evidence], ["p1", "p2"])
+
+    def test_none_keeps_everything(self):
+        kept = self.scored([0.9, 0.5, 0.3, 0.2, 0.1])
+        self.assertEqual(len(kept.evidence), 5)
+
+    def test_the_best_passage_always_survives(self):
+        kept = self.scored([0.9, 0.5, 0.3], min_score_ratio=1.0)
+        self.assertEqual([p.passage_id for p in kept.evidence], ["p1"])
+
+    def test_a_flat_distribution_keeps_everything(self):
+        kept = self.scored([0.5, 0.5, 0.5], min_score_ratio=0.9)
+        self.assertEqual(len(kept.evidence), 3)
+
+    def test_it_adapts_to_the_sample_scale(self):
+        high = self.scored([0.9, 0.5], min_score_ratio=0.6)
+        low = self.scored([0.2, 0.1], min_score_ratio=0.6)
+        self.assertEqual(len(high.evidence), 1)
+        self.assertEqual(len(low.evidence), 1)
+
+    def test_dropped_ids_are_reported(self):
+        kept = self.scored([0.9, 0.5, 0.1], min_score_ratio=0.5)
+        self.assertEqual(kept.dropped_passage_ids, ("p3",))
+
+    def test_it_composes_with_keep_k(self):
+        request = item("p1", "p2", "p3", "p4", "p5")
+        table = {f"passage p{index}": score for index, score in enumerate([0.9, 0.8, 0.1, 0.1, 0.1], start=1)}
+        kept = rerank_evidence(
+            request.query, request.evidence, ScoreTable(table), RefinementConfig(keep_k=3, min_score_ratio=0.5)
+        )
+        self.assertEqual([p.passage_id for p in kept.evidence], ["p1", "p2"])
+
+    def test_the_ratio_is_validated(self):
+        for bad in (-0.1, 1.5):
+            with self.assertRaises(ValueError):
+                RefinementConfig(min_score_ratio=bad)
+        with self.assertRaises(TypeError):
+            RefinementConfig(min_score_ratio="0.5")
+        self.assertIsNone(RefinementConfig().min_score_ratio)

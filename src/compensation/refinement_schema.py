@@ -102,6 +102,15 @@ class RefinementConfig:
         Optional absolute reranker-score floor. A passage below it is dropped
         unless dropping it would leave nothing; `None` disables the floor,
         because cross-encoder logits are not calibrated across models.
+    min_score_ratio
+        Optional floor relative to the best-scoring kept passage: drop a
+        passage scoring below `ratio * best`. Score scales differ between
+        questions, so a relative cut separates answer from distraction far
+        better than an absolute one -- at a matched 40% of distractors removed
+        it costs 15 samples their only answer-bearing passage against 41 for
+        the absolute floor (`results/compensation/rerank_threshold.json`). The
+        best passage always clears its own ratio, so this can never empty the
+        context.
     probe_hint_weight
         Score adjustment applied with the Probe's rank hints, as
         `weight * (is_conflicting - is_supporting)`. `supporting_ranks` back
@@ -123,6 +132,7 @@ class RefinementConfig:
 
     keep_k: int = DEFAULT_KEEP_K
     min_score: float | None = None
+    min_score_ratio: float | None = None
     probe_hint_weight: float = 0.0
     require_grounded: bool = True
     regenerate_when_unchanged: bool = False
@@ -135,6 +145,11 @@ class RefinementConfig:
             raise ValueError(f"keep_k must be in [1, {MAX_EVIDENCE_RANK}], got {self.keep_k}")
         if self.min_score is not None:
             object.__setattr__(self, "min_score", _finite("min_score", self.min_score))
+        if self.min_score_ratio is not None:
+            ratio = _finite("min_score_ratio", self.min_score_ratio)
+            if not 0.0 <= ratio <= 1.0:
+                raise ValueError(f"min_score_ratio must be in [0.0, 1.0], got {ratio}")
+            object.__setattr__(self, "min_score_ratio", ratio)
         object.__setattr__(self, "probe_hint_weight", _finite("probe_hint_weight", self.probe_hint_weight))
         for name in ("require_grounded", "regenerate_when_unchanged"):
             if not isinstance(getattr(self, name), bool):
@@ -146,6 +161,7 @@ class RefinementConfig:
         return {
             "keep_k": self.keep_k,
             "min_score": self.min_score,
+            "min_score_ratio": self.min_score_ratio,
             "probe_hint_weight": self.probe_hint_weight,
             "require_grounded": self.require_grounded,
             "regenerate_when_unchanged": self.regenerate_when_unchanged,

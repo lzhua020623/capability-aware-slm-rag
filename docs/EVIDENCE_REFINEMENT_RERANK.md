@@ -71,19 +71,33 @@ is the normal case, and harm avoidance matters more than recall.
 ## 2. Interface
 
 The host pipeline dispatches through `EnhancementExecutor`
-(`docs/ENHANCEMENT_INTEGRATION_CONTRACT.md`): register one adapter per lane and
-the executor calls `enhance(EnhancementRequest) -> EnhancementResult`.
+(`docs/ENHANCEMENT_INTEGRATION_CONTRACT.md`). One call registers this lane with
+the configuration the measurements support:
 
 ```python
 from src.compensation import EnhancementExecutor
-from src.compensation.evidence_refinement import EvidenceRefiner
-from src.compensation.refinement_adapter import EvidenceRefinementAdapter
-from src.controller.schema import ControllerAction
+from src.compensation.plugin import register_refinement_plugin
 
-refiner = EvidenceRefiner.from_frozen_defaults()      # cross-encoder + Qwen2.5-7B NF4
 executor = EnhancementExecutor()
-executor.register(ControllerAction.EVIDENCE_REFINEMENT, EvidenceRefinementAdapter(refiner))
+register_refinement_plugin(executor)            # frozen local Qwen2.5-7B NF4
+# or: register_refinement_plugin(executor, generate_fn=my_hosted_call)
 ```
+
+That wires up the deeper candidate pool (Top-50), the trained cross-encoder,
+a relative score floor of 0.6, the frozen prompt and the acceptance gate.
+`top_n=None` falls back to reranking only the frozen Top-5, which section 6
+shows is worth about a third as much; nothing picks that silently. Both the
+reranker and the pool index are gitignored build artifacts, and a missing one
+raises with the command that rebuilds it.
+
+| Entry point | Returns | Use |
+|---|---|---|
+| `register_refinement_plugin(executor, ...)` | the adapter | the one-call setup |
+| `build_refinement_plugin(...)` | `EvidenceRefinementAdapter` | build without registering |
+| `build_refiner(...)` | `EvidenceRefiner` | the refiner alone |
+| `refiner(item, decision)` | `str` | the original two-argument call |
+| `refiner.run(item, decision, probe_result=None)` | `RefinementResult` | full record for logging and offline evaluation |
+| `rerank_evidence(query, candidates, scorer, config, probe_result)` | `RerankOutcome` | reranking alone, no generation |
 
 `EvidenceRefinementAdapter` only converts schemas — the reranking, the
 acceptance rule and the thresholds all stay in `EvidenceRefiner`, so a direct
@@ -91,46 +105,32 @@ call and the executor path return the same answer (asserted in
 `tests/test_refinement_adapter.py`). It lets exceptions reach the executor,
 which turns them into an `ERROR` result that keeps the initial answer.
 
-The earlier two-argument call from the original handoff still works and is what
-the adapter forwards to:
+`EvidenceRefiner(scorer, generate_fn, config, candidate_provider, prompt_builder, pruner)`
+takes every collaborator by injection, so tests load no model. The
+`candidate_provider` is what widens the pool; without one the refiner sees only
+the evidence the generator already saw.
 
-```python
-if decision.action is ControllerAction.EVIDENCE_REFINEMENT:
-    final_answer = refiner(item, decision)
-```
+`RefinementConfig`: `keep_k` (5), `min_score` (`None`), `min_score_ratio`
+(`None`), `probe_hint_weight` (0.0), `require_grounded` (`True`),
+`regenerate_when_unchanged` (`False`), `reranker_model`. Those are the neutral
+defaults; `validated_config()` returns the measured setup, which differs in one
+field -- `min_score_ratio=0.6`.
 
-| Entry point | Returns | Use |
-|---|---|---|
-| `EvidenceRefinementAdapter(refiner).enhance(request)` | `EnhancementResult` | the host pipeline's lane |
-| `refiner(item, decision)` | `str` | the original two-argument call |
-| `evidence_refinement(item, decision, refiner)` | `str` | same, with the refiner passed explicitly |
-| `refiner.run(item, decision, probe_result=None)` | `RefinementResult` | full record for logging and offline evaluation |
-| `rerank_evidence(query, candidates, scorer, config, probe_result)` | `RerankOutcome` | reranking alone, no generation |
-
-`EvidenceRefiner(scorer, generate_fn, config, candidate_provider, prompt_builder)`
-takes every collaborator by injection, so tests load no model. The optional
-`candidate_provider(item) -> Iterable[EvidenceItem]` widens the candidate
-pool (for example a deeper Top-50 from the frozen index on a machine that has
-it); without it the pool is exactly the evidence the generator already saw.
-Extra candidates are appended after the original Top-5 and renumbered, so
-Probe rank hints keep pointing at the passages the Probe saw.
-
-`RefinementConfig`: `keep_k` (default 5, i.e. reorder and keep everything;
-capped at 5), `min_score` (default `None`), `probe_hint_weight` (default 0.0),
-`require_grounded` (default `True`), `regenerate_when_unchanged` (default
-`False`), `reranker_model` (default `BAAI/bge-reranker-large`). These are the
-module's own defaults, not a frozen project setting; section 4 explains why
-pruning is opt-in.
+`min_score` is an absolute cut and `min_score_ratio` a fraction of the sample's
+own best score. Only the relative one is measured and only it is safe: an
+absolute cut can discard every passage on a question whose scores all sit low,
+while the best passage always clears its own ratio, so the relative floor
+cannot empty a context.
 
 `RefinementResult` reports `status`, `initial_answer`, `final_answer`,
-`answer_changed`, the evidence before/after/dropped, `rerank_scores`,
-`candidate_pool_size`, `regenerated`, `used_probe_hint` and `reject_reason`.
-`status` is one of:
+`candidate_answer`, `answer_changed`, the evidence before/after/dropped,
+`rerank_scores`, `candidate_pool_size`, `regenerated`, `used_probe_hint` and
+`reject_reason`. `status` is one of:
 
 | Status | Meaning |
 |---|---|
 | `not_routed` | the action was not `evidence_refinement`; nothing was touched |
-| `no_change` | reranking reproduced the original order, so no generation call was spent |
+| `no_change` | refinement reproduced the original context, so no generation call was spent |
 | `kept_original` | the generator ran, the new answer was rejected |
 | `answer_replaced` | the new answer passed the acceptance check |
 
@@ -139,10 +139,13 @@ pruning is opt-in.
 1. **Gate.** Any action other than `evidence_refinement` returns
    `not_routed` without calling the scorer or the generator.
 2. **Rerank.** Cross-encoder score per candidate, order by score, ties broken
-   on the original rank, keep `keep_k`, apply `min_score` if set but never
-   drop the best passage. The refined evidence keeps each passage's original
-   retrieval score in `EvidenceItem.score`; reranker scores are reported
-   separately.
+   on the original rank, keep `keep_k`, then apply the floors if set --
+   `min_score` absolutely, `min_score_ratio` as a fraction of this sample's
+   best -- never dropping the best passage. So `keep_k` is a ceiling on how
+   many passages are handed over, not a quota to fill: with the measured floor
+   the generator receives 2.77 on average rather than 5. The refined evidence
+   keeps each passage's original retrieval score in `EvidenceItem.score`;
+   reranker scores are reported separately.
 3. **Probe hints are off by default.** `supporting_ranks` back the *initial*
    answer, the one we were routed here to distrust, so a positive
    `probe_hint_weight` promotes the passages that contradict it. Since about
@@ -442,20 +445,158 @@ as noise: at threshold 0.1 it removes 47.7% of the context and deletes the
 answer string outright in 12% of the samples that had one, which shows up as
 69 and 87 broken answers against 53 and 65 for the ordering arms.
 
-### What actually works, and what it is worth
+### Widening the pool is what works
 
-Every arm beats doing nothing by a wide margin (+60 to +122 net repairs on
-2,208 wrong answers), and no arm's content-aware component beats its own random
-control. The effective ingredient is **perturbing the context and re-asking the
-generator once**, with a grounding gate to keep the answer when the new one is
-not supported. Ranking quality and pruning quality contribute nothing
-measurable on top of that.
+Everything above reorders or prunes the frozen Top-5. That is only the last
+step of the usual reranking recipe, which retrieves a deeper pool first:
+bi-encoder Top-N (N of 20-50), cross-encoder over all N, keep the best k. The
+difference matters, because the deeper form can change *which* passages the
+generator sees, not just their order.
 
-The cheapest correct implementation of this module is therefore a seeded
-shuffle plus the existing acceptance gate: no cross-encoder, no pruner, no GPU
-and no model artifacts. The trained reranker and Provence both cost real
-compute for no measurable answer-level return. This should be reported as a
-controlled negative result rather than as a reranking gain.
+The project's 1.2M-passage corpus is not on this machine, so the pool was built
+from the passages the annotated records already carry: 197,964 distinct
+passages, 16.2% of the full corpus
+(`scripts/build_nq15_pool_index.py`). Re-retrieving with the frozen BGE
+reproduces the original Top-5 with 99.9% overlap, so the pipeline is faithful;
+recall is below the real corpus, so any gain here is a lower bound.
+
+Same 2,367 held-out samples, same reused "before" answers, N=50, k=5:
+
+| Arm | EM | token-F1 | repaired | broken | net |
+|---|---|---|---|---|---|
+| keep everything | 0.0672 | 0.2784 | 0 | 0 | 0 |
+| rerank within the frozen Top-5 | 0.1107 | 0.3219 | 156 | 53 | +103 |
+| shuffle within the frozen Top-5 | 0.1187 | 0.3274 | 187 | 65 | +122 |
+| random 5 out of 50 (control) | 0.0921 | 0.2555 | 131 | 72 | +59 |
+| **cross-encoder 5 out of 50** | **0.1618** | **0.3589** | **291** | 67 | **+224** |
+
+| Paired test | McNemar p | 95% CI on EM |
+|---|---|---|
+| vs random 5 of 50 | 2.0e-16 | [+5.3pp, +8.6pp] |
+| vs shuffle within Top-5 | 6.5e-08 | [+2.8pp, +5.9pp] |
+| vs rerank within Top-5 | 2.8e-12 | [+3.6pp, +6.6pp] |
+
+This is the first intervention in the whole investigation that beats both its
+own random control and every narrower variant, and it is not close.
+
+The mechanism is not what the earlier framing assumed. Choosing 5 of 50 keeps
+only 2.64 of the original Top-5 (random keeps 0.44), and it **lowers** how
+often the answer string is present at all, from 92.0% to 84.0%, while raising
+how often it sits first, from 50.5% to 58.5%. So the gain does not come from
+recovering a missing answer -- on this evaluation set the answer was already
+present for 90% of samples, and for every one of the 482 whose gold passage was
+missing. It comes from **replacing distracting passages with better ones**,
+which is exactly what no amount of reordering inside a fixed five can do.
+
+That reconciles the negative results above rather than overturning them:
+permuting a fixed context does nothing, and swapping its contents does a great
+deal.
+
+### Handing over fewer passages works better still
+
+Selecting 5 of 50 still hands the generator exactly five passages on every
+question, whether or not five are worth reading. Step 4 of the usual recipe
+fixes that with a score threshold, and this module had never used one
+(`RefinementConfig.min_score` defaulted to `None`).
+
+An absolute threshold is the obvious form and the wrong one. Cross-encoder
+scores are not calibrated across questions, so one cut has to serve a question
+whose best passage scores 0.9 and one whose best scores 0.3; it empties the
+second question's context entirely. A **relative** floor -- keep a passage
+scoring at least `min_score_ratio` of *this* question's best -- adapts per
+question, and because the best passage always clears its own ratio the context
+can never be emptied. Measured on the same selected passages
+(`scripts/analyze_rerank_threshold.py`), the relative form dominates the
+absolute one at every matched level: at ~40% of distractors removed, 15 samples
+lose their only answer-bearing passage against 41 for the absolute cut.
+
+End to end, same 2,367 held-out samples, N=50, k=5, same reused "before"
+answers, the frozen Qwen2.5-7B prompt:
+
+| Arm | passages handed over | EM | token-F1 | repaired | broken | net |
+|---|---|---|---|---|---|---|
+| rerank within the frozen Top-5 | 5.00 | 0.1107 | 0.3219 | 156 | 53 | +103 |
+| 5 of 50, no threshold | 5.00 | 0.1618 | 0.3589 | 291 | 67 | +224 |
+| 5 of 50, ratio 0.4 | 3.54 | 0.1825 | 0.3807 | 334 | 61 | +273 |
+| **5 of 50, ratio 0.6 (the default)** | **2.77** | **0.2003** | **0.3955** | **376** | **61** | **+315** |
+| 5 of 50, ratio 0.8 | 1.90 | 0.2066 | 0.3975 | 388 | 58 | +330 |
+| the single best passage of 50 | 1.00 | 0.1990 | 0.3853 | 378 | 66 | +312 |
+
+| Paired test vs 5-of-50 without a threshold | McNemar p | 95% CI on EM |
+|---|---|---|
+| ratio 0.4 | 2.9e-04 | [+1.0pp, +3.2pp] |
+| ratio 0.6 | 1.6e-08 | [+2.6pp, +5.2pp] |
+| ratio 0.8 | 1.4e-08 | [+3.0pp, +6.0pp] |
+| keep 1 | 1.3e-05 | [+2.1pp, +5.3pp] |
+
+`scripts/compare_refinement_arms.py` runs those tests from the saved rows, so
+any two arms can be compared without re-running either.
+
+The curve rises to ratio 0.8 and falls at one passage, but the top of it is
+**flat, not peaked**, and that distinction decides the default:
+
+| Paired test | McNemar p | 95% CI on EM |
+|---|---|---|
+| ratio 0.8 vs ratio 0.6 | 0.24 | [-0.3pp, +1.7pp] |
+| keep 1 vs ratio 0.8 | 0.17 | [-1.8pp, +0.3pp] |
+| keep 1 vs ratio 0.6 | 0.90 | [-1.4pp, +1.1pp] |
+
+Everything from ratio 0.6 to a single passage is one indistinguishable
+plateau. Reading 0.8 off that as "the best setting" would be fitting the test
+set, so the default is **0.6**, the conservative end: it hands over 2.77
+passages instead of 1.90, loses a sample's only answer-bearing passage half as
+often (31 against 57 per 400 in the offline sweep), and the generator refuses
+less often (31 against 41 for 0.8 and 46 for one passage). A tighter floor also
+cuts deeper if the reranker is ever retrained and its score scale shifts.
+
+So the operating region, not the single number, is the finding: **roughly two
+to three well-chosen passages**. Both ends of the range are worse -- five fixed
+passages clearly (p = 1.6e-08), one passage only in F1 and refusal rate rather
+than in EM.
+
+Two things about that table are worth stating plainly. First, the threshold is
+**not** trading repairs against damage: as it tightens, repairs rise (291 ->
+334 -> 376) while breakages fall slightly (67 -> 61 -> 61). It is not a
+precision/recall knob at the answer level; it is a straight gain. Second, the
+gain is not the grounding gate becoming more permissive -- the gate rejects
+slightly *more* as the threshold tightens (266 -> 285 -> 296), so it is working
+against the trend, not producing it.
+
+What the threshold removes is the module's own padding. At ratio 0.6 it keeps
+45% of the distractors it used to keep and 82% of the answer-bearing passages,
+and the 18% of answer passages it throws away cost less than the 55% of
+distractors it stops handing over. In other words the fixed `keep_k` was itself
+a source of the failure this module exists to repair: on a question with two
+good candidates, padding to five adds three passages the module *chose* as
+noise.
+
+That trade stops paying somewhere past ratio 0.6 -- which is why the plateau
+exists rather than the curve continuing up. By ratio 0.8 the floor is
+discarding a third of the answer-bearing passages, and the gain from the
+distractors it also discards no longer exceeds that; the generator starts
+refusing instead (41 refusals against 31), because on some questions nothing
+that survives the floor supports an answer.
+
+This also sharpens the pruning result above rather than contradicting it.
+Provence prunes sentences *inside* each kept passage and cannot change which
+passages reach the generator; the relative floor drops whole passages and can.
+The level that matters is passage membership, which is the same conclusion the
+pool-widening result reached from the other direction.
+
+### What ordering alone is worth
+
+Restricted to the frozen Top-5, every arm beats doing nothing by a wide margin
+(+60 to +122 net repairs on 2,208 wrong answers), and no arm's content-aware
+component beats its own random control. Within a fixed set of passages the
+effective ingredient is only **perturbing the context and re-asking the
+generator once**, with the grounding gate keeping the answer when the new one
+is not supported; ranking quality and pruning quality add nothing measurable.
+
+So the narrow claim stands: a cross-encoder that merely reorders five fixed
+passages is not worth its compute, and a seeded shuffle matches it. The claim
+does **not** extend to reranking as normally practised, which selects those
+five from a much larger pool and is worth +4.3pp EM over the best fixed-pool
+arm (previous section).
 
 The result is consistent with published findings on the same stack
 ([arXiv:2505.15561](https://arxiv.org/abs/2505.15561), which also concludes
@@ -463,9 +604,10 @@ that improvement must come from retrieval quality and generator robustness
 rather than passage positioning) and with reranking surfacing more misleading
 passages ([arXiv:2505.06914](https://arxiv.org/abs/2505.06914)).
 
-The obvious follow-up, untested here: if perturbation is the active ingredient,
-then several perturbed re-asks with a majority vote should beat one, and that
-costs only generation calls — no new model.
+Majority voting over several perturbed re-asks was tried and does not help
+(0.1018 against 0.1187 for the best single arm): the generator repeats the same
+wrong answer across perturbations, so the vote buries the minority correct
+one.
 
 ### What this means for deployment
 
@@ -523,6 +665,9 @@ this branch.
 | `src/compensation/refinement_schema.py` | `RefinementConfig`, `RefinementResult`, `RefinementStatus`, forbidden-field guard |
 | `src/compensation/refinement_adapter.py` | `EvidenceRefinementAdapter`, the thin `Enhancement` wrapper |
 | `src/compensation/pruning.py` | `ProvencePruner` and its `MatchedRandomPruner` control |
+| `src/compensation/candidates.py` | `IndexCandidateProvider`, the deeper Top-N pool |
+| `src/compensation/plugin.py` | one-call build and registration of the validated setup |
+| `scripts/build_nq15_pool_index.py` | builds the stand-in candidate pool |
 | `src/compensation/rerank.py` | `RelevanceScorer`, `CrossEncoderScorer`, `build_candidate_pool`, `rerank_evidence` |
 | `src/compensation/evidence_refinement.py` | `EvidenceRefiner`, `evidence_refinement`, grounding and acceptance rules |
 | `src/generation/backend.py` | pluggable generator: the frozen local Qwen, any OpenAI-compatible endpoint, or `echo` for dry runs |
@@ -533,4 +678,6 @@ this branch.
 | `scripts/evaluate_rerank_accessibility.py` | retrieval-side evaluation on the frozen records |
 | `scripts/evaluate_refinement_end_to_end.py` | EM / F1 before and after, local or hosted generator, with `--scorer` and `--pruner` arms |
 | `scripts/analyze_refinement_funnel.py` | where in the chain a repair becomes impossible |
-| `tests/test_refinement_schema.py`, `tests/test_compensation_rerank.py`, `tests/test_evidence_refinement.py`, `tests/test_refinement_adapter.py`, `tests/test_rerank_training_data.py`, `tests/test_nq15_annotations.py`, `tests/test_generation_backend.py`, `tests/test_acceptance_policy.py`, `tests/test_refinement_funnel.py`, `tests/test_pruning.py` | 210 tests; no model is loaded except the frozen prompt builders |
+| `scripts/analyze_rerank_threshold.py` | score distribution and the absolute/relative threshold sweeps |
+| `scripts/compare_refinement_arms.py` | paired McNemar + bootstrap between any two saved arms |
+| `tests/test_refinement_schema.py`, `tests/test_compensation_rerank.py`, `tests/test_evidence_refinement.py`, `tests/test_refinement_adapter.py`, `tests/test_rerank_training_data.py`, `tests/test_nq15_annotations.py`, `tests/test_generation_backend.py`, `tests/test_acceptance_policy.py`, `tests/test_refinement_funnel.py`, `tests/test_pruning.py`, `tests/test_rerank_threshold.py`, `tests/test_refinement_arm_comparison.py`, `tests/test_plugin.py`, `tests/test_candidates.py`, `tests/test_pool_index.py` | 290 tests; no model is loaded except the frozen prompt builders |
