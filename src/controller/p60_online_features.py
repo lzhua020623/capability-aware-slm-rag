@@ -167,38 +167,25 @@ class P60OnlineFeatureProvider:
         self.feature_names = names
         self._runtime = semantic_runtime or P26SemanticRuntime(device=device)
         self._last_receipt: dict | None = None
+        self._last_receipts: list[dict] | None = None
         self._last_item_fp: str | None = None
 
     def runtime_receipt(self) -> dict | None:
         return self._last_receipt
 
-    def features_for(self, item: DiagnosisInput, diagnosis: HierarchicalDiagnosis) -> np.ndarray:
-        if not isinstance(item, DiagnosisInput):
-            raise TypeError(f"item must be DiagnosisInput, got {type(item).__name__}")
-        item_fp = fingerprint(asdict(item))
-        calls: list[dict] = []
-
-        # CURRENT27
+    def _assemble_row(
+        self,
+        item: DiagnosisInput,
+        diagnosis: HierarchicalDiagnosis,
+        p26: np.ndarray,
+    ) -> np.ndarray:
         feat_map = extract_features(item)
         missing27 = [n for n in FEATURE_NAMES if n not in feat_map]
         if missing27:
             raise ValueError(f"CURRENT27 missing features: {missing27}")
         cur27 = np.asarray([float(feat_map[n]) for n in FEATURE_NAMES], dtype=np.float64)
-
-        # P26 online (no sample_id table)
-        passages = [p.text for p in sorted(item.evidence, key=lambda e: int(e.rank))]
-        try:
-            sem = self._runtime.compute(item.query, item.initial_answer, passages)
-        except Exception:
-            calls.extend(self._runtime.runtime_calls())
-            self._last_receipt = {"input_sha256": item_fp, "calls": calls}
-            self._last_item_fp = item_fp
-            raise
-        calls.extend(self._runtime.runtime_calls())
-        p26 = sem.p60_vector()
         if p26.shape != (35,):
             raise ValueError(f"P26 vector must have length 35, got {p26.shape}")
-
         diag = _diag_vector(diagnosis)
         alias = _alias_vector(item)
         row = np.concatenate([cur27, p26, diag, alias])
@@ -207,10 +194,60 @@ class P60OnlineFeatureProvider:
         if not np.isfinite(row).all():
             bad = [self.feature_names[i] for i, v in enumerate(row) if not np.isfinite(v)]
             raise ValueError(f"Non-finite feature values: {bad}")
-
-        self._last_receipt = {"input_sha256": item_fp, "calls": calls}
-        self._last_item_fp = item_fp
         return row.astype(np.float64, copy=False)
+
+    def features_for(self, item: DiagnosisInput, diagnosis: HierarchicalDiagnosis) -> np.ndarray:
+        rows = self.features_for_batch([item], [diagnosis])
+        return rows[0]
+
+    def features_for_batch(
+        self,
+        items: Sequence[DiagnosisInput],
+        diagnoses: Sequence[HierarchicalDiagnosis],
+    ) -> list[np.ndarray]:
+        """Batch P26 encode/CE; CURRENT27/diag/alias remain per-sample (CPU, cheap)."""
+        if len(items) != len(diagnoses):
+            raise ValueError("items/diagnoses length mismatch")
+        if not items:
+            self._last_receipt = None
+            self._last_receipts = []
+            return []
+        for item in items:
+            if not isinstance(item, DiagnosisInput):
+                raise TypeError(f"item must be DiagnosisInput, got {type(item).__name__}")
+
+        payloads = []
+        fingerprints = []
+        for item in items:
+            passages = [p.text for p in sorted(item.evidence, key=lambda e: int(e.rank))]
+            payloads.append((item.query, item.initial_answer, passages))
+            fingerprints.append(fingerprint(asdict(item)))
+
+        try:
+            sem_rows = self._runtime.compute_batch(payloads)
+        except Exception:
+            calls = self._runtime.runtime_calls()
+            self._last_receipts = [
+                {"input_sha256": fp, "calls": list(calls)} for fp in fingerprints
+            ]
+            self._last_receipt = self._last_receipts[-1] if self._last_receipts else None
+            self._last_item_fp = fingerprints[-1] if fingerprints else None
+            raise
+
+        batch_calls = self._runtime.runtime_calls()
+        rows: list[np.ndarray] = []
+        receipts: list[dict] = []
+        for item, diagnosis, sem, fp in zip(items, diagnoses, sem_rows, fingerprints):
+            row = self._assemble_row(item, diagnosis, sem.p60_vector())
+            rows.append(row)
+            receipts.append({"input_sha256": fp, "calls": list(batch_calls)})
+        self._last_receipts = receipts
+        self._last_receipt = receipts[-1]
+        self._last_item_fp = fingerprints[-1]
+        return rows
+
+    def runtime_receipts(self) -> list[dict] | None:
+        return list(self._last_receipts) if getattr(self, "_last_receipts", None) else None
 
 
 def build_p60_online_feature_provider(*, execution_backend=None, device: str | None = None, **_kwargs):
