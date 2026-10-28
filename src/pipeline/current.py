@@ -141,33 +141,65 @@ class CheckedFeatures:
         self.provider, self.names = provider, tuple(names)
         self.require_costs = require_costs
         self.last_receipt = None
+        self.last_receipts = None
+
+    def _validate_receipt(self, receipt, item):
+        if (not isinstance(receipt, dict) or set(receipt) != {'input_sha256', 'calls'}
+                or receipt['input_sha256'] != fingerprint(asdict(item))
+                or not isinstance(receipt['calls'], list)):
+            raise ValueError('Production features need an input-bound runtime cost receipt')
+        for event in receipt['calls']:
+            if (not isinstance(event, dict) or type(event.get('attempted')) is not bool
+                    or type(event.get('seconds')) not in (int, float)
+                    or not math.isfinite(event['seconds']) or event['seconds'] < 0
+                    or event.get('status') not in ('completed', 'failed', 'budget_exceeded')
+                    or not isinstance(event.get('kind'), str) or not event['kind']):
+                raise ValueError('Production feature call accounting is incomplete')
 
     def features_for(self, item, diagnosis):
+        rows = self.features_for_batch([item], [diagnosis])
+        return rows[0]
+
+    def features_for_batch(self, items, diagnoses):
         self.last_receipt = None
+        self.last_receipts = None
         started = perf_counter()
-        values = np.asarray(self.provider.features_for(item, diagnosis), dtype=float)
-        if values.shape not in ((len(self.names),), (1, len(self.names))) or not np.isfinite(values).all():
-            raise ValueError('Runtime features must contain 78 finite original values')
-        receipt_fn = getattr(self.provider, 'runtime_receipt', None)
-        receipt = receipt_fn() if callable(receipt_fn) else None
-        if self.require_costs:
-            if (not isinstance(receipt, dict) or set(receipt) != {'input_sha256', 'calls'}
-                    or receipt['input_sha256'] != fingerprint(asdict(item))
-                    or not isinstance(receipt['calls'], list)):
-                raise ValueError('Production features need an input-bound runtime cost receipt')
-            for event in receipt['calls']:
-                if (not isinstance(event, dict) or type(event.get('attempted')) is not bool
-                        or type(event.get('seconds')) not in (int, float)
-                        or not math.isfinite(event['seconds']) or event['seconds'] < 0
-                        or event.get('status') not in ('completed', 'failed', 'budget_exceeded')
-                        or not isinstance(event.get('kind'), str) or not event['kind']):
-                    raise ValueError('Production feature call accounting is incomplete')
-        self.last_receipt = {'input_sha256': fingerprint(asdict(item)),
-            'feature_names_sha256': fingerprint(list(self.names)),
-            'seconds': perf_counter() - started,
-            'provider_cost_receipt': receipt,
-            'cost_state': 'reported_by_provider' if receipt is not None else 'not_accounted'}
-        return values.reshape(-1)
+        batch_fn = getattr(self.provider, 'features_for_batch', None)
+        if callable(batch_fn):
+            values_list = batch_fn(items, diagnoses)
+        else:
+            values_list = [self.provider.features_for(item, diagnosis)
+                           for item, diagnosis in zip(items, diagnoses)]
+        if len(values_list) != len(items):
+            raise ValueError('Feature batch size mismatch')
+        receipts_fn = getattr(self.provider, 'runtime_receipts', None)
+        provider_receipts = receipts_fn() if callable(receipts_fn) else None
+        if provider_receipts is None:
+            receipt_fn = getattr(self.provider, 'runtime_receipt', None)
+            single = receipt_fn() if callable(receipt_fn) else None
+            provider_receipts = [single] * len(items) if single is not None else [None] * len(items)
+        if len(provider_receipts) != len(items):
+            raise ValueError('Feature receipt batch size mismatch')
+        out = []
+        wrapped = []
+        elapsed = perf_counter() - started
+        for item, values, receipt in zip(items, values_list, provider_receipts):
+            arr = np.asarray(values, dtype=float)
+            if arr.shape not in ((len(self.names),), (1, len(self.names))) or not np.isfinite(arr).all():
+                raise ValueError('Runtime features must contain 78 finite original values')
+            if self.require_costs:
+                self._validate_receipt(receipt, item)
+            wrapped.append({
+                'input_sha256': fingerprint(asdict(item)),
+                'feature_names_sha256': fingerprint(list(self.names)),
+                'seconds': elapsed / max(len(items), 1),
+                'provider_cost_receipt': receipt,
+                'cost_state': 'reported_by_provider' if receipt is not None else 'not_accounted',
+            })
+            out.append(arr.reshape(-1))
+        self.last_receipts = wrapped
+        self.last_receipt = wrapped[-1] if wrapped else None
+        return out
 
 
 class CurrentPipeline:
@@ -178,9 +210,9 @@ class CurrentPipeline:
 
     def run(self, query, *, sample_id=None, dataset='nq'):
         """Raw query → formal Reference RAG → Diagnosis / Selection / Controller."""
-        if self.host.reference_rag is None:
-            raise ValueError('reference_rag is required for CurrentPipeline.run(query)')
-        item = self.host.reference_rag.run(query, sample_id=sample_id, dataset=dataset)
+        return self.run_batch([(query, sample_id)], dataset=dataset)[0]
+
+    def _boundary_flags(self, item):
         enforce_boundary = True
         if self.data_boundary is not None:
             if item.dataset.value != 'nq':
@@ -188,15 +220,9 @@ class CurrentPipeline:
             # Ad-hoc runtime IDs are allowed for online queries; registered IDs stay gated.
             if item.sample_id not in self.data_boundary.membership:
                 enforce_boundary = False
-        return self.run_from_item(item, enforce_boundary=enforce_boundary)
+        return enforce_boundary
 
-    def run_from_item(self, item, *, enforce_boundary=True):
-        if enforce_boundary and self.data_boundary is not None:
-            if item.dataset.value != 'nq':
-                raise BoundaryError('FEVER production data roles need a separate team registration')
-            self.data_boundary.require([item.sample_id], self.data_role)
-        canonical = canonical_input(item)
-        result = self.host.run_from_item(canonical)
+    def _finalize_result(self, item, result, *, enforce_boundary=True, feature_receipt=None):
         cost = result.enhancement_result.metadata.get('enhancement_cost')
         if cost is None:
             cost = CallLog(self.config).summary()  # no_action invokes no module
@@ -215,16 +241,65 @@ class CurrentPipeline:
                     'policy_sha256': self.data_boundary.receipt()['policy_sha256'],
                     'split_sha256': self.data_boundary.policy['team_split']['sha256'],
                 }
+        receipt = feature_receipt if feature_receipt is not None else self.features.last_receipt
         return replace(result, metadata={**result.metadata,
             'baseline': 'diagnosis_20261024_p60_p64_v1',
-            'dataset': canonical.dataset.value, 'initial_answer_raw': item.initial_answer,
-            'feature_provider': self.features.last_receipt,
+            'dataset': item.dataset.value, 'initial_answer_raw': item.initial_answer,
+            'feature_provider': receipt,
             'data_role': self.data_role,
             'data_boundary': boundary_meta,
             'enhancement_cost': cost,
             'cost_scope': 'enhancement calls measured; feature cost separately reported, cached C1 excluded',
             'E_mode': self.e_mode,
             'quality_evaluated': False})
+
+    def run_from_item(self, item, *, enforce_boundary=True):
+        if enforce_boundary and self.data_boundary is not None:
+            if item.dataset.value != 'nq':
+                raise BoundaryError('FEVER production data roles need a separate team registration')
+            self.data_boundary.require([item.sample_id], self.data_role)
+        canonical = canonical_input(item)
+        result = self.host.run_from_item(canonical)
+        return self._finalize_result(canonical, result, enforce_boundary=enforce_boundary)
+
+    def run_batch(self, queries, *, dataset='nq', feature_batch_size=None):
+        """Micro-batch runtime path: serial RAG/Qwen, batched P26, serial control.
+
+        ``queries``: sequence of ``(query, sample_id)``. Qwen stays serial to preserve
+        decoding behavior; P26 BGE/CE are batched for throughput.
+        """
+        if self.host.reference_rag is None:
+            raise ValueError('reference_rag is required for CurrentPipeline.run_batch')
+        if not queries:
+            return []
+        batch_size = int(feature_batch_size) if feature_batch_size else len(queries)
+        if batch_size < 1:
+            raise ValueError('feature_batch_size must be >= 1')
+
+        prepared = []
+        for query, sample_id in queries:
+            item = self.host.reference_rag.run(query, sample_id=sample_id, dataset=dataset)
+            enforce_boundary = self._boundary_flags(item)
+            if enforce_boundary and self.data_boundary is not None:
+                self.data_boundary.require([item.sample_id], self.data_role)
+            prepared.append((canonical_input(item), enforce_boundary, item.initial_answer))
+
+        results = []
+        for offset in range(0, len(prepared), batch_size):
+            chunk = prepared[offset:offset + batch_size]
+            items = [row[0] for row in chunk]
+            diagnoses = [self.host.classifier.diagnose(item) for item in items]
+            features = self.features.features_for_batch(items, diagnoses)
+            feature_receipts = list(self.features.last_receipts or [None] * len(items))
+            for (item, enforce_boundary, raw_answer), diagnosis, feat, receipt in zip(
+                    chunk, diagnoses, features, feature_receipts):
+                result = self.host.run_from_prepared(item, diagnosis, feat)
+                finalized = self._finalize_result(
+                    item, result, enforce_boundary=enforce_boundary, feature_receipt=receipt)
+                meta = dict(finalized.metadata)
+                meta['initial_answer_raw'] = raw_answer
+                results.append(replace(finalized, metadata=meta))
+        return results
 
 
 def wire_latest_pipeline(execution_backend, feature_provider, *, selection_adapter=None, root=ROOT,
@@ -279,6 +354,15 @@ def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None,
     if attach_reference_rag:
         from src.pipeline.reference_rag import MatchedReferenceRAG
         reference_rag = MatchedReferenceRAG.from_shared_generator(backend.raw_generator, root=root)
+        # Same BAAI/bge-base-en-v1.5 weights as P26; share the instance to free ~0.4GB VRAM.
+        # P26 still encodes at max_seq_length=128 (restored after each encode).
+        shared_bge = getattr(getattr(reference_rag, 'retriever', None), 'model', None)
+        runtime = getattr(provider, '_runtime', None)
+        attach = getattr(runtime, 'attach_shared_bge', None)
+        shared_ok = False
+        if shared_bge is not None and callable(attach):
+            attach(shared_bge)
+            shared_ok = True
         environment = {
             **environment,
             'reference_rag': {
@@ -286,6 +370,7 @@ def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None,
                 'prompt_style': reference_rag.prompt_style,
                 'embedding_model': reference_rag.embedding_model,
                 'top_k': reference_rag.top_k,
+                'p26_shared_bge': shared_ok,
             },
         }
     return wire_latest_pipeline(backend, provider, root=root, require_feature_costs=True,

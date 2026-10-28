@@ -17,7 +17,7 @@
     "module": "src.controller.p60_online_features",
     "factory": "build_p60_online_feature_provider",
     "source_path": "src/controller/p60_online_features.py",
-    "source_sha256": "2968416c3135f05d8b0aba8cf01a839f568c8eb0d6f34c466e9faa890fc977e5",
+    "source_sha256": "c171f40315c1511260bbb2113878dc5b47827a115d3164e9fad14a336e177941",
     "metered_runtime": true,
     "semantic_runtime_module": "src.controller.p26_semantic",
     "feature_dim": 78,

@@ -102,9 +102,26 @@ class AdaptiveRAGPipeline:
         if not isinstance(item, DiagnosisInput):
             raise TypeError(f"item must be DiagnosisInput, got {type(item).__name__}")
         started = time.perf_counter()
-
         diagnosis = self.classifier.diagnose(item)
         features = self.feature_provider.features_for(item, diagnosis)
+        return self.run_from_prepared(item, diagnosis, features, started=started)
+
+    def run_from_prepared(
+        self,
+        item: DiagnosisInput,
+        diagnosis: HierarchicalDiagnosis,
+        features: np.ndarray | Sequence[float],
+        *,
+        started: float | None = None,
+    ) -> AdaptiveRAGResult:
+        """Select → Controller → Enhancement using precomputed diagnosis/features."""
+        if not isinstance(item, DiagnosisInput):
+            raise TypeError(f"item must be DiagnosisInput, got {type(item).__name__}")
+        if not isinstance(diagnosis, HierarchicalDiagnosis):
+            raise TypeError(
+                f"diagnosis must be HierarchicalDiagnosis, got {type(diagnosis).__name__}"
+            )
+        t0 = time.perf_counter() if started is None else started
         selection = self.selection_adapter.select(
             diagnosis, features, sample_id=item.sample_id
         )
@@ -127,9 +144,8 @@ class AdaptiveRAGPipeline:
         )
         enhancement = self.executor.execute(request)
 
-        # Host must not re-route; executor already handled no_action / missing / errors.
         status = _pipeline_status(enhancement.status)
-        latency_ms = (time.perf_counter() - started) * 1000.0
+        latency_ms = (time.perf_counter() - t0) * 1000.0
         return AdaptiveRAGResult(
             query=item.query,
             initial_answer=item.initial_answer,
