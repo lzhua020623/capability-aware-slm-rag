@@ -1,0 +1,53 @@
+{
+  "schema_version": "e_expansion_5000_v1",
+  "registered_date": "2026-10-28",
+  "total_request_cap_including_pilot": 5000,
+  "reused_pilot_n": 500,
+  "max_post_pilot_requests": 4500,
+  "cumulative_budget_nanousd": 40000000000,
+  "timeout_seconds": 600,
+  "automatic_retries": 0,
+  "max_inflight": 1,
+  "automatic_further_expansion": false,
+  "training_enabled": false,
+  "semantic_approval_automatic": false,
+  "prior_plan": {
+    "path": "configs/distillation/e_expansion_wave1_v1.json",
+    "sha256": "c4e1d2d4de972dd7a0302617d2cd4784a6ac3f21a6881eab1f1bafe88aab4c28"
+  },
+  "user_acceptance": {
+    "path": "artifacts/controller/e_teacher_expansion_5000_v1/user_acceptance.json",
+    "sha256": "012a23fd24bb48435421996c1fa50d174554fb272f60af45512fe83a1e90c3ad"
+  },
+  "prior_journal": {
+    "path": "data/processed/e_distillation_v1/expansion_2000_results_20261028/journal.jsonl",
+    "sha256": "ce9a47c23fe96ce584dabe8cfbdbb643e99bc24571101a51649d0abeb1f5be88"
+  },
+  "prior_archive_manifest": {
+    "path": "artifacts/controller/e_teacher_expansion_timeout_20261028/archive_manifest.json",
+    "sha256": "04a0fb762a6e964fe16d262d1586fd872b1ddc9dfc3d0c8995a840fcca201304"
+  },
+  "prior_timeout_audit": {
+    "path": "artifacts/controller/e_teacher_expansion_timeout_20261028/timeout_audit.json",
+    "sha256": "83086649e315f0a5c7df558d3593b3863424754c24ee4836d28acde42cda0673"
+  },
+  "audited_skip": {
+    "ordinal": 55,
+    "sample_id": "-5176122245177684084",
+    "error_type": "TimeoutError",
+    "retain_nanousd": 132110000,
+    "retry": false,
+    "replace_sample": false
+  },
+  "prior_import": {
+    "attempts": 55,
+    "completed": 54,
+    "unknown": 1,
+    "cost_with_pilot_and_unknown_nanousd": 3916639000
+  },
+  "sample_manifest": "artifacts/controller/e_teacher_expansion_5000_v1/sample_manifest.json",
+  "execution_receipt": "artifacts/controller/e_teacher_expansion_5000_v1/execution_receipt.json",
+  "inputs_directory": "data/processed/e_distillation_v1/expansion_5000_inputs_20261028",
+  "run_directory": "data/processed/e_distillation_v1/expansion_5000_results_20261028",
+  "scope": "Candidate collection; old500+54 reused; ordinal55 skipped, full cost reservation retained. No SFT approval or extra replacement calls."
+}

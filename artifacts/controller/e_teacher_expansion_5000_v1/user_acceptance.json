@@ -1,0 +1,14 @@
+{
+  "schema_version": "e_expansion_5000_acceptance_v1",
+  "date": "2026-10-28",
+  "source": "user_chat",
+  "effective_user_instruction": "可以直接上5000",
+  "superseded_instruction": "先2000条 有效再扩量",
+  "previous_explicit_budget_choice": "继续累计5,000条，预计约$34，封顶$40",
+  "total_candidate_request_cap": 5000,
+  "reused_pilot": 500,
+  "post_pilot_request_cap": 4500,
+  "cumulative_budget_usd": 40,
+  "automatic_expansion_above_5000": false,
+  "training_enabled_by_this_record": false
+}

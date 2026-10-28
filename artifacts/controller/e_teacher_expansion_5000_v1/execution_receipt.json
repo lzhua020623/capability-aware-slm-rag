@@ -1,0 +1,90 @@
+{
+  "schema_version": "e_expansion_5000_execution_v1",
+  "plan_sha256": "0d9d45025f4b3d8cd928329d86c6a5bddda3b1636bb315de9a56bfdaec5c96c7",
+  "sample_manifest_sha256": "e62351fe4e3aa248fa9e52656bebe2577f23e646d8c7437f5dd985816d544c4e",
+  "n_post_pilot_tasks": 4500,
+  "prior_state": {
+    "attempted": 55,
+    "completed": 54,
+    "valid": 54,
+    "spent_nanousd": 3916639000,
+    "provider_ids": [
+      "chatcmpl-Edkd0henCstA1bczmxeAelfROE16k",
+      "chatcmpl-Edkd4wJguMcfbTjZfnd4P4dkgvVMI",
+      "chatcmpl-EdkdAPkq5S8dicpuOtSU0MlYsWz4L",
+      "chatcmpl-EdkdF80rMZzZjTfPI4jSYKTKLTxMh",
+      "chatcmpl-EdkdK3gYgGwy46Mnxl75lE9M0F8AS",
+      "chatcmpl-EdkdzaIXhmzuyqbXOy3pVgLuwImKU",
+      "chatcmpl-Edke4Lix2xJ6wC90YVlSNXF6ShDu8",
+      "chatcmpl-EdkeBBuJFM3yqyfn4smuP4XOQYvQO",
+      "chatcmpl-EdkeHWliKGaUdH9cvloPnnOWb3aO5",
+      "chatcmpl-EdkeL2UF9XTu9AwRANVZGunvN7q5v",
+      "chatcmpl-Edkey5T06uzI7LvGhbc7f9y30a2yh",
+      "chatcmpl-Edkf3Mg2gubsAGjaj05HQQsEzsXno",
+      "chatcmpl-EdkfA3PiQCA5DdnMTiPEQtL5d9F71",
+      "chatcmpl-EdkfFzEtHq84chpKZIAOPy8bRN9Z1",
+      "chatcmpl-EdkfMXo9AFsRkUutn2hHY6IIuODB6",
+      "chatcmpl-EdkfxbcUDsP1f2zODH1dJuDvrhQqf",
+      "chatcmpl-Edkg2m7WDCnNqYyBvrTUQ6DX9Ev29",
+      "chatcmpl-Edkg9UW47IIT92akpw5JDO2NMbRVQ",
+      "chatcmpl-EdkgGwUBlRoP6MxmuaCVyJBxGlUSg",
+      "chatcmpl-EdkgLcXwnXXurNofh9ERkRow0NdyV",
+      "chatcmpl-EdkgwW3yo2g0c4o0qgCFoJLgIPddc",
+      "chatcmpl-Edkh1WVFU5N0UCpi31P31ya6BIQGW",
+      "chatcmpl-Edkh7BwVwCNERERtpuNgihNRImXoI",
+      "chatcmpl-EdkhFiJRbb1Yb7NSQaNggr0aQPx6a",
+      "chatcmpl-EdkhRJy8HhFYO0ZkXgFqni6BBpkZO",
+      "chatcmpl-EdkhvDk4imx9FM9t45gOzm1OdER2q",
+      "chatcmpl-EdkiDHfK40ApO4YmAUIB51KYCH9dl",
+      "chatcmpl-EdkiIJKfMtbka642IfsmwOqz3rK0M",
+      "chatcmpl-EdkiVhWT3inoE4y0x6oHOFzd6LzoX",
+      "chatcmpl-Edkia6wOw45Z48gqluyLpdD0Pxm0W",
+      "chatcmpl-Edkiux643HWcqVOhQ30rcJLIfqusJ",
+      "chatcmpl-EdkjDdIx4LsWqNOM6MuatU8uo8nJA",
+      "chatcmpl-EdkjHiT0PnzvduAi8wBayCthHhxlf",
+      "chatcmpl-EdkjPLGJQ0epcXVmqaW4BYD8QdJWO",
+      "chatcmpl-EdkjXbwmMZ98aSfaB0DANOJynTm5J",
+      "chatcmpl-Edkjt19CfxG4lwHbzXSzyY0wzzmFh",
+      "chatcmpl-EdkkBSlR8Kvl7l5ha4Q4lg3U1icuy",
+      "chatcmpl-EdkkIj1eoaogN2BAQjIJVeSNA1cyH",
+      "chatcmpl-EdkkOj7rPLSQPHSPdVVegFEAeTXGF",
+      "chatcmpl-EdkkWb7yl1f4eiqEdjmb2da0MeA4r",
+      "chatcmpl-Edkksdx57yW4OInJy7ChB02wzjpAh",
+      "chatcmpl-EdklB66NowcVB5boKnj4XLKdjD4Il",
+      "chatcmpl-EdklFSsaardCXEENOb1PfH3Sipkpu",
+      "chatcmpl-EdklNed7sKgxzIS3RLeXBU48F3cTy",
+      "chatcmpl-EdklVwRdsjBjR0iwPt9DvpdayeXcC",
+      "chatcmpl-Edklr2NBoA6dD9RMboVMtVug6q3aG",
+      "chatcmpl-EdkmAraoziRda5r7rpcCxs7s8bxYj",
+      "chatcmpl-EdkmFkzkHqLDgQkacdHbhFRT8WAiY",
+      "chatcmpl-EdkmNfqIA8mrKoXyz87NbovrTZALk",
+      "chatcmpl-EdkmUCbO9DbleOPJIqsf4wwVSCR8a",
+      "chatcmpl-Edkmsybz2QFWoTwUzE12f7i0H8Xtg",
+      "chatcmpl-Edkn8150vhXDxPaY0xuTI8L4oKaLm",
+      "chatcmpl-EdknDVyaQT1n8SzemJu6HAhGkwi5e",
+      "chatcmpl-EdknLiNx9JWNxKBV5zXQv56XFzmyK"
+    ],
+    "unavailable_ids": [
+      "-5176122245177684084"
+    ]
+  },
+  "files": {
+    "offline_references.jsonl": {
+      "sha256": "607fe338737a1fdc81a44b5370b23b59d8de7e14d4dd33ee07ecb8fd6a795025",
+      "bytes": 610712
+    },
+    "teacher_tasks.jsonl": {
+      "sha256": "8a00d32604f4d07c18c2033b8f2301e1a592c912676bcc26980d6460e617f776",
+      "bytes": 100871818
+    }
+  },
+  "assets": {
+    "src/distillation/expansion_5000_prep.py": "090967ebcca2b359e804b2744c1a94825615d9ebbe083727e0bdf701459dd8a0",
+    "src/distillation/expansion_5000_collect.py": "89d25491879cb5107bc28057facf015b098d33cf1d8e8e4470b50b1694f28521",
+    "scripts/run_e_teacher_5000.py": "327ff377c5717f76ca06a20b01f3c6f5ecea64f88876149d75ef9cf5fa94cce9"
+  },
+  "ready_for_SFT": false,
+  "new_API_calls": 0,
+  "official_test_runtime_read": false,
+  "original_1500_tasks_unchanged": true
+}

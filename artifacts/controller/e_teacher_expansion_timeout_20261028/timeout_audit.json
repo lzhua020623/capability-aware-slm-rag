@@ -1,0 +1,28 @@
+{
+  "schema_version": "e_expansion_timeout_audit_v1",
+  "date": "2026-10-28",
+  "source_journal_sha256": "ce9a47c23fe96ce584dabe8cfbdbb643e99bc24571101a51649d0abeb1f5be88",
+  "new_attempts": 55,
+  "new_completed": 54,
+  "total_completed_with_pilot": 554,
+  "failed_ordinal": 55,
+  "failed_sample_id": "-5176122245177684084",
+  "error_type": "TimeoutError",
+  "response_saved": false,
+  "configured_socket_timeout_seconds": 180,
+  "all_54_responses_independently_replayed": true,
+  "new_contract_passed": 54,
+  "cumulative_known_price_estimate_nanousd": 3784529000,
+  "unknown_full_reservation_nanousd": 132110000,
+  "cumulative_including_unknown_full_reservation_nanousd": 3916639000,
+  "invoice_verified": false,
+  "unauthenticated_endpoint_probe": {
+    "HTTP_status": 401,
+    "API_key_sent": false,
+    "generation_calls": 0
+  },
+  "cause_limit": "Recorded timeout before saving a response; records cannot distinguish connection/read timeout, transient network loss or remote service latency; provider completion/charge unknown.",
+  "resolution": "One-off audited skip of ordinal55; retain full reservation, no resend and no replacement sample; preserve original journal/response bytes.",
+  "student_training_runs": 0,
+  "paid_retries": 0
+}

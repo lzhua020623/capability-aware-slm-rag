@@ -1,0 +1,45 @@
+{
+  "schema_version": "e_expansion_5000_self_check_v1",
+  "branch": "controller_2",
+  "base_commit": "55d17a3",
+  "executed_source_assets": {
+    "src/distillation/expansion_5000_prep.py": "090967ebcca2b359e804b2744c1a94825615d9ebbe083727e0bdf701459dd8a0",
+    "src/distillation/expansion_5000_collect.py": "89d25491879cb5107bc28057facf015b098d33cf1d8e8e4470b50b1694f28521",
+    "scripts/run_e_teacher_5000.py": "327ff377c5717f76ca06a20b01f3c6f5ecea64f88876149d75ef9cf5fa94cce9"
+  },
+  "plan_sha256": "0d9d45025f4b3d8cd928329d86c6a5bddda3b1636bb315de9a56bfdaec5c96c7",
+  "tests": {
+    "passed": 1401,
+    "failures": 0,
+    "new_recovery_tests": 18,
+    "full_log_sha256": "c0e48b05d82e812ec9b66229f020e9c157e9ce71620d2d6cb9f93bc0c7d077f4"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "CUDA_required_for_collection": false
+  },
+  "protected_files_unchanged": {
+    "AGENTS.md": "b748f439ef6d2a5455bc3471a6101cd6bcf5f2c67bd8ba75771ad510cc7fd66a",
+    "data/annotations/assisted/answer_repair_v7_batch01_20261017.jsonl": "119035fd23c89c9cd5f24c1a749b4f549a3c7aa268c38fedf51bc81e366bc4c3",
+    "data/processed/e_distillation_v1/teacher_sol_pilot_20261027/journal.jsonl": "7804352125be57b2a5fb067824f00ff5e282a47553c9aa9f1351233e36c1f63e",
+    "data/processed/e_distillation_v1/expansion_2000_results_20261028/journal.jsonl": "ce9a47c23fe96ce584dabe8cfbdbb643e99bc24571101a51649d0abeb1f5be88"
+  },
+  "prior_responses_reused": 54,
+  "pilot_reused": 500,
+  "audited_skip_ordinal": 55,
+  "unknown_reservation_retained_nanousd": 132110000,
+  "price_base_including_unknown_nanousd": 3916639000,
+  "post_pilot_task_n": 4500,
+  "next_ordinal": 56,
+  "remaining_request_cap": 4445,
+  "total_request_cap_including_pilot": 5000,
+  "budget_usd": 40,
+  "request_body_model_prompt_and_evidence_unchanged": true,
+  "timeout_seconds": 600,
+  "automatic_retries": 0,
+  "new_recovery_API_calls": 0,
+  "official_test_runtime_decoded": 0,
+  "student_training_runs": 0,
+  "student_efficacy_measured": false
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": "e_expansion_5000_offline_verification_v1",
+  "post_pilot_tasks": 4500,
+  "all_runtime_rows_matched_to_original_C1_and_Top5": 4500,
+  "original_1500_prefix_unchanged": true,
+  "all_15_source_shard_checksums_verified": true,
+  "all_new_ids_admitted_train": true,
+  "pilot_validation_test_legacy_ID_overlap": 0,
+  "official_test_runtime_decoded": 0,
+  "offline_references_physically_separate": true,
+  "live_client_opens_offline_references": false,
+  "prior_attempted": 55,
+  "prior_complete_reused": 54,
+  "complete_reused_including_pilot": 554,
+  "audited_timeout_ID_not_resent": [
+    "-5176122245177684084"
+  ],
+  "unknown_full_reservation_nanousd": 132110000,
+  "cost_base_including_unknown_nanousd": 3916639000,
+  "remaining_max_requests": 4445,
+  "maximum_complete_candidates": 4999,
+  "request_cap_including_pilot": 5000,
+  "cumulative_budget_usd": 40,
+  "rate_reservation_tokens": {
+    "min": 15063,
+    "median": 18143.0,
+    "max": 35800
+  },
+  "archives": {
+    "teacher_tasks.jsonl.gz": {
+      "sha256": "09c00302589226488fcdc433ab02c2e2e664e6ab3ffb07d3bf34832defa9d31a",
+      "bytes": 8008672,
+      "decompressed_sha256": "8a00d32604f4d07c18c2033b8f2301e1a592c912676bcc26980d6460e617f776"
+    },
+    "offline_references.jsonl.gz": {
+      "sha256": "81bc34375fe7a9c00fbcf762aeec45d3a1b8065f1d9ae445880384063c66ebed",
+      "bytes": 149345,
+      "decompressed_sha256": "607fe338737a1fdc81a44b5370b23b59d8de7e14d4dd33ee07ecb8fd6a795025"
+    }
+  },
+  "launcher": {
+    "path": "data/processed/e_distillation_v1/run_teacher_5000_collection.command",
+    "sha256": "dc9cfebed6ecd7781c4b1113f5dfd2ad670b35ac7ba0604751a5f8b90c167e82",
+    "secrets_saved": false
+  },
+  "API_calls_by_verification": 0,
+  "student_training_runs": 0,
+  "student_efficacy_measured": false
+}
