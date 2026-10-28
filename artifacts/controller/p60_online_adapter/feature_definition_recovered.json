@@ -1,0 +1,76 @@
+{
+  "schema": "p60_78_feature_definition_recovered_v1",
+  "feature_dim": 78,
+  "frozen_config": "configs/controller/p60_online_adapter.json",
+  "composition": {
+    "CURRENT27": {
+      "count": 27,
+      "source": "src.diagnosis.features.extract_features / FEATURE_NAMES",
+      "online": "DiagnosisInput only; no sample_id lookup"
+    },
+    "P26": {
+      "count": 35,
+      "source": "P53 build_p26_matrix over online semantic arrays",
+      "models": {
+        "bge": "BAAI/bge-base-en-v1.5",
+        "max_seq_length": 128,
+        "reranker": "BAAI/bge-reranker-base"
+      },
+      "generator_recovery": "Temp elec5623_semantic_runtime_features_p26 Write+StrReplace history in agent transcript; FINAL scripts under _scratch_p26_recover/",
+      "historical_artifact": "data/processed/diagnosis/nq_train_74097_rep08_semantic_runtime_v3/semantic_arrays_v3.npz"
+    },
+    "diag": {
+      "count": 9,
+      "source": "HierarchicalDiagnosis class_scores / stage2_class_scores + stage1_failure_probability",
+      "names": [
+        "diag_p_correct",
+        "diag_p_insuff",
+        "diag_p_access",
+        "diag_p_util",
+        "diag_p_fail",
+        "diag_fail_margin",
+        "diag_entropy",
+        "diag_max_class_prob",
+        "diag_access_minus_util"
+      ]
+    },
+    "aliases": {
+      "count": 7,
+      "source": "P53 runtime-safe score/length/Jaccard aliases",
+      "names": [
+        "score_top1",
+        "score_gap_1_2",
+        "score_std_top5",
+        "score_range_top5",
+        "answer_len_tokens",
+        "question_len_tokens",
+        "answer_in_evidence_jaccard"
+      ]
+    }
+  },
+  "p26_formulas": {
+    "qa_embedding": "BGE(Question: {q}\\nCandidate answer: {a})",
+    "answer_embedding": "BGE(answer or [empty])",
+    "passage_embedding": "BGE(passage_text[:512]) x Top-5",
+    "chunk_support": "pass_emb @ qa_emb (identical to pass_support)",
+    "qa_support_max": "max(chunk_support)",
+    "qa_support_mean_top3": "mean of top-3 chunk_support",
+    "qa_support_first_rank": "argsort(-chunk_support)[0] + 1",
+    "qa_support_margin": "top1 - top2 of chunk_support",
+    "qa_support_concentration": "max(clip(chunk,0)) / sum(clip(chunk,0))",
+    "top_support_margin": "max - second of pass_support",
+    "support_peak_dispersion": "mean pairwise (1 - cosine) among passages with support >= max-0.05; else 0",
+    "evidence_agreement_mean_min": "mean/min pairwise cosine among Top-5 passage embeddings",
+    "answer_evidence_*": "cosine(answer_emb, pass_emb): max / top1 / mean",
+    "s5_rerank_best_chunk": "CrossEncoder(Question: {q} Candidate answer: {a}, best_passage[:512])",
+    "s5_rerank_top1_passage": "CrossEncoder(same qa string, passage0[:512])",
+    "qtypes_atypes": "heuristic one-hot from question_type/answer_type; qa_type_match from compatibility table"
+  },
+  "alignment_spotcheck": {
+    "n_samples": 5,
+    "splits": "train head + validation head",
+    "max_abs_diff": 6.556510925292969e-07,
+    "atol_used_in_tests": 0.002,
+    "note": "Residual is float32 encode/CE numeric noise; formulas match training generator"
+  }
+}

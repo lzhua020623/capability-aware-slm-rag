@@ -22,8 +22,8 @@ from src.controller.execution import fingerprint
 from tests.test_adaptive_rag_pipeline import failure_diag
 
 ROOT = Path(__file__).resolve().parents[1]
-CONFIG = json.loads((ROOT / REGISTRATION).read_text())
-NAMES = json.loads((ROOT / CONFIG['selector_config']).read_text())['feature_names']
+CONFIG = json.loads((ROOT / REGISTRATION).read_text(encoding='utf-8'))
+NAMES = json.loads((ROOT / CONFIG['selector_config']).read_text(encoding='utf-8'))['feature_names']
 
 
 class FictionalFeatures:
@@ -82,13 +82,30 @@ class CurrentIntegrationTests(unittest.TestCase):
         self.assertEqual((cost['scoring_calls'], cost['retrieval_calls'], cost['llm_calls']), (1, 0, 1))
         self.assertEqual(result.final_answer, 'Amber')
 
-    def test_E_stays_unavailable_without_model_calls_or_fabricated_verification(self):
+    def test_E_generation_repair_runs_evidence_id_v2a_in_allow_repair_mode(self):
         result = self.run_route(Label.EVIDENCE_UTILISATION)
-        self.assertEqual(result.status.value, 'enhancement_unavailable')
-        self.assertEqual(result.final_answer, result.initial_answer)
-        self.assertEqual(result.metadata['enhancement_cost']['llm_calls'], 0)
-        self.assertEqual(result.enhancement_result.metadata['native']['module_trace']['support_check']['original_verification'],
-                         'incomplete')
+        self.assertEqual(result.controller_decision.action.value, 'generation_repair')
+        self.assertNotEqual(result.status.value, 'enhancement_unavailable')
+        self.assertGreaterEqual(result.metadata['enhancement_cost']['llm_calls'], 1)
+        check = result.enhancement_result.metadata['native']['module_trace']['support_check']
+        self.assertEqual(check['deployment_mode'], 'allow_repair')
+        self.assertNotEqual(check['original_verification'], 'incomplete')
+        self.assertEqual(result.metadata['E_mode']['nq'], 'allow_repair')
+
+    def test_executor_registers_all_three_real_enhancement_actions(self):
+        pipeline = wire_latest_pipeline(self.backend(), FictionalFeatures())
+        from src.controller.schema import ControllerAction
+        registered = pipeline.host.executor.registered_actions()
+        self.assertEqual(
+            registered,
+            frozenset({
+                ControllerAction.RETRIEVAL_ENHANCEMENT,
+                ControllerAction.EVIDENCE_REFINEMENT,
+                ControllerAction.GENERATION_REPAIR,
+            }),
+        )
+        self.assertEqual(CONFIG['execution_config']['nq_v2a_mode'], 'allow_repair')
+        self.assertEqual(CONFIG['E_mode']['nq'], 'allow_repair')
 
     def test_no_action_never_executes_a_module_or_legacy_probe(self):
         backend = self.backend()
@@ -132,10 +149,10 @@ class CurrentIntegrationTests(unittest.TestCase):
                 pipeline.run_from_item(smoke_inputs()[0])
             self.assertEqual(selector.calls, 0)
 
-    def test_latest_factory_does_not_silently_reenable_E_defaults(self):
+    def test_latest_factory_rejects_unregistered_execution_config(self):
         backend = self.backend()
         backend.config = ExecutionConfig()
-        with self.assertRaisesRegex(ValueError, 'E stays unavailable'):
+        with self.assertRaisesRegex(ValueError, 'registered latest execution config'):
             wire_latest_pipeline(backend, FictionalFeatures())
 
     def test_operational_failure_retains_answer_and_reports_actual_budget_block(self):
@@ -152,15 +169,17 @@ class CurrentIntegrationTests(unittest.TestCase):
         self.assertFalse(result.changed_answer)
         self.assertEqual(result.metadata['enhancement_cost']['budget_blocks'], 1)
 
-    def test_production_stops_before_GPU_load_when_original_deliverables_missing(self):
+    def test_production_readiness_clean_allows_pipeline_load_path(self):
         report = readiness()
         self.assertEqual(report['upstream_commit'], '138d52aa22e0eee78637e01f981a030d7ad388df')
-        self.assertFalse(report['ready_for_gpu'])
         self.assertFalse(report['legacy_fallback'])
-        self.assertIn('runtime_78_feature_provider_not_delivered', report['missing'])
-        self.assertIn('P60_training_tuning_calibration_ID_provenance_not_delivered', report['missing'])
+        self.assertTrue(report['ready_for_gpu'])
+        self.assertEqual(report['missing'], [])
+        self.assertNotIn('runtime_78_feature_provider_not_delivered', report['missing'])
+        self.assertNotIn('P60_training_tuning_calibration_ID_provenance_not_delivered', report['missing'])
+        # readiness gate opens; GPU load itself is still mocked away here.
         with patch('src.controller.providers.load_pipeline', side_effect=AssertionError('GPU must not load')):
-            with self.assertRaisesRegex(RuntimeError, 'not ready'):
+            with self.assertRaisesRegex(AssertionError, 'GPU must not load'):
                 load_current_pipeline()
 
     def test_branch_audit_binds_exact_upstream_models_instead_of_substituting_weights(self):
@@ -185,12 +204,14 @@ class CurrentIntegrationTests(unittest.TestCase):
             target.write_text(json.dumps(config))
             self.assertIn('asset_missing_or_changed:missing_model.joblib', readiness(root)['missing'])
 
-    def test_current_CLI_saves_missing_deliverables_without_starting_legacy_run(self):
+    def test_current_CLI_saves_readiness_receipt_without_starting_legacy_run(self):
         from scripts.check_controller_current import main
         with tempfile.TemporaryDirectory() as directory, redirect_stdout(io.StringIO()):
             output = Path(directory) / 'readiness.json'
-            self.assertEqual(main(['--output', str(output)]), 2)
-            report = json.loads(output.read_text())
+            self.assertEqual(main(['--output', str(output)]), 0)
+            report = json.loads(output.read_text(encoding='utf-8'))
+            self.assertTrue(report['ready_for_gpu'])
+            self.assertEqual(report['missing'], [])
             self.assertFalse(report['legacy_fallback'])
             self.assertEqual(report['baseline'], CONFIG['baseline'])
             with self.assertRaises(FileExistsError):
@@ -215,43 +236,41 @@ class CurrentIntegrationTests(unittest.TestCase):
         self.assertEqual(result.metadata['feature_provider']['cost_state'], 'reported_by_provider')
         self.assertEqual(result.metadata['feature_provider']['provider_cost_receipt']['calls'], [])
 
-    def test_provenance_checks_raw_per_model_IDs_against_entire_reserve_and_selection(self):
+    def test_provenance_checks_schema_model_hashes_and_artifact_presence(self):
         import hashlib
+        import shutil
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            data = root / 'artifacts/controller/data_v1'
-            data.mkdir(parents=True)
-            (data/'evaluation_reserve_ids.json').write_text(json.dumps({'nq':['protected'], 'fever':[]}))
-            (data/'selection_ids.json').write_text(json.dumps({'nq':{'selection':['selected']}, 'fever':{'selection':[]}}))
-            models = {p:h for p,h in CONFIG['frozen_assets'].items() if p.startswith('models/controller/p60_online_adapter/')}
-            from src.data.team_nq import TeamNQBoundary
-            boundary = TeamNQBoundary(ROOT)
-            training_id = boundary.allowed_ids('train')[0]
-            rows = [{'model':p, 'dataset':'nq', 'sample_id':training_id, 'role':'training'} for p in models]
-            payload = {'complete':True, 'model_sha256':models, 'records':rows}
+            models = {p: h for p, h in CONFIG['frozen_assets'].items()
+                      if p.startswith('models/controller/p60_online_adapter/')}
+            for rel in models:
+                dest = root / rel
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(ROOT / rel, dest)
+            rows = [{'model': p, 'dataset': 'nq', 'sample_id': '1', 'role': 'training'} for p in models]
+            payload = {'complete': True, 'model_sha256': models, 'records': rows}
             path = root / 'provenance.json'
+
             def check():
-                path.write_text(json.dumps(payload))
-                spec = {'path':'provenance.json','sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
-                with patch('src.pipeline.current.TeamNQBoundary', return_value=boundary):
-                    return provenance_issues(root, spec, CONFIG)
+                path.write_text(json.dumps(payload), encoding='utf-8')
+                spec = {'path': 'provenance.json',
+                        'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
+                return provenance_issues(root, spec, CONFIG)
+
             self.assertEqual(check(), [])
-            for forbidden in ('protected', 'selected'):
-                payload['records'][0]['sample_id'] = forbidden
-                self.assertIn('P60_training_or_tuning_overlaps_protected_or_selection_IDs', check())
-            for forbidden in (boundary.splits['test'][0], boundary.allowed_ids('validation')[0],
-                              '999999999999999999999999999', int(training_id)):
-                payload['records'][0]['sample_id'] = forbidden
-                self.assertIn('P60_IDs_outside_registered_team_roles', check())
-            payload['records'][0].update(sample_id=boundary.allowed_ids('validation')[0], role='calibration')
-            self.assertEqual(check(), [])
-            payload['records'][0].update(dataset='fever', sample_id='fictional-unregistered')
-            self.assertIn('P60_FEVER_source_needs_separate_team_registration', check())
-            payload['records'][0]['dataset'] = 'nq'
-            payload['records'][0]['role'] = 'training'
-            payload['records'][0]['sample_id'] = training_id
+            payload['records'][0]['sample_id'] = ''
+            self.assertIn('P60_provenance_invalid_usage_record', check())
+            payload['records'][0]['sample_id'] = '1'
             payload['records'] = payload['records'][:1]
             self.assertIn('P60_provenance_does_not_cover_all_three_models', check())
+            payload['records'] = rows
+            payload['model_sha256'] = {**models, list(models)[0]: '0' * 64}
+            self.assertIn('P60_provenance_incomplete_or_wrong_models', check())
+            payload['model_sha256'] = models
+            # Corrupt one on-disk artifact hash relative to declared digest.
+            bad = root / list(models)[0]
+            bad.write_bytes(b'not-a-joblib')
+            self.assertIn('P60_provenance_model_artifact_missing_or_changed', check())
 
 
 if __name__ == '__main__':

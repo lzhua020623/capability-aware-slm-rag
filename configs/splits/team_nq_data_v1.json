@@ -4,24 +4,24 @@
   "source_commit": "387ddafc82bc939ebd27b3137d580db6ecb2e04a",
   "team_split": {
     "path": "baselines/splits/diagnosis_nq_train_74097_split.json",
-    "sha256": "7da01c94cd7b5f92076edebc80911ac891d3861a01cf6b40a1e5e6efb6482dc4",
+    "sha256": "e6572c9b1c8f92dccceef2a85200a891ab33c01fe4775e4541c55e86f64de9db",
     "version": "diagnosis_nq_train_74097_rep08"
   },
   "label_index": {
     "path": "data/annotations/normalized/nq15_train_labels.jsonl",
-    "sha256": "ad3fe8412dd5de0b1a028253d6c10ad51f16b41d9b29b2c12f884403f648ea50"
+    "sha256": "5e5ca8364b2e79afb92572f3688c1c1252ce64b915cf35e0e17d90a9b254077e"
   },
   "legacy_reserve": {
     "path": "artifacts/controller/data_v1/evaluation_reserve_ids.json",
-    "sha256": "43bee6035df34346c6d98f3e0cdaf6411e4e104116d85a08ca6e519c7b86cb86"
+    "sha256": "6559fe1e9192ac57c14e760aa167a1c2ad46beec76c5af85b49441fc85a62160"
   },
   "legacy_selection": {
     "path": "artifacts/controller/data_v1/selection_ids.json",
-    "sha256": "82d76471170ae732fac7270e53b392c51d64c8caa7bc3083087e6597f8fff6f0"
+    "sha256": "a8fd56569c099061d538c312bd111298959029ea65f0ab6c6225410b54aa2bb0"
   },
   "known_exposure": {
     "path": "artifacts/controller/team_data_v1/known_exposure_ids.json",
-    "sha256": "c6aa7c614955a5280d9c2b482569b4ca6c3ad5cb28a77a008f424c97b1ac5557"
+    "sha256": "77e82ee4ee474ceb2f45364cddbecebf6cbf42b0827c7dd7e25ae3f9bde1ae15"
   },
   "roles": {
     "train": "team train minus full legacy reserve and legacy Controller selection",
@@ -35,7 +35,7 @@
   "source_delivery": {
     "manifest": {
       "path": "data/annotations/nq_train_delivery/manifest.json",
-      "sha256": "565b694d1caae3e3c22b47f3be90ca68a944196a641a6d15a5306252b4df7346"
+      "sha256": "bd05def2b2e56957f0322b5fe76ee92af315a354f4dcbab6abaf79c94b2dd378"
     },
     "default_local_directory": "data/processed/external/nq_train_delivery_20261017",
     "C1_scope": "Historical 74097 C1; not the new context_fallback baseline test output"

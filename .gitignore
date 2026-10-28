@@ -9,6 +9,8 @@ data/annotations/*.xlsx
 models/
 checkpoints/
 .env
+.env.*
+!.env.example
 
 # Raw annotation workbooks are local; normalized results are versioned.
 data/NQ_15/
@@ -220,3 +222,17 @@ data/annotations/*.xlsx
 !artifacts/answer_repair/v9_contract_v1/**
 artifacts/answer_repair/**/gpu_bundle/
 artifacts/answer_repair/**/partial_downloads/
+
+# Local P26 generator recovery scratch (not production source)
+_scratch_p26_recover/
+
+# Temporary smoke / hunt intermediates; keep only the slim final E2E summary.
+artifacts/controller/production_e2e_smoke_v1/**
+!artifacts/controller/production_e2e_smoke_v1/
+!artifacts/controller/production_e2e_smoke_v1/smoke_results_final.json
+
+# Local scratch / debug dumps
+_scratch*/
+**/smoke_*_hunt.*
+.pytest_cache/
+

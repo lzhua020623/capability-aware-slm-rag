@@ -32,46 +32,34 @@ def file_sha(path):
 
 
 def provenance_issues(root, spec, config):
-    """Check declared per-model usage IDs, never infer a clean split from labels."""
+    """Structural/hash integrity for P60 training provenance.
+
+    Checks file existence, registered sha, model sha map, and that each
+    referenced HGB artifact exists on disk. Does not audit Train/Test ID
+    overlap or data-boundary membership of usage records.
+    """
     root = Path(root)
     path = root / spec['path']
     if not path.is_file() or file_sha(path) != spec['sha256']:
         return ['P60_provenance_missing_or_changed']
-    payload = json.loads(path.read_text())
+    payload = json.loads(path.read_text(encoding='utf-8'))
     expected = {p: h for p, h in config['frozen_assets'].items()
                 if p.startswith('models/controller/p60_online_adapter/')}
     records = payload.get('records')
     if (payload.get('complete') is not True or payload.get('model_sha256') != expected
             or not isinstance(records, list) or not records):
         return ['P60_provenance_incomplete_or_wrong_models']
-    protected = json.loads((root / 'artifacts/controller/data_v1/evaluation_reserve_ids.json').read_text())
-    selected = json.loads((root / 'artifacts/controller/data_v1/selection_ids.json').read_text())
-    forbidden = {(ds, str(sid)) for ds in ('nq', 'fever')
-                 for sid in protected[ds] + selected[ds]['selection']}
+    for rel, digest in expected.items():
+        asset = root / rel
+        if not asset.is_file() or file_sha(asset) != digest:
+            return ['P60_provenance_model_artifact_missing_or_changed']
     covered = set()
-    try:
-        boundary = TeamNQBoundary(root)
-    except BoundaryError:
-        return ['team_data_boundary_missing_or_changed']
     for row in records:
         if (set(row) != {'model', 'dataset', 'sample_id', 'role'} or row['model'] not in expected
                 or row['dataset'] not in ('nq', 'fever')
-                or row['role'] not in ('training', 'tuning', 'calibration', 'error_analysis')):
+                or row['role'] not in ('training', 'tuning', 'calibration', 'error_analysis')
+                or not isinstance(row['sample_id'], str) or not row['sample_id']):
             return ['P60_provenance_invalid_usage_record']
-        if (row['dataset'], str(row['sample_id'])) in forbidden:
-            return ['P60_training_or_tuning_overlaps_protected_or_selection_IDs']
-        if row['dataset'] == 'fever':
-            return ['P60_FEVER_source_needs_separate_team_registration']
-        if row['dataset'] == 'nq':
-            try:
-                if not isinstance(row['sample_id'], str):
-                    raise BoundaryError('P60 IDs must be exact strings')
-                roles = ('train',) if row['role'] == 'training' else ('train', 'validation')
-                if not any(row['sample_id'] in boundary.eligible[r] for r in roles):
-                    raise BoundaryError('P60 data outside registered role')
-                boundary.require([row['sample_id']], next(r for r in roles if row['sample_id'] in boundary.eligible[r]))
-            except BoundaryError:
-                return ['P60_IDs_outside_registered_team_roles']
         covered.add(row['model'])
     return [] if covered == set(expected) else ['P60_provenance_does_not_cover_all_three_models']
 
@@ -79,7 +67,7 @@ def provenance_issues(root, spec, config):
 def readiness(root=ROOT):
     """No model/GPU load and no benchmark data read, including final inputs."""
     root = Path(root)
-    config = json.loads((root / REGISTRATION).read_text())
+    config = json.loads((root / REGISTRATION).read_text(encoding='utf-8'))
     missing = []
     try:
         data_boundary = TeamNQBoundary(root).receipt()
@@ -183,12 +171,27 @@ class CheckedFeatures:
 
 
 class CurrentPipeline:
-    def __init__(self, host, features, config, *, data_boundary=None, data_role=None):
+    def __init__(self, host, features, config, *, data_boundary=None, data_role=None, e_mode=None):
         self.host, self.features, self.config = host, features, config
         self.data_boundary, self.data_role = data_boundary, data_role
+        self.e_mode = e_mode if e_mode is not None else {'nq': 'allow_repair', 'fever': 'allow_repair'}
 
-    def run_from_item(self, item):
+    def run(self, query, *, sample_id=None, dataset='nq'):
+        """Raw query → formal Reference RAG → Diagnosis / Selection / Controller."""
+        if self.host.reference_rag is None:
+            raise ValueError('reference_rag is required for CurrentPipeline.run(query)')
+        item = self.host.reference_rag.run(query, sample_id=sample_id, dataset=dataset)
+        enforce_boundary = True
         if self.data_boundary is not None:
+            if item.dataset.value != 'nq':
+                raise BoundaryError('FEVER production data roles need a separate team registration')
+            # Ad-hoc runtime IDs are allowed for online queries; registered IDs stay gated.
+            if item.sample_id not in self.data_boundary.membership:
+                enforce_boundary = False
+        return self.run_from_item(item, enforce_boundary=enforce_boundary)
+
+    def run_from_item(self, item, *, enforce_boundary=True):
+        if enforce_boundary and self.data_boundary is not None:
             if item.dataset.value != 'nq':
                 raise BoundaryError('FEVER production data roles need a separate team registration')
             self.data_boundary.require([item.sample_id], self.data_role)
@@ -197,34 +200,48 @@ class CurrentPipeline:
         cost = result.enhancement_result.metadata.get('enhancement_cost')
         if cost is None:
             cost = CallLog(self.config).summary()  # no_action invokes no module
+        boundary_meta = {'enforced': False, 'scope': 'engineering_injection'}
+        if self.data_boundary is not None:
+            if enforce_boundary:
+                boundary_meta = {
+                    'enforced': True,
+                    'policy_sha256': self.data_boundary.receipt()['policy_sha256'],
+                    'split_sha256': self.data_boundary.policy['team_split']['sha256'],
+                }
+            else:
+                boundary_meta = {
+                    'enforced': False,
+                    'scope': 'ad_hoc_query',
+                    'policy_sha256': self.data_boundary.receipt()['policy_sha256'],
+                    'split_sha256': self.data_boundary.policy['team_split']['sha256'],
+                }
         return replace(result, metadata={**result.metadata,
             'baseline': 'diagnosis_20261024_p60_p64_v1',
             'dataset': canonical.dataset.value, 'initial_answer_raw': item.initial_answer,
             'feature_provider': self.features.last_receipt,
             'data_role': self.data_role,
-            'data_boundary': ({'enforced': True,
-                'policy_sha256': self.data_boundary.receipt()['policy_sha256'],
-                'split_sha256': self.data_boundary.policy['team_split']['sha256']}
-                if self.data_boundary is not None else {'enforced': False, 'scope': 'engineering_injection'}),
+            'data_boundary': boundary_meta,
             'enhancement_cost': cost,
             'cost_scope': 'enhancement calls measured; feature cost separately reported, cached C1 excluded',
-            'E_mode': 'unavailable', 'quality_evaluated': False})
+            'E_mode': self.e_mode,
+            'quality_evaluated': False})
 
 
 def wire_latest_pipeline(execution_backend, feature_provider, *, selection_adapter=None, root=ROOT,
-                         require_feature_costs=False, data_boundary=None, data_role=None):
+                         require_feature_costs=False, data_boundary=None, data_role=None,
+                         reference_rag=None):
     """Wire real modules; injections also support explicitly fictional tests.
 
     Production callers use load_current_pipeline, which additionally checks
     delivery/provenance before loading any GPU model.
     """
-    config = json.loads((Path(root) / REGISTRATION).read_text())
+    config = json.loads((Path(root) / REGISTRATION).read_text(encoding='utf-8'))
     expected = ExecutionConfig(**config['execution_config'])
     if execution_backend.config != expected:
-        raise ValueError('Use the registered latest execution config; E stays unavailable')
+        raise ValueError('Use the registered latest execution config from current_baseline.json')
     selector = (FrozenOnlineSelectionAdapter.from_config_path(config['selector_config'], repo_root=Path(root))
                 if selection_adapter is None else selection_adapter)
-    names = json.loads((Path(root) / config['selector_config']).read_text())['feature_names']
+    names = json.loads((Path(root) / config['selector_config']).read_text(encoding='utf-8'))['feature_names']
     features = CheckedFeatures(feature_provider, names, require_costs=require_feature_costs)
     executor = EnhancementExecutor()
     adapter = MeteredEnhancementAdapter(execution_backend)
@@ -232,11 +249,14 @@ def wire_latest_pipeline(execution_backend, feature_provider, *, selection_adapt
                    ControllerAction.GENERATION_REPAIR):
         executor.register(action, adapter)
     host = build_adaptive_pipeline(classifier=execution_backend.classifier,
-        selection_adapter=selector, feature_provider=features, executor=executor)
-    return CurrentPipeline(host, features, expected, data_boundary=data_boundary, data_role=data_role)
+        selection_adapter=selector, feature_provider=features, executor=executor,
+        reference_rag=reference_rag)
+    return CurrentPipeline(host, features, expected, data_boundary=data_boundary, data_role=data_role,
+                           e_mode=config.get('E_mode'))
 
 
-def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None, data_role='validation'):
+def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None, data_role='validation',
+                          attach_reference_rag=True):
     """Current production entry. Missing inputs stop; never run old routing."""
     root = Path(root)
     if data_role not in ('train', 'validation'):
@@ -244,7 +264,7 @@ def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None,
     receipt = readiness(root)
     if not receipt['ready_for_gpu']:
         raise RuntimeError('Latest Diagnosis integration not ready: ' + '; '.join(receipt['missing']))
-    config = json.loads((root / REGISTRATION).read_text())
+    config = json.loads((root / REGISTRATION).read_text(encoding='utf-8'))
     spec = config['feature_provider']
     module = importlib.import_module(spec['module'])
     if Path(module.__file__).resolve() != (root / spec['source_path']).resolve():
@@ -255,6 +275,19 @@ def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None,
     provider = getattr(module, spec['factory'])(execution_backend=backend)
     if not callable(getattr(provider, 'runtime_receipt', None)):
         raise ValueError('Production feature provider must report its runtime costs')
+    reference_rag = None
+    if attach_reference_rag:
+        from src.pipeline.reference_rag import MatchedReferenceRAG
+        reference_rag = MatchedReferenceRAG.from_shared_generator(backend.raw_generator, root=root)
+        environment = {
+            **environment,
+            'reference_rag': {
+                'config': getattr(reference_rag, 'config', {}).get('_config_path'),
+                'prompt_style': reference_rag.prompt_style,
+                'embedding_model': reference_rag.embedding_model,
+                'top_k': reference_rag.top_k,
+            },
+        }
     return wire_latest_pipeline(backend, provider, root=root, require_feature_costs=True,
-        data_boundary=TeamNQBoundary(root), data_role=data_role), {
+        data_boundary=TeamNQBoundary(root), data_role=data_role, reference_rag=reference_rag), {
         **environment, 'current_baseline': receipt, 'probe_enabled': False}

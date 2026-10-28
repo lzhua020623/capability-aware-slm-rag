@@ -1,6 +1,8 @@
 # Controller 2 集成交接 · 2026-10-27
 
-后续操作在 `controller_2`。本轮从 `controller@5da8fa690bb04bd65f19ee9629b899d569fa0abe` 创建分支，合入两条增强路线的最新内容；它是兼容集成，不代表新算法或新权重已通过效果验收。
+**当前生产 Adaptive RAG 状态与入口**见 [CONTROLLER_1024_BASELINE.md](CONTROLLER_1024_BASELINE.md)（E2E production path passed）。下文保留分支合并与兼容处理的历史交接记录。
+
+后续操作在 `controller_2`。本轮从 `controller@5da8fa690bb04bd65f19ee9629b899d569fa0abe` 创建分支，合入两条增强路线的最新内容；下列合并说明描述当时的兼容集成，不以其中“E unavailable / P60 未交付”等过时表述为准。
 
 | 来源 | 冻结提交 | 本轮加入 |
 |---|---|---|

@@ -1,3 +1,6 @@
 -r requirements-controller-t3.txt
 xgrammar==0.2.8
+# Windows hosts: official triton wheels are unavailable; install a matching
+# triton-windows build for the local torch minor (torch 2.14 -> 3.8.x).
+# triton-windows==3.8.0.post29
 jsonschema==4.26.0

@@ -144,10 +144,10 @@ class TeamBoundaryTests(unittest.TestCase):
         a, b = data['splits']['nq']['train'], data['splits']['nq']['validation']
         a[0], b[0] = b[0], a[0]
         (root / rel).write_text(json.dumps(data))
-        policy = json.loads((root / POLICY).read_text())
+        policy = json.loads((root / POLICY).read_text(encoding='utf-8'))
         policy['team_split']['sha256'] = sha(root / rel)
         (root / POLICY).write_text(json.dumps(policy))
-        registration = json.loads((root / REGISTRATION).read_text())
+        registration = json.loads((root / REGISTRATION).read_text(encoding='utf-8'))
         registration['data_boundary']['sha256'] = sha(root / POLICY)
         (root / REGISTRATION).write_text(json.dumps(registration))
         with self.assertRaisesRegex(BoundaryError, 'never re-split'):
@@ -315,7 +315,7 @@ class TeamBoundaryTests(unittest.TestCase):
         from tests.test_controller_current import FictionalFeatures, ForcedSelection
         from src.diagnosis.labels import DiagnosisLabel
         from dataclasses import replace
-        cfg = json.loads((ROOT / REGISTRATION).read_text())
+        cfg = json.loads((ROOT / REGISTRATION).read_text(encoding='utf-8'))
         backend = smoke_pipeline(ExecutionConfig(**cfg['execution_config']))
         pipeline = wire_latest_pipeline(backend, FictionalFeatures(),
             selection_adapter=ForcedSelection(DiagnosisLabel.CORRECT, selected=False),
@@ -332,7 +332,7 @@ class TeamBoundaryTests(unittest.TestCase):
         from tests.test_controller_current import FictionalFeatures, ForcedSelection
         from src.diagnosis.labels import DiagnosisLabel
         from dataclasses import replace
-        cfg = json.loads((ROOT / REGISTRATION).read_text())
+        cfg = json.loads((ROOT / REGISTRATION).read_text(encoding='utf-8'))
         backend = smoke_pipeline(ExecutionConfig(**cfg['execution_config']))
         pipeline = wire_latest_pipeline(backend, FictionalFeatures(),
             selection_adapter=ForcedSelection(DiagnosisLabel.CORRECT, selected=False),

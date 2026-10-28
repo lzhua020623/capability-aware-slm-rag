@@ -30,13 +30,13 @@
     },
     "recovery_metadata": {
       "path": "data/processed/indexes/nq_train_bge_metadata.json",
-      "bytes": 4134,
-      "sha256": "c6ed43b627833dd6592a964e5e03eebfd1fad3ba627f2c66a568ad94e7914fbd"
+      "bytes": 4281,
+      "sha256": "deb1f145a1e5f11c1bfdbcf9e22adef8cdde285601a77b0bfaaa6c13c5dc782b"
     },
     "mapping_validation": {
       "path": "artifacts/controller/nq_mapping_full_v1/validation.json",
-      "bytes": 3220,
-      "sha256": "cdff67e6dcdab1d7751623402a99b04a1cf80285b50c30f5daff93e840668ff1"
+      "bytes": 3073,
+      "sha256": "cf455888e9fa2156f8c7b4088b57c5b842c91420219f4e2070983bd2b1c763e8"
     }
   }
 }

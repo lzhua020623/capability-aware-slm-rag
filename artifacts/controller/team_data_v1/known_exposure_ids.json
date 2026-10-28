@@ -4,56 +4,56 @@
   "sources": [
     {
       "path": "configs/splits/answer_repair_nq_train_exposure_registry_20261022.json",
-      "sha256": "abe248661ac866c2df4049341ca64e661266df4c90e4cd2f7010664781ae4811",
+      "sha256": "8000f6b47d47ce0590b9828ea99fdf8610ce049fe994feae2646fef6f37fb4ef",
       "kind": "E_exposure_registry",
       "canonical_count": 426,
       "external_count": 0
     },
     {
       "path": "artifacts/controller/data_v1/selection_ids.json",
-      "sha256": "82d76471170ae732fac7270e53b392c51d64c8caa7bc3083087e6597f8fff6f0",
+      "sha256": "a8fd56569c099061d538c312bd111298959029ea65f0ab6c6225410b54aa2bb0",
       "kind": "controller_development_and_selection",
       "canonical_count": 400,
       "external_count": 0
     },
     {
       "path": "results/compensation/refinement_end_to_end_accessibility.json",
-      "sha256": "f94afa259b965b047fe69eb31608b9bfee141becac3dc7e7adef0429fd15de39",
+      "sha256": "2617057782bd2b8c010248f0fc332d64964b39805f6790b1d3913fa912cd9787",
       "kind": "saved_experiment_ID_fields",
       "canonical_count": 2367,
       "external_count": 0
     },
     {
       "path": "results/compensation/refinement_end_to_end_harm.json",
-      "sha256": "ab7da3b98afef48dd84790dcf05a6e5532dfcf2682c645fb3a1f9d1ef89c9f00",
+      "sha256": "0d06019675a07889922ca291635419d672f53e1da51fd709f3577e4437894684",
       "kind": "saved_experiment_ID_fields",
       "canonical_count": 600,
       "external_count": 0
     },
     {
       "path": "results/compensation/refinement_end_to_end_pilot.json",
-      "sha256": "34a9eb690dadf8dd40f7896b80a2fd8c644669d3189661e9016c549d6491d1b5",
+      "sha256": "2cd9cfdb507fc2e15197665f62636f093f830bfa9f50e34e5070f061d9b65d6c",
       "kind": "saved_experiment_ID_fields",
       "canonical_count": 200,
       "external_count": 0
     },
     {
       "path": "results/compensation/refinement_end_to_end_provence.json",
-      "sha256": "38bbe9264b2b7e6444f850ca6390c66c492b2a9b0f8fdde2f3d27b55cb099f43",
+      "sha256": "a4d0249fd8beda05985922da04221500aca241b82ae3cda3608807e3db73c8d6",
       "kind": "saved_experiment_ID_fields",
       "canonical_count": 2367,
       "external_count": 0
     },
     {
       "path": "results/compensation/refinement_end_to_end_random_prune.json",
-      "sha256": "ce74207ab6fa3cd17d78f480bacfb4deac22a823975f292f3eb1abaa4c5b04c6",
+      "sha256": "213fbaf30d041a2a937d55da7544f495d86a503644e7ca2d302482783d5e28a9",
       "kind": "saved_experiment_ID_fields",
       "canonical_count": 2367,
       "external_count": 0
     },
     {
       "path": "results/compensation/refinement_end_to_end_shuffle_control.json",
-      "sha256": "54eaa5aee9b56ea0c90d7bd65a926333e9e8062bd5c704ab8a7826690d728cf6",
+      "sha256": "b7e4485e3cfb559f9ae148aaf82371b976c618930df35489f0d2c8f9d692b1e5",
       "kind": "saved_experiment_ID_fields",
       "canonical_count": 2367,
       "external_count": 0

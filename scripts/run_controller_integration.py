@@ -130,6 +130,28 @@ def smoke_pipeline(config, classifier_path=DEFAULT_CLASSIFIER):
             # Unknown tokens remain unknown; fictional latency is not GPU cost.
             return Generation(answer, 0.0)
 
+        def generate_schema(self, prompt, max_new_tokens, schema):
+            # Deterministic evidence_id_v2a body for CPU smoke; IDs match smoke_inputs units.
+            fever = "Claim:" in prompt or '"REFUTES"' in prompt or '"SUPPORTS"' in prompt
+            if fever and "Entering answer" in prompt:
+                payload = {
+                    "original_verification": "contradicted",
+                    "verdict_evidence_ids": ["R1S1"],
+                    "replacement_answer": "SUPPORTS",
+                    "replacement_evidence_ids": ["R1S1"],
+                    "reason": "Evidence establishes the claim is supported.",
+                }
+            else:
+                payload = {
+                    "original_verification": "contradicted",
+                    "verdict_evidence_ids": ["R1S1"],
+                    "replacement_answer": "Amber",
+                    "replacement_evidence_ids": ["R1S1"],
+                    "reason": "Evidence establishes Amber as the capital.",
+                }
+            return Generation(json.dumps(payload), 0.0, 100, 30), {
+                "decoder": "smoke_stub", "hit_token_budget": False}
+
     class Scorer:
         model_name, revision = RERANKER_MODEL, RERANKER_REVISION
         def __call__(self, query, texts):

@@ -95,29 +95,29 @@
   },
   "fingerprints": {
     "offsets": {
-      "path": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/data/processed/indexes/nq_train_bge_base_offsets.npy",
+      "path": "data/processed/indexes/nq_train_bge_base_offsets.npy",
       "bytes": 9793080,
       "sha256": "3e819f87f04f6069e27f0ba12f89493834cbb597e2e0d2d599aee585b63d2e5b"
     },
     "ids": {
-      "path": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/data/processed/indexes/nq_train_bge_base_ids.jsonl",
+      "path": "data/processed/indexes/nq_train_bge_base_ids.jsonl",
       "bytes": 37947689,
       "sha256": "7d5d51f81ae3f89f4d7407b46b71f5c42804e418042e49c647435457f3715581"
     },
     "index": {
-      "path": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/data/processed/indexes/nq_train_bge_base.index",
+      "path": "data/processed/indexes/nq_train_bge_base.index",
       "bytes": 3760493613,
       "sha256": "cd94b5cd2d5fec4736ba16197e2431a87d347640cd1c79da6a6daa2cac9bfd5d"
     },
     "corpus": {
-      "path": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/data/processed/retrieval/nq_train_corpus.jsonl",
+      "path": "data/processed/retrieval/nq_train_corpus.jsonl",
       "bytes": 782900757,
       "sha256": "c4ec2cc61aa091bd4cd6492b7cbdc53c8265395d9ac1b9b6307ac748daf6940d"
     },
     "recovery_metadata": {
-      "path": "/Users/leaf/Documents/GitHub/capability-aware-slm-rag/data/processed/indexes/nq_train_bge_metadata.json",
-      "bytes": 4134,
-      "sha256": "c6ed43b627833dd6592a964e5e03eebfd1fad3ba627f2c66a568ad94e7914fbd"
+      "path": "data/processed/indexes/nq_train_bge_metadata.json",
+      "bytes": 4281,
+      "sha256": "deb1f145a1e5f11c1bfdbcf9e22adef8cdde285601a77b0bfaaa6c13c5dc782b"
     }
   }
 }

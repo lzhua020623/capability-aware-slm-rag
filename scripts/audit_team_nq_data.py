@@ -33,10 +33,19 @@ def audit(root=ROOT, *, inspect_source=True):
     root = Path(root)
     boundary = TeamNQBoundary(root)
     policy = boundary.policy
-    original = subprocess.check_output(['git', 'show', policy['source_commit'] + ':' +
-                                       policy['team_split']['path']], cwd=root)
-    if hashlib.sha256(original).hexdigest() != policy['team_split']['sha256']:
+    # Compare Git blob vs worktree after newline normalization so CRLF checkouts
+    # of the same formal split are accepted; policy sha256 tracks worktree bytes.
+    rel = policy['team_split']['path']
+    original = subprocess.check_output(
+        ['git', 'show', policy['source_commit'] + ':' + rel], cwd=root
+    )
+    worktree = (root / rel).read_bytes()
+    if hashlib.sha256(original.replace(b'\r\n', b'\n')).hexdigest() != hashlib.sha256(
+        worktree.replace(b'\r\n', b'\n')
+    ).hexdigest():
         raise BoundaryError('Copied split differs from the original team Git blob')
+    if hashlib.sha256(worktree).hexdigest() != policy['team_split']['sha256']:
+        raise BoundaryError('Registered data missing or changed: ' + rel)
     rows = []
     with (root / policy['label_index']['path']).open(encoding='utf-8') as handle:
         for line in handle:

@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class Controller2ModuleTests(unittest.TestCase):
     def backend(self):
-        config = json.loads((ROOT / 'configs/controller/current_baseline.json').read_text())
+        config = json.loads((ROOT / 'configs/controller/current_baseline.json').read_text(encoding='utf-8'))
         return smoke_pipeline(ExecutionConfig(**config['execution_config']))
 
     def test_old_and_new_refinement_imports_share_the_same_types(self):
@@ -82,15 +82,17 @@ class Controller2ModuleTests(unittest.TestCase):
         self.assertEqual([e.passage_id for e in result.evidence], [e.passage_id for e in item.evidence])
         self.assertEqual(result.final_answer, 'Amber')
 
-    def test_fever_retrieval_and_disabled_E_keep_the_registered_behavior(self):
+    def test_fever_retrieval_and_enabled_E_execute_real_modules(self):
         backend = self.backend()
         item = smoke_inputs()[1]
         retrieval = backend.execute(item, decision_for(ControllerAction.RETRIEVAL_ENHANCEMENT, item.sample_id))
         self.assertIsNone(retrieval['error'])
         self.assertEqual(retrieval['final_answer'], 'SUPPORTS')
         repair = backend.execute(item, decision_for(ControllerAction.GENERATION_REPAIR, item.sample_id))
-        self.assertEqual(repair['status'], 'verification_unavailable')
-        self.assertEqual(repair['final_answer'], item.initial_answer)
+        self.assertNotEqual(repair['status'], 'verification_unavailable')
+        self.assertTrue(repair['executed'])
+        self.assertEqual(repair['module_trace']['support_check']['deployment_mode'], 'allow_repair')
+        self.assertNotEqual(repair['module_trace']['support_check']['original_verification'], 'incomplete')
 
     def test_default_refiner_does_not_load_candidate_models_or_enable_pruning(self):
         refiner = EvidenceRefiner(lambda query, texts: [0.0] * len(texts), lambda prompt: 'Amber')

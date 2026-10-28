@@ -1,0 +1,27 @@
+{
+  "schema_version": "controller_reference_rag_v1",
+  "description": "Formal Reference RAG for AdaptiveRAGPipeline.run(query): NQ-Train matched BGE FAISS + Qwen2.5-7B context_fallback. Aligns with feature/baseline-evaluation baselines/configs/rag_matched.json (FREEZE_CONTEXT_FALLBACK). Legacy Dev-index nq_bge_base is invalidated.",
+  "generator": {
+    "model_name": "Qwen/Qwen2.5-7B-Instruct",
+    "quantization": "nf4",
+    "do_sample": false,
+    "max_new_tokens": 64
+  },
+  "retrieval": {
+    "embedding_model": "BAAI/bge-base-en-v1.5",
+    "top_k": 5,
+    "backend": "corpus_offsets",
+    "index_path": "data/processed/indexes/nq_train_bge_base.index",
+    "ids_path": "data/processed/indexes/nq_train_bge_base_ids.jsonl",
+    "offsets_path": "data/processed/indexes/nq_train_bge_base_offsets.npy",
+    "corpus_path": "data/processed/retrieval/nq_train_corpus.jsonl",
+    "passage_prefix": "",
+    "query_prefix": "Represent this sentence for searching relevant passages: ",
+    "expected_ntotal": 1224119
+  },
+  "rag_prompt": {
+    "default_style": "context_fallback",
+    "frozen_verdict": "FREEZE_CONTEXT_FALLBACK"
+  },
+  "resources_registry": "configs/controller/nq_train_resources_v1.json"
+}

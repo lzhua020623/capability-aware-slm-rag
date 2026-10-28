@@ -1,37 +1,31 @@
 # capability-aware-slm-rag
 
-本项目研究小参数模型 RAG 的诊断与动态增强：先用固定检索和生成模型产生 C1 答案，再由 Diagnosis、可选 Probe 和 Controller 选择补检索、重排过滤或答案核验与修复。Reference RAG 是共同实验底座。
+本项目研究小参数模型 RAG 的诊断与动态增强：固定 Reference RAG 产生初答后，由 Diagnosis、P60 Selection 与 Controller 选择是否以及如何增强，再得到 Final Answer。
 
-## 后续开发分支：controller_2（2026-10-27）
+## 当前正式状态：controller_2 Production Adaptive RAG
 
-团队 NQ 原始 70/15/15 划分已按原字节接入；ID、初标数量元数据和 15 个本地 C1 分片已核对。
-后续用途边界、603 条已知 test 曝光及保守开发池见 [数据对齐与边界](docs/TEAM_DATA_BOUNDARIES.md)。
-原始数据不缺；待交付的是团队新 baseline 的逐题输出，FEVER 划分仍待统一。
+生产链路已冻结并通过 E2E smoke（四种 action 均真实覆盖）。完整说明见 [Production Adaptive RAG](docs/CONTROLLER_1024_BASELINE.md)。
 
-E 的 [输出蒸馏准备](docs/E_DISTILLATION_V1.md)已启动：固定 Train 内 500 条教师试产及独立开发/选型清单，准备离线任务。教师 API、QLoRA/SFT 尚未执行，当前 E 继续 unavailable。
+```text
+Query → Reference RAG → Diagnosis → P60 Selection → Controller → Enhancement → Final Answer
+```
 
-收尾发现重排分支新增三次提交，已兼容接入至 `1d51856`，见 [最新重排集成](docs/RERANK_1D51856_INTEGRATION.md)。深候选池保持显式实验开关，不改变生产 Top-5，也不改变 E 教师输入。
+| 组件 | 正式配置 |
+|---|---|
+| Reference RAG | BGE `bge-base-en-v1.5` + matched NQ-Train Top-5 + Qwen2.5-7B NF4 + `context_fallback` |
+| Diagnosis / Selection | 层次 Diagnosis + P60 78D online provider + Frozen Selection；Probe OFF |
+| Actions | `no_action` / `retrieval_enhancement` / `evidence_refinement` / `generation_repair` |
+| E_mode | `allow_repair`（`evidence_id_v2a`） |
 
-`controller_2` 从 `controller@5da8fa6` 创建，合入补检索 `37e469e` 与重排 `5583285`。
-合并说明、兼容处理、验证记录及下一步见 [Controller 2 交接](docs/CONTROLLER2_INTEGRATION.md)。
-当前运行配置保持原样：新重排权重、句子裁剪和答案选择器均未晋升默认；E 仍 unavailable，P60 的两项材料仍待交付。
-后续 NQ 实验按团队 `feature/baseline-evaluation` 的 70/15/15 划分统一，test 为 11,114 条；
-该划分已接入，逐题 baseline 输出仍待交付；旧 T4/T5 数据与结果继续作为历史记录。
-
-## 当前主线：10 月 24 日 Diagnosis（2026-10-27）
-
-后续以 `feature/diagnosis-probe-zheng@138d52a` 的 Diagnosis／P60／P64 为基线，登记为 `configs/controller/current_baseline.json`。
-该提交已在 `controller` 历史中；本次补齐新 host 到真实增强模块的适配、调用计量和严格启动检查。
-新流程为 **C1 → Diagnosis → P60 → Controller → EnhancementExecutor**，Probe 按上游设计关闭。
-生产入口为 `src.pipeline.current.load_current_pipeline()`，见 [最新基线交接](docs/CONTROLLER_1024_BASELINE.md)。
+正式入口：`src.pipeline.current.load_current_pipeline()` → `pipeline.run(query)`。
 
 ```bash
 python scripts/check_controller_current.py
 ```
 
-目前检查明确报告原 78 维特征实现及 P60 训练／调参 ID 来源尚未交付，退出码为 2；不会补零、调用虚构实现或回退旧路由。
-E 继续 unavailable；代码接入与主线登记已完成，真实新路由效果尚未评测。
-此前 [T5 结果](artifacts/controller/t5_selection_v1/kaggle_v1/README.md)属于旧路由及其 0.2 候选，不能当作 P60 结果。
+应得到 `ready_for_gpu=true`。团队 NQ 70/15/15 边界见 [数据对齐与边界](docs/TEAM_DATA_BOUNDARIES.md)。大型 index / model / cache **不进 Git**，须本地按 registry 就位。
+
+分支由来与历史合并记录仍见 [Controller 2 交接](docs/CONTROLLER2_INTEGRATION.md)；旧 T4/T5 与中间实验文档保留为历史，不以之为当前生产行为。
 
 ## 历史 Controller 集成（2026-10-23）
 
@@ -53,11 +47,12 @@ Smoke 使用虚构样本和假模型输出，只验证执行链路。真实推�
 
 ## 资料入口
 
-当前 T1–T9 见 [任务清单](docs/CONTROLLER_TASKS.md)。后续主线以 [10 月 24 日 Diagnosis 接入](docs/CONTROLLER_1024_BASELINE.md)为准；下表包含历史协议和组件记录。
+当前生产路径以 [Production Adaptive RAG](docs/CONTROLLER_1024_BASELINE.md) 为准。T1–T9 见 [任务清单](docs/CONTROLLER_TASKS.md)。下表含历史协议与组件记录。
 
 | 需要了解的内容 | 入口 |
 |---|---|
-| 当前集成、运行、评测与下一步 | [Controller 集成交接](docs/CONTROLLER_INTEGRATION.md) |
+| **当前生产链路、入口与 runtime assets** | [Production Adaptive RAG](docs/CONTROLLER_1024_BASELINE.md) |
+| 历史集成、运行、评测与下一步 | [Controller 集成交接](docs/CONTROLLER_INTEGRATION.md) |
 | T4 后 E 修订与唯一 NQ 路由候选 | [r2 登记与分支规则](docs/CONTROLLER_E_V2A_R2.md)：18＋2 新验收题已独立复核封存，r2 真实验收未通过，E unavailable；[r1 原始失败](artifacts/controller/e_v2a_interface_r1/README.md)保留，未晋升策略 |
 | T1 冻结比较组、预算、评分和停止条件 | [统一实验协议 v1](docs/CONTROLLER_EXPERIMENT_PROTOCOL_V1.md)（设计已冻结；T2/T3 执行门槛待补） |
 | T2 样本、完整评测保留池与资源缺口 | [数据冻结 v1](docs/CONTROLLER_DATA_V1.md)：NQ 保留 7,564，FEVER 保留 1,886；C1／检索资源已补齐，新 P60 的来源仍待核对 |
@@ -94,22 +89,14 @@ v8r3 的固定 8 条、四组 32 条 GPU 输出已完成并通过冻结回放，
 
 NQ、FEVER 各 500 条 C0/C1/C3 预实验结果已分散保存在实验分支。Diagnosis、Probe、Safe Binary 和 Controller 冻结在 `feature/diagnosis-probe-zheng` 的 `7c7863f`；重排增强在 `reranking` 的 `338ff34`，尚未完成生成质量验证。当前 E 分支未合并这些模块的全部实现，分支记录见项目进度。
 
-## 冻结 Reference RAG
+## 冻结 Reference RAG（production）
 
-- 生成模型：Qwen2.5-7B-Instruct，4-bit NF4，确定性生成。
-- 检索：BAAI/bge-base-en-v1.5 + FAISS，Top-5。
-- 基准：Natural Questions 与 FEVER；固定样本、提示和评分见预实验协议及 `configs/`。
+- 生成：Qwen2.5-7B-Instruct，4-bit NF4，确定性生成。
+- 检索：BAAI/bge-base-en-v1.5 + matched NQ-Train FAISS，Top-5。
+- Prompt：`context_fallback`（见 `configs/controller/reference_rag_v1.json`）。
+- 禁止旧 Dev index（`nq_bge_base`）。
 
-| 数据 | 处理规模 |
-|---|---:|
-| NQ validation / controlled 子集 | 7,830 / 3,216 |
-| NQ 检索 corpus | 99,922 passages |
-| FEVER train / dev | 145,449 / 19,998 |
-| FEVER 处理后 dev | 6,666 SUPPORTS + 6,666 REFUTES |
-| FEVER 有有效 gold evidence 的处理样本 | 13,229 / 13,332 |
-| FEVER 检索 corpus | 5,396,106 passages |
-
-以上为处理流程的规模，不表示当前机器保存了全部数据，也不表示这些样本全部完成人工诊断。原始数据和索引按需下载或重建；E 可直接使用冻结 C1 输入开发。
+历史预实验规模（含旧 NQ validation corpus 等）仍可在预实验协议与 `configs/` 中查阅；**当前 production NQ 检索底座为 matched NQ-Train（约 1,224,119 passages）**。
 
 ## 历史与复现
 

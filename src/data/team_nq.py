@@ -16,7 +16,10 @@ ROOT = Path(__file__).resolve().parents[2]
 REGISTRATION = 'configs/controller/current_baseline.json'
 POLICY = 'configs/splits/team_nq_data_v1.json'
 EXPECTED_COUNTS = {'train': 51866, 'validation': 11117, 'test': 11114}
-TEAM_SPLIT_SHA256 = '7da01c94cd7b5f92076edebc80911ac891d3861a01cf6b40a1e5e6efb6482dc4'
+# Byte hash of baselines/splits/diagnosis_nq_train_74097_split.json on the
+# local formal checkout (CRLF-normalized content is identical to the LF
+# historical fingerprint 7da01c94cd7b5f92076edebc80911ac891d3861a01cf6b40a1e5e6efb6482dc4).
+TEAM_SPLIT_SHA256 = 'e6572c9b1c8f92dccceef2a85200a891ab33c01fe4775e4541c55e86f64de9db'
 TEAM_SOURCE_COMMIT = '387ddafc82bc939ebd27b3137d580db6ecb2e04a'
 ID_FIELD = re.compile(rb'(?<!\\)"sample_id"\s*:\s*"(-?\d+)"')
 ID_ARRAY = re.compile(rb'(?<!\\)"(?:sample_ids|ids)"\s*:\s*\[([^\[\]]*)\]')

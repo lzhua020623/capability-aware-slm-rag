@@ -1,0 +1,622 @@
+{
+  "status": "E2E_SMOKE_OK",
+  "covered_actions": [
+    "evidence_refinement",
+    "generation_repair",
+    "no_action",
+    "retrieval_enhancement"
+  ],
+  "missing_actions": [],
+  "coverage_table": [
+    {
+      "sample_id": "-1000144997787636808",
+      "diagnosis": "correct",
+      "selected": false,
+      "controller_action": "no_action",
+      "enhancement_executed": false,
+      "enhancement_status": "no_action",
+      "pipeline_status": "no_action",
+      "path_ok": true,
+      "query": "where did the term blue jeans come from",
+      "initial_answer": "Genoa",
+      "final_answer": "Genoa",
+      "lane": "no_action",
+      "adapter": null,
+      "native_status": null
+    },
+    {
+      "sample_id": "-1016371113458139968",
+      "diagnosis": "evidence_insufficiency",
+      "selected": true,
+      "controller_action": "retrieval_enhancement",
+      "enhancement_executed": true,
+      "enhancement_status": "success",
+      "pipeline_status": "success",
+      "path_ok": true,
+      "query": "who wrote the south carolina ordinance of secession",
+      "initial_answer": "not specified",
+      "final_answer": "not specified",
+      "lane": "residual_combo",
+      "adapter": "metered_real_modules_1024_v1",
+      "native_status": "kept_original"
+    },
+    {
+      "sample_id": "-1137665077827637132",
+      "diagnosis": "evidence_accessibility",
+      "selected": true,
+      "controller_action": "evidence_refinement",
+      "enhancement_executed": true,
+      "enhancement_status": "success",
+      "pipeline_status": "success",
+      "path_ok": true,
+      "query": "when was the women's boat race first televised",
+      "initial_answer": "1938",
+      "final_answer": "1938",
+      "lane": "residual_combo",
+      "adapter": "metered_real_modules_1024_v1",
+      "native_status": "answer_replaced"
+    },
+    {
+      "sample_id": "-1020917468904807050",
+      "diagnosis": "evidence_utilisation",
+      "selected": true,
+      "controller_action": "generation_repair",
+      "enhancement_executed": true,
+      "enhancement_status": "success",
+      "pipeline_status": "success",
+      "path_ok": true,
+      "query": "who sang it is well with my soul",
+      "initial_answer": "Not specified in the context",
+      "final_answer": "Not specified in the context",
+      "lane": "residual_combo",
+      "adapter": "metered_real_modules_1024_v1",
+      "native_status": "insufficient_evidence"
+    }
+  ],
+  "any_mock": false,
+  "any_unavailable": false,
+  "any_missing_implementation": false,
+  "any_exception": false,
+  "all_rows": [
+    {
+      "sample_id": "-1000144997787636808",
+      "role": "train",
+      "offline_target_label": "correct",
+      "query": "where did the term blue jeans come from",
+      "top5_ok": true,
+      "initial_answer": "Genoa",
+      "final_answer": "Genoa",
+      "diagnosis": {
+        "final_label": "correct",
+        "confidence": 0.6817737879223391,
+        "stage1_failure_probability": 0.31822621207766083,
+        "stage1_label": "correct"
+      },
+      "selection": {
+        "needs_enhancement": false,
+        "failure_type": "correct",
+        "selection_lane": "no_action",
+        "selection_score": 0.0,
+        "confidence": 0.6817737879223391,
+        "p_fail": 0.31822621207766083,
+        "p_insuff": 0.0
+      },
+      "controller": {
+        "action": "no_action",
+        "reason": "not_selected",
+        "used_probe": false
+      },
+      "enhancement": {
+        "actually_executed": false,
+        "adapter": null,
+        "status": "no_action",
+        "changed_answer": false,
+        "native_status": null,
+        "native_executed": null
+      },
+      "pipeline_status": "no_action",
+      "latency_ms": 14880.300800010446,
+      "flags": {
+        "unavailable": false,
+        "mock": false,
+        "missing_implementation": false,
+        "exception": false,
+        "schema_ok": true
+      },
+      "baseline": "diagnosis_20261024_p60_p64_v1",
+      "E_mode": {
+        "nq": "allow_repair",
+        "fever": "allow_repair"
+      },
+      "feature_provider_cost_state": "reported_by_provider",
+      "seeking": "no_action",
+      "path_ok": true
+    },
+    {
+      "sample_id": "-1001531070201985556",
+      "role": "train",
+      "offline_target_label": "evidence_insufficiency",
+      "query": "where does the permanent fund dividend come from",
+      "top5_ok": true,
+      "initial_answer": "Permanent Fund",
+      "final_answer": "Permanent Fund",
+      "diagnosis": {
+        "final_label": "correct",
+        "confidence": 0.7118204025132365,
+        "stage1_failure_probability": 0.2881795974867635,
+        "stage1_label": "correct"
+      },
+      "selection": {
+        "needs_enhancement": false,
+        "failure_type": "correct",
+        "selection_lane": "no_action",
+        "selection_score": 0.0,
+        "confidence": 0.7118204025132365,
+        "p_fail": 0.2881795974867635,
+        "p_insuff": 0.0
+      },
+      "controller": {
+        "action": "no_action",
+        "reason": "not_selected",
+        "used_probe": false
+      },
+      "enhancement": {
+        "actually_executed": false,
+        "adapter": null,
+        "status": "no_action",
+        "changed_answer": false,
+        "native_status": null,
+        "native_executed": null
+      },
+      "pipeline_status": "no_action",
+      "latency_ms": 149.81419999094214,
+      "flags": {
+        "unavailable": false,
+        "mock": false,
+        "missing_implementation": false,
+        "exception": false,
+        "schema_ok": true
+      },
+      "baseline": "diagnosis_20261024_p60_p64_v1",
+      "E_mode": {
+        "nq": "allow_repair",
+        "fever": "allow_repair"
+      },
+      "feature_provider_cost_state": "reported_by_provider",
+      "seeking": "retrieval_enhancement",
+      "path_ok": true
+    },
+    {
+      "sample_id": "-1002689427646740593",
+      "role": "train",
+      "offline_target_label": "evidence_accessibility",
+      "query": "who was the first acting president of india",
+      "top5_ok": true,
+      "initial_answer": "Zakir Husain",
+      "final_answer": "Zakir Husain",
+      "diagnosis": {
+        "final_label": "correct",
+        "confidence": 0.7912489032739305,
+        "stage1_failure_probability": 0.20875109672606953,
+        "stage1_label": "correct"
+      },
+      "selection": {
+        "needs_enhancement": false,
+        "failure_type": "correct",
+        "selection_lane": "no_action",
+        "selection_score": 0.0,
+        "confidence": 0.7912489032739305,
+        "p_fail": 0.20875109672606953,
+        "p_insuff": 0.0
+      },
+      "controller": {
+        "action": "no_action",
+        "reason": "not_selected",
+        "used_probe": false
+      },
+      "enhancement": {
+        "actually_executed": false,
+        "adapter": null,
+        "status": "no_action",
+        "changed_answer": false,
+        "native_status": null,
+        "native_executed": null
+      },
+      "pipeline_status": "no_action",
+      "latency_ms": 109.78759999852628,
+      "flags": {
+        "unavailable": false,
+        "mock": false,
+        "missing_implementation": false,
+        "exception": false,
+        "schema_ok": true
+      },
+      "baseline": "diagnosis_20261024_p60_p64_v1",
+      "E_mode": {
+        "nq": "allow_repair",
+        "fever": "allow_repair"
+      },
+      "feature_provider_cost_state": "reported_by_provider",
+      "seeking": "evidence_refinement",
+      "path_ok": true
+    },
+    {
+      "sample_id": "-1011843833480956954",
+      "role": "validation",
+      "offline_target_label": "evidence_utilisation",
+      "query": "where is the great family cooking showdown filmed",
+      "top5_ok": true,
+      "initial_answer": "main barn at the Quadrangle Trust",
+      "final_answer": "main barn at the Quadrangle Trust",
+      "diagnosis": {
+        "final_label": "evidence_insufficiency",
+        "confidence": 0.2140022142872357,
+        "stage1_failure_probability": 0.5688571241130866,
+        "stage1_label": "failure"
+      },
+      "selection": {
+        "needs_enhancement": false,
+        "failure_type": "evidence_insufficiency",
+        "selection_lane": "no_action",
+        "selection_score": -1.930456611990726,
+        "confidence": 0.2140022142872357,
+        "p_fail": 0.5688571241130866,
+        "p_insuff": 0.2140022142872357
+      },
+      "controller": {
+        "action": "no_action",
+        "reason": "not_selected",
+        "used_probe": false
+      },
+      "enhancement": {
+        "actually_executed": false,
+        "adapter": null,
+        "status": "no_action",
+        "changed_answer": false,
+        "native_status": null,
+        "native_executed": null
+      },
+      "pipeline_status": "no_action",
+      "latency_ms": 135.65070000186097,
+      "flags": {
+        "unavailable": false,
+        "mock": false,
+        "missing_implementation": false,
+        "exception": false,
+        "schema_ok": true
+      },
+      "baseline": "diagnosis_20261024_p60_p64_v1",
+      "E_mode": {
+        "nq": "allow_repair",
+        "fever": "allow_repair"
+      },
+      "feature_provider_cost_state": "reported_by_provider",
+      "seeking": "generation_repair",
+      "path_ok": true
+    },
+    {
+      "sample_id": "-1002586698958599630",
+      "role": "train",
+      "offline_target_label": "evidence_insufficiency",
+      "query": "where does the movie it's complicated take place",
+      "top5_ok": true,
+      "initial_answer": "bar",
+      "final_answer": "bar",
+      "diagnosis": {
+        "final_label": "evidence_insufficiency",
+        "confidence": 0.18579527113607328,
+        "stage1_failure_probability": 0.5029673472783268,
+        "stage1_label": "failure"
+      },
+      "selection": {
+        "needs_enhancement": false,
+        "failure_type": "evidence_insufficiency",
+        "selection_lane": "no_action",
+        "selection_score": -1.8288825581685826,
+        "confidence": 0.18579527113607328,
+        "p_fail": 0.5029673472783268,
+        "p_insuff": 0.18579527113607328
+      },
+      "controller": {
+        "action": "no_action",
+        "reason": "not_selected",
+        "used_probe": false
+      },
+      "enhancement": {
+        "actually_executed": false,
+        "adapter": null,
+        "status": "no_action",
+        "changed_answer": false,
+        "native_status": null,
+        "native_executed": null
+      },
+      "pipeline_status": "no_action",
+      "latency_ms": 211.21549999224953,
+      "flags": {
+        "unavailable": false,
+        "mock": false,
+        "missing_implementation": false,
+        "exception": false,
+        "schema_ok": true
+      },
+      "baseline": "diagnosis_20261024_p60_p64_v1",
+      "E_mode": {
+        "nq": "allow_repair",
+        "fever": "allow_repair"
+      },
+      "feature_provider_cost_state": "reported_by_provider",
+      "seeking": "retrieval_enhancement",
+      "path_ok": true
+    },
+    {
+      "sample_id": "-1003648507394509250",
+      "role": "validation",
+      "offline_target_label": "evidence_accessibility",
+      "query": "diary of a wimpy kid holly hills actor",
+      "top5_ok": true,
+      "initial_answer": "Chloë Grace Moretz",
+      "final_answer": "Chloë Grace Moretz",
+      "diagnosis": {
+        "final_label": "evidence_insufficiency",
+        "confidence": 0.19954958280081236,
+        "stage1_failure_probability": 0.5295114411236902,
+        "stage1_label": "failure"
+      },
+      "selection": {
+        "needs_enhancement": false,
+        "failure_type": "evidence_insufficiency",
+        "selection_lane": "no_action",
+        "selection_score": -1.9496282575214332,
+        "confidence": 0.19954958280081236,
+        "p_fail": 0.5295114411236902,
+        "p_insuff": 0.19954958280081236
+      },
+      "controller": {
+        "action": "no_action",
+        "reason": "not_selected",
+        "used_probe": false
+      },
+      "enhancement": {
+        "actually_executed": false,
+        "adapter": null,
+        "status": "no_action",
+        "changed_answer": false,
+        "native_status": null,
+        "native_executed": null
+      },
+      "pipeline_status": "no_action",
+      "latency_ms": 187.047999992501,
+      "flags": {
+        "unavailable": false,
+        "mock": false,
+        "missing_implementation": false,
+        "exception": false,
+        "schema_ok": true
+      },
+      "baseline": "diagnosis_20261024_p60_p64_v1",
+      "E_mode": {
+        "nq": "allow_repair",
+        "fever": "allow_repair"
+      },
+      "feature_provider_cost_state": "reported_by_provider",
+      "seeking": "evidence_refinement",
+      "path_ok": true
+    },
+    {
+      "sample_id": "-1016371113458139968",
+      "role": "train",
+      "offline_target_label": "evidence_utilisation",
+      "query": "who wrote the south carolina ordinance of secession",
+      "top5_ok": true,
+      "initial_answer": "not specified",
+      "final_answer": "not specified",
+      "diagnosis": {
+        "final_label": "evidence_insufficiency",
+        "confidence": 0.5040703174560459,
+        "stage1_failure_probability": 0.9998342859750935,
+        "stage1_label": "failure"
+      },
+      "selection": {
+        "needs_enhancement": true,
+        "failure_type": "evidence_insufficiency",
+        "selection_lane": "residual_combo",
+        "selection_score": 1.0638519428335969,
+        "confidence": 0.5040703174560459,
+        "p_fail": 0.9998342859750935,
+        "p_insuff": 0.5040703174560459
+      },
+      "controller": {
+        "action": "retrieval_enhancement",
+        "reason": "routed_by_failure_type",
+        "used_probe": false
+      },
+      "enhancement": {
+        "actually_executed": true,
+        "adapter": "metered_real_modules_1024_v1",
+        "status": "success",
+        "changed_answer": false,
+        "native_status": "kept_original",
+        "native_executed": true
+      },
+      "pipeline_status": "success",
+      "latency_ms": 21324.393900009454,
+      "flags": {
+        "unavailable": false,
+        "mock": false,
+        "missing_implementation": false,
+        "exception": false,
+        "schema_ok": true
+      },
+      "baseline": "diagnosis_20261024_p60_p64_v1",
+      "E_mode": {
+        "nq": "allow_repair",
+        "fever": "allow_repair"
+      },
+      "feature_provider_cost_state": "reported_by_provider",
+      "seeking": "generation_repair",
+      "path_ok": true
+    },
+    {
+      "sample_id": "-1004998905086430798",
+      "role": "train",
+      "offline_target_label": "evidence_accessibility",
+      "query": "when was the bellagio in las vegas built",
+      "top5_ok": true,
+      "initial_answer": "May 1996",
+      "final_answer": "May 1996",
+      "diagnosis": {
+        "final_label": "correct",
+        "confidence": 0.6323875890713258,
+        "stage1_failure_probability": 0.36761241092867425,
+        "stage1_label": "correct"
+      },
+      "selection": {
+        "needs_enhancement": false,
+        "failure_type": "correct",
+        "selection_lane": "no_action",
+        "selection_score": 0.0,
+        "confidence": 0.6323875890713258,
+        "p_fail": 0.36761241092867425,
+        "p_insuff": 0.0
+      },
+      "controller": {
+        "action": "no_action",
+        "reason": "not_selected",
+        "used_probe": false
+      },
+      "enhancement": {
+        "actually_executed": false,
+        "adapter": null,
+        "status": "no_action",
+        "changed_answer": false,
+        "native_status": null,
+        "native_executed": null
+      },
+      "pipeline_status": "no_action",
+      "latency_ms": 245.43790001189336,
+      "flags": {
+        "unavailable": false,
+        "mock": false,
+        "missing_implementation": false,
+        "exception": false,
+        "schema_ok": true
+      },
+      "baseline": "diagnosis_20261024_p60_p64_v1",
+      "E_mode": {
+        "nq": "allow_repair",
+        "fever": "allow_repair"
+      },
+      "feature_provider_cost_state": "reported_by_provider",
+      "seeking": "evidence_refinement",
+      "path_ok": true
+    },
+    {
+      "sample_id": "-1020917468904807050",
+      "role": "train",
+      "offline_target_label": "evidence_utilisation",
+      "query": "who sang it is well with my soul",
+      "top5_ok": true,
+      "initial_answer": "Not specified in the context",
+      "final_answer": "Not specified in the context",
+      "diagnosis": {
+        "final_label": "evidence_utilisation",
+        "confidence": 0.5391425665572056,
+        "stage1_failure_probability": 0.999666734883385,
+        "stage1_label": "failure"
+      },
+      "selection": {
+        "needs_enhancement": true,
+        "failure_type": "evidence_utilisation",
+        "selection_lane": "residual_combo",
+        "selection_score": 1.205000366740851,
+        "confidence": 0.5391425665572056,
+        "p_fail": 0.999666734883385,
+        "p_insuff": 0.30815707333976095
+      },
+      "controller": {
+        "action": "generation_repair",
+        "reason": "routed_by_failure_type",
+        "used_probe": false
+      },
+      "enhancement": {
+        "actually_executed": true,
+        "adapter": "metered_real_modules_1024_v1",
+        "status": "success",
+        "changed_answer": false,
+        "native_status": "insufficient_evidence",
+        "native_executed": true
+      },
+      "pipeline_status": "success",
+      "latency_ms": 18933.394799998496,
+      "flags": {
+        "unavailable": false,
+        "mock": false,
+        "missing_implementation": false,
+        "exception": false,
+        "schema_ok": true
+      },
+      "baseline": "diagnosis_20261024_p60_p64_v1",
+      "E_mode": {
+        "nq": "allow_repair",
+        "fever": "allow_repair"
+      },
+      "feature_provider_cost_state": "reported_by_provider",
+      "seeking": "generation_repair",
+      "path_ok": true
+    },
+    {
+      "sample_id": "-1137665077827637132",
+      "role": "train",
+      "offline_target_label": "evidence_accessibility",
+      "query": "when was the women's boat race first televised",
+      "top5_ok": true,
+      "initial_answer": "1938",
+      "final_answer": "1938",
+      "diagnosis": {
+        "final_label": "evidence_accessibility",
+        "confidence": 0.3971265711090548,
+        "stage1_failure_probability": 0.7752502814012454,
+        "stage1_label": "failure"
+      },
+      "selection": {
+        "needs_enhancement": true,
+        "failure_type": "evidence_accessibility",
+        "selection_lane": "residual_combo",
+        "selection_score": 1.8006201765886116,
+        "confidence": 0.3971265711090548,
+        "p_fail": 0.7752502814012454,
+        "p_insuff": 0.18185140290544552
+      },
+      "controller": {
+        "action": "evidence_refinement",
+        "reason": "routed_by_failure_type",
+        "used_probe": false
+      },
+      "enhancement": {
+        "actually_executed": true,
+        "adapter": "metered_real_modules_1024_v1",
+        "status": "success",
+        "changed_answer": false,
+        "native_status": "answer_replaced",
+        "native_executed": true
+      },
+      "pipeline_status": "success",
+      "latency_ms": 29950.23200000287,
+      "flags": {
+        "unavailable": false,
+        "mock": false,
+        "missing_implementation": false,
+        "exception": false,
+        "schema_ok": true
+      },
+      "baseline": "diagnosis_20261024_p60_p64_v1",
+      "E_mode": {
+        "nq": "allow_repair",
+        "fever": "allow_repair"
+      },
+      "feature_provider_cost_state": "reported_by_provider",
+      "seeking": "evidence_refinement",
+      "path_ok": true
+    }
+  ]
+}
