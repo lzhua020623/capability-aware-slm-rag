@@ -16,21 +16,23 @@ Same frozen Test IDs, same gold answers, same automatic EM / Token F1 / Normaliz
 - IDs: `splits.nq.test` only, **n=11114**
 - **Do not re-split or regenerate Test IDs.** Missing file → `FROZEN_SPLIT_MISSING`.
 
-## Frozen Test Results
+## Frozen Test Results (final three-way)
 
 Source of truth: `metrics.json` / `judge_summary.json` under the formal output dirs below.
 LLM Judge rubric was calibrated before full evaluation; temporary pilot/smoke outputs are **not** formal results.
 
-| | Qwen2.5-7B only | Qwen2.5-7B + BGE RAG |
-|--|----------------:|--------------------:|
-| **Config** | closed-book | `BAAI/bge-base-en-v1.5`, matched NQ-Train FAISS, Top-k=5, `context_fallback` |
-| **n** | 11114 | 11114 |
-| **EM** | 0.10716213784416052 | 0.29089436746445924 |
-| **Token F1** | 0.20683020705954444 | 0.44335644383133416 |
-| **Normalized Accuracy** | 0.10779197408673745 | 0.2939535720712615 |
-| **AIC@5** | — | 0.6997480655029692 |
-| **Judge-assisted Accuracy** | 0.2954831743746626 | 0.5750404894727371 |
+| | Qwen2.5-7B only | Qwen2.5-7B + BGE RAG | Adaptive Product |
+|--|----------------:|--------------------:|-----------------:|
+| **Config** | closed-book | matched BGE Top-5 + `context_fallback` | Production Adaptive RAG (Reference RAG → Diagnosis → P60 → Controller → Enhancement) |
+| **n** | 11114 | 11114 | 11114 |
+| **EM** | 0.10716213784416052 | 0.29089436746445924 | 0.29575310419290984 |
+| **Token F1** | 0.20683020705954444 | 0.44335644383133416 | 0.448427960309939 |
+| **Normalized Accuracy** | 0.10779197408673745 | 0.2939535720712615 | 0.2985423789814648 |
+| **AIC@5** | — | 0.6997480655029692 | 0.6997480655029692 (initial); Final AIC@5=0.7029872233219363 |
+| **Judge-assisted Accuracy** | 0.2954831743746626 | 0.5750404894727371 | 0.5798992262011877 |
 
+- **Product selected:** 610 / 11114 = **5.49%** (`selected_rate=0.054885729710275326`).
+- **Product vs RAG:** EM **+0.49 pp**, Token F1 **+0.51 pp**, Normalized Accuracy **+0.46 pp**, Judge Accuracy **+0.49 pp**.
 - **Judge-assisted delta (RAG − Qwen-only):** +0.2795573150980745 (**+27.96 pp**).
 - **UNCERTAIN** is counted conservatively as **not correct**.
 - LLM Judge model: Azure **GPT-6.1-sol** (Responses API; secrets via env vars only).
@@ -38,8 +40,10 @@ LLM Judge rubric was calibrated before full evaluation; temporary pilot/smoke ou
 - Formal outputs:
   - `baselines/outputs/qwen_only/`
   - `baselines/outputs/rag_matched_test_context_fallback/`
+  - `baselines/outputs/adaptive_product_test/`
   - `baselines/outputs/judge/qwen_only_full/`
   - `baselines/outputs/judge/rag_matched_full/`
+  - `baselines/outputs/judge/adaptive_product_full/`
 
 **Invalidated (do not cite):** an earlier RAG Test used Dev index `nq_bge_base` (~99k) instead of the NQ-Train matched corpus/index. Reported ~EM 8.3% / F1 15% / normalized 8.4% is **void** due to retrieval corpus/index mismatch with `diagnosis_nq_train_74097`.
 
@@ -109,8 +113,8 @@ Formal product outputs: `baselines/outputs/adaptive_product_test/`.
 
 ## Adaptive Product Test (formal, n=11114)
 
-Automatic metrics only (LLM Judge **not** run yet for this product arm).
-Source of truth: `baselines/outputs/adaptive_product_test/metrics.json`.
+Source of truth: `baselines/outputs/adaptive_product_test/metrics.json` and
+`baselines/outputs/judge/adaptive_product_full/judge_summary.json`.
 
 | Metric | Value |
 |--|--:|
@@ -120,17 +124,29 @@ Source of truth: `baselines/outputs/adaptive_product_test/metrics.json`.
 | **Normalized Accuracy** | 0.2985423789814648 |
 | **AIC@5** (initial evidence) | 0.6997480655029692 |
 | **Final AIC@5** | 0.7029872233219363 |
-| **selected_rate** | 0.054885729710275326 |
+| **selected_rate** | 0.054885729710275326 (**610 / 11114 = 5.49%**) |
 | **selected_n** | 610 |
 | **no_action** | 10504 |
 | **retrieval_enhancement** | 403 |
 | **evidence_refinement** | 117 |
 | **generation_repair** | 90 |
+| **Judge-assisted Accuracy** | 0.5798992262011877 |
+| **auto_correct_n** | 3318 |
+| **llm_correct_n** | 3127 |
+| **llm_incorrect_n** | 4572 |
+| **llm_uncertain_n** | 97 |
+| **judge_assisted_correct_n** | 6445 |
+| **api_succeeded_n** | 7796 |
+| **failed_n** | 0 |
+| **retry_n** | 5 |
 
 Formal artifacts:
 - `baselines/outputs/adaptive_product_test/predictions.jsonl`
 - `baselines/outputs/adaptive_product_test/metrics.json`
 - `baselines/outputs/adaptive_product_test/run_config.json`
+- `baselines/outputs/judge/adaptive_product_full/judge_results.jsonl`
+- `baselines/outputs/judge/adaptive_product_full/judge_summary.json`
+- `baselines/outputs/judge/adaptive_product_full/run_config.json`
 
 ## Outputs
 
