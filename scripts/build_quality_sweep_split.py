@@ -3,7 +3,8 @@
 Development500 and Selection500 were the first 1,000 IDs of the allowed Validation pool
 ordered by sha256([seed, 'validation', id]). This continues the same ordering: the next
 6,000 IDs form the sweep set, the rest the confirm set. Only IDs are read; questions are
-exported separately with no gold or annotation field.
+exported separately with no gold or annotation field. `test-queries` exports the team Test
+questions the same way, in team split order, for the one exposed Test run.
 """
 import argparse
 import hashlib
@@ -45,7 +46,7 @@ def ids_bytes(ids):
     return (json.dumps(ids, indent=0) + '\n').replace('\n', '\r\n').encode()
 
 
-def export_queries(boundary, delivery, ids, out):
+def export_queries(boundary, delivery, ids, out, role='validation'):
     """sample_id and query only, in registered order; refuses missing or duplicate IDs."""
     wanted, rows = set(ids), {}
     for path in sorted(Path(delivery).glob('nq_train_annotation_*.jsonl')):
@@ -57,7 +58,7 @@ def export_queries(boundary, delivery, ids, out):
                 rows[row['sample_id']] = {k: row[k] for k in QUERY_FIELDS}
     if set(rows) != wanted:
         raise BoundaryError('Delivery lacks registered IDs')
-    boundary.require(ids, 'validation')
+    boundary.require(ids, role)
     with Path(out).open('x', encoding='utf-8') as handle:
         for sid in ids:
             handle.write(json.dumps(rows[sid], ensure_ascii=False) + '\n')
@@ -70,7 +71,15 @@ def main(argv=None):
     q = sub.add_parser('queries')
     q.add_argument('--delivery', type=Path, required=True)
     q.add_argument('--output', type=Path, required=True)
+    t = sub.add_parser('test-queries')
+    t.add_argument('--delivery', type=Path, required=True)
+    t.add_argument('--output', type=Path, required=True)
     args = p.parse_args(argv)
+    if args.command == 'test-queries':
+        from scripts.run_quality_eval import expected_ids
+        export_queries(TeamNQBoundary(ROOT, allow_sealed_test=True), args.delivery, expected_ids('test'),
+                       args.output, role='test')
+        return 0
     boundary = TeamNQBoundary(ROOT)
     roles = split(boundary)
     if args.command == 'ids':

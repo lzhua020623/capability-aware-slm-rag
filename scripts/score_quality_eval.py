@@ -1,7 +1,7 @@
 """Local scoring of a quality-round run: team predictions format, judge inputs and judge-assisted results.
 
-`predictions` turns the GPU results into the team's predictions.jsonl (same fields and
-scoring as baselines/run_product_evaluation.py) plus metrics. `judge-inputs` writes the
+`predictions` turns the GPU results (one file, or the shards of a sharded run) into the team's
+predictions.jsonl (same fields and scoring as baselines/run_product_evaluation.py) plus metrics. `judge-inputs` writes the
 (sample, answer) pairs that still need the team judge: every final prediction without a
 normalized match, and the C1 answer of every changed row, minus strings already judged in
 the given earlier judge results. `score` reports judge-assisted accuracy and the net change
@@ -44,6 +44,23 @@ def prediction_row(result, gold, prompt_style='context_fallback'):
             'answer_in_context_final': answer_in_context(gold, result['final_evidence']),
             'rag_prompt_style': prompt_style,
             'failure_type_route': result['metadata'].get('failure_type_route')}
+
+
+def merge_results(paths):
+    """Rows of one or more results.jsonl; a manifest.json beside a shard must be completed, and all
+    manifests must name the same registration."""
+    rows, registrations = [], set()
+    for path in paths:
+        manifest = Path(path).parent / 'manifest.json'
+        if manifest.exists():
+            spec = json.loads(manifest.read_text(encoding='utf-8'))
+            if spec.get('state') != 'completed':
+                raise ValueError(f'{path} comes from a run that did not complete')
+            registrations.add(spec['registration_sha256'])
+        rows.extend(read_jsonl(path))
+    if len(registrations) > 1:
+        raise ValueError('Shards ran under different registrations')
+    return rows
 
 
 def prior_labels(paths):
@@ -104,7 +121,7 @@ def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
     sub = p.add_subparsers(dest='command', required=True)
     a = sub.add_parser('predictions')
-    a.add_argument('--results', type=Path, required=True)
+    a.add_argument('--results', type=Path, nargs='+', required=True)
     a.add_argument('--references', type=Path, required=True, help='sample_id/gold rows')
     a.add_argument('--output-dir', type=Path, required=True)
     j = sub.add_parser('judge-inputs')
@@ -119,7 +136,7 @@ def main(argv=None):
     args = p.parse_args(argv)
     if args.command == 'predictions':
         gold = {r['sample_id']: r['gold'] for r in read_jsonl(args.references)}
-        results = read_jsonl(args.results)
+        results = merge_results(args.results)
         if len({r['sample_id'] for r in results}) != len(results) or set(gold) != {r['sample_id'] for r in results}:
             raise ValueError('Results and references cover different IDs')
         rows = [prediction_row(r, gold[r['sample_id']]) for r in results]

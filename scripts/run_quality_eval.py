@@ -3,6 +3,8 @@
 GPU side: `load_current_pipeline(registration=quality_baseline_v1)` and `run_batch`, one result
 per line in input order, resumable. Gold never reaches this host; the local scorer
 (`scripts/score_quality_eval.py`) builds the team's predictions.jsonl from these results.
+`--shard i --shards k` runs one contiguous slice so several GPU hosts can share a run; slice
+boundaries fall on multiples of the batch size, so every batch matches the unsharded run.
 """
 import argparse
 import datetime
@@ -41,6 +43,15 @@ def expected_ids(role, root=ROOT):
     return [sid for sid, role_of in boundary.membership.items() if role_of == 'test']
 
 
+def shard_slice(ids, shard, shards, batch_size):
+    """Contiguous slice `shard` of `shards`; its length is a multiple of batch_size except the last."""
+    if shards < 1 or not 0 <= shard < shards or batch_size < 1:
+        raise ValueError('Need shards >= 1, 0 <= shard < shards and batch_size >= 1')
+    size = -(-len(ids) // shards)
+    size = -(-size // batch_size) * batch_size
+    return ids[shard * size:(shard + 1) * size]
+
+
 def done_ids(path):
     if not path.exists():
         return []
@@ -58,15 +69,21 @@ def main(argv=None):
     p.add_argument('--batch-size', type=int, default=8)
     p.add_argument('--allow-sealed-test', action='store_true')
     p.add_argument('--limit', type=int, default=None, help='Engineering run on confirm only')
+    p.add_argument('--shard', type=int, default=0)
+    p.add_argument('--shards', type=int, default=1)
     args = p.parse_args(argv)
     if args.role == 'test' and (not args.allow_sealed_test or args.limit):
         raise SystemExit('The Test run needs --allow-sealed-test and no --limit')
+    if args.shards > 1 and args.limit:
+        raise SystemExit('--limit and --shards do not combine')
     queries = read_queries(args.queries)
     ids = expected_ids(args.role)
     if sorted(sid for sid, _ in queries) != sorted(ids):
         raise ValueError('Query file does not hold exactly the registered IDs')
     by_id = dict(queries)
-    order = ids[:args.limit] if args.limit else ids
+    order = ids[:args.limit] if args.limit else shard_slice(ids, args.shard, args.shards, args.batch_size)
+    if not order:
+        raise SystemExit('This shard is empty')
     import torch
     if not torch.cuda.is_available(): raise RuntimeError('Requires CUDA')
     from src.pipeline.current import load_current_pipeline
@@ -83,6 +100,8 @@ def main(argv=None):
                 'data_role': ROLES[args.role], 'registration': REGISTRATION,
                 'registration_sha256': file_sha(ROOT / REGISTRATION), 'query_sha256': file_sha(args.queries),
                 'n_ids': len(order), 'engineering_run': bool(args.limit), 'resumed_with': len(finished),
+                'shard': args.shard, 'shards': args.shards, 'batch_size': args.batch_size,
+                'first_id': order[0], 'last_id': order[-1],
                 'started_UTC': datetime.datetime.now(datetime.timezone.utc).isoformat(),
                 'environment': environment}
     (args.output_dir / 'manifest.json').write_text(json.dumps(manifest, indent=2, default=str) + '\n')

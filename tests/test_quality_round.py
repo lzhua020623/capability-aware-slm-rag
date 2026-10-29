@@ -12,6 +12,7 @@ from src.controller.schema import ControllerAction, SelectionDecision, Selection
 from src.diagnosis.labels import DiagnosisLabel
 from src.pipeline import build_adaptive_pipeline
 from src.pipeline.current import REGISTRATION, readiness
+from scripts import build_quality_sweep_split as splitter
 from scripts import finalize_quality_config as finalize
 from scripts import run_quality_eval as runner
 from scripts import score_quality_eval as scorer
@@ -167,6 +168,23 @@ class ScoringTests(unittest.TestCase):
             path.write_text(''.join(json.dumps(r) + '\n' for r in rows))
             self.assertEqual(scorer.prior_labels([path]), {('a', 'Paris'): True, ('b', 'X'): True})
 
+    def test_sharded_results_merge_only_from_completed_runs_of_one_registration(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = []
+            for i, sid in enumerate(('a', 'b')):
+                d = Path(tmp) / f'shard_{i}'
+                d.mkdir()
+                (d / 'results.jsonl').write_text(json.dumps(result(sid, 'X', 'Y')) + '\n')
+                (d / 'manifest.json').write_text(json.dumps({'state': 'completed', 'registration_sha256': 'r'}))
+                paths.append(d / 'results.jsonl')
+            self.assertEqual([r['sample_id'] for r in scorer.merge_results(paths)], ['a', 'b'])
+            (paths[1].parent / 'manifest.json').write_text(json.dumps({'state': 'completed', 'registration_sha256': 's'}))
+            with self.assertRaises(ValueError):
+                scorer.merge_results(paths)
+            (paths[1].parent / 'manifest.json').write_text(json.dumps({'state': 'running', 'registration_sha256': 'r'}))
+            with self.assertRaises(ValueError):
+                scorer.merge_results(paths)
+
 
 class RunnerTests(unittest.TestCase):
     def test_confirm_ids_are_the_registered_list_and_results_resume_as_a_prefix(self):
@@ -180,6 +198,36 @@ class RunnerTests(unittest.TestCase):
             q.write_text('{"sample_id": "a", "query": "x", "gold": "y"}\n')
             with self.assertRaises(ValueError):
                 runner.read_queries(q)
+
+    def test_shards_cover_the_order_once_and_cut_on_batch_boundaries(self):
+        test_ids = runner.expected_ids('test')
+        self.assertEqual((len(test_ids), len(set(test_ids))), (11114, 11114))
+        for ids in (test_ids, [str(i) for i in range(21)]):
+            for shards in (1, 3, 4, 5):
+                parts = [runner.shard_slice(ids, i, shards, 8) for i in range(shards)]
+                self.assertEqual(sum(parts, []), ids)
+                filled = [part for part in parts if part]
+                self.assertTrue(all(len(part) % 8 == 0 for part in filled[:-1]))
+                self.assertEqual(filled, parts[:len(filled)])
+        self.assertEqual(runner.shard_slice(test_ids, 0, 1, 8), test_ids)
+        for bad in ((4, 4, 8), (-1, 4, 8), (0, 0, 8), (0, 4, 0)):
+            with self.assertRaises(ValueError):
+                runner.shard_slice(test_ids, *bad)
+
+    def test_test_queries_export_needs_the_sealed_unlock(self):
+        from src.data.team_nq import BoundaryError, TeamNQBoundary
+        ids = runner.expected_ids('test')[:2]
+        with tempfile.TemporaryDirectory() as tmp:
+            delivery = Path(tmp) / 'delivery'
+            delivery.mkdir()
+            rows = [{'sample_id': sid, 'query': f'q{sid}', 'annotation_reference': {'gold_answer': 'g'}} for sid in ids]
+            (delivery / 'nq_train_annotation_000.jsonl').write_text(''.join(json.dumps(r) + '\n' for r in rows))
+            out = Path(tmp) / 'q.jsonl'
+            splitter.export_queries(TeamNQBoundary(ROOT, allow_sealed_test=True), delivery, ids, out, role='test')
+            self.assertEqual([json.loads(line) for line in out.read_text().splitlines()],
+                             [{'sample_id': sid, 'query': f'q{sid}'} for sid in ids])
+            with self.assertRaises(BoundaryError):
+                splitter.export_queries(TeamNQBoundary(ROOT), delivery, ids, Path(tmp) / 'q2.jsonl', role='test')
 
 
 if __name__ == '__main__':
