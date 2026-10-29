@@ -21,16 +21,25 @@ ROOT = Path(__file__).resolve().parents[1]
 UTIL = DiagnosisLabel.EVIDENCE_UTILISATION
 
 
-def pipeline(routes, needs=True):
+def pipeline(routes, needs=True, gate=None, diagnosis=None, label=UTIL):
     executor = EnhancementExecutor()
     executor.register(ControllerAction.RETRIEVAL_ENHANCEMENT, MockRetrievalEnhancement())
     executor.register(ControllerAction.EVIDENCE_REFINEMENT, MockEvidenceRefinementEnhancement())
     executor.register(ControllerAction.GENERATION_REPAIR, MockGenerationRepairEnhancement())
-    selection = SelectionDecision(needs_enhancement=needs, failure_type=UTIL, selection_score=1.0,
+    selection = SelectionDecision(needs_enhancement=needs, failure_type=label, selection_score=1.0,
                                   selection_lane=SelectionLane.RESIDUAL_COMBO if needs else SelectionLane.NO_ACTION,
                                   confidence=0.6, p_fail=0.8, p_insuff=0.1, sample_id='syn-1')
-    return build_adaptive_pipeline(classifier=StubClassifier(failure_diag(UTIL)), selection_adapter=StubSelection(selection),
-                                   feature_provider=StubFeatures(), executor=executor, failure_type_routes=routes)
+    return build_adaptive_pipeline(classifier=StubClassifier(diagnosis or failure_diag(UTIL)),
+                                   selection_adapter=StubSelection(selection), feature_provider=StubFeatures(),
+                                   executor=executor, failure_type_routes=routes, correct_gate=gate)
+
+
+def correct_diag(p_fail):
+    from src.diagnosis.hierarchical_classifier import HierarchicalDiagnosis
+    return HierarchicalDiagnosis(p_fail, 'correct', None, DiagnosisLabel.CORRECT, 1 - p_fail, None)
+
+
+GATE = {'stage1_p_fail_at_least': 0.39, 'route': 'evidence_insufficiency'}
 
 
 class RouteTests(unittest.TestCase):
@@ -51,6 +60,24 @@ class RouteTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 pipeline(bad)
 
+    def test_correct_gate_sends_high_p_fail_correct_items_to_p3_only(self):
+        item = make_item()
+        opened = pipeline(None, needs=False, gate=GATE, diagnosis=correct_diag(0.45), label=DiagnosisLabel.CORRECT).run_from_item(item)
+        self.assertEqual(opened.controller_decision.action, ControllerAction.RETRIEVAL_ENHANCEMENT)
+        self.assertTrue(opened.metadata['correct_gate_opened'])
+        self.assertFalse(opened.selection_decision.needs_enhancement)
+        for p_fail, gate in ((0.2, GATE), (0.45, None)):
+            closed = pipeline(None, needs=False, gate=gate, diagnosis=correct_diag(p_fail),
+                              label=DiagnosisLabel.CORRECT).run_from_item(item)
+            self.assertEqual((closed.controller_decision.action, closed.metadata['correct_gate_opened']),
+                             (ControllerAction.NO_ACTION, False))
+        unselected_failure = pipeline(None, needs=False, gate=GATE).run_from_item(item)
+        self.assertEqual(unselected_failure.controller_decision.action, ControllerAction.NO_ACTION)
+        for bad in ({'stage1_p_fail_at_least': 1.5, 'route': 'evidence_insufficiency'},
+                    {'stage1_p_fail_at_least': 0.4, 'route': 'no_action'}, {'route': 'evidence_insufficiency'}):
+            with self.assertRaises(ValueError):
+                pipeline(None, gate=bad)
+
     def test_a_separate_registration_is_checked_like_the_original(self):
         base = json.loads((ROOT / REGISTRATION).read_text(encoding='utf-8'))
         with tempfile.TemporaryDirectory() as tmp:
@@ -63,6 +90,20 @@ class RouteTests(unittest.TestCase):
 
 
 class FinalizeTests(unittest.TestCase):
+    def test_committed_quality_registration_is_ready_and_matches_the_report(self):
+        reg = json.loads((ROOT / finalize.REGISTRATION_OUT).read_text(encoding='utf-8'))
+        report = json.loads((ROOT / 'artifacts/controller/quality_sweep_v1/offline_report.json').read_text())
+        self.assertTrue(readiness(ROOT, finalize.REGISTRATION_OUT)['ready_for_gpu'])
+        self.assertEqual(reg['quality_sweep']['chosen'], report['chosen'])
+        self.assertEqual(reg['quality_sweep']['offline_report_sha256'],
+                         finalize.sha(ROOT / 'artifacts/controller/quality_sweep_v1/offline_report.json'))
+        self.assertEqual((report['partial'], report['metric'], report['records']), (False, 'net', 6000))
+        self.assertEqual(set(reg['failure_type_routes'].values()), {'evidence_insufficiency'})
+        self.assertEqual(reg['correct_gate'], GATE)
+        p60 = json.loads((ROOT / finalize.P60_OUT).read_text(encoding='utf-8'))
+        self.assertEqual((p60['coverage_target'], p60['calibration']['failure_pool_n']), (1.0, 2078))
+        self.assertEqual(reg['data_boundary'], json.loads((ROOT / REGISTRATION).read_text())['data_boundary'])
+
     def test_action_maps_become_routes(self):
         sweep = json.loads((ROOT / finalize.SWEEP).read_text(encoding='utf-8'))
         maps = sweep['grid']['action_maps']
@@ -81,7 +122,10 @@ class FinalizeTests(unittest.TestCase):
             self.assertEqual(new[key], base[key])
         self.assertEqual((new['thresholds'], new['coverage_target']), ({'t_insuff': 0.3, 't_combo': -0.2}, 0.75))
         reg = finalize.registration_for(json.loads((ROOT / REGISTRATION).read_text()), chosen, 'abc')
-        self.assertEqual((reg['selector_config'], reg['c1_prefill']), (finalize.P60_OUT, 'full'))
+        self.assertEqual((reg['selector_config'], reg['c1_prefill'], reg['correct_gate']), (finalize.P60_OUT, 'full', None))
+        opened = finalize.registration_for(json.loads((ROOT / REGISTRATION).read_text()),
+                                           {**chosen, 'correct_gate': 'p_fail_at_least_0.39_to_p3'}, 'abc')
+        self.assertEqual(opened['correct_gate'], GATE)
         self.assertEqual(reg['data_boundary'], json.loads((ROOT / REGISTRATION).read_text())['data_boundary'])
         self.assertIn(finalize.P60_OUT, reg['frozen_assets'])
 

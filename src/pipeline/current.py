@@ -327,7 +327,8 @@ def wire_latest_pipeline(execution_backend, feature_provider, *, selection_adapt
         executor.register(action, adapter)
     host = build_adaptive_pipeline(classifier=execution_backend.classifier,
         selection_adapter=selector, feature_provider=features, executor=executor,
-        reference_rag=reference_rag, failure_type_routes=config.get('failure_type_routes'))
+        reference_rag=reference_rag, failure_type_routes=config.get('failure_type_routes'),
+        correct_gate=config.get('correct_gate'))
     return CurrentPipeline(host, features, expected, data_boundary=data_boundary, data_role=data_role,
                            e_mode=config.get('E_mode'), baseline=config['baseline'])
 

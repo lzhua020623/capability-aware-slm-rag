@@ -1,0 +1,138 @@
+{
+ "version": "p60_quality_v1",
+ "source": "EXP-P60 models; thresholds and z-stats recalibrated on the quality sweep failure pool (configs/controller/quality_sweep_v1.json)",
+ "policy": "C_two_lane_balanced",
+ "probe_enabled": false,
+ "coverage_target": 1.0,
+ "lane1_frac": 0.25,
+ "d_combo": {
+  "formula": "alpha * z(p_fail) + (1-alpha) * z(rec) - lam * z(p_corr_3c)",
+  "alpha": 0.4,
+  "lam": 0.5
+ },
+ "thresholds": {
+  "t_insuff": 0.2835542752643663,
+  "t_combo": -2.052323613879965
+ },
+ "z_stats": {
+  "p_fail": {
+   "mean": 0.6841148146663475,
+   "std": 0.12744149762646886
+  },
+  "rec": {
+   "mean": 0.12902077522079008,
+   "std": 0.1304293892703225
+  },
+  "p_corr": {
+   "mean": 0.39639503408197335,
+   "std": 0.25810222344125683
+  }
+ },
+ "target3_labels": [
+  "recoverable_failure",
+  "unrecoverable_failure",
+  "true_correct_exposure"
+ ],
+ "p_corr_class_index": 2,
+ "models": {
+  "hgb_fail_gate": "models/controller/p60_online_adapter/hgb_fail_gate.joblib",
+  "hgb_rec_given_fail": "models/controller/p60_online_adapter/hgb_rec_given_fail.joblib",
+  "hgb_3c": "models/controller/p60_online_adapter/hgb_3c.joblib"
+ },
+ "feature_names": [
+  "top1_score",
+  "top2_score",
+  "score_gap_1_2",
+  "score_mean_top5",
+  "score_std_top5",
+  "score_range_top5",
+  "query_coverage_top1",
+  "query_coverage_max5",
+  "query_coverage_mean5",
+  "answer_in_top1",
+  "answer_in_any",
+  "answer_first_rank",
+  "answer_passage_count",
+  "answer_token_coverage_max",
+  "answer_length_tokens",
+  "answer_is_abstention",
+  "is_refutes_prediction",
+  "query_length_tokens",
+  "evidence_total_tokens",
+  "evidence_mean_tokens",
+  "evidence_max_tokens",
+  "is_fever",
+  "is_when",
+  "is_who",
+  "is_where",
+  "is_what",
+  "is_how_many",
+  "p26_qa_support_max",
+  "p26_qa_support_mean_top3",
+  "p26_qa_support_first_rank",
+  "p26_qa_support_margin",
+  "p26_qa_support_concentration",
+  "p26_support_peak_dispersion",
+  "p26_top_support_margin",
+  "p26_evidence_agreement_mean",
+  "p26_evidence_agreement_min",
+  "p26_answer_evidence_max_similarity",
+  "p26_answer_evidence_top1_similarity",
+  "p26_answer_evidence_mean_topk",
+  "p26_qa_type_match",
+  "p26_s5_rerank_best_chunk",
+  "p26_s5_rerank_top1_passage",
+  "p26_chunk_max",
+  "p26_chunk_mean",
+  "p26_chunk_std",
+  "p26_pass_max",
+  "p26_pass_mean",
+  "p26_pass_std",
+  "p26_qtype_0",
+  "p26_qtype_1",
+  "p26_qtype_2",
+  "p26_qtype_3",
+  "p26_qtype_4",
+  "p26_qtype_5",
+  "p26_qtype_6",
+  "p26_qtype_7",
+  "p26_atype_0",
+  "p26_atype_1",
+  "p26_atype_2",
+  "p26_atype_3",
+  "p26_atype_4",
+  "p26_atype_5",
+  "diag_p_correct",
+  "diag_p_insuff",
+  "diag_p_access",
+  "diag_p_util",
+  "diag_p_fail",
+  "diag_fail_margin",
+  "diag_entropy",
+  "diag_max_class_prob",
+  "diag_access_minus_util",
+  "score_top1",
+  "score_gap_1_2",
+  "score_std_top5",
+  "score_range_top5",
+  "answer_len_tokens",
+  "question_len_tokens",
+  "answer_in_evidence_jaccard"
+ ],
+ "required_runtime_fields": [
+  "HierarchicalDiagnosis.stage1_failure_probability",
+  "HierarchicalDiagnosis.class_scores or stage2_class_scores for p_insuff",
+  "adapter_features aligned to feature_names"
+ ],
+ "online_logic": [
+  "if Diagnosis final_label is correct -> no_action",
+  "if p_insuff >= t_insuff -> selected / insuff_preserve",
+  "elif D_combo_frozen_z >= t_combo -> selected / residual_combo",
+  "else -> no_action",
+  "if selected: failure_type = Diagnosis.final_label (never overridden)"
+ ],
+ "calibration": {
+  "role": "Validation sweep (6,000 IDs)",
+  "failure_pool_n": 2078
+ }
+}

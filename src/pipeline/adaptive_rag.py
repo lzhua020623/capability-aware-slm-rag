@@ -20,6 +20,7 @@ from src.controller.controller import decide
 from src.controller.schema import SelectionDecision, SelectionLane
 from src.controller.selection import FrozenOnlineSelectionAdapter
 from src.diagnosis.hierarchical_classifier import HierarchicalDiagnosis, HierarchicalDiagnosisClassifier
+from src.diagnosis.labels import DiagnosisLabel
 from src.diagnosis.schema import DiagnosisInput
 from src.pipeline.schema import AdaptiveRAGResult, PipelineStatus
 
@@ -34,6 +35,24 @@ def _checked_routes(routes: Mapping[str, str] | None) -> dict[str, str]:
         if label not in _FAILURE_LABELS or target not in _FAILURE_LABELS + (NO_ACTION_ROUTE,):
             raise ValueError(f"Invalid failure_type route {label!r} -> {target!r}")
     return routes
+
+
+def _checked_gate(gate: Mapping[str, Any] | None) -> dict[str, Any] | None:
+    """Correct-labelled items with stage-1 p_fail at or above the cut take the route's action."""
+    if gate is None:
+        return None
+    gate = dict(gate)
+    cut = gate.get("stage1_p_fail_at_least")
+    if (set(gate) != {"stage1_p_fail_at_least", "route"} or gate["route"] not in _FAILURE_LABELS
+            or isinstance(cut, bool) or not isinstance(cut, (int, float)) or not 0.0 < cut < 1.0):
+        raise ValueError(f"Invalid correct gate {gate!r}")
+    return gate
+
+
+def correct_gate_opens(diagnosis: HierarchicalDiagnosis, gate: Mapping[str, Any] | None) -> bool:
+    """Same correct test as the frozen selection, then the stage-1 p_fail cut."""
+    correct = diagnosis.final_label is DiagnosisLabel.CORRECT or diagnosis.stage1_label == "correct"
+    return bool(gate) and correct and diagnosis.stage1_failure_probability >= gate["stage1_p_fail_at_least"]
 
 
 class ReferenceRAG(Protocol):
@@ -92,6 +111,7 @@ class AdaptiveRAGPipeline:
         feature_provider: FeatureProvider,
         executor: EnhancementExecutor,
         failure_type_routes: Mapping[str, str] | None = None,
+        correct_gate: Mapping[str, Any] | None = None,
     ) -> None:
         self.reference_rag = reference_rag
         self.classifier = classifier
@@ -99,6 +119,7 @@ class AdaptiveRAGPipeline:
         self.feature_provider = feature_provider
         self.executor = executor
         self.failure_type_routes = _checked_routes(failure_type_routes)
+        self.correct_gate = _checked_gate(correct_gate)
 
     def run(
         self,
@@ -145,13 +166,21 @@ class AdaptiveRAGPipeline:
         if selection.used_probe:
             raise ValueError("adaptive pipeline requires used_probe=False")
 
-        route = (self.failure_type_routes.get(selection.failure_type.value)
-                 if selection.needs_enhancement else None)
-        if route == NO_ACTION_ROUTE:
-            controller_decision = decide(replace(selection, needs_enhancement=False,
-                                                 selection_lane=SelectionLane.NO_ACTION))
+        gate_opened = correct_gate_opens(diagnosis, self.correct_gate)
+        if gate_opened:
+            # As if P60 had selected it; the lane only explains, routing reads the override.
+            route = self.correct_gate["route"]
+            controller_decision = decide(replace(selection, needs_enhancement=True,
+                                                 selection_lane=SelectionLane.RESIDUAL_COMBO),
+                                         failure_type_override=route)
         else:
-            controller_decision = decide(selection, failure_type_override=route)
+            route = (self.failure_type_routes.get(selection.failure_type.value)
+                     if selection.needs_enhancement else None)
+            if route == NO_ACTION_ROUTE:
+                controller_decision = decide(replace(selection, needs_enhancement=False,
+                                                     selection_lane=SelectionLane.NO_ACTION))
+            else:
+                controller_decision = decide(selection, failure_type_override=route)
         if controller_decision.used_probe:
             raise ValueError("adaptive pipeline requires ControllerDecision.used_probe=False")
 
@@ -186,6 +215,7 @@ class AdaptiveRAGPipeline:
                 "controller_action": controller_decision.action.value,
                 "enhancement_status": enhancement.status.value,
                 "failure_type_route": route,
+                "correct_gate_opened": gate_opened,
             },
             latency_ms=latency_ms,
         )
@@ -219,6 +249,7 @@ def build_adaptive_pipeline(
     executor: EnhancementExecutor | None = None,
     reference_rag: ReferenceRAG | None = None,
     failure_type_routes: Mapping[str, str] | None = None,
+    correct_gate: Mapping[str, Any] | None = None,
 ) -> AdaptiveRAGPipeline:
     """Factory: empty executor by default (missing Enhancement -> safe unavailable)."""
     return AdaptiveRAGPipeline(
@@ -228,4 +259,5 @@ def build_adaptive_pipeline(
         feature_provider=feature_provider,
         executor=EnhancementExecutor() if executor is None else executor,
         failure_type_routes=failure_type_routes,
+        correct_gate=correct_gate,
     )

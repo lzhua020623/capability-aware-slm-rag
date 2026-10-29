@@ -2,7 +2,8 @@
 
 Before writing, the production FrozenOnlineSelectionAdapter is replayed on the stored sweep
 records (Diagnosis, 78 features) with the new config, and must select exactly the items the
-offline calibration selected, and the original config must reproduce the stored frozen
+offline calibration selected; the production correct gate must open on exactly the items the
+offline grid sent to P3-20; and the original config must reproduce the stored frozen
 selections. The new registration keeps the original one untouched.
 """
 import argparse
@@ -27,6 +28,11 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def write_crlf(path, payload):
+    """CRLF bytes, as a core.autocrlf=true checkout writes them, so registered hashes hold after deploy."""
+    Path(path).write_bytes((json.dumps(payload, ensure_ascii=False, indent=1) + '\n').replace('\n', '\r\n').encode())
+
+
 def diagnosis_of(record):
     from src.diagnosis.hierarchical_classifier import HierarchicalDiagnosis
     from src.diagnosis.labels import DiagnosisLabel
@@ -42,6 +48,18 @@ def replay(records, config):
     adapter = FrozenOnlineSelectionAdapter(config, _load_models(config['models'], ROOT))
     return {r['sample_id'] for r in records
             if adapter.select(diagnosis_of(r), r['features'], sample_id=r['sample_id']).needs_enhancement}
+
+
+def gate_for(chosen, sweep):
+    """Registered correct gate: the cut sends correct-labelled items to P3-20 (the insufficiency route)."""
+    if chosen['correct_gate'] == 'closed':
+        return None
+    return {'stage1_p_fail_at_least': sweep['precompute']['correct_p_fail_cut'], 'route': 'evidence_insufficiency'}
+
+
+def gate_replay(records, gate):
+    from src.pipeline.adaptive_rag import correct_gate_opens
+    return {r['sample_id'] for r in records if correct_gate_opens(diagnosis_of(r), gate)}
 
 
 def routes_for(action_map):
@@ -67,7 +85,7 @@ def registration_for(base, chosen, report_sha):
     out.update(baseline='quality_round1_v1', registered_date='2026-10-30', upstream_registration=BASELINE,
                upstream_registration_sha256=sha(ROOT / BASELINE), selector_config=P60_OUT,
                failure_type_routes=routes_for(sweep['grid']['action_maps'][chosen['action_map']]),
-               c1_prefill='full', quality_sweep={'registration': SWEEP, 'sha256': sha(ROOT / SWEEP),
+               correct_gate=gate_for(chosen, sweep), c1_prefill='full', quality_sweep={'registration': SWEEP, 'sha256': sha(ROOT / SWEEP),
                                                  'offline_report_sha256': report_sha, 'chosen': chosen})
     out['frozen_assets'] = {**base['frozen_assets'], P60_OUT: None}
     return out
@@ -82,8 +100,6 @@ def main(argv=None):
     if report['partial'] or report['metric'] != 'net':
         raise ValueError('Finalize only from the complete, fully judged sweep')
     chosen = report['chosen']
-    if chosen['correct_gate'] != 'closed':
-        raise NotImplementedError('Production routing of correct-labelled items is not implemented')
     sweep, ids = load_registration()
     records = read_records(args.records, ids)
     pool = [r for r in records if in_pool(r)]
@@ -96,14 +112,19 @@ def main(argv=None):
     if replay(records, new) != cal['selected'] or any(gated_correct(r['diagnosis']) for r in records
                                                       if r['sample_id'] in cal['selected']):
         raise RuntimeError('Production selection differs from the offline calibration')
-    (ROOT / P60_OUT).write_text(json.dumps(new, indent=1) + '\n', encoding='utf-8')
+    gate = gate_for(chosen, sweep)
+    offline_gate = {r['sample_id'] for r in records if gated_correct(r['diagnosis']) and gate is not None
+                    and r['diagnosis']['stage1_failure_probability'] >= gate['stage1_p_fail_at_least']}
+    if gate_replay(records, gate) != offline_gate:
+        raise RuntimeError('Production correct gate differs from the offline grid')
+    write_crlf(ROOT / P60_OUT, new)
     registration = registration_for(json.loads((ROOT / BASELINE).read_text(encoding='utf-8')), chosen,
                                     sha(args.report))
     registration['frozen_assets'][P60_OUT] = sha(ROOT / P60_OUT)
-    (ROOT / REGISTRATION_OUT).write_text(json.dumps(registration, ensure_ascii=False, indent=1) + '\n',
-                                         encoding='utf-8')
-    print(json.dumps({'selected': len(cal['selected']), 'pool': len(pool), 'chosen': chosen,
-                      'routes': registration['failure_type_routes']}, indent=1))
+    write_crlf(ROOT / REGISTRATION_OUT, registration)
+    print(json.dumps({'selected': len(cal['selected']), 'pool': len(pool), 'gate_opened': len(offline_gate),
+                      'chosen': chosen, 'routes': registration['failure_type_routes'],
+                      'correct_gate': registration['correct_gate']}, indent=1))
     return 0
 
 
