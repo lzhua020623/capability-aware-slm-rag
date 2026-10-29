@@ -78,8 +78,9 @@ def query_key(value):
 
 
 class TeamNQBoundary:
-    def __init__(self, root=ROOT):
+    def __init__(self, root=ROOT, *, allow_sealed_test=False):
         self.root = Path(root)
+        self.allow_sealed_test = bool(allow_sealed_test)
         try:
             registration = read_json(self.root / REGISTRATION)['data_boundary']
             if registration['path'] != POLICY:
@@ -125,6 +126,10 @@ class TeamNQBoundary:
             'train': set(self.splits['train']) - self.legacy,
             'validation': set(self.splits['validation']) - self.legacy - self.exposed,
         }
+        # Sealed Test unlock is opt-in only (formal product/baseline evaluation).
+        # Does not change split contents; exposes the frozen 11114 Test IDs as eligible.
+        if self.allow_sealed_test:
+            self.eligible['test'] = set(self.splits['test'])
         self._labels = None
 
     def source_paths(self, path):

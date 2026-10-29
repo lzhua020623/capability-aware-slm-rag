@@ -1,0 +1,31 @@
+{
+  "description": "Azure OpenAI LLM Judge for baseline predictions. Secrets only via env vars. GPT-6.1-sol Responses API: omit temperature/top_p/logprobs; use reasoning.effort=low.",
+  "env": {
+    "api_key": "AZURE_OPENAI_API_KEY",
+    "base_url": "AZURE_OPENAI_BASE_URL",
+    "deployment": "AZURE_OPENAI_DEPLOYMENT"
+  },
+  "labels": ["CORRECT", "INCORRECT", "UNCERTAIN"],
+  "max_reason_chars": 80,
+  "max_output_tokens": 256,
+  "reasoning_effort": "low",
+  "max_api_retries": 2,
+  "format_retry": 1,
+  "presets": {
+    "qwen_only": "baselines/outputs/qwen_only/predictions.jsonl",
+    "rag_matched_test_context_fallback": "baselines/outputs/rag_matched_test_context_fallback/predictions.jsonl",
+    "adaptive_product": "baselines/outputs/adaptive_product_test/predictions.jsonl"
+  },
+  "default_output_root": "baselines/outputs/judge",
+  "rubric": {
+    "CORRECT": "Prediction gives a factually correct and sufficient answer to the question. It need not reproduce every gold detail. A more concise prediction is CORRECT when omitted details do not change the fact and the question does not require that finer grain (e.g. year-only when asked when; province when that answers where).",
+    "INCORRECT": "Related but not equivalent: wrong entity/number/condition, incomplete set when the question needs all parts, coarser answer that changes meaning, or otherwise fails to uniquely/sufficiently answer the question.",
+    "UNCERTAIN": "Cannot decide if the prediction is sufficient (e.g. parent organisation vs sub-body, broader era/category). Never count as correct. Do not use external knowledge to correct gold; judge factual compatibility of question + prediction + gold only."
+  },
+  "rubric_notes": [
+    "Judge whether prediction correctly and sufficiently answers the question, not whether it mirrors gold verbosity.",
+    "Omitting harmless detail allowed when question does not require that grain.",
+    "Omitting detail that changes entity, numeric value, or conditions -> INCORRECT.",
+    "Related-but-not-equivalent always INCORRECT."
+  ]
+}

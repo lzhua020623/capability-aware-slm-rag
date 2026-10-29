@@ -263,7 +263,7 @@ class CurrentPipeline:
         return self._finalize_result(canonical, result, enforce_boundary=enforce_boundary)
 
     def run_batch(self, queries, *, dataset='nq', feature_batch_size=None):
-        """Micro-batch runtime path: serial RAG/Qwen, batched P26, serial control.
+        """Micro-batch evaluation path: serial RAG/Qwen, batched P26, serial control.
 
         ``queries``: sequence of ``(query, sample_id)``. Qwen stays serial to preserve
         decoding behavior; P26 BGE/CE are batched for throughput.
@@ -331,10 +331,17 @@ def wire_latest_pipeline(execution_backend, feature_provider, *, selection_adapt
 
 
 def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None, data_role='validation',
-                          attach_reference_rag=True):
-    """Current production entry. Missing inputs stop; never run old routing."""
+                          attach_reference_rag=True, allow_sealed_test=False):
+    """Current production entry. Missing inputs stop; never run old routing.
+
+    ``data_role='test'`` requires explicit ``allow_sealed_test=True`` (formal
+    product evaluation only). Default remains locked; algorithm/routing unchanged.
+    """
     root = Path(root)
-    if data_role not in ('train', 'validation'):
+    if data_role == 'test':
+        if not allow_sealed_test:
+            raise BoundaryError('Final test execution requires a separately sealed T7 protocol')
+    elif data_role not in ('train', 'validation'):
         raise BoundaryError('Final test execution requires a separately sealed T7 protocol')
     receipt = readiness(root)
     if not receipt['ready_for_gpu']:
@@ -373,6 +380,9 @@ def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None,
                 'p26_shared_bge': shared_ok,
             },
         }
+    unlock_test = bool(allow_sealed_test and data_role == 'test')
     return wire_latest_pipeline(backend, provider, root=root, require_feature_costs=True,
-        data_boundary=TeamNQBoundary(root), data_role=data_role, reference_rag=reference_rag), {
-        **environment, 'current_baseline': receipt, 'probe_enabled': False}
+        data_boundary=TeamNQBoundary(root, allow_sealed_test=unlock_test), data_role=data_role,
+        reference_rag=reference_rag), {
+        **environment, 'current_baseline': receipt, 'probe_enabled': False,
+        'allow_sealed_test': unlock_test}
