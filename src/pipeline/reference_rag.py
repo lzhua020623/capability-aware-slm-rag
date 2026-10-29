@@ -38,6 +38,21 @@ def _default_generate(tokenizer, model, prompt: str, max_new_tokens: int) -> tup
     return generate_greedy(tokenizer, model, prompt, max_new_tokens)
 
 
+def full_prefill_generate(tokenizer, model, prompt: str, max_new_tokens: int) -> tuple[str, float]:
+    """C1 with full prefill, as in the frozen RAG baseline.
+
+    The shared Qwen carries prefill_chunk_size=256 for the enhancement modules;
+    it is cleared only for this call and restored afterwards, even on error.
+    """
+    config = model.generation_config
+    original = config.prefill_chunk_size
+    config.prefill_chunk_size = None
+    try:
+        return _default_generate(tokenizer, model, prompt, max_new_tokens)
+    finally:
+        config.prefill_chunk_size = original
+
+
 def load_reference_rag_config(path: Path | str | None = None, *, root: Path | str = ROOT) -> dict:
     root = Path(root)
     cfg_path = Path(path) if path is not None else root / DEFAULT_CONFIG

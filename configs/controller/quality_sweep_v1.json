@@ -1,0 +1,50 @@
+{
+  "schema_version": "controller_quality_sweep_v1",
+  "registered_date": "2026-10-29",
+  "owner": "Qihan Zhu (user took over Controller, E and rerank changes on 2026-10-29)",
+  "goal": "Improve final Test quality by recalibrating P60 coverage, choosing the action per Diagnosis label and the C1 prefill, all decided on Validation only.",
+  "base_commit": "ad7ebf2",
+  "split": {
+    "builder": "scripts/build_quality_sweep_split.py",
+    "ordering": "allowed Validation IDs sorted by sha256([seed, 'validation', id]), the ordering that produced Development500 (first 500) and Selection500 (next 500)",
+    "seed": "e_distillation_v1_20261027",
+    "excluded_first": 1000,
+    "sweep": {"path": "artifacts/controller/quality_sweep_v1/sweep_ids.json", "n": 6000,
+              "sha256": "a184fe130be21d92115a16905a1c3db6f6006b956b55d0543a60e24831d547e5"},
+    "confirm": {"path": "artifacts/controller/quality_sweep_v1/confirm_ids.json", "n": 2440,
+                "sha256": "759062dcb22ac944d2ab9ee36246a4f8009e82045b90932814c0f985c2c0a942"},
+    "query_export": {"fields": ["sample_id", "query"], "n": 8440,
+                     "sha256": "d592a88ded2383bb25815826ba6babd3a76bffa0d940ef9155b75d7a4b1e4127"}
+  },
+  "roles": {
+    "sweep": "Reusable for the registered grid below; gold is read only offline for scoring.",
+    "confirm": "Run once on the single frozen configuration; never used to choose between configurations.",
+    "test": "Team Test 11,114 is run once at the end and reported as an exposed-Test re-evaluation; never used for any choice."
+  },
+  "c1": {"prefill": "full", "reason": "matches the frozen RAG baseline; removes the 2.6% chunked-prefill drift", "enhancement_prefill_chunk_size": 256},
+  "precompute": {
+    "script": "scripts/precompute_quality_sweep.py",
+    "failure_labeled": "P3-20 retrieval_enhancement for every item, plus the label's own action when it differs",
+    "correct_labeled": "P3-20 retrieval_enhancement when Diagnosis stage-1 p_fail >= 0.39 (about the top 20% of Development500 correct-labelled items under historical C1)",
+    "correct_p_fail_cut": 0.39,
+    "reproducibility_ids": "first 200 sweep IDs, C1 to frozen selection run a second time"
+  },
+  "grid": {
+    "coverage_of_failure_pool": [0.1, 0.2, 0.35, 0.5, 0.75, 1.0],
+    "insuff_lane_share": [0.25, 0.5],
+    "recalibration": "z-stats of p_fail, rec and p_corr from the sweep failure pool; t_insuff and t_combo set to the quantiles that give the target coverage and lane share",
+    "action_maps": {
+      "frozen": {"evidence_insufficiency": "retrieval_enhancement", "evidence_accessibility": "evidence_refinement", "evidence_utilisation": "generation_repair"},
+      "access_to_p3": {"evidence_insufficiency": "retrieval_enhancement", "evidence_accessibility": "retrieval_enhancement", "evidence_utilisation": "generation_repair"},
+      "all_p3": {"evidence_insufficiency": "retrieval_enhancement", "evidence_accessibility": "retrieval_enhancement", "evidence_utilisation": "retrieval_enhancement"},
+      "e_off": {"evidence_insufficiency": "retrieval_enhancement", "evidence_accessibility": "retrieval_enhancement", "evidence_utilisation": "no_action"}
+    },
+    "correct_gate": ["closed", "p_fail_at_least_0.39_to_p3"]
+  },
+  "choice": {
+    "metric": "judge-assisted net (fixed minus broken) against C1 on the sweep set; UNCERTAIN is not correct; answers unchanged from C1 count zero",
+    "tie_rule": "configurations within 3 items of the best: take the lowest coverage, then the closed correct gate, then the action map earlier in the list",
+    "fallback_metric": "normalized-match net, reported alongside and used only if judge labels are unavailable",
+    "confirm_success": "judge-assisted net above 0 on the confirm set"
+  }
+}
