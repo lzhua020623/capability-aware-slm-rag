@@ -8,7 +8,8 @@ implementations are injected via the executor registry (mocks or future adapters
 from __future__ import annotations
 
 import time
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Mapping, Sequence
+from dataclasses import replace
 from typing import Any, Protocol
 
 import numpy as np
@@ -16,11 +17,23 @@ import numpy as np
 from src.compensation.executor import EnhancementExecutor
 from src.compensation.schema import EnhancementRequest, EnhancementStatus
 from src.controller.controller import decide
-from src.controller.schema import SelectionDecision
+from src.controller.schema import SelectionDecision, SelectionLane
 from src.controller.selection import FrozenOnlineSelectionAdapter
 from src.diagnosis.hierarchical_classifier import HierarchicalDiagnosis, HierarchicalDiagnosisClassifier
 from src.diagnosis.schema import DiagnosisInput
 from src.pipeline.schema import AdaptiveRAGResult, PipelineStatus
+
+NO_ACTION_ROUTE = "no_action"
+_FAILURE_LABELS = ("evidence_insufficiency", "evidence_accessibility", "evidence_utilisation")
+
+
+def _checked_routes(routes: Mapping[str, str] | None) -> dict[str, str]:
+    """Selected failure label -> label whose action it takes, or no_action. Empty keeps the frozen mapping."""
+    routes = dict(routes or {})
+    for label, target in routes.items():
+        if label not in _FAILURE_LABELS or target not in _FAILURE_LABELS + (NO_ACTION_ROUTE,):
+            raise ValueError(f"Invalid failure_type route {label!r} -> {target!r}")
+    return routes
 
 
 class ReferenceRAG(Protocol):
@@ -78,12 +91,14 @@ class AdaptiveRAGPipeline:
         selection_adapter: FrozenOnlineSelectionAdapter | SelectionProvider,
         feature_provider: FeatureProvider,
         executor: EnhancementExecutor,
+        failure_type_routes: Mapping[str, str] | None = None,
     ) -> None:
         self.reference_rag = reference_rag
         self.classifier = classifier
         self.selection_adapter = selection_adapter
         self.feature_provider = feature_provider
         self.executor = executor
+        self.failure_type_routes = _checked_routes(failure_type_routes)
 
     def run(
         self,
@@ -130,7 +145,13 @@ class AdaptiveRAGPipeline:
         if selection.used_probe:
             raise ValueError("adaptive pipeline requires used_probe=False")
 
-        controller_decision = decide(selection)
+        route = (self.failure_type_routes.get(selection.failure_type.value)
+                 if selection.needs_enhancement else None)
+        if route == NO_ACTION_ROUTE:
+            controller_decision = decide(replace(selection, needs_enhancement=False,
+                                                 selection_lane=SelectionLane.NO_ACTION))
+        else:
+            controller_decision = decide(selection, failure_type_override=route)
         if controller_decision.used_probe:
             raise ValueError("adaptive pipeline requires ControllerDecision.used_probe=False")
 
@@ -164,6 +185,7 @@ class AdaptiveRAGPipeline:
                 "used_probe": False,
                 "controller_action": controller_decision.action.value,
                 "enhancement_status": enhancement.status.value,
+                "failure_type_route": route,
             },
             latency_ms=latency_ms,
         )
@@ -196,6 +218,7 @@ def build_adaptive_pipeline(
     feature_provider: FeatureProvider,
     executor: EnhancementExecutor | None = None,
     reference_rag: ReferenceRAG | None = None,
+    failure_type_routes: Mapping[str, str] | None = None,
 ) -> AdaptiveRAGPipeline:
     """Factory: empty executor by default (missing Enhancement -> safe unavailable)."""
     return AdaptiveRAGPipeline(
@@ -204,4 +227,5 @@ def build_adaptive_pipeline(
         selection_adapter=selection_adapter,
         feature_provider=feature_provider,
         executor=EnhancementExecutor() if executor is None else executor,
+        failure_type_routes=failure_type_routes,
     )

@@ -64,10 +64,10 @@ def provenance_issues(root, spec, config):
     return [] if covered == set(expected) else ['P60_provenance_does_not_cover_all_three_models']
 
 
-def readiness(root=ROOT):
+def readiness(root=ROOT, registration=REGISTRATION):
     """No model/GPU load and no benchmark data read, including final inputs."""
     root = Path(root)
-    config = json.loads((root / REGISTRATION).read_text(encoding='utf-8'))
+    config = json.loads((root / registration).read_text(encoding='utf-8'))
     missing = []
     try:
         data_boundary = TeamNQBoundary(root).receipt()
@@ -203,8 +203,10 @@ class CheckedFeatures:
 
 
 class CurrentPipeline:
-    def __init__(self, host, features, config, *, data_boundary=None, data_role=None, e_mode=None):
+    def __init__(self, host, features, config, *, data_boundary=None, data_role=None, e_mode=None,
+                 baseline='diagnosis_20261024_p60_p64_v1'):
         self.host, self.features, self.config = host, features, config
+        self.baseline = baseline
         self.data_boundary, self.data_role = data_boundary, data_role
         self.e_mode = e_mode if e_mode is not None else {'nq': 'allow_repair', 'fever': 'allow_repair'}
 
@@ -243,7 +245,7 @@ class CurrentPipeline:
                 }
         receipt = feature_receipt if feature_receipt is not None else self.features.last_receipt
         return replace(result, metadata={**result.metadata,
-            'baseline': 'diagnosis_20261024_p60_p64_v1',
+            'baseline': self.baseline,
             'dataset': item.dataset.value, 'initial_answer_raw': item.initial_answer,
             'feature_provider': receipt,
             'data_role': self.data_role,
@@ -304,13 +306,13 @@ class CurrentPipeline:
 
 def wire_latest_pipeline(execution_backend, feature_provider, *, selection_adapter=None, root=ROOT,
                          require_feature_costs=False, data_boundary=None, data_role=None,
-                         reference_rag=None):
+                         reference_rag=None, registration=REGISTRATION):
     """Wire real modules; injections also support explicitly fictional tests.
 
     Production callers use load_current_pipeline, which additionally checks
     delivery/provenance before loading any GPU model.
     """
-    config = json.loads((Path(root) / REGISTRATION).read_text(encoding='utf-8'))
+    config = json.loads((Path(root) / registration).read_text(encoding='utf-8'))
     expected = ExecutionConfig(**config['execution_config'])
     if execution_backend.config != expected:
         raise ValueError('Use the registered latest execution config from current_baseline.json')
@@ -325,13 +327,13 @@ def wire_latest_pipeline(execution_backend, feature_provider, *, selection_adapt
         executor.register(action, adapter)
     host = build_adaptive_pipeline(classifier=execution_backend.classifier,
         selection_adapter=selector, feature_provider=features, executor=executor,
-        reference_rag=reference_rag)
+        reference_rag=reference_rag, failure_type_routes=config.get('failure_type_routes'))
     return CurrentPipeline(host, features, expected, data_boundary=data_boundary, data_role=data_role,
-                           e_mode=config.get('E_mode'))
+                           e_mode=config.get('E_mode'), baseline=config['baseline'])
 
 
 def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None, data_role='validation',
-                          attach_reference_rag=True, allow_sealed_test=False):
+                          attach_reference_rag=True, allow_sealed_test=False, registration=REGISTRATION):
     """Current production entry. Missing inputs stop; never run old routing.
 
     ``data_role='test'`` requires explicit ``allow_sealed_test=True`` (formal
@@ -343,10 +345,12 @@ def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None,
             raise BoundaryError('Final test execution requires a separately sealed T7 protocol')
     elif data_role not in ('train', 'validation'):
         raise BoundaryError('Final test execution requires a separately sealed T7 protocol')
-    receipt = readiness(root)
+    receipt = readiness(root, registration)
     if not receipt['ready_for_gpu']:
         raise RuntimeError('Latest Diagnosis integration not ready: ' + '; '.join(receipt['missing']))
-    config = json.loads((root / REGISTRATION).read_text(encoding='utf-8'))
+    config = json.loads((root / registration).read_text(encoding='utf-8'))
+    if config.get('c1_prefill', 'shared') not in ('shared', 'full'):
+        raise ValueError('c1_prefill must be shared or full')
     spec = config['feature_provider']
     module = importlib.import_module(spec['module'])
     if Path(module.__file__).resolve() != (root / spec['source_path']).resolve():
@@ -359,8 +363,10 @@ def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None,
         raise ValueError('Production feature provider must report its runtime costs')
     reference_rag = None
     if attach_reference_rag:
-        from src.pipeline.reference_rag import MatchedReferenceRAG
-        reference_rag = MatchedReferenceRAG.from_shared_generator(backend.raw_generator, root=root)
+        from src.pipeline.reference_rag import MatchedReferenceRAG, full_prefill_generate
+        generate_fn = full_prefill_generate if config.get('c1_prefill') == 'full' else None
+        reference_rag = MatchedReferenceRAG.from_shared_generator(backend.raw_generator, root=root,
+                                                                  generate_fn=generate_fn)
         # Same BAAI/bge-base-en-v1.5 weights as P26; share the instance to free ~0.4GB VRAM.
         # P26 still encodes at max_seq_length=128 (restored after each encode).
         shared_bge = getattr(getattr(reference_rag, 'retriever', None), 'model', None)
@@ -374,6 +380,7 @@ def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None,
             **environment,
             'reference_rag': {
                 'config': getattr(reference_rag, 'config', {}).get('_config_path'),
+                'c1_prefill': config.get('c1_prefill', 'shared'),
                 'prompt_style': reference_rag.prompt_style,
                 'embedding_model': reference_rag.embedding_model,
                 'top_k': reference_rag.top_k,
@@ -383,6 +390,6 @@ def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None,
     unlock_test = bool(allow_sealed_test and data_role == 'test')
     return wire_latest_pipeline(backend, provider, root=root, require_feature_costs=True,
         data_boundary=TeamNQBoundary(root, allow_sealed_test=unlock_test), data_role=data_role,
-        reference_rag=reference_rag), {
+        reference_rag=reference_rag, registration=registration), {
         **environment, 'current_baseline': receipt, 'probe_enabled': False,
         'allow_sealed_test': unlock_test}
