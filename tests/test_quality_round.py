@@ -168,6 +168,24 @@ class ScoringTests(unittest.TestCase):
             path.write_text(''.join(json.dumps(r) + '\n' for r in rows))
             self.assertEqual(scorer.prior_labels([path]), {('a', 'Paris'): True, ('b', 'X'): True})
 
+    def test_compare_pairs_with_baselines_and_holds_unchanged_answers_at_zero(self):
+        rows = [scorer.prediction_row(result(sid, 'C1', pred), ['g']) for sid, pred in (('a', 'Paris'), ('b', 'X'), ('c', 'Q'))]
+        judged = lambda sid, pred, ok: {'sample_id': sid, 'prediction': pred, 'judge_status': 'llm_ok',
+                                        'auto_correct': False, 'judge_label': 'CORRECT' if ok else 'INCORRECT'}
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'rag.jsonl'
+            path.write_text(''.join(json.dumps(judged(*r)) + '\n' for r in (('a', 'Lyon', False), ('b', 'X', True), ('c', 'Q2', True))))
+            labels = {('a', 'Paris'): True, ('b', 'X'): False, ('c', 'Q'): False}
+            report = scorer.compare(rows, labels, {'rag': path})['rag']
+            self.assertEqual((report['baseline_correct'], report['run_correct'], report['changed'], report['fixes'],
+                              report['harms'], report['net'], report['mcnemar_p']), (2, 1, 2, 1, 1, 0, 1.0))
+            with self.assertRaises(ValueError):
+                scorer.compare(rows, {k: v for k, v in labels.items() if k[0] != 'c'}, {'rag': path})
+            with self.assertRaises(ValueError):
+                scorer.compare(rows[:2], labels, {'rag': path})
+        self.assertEqual(scorer.mcnemar_p(0, 0), 1.0)
+        self.assertAlmostEqual(scorer.mcnemar_p(102, 57), 0.000447, places=6)
+
     def test_sharded_results_merge_only_from_completed_runs_of_one_registration(self):
         with tempfile.TemporaryDirectory() as tmp:
             paths = []

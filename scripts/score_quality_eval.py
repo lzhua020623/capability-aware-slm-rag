@@ -5,12 +5,14 @@ predictions.jsonl (same fields and scoring as baselines/run_product_evaluation.p
 (sample, answer) pairs that still need the team judge: every final prediction without a
 normalized match, and the C1 answer of every changed row, minus strings already judged in
 the given earlier judge results. `score` reports judge-assisted accuracy and the net change
-against C1. Correct means a normalized match or CORRECT; UNCERTAIN is not correct.
+against C1. `compare` pairs the run with earlier runs on the same IDs (team judge files).
+Correct means a normalized match or CORRECT; UNCERTAIN is not correct.
 """
 import argparse
 from collections import Counter
 import hashlib
 import json
+import math
 from pathlib import Path
 import sys
 
@@ -117,6 +119,50 @@ def score(rows, labels):
             'actions': {f'{a}|changed={c}': n for (a, c), n in sorted(by_action.items())}}
 
 
+def mcnemar_p(fixes, harms):
+    """Exact two-sided McNemar (binomial on the discordant pairs)."""
+    n, k = fixes + harms, min(fixes, harms)
+    if n == 0:
+        return 1.0
+    return min(1.0, 2 * sum(math.comb(n, i) for i in range(k + 1)) / 2 ** n)
+
+
+def compare(rows, labels, baselines):
+    """Paired judge-assisted comparison with earlier runs whose judge files hold sample_id and prediction.
+
+    `labels` give this run's correctness; when judge files disagree on one string, the caller's
+    file order decides (later wins). Each baseline keeps its own labels, as it reported them.
+    Rows whose answer equals the baseline's count zero, so a judge relabelling an unchanged
+    string cannot move the net.
+    """
+    ids = {r['sample_id'] for r in rows}
+    report = {}
+    for name, path in baselines.items():
+        theirs = {str(r['sample_id']): r['prediction'] for r in read_jsonl(path)}
+        own = prior_labels([path])
+        if set(theirs) != ids:
+            raise ValueError(f'{name} covers different IDs')
+        missing = [r for r in rows if (r['sample_id'], r['prediction']) not in labels
+                   or (r['sample_id'], theirs[r['sample_id']]) not in own]
+        if missing:
+            raise ValueError(f'{len(missing)} rows lack a label against {name}')
+        change = Counter()
+        for r in rows:
+            if r['prediction'] == theirs[r['sample_id']]:
+                continue
+            ours, before = labels[(r['sample_id'], r['prediction'])], own[(r['sample_id'], theirs[r['sample_id']])]
+            change['changed'] += 1
+            change['fixes'] += ours and not before
+            change['harms'] += before and not ours
+        report[name] = {'n': len(rows), 'baseline_correct': sum(own[(s, p)] for s, p in theirs.items()),
+                        'run_correct': sum(labels[(r['sample_id'], r['prediction'])] for r in rows),
+                        'changed': change['changed'], 'fixes': change['fixes'], 'harms': change['harms'],
+                        'net': change['fixes'] - change['harms'],
+                        'net_pp': 100 * (change['fixes'] - change['harms']) / len(rows),
+                        'mcnemar_p': mcnemar_p(change['fixes'], change['harms'])}
+    return report
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
     sub = p.add_subparsers(dest='command', required=True)
@@ -133,6 +179,11 @@ def main(argv=None):
     s.add_argument('--predictions', type=Path, required=True)
     s.add_argument('--judged', type=Path, nargs='+', required=True)
     s.add_argument('--output', type=Path, required=True)
+    c = sub.add_parser('compare')
+    c.add_argument('--predictions', type=Path, required=True)
+    c.add_argument('--judged', type=Path, nargs='+', required=True, help='later files win on disagreeing labels')
+    c.add_argument('--baseline', nargs='+', required=True, metavar='NAME=JUDGE_RESULTS')
+    c.add_argument('--output', type=Path, required=True)
     args = p.parse_args(argv)
     if args.command == 'predictions':
         gold = {r['sample_id']: r['gold'] for r in read_jsonl(args.references)}
@@ -162,6 +213,12 @@ def main(argv=None):
                     handle.write(json.dumps(row, ensure_ascii=False) + '\n')
         print(json.dumps({'rows': len(todo), 'api_rows': sum(not r['normalized_match'] for r in todo),
                           'shards': [len(x) for x in shards]}))
+        return 0
+    if args.command == 'compare':
+        baselines = dict(item.split('=', 1) for item in args.baseline)
+        report = compare(rows, prior_labels(args.judged), {k: Path(v) for k, v in baselines.items()})
+        args.output.write_text(json.dumps(report, indent=2) + '\n')
+        print(json.dumps(report, indent=2))
         return 0
     report = score(rows, prior_labels(args.judged))
     args.output.write_text(json.dumps(report, indent=2) + '\n')
