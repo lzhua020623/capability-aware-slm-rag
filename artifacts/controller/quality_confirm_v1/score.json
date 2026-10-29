@@ -1,0 +1,19 @@
+{
+  "n": 2440,
+  "judge_assisted_correct": 1692,
+  "judge_assisted_accuracy": 0.6934426229508197,
+  "changed": 421,
+  "fixes": 102,
+  "harms": 57,
+  "net_vs_c1": 45,
+  "actions": {
+    "no_action|changed=False": 1234,
+    "retrieval_enhancement|changed=False": 785,
+    "retrieval_enhancement|changed=True": 421
+  },
+  "c1_judge_assisted_correct": 1647,
+  "c1_judge_assisted_accuracy": 0.675,
+  "mcnemar_p": 0.00044734751745370376,
+  "rule": "judge-assisted net above 0 on the confirm set",
+  "passed": true
+}

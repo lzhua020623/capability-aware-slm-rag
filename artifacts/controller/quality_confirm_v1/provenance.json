@@ -1,0 +1,45 @@
+{
+  "schema_version": "quality_confirm_release_v1",
+  "role": "confirm (Validation, run once on the frozen configuration)",
+  "registration": "configs/controller/quality_baseline_v1.json",
+  "registration_sha256": "6da66fd138d6ba7beb06cae9f746cbfe027d0b14b121628797ab8d9ea4c2c738",
+  "confirm_ids_sha256": "759062dcb22ac944d2ab9ee36246a4f8009e82045b90932814c0f985c2c0a942",
+  "query_sha256": "64f5d940af1421d39fbbf566bb488a7a9562a9f16a6439c6d58c14c6819fa980",
+  "results_sha256": "01841a83662da61f52588b885964bcb12a7a71e2fee77ca59b5d3d27d94efb38",
+  "run": {
+    "n_ids": 2440,
+    "results": 2440,
+    "engineering_run": false,
+    "resumed_with": 0,
+    "started_UTC": "2026-10-29T14:29:15.081454+00:00",
+    "finished_UTC": "2026-10-29T20:48:14.356734+00:00"
+  },
+  "gpu": [
+    "NVIDIA GeForce RTX 5090"
+  ],
+  "packages": {
+    "torch": "2.8.0+cu128",
+    "transformers": "5.16.1",
+    "accelerate": "1.14.0",
+    "bitsandbytes": "0.50.2",
+    "PyYAML": "6.0.3"
+  },
+  "gold": "exported locally from the team delivery annotation_reference.gold_answer; never sent to the GPU host",
+  "judge": {
+    "code": "origin/feature/baseline-evaluation baselines/judge/run_llm_judge.py, unchanged",
+    "model": [
+      "elec5623-e-teacher-sol-v1"
+    ],
+    "rows": 2861,
+    "api_rows": 1766,
+    "status": {
+      "llm_ok": 1766,
+      "auto_correct": 1095
+    },
+    "note": "97 rows hit HTTP 429 when two batches ran together; the same command re-ran only those rows"
+  },
+  "curated_archive": {
+    "sha256": "81db9a590917394dd1d8c5f9540ce9e76c39bc05ba865f1c005d2edc808ec86f",
+    "files": 20
+  }
+}
