@@ -236,3 +236,4 @@ _scratch*/
 **/smoke_*_hunt.*
 .pytest_cache/
 
+*.pem

@@ -1,0 +1,14 @@
+{
+  "n": 11114,
+  "em": 0.29089436746445924,
+  "f1": 0.44335644383133416,
+  "mean_f1": 0.44335644383133416,
+  "normalized_accuracy": 0.2939535720712615,
+  "normalized_additional_correct": 34,
+  "mode": "rag",
+  "answer_in_context_at_5": 0.6997480655029692,
+  "answer_in_context_yes_n": 7777,
+  "answer_in_context_no_n": 3337,
+  "eval_split": "test",
+  "rag_prompt_style": "context_fallback"
+}
