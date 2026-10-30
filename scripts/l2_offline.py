@@ -83,12 +83,12 @@ def load_inputs(args):
     return records, candidates, generations
 
 
-def answers(records, candidates, generations, registration):
-    """{setting name: {sample_id: final answer}} for every item."""
+def answers(records, candidates, generations, registration, only=None):
+    """{setting name: {sample_id: final answer}} for every item, or for the IDs in `only`."""
     base = {r['sample_id']: tuple(e['passage_id'] for e in r['evidence']) for r in records}
     return {name(c): {r['sample_id']: final_answer(r['initial_answer'], select_ids(candidates[r['sample_id']], c),
                                                    base[r['sample_id']], generations, r['sample_id'])
-                      for r in records} for c in grid(registration)}
+                      for r in records if only is None or r['sample_id'] in only} for c in grid(registration)}
 
 
 def needed_contexts(records, candidates, generations, registration):
@@ -145,6 +145,8 @@ def main(argv=None):
             s.add_argument('--references', type=Path, required=True)
             s.add_argument('--judged', type=Path, nargs='*', default=[])
             s.add_argument('--output-dir' if cmd == 'judge-inputs' else '--output', type=Path, required=True)
+            s.add_argument('--scope', choices=('routed', 'all'), default='all',
+                           help='routed: only items route 1 sends to P3-20 (enough for the registered choice)')
             if cmd == 'judge-inputs':
                 s.add_argument('--shards', type=int, default=4)
     args = p.parse_args(argv)
@@ -159,12 +161,15 @@ def main(argv=None):
         return 0
     gold = {r['sample_id']: r['gold'] for r in read_jsonl(args.references)}
     judged = load_judged(args.judged)
-    finals = answers(records, candidates, generations, registration)
+    routed = {r['sample_id'] for r in records if P3 in r['actions']}
+    finals = answers(records, candidates, generations, registration, routed if args.scope == 'routed' else None)
     if args.command == 'judge-inputs':
         queries = {r['sample_id']: r['query'] for r in records}
         rows, seen = [], set(judged)
         for r in records:
             sid = r['sample_id']
+            if args.scope == 'routed' and sid not in routed:
+                continue
             strings = {r['initial_answer']} | {f[sid] for f in finals.values()}
             if len(strings) == 1:
                 continue
@@ -184,14 +189,14 @@ def main(argv=None):
                     handle.write(json.dumps(row, ensure_ascii=False) + '\n')
         print(json.dumps({'rows': len(rows), 'api_rows': sum(not r['normalized_match'] for r in rows)}))
         return 0
-    routed = {r['sample_id'] for r in records if P3 in r['actions']}
     every = {r['sample_id'] for r in records}
     results = [{**c, 'name': name(c), **evaluate(records, finals[name(c)], gold, judged, routed),
-                'all_items': evaluate(records, finals[name(c)], gold, judged, every)} for c in grid(registration)]
+                'all_items': evaluate(records, finals[name(c)], gold, judged, every) if args.scope == 'all' else None}
+               for c in grid(registration)]
     route_1 = {r['sample_id']: (r['actions'][P3]['final_answer'] if P3 in r['actions'] else r['initial_answer'])
                for r in records}
     control = finals[name({'k_bge': 20, 'k_bm25': 0, 'fusion': 'rrf'})]
-    report = {'schema_version': 'l2_offline_v1', 'records': len(records), 'routed': len(routed),
+    report = {'schema_version': 'l2_offline_v1', 'scope': args.scope, 'records': len(records), 'routed': len(routed),
               'control_equals_route_1': sum(control[s] == route_1[s] for s in routed),
               'complete': not any(r['unjudged'] for r in results),
               'chosen': choose(results) if not any(r['unjudged'] for r in results) else None,
