@@ -1,0 +1,69 @@
+{
+  "role": "exposed Test re-evaluation; report only, never used for any choice",
+  "n": 11114,
+  "judge_assisted_correct": 6632,
+  "judge_assisted_accuracy": 0.5967248515386,
+  "changed": 2149,
+  "fixes": 497,
+  "harms": 265,
+  "net_vs_c1": 232,
+  "actions": {
+    "no_action|changed=False": 4948,
+    "retrieval_enhancement|changed=False": 4017,
+    "retrieval_enhancement|changed=True": 2149
+  },
+  "c1_judge_assisted_correct": 6400,
+  "c1_judge_assisted_accuracy": 0.5758502789274789,
+  "mcnemar_p": 3.3515572060202067e-17,
+  "label_order": [
+    "team qwen_only",
+    "team product",
+    "this run (judge/outputs)",
+    "team rag (wins on conflict)"
+  ],
+  "comparisons": {
+    "qwen_only": {
+      "n": 11114,
+      "baseline_correct": 3284,
+      "run_correct": 6632,
+      "changed": 9532,
+      "fixes": 4000,
+      "harms": 649,
+      "net": 3351,
+      "net_pp": 30.15116069821846,
+      "mcnemar_p": 0.0
+    },
+    "product": {
+      "n": 11114,
+      "baseline_correct": 6445,
+      "run_correct": 6632,
+      "changed": 2188,
+      "fixes": 455,
+      "harms": 276,
+      "net": 179,
+      "net_pp": 1.6105812488752924,
+      "mcnemar_p": 3.689281321200024e-11
+    },
+    "rag": {
+      "n": 11114,
+      "baseline_correct": 6391,
+      "run_correct": 6632,
+      "changed": 2372,
+      "fixes": 523,
+      "harms": 282,
+      "net": 241,
+      "net_pp": 2.1684362065862874,
+      "mcnemar_p": 1.5582176738058833e-17
+    }
+  },
+  "sensitivity_this_run_labels_last": {
+    "contested_strings": 94,
+    "judge_assisted_correct": 6624,
+    "net_vs_c1": 226,
+    "net_vs": {
+      "qwen_only": 3345,
+      "product": 179,
+      "rag": 241
+    }
+  }
+}
