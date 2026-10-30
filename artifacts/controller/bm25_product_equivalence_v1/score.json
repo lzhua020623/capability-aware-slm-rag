@@ -1,0 +1,13 @@
+{
+  "schema_version": "bm25_product_equivalence_v1",
+  "n": 2440,
+  "same_c1": 2440,
+  "same_action": 2440,
+  "routed": 1206,
+  "same_p3_20_top5": 1206,
+  "same_bm25_decision": 1206,
+  "bm25_items": 334,
+  "same_l2_top5": 333,
+  "same_final": 2440,
+  "bm25_errors": 0
+}

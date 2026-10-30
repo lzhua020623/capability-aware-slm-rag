@@ -1,0 +1,64 @@
+{
+  "schema_version": "bm25_product_equivalence_v1",
+  "purpose": "engineering check: the production P3-BM25 code (commit afb1818, registration quality_bm25_v1) reproduces route 1 plus the offline BM25 rule on confirm; no judging, no selection",
+  "registration": "configs/controller/quality_bm25_v1.json",
+  "registration_sha256": "7cce86687de823fdfa2820b000c8a229aa404917daa9c8702019a2e4f4851479",
+  "run": {
+    "state": "completed",
+    "role": "confirm",
+    "data_role": "validation",
+    "n_ids": 2440,
+    "engineering_run": false,
+    "resumed_with": 0,
+    "started_UTC": "2026-10-30T14:01:40.671737+00:00",
+    "finished_UTC": "2026-10-30T14:53:49.974049+00:00"
+  },
+  "gpu": [
+    "NVIDIA GeForce RTX 5090 D"
+  ],
+  "p3_bm25_environment": {
+    "rule_registration": "configs/controller/bm25_gate_v1.json",
+    "rule_registration_sha256": "fa47659514da83485fd98420bf4059392e9cee7e6f1c2b7c4ca1817e623942fa",
+    "note": "route 1 unchanged up to the P3-20 record; then BM25 top 20 joins the BGE top 20, the GPU cross-encoder scores the union, and the top 5 by score replaces the answer only when it holds a BM25-only passage",
+    "index_dir": "data/processed/indexes/nq_train_bm25",
+    "index_sha256": "d8eed774a87ba2f0c39deadb458821642f3e59db893dcfca6265c75b33a051c6",
+    "k_bge": 20,
+    "k_bm25": 20,
+    "fusion": "ce_only",
+    "scorer": {
+      "model": "BAAI/bge-reranker-large",
+      "revision": "55611d7bca2a7133960a6d3b71e083071bbfc312",
+      "device": "cuda",
+      "dtype": "float32",
+      "tf32": false,
+      "max_length": 512,
+      "batch_size": 32,
+      "activation": "identity"
+    },
+    "budget": "one more retrieval (BM25), scoring and generation call than route 1, so the call limits are 2",
+    "bm25_receipt": {
+      "corpus_sha256": "c4ec2cc61aa091bd4cd6492b7cbdc53c8265395d9ac1b9b6307ac748daf6940d",
+      "n": 1224119,
+      "k1": 0.9,
+      "b": 0.4,
+      "library": "bm25s==0.2.14",
+      "fields": "document_title + ' ' + text",
+      "tokenizer": "bm25s.tokenize: lowercase, English stopwords, no stemming",
+      "seconds": 55.3,
+      "built_UTC": "2026-10-30T06:01:35.523353+00:00"
+    }
+  },
+  "offline_sources": {
+    "route_1": "artifacts/controller/quality_confirm_v1",
+    "l2_confirm": "artifacts/controller/l2_confirm_v1",
+    "candidates_sha256": "5508675f0edb938e48ba9e638f3e51b84a04282cf202beb1cc871598ce79ec66"
+  },
+  "raw_local": {
+    "path": "data/processed/quality_sweep_v1/bm25_product_confirm/results.jsonl",
+    "sha256": "9ac7fe1776d2fb07d4c250138b6c96f97d7f39d9dd998671038c7b9b6fb7d9dc"
+  },
+  "curated_archive": {
+    "sha256": "264a7bd11ee41f513f91be14b838032c99bc955c9e9cb74ea530f42582d959a9",
+    "files": 3
+  }
+}
