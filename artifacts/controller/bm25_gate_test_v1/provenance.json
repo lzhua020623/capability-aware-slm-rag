@@ -1,0 +1,42 @@
+{
+  "schema_version": "bm25_gate_test_release_v1",
+  "role": "team Test 11,114, a further disclosed exposure after the route-1 Test; registered before any Test GPU run",
+  "registration": "configs/controller/bm25_gate_v1.json",
+  "registration_sha256": "fa47659514da83485fd98420bf4059392e9cee7e6f1c2b7c4ca1817e623942fa",
+  "registered_commit": "63b0169",
+  "generator_boundary_commits": [
+    "6d2e966",
+    "2dcf483"
+  ],
+  "route_1_test_archive": {
+    "path": "artifacts/controller/quality_test_v1/results.tar.gz",
+    "sha256": "73225415df8734bfd1632aaf929f8ac8f4b820e213831191ce66b888cfc3cba3"
+  },
+  "test_ids_sha256": "a76eef44913b140c02840521033496a3dc934acab865a3800f653e272c75a1ed",
+  "raw_local": {
+    "candidates": {
+      "path": "data/processed/quality_sweep_v1/bm25_test/candidates.jsonl",
+      "sha256": "0ced36aec46b63ec08a5aa7a81c1b991c587da888f767102f1badc7e0f52a02b"
+    }
+  },
+  "gpu": "NVIDIA GeForce RTX 5090 D",
+  "generation_data_role": "test",
+  "runs": "candidates and generations each ran once to completion; two earlier generation starts stopped at the data boundary check before any output (logs kept on the GPU host)",
+  "gold": "Test gold comes from the route-1 Test predictions (team annotation export); never sent to the GPU host",
+  "judge": {
+    "code": "origin/feature/baseline-evaluation baselines/judge/run_llm_judge.py, unchanged",
+    "model": [
+      "elec5623-e-teacher-sol-v1"
+    ],
+    "rows": 577,
+    "status": {
+      "llm_ok": 452,
+      "auto_correct": 125
+    },
+    "label_order": "team qwen_only, team product, route-1 Test judge, this batch, team RAG last (RAG wins)"
+  },
+  "curated_archive": {
+    "sha256": "6f602832a11fab8fa70ae784c902f1001c50ff4fc8c901f9fb04df2827ed851b",
+    "files": 24
+  }
+}

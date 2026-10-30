@@ -1,0 +1,68 @@
+{
+  "schema_version": "bm25_gate_test_release_v1",
+  "n": 11114,
+  "routed": 6166,
+  "bm25_items": 1639,
+  "replaced": 764,
+  "against_route_1": {
+    "changed": 764,
+    "fixes": 226,
+    "harms": 121,
+    "net": 105,
+    "mcnemar_p": 1.8568051983352197e-08
+  },
+  "adoption": {
+    "rule": "paired against route 1 on Test: judge-assisted net > 0 and exact McNemar p < 0.05",
+    "passed": true
+  },
+  "score": {
+    "n": 11114,
+    "judge_assisted_correct": 6737,
+    "judge_assisted_accuracy": 0.606172395177254,
+    "changed": 2380,
+    "fixes": 630,
+    "harms": 293,
+    "net_vs_c1": 337,
+    "actions": {
+      "no_action|changed=False": 4948,
+      "retrieval_enhancement|changed=False": 3786,
+      "retrieval_enhancement|changed=True": 2380
+    }
+  },
+  "comparisons": {
+    "qwen_only": {
+      "n": 11114,
+      "baseline_correct": 3284,
+      "run_correct": 6737,
+      "changed": 9512,
+      "fixes": 4086,
+      "harms": 630,
+      "net": 3456,
+      "net_pp": 31.095915062083858,
+      "mcnemar_p": 0.0
+    },
+    "product": {
+      "n": 11114,
+      "baseline_correct": 6445,
+      "run_correct": 6737,
+      "changed": 2467,
+      "fixes": 595,
+      "harms": 312,
+      "net": 283,
+      "net_pp": 2.5463379521324456,
+      "mcnemar_p": 3.69393917596311e-21
+    },
+    "rag": {
+      "n": 11114,
+      "baseline_correct": 6391,
+      "run_correct": 6737,
+      "changed": 2599,
+      "fixes": 656,
+      "harms": 310,
+      "net": 346,
+      "net_pp": 3.1131905704516827,
+      "mcnemar_p": 3.145367403648402e-29
+    }
+  },
+  "route_1_judge_assisted_correct": 6632
+}
