@@ -48,7 +48,7 @@ def parse(argv=None):
     p.add_argument('--contexts', type=Path, required=True, help='l2_offline.py contexts output')
     p.add_argument('--output-dir', type=Path, required=True)
     p.add_argument('--data-role', choices=('validation', 'test'), default='validation',
-                   help='data boundary every ID must fall in; test only for registered Test runs')
+                   help='data boundary every ID must fall in; test unlocks the sealed Test boundary, for registered Test runs only')
     return p.parse_args(argv)
 
 
@@ -61,7 +61,8 @@ def main(argv=None):
     if not torch.cuda.is_available(): raise RuntimeError('Generation requires CUDA')
     from src.pipeline.current import load_current_pipeline
     pipeline, environment = load_current_pipeline(root=ROOT, nq_resources=ROOT / NQ_RESOURCES,
-                                                  data_role=args.data_role, attach_reference_rag=True)
+                                                  data_role=args.data_role, attach_reference_rag=True,
+                                                  allow_sealed_test=args.data_role == 'test')
     pipeline.data_boundary.require(sorted({r['sample_id'] for r in rows}), args.data_role)
     generator, max_new_tokens, backend = p3_runtime(pipeline)
     position = {pid: i for i, pid in enumerate(backend.retriever.passage_ids)}
