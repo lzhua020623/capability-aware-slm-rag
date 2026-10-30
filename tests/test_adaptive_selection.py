@@ -119,5 +119,39 @@ class SelectionTests(unittest.TestCase):
         self.assertEqual(cost, ad.extra_generations(split, order))
 
 
+class ItemsAndScoreTests(unittest.TestCase):
+    def test_items_policies_and_summary(self):
+        import tempfile
+        results = [result('a', 'Bonn', 'Bonn', 'no_action'), result('b', 'Lyon', 'Nice', ad.P3, ('b5', 'b0', 'b1', 'b2', 'b3'), 'Nice')]
+        for r, p in zip(results, (0.2, 0.9)):
+            r['diagnosis'] = {'stage1_failure_probability': p}
+        candidates = {'a': cand_row('a', 'x'), 'b': cand_row('b', 'x')}
+        stored = {**ad.stored_generations(results, []), ('a', L2_IDS): ('Paris', None), ('b', L2_IDS): ('Paris', None)}
+        with tempfile.TemporaryDirectory() as tmp:
+            corpus = Path(tmp) / 'corpus.jsonl'
+            corpus.write_text(''.join(json.dumps({'passage_id': p, 'text': f'{p} about Paris'}) + '\n'
+                                      for p in [f'b{i}' for i in range(100)] + ['x']), encoding='utf-8')
+            rows = ad.build_items(results, {'a': 'Bonn', 'b': 'Paris'}, candidates, stored, corpus,
+                                  ad.load_registration()['contexts']['order'])
+        a, b = rows
+        self.assertEqual((a['routed'], b['routed'], a['query']), (False, True, 'q a'))
+        self.assertEqual((a['stages']['8']['cost'], b['stages']['8']['cost']), (1, 0))
+        self.assertEqual({g['answer'] for g in a['stages']['3']['groups']}, {'Bonn', 'Paris'})
+        policy = json.loads((POLICY / 'policy.json').read_text(encoding='utf-8'))
+        names = set(ad.policies(policy))
+        self.assertEqual(len(names), 1 + len(policy['reported_points']) + 6)
+        self.assertIn('fixed5_vote', names)
+        outcomes = ad.answers_of(rows, policy)
+        self.assertEqual(outcomes['fixed3_vote']['a'], ('Bonn', 3, 1))
+        pairs = ad.needed_pairs(rows, outcomes)
+        self.assertTrue(all(sid in ('a', 'b') for sid, _ in pairs))
+        labels = {('a', 'Bonn'): False, ('a', 'Paris'): True, ('b', 'Paris'): True, ('b', 'Lyon'): False}
+        report = ad.summarize(rows, {'x': {'a': ('Paris', 3, 1), 'b': ('Paris', 3, 0)}}, labels, {'a': ['Rome'], 'b': ['Paris']})
+        self.assertEqual({k: report['x']['against_b_bm25'][k] for k in ('fixes', 'harms', 'net', 'unjudged')},
+                         {'fixes': 1, 'harms': 0, 'net': 1, 'unjudged': 0})
+        self.assertEqual(report['x']['against_c1']['net'], 2)
+        self.assertEqual(report['x']['extra_generations_per_item'], 0.5)
+
+
 if __name__ == '__main__':
     unittest.main()
