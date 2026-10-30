@@ -1,6 +1,6 @@
 """Run the frozen quality-round pipeline once on the confirm set or the team Test; questions only.
 
-GPU side: `load_current_pipeline(registration=quality_baseline_v1)` and `run_batch`, one result
+GPU side: `load_current_pipeline(registration=quality_baseline_v1, or quality_bm25_v1 with --registration)` and `run_batch`, one result
 per line in input order, resumable. Gold never reaches this host; the local scorer
 (`scripts/score_quality_eval.py`) builds the team's predictions.jsonl from these results.
 `--shard i --shards k` runs one contiguous slice so several GPU hosts can share a run; slice
@@ -20,6 +20,7 @@ if str(ROOT) not in sys.path: sys.path.insert(0, str(ROOT))
 REGISTRATION = 'configs/controller/quality_baseline_v1.json'
 NQ_RESOURCES = 'configs/controller/nq_train_resources_v1.json'
 ROLES = {'confirm': 'validation', 'test': 'test'}
+REGISTRATIONS = (REGISTRATION, 'configs/controller/quality_bm25_v1.json')
 
 
 def file_sha(path):
@@ -71,6 +72,8 @@ def main(argv=None):
     p.add_argument('--limit', type=int, default=None, help='Engineering run on confirm only')
     p.add_argument('--shard', type=int, default=0)
     p.add_argument('--shards', type=int, default=1)
+    p.add_argument('--registration', default=REGISTRATION, choices=REGISTRATIONS,
+                   help='frozen product registration (route 1, or route 1 with P3-BM25)')
     args = p.parse_args(argv)
     if args.role == 'test' and (not args.allow_sealed_test or args.limit):
         raise SystemExit('The Test run needs --allow-sealed-test and no --limit')
@@ -95,10 +98,10 @@ def main(argv=None):
         raise ValueError('Existing results are not a prefix of the registered order')
     pipeline, environment = load_current_pipeline(
         root=ROOT, nq_resources=ROOT / NQ_RESOURCES, data_role=ROLES[args.role], attach_reference_rag=True,
-        allow_sealed_test=args.role == 'test', registration=REGISTRATION)
+        allow_sealed_test=args.role == 'test', registration=args.registration)
     manifest = {'schema_version': 'quality_eval_v1', 'state': 'running', 'role': args.role,
-                'data_role': ROLES[args.role], 'registration': REGISTRATION,
-                'registration_sha256': file_sha(ROOT / REGISTRATION), 'query_sha256': file_sha(args.queries),
+                'data_role': ROLES[args.role], 'registration': args.registration,
+                'registration_sha256': file_sha(ROOT / args.registration), 'query_sha256': file_sha(args.queries),
                 'n_ids': len(order), 'engineering_run': bool(args.limit), 'resumed_with': len(finished),
                 'shard': args.shard, 'shards': args.shards, 'batch_size': args.batch_size,
                 'first_id': order[0], 'last_id': order[-1],

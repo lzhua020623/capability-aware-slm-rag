@@ -17,6 +17,7 @@ from src.compensation.answer_repair import Generation, NQ_ONLY_STRATEGIES
 from src.compensation.controller_adapter import generation_repair
 from src.compensation.evidence_refinement import EvidenceRefiner
 from src.compensation.retrieval_enhancement.p3 import P320RetrievalEnhancer
+from src.compensation.retrieval_enhancement.p3_bm25 import P3Bm25
 from src.controller.controller import ACTION_BY_LABEL, decide_action
 from src.controller.schema import ControllerAction, ControllerDecision
 from src.diagnosis.schema import DiagnosisInput, EvidenceItem
@@ -227,6 +228,17 @@ class MeteredRetriever:
                                  retrieve)
 
 
+class MeteredBm25:
+    """BM25 search as one metered retrieval call; hits are [corpus position, score]."""
+
+    def __init__(self, index, calls):
+        self.index, self.calls = index, calls
+
+    def __call__(self, query, k):
+        return self.calls.invoke("retrieval", "bm25", {"query": query, "top_k": k},
+                                 lambda: [[int(p), float(s)] for p, s in self.index.search(query, k)])
+
+
 def validate_input(item):
     if not isinstance(item, DiagnosisInput):
         raise TypeError("Expected runtime-only DiagnosisInput")
@@ -249,10 +261,12 @@ class IntegratedController:
     """
 
     def __init__(self, classifier, raw_generator, repair_generators, scorer, retriever=None,
-                 *, config=ExecutionConfig(), trigger=V2_EXPANDED_TRIGGER):
+                 *, config=ExecutionConfig(), trigger=V2_EXPANDED_TRIGGER, p3_bm25=None):
         self.classifier, self.raw_generator = classifier, raw_generator
         self.repair_generators, self.scorer, self.retriever = repair_generators, scorer, retriever
         self.config, self.trigger = config, trigger
+        # P3Bm25Resources when the registration enables P3-BM25; None keeps P3-20 alone.
+        self.p3_bm25 = p3_bm25
 
     def run(self, item: DiagnosisInput, *, mode="adaptive", human_type=None) -> dict:
         validate_input(item)
@@ -368,6 +382,9 @@ class IntegratedController:
             if action == ControllerAction.RETRIEVAL_ENHANCEMENT:
                 native = P320RetrievalEnhancer(MeteredRetriever(self.retriever, calls), scorer,
                                                regenerate, enable_fever=fever_enabled).run(item, decision)
+                if self.p3_bm25 is not None:
+                    native = P3Bm25(MeteredBm25(self.p3_bm25.index, calls), self.p3_bm25.record,
+                                    MeteredScorer(self.p3_bm25.scorer, calls), regenerate).run(native)
                 selected = native["evidence"]
                 final, status = native["final_answer"], native["status"]
                 result["error"] = native.get("error")

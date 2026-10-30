@@ -358,7 +358,8 @@ def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None,
         raise ValueError('Imported feature provider differs from its registered source')
     from src.controller.providers import load_pipeline
     backend, environment = load_pipeline(ExecutionConfig(**config['execution_config']),
-        root / config['classifier'], nq_resources=nq_resources, fever_resources=fever_resources)
+        root / config['classifier'], nq_resources=nq_resources, fever_resources=fever_resources,
+        p3_bm25=config.get('p3_bm25'))
     provider = getattr(module, spec['factory'])(execution_backend=backend)
     if not callable(getattr(provider, 'runtime_receipt', None)):
         raise ValueError('Production feature provider must report its runtime costs')

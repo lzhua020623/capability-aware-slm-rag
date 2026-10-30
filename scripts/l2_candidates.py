@@ -16,6 +16,7 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path: sys.path.insert(0, str(ROOT))
+from src.compensation.retrieval_enhancement.bm25 import Bm25Index, tokenize  # noqa: E402,F401
 
 REGISTRATION = 'configs/controller/l2_round_v1.json'
 NQ_RESOURCES = 'configs/controller/nq_train_resources_v1.json'
@@ -45,27 +46,6 @@ def bm25_spec(registration):
     if spec['library'] != f'bm25s=={bm25s.__version__}':
         raise RuntimeError(f"Registered {spec['library']}, installed bm25s {bm25s.__version__}")
     return spec
-
-
-def tokenize(texts):
-    import bm25s
-    return bm25s.tokenize(list(texts), stopwords='en', return_ids=False, show_progress=False)
-
-
-class Bm25Index:
-    """A saved bm25s index whose document order is the corpus line order."""
-
-    def __init__(self, directory):
-        import bm25s
-        directory = Path(directory)
-        self.receipt = json.loads((directory / 'receipt.json').read_text(encoding='utf-8'))
-        self.passage_ids = json.loads((directory / 'passage_ids.json').read_text(encoding='utf-8'))
-        self.model = bm25s.BM25.load(str(directory / 'index'))
-
-    def search(self, query, k):
-        """[(corpus position, score)] best first; zero scores (no shared term) are dropped."""
-        docs, scores = self.model.retrieve(tokenize([query]), k=k, show_progress=False)
-        return [(int(d), float(s)) for d, s in zip(docs[0], scores[0]) if s > 0]
 
 
 def build_bm25(corpus, output_dir, registration):

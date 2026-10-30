@@ -29,7 +29,7 @@ def shared_repair_views(generator, config):
 
 
 def load_pipeline(config, classifier_path, *, nq_index=None, nq_metadata=None, nq_resources=None,
-                  fever_resources=None):
+                  fever_resources=None, p3_bm25=None):
     if nq_resources and (nq_index or nq_metadata):
         raise ValueError("Choose NQ Train resources or the legacy index/metadata pair")
     import torch
@@ -65,6 +65,12 @@ def load_pipeline(config, classifier_path, *, nq_index=None, nq_metadata=None, n
                                 query_prefix=BGE_QUERY_INSTRUCTION)
         dense.load(Path(nq_index), Path(nq_metadata))
         retriever = NQFaissBackend(dense, max_top_k=20)
+    bm25 = None
+    if p3_bm25:
+        if not nq_resources or fever_resources:
+            raise ValueError("P3-BM25 needs the NQ Train backend alone")
+        from src.compensation.retrieval_enhancement.p3_bm25 import load_resources
+        bm25 = load_resources(p3_bm25, retriever, Path(__file__).resolve().parents[2])
     fever_receipt = None
     if fever_resources:
         from src.controller.fever_resources import DatasetRetriever, load_backend as load_fever
@@ -74,7 +80,7 @@ def load_pipeline(config, classifier_path, *, nq_index=None, nq_metadata=None, n
             backends['nq'] = retriever
         retriever = DatasetRetriever(backends)
     pipeline = IntegratedController(classifier, generator, shared_repair_views(generator, config),
-                                    scorer, retriever, config=config)
+                                    scorer, retriever, config=config, p3_bm25=bm25)
     environment = {**generator.runtime_environment,
                    "shared_qwen_instances": 1, "reranker_model": RERANKER_MODEL,
                    "reranker_revision": RERANKER_REVISION,
@@ -83,6 +89,8 @@ def load_pipeline(config, classifier_path, *, nq_index=None, nq_metadata=None, n
                    "nq_index": str(nq_index) if nq_index else None,
                    "nq_metadata": str(nq_metadata) if nq_metadata else None,
                    "nq_train_resources": resource_receipt, 'fever_resources': fever_receipt}
+    if bm25 is not None:
+        environment['p3_bm25'] = {**p3_bm25, 'bm25_receipt': bm25.receipt}
     if any(s == 'evidence_id_v2a' for s in (config.nq_repair_strategy, config.fever_repair_strategy)):
         environment['E_v2a_runtime'] = next(v.runtime_environment for v in pipeline.repair_generators.values()
                                           if hasattr(v, 'compiler'))
