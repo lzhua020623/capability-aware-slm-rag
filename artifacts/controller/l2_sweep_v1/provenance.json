@@ -1,0 +1,67 @@
+{
+  "schema_version": "l2_sweep_release_v1",
+  "role": "sweep 6,000 (Validation): step 1 P3-20 coverage and the step 2 L2 grid of configs/controller/l2_round_v1.json",
+  "registration": "configs/controller/l2_round_v1.json",
+  "registration_sha256": "74a65a97ae97edf24ebd567e540fd62f8cc84b57742865c0eb32e11ffea94ca3",
+  "registration_note": "the coverage manifest records the registration bytes before the L2 grid was added (same step 1 text); the candidate and generation manifests record the bytes before the scoring-only commit cf1b35b",
+  "route_1": {
+    "records_sha256": "ed30457ff6b6d017eac495ec35de121956a114ff7df9a1a65ead3cc41dc2e9ba",
+    "tag": "quality_round1_B_final"
+  },
+  "raw_local": {
+    "candidates": {
+      "path": "data/processed/quality_sweep_v1/l2_sweep/candidates.jsonl",
+      "sha256": "8f23c0296d18d01425f07fc6357cc31fc7b7a4b063d9dda250cf126b32c1604c"
+    },
+    "coverage": {
+      "path": "data/processed/quality_sweep_v1/l2_coverage/p3_records.jsonl",
+      "sha256": "4a6b1841834aad72b2055bf1aa380dc68e671cf857eb1bdab802644e74530f13"
+    }
+  },
+  "gpu": [
+    "NVIDIA GeForce RTX 5090",
+    "NVIDIA GeForce RTX 5090 D"
+  ],
+  "gold": "sweep references exported locally from the team delivery; never sent to the GPU hosts",
+  "judge": {
+    "code": "origin/feature/baseline-evaluation baselines/judge/run_llm_judge.py, unchanged",
+    "model": [
+      "elec5623-e-teacher-sol-v1"
+    ],
+    "batches": {
+      "l2_routed": {
+        "rows": 4469,
+        "status": {
+          "llm_ok": 3904,
+          "auto_correct": 565
+        }
+      },
+      "l2_all": {
+        "rows": 3007,
+        "status": {
+          "llm_ok": 2324,
+          "auto_correct": 683
+        }
+      }
+    },
+    "earlier_batches_reused": [
+      "sweep_part1",
+      "sweep_part2",
+      "reader_go",
+      "round2_sweep"
+    ]
+  },
+  "labels": {
+    "l2_routed": 3904,
+    "normalized_match": 2095,
+    "sweep_part1": 821,
+    "l2_all": 2324,
+    "reader_go": 1591,
+    "round2_sweep": 213,
+    "sweep_part2": 906
+  },
+  "curated_archive": {
+    "sha256": "a21080f6aebb6198c187a09d4149aac8491bf12d7161c7a6a46945676e4a3d50",
+    "files": 49
+  }
+}

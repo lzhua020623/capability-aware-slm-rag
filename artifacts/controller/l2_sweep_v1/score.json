@@ -1,0 +1,263 @@
+{
+  "schema_version": "l2_sweep_release_v1",
+  "records": 6000,
+  "routed": 3013,
+  "control": "bge20_bm250_rrf",
+  "chosen": "bge20_bm2520_ce_only",
+  "rule": "on the sweep, the highest judge-assisted net against C1 under route-1 routing; within 3 items, fewer candidates (k_bge + k_bm25), then rrf before ce_only",
+  "control_equals_route_1": 3013,
+  "settings": {
+    "bge20_bm2520_ce_only": {
+      "routed": {
+        "changed": 1317,
+        "fixes": 338,
+        "harms": 199,
+        "net": 139
+      },
+      "all_items": {
+        "changed": 2004,
+        "fixes": 480,
+        "harms": 353,
+        "net": 127
+      }
+    },
+    "bge20_bm2550_ce_only": {
+      "routed": {
+        "changed": 1360,
+        "fixes": 348,
+        "harms": 216,
+        "net": 132
+      },
+      "all_items": {
+        "changed": 2072,
+        "fixes": 494,
+        "harms": 377,
+        "net": 117
+      }
+    },
+    "bge100_bm2550_rrf": {
+      "routed": {
+        "changed": 1260,
+        "fixes": 324,
+        "harms": 204,
+        "net": 120
+      },
+      "all_items": {
+        "changed": 1902,
+        "fixes": 447,
+        "harms": 368,
+        "net": 79
+      }
+    },
+    "bge20_bm2520_rrf": {
+      "routed": {
+        "changed": 1176,
+        "fixes": 301,
+        "harms": 185,
+        "net": 116
+      },
+      "all_items": {
+        "changed": 1782,
+        "fixes": 404,
+        "harms": 340,
+        "net": 64
+      }
+    },
+    "bge100_bm250_rrf": {
+      "routed": {
+        "changed": 1163,
+        "fixes": 273,
+        "harms": 159,
+        "net": 114
+      },
+      "all_items": {
+        "changed": 1698,
+        "fixes": 374,
+        "harms": 288,
+        "net": 86
+      }
+    },
+    "bge50_bm250_rrf": {
+      "routed": {
+        "changed": 1105,
+        "fixes": 259,
+        "harms": 147,
+        "net": 112
+      },
+      "all_items": {
+        "changed": 1613,
+        "fixes": 355,
+        "harms": 265,
+        "net": 90
+      }
+    },
+    "bge50_bm2550_rrf": {
+      "routed": {
+        "changed": 1263,
+        "fixes": 321,
+        "harms": 209,
+        "net": 112
+      },
+      "all_items": {
+        "changed": 1909,
+        "fixes": 443,
+        "harms": 375,
+        "net": 68
+      }
+    },
+    "bge20_bm250_ce_only": {
+      "routed": {
+        "changed": 1277,
+        "fixes": 299,
+        "harms": 190,
+        "net": 109
+      },
+      "all_items": {
+        "changed": 1938,
+        "fixes": 435,
+        "harms": 343,
+        "net": 92
+      }
+    },
+    "bge50_bm2520_rrf": {
+      "routed": {
+        "changed": 1277,
+        "fixes": 320,
+        "harms": 214,
+        "net": 106
+      },
+      "all_items": {
+        "changed": 1949,
+        "fixes": 441,
+        "harms": 390,
+        "net": 51
+      }
+    },
+    "bge20_bm2550_rrf": {
+      "routed": {
+        "changed": 1193,
+        "fixes": 295,
+        "harms": 193,
+        "net": 102
+      },
+      "all_items": {
+        "changed": 1780,
+        "fixes": 406,
+        "harms": 338,
+        "net": 68
+      }
+    },
+    "bge20_bm250_rrf": {
+      "routed": {
+        "changed": 978,
+        "fixes": 239,
+        "harms": 140,
+        "net": 99
+      },
+      "all_items": {
+        "changed": 1431,
+        "fixes": 330,
+        "harms": 246,
+        "net": 84
+      }
+    },
+    "bge100_bm2520_rrf": {
+      "routed": {
+        "changed": 1299,
+        "fixes": 314,
+        "harms": 242,
+        "net": 72
+      },
+      "all_items": {
+        "changed": 1994,
+        "fixes": 444,
+        "harms": 431,
+        "net": 13
+      }
+    },
+    "bge50_bm2550_ce_only": {
+      "routed": {
+        "changed": 1437,
+        "fixes": 331,
+        "harms": 282,
+        "net": 49
+      },
+      "all_items": {
+        "changed": 2241,
+        "fixes": 466,
+        "harms": 524,
+        "net": -58
+      }
+    },
+    "bge50_bm2520_ce_only": {
+      "routed": {
+        "changed": 1421,
+        "fixes": 324,
+        "harms": 277,
+        "net": 47
+      },
+      "all_items": {
+        "changed": 2218,
+        "fixes": 460,
+        "harms": 516,
+        "net": -56
+      }
+    },
+    "bge50_bm250_ce_only": {
+      "routed": {
+        "changed": 1398,
+        "fixes": 306,
+        "harms": 273,
+        "net": 33
+      },
+      "all_items": {
+        "changed": 2190,
+        "fixes": 439,
+        "harms": 509,
+        "net": -70
+      }
+    },
+    "bge100_bm2550_ce_only": {
+      "routed": {
+        "changed": 1453,
+        "fixes": 253,
+        "harms": 343,
+        "net": -90
+      },
+      "all_items": {
+        "changed": 2314,
+        "fixes": 384,
+        "harms": 650,
+        "net": -266
+      }
+    },
+    "bge100_bm2520_ce_only": {
+      "routed": {
+        "changed": 1447,
+        "fixes": 250,
+        "harms": 342,
+        "net": -92
+      },
+      "all_items": {
+        "changed": 2305,
+        "fixes": 381,
+        "harms": 647,
+        "net": -266
+      }
+    },
+    "bge100_bm250_ce_only": {
+      "routed": {
+        "changed": 1436,
+        "fixes": 242,
+        "harms": 337,
+        "net": -95
+      },
+      "all_items": {
+        "changed": 2294,
+        "fixes": 370,
+        "harms": 640,
+        "net": -270
+      }
+    }
+  }
+}
