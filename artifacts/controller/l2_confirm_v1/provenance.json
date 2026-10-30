@@ -1,0 +1,48 @@
+{
+  "schema_version": "l2_confirm_release_v1",
+  "role": "confirm 2,440 (Validation), third use (L2 adoption) and fourth use (acceptance gate), both disclosed",
+  "registrations": {
+    "configs/controller/l2_round_v1.json": "74a65a97ae97edf24ebd567e540fd62f8cc84b57742865c0eb32e11ffea94ca3",
+    "configs/controller/acceptance_gate_v1.json": "afdf34593cd5d8a49b74962c291355bbf3af74015fd708ca5f893ba0033072c4"
+  },
+  "route_1_confirm": {
+    "archive": "artifacts/controller/quality_confirm_v1",
+    "results_sha256": "01841a83662da61f52588b885964bcb12a7a71e2fee77ca59b5d3d27d94efb38"
+  },
+  "choice_report_sha256": "22c24142d63b5abcd2a4b379bc33ec5ac004c0f46f00ad738a6260ce3690c155",
+  "raw_local": {
+    "candidates": {
+      "path": "data/processed/quality_sweep_v1/l2_confirm/candidates.jsonl",
+      "sha256": "5508675f0edb938e48ba9e638f3e51b84a04282cf202beb1cc871598ce79ec66"
+    }
+  },
+  "gpu": "NVIDIA GeForce RTX 5090 D",
+  "gold": "confirm references exported locally from the team delivery; never sent to the GPU host",
+  "judge": {
+    "code": "origin/feature/baseline-evaluation baselines/judge/run_llm_judge.py, unchanged",
+    "model": [
+      "elec5623-e-teacher-sol-v1"
+    ],
+    "l2_confirm": {
+      "rows": 569,
+      "status": {
+        "llm_ok": 475,
+        "auto_correct": 94
+      }
+    },
+    "earlier_batches_reused": [
+      "confirm",
+      "round2_paired"
+    ]
+  },
+  "labels": {
+    "round2_paired": 69,
+    "confirm": 1089,
+    "l2_confirm": 475,
+    "normalized_match": 434
+  },
+  "curated_archive": {
+    "sha256": "82b9f46566c0dddca07c804607963cdde64d668dd41f2e68703b447eb1d75142",
+    "files": 26
+  }
+}

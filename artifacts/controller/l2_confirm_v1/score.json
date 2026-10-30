@@ -1,0 +1,113 @@
+{
+  "schema_version": "l2_confirm_release_v1",
+  "n": 2440,
+  "routed": 1206,
+  "l2": {
+    "setting": "bge20_bm2520_ce_only",
+    "adoption": {
+      "changed": 487,
+      "fixes": 98,
+      "harms": 99,
+      "net": -1,
+      "unjudged": 0,
+      "mcnemar_p": 1.0,
+      "rule": "paired against route 1 on confirm 2,440 (its third, disclosed use): judge-assisted net > 0 and exact McNemar p < 0.05; then one disclosed Test run",
+      "passed": false
+    },
+    "against_c1": {
+      "route_1": {
+        "changed": 421,
+        "fixes": 102,
+        "harms": 57,
+        "net": 45,
+        "unjudged": 0,
+        "mcnemar_p": 0.00044734751745370376
+      },
+      "route_1_l2": {
+        "changed": 571,
+        "fixes": 142,
+        "harms": 98,
+        "net": 44,
+        "unjudged": 0,
+        "mcnemar_p": 0.0053996267217114565
+      },
+      "l2": {
+        "changed": 865,
+        "fixes": 200,
+        "harms": 174,
+        "net": 26,
+        "unjudged": 0,
+        "mcnemar_p": 0.19604152969692445
+      }
+    },
+    "control_check": {
+      "routed": 1206,
+      "same_top5": 1205
+    }
+  },
+  "gate": {
+    "confirm": {
+      "in_scope": 421,
+      "kept_c1": 93,
+      "against_route_1": {
+        "changed": 93,
+        "fixes": 19,
+        "harms": 20,
+        "net": -1,
+        "unjudged": 0,
+        "mcnemar_p": 1.0
+      },
+      "against_c1": {
+        "route_1": {
+          "changed": 421,
+          "fixes": 102,
+          "harms": 57,
+          "net": 45,
+          "unjudged": 0,
+          "mcnemar_p": 0.00044734751745370376
+        },
+        "gated": {
+          "changed": 328,
+          "fixes": 82,
+          "harms": 38,
+          "net": 44,
+          "unjudged": 0,
+          "mcnemar_p": 7.291502428713535e-05
+        }
+      },
+      "rule": "direction check only: judge-assisted net of the gate against route 1 > 0 to proceed to Test; exact McNemar p is reported, not required",
+      "proceed_to_test": false
+    },
+    "sweep_in_sample": {
+      "in_scope": 978,
+      "kept_c1": 221,
+      "against_route_1": {
+        "changed": 221,
+        "fixes": 57,
+        "harms": 31,
+        "net": 26,
+        "unjudged": 0,
+        "mcnemar_p": 0.0073434087237081265
+      },
+      "against_c1": {
+        "route_1": {
+          "changed": 978,
+          "fixes": 239,
+          "harms": 140,
+          "net": 99,
+          "unjudged": 0,
+          "mcnemar_p": 4.1589083872421626e-07
+        },
+        "gated": {
+          "changed": 757,
+          "fixes": 208,
+          "harms": 83,
+          "net": 125,
+          "unjudged": 0,
+          "mcnemar_p": 1.5277771234400761e-13
+        }
+      }
+    }
+  },
+  "decision": "neither is adopted; route 1 (quality_round1_B_final) stays the product and no Test run follows"
+}
