@@ -1,0 +1,44 @@
+{
+  "schema_version": "acceptance_gate_v1",
+  "registered_date": "2026-10-30",
+  "owner": "Qihan Zhu",
+  "question": "Does a second evidence context tell which P3-20 answer changes to keep? If the fixed 7B, given another Top-5, returns to its C1 answer, the P3-20 change is treated as unstable and C1 is kept.",
+  "base": {
+    "registration": "configs/controller/quality_baseline_v1.json",
+    "sha256": "6da66fd138d6ba7beb06cae9f746cbfe027d0b14b121628797ab8d9ea4c2c738",
+    "tag": "quality_round1_B_final"
+  },
+  "l2_round": {
+    "registration": "configs/controller/l2_round_v1.json",
+    "sha256": "74a65a97ae97edf24ebd567e540fd62f8cc84b57742865c0eb32e11ffea94ca3",
+    "relation": "a post-call acceptance gate of step_3_gates. L2 bge20_bm2520_ce_only failed its confirm adoption test (paired net -1 against route 1, 98/99), so it is used here only as the second context, not as a replacement for P3-20."
+  },
+  "fixed": "Qwen2.5-7B-Instruct NF4 (rev a09a354) is not trained. Route 1 is unchanged up to its final answer; the gate only decides between route 1's P3-20 answer and C1.",
+  "gate": {
+    "scope": "items route 1 sends to P3-20 whose route-1 final answer differs from the C1 answer",
+    "voter": "the L2 setting bge20_bm2520_ce_only of configs/controller/l2_round_v1.json step_2_l2 (BGE top 20 plus BM25 top 20, GPU cross-encoder, top 5 by cross-encoder score), answered as P3-20 answers: the C1 answer when its Top-5 equals C1's Top-5 or when answer_rejection rejects the generated answer, else the stripped generated answer",
+    "rule": "keep C1 when normalize_standard(voter) == normalize_standard(C1) and normalize_standard(voter) != normalize_standard(route-1 answer); otherwise keep the route-1 answer",
+    "normalization": "baselines/_lib/answer_scoring.py normalize_standard",
+    "cost": "one extra candidate stage and at most one extra 7B generation per item in scope"
+  },
+  "sweep_evidence": {
+    "status": "in-sample exploration on the sweep 6,000 before registration",
+    "route_1": "978 changed of 3,013 routed items: fix 239, harm 140, net +99 against C1",
+    "gate": "fix 208, harm 83, net +125 against C1 (+26 against route 1)",
+    "selection": "one voter fixed in advance as the L2 choice; the rule was picked among three margins (agree minus keep-C1 >= -1, 0, 1), which give +99, +125 and +101. Votes from 4 or 17 contexts gave +129 and +135 and are not registered."
+  },
+  "confirm": {
+    "set": "confirm 2,440 (its fourth, disclosed use: route-1 confirm, route-2 paired arm, L2 adoption, this gate)",
+    "inputs": "stored route-1 confirm results, the L2 confirm candidates and generations, and the existing judge labels; no new GPU run or judge call",
+    "rule": "direction check only: judge-assisted net of the gate against route 1 > 0 to proceed to Test; exact McNemar p is reported, not required",
+    "why": "expected effect about +10 on 1,206 routed items with about 35 discordant answers is too small for p < 0.05"
+  },
+  "test": {
+    "set": "team Test 11,114 (a further disclosed exposure after the route-1 Test)",
+    "runs": "L2 candidates and the voter answer only for Test items in gate scope (route-1 Test results); Test queries only, gold stays local",
+    "adoption": "paired against route 1 on Test: judge-assisted net > 0 and exact McNemar p < 0.05",
+    "labels": "gated answers are route-1 answers or C1 answers, both labelled in the route-1 Test archive; the RAG label wins on conflicts as before",
+    "report": "also net against C1, team RAG and the team product"
+  },
+  "metric": "judge-assisted correctness. Unchanged answers count zero."
+}
