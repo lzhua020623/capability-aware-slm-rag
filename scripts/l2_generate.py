@@ -43,11 +43,17 @@ def done_keys(path):
     return {key(json.loads(line)) for line in path.read_text(encoding='utf-8').splitlines() if line.strip()}
 
 
-def main(argv=None):
+def parse(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--contexts', type=Path, required=True, help='l2_offline.py contexts output')
     p.add_argument('--output-dir', type=Path, required=True)
-    args = p.parse_args(argv)
+    p.add_argument('--data-role', choices=('validation', 'test'), default='validation',
+                   help='data boundary every ID must fall in; test only for registered Test runs')
+    return p.parse_args(argv)
+
+
+def main(argv=None):
+    args = parse(argv)
     rows = [json.loads(line) for line in args.contexts.read_text(encoding='utf-8').splitlines() if line.strip()]
     if any(set(r) != {'sample_id', 'query', 'passage_ids'} for r in rows):
         raise ValueError('Context rows must hold sample_id, query and passage_ids only')
@@ -55,8 +61,8 @@ def main(argv=None):
     if not torch.cuda.is_available(): raise RuntimeError('Generation requires CUDA')
     from src.pipeline.current import load_current_pipeline
     pipeline, environment = load_current_pipeline(root=ROOT, nq_resources=ROOT / NQ_RESOURCES,
-                                                  data_role='validation', attach_reference_rag=True)
-    pipeline.data_boundary.require(sorted({r['sample_id'] for r in rows}), 'validation')
+                                                  data_role=args.data_role, attach_reference_rag=True)
+    pipeline.data_boundary.require(sorted({r['sample_id'] for r in rows}), args.data_role)
     generator, max_new_tokens, backend = p3_runtime(pipeline)
     position = {pid: i for i, pid in enumerate(backend.retriever.passage_ids)}
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -64,7 +70,7 @@ def main(argv=None):
     finished = done_keys(out)
     manifest = {'schema_version': 'l2_generations_v1', 'state': 'running', 'started_UTC': now(),
                 'registration_sha256': file_sha(ROOT / REGISTRATION), 'contexts_sha256': file_sha(args.contexts),
-                'n': len(rows), 'resumed_with': len(finished), 'answer_max_new_tokens': max_new_tokens,
+                'n': len(rows), 'data_role': args.data_role, 'resumed_with': len(finished), 'answer_max_new_tokens': max_new_tokens,
                 'cpu_threads': torch.get_num_threads(), 'environment': environment}
     (args.output_dir / 'manifest.json').write_text(json.dumps(manifest, indent=2, default=str) + '\n', encoding='utf-8')
     generate = lambda prompt: generator.generate(prompt, max_new_tokens).text

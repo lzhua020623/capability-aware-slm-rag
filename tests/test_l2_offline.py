@@ -1,5 +1,6 @@
 """L2 offline selection, generation reuse, scoring and the choice rule."""
 import unittest
+from unittest import mock
 
 from scripts import l2_generate as gen
 from scripts import l2_offline as off
@@ -17,6 +18,12 @@ def trace(ids, answer, reason=None):
 
 
 class L2OfflineTests(unittest.TestCase):
+    def test_generation_defaults_to_the_validation_boundary(self):
+        self.assertEqual(gen.parse(['--contexts', 'c', '--output-dir', 'o']).data_role, 'validation')
+        self.assertEqual(gen.parse(['--contexts', 'c', '--output-dir', 'o', '--data-role', 'test']).data_role, 'test')
+        with self.assertRaises(SystemExit), mock.patch('sys.stderr'):
+            gen.parse(['--contexts', 'c', '--output-dir', 'o', '--data-role', 'train'])
+
     def test_grid_has_eighteen_settings_and_the_control(self):
         settings = off.grid(off.load_registration())
         self.assertEqual(len(settings), 18)
