@@ -21,7 +21,46 @@
     "labels": "team judge on new (sample, answer) pairs with earlier labels reused; Validation gold is read locally only",
     "use": "an intervention outcome for every item: recoverability analysis, gate training, and the L1 baseline for L2"
   },
-  "step_2_l2": "registered in a later commit before its GPU run: BM25 plus deeper candidates inside P3-20, reranker on GPU after a CPU equivalence check",
+  "step_2_l2": {
+    "registered": "2026-10-30, before any L2 GPU run and before the step-1 coverage results were seen",
+    "candidates": "BGE top k_bge from the product NQ backend (same index, model and query instruction as P3-20) and BM25 top k_bm25 over document_title + text; their union, deduplicated by passage_id, BGE order first, then BM25-only passages in BM25 order",
+    "bm25": {
+      "library": "bm25s==0.2.14",
+      "k1": 0.9,
+      "b": 0.4,
+      "tokenizer": "bm25s.tokenize: lowercase, English stopwords, no stemming",
+      "fields": "document_title + ' ' + text",
+      "zero_scores": "hits with BM25 score 0 (no shared term) are dropped"
+    },
+    "reranker": "bge-reranker-large rev 55611d7, FP32, raw logits, max_length 512, on GPU with TF32 disabled",
+    "gpu_check": "before L2, the GPU reranker re-scores the candidate sets stored in P3-20 traces; L2 proceeds on GPU only if select_p3_20 picks the same Top-5 on at least 99% of them, otherwise it runs on CPU",
+    "fusion": {
+      "rrf": "sum of 1/(60 + rank) over the candidate lists that hold the passage, plus 1/(60 + CE rank); ties by union position",
+      "ce_only": "Top-5 by CE score; ties by union position"
+    },
+    "grid": {
+      "k_bge": [
+        20,
+        50,
+        100
+      ],
+      "k_bm25": [
+        0,
+        20,
+        50
+      ],
+      "fusion": [
+        "rrf",
+        "ce_only"
+      ]
+    },
+    "control": "k_bge 20, k_bm25 0, rrf is P3-20 itself",
+    "generation": "as P3-20: no_change when the selected Top-5 equals C1 Top-5, else build_c1_prompt, the shared Qwen generator and answer_rejection",
+    "routing": "route 1 unchanged: every failure label, and correct items with stage-1 p_fail >= 0.39, go to P3",
+    "choice": "on the sweep, the highest judge-assisted net against C1 under route-1 routing; within 3 items, fewer candidates (k_bge + k_bm25), then rrf before ce_only",
+    "adoption": "paired against route 1 on confirm 2,440 (its third, disclosed use): judge-assisted net > 0 and exact McNemar p < 0.05; then one disclosed Test run",
+    "precompute": "per ID: BGE top 100 and BM25 top 50 (the grid maxima), GPU cross-encoder scores for their union; every grid setting is then selected offline from these lists"
+  },
   "step_3_gates": "registered in a later commit before fitting: a pre-call repair-utility gate and a post-call acceptance gate, fitted on the sweep with cross-validation",
   "evaluation": "accuracy against P3-20 call rate, compared with random choice, p_fail order and route 1; fix and harm PR-AUC, calibration and false-skip rate. Confirm 2,440 is its third, disclosed use. Test runs only if a product change is adopted, as a further disclosed exposure.",
   "metric": "judge-assisted correctness. Unchanged answers count zero. On Test the RAG label wins on conflicts."
