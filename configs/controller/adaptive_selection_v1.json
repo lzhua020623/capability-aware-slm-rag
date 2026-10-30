@@ -1,0 +1,55 @@
+{
+  "schema_version": "adaptive_selection_v1",
+  "registered_date": "2026-10-31",
+  "owner": "Qihan Zhu",
+  "user_instruction": "这部分都你来做 一定要记住不要偏离我们的方向 明天我要直接看到这条线的结果",
+  "questions": {
+    "RQ1_candidate_diversity": "Do different retrieval contexts make the fixed 7B produce complementary correct answers?",
+    "RQ2_answer_selection": "Without gold answers, can runtime signals pick the reliable candidate better than a majority vote, without breaking correct answers?",
+    "RQ3_adaptive_computation": "Can an adaptive context budget reach the quality of a fixed budget with fewer extra generations?"
+  },
+  "base": {
+    "product": "configs/controller/quality_bm25_v1.json",
+    "product_sha256": "7cce86687de823fdfa2820b000c8a229aa404917daa9c8702019a2e4f4851479",
+    "note": "B+BM25 (route 1 plus the P3-BM25 rule) is the baseline every comparison is made against; its answer is kept whenever the selection does not clearly choose another"
+  },
+  "fixed": "Qwen2.5-7B-Instruct NF4 (rev a09a354) is not trained. Selectors use runtime signals only; gold answers and judge labels are scoring targets on the sweep, never features.",
+  "contexts": {
+    "order": ["bge20_bm250_rrf", "bge20_bm2520_ce_only", "bge50_bm250_rrf", "bge20_bm2550_ce_only", "bge100_bm2550_rrf", "bge20_bm250_ce_only", "bge20_bm2520_rrf", "bge20_bm2550_rrf"],
+    "definition": "settings of configs/controller/l2_round_v1.json step_2_l2 (BGE top 100 and BM25 top 50 candidates, GPU cross-encoder); each context's answer follows P3-20 rules: build_c1_prompt, the shared generator, answer_rejection keeping C1, and the C1 answer when the Top-5 equals C1's",
+    "order_source": "the first five were fixed as the 'diverse' set before any vote result was computed; the rest follow the grid order",
+    "budget_stages": [0, 3, 5, 8]
+  },
+  "normalization": "answers group by baselines/_lib/answer_scoring.py normalize_standard; no other merging",
+  "policy_family": {
+    "pre_gate": "an item enters stage 3 when route 1 sends it to P3-20 or its stage-1 failure probability is at least theta (theta on a fixed grid including 0, meaning every item)",
+    "stop": "after each stage the item stops when the share of the largest answer group among C1 and the stage's context answers is at least tau (fixed grid); stage 8 always stops",
+    "decision": "at the stop, either the majority vote (B+BM25's answer kept unless another group is strictly the largest) or the logistic-regression selector of that stage, which switches to the candidate with the highest predicted correctness when it exceeds B+BM25's",
+    "selector_features": ["votes", "vote share", "is C1", "is B+BM25", "supporting passages", "best supporting cross-encoder score", "best supporting BGE rank", "best supporting BM25 rank", "supported in C1 Top-5", "answer tokens", "stage-1 failure probability", "routed", "answer groups", "top votes", "top-two margin"],
+    "evidence_support": "a passage supports a candidate when it holds the normalized answer as a token span (the answer_rejection grounding test), among C1's Top-5 and the stage's context Top-5s"
+  },
+  "choice": {
+    "data": "sweep 6,000 with 5 folds by sha256(sample_id) mod 5; every threshold and selector is fitted on training folds only and scored on the held-out fold",
+    "rule": "highest out-of-fold judge-assisted net against B+BM25 among configurations whose average extra generations are at most those of the fixed 5-context budget; within 3 items, the lower average cost",
+    "final": "the chosen configuration is refitted on all sweep items and committed before any confirm or Test answer is scored",
+    "exploration_disclosed": "fixed-K votes and selectors were already explored on the sweep (5-fold): vote K=5 +1.22 pp, logistic selector K=5 +1.92 pp, vote K=18 +1.80 pp against B+BM25"
+  },
+  "confirm": {
+    "set": "confirm 2,440, its fifth disclosed use",
+    "runs": "the eight contexts' answers from the stored confirm candidates; route-1 and L2 confirm generations reused by (sample, Top-5)",
+    "rule": "direction check: net of the chosen policy against B+BM25 > 0 to score Test"
+  },
+  "test": {
+    "set": "team Test 11,114, a further disclosed exposure",
+    "candidates": "route-1 P3 items reuse artifacts/controller/bm25_gate_test_v1 candidates; the other items run l2_candidates.py --role test on the registered list below",
+    "unrouted_ids": "configs/controller/adaptive_selection_v1_test_unrouted_ids.json",
+    "unrouted_ids_sha256": "fd321145ce6f80eacbdf391895ecbe65857ac8e94f250beb6ad3aa21d7c91865",
+    "n_unrouted": 4948,
+    "runs": "the eight contexts' answers for every Test item (l2_generate.py --data-role test); Test queries only, gold stays local",
+    "adoption": "paired against B+BM25 on Test: judge-assisted net > 0 and exact McNemar p < 0.05",
+    "report": "also net against C1, team RAG and the team product, the fixed 5- and 8-context votes, and average extra generations",
+    "labels": "team qwen_only, team product, route-1 Test judge, the BM25 Test judge, the new batch, team RAG last (RAG wins on conflicts)"
+  },
+  "not_in_product": "abstention; contexts beyond the eight; any rule fitted on confirm or Test",
+  "metric": "judge-assisted correctness. Unchanged answers count zero."
+}
