@@ -1,0 +1,40 @@
+{
+  "schema_version": "bm25_gate_v1",
+  "registered_date": "2026-10-30",
+  "owner": "Qihan Zhu",
+  "question": "Does new evidence from BM25 help the fixed 7B on the items route 1 repairs? L2 bge20_bm2520_ce_only failed on confirm as a whole; split by mechanism, its gain came from Top-5 lists that hold a BM25-only passage, and its loss from re-ordering the same BGE passages.",
+  "base": {
+    "registration": "configs/controller/quality_baseline_v1.json",
+    "sha256": "6da66fd138d6ba7beb06cae9f746cbfe027d0b14b121628797ab8d9ea4c2c738",
+    "tag": "quality_round1_B_final"
+  },
+  "l2_round": {
+    "registration": "configs/controller/l2_round_v1.json",
+    "sha256": "74a65a97ae97edf24ebd567e540fd62f8cc84b57742865c0eb32e11ffea94ca3"
+  },
+  "fixed": "Qwen2.5-7B-Instruct NF4 (rev a09a354) is not trained. Route 1 is unchanged up to its final answer.",
+  "rule": {
+    "scope": "items route 1 sends to P3-20",
+    "setting": "L2 bge20_bm2520_ce_only of configs/controller/l2_round_v1.json step_2_l2: BGE top 20 plus BM25 top 20, GPU cross-encoder, top 5 by cross-encoder score",
+    "replace": "when that Top-5 holds at least one passage outside the BGE top 20 (brought in by BM25), the final answer is the L2 answer under P3-20 rules: build_c1_prompt, the shared Qwen generator, and answer_rejection keeping the C1 answer; otherwise the route-1 answer stays",
+    "cost": "one candidate stage (BGE, BM25, GPU cross-encoder) per P3 item and one extra 7B generation on the replaced items"
+  },
+  "evidence": {
+    "status": "post hoc: the split was made after the L2 confirm result (artifacts/controller/l2_confirm_v1) was seen, so confirm is not independent evidence",
+    "sweep": "812 of 3,013 routed items hold a BM25-only passage; against route 1 fix 93, harm 54, net +39, exact McNemar p = 0.0016",
+    "confirm": "334 of 1,206 routed items; against route 1 fix 43, harm 27, net +16, p = 0.072",
+    "other_part": "items without a BM25-only passage (L2 only re-orders the BGE top 20): sweep net +1 (158/157), confirm net -17 (55/72)"
+  },
+  "test": {
+    "set": "team Test 11,114, a further disclosed exposure after the route-1 Test; route 2's partial Test outputs stay unscored",
+    "ids": "configs/controller/bm25_gate_v1_test_ids.json",
+    "ids_sha256": "a76eef44913b140c02840521033496a3dc934acab865a3800f653e272c75a1ed",
+    "n_ids": 6166,
+    "id_source": "route-1 Test items with controller action retrieval_enhancement, in Test order (artifacts/controller/quality_test_v1 scored/predictions.jsonl)",
+    "runs": "scripts/l2_candidates.py candidates --role test on these IDs (BGE 100 and BM25 50 precomputed as on the sweep and confirm; only the top 20 of each are used), then scripts/l2_generate.py on the contexts the rule needs; Test queries only, gold stays local",
+    "labels": "team qwen_only, team product, route-1 Test judge, the new judge batch, team RAG last (RAG wins on conflicts), as in the route-1 Test",
+    "adoption": "paired against route 1 on Test: judge-assisted net > 0 and exact McNemar p < 0.05",
+    "report": "also net against C1, team RAG and the team product"
+  },
+  "metric": "judge-assisted correctness. Unchanged answers count zero."
+}

@@ -160,6 +160,13 @@ def role_ids(role, root=ROOT):
     return json.loads((Path(root) / sweep['split']['confirm']['path']).read_text(encoding='utf-8'))
 
 
+def test_ids(path):
+    """Test runs take the registered ID list (configs/controller/bm25_gate_v1_test_ids.json)."""
+    if path is None:
+        raise ValueError('--role test needs --ids')
+    return json.loads(Path(path).read_text(encoding='utf-8'))
+
+
 def done_ids(path):
     if not path.exists():
         return set()
@@ -172,7 +179,7 @@ def done_ids(path):
 def candidates(args, registration):
     from scripts.precompute_quality_sweep import read_queries
     from src.controller.nq_train_resources import load_backend
-    ids = role_ids(args.role)
+    ids = test_ids(args.ids) if args.role == 'test' else role_ids(args.role)
     ids = ids[:args.limit] if args.limit else ids
     queries = read_queries(args.queries, ids)
     bm25 = Bm25Index(args.bm25_dir)
@@ -187,7 +194,8 @@ def candidates(args, registration):
                 'registration_sha256': file_sha(ROOT / REGISTRATION), 'query_sha256': file_sha(args.queries),
                 'bm25_receipt': bm25.receipt, 'nq_resources': receipt, 'bge_depth': BGE_DEPTH,
                 'bm25_depth': BM25_DEPTH, 'scorer_batch': SCORER_BATCH, 'engineering_run': bool(args.limit),
-                'n_ids': len(ids), 'resumed_with': len(finished)}
+                'n_ids': len(ids), 'ids_sha256': file_sha(args.ids) if args.ids else None,
+                'resumed_with': len(finished)}
     (args.output_dir / 'manifest.json').write_text(json.dumps(manifest, indent=2, default=str) + '\n', encoding='utf-8')
     todo, started = [q for q in queries if q[0] not in finished], time.perf_counter()
     with out.open('a', encoding='utf-8') as handle:
@@ -220,7 +228,8 @@ def main(argv=None):
     g.add_argument('--output', type=Path, required=True)
     g.add_argument('--limit', type=int, default=None)
     c = sub.add_parser('candidates')
-    c.add_argument('--role', choices=('sweep', 'confirm'), required=True)
+    c.add_argument('--role', choices=('sweep', 'confirm', 'test'), required=True)
+    c.add_argument('--ids', type=Path, default=None, help='test: registered JSON ID list')
     c.add_argument('--queries', type=Path, required=True, help='sample_id/query only export')
     c.add_argument('--bm25-dir', type=Path, required=True)
     c.add_argument('--output-dir', type=Path, required=True)
