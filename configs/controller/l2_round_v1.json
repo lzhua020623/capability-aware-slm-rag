@@ -1,0 +1,28 @@
+{
+  "schema_version": "l2_round_v1",
+  "registered_date": "2026-10-30",
+  "owner": "Qihan Zhu",
+  "questions": [
+    "How many C1 failures of the fixed 7B can P3-20 recover, and how many correct answers does it break, when it runs on every item rather than on the routed ones?",
+    "Does a stronger candidate stage inside P3-20 (BM25 plus deeper candidates, L2) recover more failures without more harm?",
+    "Can runtime signals rank items by expected repair utility (P(fix) - P(harm) - lambda * cost) well enough to keep route 1's gain with fewer P3-20 calls?"
+  ],
+  "base": {
+    "registration": "configs/controller/quality_baseline_v1.json",
+    "sha256": "6da66fd138d6ba7beb06cae9f746cbfe027d0b14b121628797ab8d9ea4c2c738",
+    "tag": "quality_round1_B_final"
+  },
+  "fixed": "Qwen2.5-7B-Instruct NF4 (rev a09a354) is not trained. C1 retrieval and prompt, Diagnosis, P60 and the Controller stay as in route 1. L2 changes only the candidate stage of P3-20.",
+  "step_1_p3_coverage": {
+    "set": "the quality sweep 6,000 Validation IDs (configs/controller/quality_sweep_v1.json); confirm 2,440 follows under the same rule",
+    "input": "the stored route-1 sweep records: C1 answer, Top-5, Diagnosis and frozen selection. C1 is not regenerated.",
+    "action": "route 1's P3-20 (CPU FP32 reranker, OMP/MKL 16 threads) as a forced decision on every item without a stored P3-20 outcome",
+    "repro": "P3-20 re-run on the first 200 items that have a stored outcome; final answer, status and final evidence agreement are reported",
+    "labels": "team judge on new (sample, answer) pairs with earlier labels reused; Validation gold is read locally only",
+    "use": "an intervention outcome for every item: recoverability analysis, gate training, and the L1 baseline for L2"
+  },
+  "step_2_l2": "registered in a later commit before its GPU run: BM25 plus deeper candidates inside P3-20, reranker on GPU after a CPU equivalence check",
+  "step_3_gates": "registered in a later commit before fitting: a pre-call repair-utility gate and a post-call acceptance gate, fitted on the sweep with cross-validation",
+  "evaluation": "accuracy against P3-20 call rate, compared with random choice, p_fail order and route 1; fix and harm PR-AUC, calibration and false-skip rate. Confirm 2,440 is its third, disclosed use. Test runs only if a product change is adopted, as a further disclosed exposure.",
+  "metric": "judge-assisted correctness. Unchanged answers count zero. On Test the RAG label wins on conflicts."
+}
