@@ -8,7 +8,12 @@ is insufficient. Context block formatting matches src.generation.qwen.build_rag_
 
 from __future__ import annotations
 
-from src.generation.qwen import PROMPT_INSTRUCTION, build_rag_prompt
+from src.generation.qwen import (
+    FEVER_PROMPT_INSTRUCTION,
+    PROMPT_INSTRUCTION,
+    build_fever_rag_prompt,
+    build_rag_prompt,
+)
 
 # Strip the evidence-only clause; keep shortest-span / no-explanation wording identical.
 CLOSED_BOOK_INSTRUCTION = PROMPT_INSTRUCTION.replace(
@@ -42,6 +47,17 @@ def build_closed_book_prompt(question: str) -> str:
 def build_fever_closed_book_prompt(claim: str) -> str:
     """Claim-only FEVER prompt (no retrieved evidence)."""
     return f"{FEVER_CLOSED_BOOK_INSTRUCTION}\n\nClaim: {claim}"
+
+
+def build_fever_baseline_rag_prompt(claim: str, passages: list[dict]) -> str:
+    """FEVER RAG prompt: Claim + Top-k evidence → SUPPORTS|REFUTES only."""
+    # Delegate to main-tree builder so wording stays frozen with C1 / product.
+    prompt = build_fever_rag_prompt(claim, passages)
+    if FEVER_PROMPT_INSTRUCTION not in prompt:
+        raise RuntimeError("FEVER RAG prompt missing FEVER_PROMPT_INSTRUCTION")
+    if "Evidence:" not in prompt:
+        raise RuntimeError("FEVER RAG prompt missing Evidence block")
+    return prompt
 
 
 def _format_rag_body(question: str, passages: list[dict], instruction: str) -> str:

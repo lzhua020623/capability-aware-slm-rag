@@ -1,0 +1,48 @@
+{
+  "mode": "fever_rag_matched",
+  "dataset": "fever",
+  "smoke": false,
+  "generated_at": "2026-10-31T04:00:00.914204+00:00",
+  "config_path": "D:\\Liuzheng\\Australia\\2026semester2\\ELEC5623\\capability-aware-slm-rag\\baselines\\configs\\fever_rag_matched.json",
+  "dataset_file": "D:\\Liuzheng\\Australia\\2026semester2\\ELEC5623\\capability-aware-slm-rag\\baselines\\data\\fever_dev_13332.jsonl",
+  "split_file": "D:\\Liuzheng\\Australia\\2026semester2\\ELEC5623\\capability-aware-slm-rag\\baselines\\splits\\fever_dev_13332_split.json",
+  "eval_split": "test",
+  "eval_n": 13332,
+  "records_sha256": "74c7d6767fdbf06da806d23939472fb421a444e72a04e5d6a0bfb6f686c3cb4e",
+  "generator": {
+    "model_name": "Qwen/Qwen2.5-7B-Instruct",
+    "quantization": "nf4",
+    "load_in_4bit": true,
+    "do_sample": false,
+    "max_new_tokens": 64,
+    "temperature": 0.2
+  },
+  "retrieval": {
+    "embedding_model": "BAAI/bge-base-en-v1.5",
+    "top_k": 5,
+    "backend": "fever_corpus_offsets",
+    "index_type": "IndexIVFPQ",
+    "index_path": "data/processed/indexes/fever_bge_ivfpq.index",
+    "ids_path": "data/processed/indexes/fever_bge_ivfpq_ids.jsonl",
+    "offsets_path": "data/processed/indexes/fever_bge_ivfpq_offsets.npy",
+    "corpus_path": "data/processed/retrieval/fever_corpus.jsonl",
+    "metadata_path": "results/retrieval/fever_bge_ivfpq_meta.json",
+    "passage_prefix": "",
+    "query_prefix": "Represent this sentence for searching relevant passages: ",
+    "expected_ntotal": 5396106,
+    "nprobe": 16,
+    "nlist": 4096,
+    "m": 64,
+    "nbits": 8
+  },
+  "evaluator": "baselines._lib.fever_scoring.score_fever_prediction",
+  "primary_metrics": [
+    "accuracy",
+    "macro_f1",
+    "invalid_n",
+    "evidence_hit_at_5"
+  ],
+  "status": "FEVER_RAG_FORMAL_COMPLETE",
+  "completed_at": "2026-10-31T08:33:18.400029+00:00",
+  "metrics_n": 13332
+}

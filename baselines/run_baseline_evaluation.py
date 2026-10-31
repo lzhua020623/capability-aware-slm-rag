@@ -53,10 +53,12 @@ from baselines._lib.prompts import (  # noqa: E402
     RAG_PROMPT_STYLES,
     build_baseline_rag_prompt,
     build_closed_book_prompt,
+    build_fever_baseline_rag_prompt,
     build_fever_closed_book_prompt,
 )
 from baselines._lib.records_io import (  # noqa: E402
     load_fever_dev_records,
+    load_fever_gold_page_ids,
     load_records_by_ids,
     sample_fever_smoke_records,
     synthetic_smoke_records,
@@ -77,10 +79,12 @@ from src.generation.qwen import (  # noqa: E402
 from src.retrieval.e5_faiss import E5FaissRetriever  # noqa: E402
 
 BASELINES = Path(__file__).resolve().parent
-MODES = ("qwen_only", "rag", "fever_qwen_only")
+MODES = ("qwen_only", "rag", "fever_qwen_only", "fever_rag_matched")
+FEVER_MODES = ("fever_qwen_only", "fever_rag_matched")
 STATUS_FROZEN_SPLIT_MISSING = "FROZEN_SPLIT_MISSING"
 STATUS_READY = "READY_FOR_FROZEN_TEST"
 STATUS_READY_FEVER = "READY_FOR_FEVER_QWEN_ONLY_FULL"
+STATUS_READY_FEVER_RAG = "READY_FOR_FEVER_RAG_FULL"
 
 
 def utc_now() -> str:
@@ -224,6 +228,13 @@ def default_output_dir(args: argparse.Namespace, cfg: dict, eval_split: str) -> 
         if args.smoke:
             return BASELINES / "outputs" / "fever_qwen_only_smoke"
         return BASELINES / "outputs" / "fever_qwen_only"
+    if args.mode == "fever_rag_matched":
+        out_cfg = cfg.get("output") or {}
+        if args.smoke:
+            rel = out_cfg.get("smoke_dir") or "baselines/outputs/fever_rag_matched_context_fallback_smoke"
+            return resolve_path(rel)
+        rel = out_cfg.get("default_dir") or "baselines/outputs/fever_rag_matched_context_fallback"
+        return resolve_path(rel)
     if args.mode == "rag" and retrieval_backend(cfg) == "corpus_offsets":
         style = resolve_rag_prompt_style(args, cfg)
         return BASELINES / "outputs" / f"rag_matched_{eval_split}_{style}"
@@ -232,7 +243,7 @@ def default_output_dir(args: argparse.Namespace, cfg: dict, eval_split: str) -> 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p = argparse.ArgumentParser(
-        description="Baseline evaluation (qwen_only | rag | fever_qwen_only)"
+        description="Baseline evaluation (qwen_only | rag | fever_qwen_only | fever_rag_matched)"
     )
     p.add_argument("--mode", choices=MODES, required=True)
     p.add_argument(
@@ -330,7 +341,7 @@ def run_reevaluate_only(args: argparse.Namespace, cfg: dict, output_dir: Path) -
     if not rows:
         raise SystemExit(f"Empty predictions file: {pred_path}")
 
-    fever_mode = args.mode == "fever_qwen_only"
+    fever_mode = args.mode in FEVER_MODES
     # Identity snapshot before rewrite (string equality, not new inference).
     identity_before = [
         (
@@ -556,12 +567,74 @@ def fever_readiness(cfg: dict) -> tuple[str, dict]:
         details["resources_manifest"] = str(manifest_path)
         details["resources_summary"] = resources_info.get("summary")
 
-    out_default = (cfg.get("output") or {}).get("default_dir") or "baselines/outputs/fever_qwen_only"
-    if "fever_qwen_only" not in str(out_default).replace("\\", "/"):
+    mode = str(cfg.get("mode") or "fever_qwen_only")
+    out_default = (cfg.get("output") or {}).get("default_dir")
+    if not out_default:
+        out_default = (
+            "baselines/outputs/fever_rag_matched_context_fallback"
+            if mode == "fever_rag_matched"
+            else "baselines/outputs/fever_qwen_only"
+        )
+    out_norm = str(out_default).replace("\\", "/")
+    if mode == "fever_qwen_only" and "fever_qwen_only" not in out_norm:
         return "FEVER_OUTPUT_DIR_INVALID", {
             **details,
             "output_default_dir": out_default,
-            "message": "Formal FEVER output must remain under fever_qwen_only.",
+            "message": "Formal FEVER Qwen-only output must remain under fever_qwen_only.",
+        }
+    if mode == "fever_rag_matched" and "fever_rag_matched" not in out_norm:
+        return "FEVER_OUTPUT_DIR_INVALID", {
+            **details,
+            "output_default_dir": out_default,
+            "message": "Formal FEVER RAG output must remain under fever_rag_matched*.",
+        }
+    # Never allow FEVER to target NQ formal dirs.
+    for banned in ("/outputs/qwen_only", "/outputs/rag_matched_test_context_fallback"):
+        if out_norm.rstrip("/").endswith(banned) or banned + "/" in out_norm + "/":
+            return "FEVER_OUTPUT_DIR_INVALID", {
+                **details,
+                "output_default_dir": out_default,
+                "message": f"Refusing FEVER write into NQ dir pattern {banned}",
+            }
+
+    if mode == "fever_rag_matched":
+        ret = cfg.get("retrieval") or {}
+        gaps = []
+        for key in ("index_path", "ids_path", "offsets_path", "corpus_path", "metadata_path"):
+            if key not in ret:
+                gaps.append(f"missing_config_key:{key}")
+                continue
+            path = resolve_path(ret[key])
+            if not path.is_file():
+                gaps.append(f"missing_{key}:{path}")
+        # Hard refuse NQ assets in FEVER RAG config.
+        for key in ("index_path", "corpus_path", "ids_path"):
+            p = str(ret.get(key) or "").replace("\\", "/").lower()
+            if "nq_" in Path(p).name or "/nq_" in p:
+                gaps.append(f"nq_asset_in_fever_config:{key}:{p}")
+        if gaps:
+            return "FEVER_RAG_ASSETS_MISSING", {**details, "gaps": gaps}
+        details["retrieval"] = {
+            "index_path": str(resolve_path(ret["index_path"])),
+            "ids_path": str(resolve_path(ret["ids_path"])),
+            "offsets_path": str(resolve_path(ret["offsets_path"])),
+            "corpus_path": str(resolve_path(ret["corpus_path"])),
+            "metadata_path": str(resolve_path(ret["metadata_path"])),
+            "embedding_model": ret.get("embedding_model"),
+            "top_k": ret.get("top_k"),
+            "nprobe": ret.get("nprobe"),
+            "expected_ntotal": ret.get("expected_ntotal"),
+        }
+        return STATUS_READY_FEVER_RAG, {
+            **details,
+            "n": len(rows),
+            "unique_ids": len(set(record_ids)),
+            "label_counts": dict(counts),
+            "records_sha256": records_sha,
+            "source_sha256": source_sha,
+            "eval_split": "test",
+            "split_version": split.get("version"),
+            "output_default_dir": out_default,
         }
 
     return STATUS_READY_FEVER, {
@@ -811,9 +884,299 @@ def run_fever_formal(args: argparse.Namespace, cfg: dict, output_dir: Path) -> i
     return 0
 
 
+def load_fever_rag_stack(cfg: dict):
+    """Load FEVER BGE IVF-PQ + corpus offsets (never NQ assets)."""
+    ret = cfg["retrieval"]
+    index_path = resolve_path(ret["index_path"])
+    corpus_path = resolve_path(ret["corpus_path"])
+    for path, needle in ((index_path, "fever"), (corpus_path, "fever")):
+        if needle not in str(path).replace("\\", "/").lower():
+            raise SystemExit(f"Refusing non-FEVER retrieval path: {path}")
+    retriever, lookup, passage_ids = load_matched_retriever(
+        embedding_model=ret["embedding_model"],
+        index_path=index_path,
+        ids_path=resolve_path(ret["ids_path"]),
+        offsets_path=resolve_path(ret["offsets_path"]),
+        corpus_path=corpus_path,
+        passage_prefix=ret.get("passage_prefix", ""),
+        query_prefix=ret.get("query_prefix", ""),
+        expected_ntotal=ret.get("expected_ntotal"),
+        nprobe=ret.get("nprobe"),
+    )
+    return retriever, lookup, passage_ids
+
+
+def _fever_guard_output_dir(output_dir: Path, *, mode: str) -> None:
+    out_s = str(output_dir.resolve()).replace("\\", "/")
+    for banned in (
+        "/outputs/qwen_only",
+        "/outputs/rag_matched_test_context_fallback",
+        "/outputs/fever_qwen_only",
+    ):
+        # RAG may write fever_qwen_only only if misconfigured; Qwen-only may write itself.
+        if mode == "fever_qwen_only" and banned.endswith("fever_qwen_only"):
+            continue
+        if mode == "fever_rag_matched" and banned.endswith("fever_qwen_only"):
+            if out_s.rstrip("/").endswith(banned) or banned + "/" in out_s + "/":
+                raise SystemExit(f"Refusing FEVER RAG write into Qwen-only dir: {output_dir}")
+            continue
+        if out_s.rstrip("/").endswith(banned) or banned + "/" in out_s + "/":
+            raise SystemExit(f"Refusing FEVER write into forbidden dir: {output_dir}")
+
+
+def run_fever_rag_smoke(args: argparse.Namespace, cfg: dict, output_dir: Path) -> int:
+    """Seeded balanced FEVER RAG smoke on frozen fever_dev_13332."""
+    _fever_guard_output_dir(output_dir, mode="fever_rag_matched")
+    mode = "fever_rag_matched"
+    smoke_cfg = cfg.get("smoke") or {}
+    n = args.limit if args.limit is not None else int(smoke_cfg.get("n", 30))
+    seed = int(smoke_cfg.get("seed", 42))
+    balanced = bool(smoke_cfg.get("balanced", True))
+    if n < 1:
+        raise SystemExit("--limit must be >= 1 for FEVER RAG smoke")
+
+    records_path = resolve_path(args.dataset_file or cfg["dataset"]["records_path"])
+    all_rows = load_fever_bundle_records(cfg, dataset_file=args.dataset_file)
+    records = sample_fever_smoke_records(all_rows, n=n, seed=seed, balanced=balanced)
+    source_path = resolve_path(cfg["dataset"]["source_path"])
+    gold_pages = load_fever_gold_page_ids(
+        source_path, [r["sample_id"] for r in records]
+    )
+
+    pred_path = output_dir / cfg["output"]["predictions"]
+    if not args.resume and pred_path.exists():
+        pred_path.unlink()
+    done = load_done_ids(pred_path) if args.resume else set()
+
+    tokenizer = model = None
+    retriever = lookup = None
+    passage_ids: list[str] | None = None
+    if not args.dry_run:
+        tokenizer, model = load_qwen_nf4()
+        retriever, lookup, passage_ids = load_fever_rag_stack(cfg)
+
+    try:
+        pending = [r for r in records if r["sample_id"] not in done]
+        hits_by_id: dict[str, list[dict]] = {}
+        if args.dry_run:
+            for rec in pending:
+                hits_by_id[rec["sample_id"]] = [
+                    {
+                        "passage_id": "dry_run_passage",
+                        "text": "dry-run evidence",
+                        "score": 0.0,
+                        "rank": 1,
+                    }
+                ]
+        else:
+            assert retriever is not None and lookup is not None and passage_ids is not None
+            claims = [r["claim"] for r in pending]
+            all_hits = retrieve_top_k_matched(
+                retriever,
+                lookup,
+                passage_ids,
+                claims,
+                int(cfg["retrieval"]["top_k"]),
+            )
+            for rec, hits in zip(pending, all_hits):
+                if len(hits) != int(cfg["retrieval"]["top_k"]):
+                    raise RuntimeError(
+                        f"Expected Top-{cfg['retrieval']['top_k']} hits for "
+                        f"{rec['sample_id']}, got {len(hits)}"
+                    )
+                hits_by_id[rec["sample_id"]] = hits
+
+        for rec in pending:
+            sid = rec["sample_id"]
+            claim = rec["claim"]
+            gold = rec["gold"]
+            hits = hits_by_id[sid]
+            if args.dry_run:
+                prediction = str(gold)
+            else:
+                prompt = build_fever_baseline_rag_prompt(claim, hits)
+                prediction, _ = generate_greedy(tokenizer, model, prompt)
+            row = build_fever_output_row(
+                sample_id=sid,
+                claim=claim,
+                prediction=prediction,
+                gold=gold,
+                mode=mode,
+                hits=hits,
+                gold_page_ids=gold_pages.get(sid),
+            )
+            append_prediction(pred_path, row)
+            done.add(sid)
+    finally:
+        if lookup is not None:
+            lookup.close()
+        if retriever is not None:
+            retriever.unload()
+        free_cuda_memory()
+
+    rows = read_predictions(pred_path)
+    metrics = aggregate_fever_metrics(rows, mode=mode)
+    metrics["smoke"] = True
+    metrics["dry_run"] = bool(args.dry_run)
+    metrics["smoke_seed"] = seed
+    metrics["smoke_balanced"] = balanced
+    write_json(output_dir / cfg["output"]["metrics"], metrics)
+    run_cfg = {
+        "mode": mode,
+        "dataset": "fever",
+        "smoke": True,
+        "dry_run": bool(args.dry_run),
+        "generated_at": utc_now(),
+        "n": len(rows),
+        "smoke_seed": seed,
+        "smoke_balanced": balanced,
+        "dataset_file": str(records_path),
+        "generator": load_generator_config(),
+        "retrieval": cfg.get("retrieval"),
+        "evaluator": "baselines._lib.fever_scoring.score_fever_prediction",
+        "primary_metrics": ["accuracy", "macro_f1", "invalid_n", "evidence_hit_at_5"],
+    }
+    write_json(output_dir / cfg["output"]["run_config"], run_cfg)
+    print(
+        json.dumps(
+            {
+                "status": "FEVER_RAG_SMOKE_OK",
+                "accuracy": metrics["accuracy"],
+                "macro_f1": metrics["macro_f1"],
+                "supports_f1": metrics["supports_f1"],
+                "refutes_f1": metrics["refutes_f1"],
+                "invalid_n": metrics["invalid_n"],
+                "evidence_hit_at_5": metrics.get("evidence_hit_at_5"),
+                "metrics": metrics,
+            },
+            indent=2,
+        )
+    )
+    return 0
+
+
+def run_fever_rag_formal(args: argparse.Namespace, cfg: dict, output_dir: Path) -> int:
+    """Full frozen fever_dev_13332 FEVER RAG formal eval."""
+    if args.limit is not None:
+        raise SystemExit(
+            "Refusing --limit on formal FEVER RAG eval. Use --smoke for limited runs."
+        )
+    _fever_guard_output_dir(output_dir, mode="fever_rag_matched")
+    mode = "fever_rag_matched"
+    status, details = fever_readiness(cfg)
+    if status != STATUS_READY_FEVER_RAG:
+        print(json.dumps({"status": status, "details": details}, indent=2))
+        return 2
+
+    records_path = resolve_path(args.dataset_file or cfg["dataset"]["records_path"])
+    records = load_fever_bundle_records(cfg, dataset_file=args.dataset_file)
+    split_path, split_ids, _split = fever_split_ids(cfg)
+    if [r["sample_id"] for r in records] != split_ids:
+        raise SystemExit("FEVER records/split ID order mismatch at formal RAG start")
+    source_path = resolve_path(cfg["dataset"]["source_path"])
+    gold_pages = load_fever_gold_page_ids(
+        source_path, [r["sample_id"] for r in records]
+    )
+
+    pred_path = output_dir / cfg["output"]["predictions"]
+    done = load_done_ids(pred_path) if args.resume else set()
+    if not args.resume and pred_path.exists():
+        raise SystemExit(
+            f"Refusing to overwrite existing {pred_path}. Pass --resume or remove the file."
+        )
+
+    write_json(
+        output_dir / cfg["output"]["run_config"],
+        {
+            "mode": mode,
+            "dataset": "fever",
+            "smoke": False,
+            "generated_at": utc_now(),
+            "config_path": cfg.get("_config_path"),
+            "dataset_file": str(records_path),
+            "split_file": str(split_path),
+            "eval_split": "test",
+            "eval_n": len(records),
+            "records_sha256": details.get("records_sha256"),
+            "generator": load_generator_config(),
+            "retrieval": cfg.get("retrieval"),
+            "evaluator": "baselines._lib.fever_scoring.score_fever_prediction",
+            "primary_metrics": ["accuracy", "macro_f1", "invalid_n", "evidence_hit_at_5"],
+            "status": STATUS_READY_FEVER_RAG,
+        },
+    )
+
+    tokenizer, model = load_qwen_nf4()
+    retriever, lookup, passage_ids = load_fever_rag_stack(cfg)
+    try:
+        pending = [r for r in records if r["sample_id"] not in done]
+        hits_by_id: dict[str, list[dict]] = {}
+        if pending:
+            # Batch retrieve in chunks to bound memory.
+            top_k = int(cfg["retrieval"]["top_k"])
+            chunk = 64
+            for start in range(0, len(pending), chunk):
+                batch = pending[start : start + chunk]
+                all_hits = retrieve_top_k_matched(
+                    retriever,
+                    lookup,
+                    passage_ids,
+                    [r["claim"] for r in batch],
+                    top_k,
+                )
+                for rec, hits in zip(batch, all_hits):
+                    hits_by_id[rec["sample_id"]] = hits
+
+        for i, rec in enumerate(pending, start=1):
+            hits = hits_by_id[rec["sample_id"]]
+            prompt = build_fever_baseline_rag_prompt(rec["claim"], hits)
+            prediction, _ = generate_greedy(tokenizer, model, prompt)
+            row = build_fever_output_row(
+                sample_id=rec["sample_id"],
+                claim=rec["claim"],
+                prediction=prediction,
+                gold=rec["gold"],
+                mode=mode,
+                hits=hits,
+                gold_page_ids=gold_pages.get(rec["sample_id"]),
+            )
+            append_prediction(pred_path, row)
+            if i % 100 == 0 or i == len(pending):
+                print(
+                    f"[progress] fever_rag_matched: {i}/{len(pending)} "
+                    f"this_run done_total≈{len(done)+i}",
+                    flush=True,
+                )
+    finally:
+        lookup.close()
+        retriever.unload()
+        free_cuda_memory()
+
+    rows = read_predictions(pred_path)
+    metrics = aggregate_fever_metrics(rows, mode=mode)
+    metrics["eval_split"] = "test"
+    write_json(output_dir / cfg["output"]["metrics"], metrics)
+    run_cfg_path = output_dir / cfg["output"]["run_config"]
+    if run_cfg_path.is_file():
+        run_cfg = json.loads(run_cfg_path.read_text(encoding="utf-8"))
+        run_cfg["status"] = "FEVER_RAG_FORMAL_COMPLETE"
+        run_cfg["completed_at"] = utc_now()
+        run_cfg["metrics_n"] = metrics.get("n")
+        write_json(run_cfg_path, run_cfg)
+    print(
+        json.dumps(
+            {"status": "FEVER_RAG_FORMAL_COMPLETE", "metrics": metrics},
+            indent=2,
+        )
+    )
+    return 0
+
+
 def run_smoke(args: argparse.Namespace, cfg: dict, output_dir: Path) -> int:
     if args.mode == "fever_qwen_only":
         return run_fever_smoke(args, cfg, output_dir)
+    if args.mode == "fever_rag_matched":
+        return run_fever_rag_smoke(args, cfg, output_dir)
 
     mode = args.mode
     prompt_style = resolve_rag_prompt_style(args, cfg)
@@ -1080,15 +1443,20 @@ def main(argv: list[str] | None = None) -> int:
     cfg = load_mode_config(args.mode, args.config)
 
     # FEVER path: independent of NQ frozen split / outputs.
-    if args.mode == "fever_qwen_only":
+    if args.mode in FEVER_MODES:
         # eval_split unused for FEVER; keep CLI compatibility without touching NQ defaults.
         output_dir = default_output_dir(args, cfg, eval_split="fever_dev")
         output_dir.mkdir(parents=True, exist_ok=True)
 
         if args.validate_split_only:
             status, details = fever_readiness(cfg)
+            ready = (
+                STATUS_READY_FEVER_RAG
+                if args.mode == "fever_rag_matched"
+                else STATUS_READY_FEVER
+            )
             print(json.dumps({"status": status, "details": details}, indent=2))
-            return 0 if status == STATUS_READY_FEVER else 2
+            return 0 if status == ready else 2
 
         if args.reevaluate_only:
             if args.smoke or args.dry_run:
@@ -1096,8 +1464,12 @@ def main(argv: list[str] | None = None) -> int:
             return run_reevaluate_only(args, cfg, output_dir)
 
         if args.smoke:
+            if args.mode == "fever_rag_matched":
+                return run_fever_rag_smoke(args, cfg, output_dir)
             return run_fever_smoke(args, cfg, output_dir)
 
+        if args.mode == "fever_rag_matched":
+            return run_fever_rag_formal(args, cfg, output_dir)
         return run_fever_formal(args, cfg, output_dir)
 
     eval_split = resolve_eval_split(cfg, args.eval_split)

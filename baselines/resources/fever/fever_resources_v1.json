@@ -69,28 +69,28 @@
       "logical_name": "fever_bge_ivfpq_offsets",
       "expected_path": "data/processed/indexes/fever_bge_ivfpq_offsets.npy",
       "filename": "fever_bge_ivfpq_offsets.npy",
-      "present": false,
-      "size_bytes": null,
-      "sha256": null,
-      "passage_count": null,
+      "present": true,
+      "size_bytes": 43168976,
+      "sha256": "d764edc54e65a2f7d7255a2efbe7ec04c64b29758c15d965ee336a83202b485a",
+      "passage_count": 5396106,
       "embedding_model": null,
       "index": null,
-      "notes": "Byte offsets into fever_corpus.jsonl for matched RAG-style retrieval. Currently not present on this machine."
+      "notes": "Deterministically rebuilt from fever_corpus.jsonl + fever_bge_ivfpq_ids.jsonl in ids order; index untouched. Verified passage_id alignment every 100k rows."
     },
     {
       "logical_name": "fever_bge_ivfpq_metadata",
       "expected_path": "results/retrieval/fever_bge_ivfpq_meta.json",
       "filename": "fever_bge_ivfpq_meta.json",
-      "present": false,
-      "size_bytes": null,
-      "sha256": null,
-      "passage_count": null,
+      "present": true,
+      "size_bytes": 1015,
+      "sha256": "a94e5baa9037614cba8fa510a7d4c048e0de4b2edf54bd864b5eaad6886b2610",
+      "passage_count": 5396106,
       "embedding_model": "BAAI/bge-base-en-v1.5",
       "index": {
         "faiss_index_type": "IndexIVFPQ",
         "expected_path_note": "Canonical contract path from configs/preliminary.yaml"
       },
-      "notes": "Canonical metadata path. A build copy exists at data/processed/indexes/fever_bge_ivfpq_work/fever_bge_ivfpq_meta.json but is not the contract path."
+      "notes": "Sealed from local build copy under fever_bge_ivfpq_work/; index/ids fingerprints unchanged. Offsets path recorded."
     }
   ],
   "discovered_non_contract": [
@@ -123,12 +123,11 @@
     "ready": [
       "fever_corpus",
       "fever_bge_ivfpq_index",
-      "fever_bge_ivfpq_ids"
-    ],
-    "missing": [
+      "fever_bge_ivfpq_ids",
       "fever_bge_ivfpq_offsets",
       "fever_bge_ivfpq_metadata"
     ],
+    "missing": [],
     "qwen_only_requires": [
       "evaluation_bundle"
     ],
@@ -139,6 +138,12 @@
       "fever_bge_ivfpq_offsets",
       "fever_bge_ivfpq_metadata"
     ],
-    "note": "Qwen-only FEVER full run does not need FAISS/corpus; RAG/Product do."
-  }
+    "note": "Qwen-only FEVER full run does not need FAISS/corpus; RAG/Product do.",
+    "offsets_rebuild": {
+      "method": "sequential_byte_offsets_aligned_to_ids_order",
+      "index_untouched": true,
+      "verified_alignment": true
+    }
+  },
+  "updated_at": "2026-10-31T03:54:05.586814+00:00"
 }

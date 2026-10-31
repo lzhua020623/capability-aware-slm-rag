@@ -1,0 +1,18 @@
+{
+  "n": 13332,
+  "accuracy": 0.8385088508850885,
+  "macro_f1": 0.8366142115596171,
+  "supports_precision": 0.9461113304382156,
+  "supports_recall": 0.719021902190219,
+  "supports_f1": 0.8170814865325604,
+  "refutes_precision": 0.773873000484731,
+  "refutes_recall": 0.957995799579958,
+  "refutes_f1": 0.8561469365866737,
+  "invalid_n": 14,
+  "mode": "fever_rag_matched",
+  "dataset": "fever",
+  "evidence_hit_at_5": 0.7348484848484849,
+  "evidence_hit_at_5_n": 9797,
+  "evidence_hit_at_5_scored_n": 13332,
+  "eval_split": "test"
+}

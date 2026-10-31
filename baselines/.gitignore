@@ -16,7 +16,13 @@ outputs/**/*.json
 
 # FEVER / NQ smoke outputs are never committed
 outputs/fever_qwen_only_smoke/
+outputs/fever_rag_matched_context_fallback_smoke/
 outputs/**/*_smoke/
+
+# Formal FEVER RAG artifacts (explicitly tracked when present)
+!outputs/fever_rag_matched_context_fallback/predictions.jsonl
+!outputs/fever_rag_matched_context_fallback/metrics.json
+!outputs/fever_rag_matched_context_fallback/run_config.json
 
 __pycache__/
 *.py[cod]

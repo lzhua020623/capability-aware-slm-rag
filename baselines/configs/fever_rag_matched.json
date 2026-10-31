@@ -1,0 +1,68 @@
+{
+  "mode": "fever_rag_matched",
+  "description": "FEVER claim verification with BGE IVF-PQ Top-5 + Qwen2.5-7B-Instruct. Same frozen fever_dev_13332 as Qwen-only; only difference is retrieved evidence.",
+  "generator": {
+    "source": "configs/base.yaml",
+    "model_name": "Qwen/Qwen2.5-7B-Instruct",
+    "quantization": "nf4",
+    "do_sample": false,
+    "max_new_tokens": 64
+  },
+  "retrieval": {
+    "embedding_model": "BAAI/bge-base-en-v1.5",
+    "top_k": 5,
+    "backend": "fever_corpus_offsets",
+    "index_type": "IndexIVFPQ",
+    "index_path": "data/processed/indexes/fever_bge_ivfpq.index",
+    "ids_path": "data/processed/indexes/fever_bge_ivfpq_ids.jsonl",
+    "offsets_path": "data/processed/indexes/fever_bge_ivfpq_offsets.npy",
+    "corpus_path": "data/processed/retrieval/fever_corpus.jsonl",
+    "metadata_path": "results/retrieval/fever_bge_ivfpq_meta.json",
+    "passage_prefix": "",
+    "query_prefix": "Represent this sentence for searching relevant passages: ",
+    "expected_ntotal": 5396106,
+    "nprobe": 16,
+    "nlist": 4096,
+    "m": 64,
+    "nbits": 8
+  },
+  "rag_prompt": {
+    "default_style": "fever_evidence_only",
+    "note": "Uses src.generation.qwen.build_fever_rag_prompt (SUPPORTS/REFUTES only; evidence-conditioned)."
+  },
+  "dataset": {
+    "name": "fever",
+    "records_path": "baselines/data/fever_dev_13332.jsonl",
+    "id_field": "sample_id",
+    "claim_field": "claim",
+    "gold_field": "gold",
+    "expected_n": 13332,
+    "legal_labels": ["SUPPORTS", "REFUTES"],
+    "source_path": "data/processed/retrieval/fever_dev.jsonl",
+    "gold_page_ids_field": "gold_page_ids"
+  },
+  "split": {
+    "default_path": "baselines/splits/fever_dev_13332_split.json",
+    "split_key_prefix": ["splits", "fever"],
+    "expected_n": {
+      "test": 13332
+    },
+    "default_eval_split": "test",
+    "version_prefix": "fever_dev_13332"
+  },
+  "resources": {
+    "manifest_path": "baselines/resources/fever/fever_resources_v1.json"
+  },
+  "smoke": {
+    "n": 30,
+    "seed": 42,
+    "balanced": true
+  },
+  "output": {
+    "predictions": "predictions.jsonl",
+    "metrics": "metrics.json",
+    "run_config": "run_config.json",
+    "default_dir": "baselines/outputs/fever_rag_matched_context_fallback",
+    "smoke_dir": "baselines/outputs/fever_rag_matched_context_fallback_smoke"
+  }
+}

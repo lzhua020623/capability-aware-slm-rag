@@ -127,6 +127,32 @@ def load_fever_dev_records(
     return rows
 
 
+def load_fever_gold_page_ids(
+    source_path: Path,
+    sample_ids: list[str] | set[str],
+    *,
+    id_field: str = "id",
+    gold_page_ids_field: str = "gold_page_ids",
+) -> dict[str, list[str]]:
+    """Offline gold page_ids from source fever_dev (never used for retrieval)."""
+    wanted = {str(x) for x in sample_ids}
+    found: dict[str, list[str]] = {}
+    with source_path.open(encoding="utf-8") as handle:
+        for line in handle:
+            line = line.strip()
+            if not line:
+                continue
+            rec = json.loads(line)
+            sid = str(rec.get(id_field))
+            if sid not in wanted:
+                continue
+            pages = rec.get(gold_page_ids_field) or []
+            found[sid] = [str(p) for p in pages if str(p).strip()]
+            if len(found) == len(wanted):
+                break
+    return found
+
+
 def sample_fever_smoke_records(
     records: list[dict],
     *,

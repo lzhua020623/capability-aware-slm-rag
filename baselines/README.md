@@ -95,27 +95,39 @@ Each full Judge run writes `judge_results.jsonl`, `judge_summary.json`, `run_con
 
 Temporary pilot/smoke/retry/dryrun dirs, FAISS index/corpus, `_backup/`, and secrets must **not** be committed.
 
-## FEVER Qwen2.5-7B only (formal)
+## FEVER formal baselines
 
 Frozen FEVER Test (independent of NQ outputs):
 
-| | Value |
-|--|------:|
+| | |
+|--|--:|
 | **Dataset** | FEVER `fever_dev` (SUPPORTS / REFUTES only) |
 | **n** | 13332 |
 | **SUPPORTS / REFUTES** | 6666 / 6666 |
-| **Accuracy** | 0.7216471647164716 |
-| **Macro-F1** | 0.7059210905831337 |
-| **SUPPORTS F1** | 0.6379158942335837 |
-| **REFUTES F1** | 0.7739262869326835 |
-| **invalid_n** | 0 |
+| **Bundle** | `baselines/data/fever_dev_13332.jsonl` + `baselines/splits/fever_dev_13332_split.json` |
 
-- Bundle: `baselines/data/fever_dev_13332.jsonl` + `baselines/splits/fever_dev_13332_split.json`
-- Config: `baselines/configs/fever_qwen_only.json` (closed-book; no retrieval)
-- Formal output: `baselines/outputs/fever_qwen_only/`
+Same IDs/order/generator for both FEVER baselines; RAG adds FEVER BGE IVF-PQ Top-5 only.
+
+| | Qwen2.5-7B only | Qwen2.5-7B + BGE RAG |
+|--|----------------:|--------------------:|
+| **Config** | closed-book | `BAAI/bge-base-en-v1.5`, FEVER IVF-PQ, Top-k=5, `nprobe=16` |
+| **n** | 13332 | 13332 |
+| **Accuracy** | 0.7216471647164716 | 0.8385088508850885 |
+| **Macro-F1** | 0.7059210905831337 | 0.8366142115596171 |
+| **SUPPORTS F1** | 0.6379158942335837 | 0.8170814865325604 |
+| **REFUTES F1** | 0.7739262869326835 | 0.8561469365866737 |
+| **Evidence Hit@5** | — | 0.7348484848484849 (9797/13332) |
+| **invalid_n** | 0 | 14 |
+
+- **RAG − Qwen-only:** Accuracy **+0.1169** (**+11.69 pp**); Macro-F1 **+0.1307** (**+13.07 pp**).
+- Formal outputs:
+  - `baselines/outputs/fever_qwen_only/`
+  - `baselines/outputs/fever_rag_matched_context_fallback/`
+- LLM Judge for FEVER has **not** been run yet.
 
 ```bash
 python baselines/run_baseline_evaluation.py --mode fever_qwen_only
+python baselines/run_baseline_evaluation.py --mode fever_rag_matched
 ```
 
 ## Automatic metrics

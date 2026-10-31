@@ -1,4 +1,7 @@
-"""Load NQ-Train matched BGE FAISS index via ids + byte offsets + corpus JSONL."""
+"""Load matched BGE FAISS index via ids + byte offsets + corpus JSONL.
+
+Used by NQ-Train IndexFlatIP and FEVER IndexIVFPQ (set nprobe for the latter).
+"""
 
 from __future__ import annotations
 
@@ -9,6 +12,7 @@ import faiss
 import numpy as np
 
 from src.retrieval.e5_faiss import E5FaissRetriever
+from src.retrieval.fever_ivfpq import set_nprobe
 
 
 class CorpusLookup:
@@ -45,6 +49,7 @@ def load_matched_retriever(
     passage_prefix: str = "",
     query_prefix: str = "",
     expected_ntotal: int | None = None,
+    nprobe: int | None = None,
 ) -> tuple[E5FaissRetriever, CorpusLookup, list[str]]:
     """Return (retriever with FAISS loaded, corpus lookup, passage_ids)."""
     for path in (index_path, ids_path, offsets_path, corpus_path):
@@ -67,6 +72,16 @@ def load_matched_retriever(
         raise RuntimeError(
             f"FAISS ntotal {index.ntotal} != ids {len(passage_ids)}"
         )
+    if nprobe is not None:
+        set_nprobe(index, int(nprobe))
+
+    # Refuse accidental NQ/FEVER mixups by path stem when callers pass fever assets.
+    index_s = str(index_path).replace("\\", "/")
+    corpus_s = str(corpus_path).replace("\\", "/")
+    if "fever" in index_s and "nq" in corpus_s:
+        raise RuntimeError("FEVER index paired with NQ corpus is forbidden")
+    if "nq" in index_s and "fever" in corpus_s:
+        raise RuntimeError("NQ index paired with FEVER corpus is forbidden")
 
     retriever = E5FaissRetriever(
         embedding_model,
