@@ -1,0 +1,996 @@
+{
+  "schema_version": "adaptive_selection_eval_release_v1",
+  "policy_sha256": "51981c5abfddf6250e1e9fb7d91a04775ba30f32bfbd88b9d3005c170524acde",
+  "confirm": {
+    "n": 2440,
+    "passed": true,
+    "rule": "direction check: net of the chosen policy against B+BM25 > 0 to score Test",
+    "policies": {
+      "chosen": {
+        "against_b_bm25": {
+          "fixes": 97,
+          "harms": 49,
+          "net": 48,
+          "pp": 1.9672131147540983,
+          "mcnemar_p": 8.768705718553241e-05,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 176,
+          "harms": 67,
+          "net": 109,
+          "pp": 4.467213114754099,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 3.0012295081967215,
+        "stages": {
+          "3": 1412,
+          "5": 160,
+          "8": 868
+        }
+      },
+      "theta0.39_tau0.5_selector": {
+        "against_b_bm25": {
+          "fixes": 42,
+          "harms": 26,
+          "net": 16,
+          "pp": 0.6557377049180327,
+          "mcnemar_p": 0.06811867428409976,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 130,
+          "harms": 53,
+          "net": 77,
+          "pp": 3.1557377049180326,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 0.7295081967213115,
+        "stages": {
+          "0": 1233,
+          "3": 1180,
+          "5": 7,
+          "8": 20
+        }
+      },
+      "theta0.39_tau0.6_selector": {
+        "against_b_bm25": {
+          "fixes": 55,
+          "harms": 32,
+          "net": 23,
+          "pp": 0.9426229508196722,
+          "mcnemar_p": 0.017827552929735955,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 132,
+          "harms": 48,
+          "net": 84,
+          "pp": 3.442622950819672,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 0.9971311475409836,
+        "stages": {
+          "0": 1233,
+          "3": 922,
+          "5": 54,
+          "8": 231
+        }
+      },
+      "theta0.39_tau0.8_selector": {
+        "against_b_bm25": {
+          "fixes": 63,
+          "harms": 33,
+          "net": 30,
+          "pp": 1.2295081967213115,
+          "mcnemar_p": 0.002878610081200932,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 142,
+          "harms": 51,
+          "net": 91,
+          "pp": 3.7295081967213113,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 1.4028688524590165,
+        "stages": {
+          "0": 1233,
+          "3": 533,
+          "5": 102,
+          "8": 572
+        }
+      },
+      "theta0.39_tau1.0_selector": {
+        "against_b_bm25": {
+          "fixes": 63,
+          "harms": 33,
+          "net": 30,
+          "pp": 1.2295081967213115,
+          "mcnemar_p": 0.002878610081200932,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 142,
+          "harms": 51,
+          "net": 91,
+          "pp": 3.7295081967213113,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 1.4647540983606557,
+        "stages": {
+          "0": 1233,
+          "3": 533,
+          "8": 674
+        }
+      },
+      "theta0.3_tau0.6_selector": {
+        "against_b_bm25": {
+          "fixes": 70,
+          "harms": 42,
+          "net": 28,
+          "pp": 1.1475409836065573,
+          "mcnemar_p": 0.010409209767128986,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 147,
+          "harms": 58,
+          "net": 89,
+          "pp": 3.6475409836065573,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 1.4389344262295083,
+        "stages": {
+          "0": 861,
+          "3": 1244,
+          "5": 70,
+          "8": 265
+        }
+      },
+      "theta0.3_tau1.0_selector": {
+        "against_b_bm25": {
+          "fixes": 81,
+          "harms": 41,
+          "net": 40,
+          "pp": 1.639344262295082,
+          "mcnemar_p": 0.00037138949109718247,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 160,
+          "harms": 59,
+          "net": 101,
+          "pp": 4.139344262295082,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 1.9959016393442623,
+        "stages": {
+          "0": 861,
+          "3": 768,
+          "8": 811
+        }
+      },
+      "theta0.2_tau0.8_selector": {
+        "against_b_bm25": {
+          "fixes": 91,
+          "harms": 43,
+          "net": 48,
+          "pp": 1.9672131147540983,
+          "mcnemar_p": 4.111304765431326e-05,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 170,
+          "harms": 61,
+          "net": 109,
+          "pp": 4.467213114754099,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 2.593032786885246,
+        "stages": {
+          "0": 347,
+          "3": 1139,
+          "5": 148,
+          "8": 806
+        }
+      },
+      "theta0.2_tau1.0_selector": {
+        "against_b_bm25": {
+          "fixes": 91,
+          "harms": 43,
+          "net": 48,
+          "pp": 1.9672131147540983,
+          "mcnemar_p": 4.111304765431326e-05,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 170,
+          "harms": 61,
+          "net": 109,
+          "pp": 4.467213114754099,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 2.6762295081967213,
+        "stages": {
+          "0": 347,
+          "3": 1139,
+          "8": 954
+        }
+      },
+      "theta0.3_tau1.01_selector": {
+        "against_b_bm25": {
+          "fixes": 82,
+          "harms": 44,
+          "net": 38,
+          "pp": 1.5573770491803278,
+          "mcnemar_p": 0.0009052774630786375,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 161,
+          "harms": 62,
+          "net": 99,
+          "pp": 4.057377049180328,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 2.7901639344262295,
+        "stages": {
+          "0": 861,
+          "8": 1579
+        }
+      },
+      "theta0.0_tau0.8_selector": {
+        "against_b_bm25": {
+          "fixes": 97,
+          "harms": 49,
+          "net": 48,
+          "pp": 1.9672131147540983,
+          "mcnemar_p": 8.768705718553241e-05,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 176,
+          "harms": 67,
+          "net": 109,
+          "pp": 4.467213114754099,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 3.0012295081967215,
+        "stages": {
+          "3": 1412,
+          "5": 160,
+          "8": 868
+        }
+      },
+      "theta0.0_tau1.0_selector": {
+        "against_b_bm25": {
+          "fixes": 97,
+          "harms": 49,
+          "net": 48,
+          "pp": 1.9672131147540983,
+          "mcnemar_p": 8.768705718553241e-05,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 176,
+          "harms": 67,
+          "net": 109,
+          "pp": 4.467213114754099,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 3.0905737704918033,
+        "stages": {
+          "3": 1412,
+          "8": 1028
+        }
+      },
+      "theta0.0_tau1.01_selector": {
+        "against_b_bm25": {
+          "fixes": 98,
+          "harms": 52,
+          "net": 46,
+          "pp": 1.8852459016393444,
+          "mcnemar_p": 0.00021507659441552738,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 177,
+          "harms": 70,
+          "net": 107,
+          "pp": 4.385245901639344,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 4.488524590163935,
+        "stages": {
+          "8": 2440
+        }
+      },
+      "fixed3_vote": {
+        "against_b_bm25": {
+          "fixes": 46,
+          "harms": 58,
+          "net": -12,
+          "pp": -0.4918032786885246,
+          "mcnemar_p": 0.28069032903417923,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 116,
+          "harms": 67,
+          "net": 49,
+          "pp": 2.0081967213114753,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 1.981967213114754,
+        "stages": {
+          "3": 2440
+        }
+      },
+      "fixed3_selector": {
+        "against_b_bm25": {
+          "fixes": 68,
+          "harms": 41,
+          "net": 27,
+          "pp": 1.1065573770491803,
+          "mcnemar_p": 0.01240363724333,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 157,
+          "harms": 69,
+          "net": 88,
+          "pp": 3.6065573770491803,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 1.981967213114754,
+        "stages": {
+          "3": 2440
+        }
+      },
+      "fixed5_vote": {
+        "against_b_bm25": {
+          "fixes": 64,
+          "harms": 61,
+          "net": 3,
+          "pp": 0.12295081967213115,
+          "mcnemar_p": 0.8581193732635916,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 136,
+          "harms": 72,
+          "net": 64,
+          "pp": 2.622950819672131,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 3.15,
+        "stages": {
+          "5": 2440
+        }
+      },
+      "fixed5_selector": {
+        "against_b_bm25": {
+          "fixes": 83,
+          "harms": 56,
+          "net": 27,
+          "pp": 1.1065573770491803,
+          "mcnemar_p": 0.027073529093989804,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 165,
+          "harms": 77,
+          "net": 88,
+          "pp": 3.6065573770491803,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 3.15,
+        "stages": {
+          "5": 2440
+        }
+      },
+      "fixed8_vote": {
+        "against_b_bm25": {
+          "fixes": 98,
+          "harms": 68,
+          "net": 30,
+          "pp": 1.2295081967213115,
+          "mcnemar_p": 0.02410343067314692,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 162,
+          "harms": 71,
+          "net": 91,
+          "pp": 3.7295081967213113,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 4.488524590163935,
+        "stages": {
+          "8": 2440
+        }
+      },
+      "fixed8_selector": {
+        "against_b_bm25": {
+          "fixes": 98,
+          "harms": 52,
+          "net": 46,
+          "pp": 1.8852459016393444,
+          "mcnemar_p": 0.00021507659441552738,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 177,
+          "harms": 70,
+          "net": 107,
+          "pp": 4.385245901639344,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 4.488524590163935,
+        "stages": {
+          "8": 2440
+        }
+      }
+    }
+  },
+  "test": {
+    "n": 11114,
+    "passed": true,
+    "rule": "paired against B+BM25 on Test: judge-assisted net > 0 and exact McNemar p < 0.05",
+    "policies": {
+      "chosen": {
+        "against_b_bm25": {
+          "fixes": 521,
+          "harms": 283,
+          "net": 238,
+          "pp": 2.141443224761562,
+          "mcnemar_p": 3.766251300670234e-17,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 923,
+          "harms": 348,
+          "net": 575,
+          "pp": 5.1736548497390675,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 3.0101673564873135,
+        "stages": {
+          "3": 6057,
+          "5": 900,
+          "8": 4157
+        }
+      },
+      "theta0.39_tau0.5_selector": {
+        "against_b_bm25": {
+          "fixes": 254,
+          "harms": 129,
+          "net": 125,
+          "pp": 1.124707576030232,
+          "mcnemar_p": 1.6348487692262522e-10,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 719,
+          "harms": 257,
+          "net": 462,
+          "pp": 4.156919201007738,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 0.8318337232319597,
+        "stages": {
+          "0": 4946,
+          "3": 6014,
+          "5": 29,
+          "8": 125
+        }
+      },
+      "theta0.39_tau0.6_selector": {
+        "against_b_bm25": {
+          "fixes": 318,
+          "harms": 160,
+          "net": 158,
+          "pp": 1.4216303761022133,
+          "mcnemar_p": 4.2633916779194295e-13,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 731,
+          "harms": 236,
+          "net": 495,
+          "pp": 4.453842001079719,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 1.1503509087637214,
+        "stages": {
+          "0": 4946,
+          "3": 4572,
+          "5": 303,
+          "8": 1293
+        }
+      },
+      "theta0.39_tau0.8_selector": {
+        "against_b_bm25": {
+          "fixes": 333,
+          "harms": 174,
+          "net": 159,
+          "pp": 1.4306280367104554,
+          "mcnemar_p": 1.4975824973314287e-12,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 735,
+          "harms": 239,
+          "net": 496,
+          "pp": 4.462839661687961,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 1.5631635774698578,
+        "stages": {
+          "0": 4946,
+          "3": 2708,
+          "5": 592,
+          "8": 2868
+        }
+      },
+      "theta0.39_tau1.0_selector": {
+        "against_b_bm25": {
+          "fixes": 335,
+          "harms": 174,
+          "net": 161,
+          "pp": 1.448623357926939,
+          "mcnemar_p": 8.598603628882713e-13,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 736,
+          "harms": 238,
+          "net": 498,
+          "pp": 4.480834982904445,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 1.6359546517905346,
+        "stages": {
+          "0": 4946,
+          "3": 2708,
+          "8": 3460
+        }
+      },
+      "theta0.3_tau0.6_selector": {
+        "against_b_bm25": {
+          "fixes": 405,
+          "harms": 216,
+          "net": 189,
+          "pp": 1.700557854957711,
+          "mcnemar_p": 2.8990749141690124e-14,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 818,
+          "harms": 292,
+          "net": 526,
+          "pp": 4.732769479935217,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 1.5969048047507648,
+        "stages": {
+          "0": 3279,
+          "3": 5970,
+          "5": 360,
+          "8": 1505
+        }
+      },
+      "theta0.3_tau1.0_selector": {
+        "against_b_bm25": {
+          "fixes": 425,
+          "harms": 230,
+          "net": 195,
+          "pp": 1.7545438186071622,
+          "mcnemar_p": 2.232770687990916e-14,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 826,
+          "harms": 294,
+          "net": 532,
+          "pp": 4.786755443584668,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 2.184631995681123,
+        "stages": {
+          "0": 3279,
+          "3": 3688,
+          "8": 4147
+        }
+      },
+      "theta0.2_tau0.8_selector": {
+        "against_b_bm25": {
+          "fixes": 487,
+          "harms": 268,
+          "net": 219,
+          "pp": 1.9704876732049668,
+          "mcnemar_p": 1.3518001021831469e-15,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 889,
+          "harms": 333,
+          "net": 556,
+          "pp": 5.002699298182472,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 2.672125247435667,
+        "stages": {
+          "0": 1322,
+          "3": 5019,
+          "5": 842,
+          "8": 3931
+        }
+      },
+      "theta0.2_tau1.0_selector": {
+        "against_b_bm25": {
+          "fixes": 488,
+          "harms": 268,
+          "net": 220,
+          "pp": 1.9794853338132086,
+          "mcnemar_p": 1.0445704808824086e-15,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 889,
+          "harms": 332,
+          "net": 557,
+          "pp": 5.011696958790714,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 2.7724491632175634,
+        "stages": {
+          "0": 1322,
+          "3": 5019,
+          "8": 4773
+        }
+      },
+      "theta0.3_tau1.01_selector": {
+        "against_b_bm25": {
+          "fixes": 446,
+          "harms": 245,
+          "net": 201,
+          "pp": 1.8085297822566133,
+          "mcnemar_p": 1.8277225017968383e-14,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 847,
+          "harms": 309,
+          "net": 538,
+          "pp": 4.840741407234119,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 3.0056685261831926,
+        "stages": {
+          "0": 3279,
+          "8": 7835
+        }
+      },
+      "theta0.0_tau0.8_selector": {
+        "against_b_bm25": {
+          "fixes": 521,
+          "harms": 283,
+          "net": 238,
+          "pp": 2.141443224761562,
+          "mcnemar_p": 3.766251300670234e-17,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 923,
+          "harms": 348,
+          "net": 575,
+          "pp": 5.1736548497390675,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 3.0101673564873135,
+        "stages": {
+          "3": 6057,
+          "5": 900,
+          "8": 4157
+        }
+      },
+      "theta0.0_tau1.0_selector": {
+        "against_b_bm25": {
+          "fixes": 522,
+          "harms": 283,
+          "net": 239,
+          "pp": 2.150440885369804,
+          "mcnemar_p": 2.8976804240890805e-17,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 923,
+          "harms": 347,
+          "net": 576,
+          "pp": 5.182652510347309,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 3.1155299622098256,
+        "stages": {
+          "3": 6057,
+          "8": 5057
+        }
+      },
+      "theta0.0_tau1.01_selector": {
+        "against_b_bm25": {
+          "fixes": 546,
+          "harms": 298,
+          "net": 248,
+          "pp": 2.2314198308439805,
+          "mcnemar_p": 1.091483009146562e-17,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 947,
+          "harms": 362,
+          "net": 585,
+          "pp": 5.2636314558214865,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 4.412812668706136,
+        "stages": {
+          "8": 11114
+        }
+      },
+      "fixed3_vote": {
+        "against_b_bm25": {
+          "fixes": 286,
+          "harms": 286,
+          "net": 0,
+          "pp": 0.0,
+          "mcnemar_p": 1.0,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 635,
+          "harms": 298,
+          "net": 337,
+          "pp": 3.032211624977506,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 1.9140723411912903,
+        "stages": {
+          "3": 11114
+        }
+      },
+      "fixed3_selector": {
+        "against_b_bm25": {
+          "fixes": 424,
+          "harms": 241,
+          "net": 183,
+          "pp": 1.6465718913082599,
+          "mcnemar_p": 1.2293015115432326e-12,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 891,
+          "harms": 371,
+          "net": 520,
+          "pp": 4.678783516285765,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 1.9140723411912903,
+        "stages": {
+          "3": 11114
+        }
+      },
+      "fixed5_vote": {
+        "against_b_bm25": {
+          "fixes": 365,
+          "harms": 213,
+          "net": 152,
+          "pp": 1.3676444124527622,
+          "mcnemar_p": 2.6759443922597854e-10,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 760,
+          "harms": 271,
+          "net": 489,
+          "pp": 4.399856037430268,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 3.082328594565413,
+        "stages": {
+          "5": 11114
+        }
+      },
+      "fixed5_selector": {
+        "against_b_bm25": {
+          "fixes": 510,
+          "harms": 250,
+          "net": 260,
+          "pp": 2.3393917581428827,
+          "mcnemar_p": 2.336906210220135e-21,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 939,
+          "harms": 342,
+          "net": 597,
+          "pp": 5.371603383120389,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 3.082328594565413,
+        "stages": {
+          "5": 11114
+        }
+      },
+      "fixed8_vote": {
+        "against_b_bm25": {
+          "fixes": 469,
+          "harms": 314,
+          "net": 155,
+          "pp": 1.394637394277488,
+          "mcnemar_p": 3.372472496220309e-08,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 793,
+          "harms": 301,
+          "net": 492,
+          "pp": 4.426849019254994,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 4.412812668706136,
+        "stages": {
+          "8": 11114
+        }
+      },
+      "fixed8_selector": {
+        "against_b_bm25": {
+          "fixes": 546,
+          "harms": 298,
+          "net": 248,
+          "pp": 2.2314198308439805,
+          "mcnemar_p": 1.091483009146562e-17,
+          "unjudged": 0
+        },
+        "against_c1": {
+          "fixes": 947,
+          "harms": 362,
+          "net": 585,
+          "pp": 5.2636314558214865,
+          "unjudged": 0
+        },
+        "extra_generations_per_item": 4.412812668706136,
+        "stages": {
+          "8": 11114
+        }
+      }
+    },
+    "chosen_against_team": {
+      "rag": {
+        "n": 11114,
+        "baseline_correct": 6391,
+        "run_correct": 6975,
+        "changed": 3207,
+        "fixes": 943,
+        "harms": 359,
+        "net": 584,
+        "net_pp": 5.254633795213245,
+        "mcnemar_p": 8.720448291771253e-61
+      },
+      "product": {
+        "n": 11114,
+        "baseline_correct": 6445,
+        "run_correct": 6975,
+        "changed": 3143,
+        "fixes": 888,
+        "harms": 357,
+        "net": 531,
+        "net_pp": 4.777757782976426,
+        "mcnemar_p": 1.353112329649696e-52
+      }
+    },
+    "one_label_set": {
+      "qwen_only": {
+        "correct": 3281,
+        "accuracy": 0.29521324455641534
+      },
+      "rag": {
+        "correct": 6391,
+        "accuracy": 0.5750404894727371
+      },
+      "product": {
+        "correct": 6446,
+        "accuracy": 0.5799892028072701
+      },
+      "c1": {
+        "correct": 6400,
+        "accuracy": 0.5758502789274789
+      },
+      "route_1": {
+        "correct": 6632,
+        "accuracy": 0.5967248515386
+      },
+      "b_bm25": {
+        "correct": 6737,
+        "accuracy": 0.606172395177254
+      },
+      "chosen": {
+        "correct": 6975,
+        "accuracy": 0.6275868274248695
+      },
+      "theta0.39_tau0.5_selector": {
+        "correct": 6862,
+        "accuracy": 0.6174194709375562
+      },
+      "theta0.39_tau0.6_selector": {
+        "correct": 6895,
+        "accuracy": 0.6203886989382761
+      },
+      "theta0.39_tau0.8_selector": {
+        "correct": 6896,
+        "accuracy": 0.6204786755443584
+      },
+      "theta0.39_tau1.0_selector": {
+        "correct": 6898,
+        "accuracy": 0.6206586287565233
+      },
+      "theta0.3_tau0.6_selector": {
+        "correct": 6926,
+        "accuracy": 0.623177973726831
+      },
+      "theta0.3_tau1.0_selector": {
+        "correct": 6932,
+        "accuracy": 0.6237178333633255
+      },
+      "theta0.2_tau0.8_selector": {
+        "correct": 6956,
+        "accuracy": 0.6258772719093035
+      },
+      "theta0.2_tau1.0_selector": {
+        "correct": 6957,
+        "accuracy": 0.625967248515386
+      },
+      "theta0.3_tau1.01_selector": {
+        "correct": 6938,
+        "accuracy": 0.62425769299982
+      },
+      "theta0.0_tau0.8_selector": {
+        "correct": 6975,
+        "accuracy": 0.6275868274248695
+      },
+      "theta0.0_tau1.0_selector": {
+        "correct": 6976,
+        "accuracy": 0.6276768040309519
+      },
+      "theta0.0_tau1.01_selector": {
+        "correct": 6985,
+        "accuracy": 0.6284865934856937
+      },
+      "fixed3_vote": {
+        "correct": 6737,
+        "accuracy": 0.606172395177254
+      },
+      "fixed3_selector": {
+        "correct": 6920,
+        "accuracy": 0.6226381140903365
+      },
+      "fixed5_vote": {
+        "correct": 6889,
+        "accuracy": 0.6198488393017816
+      },
+      "fixed5_selector": {
+        "correct": 6997,
+        "accuracy": 0.6295663127586827
+      },
+      "fixed8_vote": {
+        "correct": 6892,
+        "accuracy": 0.6201187691200288
+      },
+      "fixed8_selector": {
+        "correct": 6985,
+        "accuracy": 0.6284865934856937
+      }
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "schema_version": "adaptive_selection_eval_release_v1",
+  "registration": "configs/controller/adaptive_selection_v1.json",
+  "registration_sha256": "adf345e55f96a70f3d86a825f12e34ad808a933e6bbd55da3dea623e0d256b0f",
+  "registered_commit": "572394e",
+  "policy": "artifacts/controller/adaptive_selection_v1/policy.json",
+  "policy_sha256": "51981c5abfddf6250e1e9fb7d91a04775ba30f32bfbd88b9d3005c170524acde",
+  "policy_commit": "5a66e3f",
+  "scoring_code_commit": "35b5c11",
+  "order": "policy fixed and committed (5a66e3f) before any confirm or Test answer was scored; confirm scored first, Test only after the confirm direction check",
+  "roles": {
+    "confirm": "confirm 2,440, its fifth disclosed use",
+    "test": "team Test 11,114, a further disclosed exposure"
+  },
+  "base": {
+    "confirm": "production quality_bm25_v1 final answers (artifacts/controller/bm25_product_equivalence_v1 product.jsonl)",
+    "test": "route 1 plus the P3-BM25 rule (artifacts/controller/bm25_gate_test_v1)"
+  },
+  "generations": {
+    "confirm": {
+      "state": "completed",
+      "n": 8854,
+      "data_role": "validation",
+      "resumed_with": 0,
+      "contexts_sha256": "4c1dbe9de9d8e9d3c173fd365266055729fce3714bfdda5a56160119cd359b3e",
+      "gpu": "NVIDIA GeForce RTX 5090 D"
+    },
+    "test_routed": {
+      "state": "completed",
+      "n": 24884,
+      "data_role": "test",
+      "resumed_with": 0,
+      "contexts_sha256": "19f85df341c28466ca9cc9e98811ba0c13e01e283f8ede16438d3d3008b90412",
+      "gpu": "NVIDIA GeForce RTX 5090 D"
+    },
+    "test_unrouted": {
+      "state": "completed",
+      "n": 24161,
+      "data_role": "test",
+      "resumed_with": 0,
+      "contexts_sha256": "9ebd0e53b7508075a4935fb9662598ad2446571d5de2566bb69936d4240b9bdd",
+      "gpu": "NVIDIA GeForce RTX 5090 D"
+    }
+  },
+  "reused_generations": {
+    "confirm": "route-1 P3 traces and artifacts/controller/l2_confirm_v1 generations, by (sample, Top-5)",
+    "test": "route-1 P3 traces and artifacts/controller/bm25_gate_test_v1 generations, by (sample, Top-5)"
+  },
+  "gold": "gold answers stay local; the GPU host received sample IDs, queries and passage IDs only",
+  "judge": {
+    "code": "origin/feature/baseline-evaluation baselines/judge/run_llm_judge.py, unchanged",
+    "model": [
+      "elec5623-e-teacher-sol-v1"
+    ],
+    "batches": {
+      "confirm": {
+        "rows": 118,
+        "status": {
+          "auto_correct": 14,
+          "llm_ok": 104
+        }
+      },
+      "test": {
+        "rows": 2112,
+        "status": {
+          "llm_ok": 1701,
+          "auto_correct": 411
+        }
+      }
+    },
+    "label_order": {
+      "confirm": "confirm route-1 judge, round-2 paired judge, L2 confirm judge, this batch (later wins)",
+      "test": "team qwen_only, team product, route-1 Test judge, the BM25 Test judge, the new batch, team RAG last (RAG wins on conflicts)"
+    }
+  },
+  "curated_archive": {
+    "sha256": "6a4f943a468fe88c5c95907043ed9313854dc4b8ecaea4081363e803294649e7",
+    "files": 50
+  },
+  "raw_local": {
+    "test_unrouted_candidates": {
+      "path": "data/processed/quality_sweep_v1/adaptive_test/candidates_unrouted.jsonl",
+      "sha256": "dd964dcffcf288e65d58b4a7c4670ce0131ac62e5047728f24bd4da0a0615ff3"
+    }
+  }
+}
