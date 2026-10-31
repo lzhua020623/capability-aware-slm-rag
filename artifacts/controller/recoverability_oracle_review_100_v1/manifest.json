@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-10-31",
+  "reviewer": "assistant",
+  "human_confirmed": false,
+  "source_workbook": "source.xlsx",
+  "reviewed_workbook": "reviewed.xlsx",
+  "reviews": "reviews.jsonl",
+  "input_sha256": "6ef9cc951e40cc6fb6a7f4a6fe2b1e01a4e4ebb443d0d23b32d7781fd16134e2",
+  "archive_sha256": "c734b0c5fda6bffeb2dbcdf019f03d93a6d97bbe0f388c8f83ab6c65928ff4ac",
+  "source_sheet": "NQ 可恢复性复核",
+  "n": 100,
+  "groups": {
+    "A": 50,
+    "B": 50
+  },
+  "review_cells": "P2:S101",
+  "original_columns_preserved": "A:O",
+  "sampling_note": "Source workbook supplied as fixed-seed stratified sample; the seed and sampling algorithm were not independently reconstructed in this review.",
+  "scope": "Question-level semantic review using the supplied oracle passage; selective external checks for ambiguous or suspect references. C1 Top-5 and L3 were not re-reviewed.",
+  "metrics_policy": "Do not overwrite frozen judge labels, rescore the whole sweep, extrapolate raw 50/50 counts, or promote these assistant labels to human-confirmed labels."
+}
