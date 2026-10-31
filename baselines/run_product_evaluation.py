@@ -43,7 +43,10 @@ from baselines._lib.split_io import (  # noqa: E402
 
 BASELINES = Path(__file__).resolve().parent
 MODE = "adaptive_product"
-DEFAULT_CONFIG = BASELINES / "configs" / "adaptive_product.json"
+# Current product (configs/controller/quality_adaptive_v1.json). The historical controller_2 product
+# (configs/controller/current_baseline.json) stays reproducible with --config baselines/configs/adaptive_product.json.
+DEFAULT_CONFIG = BASELINES / "configs" / "adaptive_product_v2.json"
+HISTORICAL_CONFIG = BASELINES / "configs" / "adaptive_product.json"
 FORBIDDEN_OUTPUT_MARKERS = (
     "outputs/qwen_only",
     "outputs/rag_matched",
@@ -94,6 +97,20 @@ def assert_safe_output_dir(output_dir: Path) -> None:
             raise SystemExit(
                 f"Refusing to write product evaluation into baseline output dir: {text}"
             )
+
+
+def assert_output_matches_config(output_dir: Path, cfg: dict) -> None:
+    """Refuse an output dir whose earlier run used another product registration, before deleting or resuming."""
+    previous = output_dir / cfg["output"]["run_config"]
+    if not previous.exists():
+        return
+    recorded = (json.loads(previous.read_text(encoding="utf-8")).get("production") or {}).get("baseline_registration")
+    wanted = cfg["production"]["baseline_registration"]
+    if recorded != wanted:
+        raise SystemExit(
+            f"Refusing to write {wanted} results into {relpath(output_dir)}, which holds {recorded} results; "
+            "use the matching --config or a new --output-dir"
+        )
 
 
 def evidence_hits(evidence) -> list[dict]:
@@ -168,7 +185,9 @@ def aggregate_product_metrics(rows: list[dict]) -> dict:
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Adaptive Product formal evaluation")
-    p.add_argument("--config", default=None, help="baselines/configs/adaptive_product.json")
+    p.add_argument("--config", default=None,
+                   help="default baselines/configs/adaptive_product_v2.json (current product); "
+                        "baselines/configs/adaptive_product.json reproduces the historical controller_2 product")
     p.add_argument("--split-file", default=None)
     p.add_argument(
         "--eval-split",
@@ -402,6 +421,7 @@ def run_inference(args: argparse.Namespace, cfg: dict) -> int:
 
     output_dir = default_output_dir(args, cfg)
     assert_safe_output_dir(output_dir)
+    assert_output_matches_config(output_dir, cfg)
     output_dir.mkdir(parents=True, exist_ok=True)
     pred_path = output_dir / cfg["output"]["predictions"]
     metrics_path = output_dir / cfg["output"]["metrics"]

@@ -91,6 +91,13 @@ python baselines/judge/run_llm_judge.py --input adaptive_product --live --output
 
 Uses production entry only (`src.pipeline.current.load_current_pipeline`). Does **not** call `run_baseline_evaluation.py` for product answers. Sealed Test is locked unless `--allow-sealed-test` is passed.
 
+| Config | Product | Default output |
+|---|---|---|
+| `baselines/configs/adaptive_product_v2.json` (**default**) | current product: B + BM25 + adaptive answer selection (`configs/controller/quality_adaptive_v1.json`) | `baselines/outputs/adaptive_product_v2_test/` (Judge preset `adaptive_product_v2`) |
+| `baselines/configs/adaptive_product.json` (pass with `--config`) | historical controller_2 product (`configs/controller/current_baseline.json`) | `baselines/outputs/adaptive_product_test/` (archived below) |
+
+The runner refuses an output directory whose `run_config.json` records another product registration, before deleting or resuming anything.
+
 **Train/Val engineering smoke** (not formal Test):
 
 ```bash
@@ -109,9 +116,10 @@ python baselines/run_product_evaluation.py --validate-split-only --eval-split te
 python baselines/run_product_evaluation.py --eval-split test --allow-sealed-test
 ```
 
-Formal product outputs: `baselines/outputs/adaptive_product_test/`.
+Formal outputs of the current product: `baselines/outputs/adaptive_product_v2_test/`.
+The historical controller_2 product outputs below stay in `baselines/outputs/adaptive_product_test/`.
 
-## Adaptive Product Test (formal, n=11114)
+## Adaptive Product Test (formal, n=11114; historical controller_2 product)
 
 Source of truth: `baselines/outputs/adaptive_product_test/metrics.json` and
 `baselines/outputs/judge/adaptive_product_full/judge_summary.json`.

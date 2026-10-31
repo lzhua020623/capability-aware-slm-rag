@@ -206,5 +206,50 @@ class ProductEvaluationTests(unittest.TestCase):
         self.assertTrue(receipt["split"]["ok"])
 
 
+class ProductConfigTests(unittest.TestCase):
+    """The default evaluates the current product; the historical controller_2 product needs its own config."""
+
+    def test_default_is_the_current_product_with_its_own_output_dir(self):
+        from baselines.run_product_evaluation import HISTORICAL_CONFIG
+        from src.pipeline.registrations import DEFAULT_REGISTRATION, LEGACY_REGISTRATION
+        current, historical = load_product_config(), load_product_config(HISTORICAL_CONFIG)
+        self.assertEqual(current["_config_path"], "baselines/configs/adaptive_product_v2.json")
+        self.assertEqual(current["production"]["baseline_registration"], DEFAULT_REGISTRATION)
+        self.assertEqual(historical["production"]["baseline_registration"], LEGACY_REGISTRATION)
+        self.assertEqual(historical["output"]["default_dir"], "baselines/outputs/adaptive_product_test")
+        self.assertNotEqual(current["output"]["default_dir"], historical["output"]["default_dir"])
+        self.assertNotEqual(current["output"]["smoke_dir"], historical["output"]["smoke_dir"])
+        rest = lambda cfg: {k: v for k, v in cfg.items() if k not in ("description", "production", "output", "_config_path")}
+        self.assertEqual(rest(current), rest(historical))
+        same = lambda cfg: {k: v for k, v in cfg["production"].items() if k != "baseline_registration"}
+        self.assertEqual(same(current), same(historical))
+
+    def test_archived_product_outputs_hold_the_historical_registration(self):
+        import json
+        from src.pipeline.registrations import LEGACY_REGISTRATION
+        run = json.loads((ROOT / "baselines/outputs/adaptive_product_test/run_config.json").read_text(encoding="utf-8"))
+        self.assertEqual(run["production"]["baseline_registration"], LEGACY_REGISTRATION)
+
+    def test_an_output_dir_of_another_registration_is_refused_before_any_change(self):
+        import json
+        import tempfile
+        from baselines.run_product_evaluation import HISTORICAL_CONFIG, assert_output_matches_config
+        current, historical = load_product_config(), load_product_config(HISTORICAL_CONFIG)
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            assert_output_matches_config(out, current)          # empty dir
+            (out / "run_config.json").write_text(json.dumps({"production": historical["production"]}), encoding="utf-8")
+            (out / "predictions.jsonl").write_text("kept\n", encoding="utf-8")
+            with self.assertRaises(SystemExit):
+                assert_output_matches_config(out, current)
+            assert_output_matches_config(out, historical)
+            self.assertEqual((out / "predictions.jsonl").read_text(encoding="utf-8"), "kept\n")
+
+    def test_judge_preset_for_the_current_product(self):
+        cfg = load_judge_config()
+        path = resolve_predictions_path("adaptive_product_v2", cfg)
+        self.assertTrue(str(path).replace("\\", "/").endswith("baselines/outputs/adaptive_product_v2_test/predictions.jsonl"))
+
+
 if __name__ == "__main__":
     unittest.main()

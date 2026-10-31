@@ -14,7 +14,8 @@
   "presets": {
     "qwen_only": "baselines/outputs/qwen_only/predictions.jsonl",
     "rag_matched_test_context_fallback": "baselines/outputs/rag_matched_test_context_fallback/predictions.jsonl",
-    "adaptive_product": "baselines/outputs/adaptive_product_test/predictions.jsonl"
+    "adaptive_product": "baselines/outputs/adaptive_product_test/predictions.jsonl",
+    "adaptive_product_v2": "baselines/outputs/adaptive_product_v2_test/predictions.jsonl"
   },
   "default_output_root": "baselines/outputs/judge",
   "rubric": {

@@ -57,8 +57,11 @@ Test 的显式解封开关与数据边界继续生效；切换默认配置不授
 `precompute_quality_sweep.py`、`precompute_p3_coverage.py`、`l2_generate.py` 和
 `smoke_production_e2e.py` 固定使用历史 `current_baseline.json`，保留原实验的 backend；
 最后一个脚本专门检查历史四动作覆盖。
-团队 `baselines/run_product_evaluation.py` 使用其配置的 `production.baseline_registration`，
-不跟随最新主线默认值。历史结果的回放测试按各自归档登记核验。
+团队 `baselines/run_product_evaluation.py` 默认读取 `baselines/configs/adaptive_product_v2.json`，
+即当前主线 `quality_adaptive_v1.json`，输出到 `baselines/outputs/adaptive_product_v2_test/`，判官预设 `adaptive_product_v2`。
+复现历史 controller_2 产品（已归档的 `baselines/outputs/adaptive_product_test/`）须显式传入
+`--config baselines/configs/adaptive_product.json`。输出目录里已有其他登记的结果时，脚本在删除或续跑之前拒绝写入。
+历史结果的回放测试按各自归档登记核验。
 
 ## 结果范围和运行成本
 
