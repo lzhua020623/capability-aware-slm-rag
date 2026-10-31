@@ -5,6 +5,8 @@ sample: SUPPORTS / REFUTES claims of FEVER train in a fixed hash order; a claim 
         equal nor near-equal to a claim of the team FEVER Test (fever_dev 13,332) nor to an earlier sampled claim.
         The first 1,000 eligible per label form the set: 800 development and 200 held-out per label.
 inputs: the GPU input rows (sample_id, claim, gold sentences and pages); labels stay local.
+retrieve: on a CPU host with the accepted FEVER backend, each claim's Top-5 and Top-20 hits (page texts stored once),
+        so the GPU host can replay them instead of holding the 3.5 GB corpus; P3 still runs the product code.
 run:    on the GPU host, C0 / C1 / L1 / L3 / L4 for every input row with the product's shared Qwen, the accepted
         FEVER backend and P3-20 for FEVER; one JSON line per item, resumable.
 score:  accuracy, RFR, flips, evidence coverage and cost per condition, for development and held-out separately.
@@ -164,6 +166,36 @@ def oracle_passages(gold_text, c1_hits, gold_pages):
     return [block, *others[:4]], [block]
 
 
+def retrieval_cache(items, retrieve):
+    """(hit rows without text, {passage_id: text}) for Top-5 and Top-20 of every claim."""
+    rows, pages = [], {}
+    for r in items:
+        entry = {'sample_id': r['sample_id'], 'claim': r['claim']}
+        for k in (5, 20):
+            hits = retrieve(r['claim'], k)
+            for h in hits:
+                if pages.setdefault(h['passage_id'], h['text']) != h['text']:
+                    raise ValueError('Conflicting text for ' + h['passage_id'])
+            entry[f'top{k}'] = [{'passage_id': h['passage_id'], 'score': h['score']} for h in hits]   # order is the rank
+        rows.append(entry)
+    return rows, pages
+
+
+class ReplayRetriever:
+    """Serves the Top-5 / Top-20 FEVER hits computed beforehand with the accepted backend."""
+
+    def __init__(self, rows, pages):
+        self.by_claim, self.pages = {r['claim']: r for r in rows}, pages
+        if len(self.by_claim) != len(rows):
+            raise ValueError('Duplicate claims in the retrieval cache')
+
+    def retrieve(self, query, *, dataset, top_k):
+        if dataset != 'fever' or top_k not in (5, 20):
+            raise ValueError('The replay holds FEVER Top-5 and Top-20 only')
+        return [{'passage_id': h['passage_id'], 'text': self.pages[h['passage_id']], 'score': h['score']}
+                for h in self.by_claim[query][f'top{top_k}']]
+
+
 def gpu_rows(items):
     return [{k: r[k] for k in ('sample_id', 'claim', 'gold_evidence_text', 'gold_page_ids')} for r in items]
 
@@ -202,7 +234,20 @@ def run(args):
     if any(set(r) != {'sample_id', 'claim', 'gold_evidence_text', 'gold_page_ids'} for r in rows):
         raise ValueError('GPU inputs must hold sample_id, claim, gold sentences and gold pages only')
     config = ExecutionConfig()
-    controller, environment = load_pipeline(config, ROOT / CLASSIFIER, fever_resources=ROOT / FEVER_RESOURCES)
+    if args.retrieval_cache:
+        from src.controller.fever_resources import DatasetRetriever
+        cache = read_jsonl(args.retrieval_cache / 'hits.jsonl')
+        pages = json.loads((args.retrieval_cache / 'pages.json').read_text(encoding='utf-8'))
+        if {r['sample_id'] for r in cache} != {r['sample_id'] for r in rows}:
+            raise ValueError('Retrieval cache does not cover the inputs')
+        controller, environment = load_pipeline(config, ROOT / CLASSIFIER)
+        controller.retriever = DatasetRetriever({'fever': ReplayRetriever(cache, pages)})
+        environment = {**environment, 'fever_retrieval': {
+            'mode': 'replay of the accepted backend, computed on a CPU host',
+            'manifest': json.loads((args.retrieval_cache / 'manifest.json').read_text(encoding='utf-8')),
+            'hits_sha256': file_sha(args.retrieval_cache / 'hits.jsonl'), 'pages_sha256': file_sha(args.retrieval_cache / 'pages.json')}}
+    else:
+        controller, environment = load_pipeline(config, ROOT / CLASSIFIER, fever_resources=ROOT / FEVER_RESOURCES)
     generator = controller.raw_generator
     generate = lambda prompt: generator.generate(prompt, config.answer_max_new_tokens)
     retrieve = lambda claim, k: controller.retriever.retrieve(claim, dataset='fever', top_k=k)
@@ -210,7 +255,7 @@ def run(args):
     def p3(row, hits, c1):
         started = time.perf_counter()
         item = DiagnosisInput(row['sample_id'], 'fever', row['claim'],
-                              [EvidenceItem(h['rank'], h['passage_id'], h['text'], h['score']) for h in hits],
+                              [EvidenceItem(i, h['passage_id'], h['text'], h['score']) for i, h in enumerate(hits, 1)],
                               c1.strip() or 'UNKNOWN')
         calls = CallLog(config)
         result = controller.execute(item, decision_for(ControllerAction.RETRIEVAL_ENHANCEMENT, row['sample_id']), calls=calls)
@@ -290,9 +335,14 @@ def main(argv=None):
     i = sub.add_parser('inputs')
     i.add_argument('--items', type=Path, required=True)
     i.add_argument('--output', type=Path, required=True)
+    q = sub.add_parser('retrieve')
+    q.add_argument('--items', type=Path, required=True)
+    q.add_argument('--resources-root', type=Path, default=ROOT, help='root holding the registered FEVER resource paths')
+    q.add_argument('--output-dir', type=Path, required=True)
     r = sub.add_parser('run')
     r.add_argument('--inputs', type=Path, required=True)
     r.add_argument('--output-dir', type=Path, required=True)
+    r.add_argument('--retrieval-cache', type=Path, default=None, help='retrieve output dir; replaces the full FEVER backend')
     c = sub.add_parser('score')
     c.add_argument('--items', type=Path, required=True)
     c.add_argument('--results', type=Path, required=True)
@@ -302,6 +352,21 @@ def main(argv=None):
         with args.output.open('x', encoding='utf-8') as handle:
             for row in gpu_rows(read_jsonl(args.items)):
                 handle.write(json.dumps(row, ensure_ascii=False) + '\n')
+        return 0
+    if args.command == 'retrieve':
+        from src.controller.fever_resources import load_backend
+        backend, receipt = load_backend(args.resources_root / FEVER_RESOURCES, root=args.resources_root)
+        rows, pages = retrieval_cache(read_jsonl(args.items),
+                                      lambda claim, k: backend.retrieve(claim, dataset='fever', top_k=k))
+        args.output_dir.mkdir(parents=True, exist_ok=False)
+        with (args.output_dir / 'hits.jsonl').open('x', encoding='utf-8') as handle:
+            for row in rows:
+                handle.write(json.dumps(row, ensure_ascii=False) + '\n')
+        (args.output_dir / 'pages.json').write_text(json.dumps(pages, ensure_ascii=False, sort_keys=True), encoding='utf-8')
+        manifest = {'schema_version': 'fever_recoverability_retrieval_v1', 'items_sha256': file_sha(args.items),
+                    'n': len(rows), 'pages': len(pages), 'backend_receipt': receipt}
+        (args.output_dir / 'manifest.json').write_text(json.dumps(manifest, indent=2, default=str) + '\n', encoding='utf-8')
+        print(json.dumps({k: manifest[k] for k in ('n', 'pages')}))
         return 0
     if args.command == 'run':
         return run(args)

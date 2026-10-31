@@ -90,7 +90,7 @@ class ArchivedSampleTests(unittest.TestCase):
 
 class RunAndScoreTests(unittest.TestCase):
     row = {'sample_id': '7', 'claim': 'X is Y.', 'gold_evidence_text': ['X is Y .', 'Y is Z .'], 'gold_page_ids': ['X', 'Y']}
-    hits = [{'rank': i + 1, 'passage_id': p, 'text': f'{p} page text', 'score': 1.0 - i / 10} for i, p in enumerate('AXBCD')]
+    hits = [{'passage_id': p, 'text': f'{p} page text', 'score': 1.0 - i / 10} for i, p in enumerate('AXBCD')]
 
     def test_oracle_contexts_put_the_gold_block_first_or_alone(self):
         l3, l4 = fr.oracle_passages(self.row['gold_evidence_text'], self.hits, self.row['gold_page_ids'])
@@ -139,6 +139,32 @@ class RunAndScoreTests(unittest.TestCase):
         self.assertEqual(report['held_out']['accuracy']['C1'], 1.0)
         with self.assertRaises(ValueError):
             fr.score(items, results[:3])
+
+
+class ReplayTests(unittest.TestCase):
+    def test_cache_round_trip_serves_the_same_hits(self):
+        hits = {('a', 5): [{'passage_id': 'P', 'text': 'p text', 'score': 0.9}],
+                ('a', 20): [{'passage_id': 'P', 'text': 'p text', 'score': 0.9},
+                            {'passage_id': 'Q', 'text': 'q text', 'score': 0.5}]}
+        rows, pages = fr.retrieval_cache([{'sample_id': '1', 'claim': 'a'}], lambda claim, k: hits[(claim, k)])
+        self.assertEqual(pages, {'P': 'p text', 'Q': 'q text'})
+        self.assertNotIn('text', rows[0]['top20'][0])
+        replay = fr.ReplayRetriever(rows, pages)
+        for k in (5, 20):
+            self.assertEqual(replay.retrieve('a', dataset='fever', top_k=k), hits[('a', k)])
+        for bad in ({'dataset': 'nq', 'top_k': 5}, {'dataset': 'fever', 'top_k': 10}):
+            with self.assertRaises(ValueError):
+                replay.retrieve('a', **bad)
+        with self.assertRaises(ValueError):
+            fr.retrieval_cache([{'sample_id': '1', 'claim': 'a'}],
+                               lambda claim, k: [{**h, 'text': 'changed'} if k == 20 else h for h in hits[(claim, k)]])
+
+    def test_replay_feeds_the_product_p3_dispatch(self):
+        from src.controller.fever_resources import DatasetRetriever
+        rows = [{'sample_id': '1', 'claim': 'a', 'top5': [], 'top20': []}]
+        retriever = DatasetRetriever({'fever': fr.ReplayRetriever(rows, {})})
+        self.assertIn('fever', retriever.supported_datasets)
+        self.assertEqual(retriever.retrieve('a', dataset='fever', top_k=20), [])
 
 
 if __name__ == '__main__':
