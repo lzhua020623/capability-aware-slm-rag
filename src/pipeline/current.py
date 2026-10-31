@@ -15,7 +15,8 @@ import numpy as np
 
 from src.compensation.executor import EnhancementExecutor
 from src.compensation.schema import EnhancementResult, EnhancementStatus
-from src.controller.execution import CallLog, ExecutionConfig, fingerprint
+from src.controller.execution import (CallLog, ExecutionConfig, MeteredBm25, MeteredGenerator, MeteredRetriever,
+                                      MeteredScorer, fingerprint)
 from src.controller.runtime import canonical_input, unresolved_assessment
 from src.controller.schema import ControllerAction
 from src.controller.selection import FrozenOnlineSelectionAdapter
@@ -131,6 +132,54 @@ class MeteredEnhancementAdapter:
             error=json.dumps(native['error']) if native.get('error') else None)
 
 
+class MeteredAnswerSelection:
+    """Adaptive multi-context answer selection after the Controller (quality_adaptive_v1).
+
+    Runs on every result with its own call log and budget; the Controller's answer is the product
+    answer it keeps or replaces. P3-20 and P3-BM25 generations of the same item are reused by Top-5.
+    """
+    def __init__(self, policy, deep, bm25, generator, config):
+        """deep: the NQ backend with a top-100 cap; bm25: P3Bm25Resources (index and GPU scorer)."""
+        self.policy, self.deep, self.bm25, self.generator, self.config = policy, deep, bm25, generator, config
+        self._positions = None
+
+    def position(self, passage_id):
+        if self._positions is None:
+            self._positions = {p: i for i, p in enumerate(self.deep.retriever.passage_ids)}
+        return self._positions[passage_id]
+
+    @staticmethod
+    def item(result):
+        routed = result.controller_decision.action == ControllerAction.RETRIEVAL_ENHANCEMENT
+        answered = {}
+        if routed:
+            record = (result.enhancement_result.metadata.get('native') or {}).get('module_trace') or {}
+            for row in (record.get('p3_20'), record):
+                if row and row.get('generated_answer') is not None:
+                    answered[tuple(e['passage_id'] for e in row['evidence'])] = (row['generated_answer'], row['reject_reason'])
+        return {'query': result.query, 'c1': result.initial_answer, 'c1_top5': [e.passage_id for e in result.initial_evidence],
+                'base': result.final_answer, 'routed': routed, 'answered': answered,
+                'p_fail': result.diagnosis.stage1_failure_probability}
+
+    def __call__(self, result):
+        from src.compensation.answer_selection import AdaptiveSelection
+        calls = CallLog(self.config)
+        retriever, generator = MeteredRetriever(self.deep, calls), MeteredGenerator(self.generator, calls, 'answer_selection')
+        selection = AdaptiveSelection(self.policy, lambda query, k: retriever.retrieve(query, dataset='nq', top_k=k),
+                                      MeteredBm25(self.bm25.index, calls), self.deep._record, self.position,
+                                      MeteredScorer(self.bm25.scorer, calls),
+                                      lambda prompt: generator.generate(prompt, self.config.answer_max_new_tokens).text)
+        trace = {**selection.run(self.item(result)), 'cost': calls.summary(), 'calls': calls.events}
+        meta = {**result.metadata, 'answer_selection': trace}
+        final = trace['final_answer']
+        if final == result.final_answer:
+            return replace(result, metadata=meta)
+        evidence = (result.initial_evidence if trace['evidence_from'] == 'c1'
+                    else tuple(EvidenceItem(**e) for e in trace['evidence']))
+        return replace(result, final_answer=final, final_evidence=evidence,
+                       changed_answer=final != result.initial_answer, metadata=meta)
+
+
 class CheckedFeatures:
     """Preserve all 78 positions, including repeated names; never pad values."""
     def __init__(self, provider, names, *, require_costs=False):
@@ -204,8 +253,10 @@ class CheckedFeatures:
 
 class CurrentPipeline:
     def __init__(self, host, features, config, *, data_boundary=None, data_role=None, e_mode=None,
-                 baseline='diagnosis_20261024_p60_p64_v1'):
+                 baseline='diagnosis_20261024_p60_p64_v1', answer_selection=None):
         self.host, self.features, self.config = host, features, config
+        # MeteredAnswerSelection when the registration enables it; None keeps the Controller's answer.
+        self.answer_selection = answer_selection
         self.baseline = baseline
         self.data_boundary, self.data_role = data_boundary, data_role
         self.e_mode = e_mode if e_mode is not None else {'nq': 'allow_repair', 'fever': 'allow_repair'}
@@ -262,6 +313,8 @@ class CurrentPipeline:
             self.data_boundary.require([item.sample_id], self.data_role)
         canonical = canonical_input(item)
         result = self.host.run_from_item(canonical)
+        if self.answer_selection is not None:
+            result = self.answer_selection(result)
         return self._finalize_result(canonical, result, enforce_boundary=enforce_boundary)
 
     def run_batch(self, queries, *, dataset='nq', feature_batch_size=None):
@@ -296,6 +349,8 @@ class CurrentPipeline:
             for (item, enforce_boundary, raw_answer), diagnosis, feat, receipt in zip(
                     chunk, diagnoses, features, feature_receipts):
                 result = self.host.run_from_prepared(item, diagnosis, feat)
+                if self.answer_selection is not None:
+                    result = self.answer_selection(result)
                 finalized = self._finalize_result(
                     item, result, enforce_boundary=enforce_boundary, feature_receipt=receipt)
                 meta = dict(finalized.metadata)
@@ -306,7 +361,7 @@ class CurrentPipeline:
 
 def wire_latest_pipeline(execution_backend, feature_provider, *, selection_adapter=None, root=ROOT,
                          require_feature_costs=False, data_boundary=None, data_role=None,
-                         reference_rag=None, registration=REGISTRATION):
+                         reference_rag=None, registration=REGISTRATION, answer_selection=None):
     """Wire real modules; injections also support explicitly fictional tests.
 
     Production callers use load_current_pipeline, which additionally checks
@@ -330,7 +385,24 @@ def wire_latest_pipeline(execution_backend, feature_provider, *, selection_adapt
         reference_rag=reference_rag, failure_type_routes=config.get('failure_type_routes'),
         correct_gate=config.get('correct_gate'))
     return CurrentPipeline(host, features, expected, data_boundary=data_boundary, data_role=data_role,
-                           e_mode=config.get('E_mode'), baseline=config['baseline'])
+                           e_mode=config.get('E_mode'), baseline=config['baseline'], answer_selection=answer_selection)
+
+
+def load_answer_selection(spec, backend, root):
+    """The registered policy over the loaded NQ backend, P3-BM25's index and GPU scorer, and the shared Qwen."""
+    if backend.p3_bm25 is None:
+        raise ValueError('Answer selection needs the P3-BM25 index and GPU scorer')
+    path = Path(root) / spec['policy']
+    if not path.is_file() or file_sha(path) != spec['policy_sha256']:
+        raise ValueError('Answer selection policy missing or changed: ' + spec['policy'])
+    policy = json.loads(path.read_text(encoding='utf-8'))
+    if policy['chosen'] != spec['chosen'] or policy['order'] != spec['order']:
+        raise ValueError('Answer selection policy differs from its registration')
+    from src.compensation.answer_selection import BGE_DEPTH, BM25_DEPTH, deep_backend
+    if (spec['bge_depth'], spec['bm25_depth']) != (BGE_DEPTH, BM25_DEPTH):
+        raise ValueError('Answer selection is registered for BGE top 100 and BM25 top 50 only')
+    return MeteredAnswerSelection(policy, deep_backend(backend.retriever), backend.p3_bm25, backend.raw_generator,
+                                  ExecutionConfig(**spec['budget']))
 
 
 def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None, data_role='validation',
@@ -360,6 +432,10 @@ def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None,
     backend, environment = load_pipeline(ExecutionConfig(**config['execution_config']),
         root / config['classifier'], nq_resources=nq_resources, fever_resources=fever_resources,
         p3_bm25=config.get('p3_bm25'))
+    answer_selection = None
+    if config.get('answer_selection'):
+        answer_selection = load_answer_selection(config['answer_selection'], backend, root)
+        environment = {**environment, 'answer_selection': config['answer_selection']}
     provider = getattr(module, spec['factory'])(execution_backend=backend)
     if not callable(getattr(provider, 'runtime_receipt', None)):
         raise ValueError('Production feature provider must report its runtime costs')
@@ -392,6 +468,6 @@ def load_current_pipeline(*, root=ROOT, nq_resources=None, fever_resources=None,
     unlock_test = bool(allow_sealed_test and data_role == 'test')
     return wire_latest_pipeline(backend, provider, root=root, require_feature_costs=True,
         data_boundary=TeamNQBoundary(root, allow_sealed_test=unlock_test), data_role=data_role,
-        reference_rag=reference_rag, registration=registration), {
+        reference_rag=reference_rag, registration=registration, answer_selection=answer_selection), {
         **environment, 'current_baseline': receipt, 'probe_enabled': False,
         'allow_sealed_test': unlock_test}
