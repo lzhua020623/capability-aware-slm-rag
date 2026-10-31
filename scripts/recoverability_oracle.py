@@ -4,6 +4,10 @@ contexts: for every sweep item, the L3 context (gold passage first, then C1's To
           and the L4 context (gold passage alone) as l2_generate.py rows. Gold passage IDs come from the
           team delivery (local only); rows hold sample_id, query and passage_ids, with no marker of which
           passage is gold. A context equal to C1's Top-5 needs no generation (C1's answer).
+judge-inputs / score: per item, the answers at C1, L1 (route 1), L2 (B+BM25), L2_any (any of C1 and the 18 L2
+          contexts), L3 and L4 from ladder inputs (one row per item: answers, gold passage, its BGE rank and the
+          C1 + 8-context agreement), with labels from a resolved prior table, the new judge batch and normalized
+          match. L3 / L4 take the generated answer (primary) or the P3 rule (secondary: a rejected answer keeps C1).
 """
 import argparse
 import json
@@ -16,6 +20,8 @@ from scripts.quality_sweep_offline import read_jsonl, read_records  # noqa: E402
 
 REGISTRATION = 'configs/controller/recoverability_oracle_v1.json'
 LEVELS = ('L3', 'L4')
+LADDER = ('L1', 'L2', 'L2_any', 'L3', 'L4')
+POSITIONS = ('c1_top1', 'c1_top2_5', 'bge_6_20', 'bge_21_100', 'beyond_100')
 
 
 def load_registration(root=ROOT):
@@ -64,6 +70,129 @@ def context_rows(records, gold, corpus_ids):
     return rows, missing
 
 
+def oracle_answers(items, generations):
+    """sample_id -> {level: (primary, secondary)} for L3 and L4."""
+    out = {}
+    for it in items:
+        c1, c1_top5 = it['c1'], tuple(it['c1_top5'])
+        res = {}
+        for level, ids in oracle_contexts(c1_top5, it['gold_passage_id']).items():
+            if ids == c1_top5:
+                res[level] = (c1, c1)
+            else:
+                answer, reason = generations[(it['sample_id'], ids)]
+                res[level] = (answer.strip(), c1 if reason is not None else answer.strip())
+        out[it['sample_id']] = res
+    return out
+
+
+def needed_strings(item, answers):
+    return {item['c1'], item['route_1'], item['b_bm25'], *item['contexts'].values(),
+            *(a for pair in answers.values() for a in pair)}
+
+
+def labeller(prior, judged, gold):
+    """Normalized match first, then the new judge batch, then the resolved prior labels; None if unjudged."""
+    from baselines._lib.answer_scoring import score_answer
+
+    def label(sid, answer):
+        if score_answer(answer, gold[sid])['normalized_match']:
+            return True
+        if (sid, answer) in judged:
+            return judged[(sid, answer)]
+        return prior.get((sid, answer))
+    return label
+
+
+def any_correct(values):
+    return True if any(v is True for v in values) else None if any(v is None for v in values) else False
+
+
+def item_levels(item, answers, label, rule=0):
+    sid = item['sample_id']
+    return {'C1': label(sid, item['c1']), 'L1': label(sid, item['route_1']), 'L2': label(sid, item['b_bm25']),
+            'L2_any': any_correct([label(sid, a) for a in [item['c1'], *item['contexts'].values()]]),
+            'L3': label(sid, answers['L3'][rule]), 'L4': label(sid, answers['L4'][rule])}
+
+
+def first_fix(levels):
+    for level in LADDER:
+        if levels[level] is None:
+            return None
+        if levels[level]:
+            return level
+    return 'none'
+
+
+def gold_position(item):
+    top5, gold, rank = item['c1_top5'], item['gold_passage_id'], item['gold_bge_rank']
+    if gold == top5[0]:
+        return 'c1_top1'
+    if gold in top5:
+        return 'c1_top2_5'
+    if rank is not None and rank <= 20:
+        return 'bge_6_20'
+    if rank is not None:
+        return 'bge_21_100'
+    return 'beyond_100'
+
+
+def agreement_bucket(share):
+    return 'all_agree' if share == 1 else 'two_thirds' if share >= 2 / 3 else 'one_third' if share >= 1 / 3 else 'below'
+
+
+def auc(positive, negative):
+    """Probability that a positive scores above a negative (ties count half)."""
+    if not positive or not negative:
+        return None
+    wins = sum((p > q) + 0.5 * (p == q) for p in positive for q in negative)
+    return wins / (len(positive) * len(negative))
+
+
+def ladder_report(items, answers, label):
+    from collections import Counter
+    report, unjudged = {}, 0
+    for rule, name in ((0, 'primary'), (1, 'p3_rule')):
+        failures, fixes, by_pos, by_agree, harm = [], Counter(), {}, {}, Counter()
+        for it in items:
+            levels = item_levels(it, answers[it['sample_id']], label, rule)
+            if levels['C1'] is None or None in levels.values():
+                unjudged += rule == 0
+                continue
+            if levels['C1']:
+                harm['c1_correct'] += 1
+                harm['L3_breaks'] += not levels['L3']
+                harm['L4_breaks'] += not levels['L4']
+                continue
+            fix = first_fix(levels)
+            failures.append((it, fix, levels))
+            fixes[fix] += 1
+            by_pos.setdefault(gold_position(it), Counter())[fix] += 1
+            by_agree.setdefault(agreement_bucket(it['agreement']['share']), Counter())[fix] += 1
+        boundary = [it for it, fix, _ in failures if fix == 'none']
+        recovered = [it for it, fix, _ in failures if fix != 'none']
+        report[name] = {
+            'c1_failures': len(failures), 'first_fix': {k: fixes[k] for k in (*LADDER, 'none')},
+            'standalone': {k: sum(bool(lv[k]) for _, _, lv in failures) for k in LADDER},
+            'by_gold_position': {p: dict(by_pos.get(p, {})) for p in POSITIONS},
+            'by_agreement': {b: dict(by_agree.get(b, {})) for b in ('all_agree', 'two_thirds', 'one_third', 'below')},
+            'boundary_auc': {'p_fail': auc([i['p_fail'] for i in boundary], [i['p_fail'] for i in recovered]),
+                             'disagreement': auc([1 - i['agreement']['share'] for i in boundary],
+                                                 [1 - i['agreement']['share'] for i in recovered]),
+                             'answer_groups': auc([i['agreement']['groups'] for i in boundary],
+                                                  [i['agreement']['groups'] for i in recovered])},
+            'c1_correct': dict(harm)}
+    return {'items': len(items), 'unjudged_items': unjudged, 'complete': unjudged == 0, **report}
+
+
+def read_generations(paths):
+    out = {}
+    for path in paths:
+        for g in read_jsonl(path):
+            out[(g['sample_id'], tuple(g['passage_ids']))] = (g['generated_answer'], g['reject_reason'])
+    return out
+
+
 def corpus_passage_ids(path):
     with Path(path).open(encoding='utf-8') as handle:
         return {json.loads(line)['passage_id'] for line in handle if line.strip()}
@@ -77,7 +206,53 @@ def main(argv=None):
     c.add_argument('--delivery', type=Path, required=True, help='team nq_train_delivery directory (local only)')
     c.add_argument('--corpus', type=Path, required=True, help='NQ Train corpus jsonl')
     c.add_argument('--output', type=Path, required=True)
+    for cmd in ('judge-inputs', 'score'):
+        s = sub.add_parser(cmd)
+        s.add_argument('--inputs', type=Path, required=True, help='ladder inputs, one row per sweep item')
+        s.add_argument('--prior', type=Path, required=True, help='resolved prior labels: sample_id, answer, correct')
+        s.add_argument('--generations', type=Path, nargs='+', required=True)
+        s.add_argument('--references', type=Path, required=True, help='sample_id/gold rows, local only')
+        s.add_argument('--labels', type=Path, nargs='*', default=[], help='new judge batch outputs')
+        if cmd == 'judge-inputs':
+            s.add_argument('--output-dir', type=Path, required=True)
+            s.add_argument('--shards', type=int, default=4)
+        else:
+            s.add_argument('--output', type=Path, required=True)
     args = p.parse_args(argv)
+    if args.command != 'contexts':
+        from scripts.score_quality_eval import prior_labels
+        items = read_jsonl(args.inputs)
+        if [it['sample_id'] for it in items] != sweep_ids():
+            raise ValueError('Ladder inputs do not follow the registered sweep order')
+        answers = oracle_answers(items, read_generations(args.generations))
+        gold = {r['sample_id']: r['gold'] for r in read_jsonl(args.references)}
+        prior = {(r['sample_id'], r['answer']): r['correct'] for r in read_jsonl(args.prior)}
+        label = labeller(prior, prior_labels(args.labels), gold)
+        if args.command == 'score':
+            report = ladder_report(items, answers, label)
+            args.output.write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
+            print(json.dumps({k: report[k] for k in ('items', 'unjudged_items', 'complete')} | {'first_fix': report['primary']['first_fix']}))
+            return 0
+        from baselines._lib.answer_scoring import score_answer
+        from scripts.quality_sweep_offline import judge_id
+        import hashlib
+        pending = []
+        for it in items:
+            sid = it['sample_id']
+            for answer in sorted(needed_strings(it, answers[sid])):
+                if label(sid, answer) is None:
+                    pending.append({'sample_id': judge_id(sid, answer), 'source_sample_id': sid, 'query': it['query'],
+                                    'prediction': answer, 'gold': gold[sid], 'normalized_match': False})
+        args.output_dir.mkdir(parents=True, exist_ok=False)
+        shards = [[] for _ in range(args.shards)]
+        for row in pending:
+            shards[int(hashlib.sha256(row['sample_id'].encode()).hexdigest(), 16) % args.shards].append(row)
+        for k, shard in enumerate(shards):
+            with (args.output_dir / f'shard_{k}.jsonl').open('x', encoding='utf-8') as handle:
+                for row in shard:
+                    handle.write(json.dumps(row, ensure_ascii=False) + '\n')
+        print(json.dumps({'rows': len(pending), 'api_rows': len(pending)}))
+        return 0
     ids = sweep_ids()
     records = read_records(args.records, ids)
     rows, missing = context_rows(records, gold_passages(args.delivery, ids), corpus_passage_ids(args.corpus))
