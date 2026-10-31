@@ -286,11 +286,14 @@ def run(args):
 def score(items, results):
     """Per role: accuracy (overall and per label), RFR, flips against C1, evidence coverage and cost per condition."""
     by_id = {r['sample_id']: r for r in results}
+    tokens = lambda rec: rec.get('input_tokens') or (rec.get('cost') or {}).get('input_tokens') or 0   # L1 keeps them in its call log
     if set(by_id) != {r['sample_id'] for r in items}:
         raise ValueError('Results do not cover the sample')
     report = {}
     for role in ('development', 'held_out', 'all'):
         rows = [r for r in items if role == 'all' or r['role'] == role]
+        if not rows:
+            continue
         correct = {c: {r['sample_id']: by_id[r['sample_id']][c]['label'] == r['label'] for r in rows} for c in CONDITIONS}
         wrong_c1 = [r['sample_id'] for r in rows if not correct['C1'][r['sample_id']]]
         cover = lambda c: sum(set(r['gold_page_ids']) <= set(by_id[r['sample_id']][c]['passage_ids'] or []) for r in rows)
@@ -306,7 +309,7 @@ def score(items, results):
             'unparsed': {c: sum(by_id[r['sample_id']][c]['label'] not in LABELS for r in rows) for c in CONDITIONS},
             'gold_pages_covered': {'C1_top5': cover('C1'), 'L1_top5': cover('L1')},
             'cost': {c: {'seconds': sum(by_id[r['sample_id']][c]['seconds'] or 0 for r in rows) / len(rows),
-                         'input_tokens': sum(by_id[r['sample_id']][c].get('input_tokens') or 0 for r in rows) / len(rows)}
+                         'input_tokens': sum(tokens(by_id[r['sample_id']][c]) for r in rows) / len(rows)}
                      for c in CONDITIONS}}
     return report
 

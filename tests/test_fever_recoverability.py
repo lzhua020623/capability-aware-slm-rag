@@ -122,7 +122,8 @@ class RunAndScoreTests(unittest.TestCase):
                   'role': 'development' if i < 3 else 'held_out'} for i in range(4)]
         res = lambda c0, c1, l1, l3, l4, l1_ids=('X',): {
             'C0': {'label': c0, 'passage_ids': None, 'seconds': 1}, 'C1': {'label': c1, 'passage_ids': ['A'], 'seconds': 1},
-            'L1': {'label': l1, 'passage_ids': list(l1_ids), 'seconds': 2}, 'L3': {'label': l3, 'passage_ids': [], 'seconds': 1},
+            'L1': {'label': l1, 'passage_ids': list(l1_ids), 'seconds': 2, 'cost': {'input_tokens': 100}},
+            'L3': {'label': l3, 'passage_ids': [], 'seconds': 1, 'input_tokens': 10},
             'L4': {'label': l4, 'passage_ids': [], 'seconds': 1}}
         results = [{'sample_id': '0', **res('SUPPORTS', 'REFUTES', 'SUPPORTS', 'SUPPORTS', 'SUPPORTS')},
                    {'sample_id': '1', **res('SUPPORTS', 'SUPPORTS', 'REFUTES', 'SUPPORTS', 'UNKNOWN', ('B',))},
@@ -137,8 +138,10 @@ class RunAndScoreTests(unittest.TestCase):
         self.assertEqual(dev['gold_pages_covered'], {'C1_top5': 0, 'L1_top5': 2})
         self.assertEqual(report['all']['n'], 4)
         self.assertEqual(report['held_out']['accuracy']['C1'], 1.0)
+        self.assertEqual((dev['cost']['L1']['input_tokens'], dev['cost']['L3']['input_tokens'], dev['cost']['L1']['seconds']), (100, 10, 2))
         with self.assertRaises(ValueError):
             fr.score(items, results[:3])
+        self.assertEqual(set(fr.score(items[:3], results[:3])), {'development', 'all'})   # an empty role is left out
 
 
 class ReplayTests(unittest.TestCase):
