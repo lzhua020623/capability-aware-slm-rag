@@ -1,0 +1,50 @@
+{
+  "schema_version": "final_evaluation_release_v1",
+  "script": "scripts/final_evaluation.py",
+  "inputs": {
+    "test": [
+      "artifacts/controller/adaptive_selection_eval_v1/results.tar.gz",
+      "artifacts/controller/bm25_gate_test_v1/results.tar.gz",
+      "artifacts/controller/quality_test_v1/results.tar.gz (route 1, team judge files)"
+    ],
+    "sweep": "artifacts/controller/recoverability_oracle_v1/results.tar.gz"
+  },
+  "uses": {
+    "test": "evaluation only: CIs, registered policies against each other, and the P60 routing ablation; no threshold, policy or setting was changed",
+    "confirm": "300 questions for the latency run only (no scoring)"
+  },
+  "test_p3_rows": "rebuilt by `final_evaluation.py rows` from the local raw Test candidates and the archived generations; the release test rebuilds them when the raw files exist",
+  "judge": {
+    "batch": "p60_test",
+    "code": "origin/feature/baseline-evaluation baselines/judge/run_llm_judge.py, unchanged",
+    "model": [
+      "elec5623-e-teacher-sol-v1"
+    ],
+    "rows": 370,
+    "status": {
+      "llm_ok": 370
+    },
+    "scope": "P3-20 and BM25-rule answers on unrouted Test items that no earlier batch labelled"
+  },
+  "latency_run": {
+    "gpu": "NVIDIA GeForce RTX 5090 D",
+    "path": "pipeline.run, one question at a time after 10 warm-up questions",
+    "code": "server copy code_adaptive (the code of the confirm equivalence run)",
+    "code_sha256": {
+      "src/compensation/answer_selection.py": "ab91a4cefe7f4e812e79e444e53d3425634e2055318547b88dc4e30e6096fc1b",
+      "src/pipeline/current.py": "71b422ce3546116f6afd6e885eb4cf6f835c195b6030f98923c08501097734b6",
+      "scripts/run_quality_eval.py": "1768ac5e37867de7c8bfa56d6e23df3bc374022e374c37886fbacece3853bee0",
+      "scripts/adaptive_selection.py": "4f4c38fcd8eacd97722c912bb228f5d1695e9d95e5e81660c89a9fd8036ddd45",
+      "configs/controller/quality_adaptive_v1.json": "0dd7c12e15ba383430b906ea645d15c355513a4d708c31cf1f5a6e0e49c31c03",
+      "configs/controller/adaptive_selection_v1.json": "adf345e55f96a70f3d86a825f12e34ad808a933e6bbd55da3dea623e0d256b0f",
+      "configs/controller/adaptive_selection_v1_test_unrouted_ids.json": "fd321145ce6f80eacbdf391895ecbe65857ac8e94f250beb6ad3aa21d7c91865",
+      "artifacts/controller/adaptive_selection_v1/policy.json": "51981c5abfddf6250e1e9fb7d91a04775ba30f32bfbd88b9d3005c170524acde"
+    },
+    "sample": "confirm IDs ordered by sha256(\"latency_v1_20261031::\" + id): 10 warm-up, next 300 timed",
+    "data_boundary": "questions only on the GPU host"
+  },
+  "curated_archive": {
+    "sha256": "5a2d0310b542f477bef1b9033b40971c164dffc8e8dc66fea2541c9127379161",
+    "files": 22
+  }
+}
