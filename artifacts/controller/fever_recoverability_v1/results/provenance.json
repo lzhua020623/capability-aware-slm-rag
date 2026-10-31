@@ -1,0 +1,27 @@
+{
+  "schema_version": "fever_recoverability_release_v1",
+  "registration": "configs/controller/fever_recoverability_v1.json",
+  "registration_sha256": "af3305725a76662c78fd6fa518faeff387bbd34de49ccb7b3235c279e2cfff45",
+  "commits": {
+    "registration_and_sample": "8aa64a7",
+    "retrieval_replay": "c3428ff",
+    "scoring": "132a63e"
+  },
+  "set": "FEVER train SUPPORTS/REFUTES, 800 + 200 per label (development / held-out); disjoint from the team FEVER Test (fever_dev 13,332), which was not run",
+  "role": "research only: no FEVER product evaluation and no product choice from these numbers",
+  "data_exception": "gold evidence sentences and gold page IDs reached the GPU host for L3/L4 only; labels stayed local",
+  "retrieval": "accepted FEVER BGE backend computed on a CPU host (retrieve), replayed on the GPU host (run --retrieval-cache); pages.json (page texts, rebuildable from the registered resources) is not archived",
+  "pages_sha256": "9fd01af1327b6fa8f5158a9249b63e0b57aac12ed4a7675e16bb351dd91e8de3",
+  "run": {
+    "state": "completed",
+    "n": 2000,
+    "resumed_with": 0,
+    "inputs_sha256": "5d5c2101dc142ea260d4932bcf60c3536610fe05d112861de2109ba68b9144dd",
+    "results_sha256": "96e15fc7e371c5f861a86f602a13b06e2389ceda7f5751921eceee93446d25b3",
+    "gpu": "NVIDIA GeForce RTX 5090 D"
+  },
+  "curated_archive": {
+    "sha256": "db8cdf51285206f4c0551f695e7f4b5bd41fc0b7a2450bdccb1761e7a5b565ee",
+    "files": 5
+  }
+}
