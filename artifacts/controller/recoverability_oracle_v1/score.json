@@ -1,0 +1,305 @@
+{
+  "schema_version": "recoverability_oracle_release_v1",
+  "items": 6000,
+  "complete": true,
+  "primary": {
+    "c1_failures": 2096,
+    "first_fix": {
+      "L1": 239,
+      "L2": 79,
+      "L2_any": 628,
+      "L3": 223,
+      "L4": 496,
+      "none": 431
+    },
+    "oracle_persistent": 574,
+    "unrecovered_under_all_tested": 431,
+    "l3_l4_by_gold_position": {
+      "c1_top1": {
+        "n": 323,
+        "L3": 0,
+        "L4": 187,
+        "L3_wrong_L4_right": 187,
+        "L3_right_L4_wrong": 0
+      },
+      "c1_top2_5": {
+        "n": 435,
+        "L3": 104,
+        "L4": 277,
+        "L3_wrong_L4_right": 183,
+        "L3_right_L4_wrong": 10
+      },
+      "bge_6_20": {
+        "n": 530,
+        "L3": 238,
+        "L4": 420,
+        "L3_wrong_L4_right": 189,
+        "L3_right_L4_wrong": 7
+      },
+      "bge_21_100": {
+        "n": 406,
+        "L3": 189,
+        "L4": 320,
+        "L3_wrong_L4_right": 146,
+        "L3_right_L4_wrong": 15
+      },
+      "beyond_100": {
+        "n": 402,
+        "L3": 166,
+        "L4": 318,
+        "L3_wrong_L4_right": 164,
+        "L3_right_L4_wrong": 12
+      }
+    },
+    "standalone": {
+      "L1": 239,
+      "L2": 301,
+      "L2_any": 946,
+      "L3": 697,
+      "L4": 1522,
+      "P3_all": 330
+    },
+    "rfr": {
+      "L1": 0.11402671755725191,
+      "L2": 0.14360687022900764,
+      "L2_any": 0.45133587786259544,
+      "L3": 0.3325381679389313,
+      "L4": 0.726145038167939,
+      "P3_all": 0.15744274809160305
+    },
+    "by_gold_position": {
+      "c1_top1": {
+        "none": 99,
+        "L2_any": 124,
+        "L2": 5,
+        "L4": 66,
+        "L1": 29
+      },
+      "c1_top2_5": {
+        "L1": 59,
+        "none": 118,
+        "L4": 91,
+        "L2_any": 136,
+        "L2": 8,
+        "L3": 23
+      },
+      "bge_6_20": {
+        "none": 92,
+        "L2_any": 170,
+        "L4": 105,
+        "L3": 43,
+        "L1": 108,
+        "L2": 12
+      },
+      "bge_21_100": {
+        "L3": 66,
+        "L4": 107,
+        "L2_any": 125,
+        "L2": 30,
+        "none": 59,
+        "L1": 19
+      },
+      "beyond_100": {
+        "L4": 127,
+        "L2_any": 73,
+        "L3": 91,
+        "L2": 24,
+        "none": 63,
+        "L1": 24
+      }
+    },
+    "by_agreement": {
+      "all_agree": {
+        "L3": 57,
+        "L4": 199,
+        "none": 167,
+        "L2_any": 37
+      },
+      "two_thirds": {
+        "none": 150,
+        "L4": 152,
+        "L2_any": 270,
+        "L2": 17,
+        "L3": 74,
+        "L1": 110
+      },
+      "one_third": {
+        "L1": 129,
+        "none": 112,
+        "L2_any": 316,
+        "L4": 143,
+        "L3": 90,
+        "L2": 62
+      },
+      "below": {
+        "L3": 2,
+        "L2_any": 5,
+        "none": 2,
+        "L4": 2
+      }
+    },
+    "boundary_auc": {
+      "p_fail": 0.4154818391477324,
+      "disagreement": 0.36638657218703624,
+      "answer_groups": 0.37181497042285905
+    },
+    "c1_correct": {
+      "c1_correct": 3904,
+      "L1_breaks": 140,
+      "L2_breaks": 163,
+      "L3_breaks": 119,
+      "L4_breaks": 167,
+      "P3_all_breaks": 246
+    }
+  },
+  "p3_rule": {
+    "c1_failures": 2096,
+    "first_fix": {
+      "L1": 239,
+      "L2": 79,
+      "L2_any": 628,
+      "L3": 169,
+      "L4": 390,
+      "none": 591
+    },
+    "oracle_persistent": 791,
+    "unrecovered_under_all_tested": 591,
+    "l3_l4_by_gold_position": {
+      "c1_top1": {
+        "n": 323,
+        "L3": 0,
+        "L4": 148,
+        "L3_wrong_L4_right": 148,
+        "L3_right_L4_wrong": 0
+      },
+      "c1_top2_5": {
+        "n": 435,
+        "L3": 84,
+        "L4": 237,
+        "L3_wrong_L4_right": 161,
+        "L3_right_L4_wrong": 8
+      },
+      "bge_6_20": {
+        "n": 530,
+        "L3": 208,
+        "L4": 354,
+        "L3_wrong_L4_right": 160,
+        "L3_right_L4_wrong": 14
+      },
+      "bge_21_100": {
+        "n": 406,
+        "L3": 170,
+        "L4": 283,
+        "L3_wrong_L4_right": 131,
+        "L3_right_L4_wrong": 18
+      },
+      "beyond_100": {
+        "n": 402,
+        "L3": 149,
+        "L4": 283,
+        "L3_wrong_L4_right": 149,
+        "L3_right_L4_wrong": 15
+      }
+    },
+    "standalone": {
+      "L1": 239,
+      "L2": 301,
+      "L2_any": 946,
+      "L3": 611,
+      "L4": 1305,
+      "P3_all": 330
+    },
+    "rfr": {
+      "L1": 0.11402671755725191,
+      "L2": 0.14360687022900764,
+      "L2_any": 0.45133587786259544,
+      "L3": 0.29150763358778625,
+      "L4": 0.6226145038167938,
+      "P3_all": 0.15744274809160305
+    },
+    "by_gold_position": {
+      "c1_top1": {
+        "none": 130,
+        "L2_any": 124,
+        "L2": 5,
+        "L4": 35,
+        "L1": 29
+      },
+      "c1_top2_5": {
+        "L1": 59,
+        "none": 150,
+        "L4": 73,
+        "L2_any": 136,
+        "L2": 8,
+        "L3": 9
+      },
+      "bge_6_20": {
+        "none": 135,
+        "L2_any": 170,
+        "L4": 78,
+        "L3": 27,
+        "L1": 108,
+        "L2": 12
+      },
+      "bge_21_100": {
+        "none": 85,
+        "L4": 92,
+        "L2_any": 125,
+        "L2": 30,
+        "L3": 55,
+        "L1": 19
+      },
+      "beyond_100": {
+        "L4": 112,
+        "L2_any": 73,
+        "none": 91,
+        "L3": 78,
+        "L2": 24,
+        "L1": 24
+      }
+    },
+    "by_agreement": {
+      "all_agree": {
+        "none": 241,
+        "L4": 151,
+        "L2_any": 37,
+        "L3": 31
+      },
+      "two_thirds": {
+        "none": 193,
+        "L4": 121,
+        "L2_any": 270,
+        "L2": 17,
+        "L3": 62,
+        "L1": 110
+      },
+      "one_third": {
+        "L1": 129,
+        "none": 154,
+        "L2_any": 316,
+        "L4": 117,
+        "L3": 74,
+        "L2": 62
+      },
+      "below": {
+        "L3": 2,
+        "L2_any": 5,
+        "none": 3,
+        "L4": 1
+      }
+    },
+    "boundary_auc": {
+      "p_fail": 0.4368787628379176,
+      "disagreement": 0.34289424422820713,
+      "answer_groups": 0.34671343687988715
+    },
+    "c1_correct": {
+      "c1_correct": 3904,
+      "L1_breaks": 140,
+      "L2_breaks": 163,
+      "L3_breaks": 94,
+      "L4_breaks": 118,
+      "P3_all_breaks": 246
+    }
+  }
+}

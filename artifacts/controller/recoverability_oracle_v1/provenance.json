@@ -1,0 +1,38 @@
+{
+  "schema_version": "recoverability_oracle_release_v1",
+  "registration": "configs/controller/recoverability_oracle_v1.json",
+  "registration_sha256": "0cb84912ba05c2c335e86f11d22ed2b2ea77809f26afbbca0ab701b4af2ae925",
+  "registered_commit": "512ee22",
+  "scoring_commits": [
+    "139cbb1",
+    "86a1305",
+    "this release (two boundary counts, L3/L4 by gold position)"
+  ],
+  "set": "quality sweep 6,000 (Validation; used for every sweep choice); confirm and Test not run",
+  "data_exception": "gold passage IDs reached the GPU host as unmarked context IDs; gold answers stayed local",
+  "generation": {
+    "state": "completed",
+    "n": 10069,
+    "data_role": "validation",
+    "resumed_with": 0,
+    "contexts_sha256": "1152a7f6985250104f71cc0851c615d117016d1b78d4517dbc9e5b5db67cb208",
+    "gpu": "NVIDIA GeForce RTX 5090 D"
+  },
+  "ladder_inputs": "per sweep item: C1, route 1, B+BM25 and the 18 L2 context answers (equal to artifacts/controller/l2_sweep_v1 items), the gold passage of the team delivery and its BGE top-100 rank, and the C1 + 8-context agreement",
+  "prior_labels": "resolved judge-assisted labels of the sweep batches sweep_part1, sweep_part2, reader_go, round2_sweep, l2_routed, l2_all (normalized match first)",
+  "judge": {
+    "code": "origin/feature/baseline-evaluation baselines/judge/run_llm_judge.py, unchanged",
+    "model": [
+      "elec5623-e-teacher-sol-v1"
+    ],
+    "rows": 2141,
+    "status": {
+      "llm_ok": 2141
+    },
+    "note": "one row failed on a rate limit and was filled by rerunning the same batch"
+  },
+  "curated_archive": {
+    "sha256": "c734b0c5fda6bffeb2dbcdf019f03d93a6d97bbe0f388c8f83ab6c65928ff4ac",
+    "files": 23
+  }
+}

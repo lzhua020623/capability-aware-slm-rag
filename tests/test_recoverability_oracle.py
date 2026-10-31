@@ -90,6 +90,10 @@ class ScoreTests(unittest.TestCase):
         self.assertEqual((p['standalone']['P3_all'], p['rfr']['L1'], p['rfr']['P3_all']), (1, 0.25, 0.25))
         self.assertEqual(report['p3_rule']['first_fix']['none'], 2)   # s3's L3 answer is rejected under the P3 rule
         self.assertEqual(p['boundary_auc']['disagreement'], 1.0)
+        self.assertEqual((p['oracle_persistent'], p['unrecovered_under_all_tested']), (4, 1))   # every failure has L4 wrong; only s4 stays unrecovered
+        self.assertEqual(p['l3_l4_by_gold_position']['c1_top1'], {'n': 1, 'L3': 1, 'L4': 0, 'L3_wrong_L4_right': 0, 'L3_right_L4_wrong': 1})
+        self.assertEqual(p['l3_l4_by_gold_position']['beyond_100'], {'n': 2, 'L3': 0, 'L4': 0, 'L3_wrong_L4_right': 0,
+                                                                      'L3_right_L4_wrong': 0})
 
     def test_unjudged_answers_make_the_report_incomplete(self):
         items = [ladder_item('s1')]

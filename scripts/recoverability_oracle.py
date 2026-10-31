@@ -177,8 +177,20 @@ def ladder_report(items, answers, label):
             by_agree.setdefault(agreement_bucket(it['agreement']['share']), Counter())[fix] += 1
         boundary = [it for it, fix, _ in failures if fix == 'none']
         recovered = [it for it, fix, _ in failures if fix != 'none']
+        l3_l4 = {}
+        for it, _, lv in failures:
+            row = l3_l4.setdefault(gold_position(it), Counter())
+            row['n'] += 1
+            row['L3'] += bool(lv['L3'])
+            row['L4'] += bool(lv['L4'])
+            row['L3_wrong_L4_right'] += not lv['L3'] and bool(lv['L4'])
+            row['L3_right_L4_wrong'] += bool(lv['L3']) and not lv['L4']
         report[name] = {
             'c1_failures': len(failures), 'first_fix': {k: fixes[k] for k in (*LADDER, 'none')},
+            # Two different boundaries: L4 still wrong (oracle-persistent) vs no tested condition right.
+            'oracle_persistent': sum(not lv['L4'] for _, _, lv in failures),
+            'unrecovered_under_all_tested': fixes['none'],
+            'l3_l4_by_gold_position': {p: dict(l3_l4.get(p, {})) for p in POSITIONS},
             'standalone': {k: sum(bool(lv[k]) for _, _, lv in failures) for k in (*LADDER, *EXTRA)},
             'rfr': {k: sum(bool(lv[k]) for _, _, lv in failures) / max(1, len(failures)) for k in (*LADDER, *EXTRA)},
             'by_gold_position': {p: dict(by_pos.get(p, {})) for p in POSITIONS},
