@@ -1,0 +1,19 @@
+{
+  "schema_version": "adaptive_product_equivalence_v1",
+  "n": 2440,
+  "same_c1": 2440,
+  "same_b_bm25": 2440,
+  "entered": 2440,
+  "same_stage": 2440,
+  "same_groups": 2440,
+  "same_generations": 2438,
+  "same_final": 2440,
+  "changed": 372,
+  "errors": 0,
+  "llm_calls_per_item": 3.002049180327869,
+  "selection_seconds": {
+    "mean": 1.2929068621383506,
+    "median": 1.2034231014549732,
+    "max": 7.275731890928
+  }
+}

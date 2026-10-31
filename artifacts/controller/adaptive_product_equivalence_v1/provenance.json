@@ -1,0 +1,72 @@
+{
+  "schema_version": "adaptive_product_equivalence_v1",
+  "purpose": "engineering check: the production code (registration quality_adaptive_v1) reproduces B+BM25 plus the offline adaptive selection on confirm; no judging, no selection",
+  "registration": "configs/controller/quality_adaptive_v1.json",
+  "registration_sha256": "0dd7c12e15ba383430b906ea645d15c355513a4d708c31cf1f5a6e0e49c31c03",
+  "run": {
+    "state": "completed",
+    "role": "confirm",
+    "data_role": "validation",
+    "n_ids": 2440,
+    "engineering_run": false,
+    "resumed_with": 0,
+    "started_UTC": "2026-10-31T00:20:14.519915+00:00",
+    "finished_UTC": "2026-10-31T02:05:04.425038+00:00"
+  },
+  "gpu": [
+    "NVIDIA GeForce RTX 5090 D"
+  ],
+  "answer_selection_environment": {
+    "registration": "configs/controller/adaptive_selection_v1.json",
+    "registration_sha256": "adf345e55f96a70f3d86a825f12e34ad808a933e6bbd55da3dea623e0d256b0f",
+    "policy": "artifacts/controller/adaptive_selection_v1/policy.json",
+    "policy_sha256": "51981c5abfddf6250e1e9fb7d91a04775ba30f32bfbd88b9d3005c170524acde",
+    "evaluation": "artifacts/controller/adaptive_selection_eval_v1",
+    "chosen": {
+      "theta": 0.0,
+      "tau": 0.8,
+      "decision": "selector"
+    },
+    "order": [
+      "bge20_bm250_rrf",
+      "bge20_bm2520_ce_only",
+      "bge50_bm250_rrf",
+      "bge20_bm2550_ce_only",
+      "bge100_bm2550_rrf",
+      "bge20_bm250_ce_only",
+      "bge20_bm2520_rrf",
+      "bge20_bm2550_rrf"
+    ],
+    "stages": [
+      3,
+      5,
+      8
+    ],
+    "bge_depth": 100,
+    "bm25_depth": 50,
+    "scorer": "the P3-BM25 GPU cross-encoder, one call over the BGE-then-BM25 union",
+    "note": "runs after the Controller on every result: route 1 and P3-BM25 are unchanged and give the product answer, which the stage selector keeps unless another answer group has a higher predicted probability",
+    "budget": {
+      "max_llm_calls": 8,
+      "max_retrieval_calls": 2,
+      "max_scoring_calls": 1,
+      "answer_max_new_tokens": 64,
+      "max_total_output_tokens": 512
+    },
+    "budget_note": "its own call log: BGE top 100 and BM25 top 50, one scoring call, at most one generation per context"
+  },
+  "offline_sources": {
+    "items": "artifacts/controller/adaptive_selection_eval_v1 confirm/items.jsonl",
+    "policy": "artifacts/controller/adaptive_selection_v1/policy.json",
+    "b_bm25": "artifacts/controller/bm25_product_equivalence_v1 product.jsonl"
+  },
+  "raw_local": {
+    "path": "data/processed/quality_sweep_v1/adaptive_product_confirm/results.jsonl.gz",
+    "results_sha256": "7f68ed85a1500e962fa162492336820e37812b936555d2e080b39fba2ecee3ac",
+    "gzip_sha256": "f990f29741baafc057ff4d3e04024084f2c7c5994e014fe0b055cf3a58871c4f"
+  },
+  "curated_archive": {
+    "sha256": "1413334f249cf4ebad1a1d1a8a37e3f5926815d120e0811862ad4fb223822755",
+    "files": 3
+  }
+}
