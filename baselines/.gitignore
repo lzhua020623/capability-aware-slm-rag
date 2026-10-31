@@ -10,6 +10,13 @@ outputs/**/*.json
 !outputs/rag_matched_test_context_fallback/predictions.jsonl
 !outputs/rag_matched_test_context_fallback/metrics.json
 !outputs/rag_matched_test_context_fallback/run_config.json
+!outputs/fever_qwen_only/predictions.jsonl
+!outputs/fever_qwen_only/metrics.json
+!outputs/fever_qwen_only/run_config.json
+
+# FEVER / NQ smoke outputs are never committed
+outputs/fever_qwen_only_smoke/
+outputs/**/*_smoke/
 
 __pycache__/
 *.py[cod]

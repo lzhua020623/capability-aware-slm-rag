@@ -1,0 +1,46 @@
+{
+  "mode": "fever_qwen_only",
+  "description": "Closed-book FEVER claim verification with Qwen2.5-7B-Instruct; no retrieved evidence. Frozen Test: fever_dev_13332 (SUPPORTS/REFUTES only).",
+  "generator": {
+    "source": "configs/base.yaml",
+    "model_name": "Qwen/Qwen2.5-7B-Instruct",
+    "quantization": "nf4",
+    "do_sample": false,
+    "max_new_tokens": 64
+  },
+  "retrieval": null,
+  "dataset": {
+    "name": "fever",
+    "records_path": "baselines/data/fever_dev_13332.jsonl",
+    "id_field": "sample_id",
+    "claim_field": "claim",
+    "gold_field": "gold",
+    "expected_n": 13332,
+    "legal_labels": ["SUPPORTS", "REFUTES"],
+    "source_path": "data/processed/retrieval/fever_dev.jsonl"
+  },
+  "split": {
+    "default_path": "baselines/splits/fever_dev_13332_split.json",
+    "split_key_prefix": ["splits", "fever"],
+    "expected_n": {
+      "test": 13332
+    },
+    "default_eval_split": "test",
+    "version_prefix": "fever_dev_13332"
+  },
+  "resources": {
+    "manifest_path": "baselines/resources/fever/fever_resources_v1.json"
+  },
+  "smoke": {
+    "n": 30,
+    "seed": 42,
+    "balanced": true
+  },
+  "output": {
+    "predictions": "predictions.jsonl",
+    "metrics": "metrics.json",
+    "run_config": "run_config.json",
+    "default_dir": "baselines/outputs/fever_qwen_only",
+    "smoke_dir": "baselines/outputs/fever_qwen_only_smoke"
+  }
+}

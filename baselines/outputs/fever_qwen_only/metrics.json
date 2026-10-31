@@ -1,0 +1,15 @@
+{
+  "n": 13332,
+  "accuracy": 0.7216471647164716,
+  "macro_f1": 0.7059210905831337,
+  "supports_precision": 0.9123639408317052,
+  "supports_recall": 0.4903990399039904,
+  "supports_f1": 0.6379158942335837,
+  "refutes_precision": 0.6515540055390296,
+  "refutes_recall": 0.9528952895289529,
+  "refutes_f1": 0.7739262869326835,
+  "invalid_n": 0,
+  "mode": "fever_qwen_only",
+  "dataset": "fever",
+  "eval_split": "test"
+}

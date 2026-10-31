@@ -1,0 +1,144 @@
+{
+  "schema_version": "baselines_fever_resources_v1",
+  "dataset": "fever",
+  "purpose": "Resource contract for FEVER Test reuse (Qwen-only / RAG / Product). Does not copy large artifacts.",
+  "retriever": {
+    "embedding_model": "BAAI/bge-base-en-v1.5",
+    "index_type": "IndexIVFPQ",
+    "top_k_default": 5,
+    "query_prefix": "Represent this sentence for searching relevant passages: ",
+    "passage_prefix": ""
+  },
+  "evaluation_bundle": {
+    "records_path": "baselines/data/fever_dev_13332.jsonl",
+    "split_path": "baselines/splits/fever_dev_13332_split.json",
+    "eval_n": 13332,
+    "label_counts": {
+      "SUPPORTS": 6666,
+      "REFUTES": 6666
+    }
+  },
+  "resources": [
+    {
+      "logical_name": "fever_corpus",
+      "expected_path": "data/processed/retrieval/fever_corpus.jsonl",
+      "filename": "fever_corpus.jsonl",
+      "present": true,
+      "size_bytes": 3522640169,
+      "sha256": "29dde612e13203ec37a566c2284d5e312eabc8e66277b972a6e643511fe65fd1",
+      "passage_count": 5396106,
+      "embedding_model": "BAAI/bge-base-en-v1.5",
+      "index": null,
+      "notes": "Full Wikipedia FEVER passage corpus; do not commit. expected_corpus_size=5396106."
+    },
+    {
+      "logical_name": "fever_bge_ivfpq_index",
+      "expected_path": "data/processed/indexes/fever_bge_ivfpq.index",
+      "filename": "fever_bge_ivfpq.index",
+      "present": true,
+      "size_bytes": 401921924,
+      "sha256": "a000e7e994a4da47ec1d7af9371eab3c9e4872b2eeefb2f786cb102b4528046b",
+      "passage_count": 5396106,
+      "embedding_model": "BAAI/bge-base-en-v1.5",
+      "index": {
+        "faiss_index_type": "IndexIVFPQ",
+        "metric": "inner_product",
+        "nlist": 4096,
+        "m": 64,
+        "nbits": 8,
+        "nprobe": 16,
+        "embedding_dimension": 768,
+        "normalization": "l2",
+        "expected_ntotal": 5396106
+      },
+      "notes": "Formal FEVER C1 IVF-PQ index; do not commit."
+    },
+    {
+      "logical_name": "fever_bge_ivfpq_ids",
+      "expected_path": "data/processed/indexes/fever_bge_ivfpq_ids.jsonl",
+      "filename": "fever_bge_ivfpq_ids.jsonl",
+      "present": true,
+      "size_bytes": 213760540,
+      "sha256": "9bcecd97153871da40edd6ebdee8b149a976174cf929685f77f5a34deba2539a",
+      "passage_count": 5396106,
+      "embedding_model": "BAAI/bge-base-en-v1.5",
+      "index": null,
+      "notes": "Passage id list aligned with FAISS row order; do not commit."
+    },
+    {
+      "logical_name": "fever_bge_ivfpq_offsets",
+      "expected_path": "data/processed/indexes/fever_bge_ivfpq_offsets.npy",
+      "filename": "fever_bge_ivfpq_offsets.npy",
+      "present": false,
+      "size_bytes": null,
+      "sha256": null,
+      "passage_count": null,
+      "embedding_model": null,
+      "index": null,
+      "notes": "Byte offsets into fever_corpus.jsonl for matched RAG-style retrieval. Currently not present on this machine."
+    },
+    {
+      "logical_name": "fever_bge_ivfpq_metadata",
+      "expected_path": "results/retrieval/fever_bge_ivfpq_meta.json",
+      "filename": "fever_bge_ivfpq_meta.json",
+      "present": false,
+      "size_bytes": null,
+      "sha256": null,
+      "passage_count": null,
+      "embedding_model": "BAAI/bge-base-en-v1.5",
+      "index": {
+        "faiss_index_type": "IndexIVFPQ",
+        "expected_path_note": "Canonical contract path from configs/preliminary.yaml"
+      },
+      "notes": "Canonical metadata path. A build copy exists at data/processed/indexes/fever_bge_ivfpq_work/fever_bge_ivfpq_meta.json but is not the contract path."
+    }
+  ],
+  "discovered_non_contract": [
+    {
+      "logical_name": "fever_bge_ivfpq_metadata_work_copy",
+      "expected_path": "data/processed/indexes/fever_bge_ivfpq_work/fever_bge_ivfpq_meta.json",
+      "filename": "fever_bge_ivfpq_meta.json",
+      "present": true,
+      "size_bytes": 601,
+      "sha256": "f4146debafd05ff4b78d8788265c9df8ceb59462d40883beb6ef70eda6e6c2be",
+      "passage_count": 5396106,
+      "embedding_model": "BAAI/bge-base-en-v1.5",
+      "index": {
+        "faiss_index_type": "IndexIVFPQ",
+        "nlist": 4096,
+        "m": 64,
+        "nbits": 8,
+        "nprobe": 16,
+        "metric": "inner_product",
+        "embedding_dimension": 768,
+        "normalization": "l2",
+        "valid_for_formal_c1": true
+      },
+      "notes": "Discovered local build artifact; members should place the sealed meta at results/retrieval/fever_bge_ivfpq_meta.json.",
+      "contract_resource": false
+    }
+  ],
+  "created_at": "2026-10-31T02:37:56.745345+00:00",
+  "summary": {
+    "ready": [
+      "fever_corpus",
+      "fever_bge_ivfpq_index",
+      "fever_bge_ivfpq_ids"
+    ],
+    "missing": [
+      "fever_bge_ivfpq_offsets",
+      "fever_bge_ivfpq_metadata"
+    ],
+    "qwen_only_requires": [
+      "evaluation_bundle"
+    ],
+    "rag_requires": [
+      "fever_corpus",
+      "fever_bge_ivfpq_index",
+      "fever_bge_ivfpq_ids",
+      "fever_bge_ivfpq_offsets",
+      "fever_bge_ivfpq_metadata"
+    ],
+    "note": "Qwen-only FEVER full run does not need FAISS/corpus; RAG/Product do."
+  }
+}

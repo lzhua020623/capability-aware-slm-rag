@@ -95,6 +95,29 @@ Each full Judge run writes `judge_results.jsonl`, `judge_summary.json`, `run_con
 
 Temporary pilot/smoke/retry/dryrun dirs, FAISS index/corpus, `_backup/`, and secrets must **not** be committed.
 
+## FEVER Qwen2.5-7B only (formal)
+
+Frozen FEVER Test (independent of NQ outputs):
+
+| | Value |
+|--|------:|
+| **Dataset** | FEVER `fever_dev` (SUPPORTS / REFUTES only) |
+| **n** | 13332 |
+| **SUPPORTS / REFUTES** | 6666 / 6666 |
+| **Accuracy** | 0.7216471647164716 |
+| **Macro-F1** | 0.7059210905831337 |
+| **SUPPORTS F1** | 0.6379158942335837 |
+| **REFUTES F1** | 0.7739262869326835 |
+| **invalid_n** | 0 |
+
+- Bundle: `baselines/data/fever_dev_13332.jsonl` + `baselines/splits/fever_dev_13332_split.json`
+- Config: `baselines/configs/fever_qwen_only.json` (closed-book; no retrieval)
+- Formal output: `baselines/outputs/fever_qwen_only/`
+
+```bash
+python baselines/run_baseline_evaluation.py --mode fever_qwen_only
+```
+
 ## Automatic metrics
 
 - **EM** — exact match after standard answer normalization (`src.evaluation.qa.best_em_f1`)

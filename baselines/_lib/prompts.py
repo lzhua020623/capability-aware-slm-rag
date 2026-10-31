@@ -26,10 +26,22 @@ CONTEXT_FALLBACK_INSTRUCTION = (
 
 RAG_PROMPT_STYLES = ("context_only", "context_fallback")
 
+# Closed-book FEVER: binary label only; no evidence block (Qwen-only baseline).
+FEVER_CLOSED_BOOK_INSTRUCTION = (
+    "Determine whether the claim is supported or refuted. "
+    "Return only SUPPORTS or REFUTES. "
+    "Do not provide explanations."
+)
+
 
 def build_closed_book_prompt(question: str) -> str:
     """Query-only prompt (no retrieved evidence). Same Question: footer as RAG."""
     return f"{CLOSED_BOOK_INSTRUCTION}\n\nQuestion: {question}"
+
+
+def build_fever_closed_book_prompt(claim: str) -> str:
+    """Claim-only FEVER prompt (no retrieved evidence)."""
+    return f"{FEVER_CLOSED_BOOK_INSTRUCTION}\n\nClaim: {claim}"
 
 
 def _format_rag_body(question: str, passages: list[dict], instruction: str) -> str:
