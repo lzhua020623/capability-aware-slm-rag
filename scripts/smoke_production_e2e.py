@@ -1,4 +1,4 @@
-"""Production E2E smoke: bare query through load_current_pipeline().run(query).
+"""Historical controller_2 four-action E2E smoke (explicit current_baseline.json).
 
 Thin wrapper only — no duplicated Diagnosis/Selection/Controller logic.
 Train/Validation IDs only; never Test.
@@ -190,9 +190,11 @@ def main(argv: list[str] | None = None) -> int:
 
     from src.generation.qwen import free_cuda_memory
     from src.pipeline.current import load_current_pipeline
+    from src.pipeline.registrations import LEGACY_REGISTRATION
 
     nq_resources = ROOT / "configs/controller/nq_train_resources_v1.json"
     pipeline, environment = load_current_pipeline(
+        registration=LEGACY_REGISTRATION,
         root=ROOT,
         nq_resources=nq_resources,
         data_role="train",

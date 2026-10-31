@@ -13,12 +13,13 @@ from src.compensation.retrieval_enhancement.p3 import answer_rejection, build_c1
 from src.controller.execution import ExecutionConfig
 from src.diagnosis.labels import DiagnosisLabel as Label
 from src.pipeline.current import MeteredAnswerSelection, load_answer_selection, readiness, wire_latest_pipeline
-from tests.test_controller_current import CONFIG, FictionalFeatures, ForcedSelection
+from tests.test_controller_current import FictionalFeatures, ForcedSelection
 from tests.test_adaptive_rag_pipeline import failure_diag
 
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = json.loads((ROOT / ad.POLICY).read_text(encoding='utf-8'))
 REGISTRATION = 'configs/controller/quality_adaptive_v1.json'
+CONFIG = json.loads((ROOT / REGISTRATION).read_text(encoding='utf-8'))
 sha = lambda path: hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
 WORDS = ('Paris', 'Rome', 'Lille', 'Nice')
 

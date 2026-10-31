@@ -319,7 +319,7 @@ class TeamBoundaryTests(unittest.TestCase):
         backend = smoke_pipeline(ExecutionConfig(**cfg['execution_config']))
         pipeline = wire_latest_pipeline(backend, FictionalFeatures(),
             selection_adapter=ForcedSelection(DiagnosisLabel.CORRECT, selected=False),
-            data_boundary=self.boundary, data_role='train')
+            data_boundary=self.boundary, data_role='train', registration='configs/controller/current_baseline.json')
         with patch.object(pipeline.host, 'run_from_item') as host:
             for item in [replace(smoke_inputs()[0], sample_id=self.test_id), smoke_inputs()[1]]:
                 with self.assertRaises(BoundaryError): pipeline.run_from_item(item)
@@ -336,7 +336,7 @@ class TeamBoundaryTests(unittest.TestCase):
         backend = smoke_pipeline(ExecutionConfig(**cfg['execution_config']))
         pipeline = wire_latest_pipeline(backend, FictionalFeatures(),
             selection_adapter=ForcedSelection(DiagnosisLabel.CORRECT, selected=False),
-            data_boundary=self.boundary, data_role='train')
+            data_boundary=self.boundary, data_role='train', registration='configs/controller/current_baseline.json')
         result = pipeline.run_from_item(replace(smoke_inputs()[0], sample_id=self.train[0]))
         self.assertEqual(result.metadata['data_role'], 'train')
         self.assertEqual(result.metadata['data_boundary'], {

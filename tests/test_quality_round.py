@@ -11,7 +11,7 @@ from src.compensation.mocks import (
 from src.controller.schema import ControllerAction, SelectionDecision, SelectionLane
 from src.diagnosis.labels import DiagnosisLabel
 from src.pipeline import build_adaptive_pipeline
-from src.pipeline.current import REGISTRATION, readiness
+from src.pipeline.current import LEGACY_REGISTRATION as REGISTRATION, readiness
 from scripts import build_quality_sweep_split as splitter
 from scripts import finalize_quality_config as finalize
 from scripts import run_quality_eval as runner
@@ -84,7 +84,7 @@ class RouteTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / 'reg.json'
             path.write_text(json.dumps({**base, 'baseline': 'x', 'c1_prefill': 'full'}))
-            self.assertEqual(readiness(ROOT, path)['missing'], readiness(ROOT)['missing'])
+            self.assertEqual(readiness(ROOT, path)['missing'], readiness(ROOT, REGISTRATION)['missing'])
             broken = {**base, 'frozen_assets': {**base['frozen_assets'], 'configs/controller/p60_quality_v1.json': '0' * 64}}
             path.write_text(json.dumps(broken))
             self.assertIn('asset_missing_or_changed:configs/controller/p60_quality_v1.json', readiness(ROOT, path)['missing'])

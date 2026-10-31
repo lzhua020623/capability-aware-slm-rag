@@ -60,7 +60,8 @@ def main(argv=None):
     import torch
     if not torch.cuda.is_available(): raise RuntimeError('Generation requires CUDA')
     from src.pipeline.current import load_current_pipeline
-    pipeline, environment = load_current_pipeline(root=ROOT, nq_resources=ROOT / NQ_RESOURCES,
+    from src.pipeline.registrations import LEGACY_REGISTRATION
+    pipeline, environment = load_current_pipeline(registration=LEGACY_REGISTRATION, root=ROOT, nq_resources=ROOT / NQ_RESOURCES,
                                                   data_role=args.data_role, attach_reference_rag=True,
                                                   allow_sealed_test=args.data_role == 'test')
     pipeline.data_boundary.require(sorted({r['sample_id'] for r in rows}), args.data_role)

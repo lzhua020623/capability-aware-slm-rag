@@ -7,6 +7,7 @@ import tempfile
 import unittest
 
 from scripts import run_quality_eval as runner
+from src.pipeline.registrations import B_REGISTRATION
 from scripts import score_quality_eval as scorer
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -43,8 +44,8 @@ class QualityConfirmReleaseTests(unittest.TestCase):
 
     def test_run_is_the_single_full_confirm_run_of_the_frozen_registration(self):
         manifest = json.loads(self.members['run/manifest.json'])
-        registration = ROOT / runner.REGISTRATION
-        self.assertEqual(manifest['registration'], runner.REGISTRATION)
+        registration = ROOT / B_REGISTRATION
+        self.assertEqual(manifest['registration'], B_REGISTRATION)
         self.assertEqual(manifest['registration_sha256'], sha(registration.read_bytes()))
         self.assertEqual((manifest['state'], manifest['role'], manifest['data_role']), ('completed', 'confirm', 'validation'))
         self.assertFalse(manifest['engineering_run'])

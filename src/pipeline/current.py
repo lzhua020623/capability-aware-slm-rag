@@ -1,4 +1,4 @@
-"""Current 2026-10-24 Diagnosis/P60/P64 integration, without legacy routing.
+"""Production B + BM25 + adaptive answer selection; explicit historical registrations remain available.
 
 The metered module executor is reused only to execute a resolved action.
 It never runs its old Diagnosis/Probe/controller loop on this path.
@@ -25,7 +25,9 @@ from src.pipeline.adaptive_rag import build_adaptive_pipeline
 from src.data.team_nq import BoundaryError, TeamNQBoundary
 
 ROOT = Path(__file__).resolve().parents[2]
-REGISTRATION = 'configs/controller/current_baseline.json'
+from src.pipeline.registrations import DEFAULT_REGISTRATION, LEGACY_REGISTRATION
+
+REGISTRATION = DEFAULT_REGISTRATION
 
 
 def file_sha(path):
@@ -92,9 +94,13 @@ def readiness(root=ROOT, registration=REGISTRATION):
         missing.append('P60_training_tuning_calibration_ID_provenance_not_delivered')
     else:
         missing.extend(provenance_issues(root, provenance, config))
-    return {'baseline': config['baseline'], 'upstream_commit': config['upstream_commit'],
+    return {'baseline': config['baseline'], 'registration': str(registration),
+            'upstream_commit': config['upstream_commit'],
             'runtime_entry': 'src.pipeline.current.load_current_pipeline',
-            'routing': 'Diagnosis -> P60 -> Controller -> EnhancementExecutor',
+            'routing': ('Diagnosis -> P60 -> Controller -> EnhancementExecutor'
+                        + (' -> AnswerSelection' if config.get('answer_selection') else '')),
+            'p3_bm25_enabled': bool(config.get('p3_bm25')),
+            'answer_selection_enabled': bool(config.get('answer_selection')),
             'probe_enabled': False, 'ready_for_gpu': not missing, 'missing': missing,
             'legacy_fallback': False, 'benchmark_quality_evaluated': False,
             'E_mode': config['E_mode'], 'data_boundary': data_boundary}
@@ -370,7 +376,9 @@ def wire_latest_pipeline(execution_backend, feature_provider, *, selection_adapt
     config = json.loads((Path(root) / registration).read_text(encoding='utf-8'))
     expected = ExecutionConfig(**config['execution_config'])
     if execution_backend.config != expected:
-        raise ValueError('Use the registered latest execution config from current_baseline.json')
+        raise ValueError('Use the registered latest execution config from ' + str(registration))
+    if config.get('answer_selection') and answer_selection is None:
+        raise ValueError('This registration requires answer selection; use load_current_pipeline or attach it explicitly')
     selector = (FrozenOnlineSelectionAdapter.from_config_path(config['selector_config'], repo_root=Path(root))
                 if selection_adapter is None else selection_adapter)
     names = json.loads((Path(root) / config['selector_config']).read_text(encoding='utf-8'))['feature_names']

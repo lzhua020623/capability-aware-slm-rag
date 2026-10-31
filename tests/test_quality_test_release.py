@@ -10,6 +10,7 @@ import tempfile
 import unittest
 
 from scripts import run_quality_eval as runner
+from src.pipeline.registrations import B_REGISTRATION
 from scripts import score_quality_eval as scorer
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -62,8 +63,8 @@ class QualityTestReleaseTests(unittest.TestCase):
 
     def test_run_is_the_single_full_test_run_of_the_frozen_registration(self):
         manifest = json.loads(self.members['run/manifest.json'])
-        self.assertEqual(manifest['registration'], runner.REGISTRATION)
-        self.assertEqual(manifest['registration_sha256'], sha((ROOT / runner.REGISTRATION).read_bytes()))
+        self.assertEqual(manifest['registration'], B_REGISTRATION)
+        self.assertEqual(manifest['registration_sha256'], sha((ROOT / B_REGISTRATION).read_bytes()))
         self.assertEqual((manifest['state'], manifest['role'], manifest['data_role']), ('completed', 'test', 'test'))
         self.assertFalse(manifest['engineering_run'])
         self.assertEqual((manifest['resumed_with'], manifest['shard'], manifest['shards']), (0, 0, 1))

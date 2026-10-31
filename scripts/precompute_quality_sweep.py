@@ -183,12 +183,13 @@ def main(argv=None):
     import torch
     if not torch.cuda.is_available(): raise RuntimeError('The sweep pass requires CUDA')
     from src.pipeline.current import load_current_pipeline
+    from src.pipeline.registrations import LEGACY_REGISTRATION
     from src.pipeline.reference_rag import full_prefill_generate
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     records = args.output_dir / 'records.jsonl'
     finished = done_ids(records)
-    pipeline, environment = load_current_pipeline(root=ROOT, nq_resources=ROOT / NQ_RESOURCES,
+    pipeline, environment = load_current_pipeline(registration=LEGACY_REGISTRATION, root=ROOT, nq_resources=ROOT / NQ_RESOURCES,
                                                   data_role='validation', attach_reference_rag=True)
     pipeline.data_boundary.require(ids, 'validation')
     rag = pipeline.host.reference_rag

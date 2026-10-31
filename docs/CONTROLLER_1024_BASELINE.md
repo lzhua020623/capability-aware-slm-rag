@@ -1,6 +1,9 @@
 # Production Adaptive RAG · controller_2
 
-正式生产链路已冻结。算法、阈值、P60 78 维定义、Diagnosis 与 Controller mapping 不再改动。
+本页记录历史 controller_2 四动作基线；当前默认主线已切换到 [B + BM25 + 自适应答案选择](../configs/controller/README.md)。
+复现本页时须显式指定 `configs/controller/current_baseline.json`。
+
+以下历史生产链路已冻结。算法、阈值、P60 78 维定义、Diagnosis 与 Controller mapping 不再改动。
 
 登记文件：[current_baseline.json](../configs/controller/current_baseline.json)  
 基线名：`diagnosis_20261024_p60_p64_v1`  
@@ -60,6 +63,7 @@ from src.pipeline.current import load_current_pipeline
 
 root = Path(".")
 pipeline, env = load_current_pipeline(
+    registration="configs/controller/current_baseline.json",
     root=root,
     nq_resources=root / "configs/controller/nq_train_resources_v1.json",
     data_role="validation",  # or "train"; test 禁止
@@ -72,7 +76,7 @@ print(result.final_answer)
 就绪检查：
 
 ```bash
-python scripts/check_controller_current.py
+python scripts/check_controller_current.py --registration configs/controller/current_baseline.json
 ```
 
 应报告 `ready_for_gpu=true`。不要把工程 smoke helper 当作正式 API。

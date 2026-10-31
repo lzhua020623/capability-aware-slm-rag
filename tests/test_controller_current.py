@@ -16,7 +16,7 @@ from src.controller.schema import SelectionDecision, SelectionLane
 from src.controller.selection import FrozenOnlineSelectionAdapter
 from src.diagnosis.hierarchical_classifier import HierarchicalDiagnosis
 from src.diagnosis.labels import DiagnosisLabel as Label
-from src.pipeline.current import (REGISTRATION, CheckedFeatures, MeteredEnhancementAdapter,
+from src.pipeline.current import (LEGACY_REGISTRATION as REGISTRATION, CheckedFeatures, MeteredEnhancementAdapter,
                                   load_current_pipeline, provenance_issues, readiness, wire_latest_pipeline)
 from src.controller.execution import fingerprint
 from tests.test_adaptive_rag_pipeline import failure_diag
@@ -60,7 +60,7 @@ class CurrentIntegrationTests(unittest.TestCase):
     def run_route(self, label):
         backend = self.backend(label)
         selector = ForcedSelection(label)
-        pipeline = wire_latest_pipeline(backend, FictionalFeatures(), selection_adapter=selector)
+        pipeline = wire_latest_pipeline(backend, FictionalFeatures(), selection_adapter=selector, registration=REGISTRATION)
         result = pipeline.run_from_item(smoke_inputs()[0])
         self.assertFalse(result.controller_decision.used_probe)
         self.assertEqual(result.metadata['baseline'], CONFIG['baseline'])
@@ -93,7 +93,7 @@ class CurrentIntegrationTests(unittest.TestCase):
         self.assertEqual(result.metadata['E_mode']['nq'], 'allow_repair')
 
     def test_executor_registers_all_three_real_enhancement_actions(self):
-        pipeline = wire_latest_pipeline(self.backend(), FictionalFeatures())
+        pipeline = wire_latest_pipeline(self.backend(), FictionalFeatures(), registration=REGISTRATION)
         from src.controller.schema import ControllerAction
         registered = pipeline.host.executor.registered_actions()
         self.assertEqual(
@@ -110,7 +110,7 @@ class CurrentIntegrationTests(unittest.TestCase):
     def test_no_action_never_executes_a_module_or_legacy_probe(self):
         backend = self.backend()
         selector = ForcedSelection(Label.EVIDENCE_INSUFFICIENCY, selected=False)
-        pipeline = wire_latest_pipeline(backend, FictionalFeatures(), selection_adapter=selector)
+        pipeline = wire_latest_pipeline(backend, FictionalFeatures(), selection_adapter=selector, registration=REGISTRATION)
         with patch.object(backend, 'execute', side_effect=AssertionError('must not execute')):
             result = pipeline.run_from_item(smoke_inputs()[0])
         self.assertEqual(result.status.value, 'no_action')
@@ -118,7 +118,7 @@ class CurrentIntegrationTests(unittest.TestCase):
         self.assertEqual(result.metadata['feature_provider']['cost_state'], 'not_accounted')
 
     def test_real_frozen_P60_assets_are_the_default_selector(self):
-        pipeline = wire_latest_pipeline(self.backend(), FictionalFeatures())
+        pipeline = wire_latest_pipeline(self.backend(), FictionalFeatures(), registration=REGISTRATION)
         self.assertIsInstance(pipeline.host.selection_adapter, FrozenOnlineSelectionAdapter)
         self.assertEqual(pipeline.host.selection_adapter.version, 'p60_online_adapter_v1')
         self.assertFalse(pipeline.host.selection_adapter.probe_enabled)
@@ -128,7 +128,7 @@ class CurrentIntegrationTests(unittest.TestCase):
     def test_all_78_feature_positions_are_forwarded_without_transform(self):
         selector = ForcedSelection(Label.EVIDENCE_INSUFFICIENCY, selected=False)
         provider = FictionalFeatures()
-        pipeline = wire_latest_pipeline(self.backend(), provider, selection_adapter=selector)
+        pipeline = wire_latest_pipeline(self.backend(), provider, selection_adapter=selector, registration=REGISTRATION)
         pipeline.run_from_item(smoke_inputs()[0])
         np.testing.assert_array_equal(selector.last_features, provider.values)
         self.assertEqual((len(NAMES), len(set(NAMES))), (78, 75))
@@ -144,7 +144,7 @@ class CurrentIntegrationTests(unittest.TestCase):
     def test_bad_feature_values_fail_before_selection(self):
         for values in (np.zeros(77), np.zeros(79), np.full(78, np.nan)):
             selector = ForcedSelection(Label.EVIDENCE_INSUFFICIENCY)
-            pipeline = wire_latest_pipeline(self.backend(), FictionalFeatures(values), selection_adapter=selector)
+            pipeline = wire_latest_pipeline(self.backend(), FictionalFeatures(values), selection_adapter=selector, registration=REGISTRATION)
             with self.assertRaisesRegex(ValueError, '78 finite'):
                 pipeline.run_from_item(smoke_inputs()[0])
             self.assertEqual(selector.calls, 0)
@@ -153,7 +153,7 @@ class CurrentIntegrationTests(unittest.TestCase):
         backend = self.backend()
         backend.config = ExecutionConfig()
         with self.assertRaisesRegex(ValueError, 'registered latest execution config'):
-            wire_latest_pipeline(backend, FictionalFeatures())
+            wire_latest_pipeline(backend, FictionalFeatures(), registration=REGISTRATION)
 
     def test_operational_failure_retains_answer_and_reports_actual_budget_block(self):
         backend = self.backend(Label.EVIDENCE_ACCESSIBILITY)
@@ -170,7 +170,7 @@ class CurrentIntegrationTests(unittest.TestCase):
         self.assertEqual(result.metadata['enhancement_cost']['budget_blocks'], 1)
 
     def test_production_readiness_clean_allows_pipeline_load_path(self):
-        report = readiness()
+        report = readiness(registration=REGISTRATION)
         self.assertEqual(report['upstream_commit'], '138d52aa22e0eee78637e01f981a030d7ad388df')
         self.assertFalse(report['legacy_fallback'])
         self.assertTrue(report['ready_for_gpu'])
@@ -180,7 +180,7 @@ class CurrentIntegrationTests(unittest.TestCase):
         # readiness gate opens; GPU load itself is still mocked away here.
         with patch('src.controller.providers.load_pipeline', side_effect=AssertionError('GPU must not load')):
             with self.assertRaisesRegex(AssertionError, 'GPU must not load'):
-                load_current_pipeline()
+                load_current_pipeline(registration=REGISTRATION)
 
     def test_branch_audit_binds_exact_upstream_models_instead_of_substituting_weights(self):
         import hashlib
@@ -202,25 +202,25 @@ class CurrentIntegrationTests(unittest.TestCase):
             target = root / REGISTRATION
             target.parent.mkdir(parents=True)
             target.write_text(json.dumps(config))
-            self.assertIn('asset_missing_or_changed:missing_model.joblib', readiness(root)['missing'])
+            self.assertIn('asset_missing_or_changed:missing_model.joblib', readiness(root, registration=REGISTRATION)['missing'])
 
     def test_current_CLI_saves_readiness_receipt_without_starting_legacy_run(self):
         from scripts.check_controller_current import main
         with tempfile.TemporaryDirectory() as directory, redirect_stdout(io.StringIO()):
             output = Path(directory) / 'readiness.json'
-            self.assertEqual(main(['--output', str(output)]), 0)
+            self.assertEqual(main(['--registration', REGISTRATION, '--output', str(output)]), 0)
             report = json.loads(output.read_text(encoding='utf-8'))
             self.assertTrue(report['ready_for_gpu'])
             self.assertEqual(report['missing'], [])
             self.assertFalse(report['legacy_fallback'])
             self.assertEqual(report['baseline'], CONFIG['baseline'])
             with self.assertRaises(FileExistsError):
-                main(['--output', str(output)])
+                main(['--registration', REGISTRATION, '--output', str(output)])
 
     def test_production_requires_current_input_bound_feature_costs(self):
         selector = ForcedSelection(Label.EVIDENCE_INSUFFICIENCY)
         pipeline = wire_latest_pipeline(self.backend(), FictionalFeatures(), selection_adapter=selector,
-                                       require_feature_costs=True)
+                                       require_feature_costs=True, registration=REGISTRATION)
         with self.assertRaisesRegex(ValueError, 'input-bound'):
             pipeline.run_from_item(smoke_inputs()[0])
         self.assertEqual(selector.calls, 0)
@@ -231,7 +231,7 @@ class CurrentIntegrationTests(unittest.TestCase):
         provider.runtime_receipt = lambda: {'input_sha256': fingerprint(asdict(item)), 'calls': []}
         selector = ForcedSelection(Label.EVIDENCE_INSUFFICIENCY, selected=False)
         pipeline = wire_latest_pipeline(self.backend(), provider, selection_adapter=selector,
-                                       require_feature_costs=True)
+                                       require_feature_costs=True, registration=REGISTRATION)
         result = pipeline.run_from_item(item)
         self.assertEqual(result.metadata['feature_provider']['cost_state'], 'reported_by_provider')
         self.assertEqual(result.metadata['feature_provider']['provider_cost_receipt']['calls'], [])

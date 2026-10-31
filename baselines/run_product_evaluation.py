@@ -423,6 +423,7 @@ def run_inference(args: argparse.Namespace, cfg: dict) -> int:
         raise SystemExit("--feature-batch-size must be >= 1")
 
     pipeline, env = load_current_pipeline(
+        registration=cfg["production"]["baseline_registration"],
         root=ROOT,
         nq_resources=nq_resources,
         data_role=data_role,

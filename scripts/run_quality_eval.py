@@ -1,6 +1,7 @@
 """Run the frozen quality-round pipeline once on the confirm set or the team Test; questions only.
 
-GPU side: `load_current_pipeline(registration=quality_baseline_v1, or quality_bm25_v1 / quality_adaptive_v1 with --registration)` and `run_batch`, one result
+GPU side: B + BM25 + adaptive answer selection by default; choose historical B or B + BM25
+explicitly with --registration. `load_current_pipeline` and `run_batch` write one result
 per line in input order, resumable. Gold never reaches this host; the local scorer
 (`scripts/score_quality_eval.py`) builds the team's predictions.jsonl from these results.
 `--shard i --shards k` runs one contiguous slice so several GPU hosts can share a run; slice
@@ -17,10 +18,12 @@ import time
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path: sys.path.insert(0, str(ROOT))
 
-REGISTRATION = 'configs/controller/quality_baseline_v1.json'
+from src.pipeline.registrations import DEFAULT_REGISTRATION, QUALITY_REGISTRATIONS
+
+REGISTRATION = DEFAULT_REGISTRATION
 NQ_RESOURCES = 'configs/controller/nq_train_resources_v1.json'
 ROLES = {'confirm': 'validation', 'test': 'test'}
-REGISTRATIONS = (REGISTRATION, 'configs/controller/quality_bm25_v1.json', 'configs/controller/quality_adaptive_v1.json')
+REGISTRATIONS = QUALITY_REGISTRATIONS
 
 
 def file_sha(path):
@@ -62,7 +65,7 @@ def done_ids(path):
     return [json.loads(line)['sample_id'] for line in path.read_text(encoding='utf-8').splitlines() if line.strip()]
 
 
-def main(argv=None):
+def parse(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--role', choices=tuple(ROLES), required=True)
     p.add_argument('--queries', type=Path, required=True)
@@ -73,8 +76,27 @@ def main(argv=None):
     p.add_argument('--shard', type=int, default=0)
     p.add_argument('--shards', type=int, default=1)
     p.add_argument('--registration', default=REGISTRATION, choices=REGISTRATIONS,
-                   help='frozen product registration (route 1, route 1 with P3-BM25, or that plus adaptive answer selection)')
-    args = p.parse_args(argv)
+                   help='default: B + BM25 + adaptive answer selection; historical B and B + BM25 require explicit selection')
+    return p.parse_args(argv)
+
+
+def validate_resume(output_dir, binding):
+    """Reject mixed configurations before GPU loading or touching existing outputs."""
+    manifest_path = output_dir / 'manifest.json'
+    results = output_dir / 'results.jsonl'
+    if not manifest_path.exists():
+        if results.exists() and results.stat().st_size:
+            raise ValueError('Existing results have no manifest; use a new output directory')
+        return
+    manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+    mismatched = [key for key, value in binding.items() if manifest.get(key) != value]
+    if mismatched:
+        raise ValueError('Resume configuration mismatch: ' + ', '.join(mismatched)
+                         + '; select the original --registration and arguments, or use a new output directory')
+
+
+def main(argv=None):
+    args = parse(argv)
     if args.role == 'test' and (not args.allow_sealed_test or args.limit):
         raise SystemExit('The Test run needs --allow-sealed-test and no --limit')
     if args.shards > 1 and args.limit:
@@ -87,6 +109,13 @@ def main(argv=None):
     order = ids[:args.limit] if args.limit else shard_slice(ids, args.shard, args.shards, args.batch_size)
     if not order:
         raise SystemExit('This shard is empty')
+    binding = {'schema_version': 'quality_eval_v1', 'role': args.role,
+               'data_role': ROLES[args.role], 'registration': args.registration,
+               'registration_sha256': file_sha(ROOT / args.registration), 'query_sha256': file_sha(args.queries),
+               'n_ids': len(order), 'engineering_run': bool(args.limit),
+               'shard': args.shard, 'shards': args.shards, 'batch_size': args.batch_size,
+               'first_id': order[0], 'last_id': order[-1]}
+    validate_resume(args.output_dir, binding)
     import torch
     if not torch.cuda.is_available(): raise RuntimeError('Requires CUDA')
     from src.pipeline.current import load_current_pipeline
@@ -99,12 +128,7 @@ def main(argv=None):
     pipeline, environment = load_current_pipeline(
         root=ROOT, nq_resources=ROOT / NQ_RESOURCES, data_role=ROLES[args.role], attach_reference_rag=True,
         allow_sealed_test=args.role == 'test', registration=args.registration)
-    manifest = {'schema_version': 'quality_eval_v1', 'state': 'running', 'role': args.role,
-                'data_role': ROLES[args.role], 'registration': args.registration,
-                'registration_sha256': file_sha(ROOT / args.registration), 'query_sha256': file_sha(args.queries),
-                'n_ids': len(order), 'engineering_run': bool(args.limit), 'resumed_with': len(finished),
-                'shard': args.shard, 'shards': args.shards, 'batch_size': args.batch_size,
-                'first_id': order[0], 'last_id': order[-1],
+    manifest = {**binding, 'state': 'running', 'resumed_with': len(finished),
                 'started_UTC': datetime.datetime.now(datetime.timezone.utc).isoformat(),
                 'environment': environment}
     (args.output_dir / 'manifest.json').write_text(json.dumps(manifest, indent=2, default=str) + '\n')

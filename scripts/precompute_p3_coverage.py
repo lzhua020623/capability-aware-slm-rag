@@ -93,11 +93,12 @@ def main(argv=None):
     if torch.get_num_threads() != 16:
         raise RuntimeError(f'Set OMP_NUM_THREADS=16 (torch uses {torch.get_num_threads()})')
     from src.pipeline.current import load_current_pipeline
+    from src.pipeline.registrations import LEGACY_REGISTRATION
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     out = args.output_dir / 'p3_records.jsonl'
     finished = done_keys(out)
-    pipeline, environment = load_current_pipeline(root=ROOT, nq_resources=ROOT / NQ_RESOURCES,
+    pipeline, environment = load_current_pipeline(registration=LEGACY_REGISTRATION, root=ROOT, nq_resources=ROOT / NQ_RESOURCES,
                                                   data_role='validation', attach_reference_rag=True)
     pipeline.data_boundary.require(ids, 'validation')
     manifest = {'schema_version': 'p3_coverage_v1', 'state': 'running', 'started_UTC': now(),
