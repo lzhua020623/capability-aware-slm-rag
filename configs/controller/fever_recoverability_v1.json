@@ -1,0 +1,54 @@
+{
+  "schema_version": "fever_recoverability_v1",
+  "registered_date": "2026-10-31",
+  "owner": "Qihan Zhu",
+  "user_instruction": "NQ判官已经在跑了 开始吧 (FEVER plan: FEVER-train research set, sentence-level oracle, C0/C1/L1/L3/L4, compare with NQ)",
+  "question": "For the same fixed Qwen2.5-7B, does the reach of external RAG compensation differ between FEVER and NQ: which C1 failures do real retrieval fix, which only oracle evidence fixes, and which stay wrong?",
+  "role": "research measurement only. Not a FEVER product evaluation; the product is NQ-only. Results are reported as the FEVER SUPPORTS/REFUTES subset, never as the three-class FEVER score.",
+  "team_test": {
+    "name": "fever_dev 13,332 SUPPORTS/REFUTES claims (feature/baseline-evaluation e8c4213, frozen FEVER Test)",
+    "n": 13332,
+    "untouched": "no run of this protocol reads or runs a Test claim",
+    "history": "the 2026-10 FEVER C1 (900) and preliminary C0/C3 (500) items all lie inside this Test; earlier FEVER numbers are Test exposures"
+  },
+  "sample": {
+    "source": "FEVER train.jsonl (official), labels SUPPORTS / REFUTES",
+    "seed": "fever_recoverability_v1_20261031",
+    "order": "sha256(json [seed, 'fever_train', id])",
+    "batch": 8000,
+    "per_label": 1000,
+    "development_per_label": 800,
+    "held_out_per_label": 200,
+    "near_duplicate_jaccard": 0.8,
+    "eligibility": [
+      "every annotated evidence sentence (union over evidence groups) resolves to non-empty text in the FEVER wiki dump",
+      "every evidence page has text (so it is a corpus passage)",
+      "normalized claim not equal to a team Test claim, and token Jaccard < 0.8 to every Test claim sharing an evidence page",
+      "normalized claim not repeating an earlier sampled claim"
+    ],
+    "roles": {
+      "development": "analysis and any protocol debugging",
+      "held_out": "checked once after the analysis is frozen"
+    }
+  },
+  "model": "Qwen2.5-7B-Instruct NF4 (rev a09a354), greedy, 64 output tokens; the product's shared generator",
+  "conditions": {
+    "C0": "no evidence; team closed-book FEVER prompt (baselines/_lib/prompts.py build_fever_closed_book_prompt at e8c4213)",
+    "C1": "BGE IVFPQ (nprobe 16) Top-5 FEVER pages from the accepted FEVER backend; build_fever_rag_prompt",
+    "L1": "P3-20 for FEVER on every item: the product's P320RetrievalEnhancer with enable_fever (Top-20, CPU cross-encoder, RRF, FEVER prompt; an unparsable label keeps C1)",
+    "L3": "one evidence block of the gold sentences (union, annotation order, space-joined) first, then C1's Top-5 pages without evidence pages, first four; build_fever_rag_prompt",
+    "L4": "the gold sentence block alone; build_fever_rag_prompt",
+    "truncation": "none beyond the C1 path's own; prompt token counts are recorded"
+  },
+  "data_exception": "L3 / L4 put gold evidence sentences into prompts (oracle upper bound), on FEVER-train items only",
+  "label_parsing": "src.evaluation.fever.parse_fever_prediction (first SUPPORTS/REFUTES token); UNKNOWN counts as wrong",
+  "metrics": [
+    "accuracy per condition, overall and per gold label",
+    "RFR_a = #{C1 wrong and condition a correct} / #{C1 wrong}, each condition on its own (L3 and L4 are not assumed monotone)",
+    "wrong->correct and correct->wrong against C1 per condition",
+    "complete gold evidence page coverage in C1 Top-5 and in the P3 Top-5",
+    "cost: generations, prompt tokens and seconds per condition"
+  ],
+  "smoke": "20 development items through every condition before the full run; checks sentence mapping, prompts and parsing",
+  "comparison": "with the NQ ladder (configs/controller/recoverability_oracle_v1.json): RFR per level, persistent failures at L4; absolute accuracies are not compared across tasks"
+}

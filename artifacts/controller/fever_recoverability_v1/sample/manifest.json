@@ -1,0 +1,28 @@
+{
+  "schema_version": "fever_recoverability_sample_v1",
+  "registration_sha256": "af3305725a76662c78fd6fa518faeff387bbd34de49ccb7b3235c279e2cfff45",
+  "inputs": {
+    "train_sha256": "eba7e8f87076753f8494718b9a857827af7bf73e76c9e4b75420207d26e588b6",
+    "wiki_zip_sha256": "4b06d95da6adf7fe02d2796176c670dacccb21348da89cba4c50676ab99665f2",
+    "team_test_sha256": "09072a8314e57b5f2557366ae7a51e760e3a0a40220709e998aac82fcf28c8f2"
+  },
+  "counts": {
+    "development": {
+      "SUPPORTS": 800,
+      "REFUTES": 800
+    },
+    "held_out": {
+      "SUPPORTS": 200,
+      "REFUTES": 200
+    }
+  },
+  "excluded_before_fill": {
+    "no_evidence": 0,
+    "unresolved_sentence": 31,
+    "page_without_text": 0,
+    "equals_test_claim": 0,
+    "near_test_claim": 0,
+    "repeats_sampled_claim": 5
+  },
+  "items_sha256": "c187e606cfb0f9e1f04d473fa9a0498fd745123ef64500304e5c9fda6dd7982c"
+}

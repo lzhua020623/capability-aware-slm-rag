@@ -74,3 +74,6 @@ src/probe/__init__.py text eol=crlf
 src/retrieval/__init__.py text eol=crlf
 src/retrieval/e5_faiss.py text eol=crlf
 src/retrieval/fever_ivfpq.py text eol=crlf
+
+# Research artifacts whose manifests hash the LF bytes the scripts write: store and check out unchanged.
+artifacts/controller/fever_recoverability_v1/** -text
