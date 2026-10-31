@@ -53,10 +53,11 @@ class ContextTests(unittest.TestCase):
                 ro.gold_passages(tmp, ['s1', 's2'])
 
 
-def ladder_item(sid, c1='Oslo', route_1='Oslo', b_bm25='Oslo', ctx=('Oslo',), gold='g', rank=None, share=1.0):
+def ladder_item(sid, c1='Oslo', route_1='Oslo', b_bm25='Oslo', ctx=('Oslo',), gold='g', rank=None, share=1.0, p3='Oslo'):
     return {'sample_id': sid, 'query': 'q', 'c1': c1, 'c1_top5': ['a', 'b', 'c', 'd', 'e'], 'gold_passage_id': gold,
             'gold_bge_rank': rank, 'route_1': route_1, 'b_bm25': b_bm25, 'routed': True, 'p_fail': 0.5,
-            'contexts': {f'k{i}': a for i, a in enumerate(ctx)}, 'agreement': {'groups': 2, 'share': share}}
+            'contexts': {'bge20_bm250_rrf': p3} | {f'k{i}': a for i, a in enumerate(ctx)},
+            'agreement': {'groups': 2, 'share': share}}
 
 
 class ScoreTests(unittest.TestCase):
@@ -70,9 +71,9 @@ class ScoreTests(unittest.TestCase):
 
     def test_first_fix_positions_and_report(self):
         gold = {s: ['Rome'] for s in ('s1', 's2', 's3', 's4', 's5')}
-        items = [ladder_item('s1', route_1='Rome'), ladder_item('s2', ctx=('Oslo', 'Rome'), rank=12),
+        items = [ladder_item('s1', route_1='Rome', p3='Rome'), ladder_item('s2', ctx=('Oslo', 'Rome'), rank=12),
                  ladder_item('s3', gold='a'), ladder_item('s4', share=0.3), ladder_item('s5', c1='Rome', route_1='Rome',
-                                                                                         b_bm25='Rome', ctx=('Rome',))]
+                                                                                         b_bm25='Rome', ctx=('Rome',), p3='Rome')]
         answers = {'s1': {'L3': ('x', 'x'), 'L4': ('x', 'x')}, 's2': {'L3': ('x', 'x'), 'L4': ('x', 'x')},
                    's3': {'L3': ('Rome', 'Oslo'), 'L4': ('x', 'x')}, 's4': {'L3': ('x', 'x'), 'L4': ('x', 'x')},
                    's5': {'L3': ('x', 'x'), 'L4': ('Rome', 'Rome')}}
@@ -84,7 +85,9 @@ class ScoreTests(unittest.TestCase):
         self.assertEqual(p['by_gold_position']['bge_6_20'], {'L2_any': 1})
         self.assertEqual(p['by_gold_position']['c1_top1'], {'L3': 1})
         self.assertEqual(p['by_agreement']['below'], {'none': 1})
-        self.assertEqual(p['c1_correct'], {'c1_correct': 1, 'L3_breaks': 1, 'L4_breaks': 0})
+        self.assertEqual(p['c1_correct'], {'c1_correct': 1, 'L1_breaks': 0, 'L2_breaks': 0, 'L3_breaks': 1,
+                                           'L4_breaks': 0, 'P3_all_breaks': 0})
+        self.assertEqual((p['standalone']['P3_all'], p['rfr']['L1'], p['rfr']['P3_all']), (1, 0.25, 0.25))
         self.assertEqual(report['p3_rule']['first_fix']['none'], 2)   # s3's L3 answer is rejected under the P3 rule
         self.assertEqual(p['boundary_auc']['disagreement'], 1.0)
 

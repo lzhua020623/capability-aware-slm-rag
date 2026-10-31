@@ -21,6 +21,10 @@ from scripts.quality_sweep_offline import read_jsonl, read_records  # noqa: E402
 REGISTRATION = 'configs/controller/recoverability_oracle_v1.json'
 LEVELS = ('L3', 'L4')
 LADDER = ('L1', 'L2', 'L2_any', 'L3', 'L4')
+# Reported per level, outside the registered first-fix order: P3-20 on every item (the bge20_bm250_rrf context),
+# the real-retrieval level comparable with FEVER, where P3 runs on every item.
+EXTRA = ('P3_all',)
+P3_ALL_CONTEXT = 'bge20_bm250_rrf'
 POSITIONS = ('c1_top1', 'c1_top2_5', 'bge_6_20', 'bge_21_100', 'beyond_100')
 
 
@@ -112,7 +116,8 @@ def item_levels(item, answers, label, rule=0):
     sid = item['sample_id']
     return {'C1': label(sid, item['c1']), 'L1': label(sid, item['route_1']), 'L2': label(sid, item['b_bm25']),
             'L2_any': any_correct([label(sid, a) for a in [item['c1'], *item['contexts'].values()]]),
-            'L3': label(sid, answers['L3'][rule]), 'L4': label(sid, answers['L4'][rule])}
+            'L3': label(sid, answers['L3'][rule]), 'L4': label(sid, answers['L4'][rule]),
+            'P3_all': label(sid, item['contexts'][P3_ALL_CONTEXT])}
 
 
 def first_fix(levels):
@@ -161,8 +166,9 @@ def ladder_report(items, answers, label):
                 continue
             if levels['C1']:
                 harm['c1_correct'] += 1
-                harm['L3_breaks'] += not levels['L3']
-                harm['L4_breaks'] += not levels['L4']
+                for level in (*LADDER, *EXTRA):
+                    if level != 'L2_any':
+                        harm[f'{level}_breaks'] += not levels[level]
                 continue
             fix = first_fix(levels)
             failures.append((it, fix, levels))
@@ -173,7 +179,8 @@ def ladder_report(items, answers, label):
         recovered = [it for it, fix, _ in failures if fix != 'none']
         report[name] = {
             'c1_failures': len(failures), 'first_fix': {k: fixes[k] for k in (*LADDER, 'none')},
-            'standalone': {k: sum(bool(lv[k]) for _, _, lv in failures) for k in LADDER},
+            'standalone': {k: sum(bool(lv[k]) for _, _, lv in failures) for k in (*LADDER, *EXTRA)},
+            'rfr': {k: sum(bool(lv[k]) for _, _, lv in failures) / max(1, len(failures)) for k in (*LADDER, *EXTRA)},
             'by_gold_position': {p: dict(by_pos.get(p, {})) for p in POSITIONS},
             'by_agreement': {b: dict(by_agree.get(b, {})) for b in ('all_agree', 'two_thirds', 'one_third', 'below')},
             'boundary_auc': {'p_fail': auc([i['p_fail'] for i in boundary], [i['p_fail'] for i in recovered]),
