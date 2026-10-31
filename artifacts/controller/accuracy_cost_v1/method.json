@@ -1,0 +1,23 @@
+{
+  "schema_version": "accuracy_cost_analysis_v1",
+  "purpose": "Descriptive replay of already frozen policies; no new tuning or deployment change",
+  "data": {"confirm": 2440, "test": 11114, "online_timing_subset_of_confirm": 300},
+  "policy_family": "All reported_points and fixed_baselines in adaptive_selection_v1/policy.json, including chosen; plus matched C1, B, B+BM25, and P3-on-all Test replay",
+  "policy_selection": "None. Test was already exposed before this analysis. The pointwise Pareto frontier is descriptive, not a new selected policy or independent confirmation.",
+  "quality": "Frozen judge-assisted labels, with existing source priority and team RAG last on Test. Missing labels never become false. Identical predictions cancel exactly in paired differences.",
+  "cost": "Total 7B generation calls = 1 C1 + executed B calls + conditional BM25 calls + distinct uncached selection generations. Include failed/rejected generations. Context count is not call count. Retrieval, scoring, diagnosis and time are separate metrics.",
+  "latency": "Use original warmed-up 300-question single-query timing receipts. For earlier stopping/gating, retain each item's recorded prefix generation time and full measured selector overhead from the 2440 run; add its 300-run C1+diagnosis+controller time. This is a two-run component estimate, not measured counterfactual latency. No imputation when a required context was not timed.",
+  "statistics": {"bootstrap_replicates": 10000, "seed": 20261031, "method": "Paired item percentile bootstrap (multinomial over -1,0,+1 for binary differences)", "interval": "95% two-sided, exploratory", "difference_tests": "exact paired McNemar, Holm across all listed comparisons within each dataset", "noninferiority": "Report one-sided 95% lower bounds and descriptive 0.5pp / 2pp margin sensitivity only; not pre-registered confirmatory tests"},
+  "comparisons": [
+    ["chosen", "c1"], ["chosen", "b_bm25"],
+    ["b", "p3_all"],
+    ["chosen", "fixed3_selector"], ["chosen", "fixed5_selector"], ["chosen", "fixed8_selector"],
+    ["theta0.39_tau0.6_selector", "fixed8_vote"],
+    ["theta0.39_tau0.6_selector", "fixed3_selector"],
+    ["theta0.3_tau0.6_selector", "fixed3_selector"],
+    ["theta0.3_tau0.6_selector", "chosen"],
+    ["theta0.2_tau0.8_selector", "chosen"]
+  ],
+  "latency_replays": ["chosen", "fixed3_selector", "fixed3_vote", "theta0.39_tau0.5_selector", "theta0.39_tau0.6_selector", "theta0.3_tau0.6_selector", "theta0.2_tau0.8_selector"],
+  "exclusions": ["No new teacher/judge calls", "No GPU inference", "No gold-context oracle as a deployable policy", "No pricing or money-saving claims inferred from call counts", "No hardware-independent latency claim", "No modification of labels using the assistant oracle review"]
+}

@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "test_scope": "59 relevant unit/replay/equivalence tests; not a claim that the entire repository suite passed",
+  "command": "python -m unittest tests.test_accuracy_cost tests.test_adaptive_product_equivalence tests.test_bm25_product_equivalence tests.test_adaptive_selection tests.test_adaptive_answer_selection tests.test_answer_selection -v",
+  "python": "3.12.14",
+  "packages": {
+    "numpy": "2.5.4",
+    "matplotlib": "3.11.2",
+    "Pillow": "13.0.0",
+    "pandas": "3.1.0"
+  },
+  "checks": {
+    "all_prior_policy_counts_replayed": true,
+    "test_records": 11114,
+    "confirm_records": 2440,
+    "timing_records": 300,
+    "new_final_evaluation_archive_crosscheck": true,
+    "no_production_configuration_changed": true,
+    "figures_programmatic_layout_passed": true,
+    "figures_assistant_visual_review_passed": true,
+    "figure_review_notes": "Moved legends away from captions; no clipping; grayscale markers distinguish policy families.",
+    "vector_svg_no_embedded_raster": true,
+    "pdf_no_type3_fonts": true
+  },
+  "external_calls": {
+    "gpu": 0,
+    "teacher": 0,
+    "judge": 0
+  }
+}

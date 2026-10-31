@@ -1,0 +1,68 @@
+{
+  "evaluation": {
+    "path": "artifacts/controller/adaptive_selection_eval_v1/results.tar.gz",
+    "sha256": "6a4f943a468fe88c5c95907043ed9313854dc4b8ecaea4081363e803294649e7"
+  },
+  "quality_test": {
+    "path": "artifacts/controller/quality_test_v1/results.tar.gz",
+    "sha256": "73225415df8734bfd1632aaf929f8ac8f4b820e213831191ce66b888cfc3cba3"
+  },
+  "quality_confirm": {
+    "path": "artifacts/controller/quality_confirm_v1/results.tar.gz",
+    "sha256": "81db9a590917394dd1d8c5f9540ce9e76c39bc05ba865f1c005d2edc808ec86f"
+  },
+  "l2_confirm": {
+    "path": "artifacts/controller/l2_confirm_v1/results.tar.gz",
+    "sha256": "82b9f46566c0dddca07c804607963cdde64d668dd41f2e68703b447eb1d75142"
+  },
+  "bm25_test": {
+    "path": "artifacts/controller/bm25_gate_test_v1/results.tar.gz",
+    "sha256": "6f602832a11fab8fa70ae784c902f1001c50ff4fc8c901f9fb04df2827ed851b"
+  },
+  "equivalence": {
+    "path": "artifacts/controller/adaptive_product_equivalence_v1/results.tar.gz",
+    "sha256": "1413334f249cf4ebad1a1d1a8a37e3f5926815d120e0811862ad4fb223822755"
+  },
+  "inputs": {
+    "path": "artifacts/controller/accuracy_cost_v1/inputs.tar.gz",
+    "sha256": "4018b07efaf982f56c14048ee3a5f781a901883e8e7e00242a31f9dfc3f4cb35"
+  },
+  "policy": {
+    "path": "artifacts/controller/adaptive_selection_v1/policy.json",
+    "sha256": "51981c5abfddf6250e1e9fb7d91a04775ba30f32bfbd88b9d3005c170524acde"
+  },
+  "method": {
+    "path": "artifacts/controller/accuracy_cost_v1/method.json",
+    "sha256": "edfe7cc313b97e1839e5eceae02ee71478448502eafdedd3cdde43fc34cd7d7c"
+  },
+  "scripts/adaptive_selection.py": {
+    "path": "scripts/adaptive_selection.py",
+    "sha256": "4737cc05f6a3cbc33f32a848fc676fe29c82758d5d1b9e12aa3385a89d80387e",
+    "hash_mode": "source_lf_normalized"
+  },
+  "src/compensation/answer_selection.py": {
+    "path": "src/compensation/answer_selection.py",
+    "sha256": "aa8eb541bdeb0f31cbb7d0e326c1f4943c1c7b230fc798c456d05c6c3b57db6d",
+    "hash_mode": "source_lf_normalized"
+  },
+  "scripts/l2_offline.py": {
+    "path": "scripts/l2_offline.py",
+    "sha256": "05874ea3e61a53b6c54d1a9c9031d0689b8e341dbd6b956d743c1e174f636f5d",
+    "hash_mode": "source_lf_normalized"
+  },
+  "src/compensation/retrieval_enhancement/p3_l2.py": {
+    "path": "src/compensation/retrieval_enhancement/p3_l2.py",
+    "sha256": "788b787bd694f58d701a5543a1374e835bdb223c5dae51605c4c20d0cd6839e4",
+    "hash_mode": "source_lf_normalized"
+  },
+  "baselines/_lib/answer_scoring.py": {
+    "path": "baselines/_lib/answer_scoring.py",
+    "sha256": "120d07711eb9b828474ae402beaa134dc8763c4e52ebd123756176364afd0d9c",
+    "hash_mode": "source_lf_normalized"
+  },
+  "scripts/score_quality_eval.py": {
+    "path": "scripts/score_quality_eval.py",
+    "sha256": "c327920fa7de247e25cf56811e62be9dfe594d3714abd86bb10ef7d138980f39",
+    "hash_mode": "source_lf_normalized"
+  }
+}

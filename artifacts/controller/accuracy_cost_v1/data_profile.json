@@ -1,0 +1,350 @@
+{
+  "source": "artifacts/controller/accuracy_cost_v1/strategy_table.csv",
+  "n_rows": 44,
+  "n_cols": 10,
+  "columns": {
+    "role": {
+      "type": "unknown",
+      "n_total": 44,
+      "n_null": 0,
+      "missing_rate": 0.0
+    },
+    "strategy": {
+      "type": "unknown",
+      "n_total": 44,
+      "n_null": 0,
+      "missing_rate": 0.0
+    },
+    "n": {
+      "type": "ordinal",
+      "n_total": 44,
+      "n_null": 0,
+      "missing_rate": 0.0,
+      "n": 44,
+      "n_unique": 2,
+      "categories": [
+        [
+          "11114",
+          23
+        ],
+        [
+          "2440",
+          21
+        ]
+      ],
+      "min_group_n": 21,
+      "max_group_n": 23,
+      "small_groups_flag": false
+    },
+    "accuracy_pct": {
+      "type": "continuous",
+      "n_total": 44,
+      "n_null": 0,
+      "missing_rate": 0.0,
+      "n": 44,
+      "mean": 66.2288268351272,
+      "median": 62.90264531221882,
+      "sd": 4.836901429639247,
+      "min": 57.58502789274789,
+      "max": 71.9672131147541,
+      "skewness": 0.016734838186626234,
+      "skew_label": "approximately symmetric",
+      "n_outliers_iqr": 0,
+      "outlier_lo": 48.691548394138835,
+      "outlier_hi": 84.7522840782708,
+      "needs_log_axis": "False"
+    },
+    "gain_pp": {
+      "type": "continuous",
+      "n_total": 44,
+      "n_null": 0,
+      "missing_rate": 0.0,
+      "n": 44,
+      "mean": 1.1334516326798252,
+      "median": 1.4396256973186972,
+      "sd": 1.2057786088000342,
+      "min": -3.032211624977506,
+      "max": 2.3393917581428827,
+      "skewness": -1.754753854872662,
+      "skew_label": "highly skewed",
+      "n_outliers_iqr": 5,
+      "outlier_lo": -0.28688524590163933,
+      "outlier_hi": 3.3196721311475414,
+      "needs_log_axis": false
+    },
+    "gain_ci95_low": {
+      "type": "continuous",
+      "n_total": 44,
+      "n_null": 0,
+      "missing_rate": 0.0,
+      "n": 44,
+      "mean": 0.5010716401515041,
+      "median": 0.9016393442622951,
+      "sd": 1.2166648081594178,
+      "min": -3.6065573770491803,
+      "max": 1.8535180852978226,
+      "skewness": -1.8077891964881645,
+      "skew_label": "highly skewed",
+      "n_outliers_iqr": 3,
+      "outlier_lo": -1.3285976998439422,
+      "outlier_hi": 2.7334551828000127,
+      "needs_log_axis": false
+    },
+    "gain_ci95_high": {
+      "type": "continuous",
+      "n_total": 44,
+      "n_null": 0,
+      "missing_rate": 0.0,
+      "n": 44,
+      "mean": 1.7704786286117027,
+      "median": 2.0773164550987238,
+      "sd": 1.2586996005845152,
+      "min": -2.501349649091236,
+      "max": 2.9508196721311477,
+      "skewness": -1.5441750584875562,
+      "skew_label": "highly skewed",
+      "n_outliers_iqr": 6,
+      "outlier_lo": 0.10153251548040143,
+      "outlier_hi": 4.175179105072025,
+      "needs_log_axis": false
+    },
+    "total_calls": {
+      "type": "continuous",
+      "n_total": 44,
+      "n_null": 0,
+      "missing_rate": 0.0,
+      "n": 44,
+      "mean": 3.8770647200654804,
+      "median": 4.048352137460654,
+      "sd": 1.4033586258290245,
+      "min": 1.0,
+      "max": 6.113934426229508,
+      "skewness": -0.21537612055827363,
+      "skew_label": "approximately symmetric",
+      "n_outliers_iqr": 0,
+      "outlier_lo": 0.5420594262295073,
+      "outlier_hi": 7.244108606557378,
+      "needs_log_axis": "False"
+    },
+    "extra_calls": {
+      "type": "continuous",
+      "n_total": 44,
+      "n_null": 0,
+      "missing_rate": 0.0,
+      "n": 44,
+      "mean": 2.2429830164797986,
+      "median": 2.3888323912831844,
+      "sd": 1.3520496772650807,
+      "min": 0.0,
+      "max": 4.488524590163935,
+      "skewness": -0.07757016550276191,
+      "skew_label": "approximately symmetric",
+      "n_outliers_iqr": 0,
+      "outlier_lo": -1.0486978098809057,
+      "outlier_hi": 5.5609444372332035,
+      "needs_log_axis": false
+    },
+    "frontier": {
+      "type": "boolean",
+      "n_total": 44,
+      "n_null": 0,
+      "missing_rate": 0.0,
+      "n": 44,
+      "n_unique": 2,
+      "categories": [
+        [
+          "False",
+          24
+        ],
+        [
+          "True",
+          20
+        ]
+      ],
+      "min_group_n": 20,
+      "max_group_n": 24,
+      "small_groups_flag": false
+    }
+  },
+  "correlation": {
+    "columns": [
+      "accuracy_pct",
+      "gain_pp",
+      "gain_ci95_low",
+      "gain_ci95_high",
+      "total_calls",
+      "extra_calls"
+    ],
+    "matrix": {
+      "accuracy_pct": {
+        "accuracy_pct": 1.0,
+        "gain_pp": 0.204,
+        "gain_ci95_low": 0.029,
+        "gain_ci95_high": 0.366,
+        "total_calls": 0.214,
+        "extra_calls": 0.231
+      },
+      "gain_pp": {
+        "accuracy_pct": 0.204,
+        "gain_pp": 1.0,
+        "gain_ci95_low": 0.975,
+        "gain_ci95_high": 0.976,
+        "total_calls": 0.729,
+        "extra_calls": 0.686
+      },
+      "gain_ci95_low": {
+        "accuracy_pct": 0.029,
+        "gain_pp": 0.975,
+        "gain_ci95_low": 1.0,
+        "gain_ci95_high": 0.904,
+        "total_calls": 0.649,
+        "extra_calls": 0.596
+      },
+      "gain_ci95_high": {
+        "accuracy_pct": 0.366,
+        "gain_pp": 0.976,
+        "gain_ci95_low": 0.904,
+        "gain_ci95_high": 1.0,
+        "total_calls": 0.769,
+        "extra_calls": 0.738
+      },
+      "total_calls": {
+        "accuracy_pct": 0.214,
+        "gain_pp": 0.729,
+        "gain_ci95_low": 0.649,
+        "gain_ci95_high": 0.769,
+        "total_calls": 1.0,
+        "extra_calls": 0.995
+      },
+      "extra_calls": {
+        "accuracy_pct": 0.231,
+        "gain_pp": 0.686,
+        "gain_ci95_low": 0.596,
+        "gain_ci95_high": 0.738,
+        "total_calls": 0.995,
+        "extra_calls": 1.0
+      }
+    },
+    "pairs_sorted": [
+      {
+        "a": "total_calls",
+        "b": "extra_calls",
+        "r": 0.9945721781079051,
+        "magnitude": "very strong"
+      },
+      {
+        "a": "gain_pp",
+        "b": "gain_ci95_high",
+        "r": 0.9761851286282394,
+        "magnitude": "very strong"
+      },
+      {
+        "a": "gain_pp",
+        "b": "gain_ci95_low",
+        "r": 0.9753873216242135,
+        "magnitude": "very strong"
+      },
+      {
+        "a": "gain_ci95_low",
+        "b": "gain_ci95_high",
+        "r": 0.9043996086656697,
+        "magnitude": "very strong"
+      },
+      {
+        "a": "gain_ci95_high",
+        "b": "total_calls",
+        "r": 0.7691233540085342,
+        "magnitude": "very strong"
+      },
+      {
+        "a": "gain_ci95_high",
+        "b": "extra_calls",
+        "r": 0.7379716632712728,
+        "magnitude": "very strong"
+      },
+      {
+        "a": "gain_pp",
+        "b": "total_calls",
+        "r": 0.728719165204867,
+        "magnitude": "very strong"
+      },
+      {
+        "a": "gain_pp",
+        "b": "extra_calls",
+        "r": 0.6857384931103989,
+        "magnitude": "strong"
+      },
+      {
+        "a": "gain_ci95_low",
+        "b": "total_calls",
+        "r": 0.6492677099234052,
+        "magnitude": "strong"
+      },
+      {
+        "a": "gain_ci95_low",
+        "b": "extra_calls",
+        "r": 0.5962961923997109,
+        "magnitude": "strong"
+      },
+      {
+        "a": "accuracy_pct",
+        "b": "gain_ci95_high",
+        "r": 0.3664517824689975,
+        "magnitude": "moderate"
+      },
+      {
+        "a": "accuracy_pct",
+        "b": "extra_calls",
+        "r": 0.23128552796277932,
+        "magnitude": "weak"
+      },
+      {
+        "a": "accuracy_pct",
+        "b": "total_calls",
+        "r": 0.21383549382721911,
+        "magnitude": "weak"
+      },
+      {
+        "a": "accuracy_pct",
+        "b": "gain_pp",
+        "r": 0.20362369270951794,
+        "magnitude": "weak"
+      },
+      {
+        "a": "accuracy_pct",
+        "b": "gain_ci95_low",
+        "r": 0.029267026520139794,
+        "magnitude": "negligible"
+      }
+    ]
+  },
+  "group_summary": {
+    "by": [
+      "role"
+    ],
+    "n_groups": 2,
+    "min_n_per_group": 21,
+    "max_n_per_group": 23,
+    "median_n_per_group": 22,
+    "small_groups_flag": false,
+    "tiny_groups_flag": false,
+    "per_group_counts": [
+      [
+        "confirm",
+        21
+      ],
+      [
+        "test",
+        23
+      ]
+    ]
+  },
+  "warnings": [],
+  "suggestions": [
+    "分类 vs 连续，样本量充足 → 箱线图 / 小提琴图，或带误差棒的柱状图（误差棒说明 SD/SEM/CI）",
+    "≥3 个连续变量 → 相关性热力图（['accuracy_pct', 'gain_pp', 'gain_ci95_low', 'gain_ci95_high', 'total_calls']）或 pairplot 散点矩阵",
+    "gain_pp 高度偏态（skew=-1.75）→ 考虑对数变换或小提琴图代替均值柱图",
+    "gain_ci95_low 高度偏态（skew=-1.81）→ 考虑对数变换或小提琴图代替均值柱图",
+    "gain_ci95_high 高度偏态（skew=-1.54）→ 考虑对数变换或小提琴图代替均值柱图"
+  ]
+}
