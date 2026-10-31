@@ -1,0 +1,38 @@
+{
+  "schema_version": "recoverability_oracle_v1",
+  "registered_date": "2026-10-31",
+  "owner": "Qihan Zhu",
+  "user_instruction": "可以 那就这么做",
+  "question": "Which C1 failures of the fixed Qwen2.5-7B can external compensation recover, and which stay wrong even with the gold passage (capability boundary)?",
+  "role": "measurement only: an upper bound on evidence-side compensation. Never a product component; no product choice, threshold or selector is fitted on these results.",
+  "data_exception": "For these runs only, gold passage IDs (not gold answers) reach the GPU host, as ordinary context passage IDs with no marker; passage text comes from the NQ Train corpus there. Gold answers stay local for scoring. The 2026-10-08 preliminary C3 runs used the same kind of input.",
+  "set": {
+    "name": "quality sweep 6,000 (Validation; already used for every sweep choice)",
+    "ids": "artifacts/controller/quality_sweep_v1/sweep_ids.json",
+    "ids_sha256": "a184fe130be21d92115a16905a1c3db6f6006b956b55d0543a60e24831d547e5",
+    "not_used": "confirm 2,440 and team Test 11,114 are not run"
+  },
+  "inputs": {
+    "c1_top5": "route-1 sweep records (evidence of the frozen C1 run, prefill full)",
+    "gold_passage": "annotation_reference.gold_passage_id of the team delivery nq_train_delivery_20261017 (local only)"
+  },
+  "levels": {
+    "L1": "route 1 (B): P3-20 on routed items, C1 otherwise (existing sweep answers)",
+    "L2": "B+BM25 (existing sweep answers)",
+    "L2_any": "any of C1 and the 18 L2 retrieval contexts is correct (selection upper bound over real retrieval; existing answers)",
+    "L3": "gold passage first, then C1's Top-5 without the gold passage in C1 order, first four; equal to C1's Top-5 when the gold passage is C1's first",
+    "L4": "the gold passage alone"
+  },
+  "generation": "scripts/l2_generate.py unchanged (build_c1_prompt over corpus passage text, the shared Qwen generator, 64 answer tokens), --data-role validation",
+  "answer": {
+    "primary": "the generated answer, stripped: what the 7B reads from the evidence",
+    "secondary": "P3 rule: answer_rejection keeps C1"
+  },
+  "scoring": "judge-assisted correctness with the team judge; labels reused by (sample, answer string); C1 answers never judged before are judged in the same batch",
+  "analysis": [
+    "first level that fixes each C1 failure: L1, L2, L2_any, L3, L4, or none (capability boundary)",
+    "the same by gold position: C1 Top-1, Top-5, BGE top 20, BGE top 100, beyond",
+    "how well runtime signals separate boundary failures: stage-1 failure probability, and the adaptive-selection disagreement over C1 and 8 contexts (answer groups, largest share)",
+    "C1-correct items: how often L3 / L4 break a correct answer"
+  ]
+}
