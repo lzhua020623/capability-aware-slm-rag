@@ -1,0 +1,10 @@
+{
+  "mode": "qwen_only",
+  "reevaluate_only": true,
+  "inference": false,
+  "generated_at": "2026-10-26T10:39:40.905853+00:00",
+  "n": 11114,
+  "predictions": "D:\\Liuzheng\\Australia\\2026semester2\\ELEC5623\\capability-aware-slm-rag\\baselines\\outputs\\qwen_only\\predictions.jsonl",
+  "evaluator": "baselines._lib.answer_scoring.score_answer",
+  "em_f1_backend": "src.evaluation.qa.best_em_f1"
+}

@@ -1,0 +1,13 @@
+{
+  "n": 11114,
+  "em": 0.10716213784416052,
+  "f1": 0.20683020705954444,
+  "mean_f1": 0.20683020705954444,
+  "normalized_accuracy": 0.10779197408673745,
+  "normalized_additional_correct": 7,
+  "mode": "qwen_only",
+  "reevaluate_only": true,
+  "inference": false,
+  "backup_predictions": "D:\\Liuzheng\\Australia\\2026semester2\\ELEC5623\\capability-aware-slm-rag\\baselines\\outputs\\qwen_only\\_backup\\predictions.jsonl.20261026T103940Z.bak",
+  "backup_metrics": "D:\\Liuzheng\\Australia\\2026semester2\\ELEC5623\\capability-aware-slm-rag\\baselines\\outputs\\qwen_only\\_backup\\metrics.json.20261026T103940Z.bak"
+}

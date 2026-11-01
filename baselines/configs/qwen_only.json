@@ -1,0 +1,29 @@
+{
+  "mode": "qwen_only",
+  "description": "Closed-book Qwen2.5-7B-Instruct; no retrieved evidence.",
+  "generator": {
+    "source": "configs/base.yaml",
+    "model_name": "Qwen/Qwen2.5-7B-Instruct",
+    "quantization": "nf4",
+    "do_sample": false,
+    "max_new_tokens": 64
+  },
+  "retrieval": null,
+  "dataset": {
+    "records_path": "data/processed/diagnosis/nq_train_74097_diagnosis.jsonl",
+    "id_field": "input.sample_id",
+    "query_field": "input.query",
+    "gold_field": "metadata.annotation_reference.gold_answer"
+  },
+  "split": {
+    "default_path": "baselines/splits/diagnosis_nq_train_74097_split.json",
+    "test_key": ["splits", "nq", "test"],
+    "expected_test_n": 11114,
+    "version_prefix": "diagnosis_nq_train_74097"
+  },
+  "output": {
+    "predictions": "predictions.jsonl",
+    "metrics": "metrics.json",
+    "run_config": "run_config.json"
+  }
+}
