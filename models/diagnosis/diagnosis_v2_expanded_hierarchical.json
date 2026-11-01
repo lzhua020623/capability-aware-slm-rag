@@ -35,7 +35,7 @@
     "evidence_accessibility",
     "evidence_utilisation"
   ],
-  "stage1_threshold": 0.5,
+  "stage1_threshold": 0.424,
   "include_refutes_prediction": true,
   "random_state": 42,
   "stage1": {

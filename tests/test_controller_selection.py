@@ -97,7 +97,7 @@ class FrozenAdapterLoadTests(unittest.TestCase):
         self.assertFalse(adapter.probe_enabled)
         self.assertEqual(adapter.n_features, 78)
         self.assertAlmostEqual(adapter.t_insuff, 0.5349365680553068)
-        self.assertAlmostEqual(adapter.t_combo, 0.49535149245589105)
+        self.assertAlmostEqual(adapter.t_combo, -3.0)
         self.assertTrue((ROOT / "models/controller/p60_online_adapter/hgb_fail_gate.joblib").is_file())
         # Runtime path must not require _experiments
         self.assertNotIn("_experiments", str(adapter.config_path).replace("\\", "/"))
@@ -150,7 +150,7 @@ class SingleQueryLaneTests(unittest.TestCase):
             p_insuff=0.05,
             p_access=0.40,
             p_util=0.35,
-            p_fail=0.55,
+            p_fail=0.40,
             label=DiagnosisLabel.EVIDENCE_UTILISATION,
         )
         decision = self.adapter.select(
@@ -214,7 +214,7 @@ class ProbeAndControllerWiringTests(unittest.TestCase):
     def test_decision_from_selection_no_action(self):
         adapter = stub_adapter()
         sel = adapter.select(
-            failure_diag(p_insuff=0.05, label=DiagnosisLabel.EVIDENCE_UTILISATION),
+            failure_diag(p_fail=0.40, p_insuff=0.05, label=DiagnosisLabel.EVIDENCE_UTILISATION),
             np.zeros(78),
             p_insuff=0.05,
             rec=0.0,
