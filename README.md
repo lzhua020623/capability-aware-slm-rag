@@ -149,10 +149,10 @@ Product-specific fields from `baselines/outputs/adaptive_product_test/metrics.js
 
 | Field | Value |
 |---|---:|
-| selected rate | 50.53% |
-| selected count | 5616 |
-| `no_action` | 5498 |
-| `retrieval_enhancement` | 2051 |
+| selected rate | 50.51% |
+| selected count | 5614 |
+| `no_action` | 5500 |
+| `retrieval_enhancement` | 2049 |
 | `evidence_refinement` | 1990 |
 | `generation_repair` | 1575 |
 | initial AIC@5 | 69.97% (7777 / 3337) |
