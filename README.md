@@ -1,105 +1,261 @@
-# capability-aware-slm-rag
+# Capability-Aware Adaptive Enhancement for Small-Model RAG
 
-本项目研究小参数模型 RAG 的诊断与动态增强：固定 Reference RAG 产生初答后，由 Diagnosis、P60 Selection 与 Controller 选择是否以及如何增强，再得到 Final Answer。
+## Overview
 
-## 当前正式状态：controller_2 Production Adaptive RAG
+This repository is a capability-aware retrieval-augmented generation system built on Qwen2.5-7B-Instruct. A reference RAG pass produces an initial answer. A hierarchical diagnosis model then labels that answer, and a frozen P60 selector decides whether enhancement is warranted. A controller routes selected failures to one enhancement action. The final runtime leaves the evidence probe disabled.
 
-生产链路已冻结并通过 E2E smoke（四种 action 均真实覆盖）。完整说明见 [Production Adaptive RAG](docs/CONTROLLER_1024_BASELINE.md)。
+The formal comparison is three systems on one frozen NQ Test of 11,114 examples: Qwen2.5-7B only, matched RAG, and the adaptive product.
+
+## System Architecture
 
 ```text
-Query → Reference RAG → Diagnosis → P60 Selection → Controller → Enhancement → Final Answer
+Query
+→ Reference RAG
+→ Initial Answer
+→ Diagnosis
+→ P60 Selection
+→ Controller
+→ Optional Enhancement
+→ Final Answer
 ```
 
-| 组件 | 正式配置 |
-|---|---|
-| Reference RAG | BGE `bge-base-en-v1.5` + matched NQ-Train Top-5 + Qwen2.5-7B NF4 + `context_fallback` |
-| Diagnosis / Selection | 层次 Diagnosis + P60 78D online provider + Frozen Selection；Probe OFF |
-| Actions | `no_action` / `retrieval_enhancement` / `evidence_refinement` / `generation_repair` |
-| E_mode | `allow_repair`（`evidence_id_v2a`） |
+Reference RAG uses Qwen2.5-7B-Instruct (NF4, greedy decoding, 64 new tokens) and BGE Top-5 retrieval with the `context_fallback` prompt.
 
-正式入口：`src.pipeline.current.load_current_pipeline()` → `pipeline.run(query)`。
+Diagnosis is the hierarchical classifier in `models/diagnosis/diagnosis_v2_expanded_hierarchical.json`. Its stage-1 failure threshold is `0.424`.
+
+P60 selection reads `configs/controller/p60_online_adapter.json`: a 78-dimensional feature vector, frozen z-statistics, `t_insuff` `0.5349365680553068`, and `t_combo` `-3.0`. A correct diagnosis is never enhanced. A failure is selected when insufficiency probability meets `t_insuff`, or otherwise when the frozen combo score meets `t_combo`.
+
+The controller maps the diagnosis label to one action. The probe is off (`probe_enabled: false` in `configs/controller/current_baseline.json`).
+
+| Diagnosis label | Controller action |
+|---|---|
+| Correct | `no_action` |
+| Evidence Insufficiency | `retrieval_enhancement` |
+| Evidence Accessibility Failure | `evidence_refinement` |
+| Evidence Utilisation Failure | `generation_repair` |
+
+## Diagnostic Formulation
+
+The diagnosis model assigns one label:
+
+- **Correct.** The initial answer is treated as acceptable, and the controller keeps it.
+- **Evidence Insufficiency.** The retrieved passages do not contain enough evidence to answer.
+- **Evidence Accessibility Failure.** Supporting evidence is present, but it is not ranked where the generator can use it.
+- **Evidence Utilisation Failure.** Usable evidence is accessible, but the generator does not turn it into the answer.
+
+## Repository Structure
+
+| Path | Role |
+|---|---|
+| `src/` | Reference RAG, diagnosis, P60 selection, controller, and enhancement |
+| `configs/` | Production registration, RAG, resources, and P60 thresholds |
+| `models/` | Diagnosis classifier and P60 histogram-gradient-boosting models |
+| `baselines/` | Baseline and product evaluation runners, judge harness, frozen split, and formal outputs |
+| `tests/` | CPU tests for the pipeline, scoring, and evaluation harnesses |
+| `baselines/outputs/qwen_only/` | Formal Qwen-only Test |
+| `baselines/outputs/rag_matched_test_context_fallback/` | Formal matched RAG Test |
+| `baselines/outputs/adaptive_product_test/` | Formal adaptive product Test |
+| `baselines/outputs/judge/` | Formal LLM Judge results for the three systems |
+
+## Environment
+
+The checked runtime is Python 3.12.10 with the packages below. `requirements.txt` pins older library versions; install a CUDA PyTorch build first, then `requirements-controller.txt`, and install `xgrammar==0.2.8` before generation repair.
+
+| Package | Checked version | Requirements pin |
+|---|---|---|
+| PyTorch | 2.14.0+cu130 | install separately (CUDA) |
+| transformers | 5.17.0 | 4.57.6 |
+| sentence-transformers | 6.0.1 | 5.1.2 |
+| faiss | 1.15.1 | `faiss-cpu` |
+| scikit-learn | 1.9.1 | 1.9.1 in `requirements-controller.txt` |
+| bitsandbytes | 0.50.2 | unpinned |
+| xgrammar | 0.2.8 | required by `src/compensation/qwen_constrained.py` |
+
+Importing `triton` in this environment reports 3.8.0. Triton is not pinned in `requirements.txt`. P60 uses scikit-learn histogram gradient boosting. The production reranker loads on CPU.
+
+## Required External Models and Data
+
+Already in the repository:
+
+| Path | Role |
+|---|---|
+| `configs/controller/current_baseline.json` | Production registration |
+| `configs/controller/reference_rag_v1.json` | Generator, index paths, and prompt |
+| `configs/controller/nq_train_resources_v1.json` | Expected corpus and index sizes and checksums |
+| `configs/controller/p60_online_adapter.json` | P60 feature names, thresholds, and z-statistics |
+| `models/diagnosis/diagnosis_v2_expanded_hierarchical.json` | Diagnosis classifier |
+| `models/controller/p60_online_adapter/*.joblib` | P60 models |
+| `artifacts/controller/p60_online_adapter/training_provenance.json` | Provenance checked at startup |
+| `baselines/splits/diagnosis_nq_train_74097_split.json` | Frozen split, including the 11,114 Test ids |
+| `baselines/outputs/` | Formal Test and Judge results listed above |
+
+Prepare these separately. They are too large for Git. Paths come from `configs/controller/nq_train_resources_v1.json` and `configs/controller/reference_rag_v1.json`.
+
+| Resource | Where the configs expect it |
+|---|---|
+| `Qwen/Qwen2.5-7B-Instruct` | Hugging Face cache. NF4, `do_sample: false`, `max_new_tokens: 64` |
+| `BAAI/bge-base-en-v1.5` | Hugging Face cache. Query prefix: `Represent this sentence for searching relevant passages: ` |
+| `BAAI/bge-reranker-large` | Hugging Face cache, revision `55611d7bca2a7133960a6d3b71e083071bbfc312`, CPU FP32 (`src/compensation/retrieval_enhancement/p3.py`) |
+| NQ FAISS index | `data/processed/indexes/nq_train_bge_base.index` (3,760,493,613 bytes) |
+| Passage ids | `data/processed/indexes/nq_train_bge_base_ids.jsonl` (37,947,689 bytes) |
+| Offsets | `data/processed/indexes/nq_train_bge_base_offsets.npy` (9,793,080 bytes) |
+| Corpus | `data/processed/retrieval/nq_train_corpus.jsonl` (782,900,757 bytes) |
+
+`expected_ntotal` is 1,224,119 passages. Checksums are in `configs/controller/nq_train_resources_v1.json`.
+
+## Evaluation Dataset
+
+The formal comparison uses the frozen NQ Test list in `baselines/splits/diagnosis_nq_train_74097_split.json` (`splits.nq.test`). It contains 11,114 ids. SHA-256 recorded by the product run: `e6572c9b1c8f92dccceef2a85200a891ab33c01fe4775e4541c55e86f64de9db`.
+
+Qwen-only, matched RAG, and the adaptive product are scored on these same ids, in the same order.
+
+## Compared Systems
+
+1. **Qwen2.5-7B only.** Closed-book generation. No retrieval and no controller. Config: `baselines/configs/qwen_only.json`.
+2. **Matched RAG.** The same generator, NQ-Train BGE Top-5, and the `context_fallback` prompt. No diagnosis or enhancement. Config: `baselines/configs/rag_matched.json`.
+3. **Adaptive product.** Matched reference RAG, then diagnosis, P60 selection, and the controller. A failure label can call retrieval enhancement, evidence refinement, or generation repair. Config: `baselines/configs/adaptive_product.json`, which points at `configs/controller/current_baseline.json`.
+
+## Evaluation Metrics
+
+Automatic scores come from `baselines/_lib/answer_scoring.py`. EM and token F1 use `src.evaluation.qa.best_em_f1`.
+
+- **Exact Match (EM).** Exact match after the standard answer normalization.
+- **Token F1.** Mean token-level F1. `f1` and `mean_f1` in the metrics files are the same mean.
+- **Normalized Accuracy.** A form-only match after Unicode, case, punctuation, article, whitespace, and separator normalization. It is not a semantic score.
+- **Answer-in-Context@5 (AIC@5).** Whether any gold string appears in the Top-5 passages. Qwen-only has no retrieved context, so the cell is `—`. For RAG and the product, `answer_in_context_at_5` uses the initial evidence.
+- **Judge-assisted Accuracy.** A row counts as correct when the automatic normalized match is already correct, or when the LLM judge returns `CORRECT`. `UNCERTAIN` is not counted as correct. The judge does not replace EM or token F1.
+
+The product metrics also report the selected rate, the four action counts, and final AIC@5 on the evidence kept with the final answer.
+
+## Final Results
+
+The cells below are read from the formal JSON files and shown as percentages to two decimal places. `n` is 11,114 in every file.
+
+| Metric | Qwen-only | Matched RAG | Adaptive Product |
+|---|---:|---:|---:|
+| Exact Match | 10.72% | 29.09% | 34.07% |
+| Token F1 | 20.68% | 44.34% | 49.55% |
+| Normalized Accuracy | 10.78% | 29.40% | 34.42% |
+| AIC@5 | — | 69.97% | 69.97% |
+| Judge-assisted Accuracy | 29.55% | 57.50% | 62.91% |
+
+Sources:
+
+- Qwen-only: `baselines/outputs/qwen_only/metrics.json`, `baselines/outputs/judge/qwen_only_full/judge_summary.json`
+- Matched RAG: `baselines/outputs/rag_matched_test_context_fallback/metrics.json`, `baselines/outputs/judge/rag_matched_full/judge_summary.json`
+- Adaptive product: `baselines/outputs/adaptive_product_test/metrics.json`, `baselines/outputs/judge/adaptive_product_full/judge_summary.json`
+
+Product-specific fields from `baselines/outputs/adaptive_product_test/metrics.json`:
+
+| Field | Value |
+|---|---:|
+| selected rate | 50.53% |
+| selected count | 5616 |
+| `no_action` | 5498 |
+| `retrieval_enhancement` | 2051 |
+| `evidence_refinement` | 1990 |
+| `generation_repair` | 1575 |
+| initial AIC@5 | 69.97% (7777 / 3337) |
+| final AIC@5 | 74.10% (8236 / 2878) |
+
+## Reproduction
+
+### 1. Environment setup
+
+Create a Python 3.12 environment.
+
+### 2. Install dependencies
+
+Install a CUDA PyTorch build, then:
+
+```bash
+pip install -r requirements-controller.txt
+pip install xgrammar==0.2.8
+```
+
+### 3. Prepare external resources
+
+Download `Qwen/Qwen2.5-7B-Instruct`, `BAAI/bge-base-en-v1.5`, and `BAAI/bge-reranker-large` at the revision above. Place the NQ index, ids, offsets, and corpus at the paths in `configs/controller/nq_train_resources_v1.json`.
+
+### 4. Validate configuration/resources
 
 ```bash
 python scripts/check_controller_current.py
 ```
 
-应得到 `ready_for_gpu=true`。团队 NQ 70/15/15 边界见 [数据对齐与边界](docs/TEAM_DATA_BOUNDARIES.md)。大型 index / model / cache **不进 Git**，须本地按 registry 就位。
+`ready_for_gpu` is true only when the registered classifier, P60 models, and provenance files are present. This command does not read the frozen Test.
 
-分支由来与历史合并记录仍见 [Controller 2 交接](docs/CONTROLLER2_INTEGRATION.md)；旧 T4/T5 与中间实验文档保留为历史，不以之为当前生产行为。
-
-## 历史 Controller 集成（2026-10-23）
-
-`controller` 已汇合当日全部 10 个远端分支的提交历史、功能实现和入库实验结果。
-统一入口从冻结 C1 输出开始，执行 Diagnosis → 可选 Probe → Safe Binary → 一条增强，
-输出原答、终答、路由、实际调用轨迹、回退原因和增量成本。模型与各模块原有策略保持显式版本；
-本次集成不代表准确率提升，也未开始蒸馏、DPO 或 RSI。
-
-集成说明、运行命令、已知限制和下一步见 [Controller 集成交接](docs/CONTROLLER_INTEGRATION.md)，
-来源与原始结果一致性见 [分支清单](artifacts/controller/integration_v1/branch_manifest.json)。
-P3-20 已补齐 FEVER 检索路径；真实运行需显式提供匹配资源。FEVER 新 900 条 Top5 与 GPU C1 采集包已准备，实际生成状态另行登记。
+### 5. Run tests
 
 ```bash
-python scripts/run_controller_integration.py --smoke --output-dir /tmp/controller-smoke-new
-python -m unittest discover -s tests -v
+python -m pytest tests/test_controller_current.py tests/test_controller.py tests/test_controller_routing.py tests/test_controller_selection.py tests/test_controller2_module_integration.py tests/test_adaptive_rag_pipeline.py tests/test_diagnosis_classifier.py tests/test_diagnosis_hierarchical_classifier.py tests/test_diagnosis_schema.py tests/test_diagnosis_features.py tests/test_p60_online_feature_provider.py tests/test_enhancement_interfaces.py tests/test_retrieval_enhancement.py tests/test_evidence_refinement.py tests/test_baseline_evaluation.py tests/test_product_evaluation.py tests/test_answer_scoring.py tests/test_llm_judge.py tests/test_compensation_schema.py tests/test_reference_rag.py tests/test_team_nq_boundary.py -q
 ```
 
-Smoke 使用虚构样本和假模型输出，只验证执行链路。真实推理需要 CUDA、匹配 C1 来源的 NQ 索引及元数据。
+These tests do not execute the 11,114-row Test and do not call the judge API.
 
-## 资料入口
+### 6. Qwen-only evaluation
 
-当前生产路径以 [Production Adaptive RAG](docs/CONTROLLER_1024_BASELINE.md) 为准。T1–T9 见 [任务清单](docs/CONTROLLER_TASKS.md)。下表含历史协议与组件记录。
+```bash
+python baselines/run_baseline_evaluation.py --mode qwen_only --split-file baselines/splits/diagnosis_nq_train_74097_split.json
+```
 
-| 需要了解的内容 | 入口 |
-|---|---|
-| **当前生产链路、入口与 runtime assets** | [Production Adaptive RAG](docs/CONTROLLER_1024_BASELINE.md) |
-| 历史集成、运行、评测与下一步 | [Controller 集成交接](docs/CONTROLLER_INTEGRATION.md) |
-| T4 后 E 修订与唯一 NQ 路由候选 | [r2 登记与分支规则](docs/CONTROLLER_E_V2A_R2.md)：18＋2 新验收题已独立复核封存，r2 真实验收未通过，E unavailable；[r1 原始失败](artifacts/controller/e_v2a_interface_r1/README.md)保留，未晋升策略 |
-| T1 冻结比较组、预算、评分和停止条件 | [统一实验协议 v1](docs/CONTROLLER_EXPERIMENT_PROTOCOL_V1.md)（设计已冻结；T2/T3 执行门槛待补） |
-| T2 样本、完整评测保留池与资源缺口 | [数据冻结 v1](docs/CONTROLLER_DATA_V1.md)：NQ 保留 7,564，FEVER 保留 1,886；C1／检索资源已补齐，新 P60 的来源仍待核对 |
-| NQ 原索引配套文件及崩溃核对 | [资源恢复](docs/NQ_TRAIN_INDEX_RECOVERY.md)：ID/offsets 已恢复，64 处向量比对通过；附恢复包与 681 项 CPU 回归记录 |
-| NQ 全量定位、Controller Train 接口及 FEVER 资源 | [资源接入](docs/CONTROLLER_RESOURCE_ADAPTER_V1.md)：NQ 全量 1,224,119 段回读，FEVER 全量 5,396,106 段 ID/顺序核对；独立验收入库 |
-| FEVER Controller 检索与新 C1 | [采集说明](docs/CONTROLLER_FEVER_C1_V1.md)：10/10 历史检索回放一致，900 条真实 Top5、冻结 GPU 包与 726 项 CPU 回归 |
-| 合并前的全分支与数据审计 | [2026-10-23 审计](docs/PROJECT_AUDIT_AND_RSI_PLAN_20261023.md) |
-| Diagnosis / Probe / 原路由 | [冻结交接](docs/DIAGNOSIS_PROBE_CONTROLLER_HANDOFF.md) |
-| 重排 / 检索增强 | [重排说明](docs/EVIDENCE_REFINEMENT_RERANK.md) / [P3-20](src/compensation/retrieval_enhancement/README.md) |
-| 预实验和大模型对照 | [FEVER C0/C3](docs/FEVER_C0_C3.md) / [70B 对照](docs/LARGER_MODEL_CONTROL.md) |
-| 项目进度、分支分工与下一轮方向 | [项目进度](docs/PROJECT_STATUS_AND_DIRECTION.md) |
-| E 的职责、接口与交接 | [E 说明](docs/ANSWER_REPAIR.md) / [当前交接](docs/ANSWER_REPAIR_HANDOFF.md) |
-| 最新完成的 v7 实验 | [冻结协议](docs/ANSWER_REPAIR_V7.md) / [结果及问题分析](docs/ANSWER_REPAIR_RESULTS_20261014_V7.md) |
-| v7 统一人工审核 | [可读总表](artifacts/answer_repair/v7_combined_review/review_all.txt) / [结构化记录](artifacts/answer_repair/v7_combined_review/review_all.jsonl) |
-| 新 NQ Train 数据与开发审核 | [接入说明](docs/ANSWER_REPAIR_NQ_TRAIN.md) / [100 条审核索引](artifacts/answer_repair/nq_train_dev_v1/review/review_queue.txt) |
-| 新 NQ Train 的辅助审核与确认 | [100 条判断及确认记录](docs/ANSWER_REPAIR_NQ_TRAIN_REVIEW_20261017.md)，首轮均已过目：75 条定案（11 个 E 目标、64 个正确对照），25 条待定 |
-| 已完成实验的运行和离线回放 | [Colab / Kaggle](docs/ANSWER_REPAIR_COLAB.md) |
-| 环境、数据与预实验 | [安装](docs/SETUP.md) / [数据目录](data/README.md) / [预实验协议](docs/PRELIMINARY_EXPERIMENT.md) |
-| 旧版文档与 Notebook | [历史归档](docs/history/answer_repair/README.md) |
-| 每个文件的用途与保留建议 | [文件清单](docs/REPOSITORY_INVENTORY_20261016.html) |
+This writes `baselines/outputs/qwen_only/` and needs the generator.
 
-## E 分支历史进度记录
+### 7. Matched RAG evaluation
 
-下面保留原 E 分支的阶段记录，其中“待审核”“未合并”“下一步”等描述以记录当时为准。
-本分支当前状态以 [Controller 集成交接](docs/CONTROLLER_INTEGRATION.md) 为准。
+```bash
+python baselines/run_baseline_evaluation.py --mode rag --config baselines/configs/rag_matched.json --eval-split test --rag-prompt context_fallback --split-file baselines/splits/diagnosis_nq_train_74097_split.json
+```
 
-截至 2026-10-19，E v8 的 75 条开发样本四组 GPU 实验已完成，共 300 条输出并通过冻结决策回放；完整 v8 的原答案核验 75 条全部无效回退，未进入修复。原 15 条新改答待人审；后续 r3 的工程修正已通过真实试跑，当前限制转为语义核验，见下方最新结果。见 [v8 方案](docs/ANSWER_REPAIR_V8.md) 与 [实际结果](docs/ANSWER_REPAIR_RESULTS_20261019_V8.md)。v7 历史主包和第 4 批共 841 条结果、836 个唯一数据集/样本 ID，均通过冻结回放。策略均未晋升默认，可靠净收益仍待验收。
+The default output directory for this config, split, and prompt is `baselines/outputs/rag_matched_test_context_fallback/`.
 
-v8r3 的固定 8 条、四组 32 条 GPU 输出已完成并通过冻结回放，v8 格式错误为 0，工程门槛通过。完整流程只改答 N96，辅助判断为命名缘由修复，仍待人审；EM 1→1，N8/N31 误放和 N48 正确候选误拒仍存在。见 [r3 结果](docs/ANSWER_REPAIR_RESULTS_20261019_V8_R3.md)。下一步单独验证先提取证据事实、再比较被审答案的语义核验方法；未启动 75 条重跑，策略未晋升默认。
+### 8. Adaptive Product evaluation
 
-已合入 main 的 NQ Train C1 流水线，并核对 Drive 全部 74,097 条数据，完成 E 格式适配、内部用途划分及首批 100 条审核材料。原始 diagnosis 标签全为 null；75 条定案开发样本的 GPU 结果单独报告。新增 Train 检索库有 1,224,119 passages，其指标与旧 dev 分别报告，详见接入说明。
+```bash
+python baselines/run_product_evaluation.py --config baselines/configs/adaptive_product.json --eval-split test --allow-sealed-test --split-file baselines/splits/diagnosis_nq_train_74097_split.json
+```
 
-当前统一审核队列含 95 条答案变化记录，对应 93 个唯一样本，优先审核这些记录；全部 v7 人工字段仍为 pending。已确认的早期开发样本可用于工程开发，无需等待全量审核。第 4 批的诊断分层来自上游 AI 初标，不能视为全量人工标签。
+`--allow-sealed-test` is required for the frozen Test. The default output directory is `baselines/outputs/adaptive_product_test/`. The default feature batch size is 8. Qwen decoding stays serial.
 
-NQ、FEVER 各 500 条 C0/C1/C3 预实验结果已分散保存在实验分支。Diagnosis、Probe、Safe Binary 和 Controller 冻结在 `feature/diagnosis-probe-zheng` 的 `7c7863f`；重排增强在 `reranking` 的 `338ff34`，尚未完成生成质量验证。当前 E 分支未合并这些模块的全部实现，分支记录见项目进度。
+### 9. LLM Judge
 
-## 冻结 Reference RAG（production）
+The judge calls Azure OpenAI only when `--live` is set. Put credentials in the environment variables named by `baselines/judge/judge_config.json`: `AZURE_OPENAI_API_KEY`, `AZURE_OPENAI_BASE_URL`, and `AZURE_OPENAI_DEPLOYMENT`.
 
-- 生成：Qwen2.5-7B-Instruct，4-bit NF4，确定性生成。
-- 检索：BAAI/bge-base-en-v1.5 + matched NQ-Train FAISS，Top-5。
-- Prompt：`context_fallback`（见 `configs/controller/reference_rag_v1.json`）。
-- 禁止旧 Dev index（`nq_bge_base`）。
+```bash
+python baselines/judge/run_llm_judge.py --input qwen_only --live --output-dir baselines/outputs/judge/qwen_only_full
+python baselines/judge/run_llm_judge.py --input rag_matched_test_context_fallback --live --output-dir baselines/outputs/judge/rag_matched_full
+python baselines/judge/run_llm_judge.py --input baselines/outputs/adaptive_product_test/predictions.jsonl --live --output-dir baselines/outputs/judge/adaptive_product_full
+```
 
-历史预实验规模（含旧 NQ validation corpus 等）仍可在预实验协议与 `configs/` 中查阅；**当前 production NQ 检索底座为 matched NQ-Train（约 1,224,119 passages）**。
+Without `--live`, the judge does not call the API.
 
-## 历史与复现
+## Evaluation Outputs
 
-旧版报告、设计和 Notebook 已移入历史目录；原始实验包、预测、人工记录和 [SHA-256 清单](artifacts/answer_repair/git_archive_manifest.json) 保持原位置及原字节。历史包自带冻结代码，复现已有结果时使用该包，不用当前代码重新解释旧输出。
+### `predictions.jsonl`
 
-早期 20 条 smoke 只验证工程连通性，不能代替正式 benchmark。其结果与版本记录见 [历史归档](docs/history/answer_repair/README.md)。
+One JSON record per evaluation sample. Rows include `sample_id`, `query`, the prediction, gold answers, and the automatic sample scores. RAG and product rows also include retrieved passage ids. Product rows add the initial answer, diagnosis label, whether enhancement was selected, the controller action, and the enhancement status.
+
+### `metrics.json`
+
+Aggregate deterministic metrics for that directory: EM, token F1, normalized accuracy, and, where retrieval exists, AIC@5. Product files also include the selected rate, action counts, and final AIC@5.
+
+### `run_config.json`
+
+The config path, split, model, retrieval settings, and other reproducibility fields recorded for that run.
+
+### `judge_results.jsonl`
+
+One semantic judge decision per sample.
+
+### `judge_summary.json`
+
+Aggregate judge counts, including `judge_assisted_accuracy`, and the API call counts for that run.
+
+Formal directories:
+
+- `baselines/outputs/qwen_only/`
+- `baselines/outputs/rag_matched_test_context_fallback/`
+- `baselines/outputs/adaptive_product_test/`
+- `baselines/outputs/judge/qwen_only_full/`
+- `baselines/outputs/judge/rag_matched_full/`
+- `baselines/outputs/judge/adaptive_product_full/`

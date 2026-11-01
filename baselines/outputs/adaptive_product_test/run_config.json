@@ -1,0 +1,52 @@
+{
+  "mode": "adaptive_product",
+  "smoke": false,
+  "generated_at": "2026-10-28T15:15:27.410254+00:00",
+  "config_path": "baselines/configs/adaptive_product.json",
+  "split_file": "baselines/splits/diagnosis_nq_train_74097_split.json",
+  "split_sha256": "e6572c9b1c8f92dccceef2a85200a891ab33c01fe4775e4541c55e86f64de9db",
+  "dataset_file": "data/processed/diagnosis/nq_train_74097_diagnosis.jsonl",
+  "eval_split": "test",
+  "eval_n": 11114,
+  "allow_sealed_test": true,
+  "rag_prompt_style": "context_fallback",
+  "generator": {
+    "model_name": "Qwen/Qwen2.5-7B-Instruct",
+    "quantization": "nf4",
+    "do_sample": false,
+    "max_new_tokens": 64
+  },
+  "retrieval": {
+    "embedding_model": "BAAI/bge-base-en-v1.5",
+    "top_k": 5,
+    "backend": "corpus_offsets",
+    "index_path": "data/processed/indexes/nq_train_bge_base.index",
+    "ids_path": "data/processed/indexes/nq_train_bge_base_ids.jsonl",
+    "offsets_path": "data/processed/indexes/nq_train_bge_base_offsets.npy",
+    "corpus_path": "data/processed/retrieval/nq_train_corpus.jsonl",
+    "expected_ntotal": 1224119
+  },
+  "production": {
+    "entry": "src.pipeline.current.load_current_pipeline",
+    "baseline_registration": "configs/controller/current_baseline.json",
+    "reference_rag_config": "configs/controller/reference_rag_v1.json",
+    "nq_resources": "configs/controller/nq_train_resources_v1.json"
+  },
+  "scoring": {
+    "implementation": "baselines._lib.answer_scoring.score_answer",
+    "em_f1_backend": "src.evaluation.qa.best_em_f1",
+    "aic_evidence": "initial_evidence"
+  },
+  "aic_definition": "answer_in_context on AdaptiveRAGResult.initial_evidence (Reference RAG Top-5)",
+  "feature_batch_size": 8,
+  "output_dir": "baselines/outputs/adaptive_product_test",
+  "status": "READY_FOR_FROZEN_TEST",
+  "production_env_reference_rag": {
+    "config": "configs/controller/reference_rag_v1.json",
+    "prompt_style": "context_fallback",
+    "embedding_model": "BAAI/bge-base-en-v1.5",
+    "top_k": 5,
+    "p26_shared_bge": true
+  },
+  "allow_sealed_test_effective": true
+}

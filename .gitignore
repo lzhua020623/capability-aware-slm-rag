@@ -236,3 +236,9 @@ _scratch*/
 **/smoke_*_hunt.*
 .pytest_cache/
 
+# Temporary benchmark and tuning logs
+**/*bench*.log
+**/*tuning*.log
+**/*_bench/
+**/*tuning*/
+

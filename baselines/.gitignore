@@ -3,13 +3,20 @@ outputs/**/*.jsonl
 outputs/**/*.json
 !outputs/**/.gitkeep
 
-# Formal baseline Test artifacts (explicitly tracked)
+# Formal Test artifacts (explicitly tracked). Smoke and other output JSON stay ignored.
 !outputs/qwen_only/predictions.jsonl
 !outputs/qwen_only/metrics.json
 !outputs/qwen_only/run_config.json
 !outputs/rag_matched_test_context_fallback/predictions.jsonl
 !outputs/rag_matched_test_context_fallback/metrics.json
 !outputs/rag_matched_test_context_fallback/run_config.json
+!outputs/adaptive_product_test/predictions.jsonl
+!outputs/adaptive_product_test/metrics.json
+!outputs/adaptive_product_test/run_config.json
+
+# Smoke / temporary evaluation outputs
+outputs/**/*smoke*/
+outputs/**/*fake*
 
 __pycache__/
 *.py[cod]
@@ -37,6 +44,10 @@ outputs/judge/**
 !outputs/judge/rag_matched_full/judge_results.jsonl
 !outputs/judge/rag_matched_full/judge_summary.json
 !outputs/judge/rag_matched_full/run_config.json
+!outputs/judge/adaptive_product_full/
+!outputs/judge/adaptive_product_full/judge_results.jsonl
+!outputs/judge/adaptive_product_full/judge_summary.json
+!outputs/judge/adaptive_product_full/run_config.json
 
 judge/**/tmp/
 judge/**/*.request.json

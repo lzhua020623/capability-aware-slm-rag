@@ -93,6 +93,11 @@ python baselines/judge/run_llm_judge.py --input rag_matched_test_context_fallbac
 Each baseline run writes `predictions.jsonl`, `metrics.json`, `run_config.json`.
 Each full Judge run writes `judge_results.jsonl`, `judge_summary.json`, `run_config.json`.
 
+The adaptive product uses the same frozen Test and the same three artifact names. Its numbers and reproduction notes are in the repository root `README.md`. Formal product paths:
+
+- `baselines/outputs/adaptive_product_test/`
+- `baselines/outputs/judge/adaptive_product_full/`
+
 Temporary pilot/smoke/retry/dryrun dirs, FAISS index/corpus, `_backup/`, and secrets must **not** be committed.
 
 ## Automatic metrics

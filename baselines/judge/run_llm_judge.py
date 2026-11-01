@@ -47,7 +47,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument(
         "--input",
         required=True,
-        help="Preset name (qwen_only | rag_matched_test_context_fallback) or predictions.jsonl path",
+        help="Preset name (qwen_only | rag_matched_test_context_fallback | adaptive_product) or a predictions.jsonl path",
     )
     p.add_argument(
         "--output-dir",
