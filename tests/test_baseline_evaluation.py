@@ -46,6 +46,37 @@ class ConfigAndCLITests(unittest.TestCase):
         self.assertNotIn("nq_bge_base.index", rag["retrieval"]["index_path"])
         self.assertEqual(rag["rag_prompt"]["default_style"], "context_fallback")
 
+    def test_adaptive_product_config_matches_current_registration(self):
+        path = ROOT / "baselines" / "configs" / "adaptive_product.json"
+        config = json.loads(path.read_text(encoding="utf-8"))
+        registration = "configs/controller/current_baseline.json"
+        self.assertEqual(config["mode"], "adaptive_product")
+        self.assertEqual(config["production"]["entry"], "src.pipeline.current.load_current_pipeline")
+        self.assertEqual(config["production"]["baseline_registration"], registration)
+        self.assertEqual(config["production"]["reference_rag_config"], "configs/controller/reference_rag_v1.json")
+        self.assertEqual(config["production"]["nq_resources"], "configs/controller/nq_train_resources_v1.json")
+        self.assertTrue((ROOT / registration).is_file())
+        self.assertTrue((ROOT / config["production"]["reference_rag_config"]).is_file())
+        self.assertTrue((ROOT / config["production"]["nq_resources"]).is_file())
+        self.assertEqual(config["generator"]["model_name"], "Qwen/Qwen2.5-7B-Instruct")
+        self.assertEqual(config["generator"]["quantization"], "nf4")
+        self.assertEqual(config["generator"]["max_new_tokens"], 64)
+        self.assertFalse(config["generator"]["do_sample"])
+        self.assertEqual(config["retrieval"]["embedding_model"], "BAAI/bge-base-en-v1.5")
+        self.assertEqual(config["retrieval"]["top_k"], 5)
+        self.assertEqual(config["retrieval"]["expected_ntotal"], 1224119)
+        self.assertIn("nq_train_bge_base.index", config["retrieval"]["index_path"])
+        self.assertEqual(config["rag_prompt"]["default_style"], "context_fallback")
+        self.assertEqual(config["dataset"]["records_path"], "data/processed/diagnosis/nq_train_74097_diagnosis.jsonl")
+        self.assertEqual(config["split"]["default_path"], "baselines/splits/diagnosis_nq_train_74097_split.json")
+        self.assertEqual(config["split"]["expected_n"]["test"], 11114)
+        self.assertEqual(config["split"]["default_eval_split"], "test")
+        self.assertEqual(config["output"]["default_dir"], "baselines/outputs/adaptive_product_test")
+        self.assertEqual(config["scoring"]["implementation"], "baselines._lib.answer_scoring.score_answer")
+        self.assertNotIn("failure_type_routes", config)
+        self.assertNotIn("answer_selection", config)
+        self.assertNotIn("correct_gate", config)
+
     def test_parse_mode_required(self):
         with self.assertRaises(SystemExit):
             parse_args([])

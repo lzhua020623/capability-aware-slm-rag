@@ -1,0 +1,59 @@
+{
+  "mode": "adaptive_product",
+  "description": "Formal product evaluation: production Adaptive RAG (Reference RAG + Diagnosis + P60 + Controller + Enhancement). Scoring identical to baseline harness; inference uses load_current_pipeline only.",
+  "production": {
+    "entry": "src.pipeline.current.load_current_pipeline",
+    "baseline_registration": "configs/controller/current_baseline.json",
+    "reference_rag_config": "configs/controller/reference_rag_v1.json",
+    "nq_resources": "configs/controller/nq_train_resources_v1.json"
+  },
+  "generator": {
+    "model_name": "Qwen/Qwen2.5-7B-Instruct",
+    "quantization": "nf4",
+    "do_sample": false,
+    "max_new_tokens": 64
+  },
+  "retrieval": {
+    "embedding_model": "BAAI/bge-base-en-v1.5",
+    "top_k": 5,
+    "backend": "corpus_offsets",
+    "index_path": "data/processed/indexes/nq_train_bge_base.index",
+    "ids_path": "data/processed/indexes/nq_train_bge_base_ids.jsonl",
+    "offsets_path": "data/processed/indexes/nq_train_bge_base_offsets.npy",
+    "corpus_path": "data/processed/retrieval/nq_train_corpus.jsonl",
+    "expected_ntotal": 1224119
+  },
+  "rag_prompt": {
+    "default_style": "context_fallback",
+    "frozen_verdict": "FREEZE_CONTEXT_FALLBACK"
+  },
+  "scoring": {
+    "implementation": "baselines._lib.answer_scoring.score_answer",
+    "em_f1_backend": "src.evaluation.qa.best_em_f1",
+    "aic_evidence": "initial_evidence"
+  },
+  "dataset": {
+    "records_path": "data/processed/diagnosis/nq_train_74097_diagnosis.jsonl",
+    "id_field": "input.sample_id",
+    "query_field": "input.query",
+    "gold_field": "metadata.annotation_reference.gold_answer"
+  },
+  "split": {
+    "default_path": "baselines/splits/diagnosis_nq_train_74097_split.json",
+    "split_key_prefix": ["splits", "nq"],
+    "expected_n": {
+      "train": 51866,
+      "validation": 11117,
+      "test": 11114
+    },
+    "default_eval_split": "test",
+    "version_prefix": "diagnosis_nq_train_74097"
+  },
+  "output": {
+    "predictions": "predictions.jsonl",
+    "metrics": "metrics.json",
+    "run_config": "run_config.json",
+    "default_dir": "baselines/outputs/adaptive_product_test",
+    "smoke_dir": "baselines/outputs/adaptive_product_smoke"
+  }
+}
