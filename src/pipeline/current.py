@@ -95,7 +95,7 @@ def readiness(root=ROOT):
             'runtime_entry': 'src.pipeline.current.load_current_pipeline',
             'routing': 'Diagnosis -> P60 -> Controller -> EnhancementExecutor',
             'probe_enabled': False, 'ready_for_gpu': not missing, 'missing': missing,
-            'legacy_fallback': False, 'benchmark_quality_evaluated': False,
+            'legacy_fallback': False, 'benchmark_quality_evaluated': True,
             'E_mode': config['E_mode'], 'data_boundary': data_boundary}
 
 
