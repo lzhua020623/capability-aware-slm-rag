@@ -19,6 +19,10 @@ outputs/**/*.json
 !outputs/adaptive_product_test/predictions.jsonl
 !outputs/adaptive_product_test/metrics.json
 !outputs/adaptive_product_test/run_config.json
+!outputs/adaptive_product_v2_test/
+!outputs/adaptive_product_v2_test/predictions.jsonl
+!outputs/adaptive_product_v2_test/metrics.json
+!outputs/adaptive_product_v2_test/run_config.json
 outputs/adaptive_product_smoke/**
 !outputs/adaptive_product_smoke/.gitkeep
 
@@ -52,6 +56,10 @@ outputs/judge/**
 !outputs/judge/adaptive_product_full/judge_results.jsonl
 !outputs/judge/adaptive_product_full/judge_summary.json
 !outputs/judge/adaptive_product_full/run_config.json
+!outputs/judge/adaptive_product_v2_full/
+!outputs/judge/adaptive_product_v2_full/judge_results.jsonl
+!outputs/judge/adaptive_product_v2_full/judge_summary.json
+!outputs/judge/adaptive_product_v2_full/run_config.json
 
 judge/**/tmp/
 judge/**/*.request.json

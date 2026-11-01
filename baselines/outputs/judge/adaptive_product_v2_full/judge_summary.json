@@ -1,0 +1,51 @@
+{
+  "n": 11114,
+  "auto_correct_n": 3825,
+  "llm_correct_n": 3150,
+  "llm_incorrect_n": 4035,
+  "llm_uncertain_n": 104,
+  "judge_assisted_accuracy": 0.6275868274248695,
+  "judge_assisted_correct_n": 6975,
+  "api_called_n": 7289,
+  "api_succeeded_n": 7289,
+  "api_attempted_n": 7372,
+  "retry_n": 83,
+  "failed_n": 0,
+  "dry_run_n": 0,
+  "uncertain_not_counted_as_correct": true,
+  "api_called_n_means": "successful_judge_parses_llm_ok_alias_of_api_succeeded_n",
+  "api_succeeded_n_means": "samples_with_judge_status_llm_ok",
+  "api_attempted_n_means": "total_responses_create_calls_including_retries",
+  "retry_n_means": "extra_api_calls_beyond_first_per_sample",
+  "input": "baselines/outputs/adaptive_product_v2_test/predictions.jsonl",
+  "output_dir": "baselines/outputs/judge/adaptive_product_v2_full",
+  "dry_run": false,
+  "pilot_sample": null,
+  "seed": null,
+  "pilot_group_counts": null,
+  "this_run_processed": 11114,
+  "this_run_auto_correct": 3825,
+  "this_run_api_called": 0,
+  "this_run_api_succeeded": 0,
+  "this_run_api_attempted": 0,
+  "this_run_retry": 0,
+  "this_run_failed": 0,
+  "labels": [
+    "CORRECT",
+    "INCORRECT",
+    "UNCERTAIN"
+  ],
+  "label_reuse": {
+    "rule": "Normalized matches auto-correct as in baselines/judge/run_llm_judge.py; every other answer reuses the earlier judge row of the same (sample_id, answer), later sources winning.",
+    "sources_in_order": [
+      "team qwen_only judge",
+      "team product judge",
+      "route-1 Test judge (quality_test_v1)",
+      "BM25 Test judge (bm25_gate_test_v1)",
+      "adaptive selection Test judge (adaptive_selection_eval_v1)",
+      "P60 Test judge (final_evaluation_v1)",
+      "team RAG judge"
+    ],
+    "api_counts": "api_* fields count the earlier calls behind the reused rows; this export made none."
+  }
+}

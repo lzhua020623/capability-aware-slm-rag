@@ -21,18 +21,19 @@ Same frozen Test IDs, same gold answers, same automatic EM / Token F1 / Normaliz
 Source of truth: `metrics.json` / `judge_summary.json` under the formal output dirs below.
 LLM Judge rubric was calibrated before full evaluation; temporary pilot/smoke outputs are **not** formal results.
 
-| | Qwen2.5-7B only | Qwen2.5-7B + BGE RAG | Adaptive Product |
-|--|----------------:|--------------------:|-----------------:|
-| **Config** | closed-book | matched BGE Top-5 + `context_fallback` | Production Adaptive RAG (Reference RAG → Diagnosis → P60 → Controller → Enhancement) |
-| **n** | 11114 | 11114 | 11114 |
-| **EM** | 0.10716213784416052 | 0.29089436746445924 | 0.29575310419290984 |
-| **Token F1** | 0.20683020705954444 | 0.44335644383133416 | 0.448427960309939 |
-| **Normalized Accuracy** | 0.10779197408673745 | 0.2939535720712615 | 0.2985423789814648 |
-| **AIC@5** | — | 0.6997480655029692 | 0.6997480655029692 (initial); Final AIC@5=0.7029872233219363 |
-| **Judge-assisted Accuracy** | 0.2954831743746626 | 0.5750404894727371 | 0.5798992262011877 |
+| | Qwen2.5-7B only | Qwen2.5-7B + BGE RAG | Adaptive Product (historical controller_2) | Adaptive Product v2 (current) |
+|--|----------------:|--------------------:|-----------------:|-----------------:|
+| **Config** | closed-book | matched BGE Top-5 + `context_fallback` | Production Adaptive RAG (Reference RAG → Diagnosis → P60 → Controller → Enhancement) | B + BM25 + adaptive answer selection (`configs/controller/quality_adaptive_v1.json`) |
+| **n** | 11114 | 11114 | 11114 | 11114 |
+| **EM** | 0.10716213784416052 | 0.29089436746445924 | 0.29575310419290984 | 0.3407414072341191 |
+| **Token F1** | 0.20683020705954444 | 0.44335644383133416 | 0.448427960309939 | 0.49554096034717976 |
+| **Normalized Accuracy** | 0.10779197408673745 | 0.2939535720712615 | 0.2985423789814648 | 0.344160518265251 |
+| **AIC@5** | — | 0.6997480655029692 | 0.6997480655029692 (initial); Final AIC@5=0.7029872233219363 | 0.6997480655029692 (initial); Final AIC@5=0.7410473276947993 |
+| **Judge-assisted Accuracy** | 0.2954831743746626 | 0.5750404894727371 | 0.5798992262011877 | 0.6275868274248695 |
 
 - **Product selected:** 610 / 11114 = **5.49%** (`selected_rate=0.054885729710275326`).
 - **Product vs RAG:** EM **+0.49 pp**, Token F1 **+0.51 pp**, Normalized Accuracy **+0.46 pp**, Judge Accuracy **+0.49 pp**.
+- **Product v2 vs RAG:** EM **+4.98 pp**, Token F1 **+5.22 pp**, Normalized Accuracy **+5.02 pp**, Judge Accuracy **+5.25 pp**. v2 outputs are replayed from the archived Test run, see [Adaptive Product v2 Test](#adaptive-product-v2-test-current-product-n11114-replayed).
 - **Judge-assisted delta (RAG − Qwen-only):** +0.2795573150980745 (**+27.96 pp**).
 - **UNCERTAIN** is counted conservatively as **not correct**.
 - LLM Judge model: Azure **GPT-6.1-sol** (Responses API; secrets via env vars only).
@@ -41,9 +42,11 @@ LLM Judge rubric was calibrated before full evaluation; temporary pilot/smoke ou
   - `baselines/outputs/qwen_only/`
   - `baselines/outputs/rag_matched_test_context_fallback/`
   - `baselines/outputs/adaptive_product_test/`
+  - `baselines/outputs/adaptive_product_v2_test/`
   - `baselines/outputs/judge/qwen_only_full/`
   - `baselines/outputs/judge/rag_matched_full/`
   - `baselines/outputs/judge/adaptive_product_full/`
+  - `baselines/outputs/judge/adaptive_product_v2_full/`
 
 **Invalidated (do not cite):** an earlier RAG Test used Dev index `nq_bge_base` (~99k) instead of the NQ-Train matched corpus/index. Reported ~EM 8.3% / F1 15% / normalized 8.4% is **void** due to retrieval corpus/index mismatch with `diagnosis_nq_train_74097`.
 
@@ -118,6 +121,50 @@ python baselines/run_product_evaluation.py --eval-split test --allow-sealed-test
 
 Formal outputs of the current product: `baselines/outputs/adaptive_product_v2_test/`.
 The historical controller_2 product outputs below stay in `baselines/outputs/adaptive_product_test/`.
+
+## Adaptive Product v2 Test (current product, n=11114, replayed)
+
+Source of truth: `baselines/outputs/adaptive_product_v2_test/metrics.json` and
+`baselines/outputs/judge/adaptive_product_v2_full/judge_summary.json`.
+
+These files were written by `scripts/export_product_v2_outputs.py` from the archived Test run of the frozen product
+(`artifacts/controller/final_evaluation_v1`), not by `run_product_evaluation.py`; `run_config.json` records
+`status: REPLAYED_FROM_ARCHIVED_TEST_RUN` and the archive hashes. Rows use the same fields and scoring as the runner.
+The production wiring gave the same answers on all 2440 confirm items, and the final-evidence rule used for
+`answer_in_context_final` equals the confirm production run on all 2440 items (`tests/test_product_v2_outputs.py`).
+Judge labels are reused by (sample_id, answer) from earlier batches of the same team judge, normalized matches
+auto-correct as in `run_llm_judge.py`; no new judge call was made.
+
+| Metric | Value |
+|--|--:|
+| **n** | 11114 |
+| **EM** | 0.3407414072341191 |
+| **Token F1** | 0.49554096034717976 |
+| **Normalized Accuracy** | 0.344160518265251 |
+| **AIC@5** (initial evidence) | 0.6997480655029692 |
+| **Final AIC@5** | 0.7410473276947993 |
+| **selected_rate** (P60 lanes) | 0.3992262011876912 (**4437 / 11114 = 39.92%**) |
+| **retrieval_enhancement** (P60 lanes + correct gate) | 6166 |
+| **no_action** | 4948 |
+| **evidence_refinement** | 0 |
+| **generation_repair** | 0 |
+| **Judge-assisted Accuracy** | 0.6275868274248695 |
+| **auto_correct_n** | 3825 |
+| **llm_correct_n** | 3150 |
+| **llm_incorrect_n** | 4035 |
+| **llm_uncertain_n** | 104 |
+| **judge_assisted_correct_n** | 6975 |
+
+Paired 95% bootstrap intervals for these numbers are in `artifacts/controller/final_evaluation_v1/README.md`
+(v2 − RAG: Judge +5.25 [+4.63, +5.88] pp, EM +4.98 [+4.42, +5.56] pp, Token F1 +5.22 [+4.67, +5.76] pp).
+
+Formal artifacts:
+- `baselines/outputs/adaptive_product_v2_test/predictions.jsonl`
+- `baselines/outputs/adaptive_product_v2_test/metrics.json`
+- `baselines/outputs/adaptive_product_v2_test/run_config.json`
+- `baselines/outputs/judge/adaptive_product_v2_full/judge_results.jsonl`
+- `baselines/outputs/judge/adaptive_product_v2_full/judge_summary.json`
+- `baselines/outputs/judge/adaptive_product_v2_full/run_config.json`
 
 ## Adaptive Product Test (formal, n=11114; historical controller_2 product)
 

@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-11-01T00:00:00+00:00",
+  "input": "baselines/outputs/adaptive_product_v2_test/predictions.jsonl",
+  "output_dir": "baselines/outputs/judge/adaptive_product_v2_full",
+  "limit": null,
+  "pilot_sample": null,
+  "seed": null,
+  "pilot_group_counts": null,
+  "pilot_manifest": null,
+  "resume": false,
+  "dry_run": false,
+  "live": false,
+  "judge_config": "baselines/judge/judge_config.json",
+  "labels": [
+    "CORRECT",
+    "INCORRECT",
+    "UNCERTAIN"
+  ],
+  "note": "No API call: labels reused from earlier batches of the same team judge (see judge_summary.json label_reuse)."
+}
