@@ -2,7 +2,7 @@
   "confirmation_id": "t5-review17-user-adoption-20261026-v1",
   "date": "2026-10-26",
   "source": "current_conversation_user_message",
-  "user_message_exact": "按照你判断的来",
+  "user_message_exact": "go with your judgment",
   "explicit_user_confirmation": true,
   "decision": "adopt_assistance_preserve_unknowns",
   "review_ids": [

@@ -1,6 +1,6 @@
 # E 2,000-Candidate Collection Seal · 2026-10-28
 
-Latest user instruction: **先2000条 有效再扩量**. This round is a cumulative 2,000 candidates (original 500 reused + at most 1,500 new), with a cumulative unit-price-estimate stop cap of US$20; the earlier 5,000/US$40 choice has been superseded. Extrapolating from the usage of the original 500, the cumulative total is about US$13.71, of which the new part is about US$10.28; the actual Azure bill has not been verified. New paid calls 0, training 0, student effect not yet measured.
+Latest user instruction: **2000 first, expand only if valid**. This round is a cumulative 2,000 candidates (original 500 reused + at most 1,500 new), with a cumulative unit-price-estimate stop cap of US$20; the earlier 5,000/US$40 choice has been superseded. Extrapolating from the usage of the original 500, the cumulative total is about US$13.71, of which the new part is about US$10.28; the actual Azure bill has not been verified. New paid calls 0, training 0, student effect not yet measured.
 
 - `budget_acceptance.json`: the latest verbatim instruction, the supersession relationship, the budget, and the boundary of no automatic scale-up.
 - `sample_manifest.json`: original 500 IDs + this round's 1,500 IDs, 375 for each of the four AI metadata categories, belonging to Train; not sampled based on gold/EM.

@@ -34,7 +34,7 @@ class ExpansionPreparationTests(unittest.TestCase):
         self.assertEqual(self.plan['cumulative_budget_nanousd'],20_000_000_000)
         self.assertFalse(self.plan['automatic_further_expansion'])
         acceptance=prep.bound(ROOT,self.plan['budget_acceptance'])
-        self.assertEqual(acceptance['effective_user_instruction'],'先2000条 有效再扩量')
+        self.assertEqual(acceptance['effective_user_instruction'],'2000 first, expand only if valid')
         self.assertFalse(acceptance['training_enabled_by_this_record'])
 
     def test_budget_model_release_and_training_changes_fail_before_API(self):

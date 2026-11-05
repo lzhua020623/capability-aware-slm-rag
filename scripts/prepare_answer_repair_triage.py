@@ -61,21 +61,21 @@ def main(argv=None):
               'semantic_labels_assigned': False, 'manual_review_status': 'deferred_by_user',
               'warning': 'Frozen-reference transitions are review priorities, not human semantic verdicts. Cohort overlaps are retained.'}
     write_new(args.out_dir / 'triage_summary.json', (json.dumps(report, ensure_ascii=False, indent=2) + '\n').encode())
-    lines = ['# E 新输出人工审核顺序', '',
-             f"排序仅依据冻结指标和是否改答案，不代表人工结论。{len(rows)} 条结果，{report['unique_dataset_sample_ids']} 个唯一 dataset/sample_id；各批分别保留。", '',
-             f"优先审核前 {report['changed_pairs']} 条改动（{counts['frozen_metric_regression']} 条指标退步、{counts['frozen_metric_gain']} 条指标改善、{counts['changed_without_frozen_correctness_gain']} 条其他改动）；其余 {counts['unchanged']} 条保留答案的结果仍待完整证据支持审核。", '',
-             '人工需要对同一条的初始答案与最终答案分别判定：正确性、证据支持，共四项；记录审核人和理由。',
-             '请把确认写入 review_priority.jsonl 的 pair_review，完成时设 status=completed；四个布尔字段不能为空。',
-             '原始 pending_semantic_pairs.jsonl 保留为不可改写的审计底稿。不要用冻结参考自动填人工字段。', '',
-             '已有正确性判断也要按同一口径复查。引用字面来自原文，只能证明来源合法；返回原答案不代表答案已获证实。', '']
+    lines = ['# E review order for new outputs', '',
+             f"Ordering uses only frozen metrics and whether the answer changed. It is not a human verdict. {len(rows)} results, {report['unique_dataset_sample_ids']} unique dataset/sample_id values; each batch is kept separately.", '',
+             f"Review the first {report['changed_pairs']} changes first ({counts['frozen_metric_regression']} metric regressions, {counts['frozen_metric_gain']} metric gains, {counts['changed_without_frozen_correctness_gain']} other changes). The remaining {counts['unchanged']} unchanged-answer results still need a full evidence-support review.", '',
+             'For each item, judge the initial answer and the final answer separately: correctness and evidence support, four judgments in total. Record the reviewer and the reason.',
+             'Write the confirmation into pair_review in review_priority.jsonl. Set status=completed when finished. The four boolean fields cannot be empty.',
+             'The original pending_semantic_pairs.jsonl stays as an immutable audit source. Do not fill human fields from the frozen reference.', '',
+             'Existing correctness judgments should be rechecked on the same criteria. A verbatim citation only shows a legal source. Returning the original answer does not mean the answer has been confirmed.', '']
     for r in ordered:
         if not r['changed']:
             continue
         lines += [f"## {r['triage_order']}. {r['dataset'].upper()} / {r['cohort']} / {r['sample_id']}", '',
-                  f"优先原因：{r['triage_reason']}；结果指纹：`{r['result_sha256']}`。", '',
-                  f"问题：{r['query']}", '', f"初始：{r['initial_answer']}", '',
-                  f"最终：{r['final_answer']}", '',
-                  '人工状态：pending，正确性与支持性均未判定。', '']
+                  f"Priority reason: {r['triage_reason']}; result fingerprint: `{r['result_sha256']}`.", '',
+                  f"Question: {r['query']}", '', f"Initial: {r['initial_answer']}", '',
+                  f"Final: {r['final_answer']}", '',
+                  'Human status: pending. Correctness and support are both unjudged.', '']
     write_new(args.out_dir / 'review_priority.md', ('\n'.join(lines) + '\n').encode())
     print(json.dumps(report, ensure_ascii=False, indent=2))
     return 0

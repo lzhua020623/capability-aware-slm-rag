@@ -145,40 +145,40 @@ def apply(rows, confirmation):
 
 def page(rows, source_rows, report):
     esc = lambda x: html.escape(str(x))
-    label = lambda x: "未作二元评分" if x is None else "对" if x else "错"
-    names = {"fixed": "修复", "regressed": "误修", "correct_preserved": "原本正确，仍正确",
-             "wrong_preserved": "两答都错", "correctness_unresolved": "尚需明确评分"}
+    label = lambda x: "Not binary-scored" if x is None else "Correct" if x else "Incorrect"
+    names = {"fixed": "Fixed", "regressed": "Regression", "correct_preserved": "Already correct, still correct",
+             "wrong_preserved": "Both answers wrong", "correctness_unresolved": "Correctness still needs a score"}
     css = re.search(r"<style>(.*?)</style>", render(source_rows[:1], {}), re.S).group(1)
     def run_label(cohort, strategy):
-        group = "开发75" if cohort == "nq75" else "挑战125"
-        arm = "完整 r3" if strategy == "conservative_repair" else "v7"
+        group = "Dev 75" if cohort == "nq75" else "Challenge 125"
+        arm = "Full r3" if strategy == "conservative_repair" else "v7"
         return group + " · " + arm
     table = "".join(f"<tr><td>{esc(run_label(k.split('/')[0], k.split('/')[-1]))}</td><td>{v['outcomes'].get('fixed',0)}</td><td>{v['outcomes'].get('regressed',0)}</td><td>{v['correctness_unresolved']}</td><td>{esc(v['all_changed_pairs_net_change_bounds'])}</td></tr>" for k, v in report["by_run"].items())
     cards = []
     for row in rows:
         n = row["review_number"]; h = row["human_review"]
         w = row["review_workflow"]
-        status = {"closed_keep_initial": "已处理：保留C1原答",
-                  "closed_external_check": "已处理：已完成外部核查"}.get(w["status"], names[h["outcome"]])
+        status = {"closed_keep_initial": "Closed: keep C1 original answer",
+                  "closed_external_check": "Closed: external check completed"}.get(w["status"], names[h["outcome"]])
         note = w.get("reason", "")
         sources = "".join(f'<a href="{esc(s["url"])}" target="_blank" rel="noopener noreferrer">{esc(s["title"])}</a> '
                           for s in w.get("external_assessment", {}).get("sources", []))
-        preferred = ("保留C1原答；改答未作二元评分，不自动计为误修。" if h["outcome"] == "correctness_unresolved"
-                     else "偏好C1原答。") if h["preference"] == "initial_better" else ""
-        reason_html = (f'<details><summary>历史评分说明</summary><p>{esc(h["reason"])}</p></details>'
+        preferred = ("Keep the C1 original answer; the rewrite is not binary-scored and is not automatically a regression." if h["outcome"] == "correctness_unresolved"
+                     else "Prefer the C1 original answer.") if h["preference"] == "initial_better" else ""
+        reason_html = (f'<details><summary>Historical scoring note</summary><p>{esc(h["reason"])}</p></details>'
                        if w["status"] in ("closed_keep_initial", "closed_external_check")
                        else f'<p>{esc(h["reason"])}</p>')
         cards.append(f'''<article id="F{n}"><div class="meta">F{n} · {esc(row['source_alias'])} · {esc(run_label(row['cohort'], row['strategy']))}</div>
-<h2>{esc(row['query'])}</h2><div class="answers"><div><b>C1 原答</b><p>{esc(row['initial_answer'])}</p></div><div><b>改答</b><p>{esc(row['final_answer'])}</p></div></div>
-<div class="opinion"><b>{esc(status)}</b><p>{esc(note)}</p><p>人工二元评分：{label(h['initial_correct'])} → {label(h['final_correct'])}。{preferred}</p>{reason_html}{sources}</div>
-<a href="F42_review.html#F{n}" target="_blank">查看冻结辅助意见、实际引用和完整 Top-5</a><p class="meta">结果 SHA-256：{row['result_sha256']}</p></article>''')
-    return f'''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>E · F42 人工审核记录</title><style>{css}table{{border-collapse:collapse;width:100%;background:white}}td,th{{padding:10px;border:1px solid #ccd8d8;text-align:left}}</style>
-<header><h1>E · 最终改答人工审核</h1><p>已处理 {report['workflow_closed_pairs']} 条；待处理 {len(report['workflow_pending_numbers'])} 条。</p><p>{report['correctness_resolved_pairs']} 条可二元计分；{len(report['closed_without_binary_score_numbers'])} 条已处理并保留评分说明。已处理的项目无需重复审核。正确性与证据支持分别记录。</p></header>
-<main><p>下表净变化范围包含待定项的所有可能结果，不把只统计已定案条目的差值当最终收益；各策略不能相加。</p>
-<table><tr><th>批次／策略</th><th>修复</th><th>误修</th><th>未作二元评分</th><th>完整改答净变化范围</th></tr>{table}</table>
-<div class="controls"><input id="search" autocomplete="off" spellcheck="false" aria-label="搜索编号或问题" placeholder="输入F编号、问题或答案"><span id="count"></span></div>{''.join(cards)}
-<p>参考可见的聊天辅助人审，非独立盲审；不更改 gold 或 EM，不推广为整个 NQ 的准确率。</p></main><script>
-const cards=[...document.querySelectorAll('article')],search=document.getElementById('search');function update(){{const s=search.value.trim().toLowerCase();let n=0;for(const c of cards){{const match=/^f[0-9]+$/.test(s)?c.id.toLowerCase()===s:c.textContent.toLowerCase().includes(s);const visible=!s||match;c.classList.toggle('hidden',!visible);n+=visible;}}document.getElementById('count').textContent=`显示 ${{n}} / ${{cards.length}}`;}}search.addEventListener('input',update);update();
+<h2>{esc(row['query'])}</h2><div class="answers"><div><b>C1 original answer</b><p>{esc(row['initial_answer'])}</p></div><div><b>Rewritten answer</b><p>{esc(row['final_answer'])}</p></div></div>
+<div class="opinion"><b>{esc(status)}</b><p>{esc(note)}</p><p>Human binary score: {label(h['initial_correct'])} → {label(h['final_correct'])}. {preferred}</p>{reason_html}{sources}</div>
+<a href="F42_review.html#F{n}" target="_blank">View the frozen assisted opinion, actual citations, and full Top-5</a><p class="meta">Result SHA-256: {row['result_sha256']}</p></article>''')
+    return f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>E · F42 human review record</title><style>{css}table{{border-collapse:collapse;width:100%;background:white}}td,th{{padding:10px;border:1px solid #ccd8d8;text-align:left}}</style>
+<header><h1>E · Final answer-repair human review</h1><p>Closed {report['workflow_closed_pairs']} items; pending {len(report['workflow_pending_numbers'])} items.</p><p>{report['correctness_resolved_pairs']} items can be binary-scored; {len(report['closed_without_binary_score_numbers'])} items are closed with the scoring note kept. Closed items do not need another review. Correctness and evidence support are recorded separately.</p></header>
+<main><p>The net-change range in the table includes every possible outcome of unresolved items. The difference among only adjudicated items is not the final gain. Strategies cannot be added together.</p>
+<table><tr><th>Cohort / strategy</th><th>Fixed</th><th>Regression</th><th>Not binary-scored</th><th>Full rewrite net-change range</th></tr>{table}</table>
+<div class="controls"><input id="search" autocomplete="off" spellcheck="false" aria-label="Search by id or question" placeholder="Enter an F id, question, or answer"><span id="count"></span></div>{''.join(cards)}
+<p>Reference-visible chat-assisted human review, not an independent blind review. Gold and EM are unchanged. This is not an accuracy figure for all of NQ.</p></main><script>
+const cards=[...document.querySelectorAll('article')],search=document.getElementById('search');function update(){{const s=search.value.trim().toLowerCase();let n=0;for(const c of cards){{const match=/^f[0-9]+$/.test(s)?c.id.toLowerCase()===s:c.textContent.toLowerCase().includes(s);const visible=!s||match;c.classList.toggle('hidden',!visible);n+=visible;}}document.getElementById('count').textContent=`Showing ${{n}} / ${{cards.length}}`;}}search.addEventListener('input',update);update();
 </script></html>'''
 
 
@@ -200,7 +200,7 @@ def main(argv=None):
     write_frozen(args.out.with_suffix(".summary.json"), encode_json(report))
     # This is the current derived view. The confirmation and annotation files above remain immutable.
     view = args.directory / "F42_human_review.html"
-    if view.exists() and "<title>E · F42 人工审核记录</title>" not in view.read_text():
+    if view.exists() and "<title>E · F42 human review record</title>" not in view.read_text():
         raise ValueError("Refusing to replace an unrelated review page")
     view.write_bytes(page(rows, source_rows, report).encode())
     print(json.dumps(report, ensure_ascii=False, indent=2))

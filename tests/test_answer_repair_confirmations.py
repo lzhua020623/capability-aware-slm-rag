@@ -10,7 +10,7 @@ def pair(number, sample_id, cohort, values, changed=True):
     return {"review_number": number, "shared_review_id": f"nq:{sample_id}", "dataset": "nq", "cohort": cohort,
             "strategy": "extractive_reanswer", "sample_id": sample_id, "result_sha256": f"sha{number}",
             "review_material_sha256": "m", "query": "q", "initial_answer": "a", "final_answer": "b" if changed else "a",
-            "changed": changed, "agent_review": {**dict(zip(FIELDS, values)), "reason_zh": "理由"}}
+            "changed": changed, "agent_review": {**dict(zip(FIELDS, values)), "reason_zh": "reason"}}
 
 
 class ConfirmationTests(unittest.TestCase):
@@ -20,7 +20,7 @@ class ConfirmationTests(unittest.TestCase):
                       pair(3, "y", "dev50", (True, False, True, False)),
                       pair(4, "z", "dev50", (None, True, True, True)),
                       pair(5, "w", "dev50", (True, True, True, True), changed=False)]
-        self.base = {"reviewer": "Qihan Zhu", "confirmed_at": "2026-10-14", "user_text": "同意"}
+        self.base = {"reviewer": "Qihan Zhu", "confirmed_at": "2026-10-14", "user_text": "agree"}
 
     def test_accept_copies_to_duplicates_and_counts_unique_fixes(self):
         rows, report = apply_confirmations(self.pairs, {**self.base, "accept_agent": [1, 3]})
@@ -31,9 +31,9 @@ class ConfirmationTests(unittest.TestCase):
         self.assertEqual(rows[0]["result_sha256"], "sha1")
 
     def test_override_resolves_unresolved_and_requires_booleans(self):
-        rows, report = apply_confirmations(self.pairs, {**self.base, "override": {"4": {"initial_correct": True, "reason": "口径 2"}}})
+        rows, report = apply_confirmations(self.pairs, {**self.base, "override": {"4": {"initial_correct": True, "reason": "criterion 2"}}})
         self.assertEqual(rows[3]["pair_review"]["initial_correct"], True)
-        self.assertIn("用户改判", rows[3]["pair_review"]["reason"])
+        self.assertIn("User override", rows[3]["pair_review"]["reason"])
         self.assertEqual(report["unique_fixed"], 0)
         with self.assertRaises(ValueError):
             apply_confirmations(self.pairs, {**self.base, "override": {"4": {"initial_correct": "yes"}}})

@@ -226,10 +226,10 @@ def prepare(*, source_dir: Path, delivery_manifest: Path, stats_path: Path, audi
         files = {"inputs/nq_train_review_c1.jsonl": jsonl(scored),
                  "inputs/nq_train_review_runtime.jsonl": jsonl(pure),
                  "review/review_queue.jsonl": jsonl(reviews)}
-        lines = ["NQ Train E 首批开发审核", "筛查分组不是诊断标签；所有人工字段待审。", ""]
+        lines = ["NQ Train E first development review", "Screening groups are not diagnosis labels; all human fields are pending review.", ""]
         for r in reviews:
             lines.extend([f"{r['review_number']}. {r['sample_id']} [{r['screening_group']}]", r['query'],
-                          "C1: " + r['initial_answer'], "人工判断：待审", ""])
+                          "C1: " + r['initial_answer'], "Human judgment: pending review", ""])
         files["review/review_queue.txt"] = ("\n".join(lines).rstrip()+"\n").encode()
         summary = {"version": VERSION, "source_samples": len(seen), "source_label_counts": dict(labels),
             "review_samples": len(scored), "review_human_status": "all_pending",

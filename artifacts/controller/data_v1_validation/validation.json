@@ -76,7 +76,7 @@
     "artifacts/controller/data_v1/manifest.json": "73178f7ce6501aa59ecf15463b266cb4cf89ee52b126a4fe375cb976c02e15c6",
     "artifacts/controller/data_v1/evaluation_reserve_ids.json": "43bee6035df34346c6d98f3e0cdaf6411e4e104116d85a08ca6e519c7b86cb86",
     "configs/splits/controller_data_v1.json": "3f9e859d767724cbefc5b07fcfb157ce5dacde8f258dd00fd25e8f35666552b2",
-    "configs/controller/data_policy_v1.json": "6a551545ce453dbe44be829630d3d9883882f5976b030b7970d4ccd5c8add9a1",
+    "configs/controller/data_policy_v1.json": "bbc11777364d8b45c9dd8781c446bfdbf00bc3c7d9115582ab14c3ebfbe7423d",
     "configs/controller/experiment_protocol_v1.json": "3edce74cc048e20f2a7a6bbe187564adb06f520397b1ea51a875a1faf2a8f9d0",
     "src/controller/data_preparation.py": "404bda3dae3dca48a56bc0b851e17509fce20737342bfc49a3a2416a94989683",
     "scripts/prepare_controller_data.py": "db55f9cfcf10487b240e767ab19a8957307b4764a3714458ec82873618b2af6b",

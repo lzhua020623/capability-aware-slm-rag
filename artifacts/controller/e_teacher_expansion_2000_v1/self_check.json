@@ -3,7 +3,7 @@
   "branch": "controller_2",
   "base_commit": "55077ae",
   "executed_source_assets": {
-    "src/distillation/expansion_prep.py": "cd0e027016e65933c0268cd7e287ddcc2e4a70893502812f5b4dec591da6adb1",
+    "src/distillation/expansion_prep.py": "ddf8cf2a890a6692f42d8968a128312e1074db3d481b3ea38b1d12ab68518b2d",
     "src/distillation/expansion_collect.py": "3cd6d34fd010e7b4902c02038ed60592f372aa88b857853884fc73357d3be2b8",
     "scripts/run_e_teacher_expansion.py": "b9c88496fe91963f54713a79af82d191696f8e8eeb866049fc2bec32d3291eb5",
     "src/distillation/teacher_cost.py": "c1f2fb13fbff6ca1a965fe3d1147a64a28a040d41cf6f25912741c3bb078b7e2",
@@ -14,8 +14,8 @@
     "configs/distillation/e_teacher_transport_v2.json": "669de8e24305f517de1eec1b8d709d9ec29e0c7a243fcdf9b146156c0d5fd389",
     "configs/distillation/e_prep_v1.json": "d61a17cbbd06dcd6d7cd8f993c9fc391bffe4ead460ea3ed8b6be0573cca8b66"
   },
-  "plan_sha256": "c4e1d2d4de972dd7a0302617d2cd4784a6ac3f21a6881eab1f1bafe88aab4c28",
-  "execution_receipt_sha256": "a1ff426dad20d6713e6306570946afc323c2fcb5dd6f9907ed38b4ee50bd8b49",
+  "plan_sha256": "eb2a0eeeceb3d1e82e5cfae97850325fc7ae37a875f6963586b8bdc986fa355a",
+  "execution_receipt_sha256": "fa212887812324bdb7e1f1d3c51d9b9201f4aefa411205e9f1c3bd1e1aba493b",
   "tests": {
     "passed": 1383,
     "failures": 0,
@@ -32,7 +32,7 @@
     "data/annotations/assisted/answer_repair_v7_batch01_20261017.jsonl": "119035fd23c89c9cd5f24c1a749b4f549a3c7aa268c38fedf51bc81e366bc4c3",
     "data/processed/e_distillation_v1/teacher_sol_pilot_20261027/journal.jsonl": "7804352125be57b2a5fb067824f00ff5e282a47553c9aa9f1351233e36c1f63e"
   },
-  "latest_instruction": "先2000条 有效再扩量",
+  "latest_instruction": "2000 first, expand only if valid",
   "new_requests_cap": 1500,
   "reused_pilot": 500,
   "cumulative_budget_usd": 20,

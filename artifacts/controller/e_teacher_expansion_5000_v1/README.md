@@ -1,6 +1,6 @@
 # E 5,000-Request Cap and Recovery Seal · 2026-10-28
 
-Latest user instruction "可以直接上5000", continuing the cumulative US$40 cap explicitly confirmed earlier. The original 500 are reused, with at most 4,500 post-pilot calls (including the original 55); this time all 554 complete records are reused, the unresponsive 55th call is skipped but its full US$0.13211 reservation is kept, and it continues from the 56th, with at most 4,445 more calls. Even if all later calls succeed there will be at most 4,999 complete candidates; no re-collection, and no guaranteed SFT count.
+Latest user instruction "go ahead with 5000", continuing the cumulative US$40 cap explicitly confirmed earlier. The original 500 are reused, with at most 4,500 post-pilot calls (including the original 55); this time all 554 complete records are reused, the unresponsive 55th call is skipped but its full US$0.13211 reservation is kept, and it continues from the 56th, with at most 4,445 more calls. Even if all later calls succeed there will be at most 4,999 complete candidates; no re-collection, and no guaranteed SFT count.
 
 `user_acceptance.json` stores the verbatim instruction, the supersession relationship, and the budget; `sample_manifest.json` stores 4,500 post-pilot IDs within Train, keeping a prefix fully consistent with the original 1,500; `execution_receipt.json` stores the inputs, source code, and the import status of the original ledger. The original failure and the 54 responses are in the [timeout archive](../e_teacher_expansion_timeout_20261028/README.md).
 

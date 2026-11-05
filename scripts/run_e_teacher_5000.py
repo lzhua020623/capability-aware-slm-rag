@@ -42,4 +42,4 @@ def main(argv=None):
 if __name__=='__main__':
     try:raise SystemExit(main())
     except BoundaryError as error:
-        print('采集停止：'+str(error),file=sys.stderr,flush=True);raise SystemExit(2)
+        print('Collection stopped: '+str(error),file=sys.stderr,flush=True);raise SystemExit(2)

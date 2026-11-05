@@ -124,9 +124,9 @@ def main(argv=None):
     archive_raw = out.getvalue()
     archive = args.out_dir / (name + ".tar.gz")
     book = json.loads(notebook(archive, files, archive_raw=archive_raw, revision=revision))
-    book["cells"][0]["source"] = ["# E 最终 NQ75 开发实验\n",
-        f"最终版本 {revision} 已按预设 smoke 规则选定。C1 复用，四组各 75 条，共 300 条输出，上限 600 次生成。\n",
-        "模型、证据、评分规则和推理代码保持冻结；运行完不再调参，本批不是未见收益证据。\n"]
+    book["cells"][0]["source"] = ["# E final NQ75 development experiment\n",
+        f"Final revision {revision} was selected by the pre-registered smoke rule. C1 is reused. Four arms of 75 items each: 300 outputs, at most 600 generations.\n",
+        "The model, evidence, scoring rules, and inference code stay frozen. Do not tune after the run. This batch is not evidence of unseen gain.\n"]
     for cell in book["cells"]:
         if cell["cell_type"] != "code":
             continue

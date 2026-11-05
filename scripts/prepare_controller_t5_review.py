@@ -51,26 +51,26 @@ def evidence_html(evidence):
 
 def page(cases):
     cards = []
-    select = lambda key: ('<select data-key="' + key + '"><option value="">未审</option>'
-        '<option value="true">正确</option><option value="false">错误</option><option value="unknown">待定</option></select>')
+    select = lambda key: ('<select data-key="' + key + '"><option value="">Unreviewed</option>'
+        '<option value="true">Correct</option><option value="false">Incorrect</option><option value="unknown">Unresolved</option></select>')
     for c in cases:
         variants = ''.join('<div><b>' + html.escape(v['mode']) + '</b><pre>' + html.escape(v['answer']) +
-            '</pre>冻结 EM：' + str(int(v['metrics']['correct'])) + '　语义：' + select(v['mode']) +
-            '<details><summary>此动作实际终答证据</summary>' + evidence_html(v['evidence']) + '</details></div>' for v in c['variants'])
+            '</pre>Frozen EM: ' + str(int(v['metrics']['correct'])) + ' Semantic: ' + select(v['mode']) +
+            '<details><summary>Evidence for this action\'s actual final answer</summary>' + evidence_html(v['evidence']) + '</details></div>' for v in c['variants'])
         cards.append('<article data-id="' + c['review_id'] + '"><h2>' + c['review_id'] + ' · ' +
             html.escape(c['query']) + '</h2><small>sample_id: ' + html.escape(c['sample_id']) +
-            ' · 自动 EM 机会分类，语义待人工确认</small><h3>C1 原答</h3><pre>' + html.escape(c['initial_answer']) +
-            '</pre>语义：' + select('initial_correct') + '<h3>Adaptive 原路由终答</h3><pre>' +
-            html.escape(c['adaptive_answer']) + '</pre>语义：' + select('adaptive_correct') +
-            '<p>离线参考（仅辅助，不自动裁决）：' + html.escape(json.dumps(c['reference'], ensure_ascii=False)) +
-            '</p><details><summary>原始 Top-5 证据</summary>' + evidence_html(c['original_evidence']) +
-            '</details><h3>固定动作结果</h3><div class="variants">' + variants +
-            '</div><p>备注：<textarea data-key="note" rows="2"></textarea></p></article>')
+            ' · automatic EM opportunity class; semantics awaiting human confirmation</small><h3>C1 original answer</h3><pre>' + html.escape(c['initial_answer']) +
+            '</pre>Semantic: ' + select('initial_correct') + '<h3>Adaptive original-route final answer</h3><pre>' +
+            html.escape(c['adaptive_answer']) + '</pre>Semantic: ' + select('adaptive_correct') +
+            '<p>Offline reference (assistance only; not an automatic decision): ' + html.escape(json.dumps(c['reference'], ensure_ascii=False)) +
+            '</p><details><summary>Original Top-5 evidence</summary>' + evidence_html(c['original_evidence']) +
+            '</details><h3>Fixed-action results</h3><div class="variants">' + variants +
+            '</div><p>Note: <textarea data-key="note" rows="2"></textarea></p></article>')
     data = json.dumps([{'review_id': c['review_id'], 'sample_id': c['sample_id']} for c in cases]).replace('<', '\\u003c')
-    return '''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>NQ 路由 15 题审核</title>
+    return '''<!doctype html><html lang="en"><meta charset="utf-8"><title>NQ routing review, 15 items</title>
 <style>body{max-width:1200px;margin:30px auto;padding:0 20px;font:16px/1.65 system-ui;color:#17212b;background:#f4f6f8}article{background:white;padding:24px;margin:24px 0;border:1px solid #d8dee5;border-radius:12px}pre{white-space:pre-wrap;background:#f0f3f7;padding:12px}details{margin:8px 0}summary{cursor:pointer}textarea{width:95%}.variants{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}button,select{font-size:16px;padding:6px}header{position:sticky;top:0;background:#f4f6f8;padding:12px;border-bottom:1px solid #ccc}</style>
-<header><b>NQ 路由重点 15 题</b>　<button id="export">导出人工记录 JSON</button><span id="count"></span></header>
-<p>参考可见审核。所有选择默认未审；EM 改善不自动等于语义修复。核对问题所问关系、实体和限定条件。可在这里选择并导出，也可按 R01–R15 在聊天中确认。记录保存在本浏览器，不会自动写入仓库。</p>''' + ''.join(cards) + '''
+<header><b>NQ routing priority, 15 items</b> <button id="export">Export human-record JSON</button><span id="count"></span></header>
+<p>Reference-visible review. Every choice starts as Unreviewed; an EM gain is not automatically a semantic repair. Check the relation, entities, and constraints the question asks about. You can choose and export here, or confirm R01–R15 in chat. Records stay in this browser and are not written to the repository automatically.</p>''' + ''.join(cards) + '''
 <script>const ids=''' + data + ''';const storage='controller-t4-routing15-v1';let saved={};try{saved=JSON.parse(localStorage.getItem(storage)||'{}')}catch(e){};
 for(const a of document.querySelectorAll('article')){for(const x of a.querySelectorAll('[data-key]')){x.value=(saved[a.dataset.id]||{})[x.dataset.key]||'';x.addEventListener('change',()=>{saved[a.dataset.id]=saved[a.dataset.id]||{};saved[a.dataset.id][x.dataset.key]=x.value;localStorage.setItem(storage,JSON.stringify(saved));});}}
 document.getElementById('export').onclick=()=>{const rows=ids.map(c=>({...c,human_review:saved[c.review_id]||{},source:'user_browser_input'}));const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(rows,null,2)],{type:'application/json'}));a.download='controller_routing15_human_review.json';a.click();URL.revokeObjectURL(a.href);};</script></html>'''

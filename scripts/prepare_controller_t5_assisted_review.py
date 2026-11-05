@@ -47,16 +47,16 @@ def bind(cases, suggestions):
 
 
 def render(cases):
-    text = page(cases).replace('NQ 路由 15 题审核', 'NQ 路由辅助审核 17 题')
-    text = text.replace('NQ 路由重点 15 题', 'NQ 路由 17 题：原15＋候选误修补充2')
-    notice = '<p><b>辅助意见来自代理，尚未获人工确认。此页是 T4 历史输出，非 r2 新结果；gold 不改，所有人审选择仍由用户填写。</b></p>'
+    text = page(cases).replace('NQ routing review, 15 items', 'NQ routing assisted review, 17 items')
+    text = text.replace('NQ routing priority, 15 items', 'NQ routing, 17 items: original 15 plus 2 candidate mis-repair additions')
+    notice = '<p><b>Assisted opinions come from the agent and are not yet human-confirmed. This page is historical T4 output, not a new r2 result; gold is unchanged, and every human-review choice is still entered by the user.</b></p>'
     text = text.replace('</header>', '</header>' + notice, 1)
     for c in cases:
         a = c['assisted_review']
-        shown = lambda v: '待定' if v is None else '对' if v else '错'
-        summary = 'C1：' + shown(a['initial_correct']) + '；Adaptive：' + shown(a['adaptive_correct']) + '；补检索：' + shown(a['always_retrieve_correct'])
+        shown = lambda v: 'Unresolved' if v is None else 'Correct' if v else 'Incorrect'
+        summary = 'C1: ' + shown(a['initial_correct']) + '; Adaptive: ' + shown(a['adaptive_correct']) + '; retrieval: ' + shown(a['always_retrieve_correct'])
         quotes = ''.join('<li>' + html.escape(f"{q['source']} R{q['rank']} · {q['passage_id']}: {q['quote']}") + '</li>' for q in a['anchors'])
-        block = '<aside><b>代理辅助意见（待你确认）</b><p>' + html.escape(summary) + '</p><p>' + html.escape(a['reason']) + '</p><ul>' + quotes + '</ul></aside>'
+        block = '<aside><b>Agent assisted opinion (awaiting your confirmation)</b><p>' + html.escape(summary) + '</p><p>' + html.escape(a['reason']) + '</p><ul>' + quotes + '</ul></aside>'
         tag = '<article data-id="' + c['review_id'] + '">'
         text = text.replace(tag, tag + block, 1)
     return text

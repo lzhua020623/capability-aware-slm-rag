@@ -26,8 +26,8 @@
   "team_exposure_attestation": {
     "status": "confirmed_by_user",
     "date": "2026-10-23",
-    "question": "团队是否在仓库已有实验记录之外，使用过 NQ Train 或 FEVER dev 做 Diagnosis 训练、调参或错误分析？",
-    "answer": "没有额外使用",
+    "question": "Aside from experiment records already in the repository, has the team used NQ Train or FEVER dev for Diagnosis training, tuning, or error analysis?",
+    "answer": "No additional use",
     "scope": "User-reported team usage in addition to repository audit; not a model pretraining or semantic/page isolation guarantee"
   },
   "label_policy": "New preliminary AI/heuristic diagnosis labels are not human gold, training evidence, or sampling scores; main QA gold comes from original delivery references",

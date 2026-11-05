@@ -102,7 +102,7 @@ def main() -> int:
         safe_print(f"gold_answer_in_model_answer: {str(gold_in_answer).lower()}")
         safe_print(f"gold_passage_id: {gold_passage_id}")
         safe_print(f"gold_in_top5: {str(gold_in_top5).lower()}")
-        safe_print(f"gold passage 排名: {rank if rank is not None else 'none'}")
+        safe_print(f"gold passage rank: {rank if rank is not None else 'none'}")
         safe_print(f"gold evidence text: {gold_evidence}")
         safe_print("Top-5 passages:")
         for rank_i, hit in enumerate(hits, start=1):

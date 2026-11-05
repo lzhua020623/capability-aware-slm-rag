@@ -48,12 +48,12 @@ def notebook(archive: Path, files: dict[str, bytes], *, archive_raw: bytes | Non
     digest, name = sha(archive.read_bytes() if archive_raw is None else archive_raw), archive.name.removesuffix(".tar.gz")
     loader = files["scripts/load_answer_repair_bundle.py"].decode()
     version = f"answer_repair_v8{revision}_smoke8_v1"
-    cells = [cell("markdown", "# E v8" + revision + "：8 条真实模型工程验收\n" + """
+    cells = [cell("markdown", "# E v8" + revision + ": real-model engineering check on 8 items\n" + """
 
-Kaggle 选择 T4 GPU 并打开联网，添加配套私有数据包后运行全部单元。
-四组各 8 条，32 条输出，最多 64 次生成。模型和 Top-5 来源保持原实验设置。
-这是已用于开发的样本；smoke_acceptance 只验收输出格式、来源和阶段覆盖，不证明语义提升。
-原 75 条失败实验保留；本 Notebook 不会自动启动新的 75 条完整实验。
+Select a Kaggle T4 GPU, turn on Internet, add the matching private data bundle, and run every cell.
+Four arms of 8 items each: 32 outputs and at most 64 generations. The model and Top-5 sources stay at the original experiment settings.
+These samples were already used for development. smoke_acceptance checks output format, provenance, and stage coverage only; it does not show a semantic gain.
+The original failed 75-item experiment is kept. This notebook does not start a new full 75-item experiment.
 """), cell("code", f"""import json, os, sys, subprocess, hashlib, shutil
 from pathlib import Path
 import torch

@@ -1,7 +1,7 @@
 {
   "schema_version": "e_expansion_timeout_audit_v1",
   "date": "2026-10-28",
-  "source_journal_sha256": "ce9a47c23fe96ce584dabe8cfbdbb643e99bc24571101a51649d0abeb1f5be88",
+  "source_journal_sha256": "263b69b357a23a37a468b5e872f6fb7772a1fa7df3cec31a4dffe15c2e85ae08",
   "new_attempts": 55,
   "new_completed": 54,
   "total_completed_with_pilot": 554,

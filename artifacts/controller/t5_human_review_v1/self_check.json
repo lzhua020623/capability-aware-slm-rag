@@ -4,7 +4,7 @@
   "before": {
     "HEAD": "eaa92110e562bccb5b838badb81c82c9f4648921",
     "branch": "controller",
-    "user_message_exact": "按照你判断的来",
+    "user_message_exact": "go with your judgment",
     "source_review_sha256": "913fa60f58536d8b7c823b4ae89c9f40fd514673917f04cdbdb31cb9b654069a",
     "agent_notes_sha256": "43e7b9673183b13ed6456a293d09d2e19b0f57943981819af54538428d7383af",
     "user_owned_untracked_annotation_excluded": true

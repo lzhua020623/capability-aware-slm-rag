@@ -26,13 +26,13 @@ PORTABLE_TESTS = ("tests.test_answer_repair", "tests.test_answer_repair_experime
 
 def build_notebook(archive: Path, out: Path):
     digest, name = sha256(archive.read_bytes()), archive.name.removesuffix(".tar.gz")
-    cells = [cell("markdown", """# E v8：75 条已定案 NQ Train 开发样本
+    cells = [cell("markdown", """# E v8: 75 adjudicated NQ Train development samples
 
-选择 Kaggle T4 GPU，打开联网，添加配套 tar.gz 为输入，依次运行全部单元。
-也支持 Colab T4 上传。四组：v7 对照、v8 完整流程、去原答案核验、去候选核验。
-每组同 75 条，共 300 条输出，最多 600 次 Qwen 生成。C1 直接复用原始结果，零新增调用。
-11 条 E 目标与 64 条正确对照只用于开发；25 条待定不在包内。同模型核验不是独立裁判。
-结束后下载导出的 ZIP；语义收益留待人工审核，不由 EM 或核验通过自动认定。
+Select a Kaggle T4 GPU, turn on Internet, add the matching tar.gz as an input, and run every cell in order.
+Colab T4 upload is also supported. Four arms: v7 control, full v8, verification without the original answer, and verification without the candidate.
+Each arm uses the same 75 items: 300 outputs and at most 600 Qwen generations. C1 is reused from the original results, with no new calls.
+The 11 E targets and 64 correct controls are for development only. The 25 unresolved items are not in the bundle. Same-model verification is not an independent judge.
+Download the exported ZIP when the run finishes. Semantic gain is left for human review and is not inferred from EM or a passed verification.
 """), cell("code", f"""import json, os, sys, subprocess, hashlib, tarfile, shutil
 from pathlib import Path
 import torch
@@ -98,8 +98,8 @@ for arm in manifest['protocol']:
             '--max-new-tokens', str(arm['max_new_tokens']), '--out', str(OUTPUT / (strategy + '.jsonl'))]
     RUNS.append((strategy, argv))
     run_logged(argv + ['--check-only'], strategy + '_preflight.log')
-"""), cell("markdown", """依次完成四组，不根据中途结果改提示或挑选样本。
-中断后可在相同环境续跑；已完成的预测会校验并跳过。更换环境需保留旧输出，另开新实验目录。
+"""), cell("markdown", """Finish all four arms in order. Do not change the prompt or pick samples from intermediate results.
+After an interruption, resume in the same environment; completed predictions are checked and skipped. A different environment needs the old output kept and a new experiment directory.
 """), cell("code", """try:
     for strategy, argv in RUNS:
         run_logged(argv, strategy + '_run.log')

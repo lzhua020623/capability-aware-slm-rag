@@ -1,6 +1,6 @@
 # T5 user-adopted assisted review · 2026-10-26
 
-Current entry point: [confirmed 17-question web page](review/review17.html). After viewing the assisted judgments for R01–R17, the user replied "按照你判断的来"; this snapshot only implements this explicit adoption, and the original assisted opinions and the unreviewed snapshot are kept as is.
+Current entry point: [confirmed 17-question web page](review/review17.html). After viewing the assisted judgments for R01–R17, the user replied "go with your judgment"; this snapshot only implements this explicit adoption, and the original assisted opinions and the unreviewed snapshot are kept as is.
 
 - Assisted opinions adopted: 17/17; this is a visible-reference review assisted by the assistant (agent), not an independent blind review.
 - Fully finalized: 11/17. For R01, R02, R04, R05, R08, R12, R13, R14 both the original answer and the retrieval-enhancement answer are correct; for R07, R10, R15 the original answer is wrong and the retrieval-enhancement answer is correct.

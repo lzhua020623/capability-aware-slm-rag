@@ -13,23 +13,23 @@
   "semantic_approval_automatic": false,
   "prior_plan": {
     "path": "configs/distillation/e_expansion_wave1_v1.json",
-    "sha256": "c4e1d2d4de972dd7a0302617d2cd4784a6ac3f21a6881eab1f1bafe88aab4c28"
+    "sha256": "eb2a0eeeceb3d1e82e5cfae97850325fc7ae37a875f6963586b8bdc986fa355a"
   },
   "user_acceptance": {
     "path": "artifacts/controller/e_teacher_expansion_5000_v1/user_acceptance.json",
-    "sha256": "012a23fd24bb48435421996c1fa50d174554fb272f60af45512fe83a1e90c3ad"
+    "sha256": "d213416f009f0dcb3f32efc266d951730d4369d27ca6a994fa5e7b8b52ea0260"
   },
   "prior_journal": {
     "path": "data/processed/e_distillation_v1/expansion_2000_results_20261028/journal.jsonl",
-    "sha256": "ce9a47c23fe96ce584dabe8cfbdbb643e99bc24571101a51649d0abeb1f5be88"
+    "sha256": "263b69b357a23a37a468b5e872f6fb7772a1fa7df3cec31a4dffe15c2e85ae08"
   },
   "prior_archive_manifest": {
     "path": "artifacts/controller/e_teacher_expansion_timeout_20261028/archive_manifest.json",
-    "sha256": "04a0fb762a6e964fe16d262d1586fd872b1ddc9dfc3d0c8995a840fcca201304"
+    "sha256": "7e01e2bf71e8896e693806d656a6f153f24060c7ffea3eda028979974f204765"
   },
   "prior_timeout_audit": {
     "path": "artifacts/controller/e_teacher_expansion_timeout_20261028/timeout_audit.json",
-    "sha256": "83086649e315f0a5c7df558d3593b3863424754c24ee4836d28acde42cda0673"
+    "sha256": "f6cd7f15cfc2bae49011563f5cc540d7677a21c043c29fe6829eadf4111ad3b4"
   },
   "audited_skip": {
     "ordinal": 55,

@@ -3,11 +3,11 @@
   "branch": "controller_2",
   "base_commit": "55d17a3",
   "executed_source_assets": {
-    "src/distillation/expansion_5000_prep.py": "090967ebcca2b359e804b2744c1a94825615d9ebbe083727e0bdf701459dd8a0",
-    "src/distillation/expansion_5000_collect.py": "89d25491879cb5107bc28057facf015b098d33cf1d8e8e4470b50b1694f28521",
-    "scripts/run_e_teacher_5000.py": "327ff377c5717f76ca06a20b01f3c6f5ecea64f88876149d75ef9cf5fa94cce9"
+    "src/distillation/expansion_5000_prep.py": "0a86bec7112e882addba436cee169a74d1f0b893e6c47c4ec1e343bc2e88efa1",
+    "src/distillation/expansion_5000_collect.py": "2aacc86955ae4dd68b361050283b7f92c9433e6af73c8fc7fd57c56c04113001",
+    "scripts/run_e_teacher_5000.py": "d0488ddd7c329486875ac9616842b242f75128689c50ec337e257dbf343ed25d"
   },
-  "plan_sha256": "0d9d45025f4b3d8cd928329d86c6a5bddda3b1636bb315de9a56bfdaec5c96c7",
+  "plan_sha256": "cb810dd392a630325efaf59067d9b6acdd932fa33ad862275fc8b93fd5d8eb67",
   "tests": {
     "passed": 1401,
     "failures": 0,
@@ -23,7 +23,7 @@
     "AGENTS.md": "b748f439ef6d2a5455bc3471a6101cd6bcf5f2c67bd8ba75771ad510cc7fd66a",
     "data/annotations/assisted/answer_repair_v7_batch01_20261017.jsonl": "119035fd23c89c9cd5f24c1a749b4f549a3c7aa268c38fedf51bc81e366bc4c3",
     "data/processed/e_distillation_v1/teacher_sol_pilot_20261027/journal.jsonl": "7804352125be57b2a5fb067824f00ff5e282a47553c9aa9f1351233e36c1f63e",
-    "data/processed/e_distillation_v1/expansion_2000_results_20261028/journal.jsonl": "ce9a47c23fe96ce584dabe8cfbdbb643e99bc24571101a51649d0abeb1f5be88"
+    "data/processed/e_distillation_v1/expansion_2000_results_20261028/journal.jsonl": "263b69b357a23a37a468b5e872f6fb7772a1fa7df3cec31a4dffe15c2e85ae08"
   },
   "prior_responses_reused": 54,
   "pilot_reused": 500,

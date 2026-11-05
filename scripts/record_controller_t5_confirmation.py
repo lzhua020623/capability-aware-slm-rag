@@ -29,7 +29,7 @@ def apply_confirmation(cases, confirmation):
     if (not ids or len(ids) != len(set(ids)) or ids != confirmation['review_ids']
             or confirmation.get('explicit_user_confirmation') is not True
             or confirmation.get('decision') != 'adopt_assistance_preserve_unknowns'
-            or confirmation.get('user_message_exact') != '按照你判断的来'
+            or confirmation.get('user_message_exact') != 'go with your judgment'
             or confirmation.get('judged_fields') != list(KEYS)
             or confirmation.get('independent_blind_review') is not False):
         raise ValueError('Explicit source-bound adoption with unchanged scope required')
@@ -79,33 +79,33 @@ def summarize(cases):
 
 def render(cases, summary):
     esc = lambda value: html.escape(str(value))
-    shown = lambda value: '待定' if value is None else '对' if value else '错'
+    shown = lambda value: 'Unresolved' if value is None else 'Correct' if value else 'Incorrect'
     cards = []
     for c in cases:
         h = c['human_review']
         variants = []
         for v in c['variants']:
-            judgment = shown(h['always_retrieve_correct']) if v['mode'] == 'always_retrieve' else '未在本次确认范围内'
+            judgment = shown(h['always_retrieve_correct']) if v['mode'] == 'always_retrieve' else 'not in this confirmation scope'
             variants.append('<section><b>' + esc(v['mode']) + '</b><pre>' + esc(v['answer'])
-                + '</pre><p>语义：' + judgment + '</p><details><summary>该动作终答证据</summary>'
+                + '</pre><p>Semantic: ' + judgment + '</p><details><summary>Final-answer evidence for this action</summary>'
                 + evidence_html(v['evidence']) + '</details></section>')
         cards.append('<article id="' + esc(c['review_id']) + '"><h2>' + esc(c['review_id']) + ' · '
-            + esc(c['query']) + '</h2><p>状态：' + esc(h['status']) + '；用户已采用辅助意见</p>'
-            + '<h3>C1 原答：' + shown(h['initial_correct']) + '</h3><pre>' + esc(c['initial_answer'])
-            + '</pre><h3>Adaptive 原路由：' + shown(h['adaptive_correct']) + '</h3><pre>'
-            + esc(c['adaptive_answer']) + '</pre><p>理由：' + esc(h['reason']) + '</p>'
-            + '<p>离线参考：' + esc(json.dumps(c['reference'], ensure_ascii=False)) + '</p>'
-            + '<details><summary>原始 Top-5</summary>' + evidence_html(c['original_evidence'])
+            + esc(c['query']) + '</h2><p>Status: ' + esc(h['status']) + '; user adopted the assisted judgments</p>'
+            + '<h3>C1 original answer: ' + shown(h['initial_correct']) + '</h3><pre>' + esc(c['initial_answer'])
+            + '</pre><h3>Adaptive original route: ' + shown(h['adaptive_correct']) + '</h3><pre>'
+            + esc(c['adaptive_answer']) + '</pre><p>Reason: ' + esc(h['reason']) + '</p>'
+            + '<p>Offline reference: ' + esc(json.dumps(c['reference'], ensure_ascii=False)) + '</p>'
+            + '<details><summary>Original Top-5</summary>' + evidence_html(c['original_evidence'])
             + '</details><div class="variants">' + ''.join(variants) + '</div></article>')
-    return ('<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>T5 已确认审核 17 题</title>'
+    return ('<!doctype html><html lang="en"><meta charset="utf-8"><title>T5 confirmed review, 17 items</title>'
         '<style>body{max-width:1200px;margin:30px auto;padding:0 20px;font:16px/1.65 system-ui;background:#f4f6f8;color:#17212b}'
         'article{background:white;padding:24px;margin:24px 0;border:1px solid #d8dee5;border-radius:12px}'
         'pre{white-space:pre-wrap;background:#f0f3f7;padding:12px}summary{cursor:pointer}'
         '.variants{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}</style>'
-        '<h1>T5 已确认审核 17 题</h1><p>用户回复“按照你判断的来”，据此采用原辅助意见。'
-        '这是可见参考的辅助审核，不是独立盲审。待定仍为待定；没有自动确认其他固定动作。</p>'
-        '<p>完整定案 ' + str(summary['fully_adjudicated']) + ' 题；尚未完整定案 '
-        + str(len(summary['not_fully_adjudicated_ids'])) + ' 题。此页为入库快照，后续可按编号在聊天中修订。</p>'
+        '<h1>T5 confirmed review, 17 items</h1><p>The user replied “go with your judgment”, so the original assisted judgments are adopted. '
+        'This is reference-visible assisted review, not independent blind review. Unresolved items stay unresolved; other fixed actions are not confirmed automatically.</p>'
+        '<p>' + str(summary['fully_adjudicated']) + ' items fully adjudicated; '
+        + str(len(summary['not_fully_adjudicated_ids'])) + ' items not yet fully adjudicated. This page is the registered snapshot; later chat revisions can still be made by ID.</p>'
         + ''.join(cards) + '</html>')
 
 

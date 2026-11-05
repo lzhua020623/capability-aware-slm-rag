@@ -62,16 +62,16 @@ def check_nq() -> bool:
     missing = [field for field in NQ_REQUIRED_FIELDS if field not in first]
     candidates = first.get("long_answer_candidates")
 
-    print(f"样本数量: {count}")
-    print(f"第一条 question: {question_text(first.get('question'))}")
-    print(f"第一条 annotations: {first.get('annotations')}")
-    print(f"第一条 long_answer_candidates 数量: {sequence_len(candidates)}")
+    print(f"Sample count: {count}")
+    print(f"First question: {question_text(first.get('question'))}")
+    print(f"First annotations: {first.get('annotations')}")
+    print(f"First long_answer_candidates count: {sequence_len(candidates)}")
 
     if missing:
         print(f"ERROR: missing fields: {', '.join(missing)}")
         return False
 
-    print("字段检查通过: question, document, annotations, long_answer_candidates")
+    print("Field check passed: question, document, annotations, long_answer_candidates")
     return True
 
 
@@ -87,17 +87,17 @@ def check_fever() -> bool:
 
     train = load_jsonl(FEVER_TRAIN)
     dev = load_jsonl(FEVER_DEV)
-    print(f"train 数量: {len(train)}")
-    print(f"dev 数量: {len(dev)}")
+    print(f"train count: {len(train)}")
+    print(f"dev count: {len(dev)}")
 
     if not train:
         print("ERROR: FEVER train is empty")
         return False
 
     first = train[0]
-    print(f"第一条 claim: {first.get('claim')}")
-    print(f"第一条 label: {first.get('label')}")
-    print(f"第一条 evidence: {first.get('evidence')}")
+    print(f"First claim: {first.get('claim')}")
+    print(f"First label: {first.get('label')}")
+    print(f"First evidence: {first.get('evidence')}")
 
     missing = [field for field in FEVER_REQUIRED_FIELDS if field not in first]
     if missing:

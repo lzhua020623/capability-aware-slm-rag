@@ -13,9 +13,9 @@ import json
 from pathlib import Path
 
 FIELDS = ('initial_correct', 'final_correct', 'initial_supported', 'final_supported')
-LABELS = {True: '是', False: '否', None: '待定'}
-CITATIONS = {'supported': '支持', 'supported_in_context': '结合原段指代后支持',
-             'unsupported': '不支持', 'partial': '仅部分支持', 'none': '无输出引用'}
+LABELS = {True: 'Yes', False: 'No', None: 'Unresolved'}
+CITATIONS = {'supported': 'Supported', 'supported_in_context': 'Supported after resolving a reference in the original passage',
+             'unsupported': 'Unsupported', 'partial': 'Only partly supported', 'none': 'No output citation'}
 
 
 def digest(raw):
@@ -126,31 +126,31 @@ def main(argv=None):
     write_new(args.out_dir / 'assisted_pairs.jsonl',
               ''.join(json.dumps(r, ensure_ascii=False) + '\n' for r in outputs).encode())
     write_new(args.out_dir / 'summary.json', (json.dumps(report, ensure_ascii=False, indent=2) + '\n').encode())
-    lines = ['# E v6r1：128 条结果辅助审核', '',
-             '2026-10-14，Codex 代理辅助判断，全部待用户确认。审核使用冻结问题、初始/最终答案、参考标签/答案及 C1 Top-5，参考答案可见，属于非盲开发审核。', '',
-             '按主题定位和审阅相关证据句、必要的完整段落与模型实际引用窗口；并非独立人工全文盲审。没有外部事实检索。引用片段均已在对应存档中逐字定位。', '',
-             '“正确”判断是否回答问题的目标、关系、时间和完整性；允许同义短答、较长答案。“支持”判断 C1 是否足以支持该回答；合理拒答可以有支持但不算回答成功。事实短语真实但不回答本题，不算问题所需的支持。', '',
-             'Top-5 支持与模型实际引用分开。缺少证据不等于反驳。FEVER 某些正确性仅依据冻结标签，已标 reference_dependent_correctness；这些不是独立事实确认。时间依赖问题采用冻结语料时点。', '',
-             '128 条结果含 123 个唯一样本。5 条重复记录的审核材料完全相同，复用判断并保留各自结果 SHA-256。人工 pair_review 未改，agent_review 独立存放。待定项以 null 保存。', '',
-             '| 批次 | 条数 | 建议语义修复 | 建议语义误修 | 正确性待定 |',
+    lines = ['# E v6r1: assisted review of 128 results', '',
+             '2026-10-14. Codex agent-assisted judgments, all awaiting user confirmation. The review uses the frozen question, initial and final answers, reference label or answer, and C1 Top-5. The reference answer is visible, so this is a non-blind development review.', '',
+             'Locate the topic and read the relevant evidence sentences, any needed full passages, and the model citation windows. This is not an independent full-text blind review. There is no external fact lookup. Citation spans were located verbatim in the matching archive.', '',
+             '"Correct" asks whether the answer covers the question target, relation, time, and completeness. Synonymous short answers and longer answers are allowed. "Supported" asks whether C1 is enough to support that answer. A reasonable refusal can be supported without counting as a successful answer. A true fact phrase that does not answer this question is not the support the question needs.', '',
+             'Top-5 support is separate from the model\'s actual citations. Missing evidence is not a contradiction. Some FEVER correctness rests only on the frozen label and is marked reference_dependent_correctness; those are not independent fact checks. Time-dependent questions use the frozen corpus time.', '',
+             '128 results contain 123 unique samples. Five duplicate records have identical review material; the judgment is reused and each result SHA-256 is kept. Human pair_review is unchanged, and agent_review is stored separately. Unresolved items are stored as null.', '',
+             '| Cohort | Items | Suggested semantic fix | Suggested semantic regression | Correctness unresolved |',
              '|---|---:|---:|---:|---:|']
     for name, group in report['by_run'].items():
         counts = group['outcomes']
         lines.append(f"| {name} | {group['records']} | {counts.get('suggested_fix', 0)} | {counts.get('suggested_regression', 0)} | {counts.get('correctness_unresolved', 0)} |")
-    lines += ['', '以上是代理建议数；跨批次有重叠，不直接相加宣传效果。对“正确性待定”没有强行计入修复/误修。', '']
+    lines += ['', 'These are agent suggestion counts. Batches overlap, so do not add them together as an effect. Items marked correctness-unresolved are not forced into fix or regression.', '']
     for row in outputs:
         a = row['agent_review']
         lines += [f"## {row['review_number']}. {row['dataset'].upper()} / {row['cohort']} / {row['sample_id']}", '',
-                  f"问题：{row['query']}", '', f"初始答案：{row['initial_answer']}", '',
-                  f"最终答案：{row['final_answer']}", '',
-                  f"建议：初始正确 **{LABELS[a['initial_correct']]}** → 最终正确 **{LABELS[a['final_correct']]}**；Top-5 支持 **{LABELS[a['initial_supported']]} → {LABELS[a['final_supported']]}**。", '',
-                  f"实际输出引用：{CITATIONS[a['final_citation_support']]}。置信度：{a['confidence']}。", '',
+                  f"Question: {row['query']}", '', f"Initial answer: {row['initial_answer']}", '',
+                  f"Final answer: {row['final_answer']}", '',
+                  f"Suggestion: initial correct **{LABELS[a['initial_correct']]}** → final correct **{LABELS[a['final_correct']]}**; Top-5 support **{LABELS[a['initial_supported']]} → {LABELS[a['final_supported']]}**.", '',
+                  f"Actual output citation: {CITATIONS[a['final_citation_support']]}. Confidence: {a['confidence']}.", '',
                   a['reason_zh'], '',
-                  '证据定位：' + '；'.join(f"R{x['rank']} `{x['passage_id']}`：{x['quote']}" for x in a['evidence_anchors']), '',
-                  f"冻结参考（仅作对照）：{row['frozen_reference']}", '',
-                  f"结果 SHA-256：`{row['result_sha256']}`；人工状态：pending。", '']
+                  'Evidence location: ' + '; '.join(f"R{x['rank']} `{x['passage_id']}`: {x['quote']}" for x in a['evidence_anchors']), '',
+                  f"Frozen reference (comparison only): {row['frozen_reference']}", '',
+                  f"Result SHA-256: `{row['result_sha256']}`; human status: pending.", '']
         if row['duplicate_of_review_number'] is not None:
-            lines += [f"本条与第 {row['duplicate_of_review_number']} 条审核材料相同；独立保留本批结果指纹。", '']
+            lines += [f"This item has the same review material as item {row['duplicate_of_review_number']}; this batch's result fingerprint is kept separately.", '']
     write_new(args.out_dir / 'assisted_review.md', ('\n'.join(lines) + '\n').encode())
     print(json.dumps({k: v for k, v in report.items() if k not in ('by_run', 'unique_samples')}, ensure_ascii=False, indent=2))
     return 0

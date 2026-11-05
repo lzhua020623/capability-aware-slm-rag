@@ -1,7 +1,7 @@
 {
   "schema_version": "e_expansion_5000_execution_v1",
-  "plan_sha256": "0d9d45025f4b3d8cd928329d86c6a5bddda3b1636bb315de9a56bfdaec5c96c7",
-  "sample_manifest_sha256": "e62351fe4e3aa248fa9e52656bebe2577f23e646d8c7437f5dd985816d544c4e",
+  "plan_sha256": "cb810dd392a630325efaf59067d9b6acdd932fa33ad862275fc8b93fd5d8eb67",
+  "sample_manifest_sha256": "0fb1c706f60ab1ac3c17cc15145dbf272c269b39a7c0897f7c91643f0e56a6bd",
   "n_post_pilot_tasks": 4500,
   "prior_state": {
     "attempted": 55,
@@ -79,9 +79,9 @@
     }
   },
   "assets": {
-    "src/distillation/expansion_5000_prep.py": "090967ebcca2b359e804b2744c1a94825615d9ebbe083727e0bdf701459dd8a0",
-    "src/distillation/expansion_5000_collect.py": "89d25491879cb5107bc28057facf015b098d33cf1d8e8e4470b50b1694f28521",
-    "scripts/run_e_teacher_5000.py": "327ff377c5717f76ca06a20b01f3c6f5ecea64f88876149d75ef9cf5fa94cce9"
+    "src/distillation/expansion_5000_prep.py": "0a86bec7112e882addba436cee169a74d1f0b893e6c47c4ec1e343bc2e88efa1",
+    "src/distillation/expansion_5000_collect.py": "2aacc86955ae4dd68b361050283b7f92c9433e6af73c8fc7fd57c56c04113001",
+    "scripts/run_e_teacher_5000.py": "d0488ddd7c329486875ac9616842b242f75128689c50ec337e257dbf343ed25d"
   },
   "ready_for_SFT": false,
   "new_API_calls": 0,

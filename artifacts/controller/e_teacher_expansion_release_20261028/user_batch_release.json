@@ -3,8 +3,8 @@
   "date": "2026-10-28",
   "source": "user_chat",
   "user_statements": [
-    "已完成审核，按结果登记",
-    "算全部通过 我在网页里面没有标注"
+    "review completed, register by the results",
+    "count them all as passed; I did not annotate them on the web page"
   ],
   "scope": "Authorize candidate collection for E distillation expansion; not automatic training",
   "review_file": "artifacts/controller/e_teacher_pilot_20261028/review/semantic_review100.jsonl",

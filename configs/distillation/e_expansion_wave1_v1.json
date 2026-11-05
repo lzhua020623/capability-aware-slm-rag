@@ -7,7 +7,7 @@
   },
   "user_release": {
     "path": "artifacts/controller/e_teacher_expansion_release_20261028/user_batch_release.json",
-    "sha256": "5ccaac66d20c7a79a4290fc4a74a824b119ffae83e343e6e947cb9ef8fc0898d"
+    "sha256": "61cbcc1377bd7b4fdc149407373df6dbd992b8c3f0d329ce4bf7e042de97bd69"
   },
   "pilot_sample_manifest": {
     "path": "artifacts/controller/e_distillation_v1/sample_manifest.json",
@@ -64,7 +64,7 @@
   "pilot_price_estimate_nanousd": 3427050000,
   "budget_acceptance": {
     "path": "artifacts/controller/e_teacher_expansion_2000_v1/budget_acceptance.json",
-    "sha256": "70a8e677187dec9a31af77f4853b781269d2a2c895fa282174f9ab3cc446f909"
+    "sha256": "9188b38d98da6ad86b18ba636a84043379ecd7dba3e07f50e239798cffdde32c"
   },
   "automatic_further_expansion": false,
   "price_snapshot": "src/distillation/teacher_cost.py",

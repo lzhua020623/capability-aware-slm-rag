@@ -47,7 +47,7 @@ def load_plan(root=ROOT):
     if summary['n']!=500 or not summary['complete'] or summary['journal_sha256']!=plan['pilot_journal_sha256']:
         raise BoundaryError('Pilot reuse is incomplete or changed')
     acceptance=bound(root,plan['budget_acceptance'])
-    if (acceptance.get('effective_user_instruction')!='先2000条 有效再扩量'
+    if (acceptance.get('effective_user_instruction')!='2000 first, expand only if valid'
             or acceptance.get('selected_total_candidates')!=2000
             or acceptance.get('reuse_pilot')!=500 or acceptance.get('new_requests')!=1500
             or acceptance.get('cumulative_budget_usd')!=20

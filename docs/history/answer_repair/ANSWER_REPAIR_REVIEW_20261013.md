@@ -34,7 +34,7 @@ In total 32 are newly included this round and 5 were already used for E developm
 | correct controls | Preliminarily supported for keeping, still pending human confirmation | 9 |
 | correct controls | Entity ambiguity; suggest deferring as a clean control | 1 |
 
-It is suggested to first select "建议优先复核的争议项" on the page, 10 records in total. The following cases most affect the validity of the cohort:
+It is suggested to first select "Disputed items suggested for priority review" on the page, 10 records in total. The following cases most affect the validity of the cohort:
 
 | ID | Doubt | Please confirm by human review |
 |---|---|---|
@@ -50,11 +50,11 @@ All suggestions are judged only against the frozen C1 corpus; no current web kno
 
 ## How to review
 
-1. Select a sample on the page and first read the question, the original answer, and the necessary Top-5; long evidence can be expanded one by one or with "展开全部证据".
+1. Select a sample on the page and first read the question, the original answer, and the necessary Top-5; long evidence can be expanded one by one or with "Expand all evidence".
 2. Expand the Codex assisted opinion to view the located source text and doubts. The original label and gold are in a separate collapsed area, to avoid simply following the reference answer from the start.
 3. Fill in the reviewer, original answer status, evidence status, suggested label, and usage. Assisted opinions are not automatically filled into the human fields.
-4. Click "确认本条人工审核". Inclusion in the E core requires confirming all of: the original answer has a substantive error, the evidence is sufficient and clear, and the label is utilisation. When you cannot decide yet, choose disputed/deferred and record the issue.
-5. After finishing each batch, click "导出审核 JSON". The browser saves a local draft, and the exported file can be re-imported into the page of the same version. Always export before switching browsers or review package versions.
+4. Click "Confirm this human review". Inclusion in the E core requires confirming all of: the original answer has a substantive error, the evidence is sufficient and clear, and the label is utilisation. When you cannot decide yet, choose disputed/deferred and record the issue.
+5. After finishing each batch, click "Export review JSON". The browser saves a local draft, and the exported file can be re-imported into the page of the same version. Always export before switching browsers or review package versions.
 
 This page is not a blind review tool: old label categories are visible and assisted rationales can be expanded; this kind of assisted review cannot be described as independent double-blind annotation. Human disputes should be returned to the Diagnosis owner for adjudication under shared rules before building a new E cohort. Final IDs, label basis, and scoring criteria must be frozen before formal controlled experiments.
 

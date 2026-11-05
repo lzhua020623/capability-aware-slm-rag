@@ -25,18 +25,18 @@ def main():
     args = parser.parse_args()
     digest = hashlib.sha256(args.bundle.read_bytes()).hexdigest()
     name = args.bundle.name.removesuffix('.tar.gz')
-    cells = [cell('markdown', '''# E v5：28 条审核后开发样本
+    cells = [cell('markdown', '''# E v5: 28 reviewed development samples
 
-选择 Colab T4 GPU 或 Kaggle GPU，按顺序执行。上传配套 `.tar.gz` 实验包。
-FEVER/NQ 各 14 条，共 19 条错误核心候选和 9 条正确对照，均为训练内开发材料。
-四组对照共 112 条最终预测，最多 140 次生成；同模型复核不是独立 verifier。
-旧参考答案的 EM/F1 与人工语义判断分开保存，人工输出审核栏不会自动填充。
-不挂载 Drive。运行结束后务必下载 ZIP；云端运行时释放会丢失本地文件。
+Select a Colab T4 GPU or a Kaggle GPU and run the cells in order. Upload the matching `.tar.gz` bundle.
+14 FEVER and 14 NQ items: 19 wrong core candidates and 9 correct controls, all in-training development material.
+Four arms produce 112 final predictions and at most 140 generations. Same-model review is not an independent verifier.
+EM/F1 against the old reference is stored separately from the human semantic judgment. Human output-review fields are not filled automatically.
+Do not mount Drive. Download the ZIP when the run finishes; a cloud runtime release drops local files.
 '''), cell('code', f'''import json, os, sys, subprocess, hashlib, tarfile, shutil
 from pathlib import Path
 import torch
-assert sys.version_info >= (3, 11), '需要 Python 3.11+'
-assert torch.cuda.is_available(), '请选择 GPU 运行时'
+assert sys.version_info >= (3, 11), 'Python 3.11+ required'
+assert torch.cuda.is_available(), 'Select a GPU runtime'
 WORK = Path('/kaggle/working') if Path('/kaggle/working').exists() else Path('/content')
 EXPECTED_SHA256 = {digest!r}
 BUNDLE_NAME = {name!r}
@@ -46,14 +46,14 @@ print('GPU:', torch.cuda.get_device_name(0), 'CUDA:', torch.version.cuda)
 '''), cell('code', '''archive = WORK / (BUNDLE_NAME + '.tar.gz')
 if not archive.exists() and Path('/kaggle/input').exists():
     candidates = list(Path('/kaggle/input').rglob(archive.name))
-    assert len(candidates) == 1, '请添加唯一的实验包输入'
+    assert len(candidates) == 1, 'Attach exactly one experiment-bundle input'
     archive = candidates[0]
 elif not archive.exists():
     from google.colab import files
     uploaded = files.upload()
-    assert archive.name in uploaded, '请选择配套实验包'
+    assert archive.name in uploaded, 'Select the matching experiment bundle'
     archive.write_bytes(uploaded[archive.name])
-assert hashlib.sha256(archive.read_bytes()).hexdigest() == EXPECTED_SHA256, '归档哈希不一致'
+assert hashlib.sha256(archive.read_bytes()).hexdigest() == EXPECTED_SHA256, 'Archive hash mismatch'
 extract_root = WORK / ('e_reviewed_' + EXPECTED_SHA256[:12])
 BUNDLE = extract_root / BUNDLE_NAME
 if not BUNDLE.exists():
@@ -63,7 +63,7 @@ if not BUNDLE.exists():
 checksums = json.loads((BUNDLE / 'bundle_checksums.json').read_text())
 assert all(hashlib.sha256((BUNDLE / p).read_bytes()).hexdigest() == h for p,h in checksums.items())
 manifest = json.loads((BUNDLE / 'manifest.json').read_text())
-print('包校验通过:', len(checksums), '个文件')
+print('Bundle verified:', len(checksums), 'files')
 print({ds: r['groups'] for ds,r in manifest['datasets'].items()})
 '''), cell('code', '''def run_logged(argv, name):
     with (OUTPUT / name).open('a', encoding='utf-8') as log:
@@ -98,13 +98,13 @@ for ds in ('fever', 'nq'):
                 '--strategy', strategy, '--max-new-tokens', str(arm['max_new_tokens']), '--out', str(result)]
         RUNS.append((ds, strategy, result, argv))
         run_logged(argv + ['--check-only'], f'{ds}_{strategy}_preflight.log')
-'''), cell('markdown', '''## 真实开发试跑
+'''), cell('markdown', '''## Real development run
 
-下一格执行全部四种策略。候选失败时跳过复核，已完成样本会自动跳过。
-每个子进程结束释放模型显存，模型文件通过云端缓存复用。
-生成中断时保留已写入的行；恢复环境一致后重跑本格。
+The next cell runs all four strategies. A failed candidate skips review. Completed samples are skipped automatically.
+Each subprocess releases model memory when it finishes. Model files are reused from the cloud cache.
+If generation stops, lines already written are kept. Resume this cell after the environment matches again.
 '''), cell('code', '''for ds, strategy, result, argv in RUNS:
-    print('开始:', ds, strategy, flush=True)
+    print('Start:', ds, strategy, flush=True)
     run_logged(argv, f'{ds}_{strategy}_run.log')
 '''), cell('code', '''for ds, strategy, result, argv in RUNS:
     run_logged([sys.executable, 'scripts/summarize_reviewed_answer_repair.py',
@@ -112,7 +112,7 @@ for ds in ('fever', 'nq'):
                 '--c1', str(BUNDLE / f'inputs/{ds}_reviewed_c1.jsonl'),
                 '--results', str(result), '--out-prefix', str(OUTPUT / f'{ds}_{strategy}_reviewed')],
                f'{ds}_{strategy}_summary.log')
-# 将无复核与有复核两组的候选作比较，避免把候选生成差异归因于复核。
+# Compare candidates from the no-review and review arms so generation differences are not attributed to review.
 comparison = {}
 for ds in ('fever', 'nq') if any(a['strategy']=='guarded_reanswer' for a in manifest['protocol']) else ():
     load = lambda strategy: [json.loads(l) for l in (OUTPUT / f'{ds}_{strategy}.jsonl').read_text().splitlines()]
@@ -121,10 +121,10 @@ for ds in ('fever', 'nq') if any(a['strategy']=='guarded_reanswer' for a in mani
     comparison[ds] = {'candidate_output_mismatch_ids': [a['sample_id'] for a,b in zip(plain,guarded)
         if a['raw_output'] != b['raw_output'] or a['validation_input'] != b['validation_input']]}
 (OUTPUT / 'candidate_comparison.json').write_text(json.dumps(comparison, ensure_ascii=False, indent=2))
-print('候选一致性检查:', comparison)
-print('人工成对审核表已生成，所有结果审核栏仍为空。')
+print('Candidate consistency check:', comparison)
+print('The human pair-review sheet is written. Every result review field is still empty.')
 '''), cell('code', '''export = shutil.make_archive(str(WORK / (OUTPUT.name + '_export')), 'zip', OUTPUT)
-print('结果包:', export)
+print('Result archive:', export)
 print('SHA256:', hashlib.sha256(Path(export).read_bytes()).hexdigest())
 if not Path('/kaggle/working').exists():
     from google.colab import files

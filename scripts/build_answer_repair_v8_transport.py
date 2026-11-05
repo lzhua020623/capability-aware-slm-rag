@@ -53,7 +53,7 @@ if archive is not None:
 print('Bundle verified:', bootstrap_report)
 '''
     notebook["cells"][2]["source"] = bootstrap.splitlines(keepends=True)
-    notebook["cells"][0]["source"] += ["\n\nTransport r1：兼容 Kaggle 自动解压输入；原 906f096f 冻结包、75 条样本和四组算法完全相同。\n"]
+    notebook["cells"][0]["source"] += ["\n\nTransport r1: accepts Kaggle auto-extracted input. The original 906f096f frozen bundle, 75 samples, and four-arm algorithm are unchanged.\n"]
     notebook["metadata"]["v8_transport_revision"] = "r1_auto_extracted_input"
     for cell in notebook["cells"]:
         if cell["cell_type"] == "code":

@@ -83,8 +83,8 @@ class T5ConfirmationTests(unittest.TestCase):
         page = render(cases, summarize(cases))
         self.assertNotIn('<script>', page)
         self.assertIn('&lt;script&gt;', page)
-        self.assertIn('完整定案 11 题', page)
-        self.assertIn('未在本次确认范围内', page)
+        self.assertIn('11 items fully adjudicated', page)
+        self.assertIn('not in this confirmation scope', page)
         self.assertEqual(page.count('<article id='), 17)
 
 

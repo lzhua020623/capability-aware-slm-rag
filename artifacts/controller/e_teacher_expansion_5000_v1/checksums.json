@@ -1,12 +1,12 @@
 {
-  "README.md": "7577089fa5ed80725da060bae2721e8311f4f4974150b88af77e2699bf17d324",
-  "execution_receipt.json": "da9b775ebbe360203afebf79001a9dca8dc1c881252c26104687585d50963386",
+  "README.md": "e1487dfe7268727b2bb40c0115a9477b5aeeec0422df2059b92283245454e61c",
+  "execution_receipt.json": "7d229597ccb9c7d223c0502906bc20a67f3a0ba49440723a5b3e5e65a6db5747",
   "full_tests.log": "c0e48b05d82e812ec9b66229f020e9c157e9ce71620d2d6cb9f93bc0c7d077f4",
   "offline_references.jsonl.gz": "81bc34375fe7a9c00fbcf762aeec45d3a1b8065f1d9ae445880384063c66ebed",
-  "sample_manifest.json": "e62351fe4e3aa248fa9e52656bebe2577f23e646d8c7437f5dd985816d544c4e",
-  "self_check.json": "b09fb72b39eab28539ef80290b1e8ed0fd537db641f5b2ca928c11bd03a90ff4",
+  "sample_manifest.json": "0fb1c706f60ab1ac3c17cc15145dbf272c269b39a7c0897f7c91643f0e56a6bd",
+  "self_check.json": "2bf72a9e25e0123658034b9a1e7fbed5425713b0f4d6f98f0593a9132a477ff7",
   "targeted_tests.log": "9be41bb1f05c9dd4e66bc064e7442d663c14bf6e53c31d49c06c5b6b6933ffc3",
   "teacher_tasks.jsonl.gz": "09c00302589226488fcdc433ab02c2e2e664e6ab3ffb07d3bf34832defa9d31a",
-  "user_acceptance.json": "012a23fd24bb48435421996c1fa50d174554fb272f60af45512fe83a1e90c3ad",
+  "user_acceptance.json": "d213416f009f0dcb3f32efc266d951730d4369d27ca6a994fa5e7b8b52ea0260",
   "verification.json": "d6a484087fb0c8fe4eaa8878a48dd3d960fd05c2c0ef1c3843734e9aa49dd154"
 }

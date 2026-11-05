@@ -112,10 +112,10 @@ def main(argv=None):
     archive = args.out_dir / (name + ".tar.gz")
     book = json.loads(notebook(archive, files, archive_raw=archive_raw, revision="r4"))
     book["cells"][0]["source"] = [
-        "# E v8r4：最后一轮 FACT 核验提示实验\n",
-        "固定 8 条开发样本、四组 32 条输出、最多 64 次生成。只修改核验及其十行输出契约。\n",
-        "保留 r3 工程门槛；只用 N31/N48/N12 事先固定的核验回归选版本，不看 EM。\n",
-        "全部通过选 r4，否则按 r3 收口；不追加 r5，不自动启动 75 条或未见评测。\n",
+        "# E v8r4: final FACT-verification prompt experiment\n",
+        "Fixed 8 development samples, four arms, 32 outputs, at most 64 generations. Only the verification step and its ten-line output contract change.\n",
+        "Keep the r3 engineering gate. Choose the version only with the pre-registered verification regressions N31, N48, and N12, not with EM.\n",
+        "If every check passes, select r4; otherwise close on r3. Do not add an r5, and do not start the 75-item run or an unseen evaluation.\n",
     ]
     final = "".join(book["cells"][-1]["source"]).replace(
         "print('Failures:', report['failures'])",

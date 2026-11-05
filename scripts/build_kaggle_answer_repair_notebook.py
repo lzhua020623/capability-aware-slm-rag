@@ -39,24 +39,24 @@ transport = 'archive_sha256'
 if not archive.exists() and Path('/kaggle/input').exists():
     candidates = list(Path('/kaggle/input').rglob(archive.name))
     if candidates:
-        assert len(candidates) == 1, '实验归档必须唯一'
+        assert len(candidates) == 1, 'The experiment archive must be unique'
         archive = candidates[0]
     else:
         indexes = [p for p in Path('/kaggle/input').rglob('bundle_checksums.json')
                    if p.parent.name == BUNDLE_NAME]
-        assert len(indexes) == 1, '请附加唯一的冻结实验包输入'
+        assert len(indexes) == 1, 'Attach exactly one frozen experiment-bundle input'
         assert hashlib.sha256(indexes[0].read_bytes()).hexdigest() == EXPECTED_INDEX_SHA256
         source = indexes[0].parent
         source_checksums = json.loads(indexes[0].read_text())
         assert all(hashlib.sha256((source / p).read_bytes()).hexdigest() == h
-                   for p,h in source_checksums.items()), '已解压输入文件哈希不一致'
+                   for p,h in source_checksums.items()), 'Unpacked input file hash mismatch'
         if not BUNDLE.exists():
             shutil.copytree(source, BUNDLE)
         transport = 'pinned_checksum_index_and_all_files'
 elif not archive.exists():
     from google.colab import files
     uploaded = files.upload()
-    assert archive.name in uploaded, '请选择配套实验包'
+    assert archive.name in uploaded, 'Select the matching experiment bundle'
     archive.write_bytes(uploaded[archive.name])
 if transport == 'archive_sha256':
     assert hashlib.sha256(archive.read_bytes()).hexdigest() == EXPECTED_SHA256
@@ -72,7 +72,7 @@ integrity = {{'transport': transport, 'expected_archive_sha256': EXPECTED_SHA256
              'checksum_index_sha256': EXPECTED_INDEX_SHA256,
              'verified_files': len(checksums), 'all_files_verified': True}}
 (OUTPUT / 'input_integrity.json').write_text(json.dumps(integrity, indent=2))
-print('输入校验通过:', integrity)
+print('Input verified:', integrity)
 print({{ds: r['groups'] for ds,r in manifest.get('datasets', {{}}).items()}} or manifest.get('samples'))
 '''
     code_cells[1]['source'] = loader.splitlines(keepends=True)

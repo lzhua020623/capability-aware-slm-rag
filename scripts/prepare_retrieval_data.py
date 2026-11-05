@@ -329,12 +329,12 @@ def main() -> int:
     print()
 
     print("=== Retrieval data statistics ===")
-    print(f"NQ query 数量: {len(nq_queries)}")
-    print(f"NQ corpus passage 数量: {len(nq_corpus)}")
-    print(f"FEVER dev SUPPORTS 数量: {supports}")
-    print(f"FEVER dev REFUTES 数量: {refutes}")
-    print(f"FEVER 有有效 gold evidence 的数量: {with_gold}")
-    print(f"FEVER corpus passage 数量: {fever_corpus_n}")
+    print(f"NQ query count: {len(nq_queries)}")
+    print(f"NQ corpus passage count: {len(nq_corpus)}")
+    print(f"FEVER dev SUPPORTS count: {supports}")
+    print(f"FEVER dev REFUTES count: {refutes}")
+    print(f"FEVER count with valid gold evidence: {with_gold}")
+    print(f"FEVER corpus passage count: {fever_corpus_n}")
 
     preview(nq_queries, "question", "gold_evidence_text", "NQ")
     preview(fever_dev, "claim", "gold_evidence_text", "FEVER")

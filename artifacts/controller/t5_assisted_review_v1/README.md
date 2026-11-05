@@ -1,6 +1,6 @@
 # T5 routing assisted review · 2026-10-26
 
-**Follow-up status**: the user replied "按照你判断的来", adopting the assisted opinions on this page; the current committed status is 11 questions fully finalized and 6 questions not fully finalized; see the [confirmation snapshot](../t5_human_review_v1/README.md). Below, the state at the time this assisted snapshot was generated is retained.
+**Follow-up status**: the user replied "go with your judgment", adopting the assisted opinions on this page; the current committed status is 11 questions fully finalized and 6 questions not fully finalized; see the [confirmation snapshot](../t5_human_review_v1/README.md). Below, the state at the time this assisted snapshot was generated is retained.
 
 Entry point: [17-question web page](review/review17.html). R01–R15 keep the original priority queue numbering; R16 and R17 are two new EM harmful repairs of threshold 0.2 relative to the original routing, which the original 15 questions did not cover. You can confirm by number in chat, or fill in and export on the page; filling in the browser does not automatically write back to the repository.
 

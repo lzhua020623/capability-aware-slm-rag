@@ -4,7 +4,7 @@
   "registered_date": "2026-10-27",
   "upstream_branch": "feature/diagnosis-probe-zheng",
   "upstream_commit": "138d52aa22e0eee78637e01f981a030d7ad388df",
-  "user_instruction": "现在把1024更新的diagnose合进来 后续以这个最新的版本为主",
+  "user_instruction": "now merge in the 1024 updated diagnose; subsequent work uses this latest version as primary",
   "classifier": "models/diagnosis/diagnosis_v2_expanded_hierarchical.json",
   "selector_config": "configs/controller/p60_online_adapter.json",
   "probe_enabled": false,

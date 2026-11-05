@@ -114,7 +114,7 @@ def main() -> int:
         print(f"  question: {query['question']}")
         print(f"  gold_passage_id: {gold_id}")
         print(f"  gold passage: {gold_passage.get('text', query.get('gold_evidence_text'))}")
-        print(f"  gold passage 是否命中 Top-5: {hit}")
+        print(f"  gold passage in Top-5: {hit}")
         print("  Top-5 retrieved passages:")
         for rank, pid in enumerate(top5_ids, start=1):
             passage = meta_by_id.get(pid, {})

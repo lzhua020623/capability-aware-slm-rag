@@ -31,7 +31,7 @@ def load_plan(root=ROOT):
         raise BoundaryError('Only the authorised 5000 / USD40 extension is registered')
     bound(root,spec['prior_plan'])
     acceptance=bound(root,spec['user_acceptance'])
-    if (acceptance.get('effective_user_instruction')!='可以直接上5000'
+    if (acceptance.get('effective_user_instruction')!='go ahead with 5000'
             or acceptance.get('post_pilot_request_cap')!=4500 or acceptance.get('cumulative_budget_usd')!=40
             or acceptance.get('automatic_expansion_above_5000') is not False
             or acceptance.get('training_enabled_by_this_record') is not False):

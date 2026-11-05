@@ -5,9 +5,9 @@ confirmation JSON written from the chat decisions, for example:
 
 {
   "reviewer": "Qihan Zhu", "confirmed_at": "2026-10-14", "timezone": "Australia/Sydney",
-  "user_text": "A/B 全部同意；31、32 初始算正确；113、121 暂缓",
+  "user_text": "Accept all of A/B; treat 31 and 32 as initially correct; defer 113 and 121",
   "accept_agent": [1, 2, 18, 19],            # review numbers whose four agent booleans are confirmed as-is
-  "override": {"31": {"initial_correct": true, "reason": "按完整性口径第 2 条"}},
+  "override": {"31": {"initial_correct": true, "reason": "completeness criterion 2"}},
   "skip": [113, 121]                          # stay pending
 }
 
@@ -61,14 +61,14 @@ def apply_confirmations(pairs: list[dict], confirmations: dict) -> tuple[list[di
         row = by_number[number]
         agent = row["agent_review"]
         values = {f: agent[f] for f in FIELDS}
-        note = f"用户确认第 {number} 条代理建议"
+        note = f"User confirmed agent suggestion {number}"
         if number in override:
             changes = {k: v for k, v in override[number].items() if k in FIELDS}
             bad = [k for k, v in changes.items() if not isinstance(v, bool)]
             if bad:
                 raise ValueError(f"Override values must be booleans: {number} {bad}")
             values.update(changes)
-            note = f"用户改判第 {number} 条：{override[number].get('reason', '').strip() or '无补充理由'}"
+            note = f"User override of item {number}: {override[number].get('reason', '').strip() or 'no additional reason'}"
         if any(v is None for v in values.values()):
             raise ValueError(f"Review {number} still has an unresolved field; override it or skip it")
         key = row["shared_review_id"]
@@ -86,7 +86,7 @@ def apply_confirmations(pairs: list[dict], confirmations: dict) -> tuple[list[di
         if key in decided and row["review_number"] not in skip:
             values, note = decided[key]
             record["pair_review"] = {"status": "completed", "reviewer": reviewer,
-                                     "reason": f"{note}；代理理由：{row['agent_review']['reason_zh']}", **values}
+                                     "reason": f"{note}; agent reason: {row['agent_review']['reason_zh']}", **values}
             record["confirmation"] = {"user_text": confirmations["user_text"], "client_date": confirmations["confirmed_at"],
                                       "timezone": confirmations.get("timezone"),
                                       "review_mode": "chat_assisted_summary_confirmation",

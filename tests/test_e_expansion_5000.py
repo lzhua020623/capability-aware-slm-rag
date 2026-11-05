@@ -54,7 +54,7 @@ class Expansion5000PreparationTests(unittest.TestCase):
         self.assertEqual(self.spec['automatic_retries'],0)
         self.assertFalse(self.spec['training_enabled']);self.assertFalse(self.spec['automatic_further_expansion'])
         accepted=prep.bound(ROOT,self.spec['user_acceptance'])
-        self.assertEqual(accepted['effective_user_instruction'],'可以直接上5000')
+        self.assertEqual(accepted['effective_user_instruction'],'go ahead with 5000')
         self.assertEqual(accepted['cumulative_budget_usd'],40)
 
     def test_budget_retry_timeout_and_training_mutations_are_rejected(self):

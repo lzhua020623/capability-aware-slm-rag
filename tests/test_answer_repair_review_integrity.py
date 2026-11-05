@@ -75,8 +75,8 @@ class ReviewIntegrityTests(unittest.TestCase):
         rows[0]["query"] = "</h2><script>unexpected()</script>"
         page = render(rows, {}, prefix="F", title="Final review", scope="Final scope")
         self.assertIn('id="F1"', page)
-        self.assertIn("最终 r3 改答", page)
-        self.assertIn("人工确认 0/1", page)
+        self.assertIn("Final r3 repair", page)
+        self.assertIn("human confirmed 0/1", page)
         self.assertNotIn("<script>unexpected()</script>", page)
         self.assertIn("&lt;script&gt;unexpected()&lt;/script&gt;", page)
 

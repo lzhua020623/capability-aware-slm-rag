@@ -237,9 +237,9 @@ def main() -> int:
     print()
     print(f"sample count: {n}")
     print(f"classification accuracy: {accuracy:.4f}")
-    print(f"gold evidence in Top-5 数量: {gold_hits}")
-    print(f"retrieval miss 数量: {retrieval_miss}")
-    print(f"gold evidence 在 Top-5 但 prediction 错误数量: {gold_but_wrong}")
+    print(f"gold evidence in Top-5 count: {gold_hits}")
+    print(f"retrieval miss count: {retrieval_miss}")
+    print(f"gold evidence in Top-5 but prediction wrong count: {gold_but_wrong}")
     print(f"Wrote {OUT_PATH}")
     return 0
 

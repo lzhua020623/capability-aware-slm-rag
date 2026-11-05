@@ -66,17 +66,17 @@ def build_page(packet):
     new_js = (ROOT / "scripts/templates/nq_label_audit.js").read_text()
     base = base.replace(old_js, new_js)
     base = base.replace("nq-train-pending-v1", "nq-label-audit-v1")
-    base = base.replace("E · NQ Train 待审核", "E · NQ 初标分层审核 200")
-    base = base.replace("原编号，如 N63", "本批编号，如 A12")
-    base = base.replace("问题、N 编号", "问题、A 编号")
-    base = base.replace("展开 Codex 辅助判断 · 供你核对", "展开辅助判断 · 未审核处保持留空")
-    base = base.replace('<label for="label">主标签</label>',
-        '<label for="supported">Top-5 是否支持 C1 原答（与正确性分开）</label>'
-        '<select id="supported"><option value="">尚未判断</option><option value="true">支持</option>'
-        '<option value="false">不支持</option><option value="uncertain">无法确定</option></select>'
-        '<label for="supportQuote">支持位置的原文摘录（可选）</label>'
-        '<textarea id="supportQuote" placeholder="保留原文；不能只凭词面重合判支持"></textarea>'
-        '<label for="label">主标签</label>')
+    base = base.replace("E · NQ Train pending review", "E · NQ preliminary-label stratified review 200")
+    base = base.replace("Original number, e.g. N63", "This-batch number, e.g. A12")
+    base = base.replace("questions, N numbers", "questions, A numbers")
+    base = base.replace("Expand Codex assisted judgment · for you to check", "Expand assisted judgment · leave unaudited items blank")
+    base = base.replace('<label for="label">Primary label</label>',
+        '<label for="supported">Does Top-5 support the original C1 answer (separate from correctness)</label>'
+        '<select id="supported"><option value="">Not yet judged</option><option value="true">Supported</option>'
+        '<option value="false">Not supported</option><option value="uncertain">Uncertain</option></select>'
+        '<label for="supportQuote">Original-text excerpt of the supporting span (optional)</label>'
+        '<textarea id="supportQuote" placeholder="Keep the original wording; do not judge support by token overlap alone"></textarea>'
+        '<label for="label">Primary label</label>')
     return base.encode()
 
 

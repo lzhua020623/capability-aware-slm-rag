@@ -86,9 +86,9 @@ def main(argv=None):
                 z.addfile(info, io.BytesIO(raw))
     archive_raw = buffer.getvalue(); output = a.challenge / (name + ".tar.gz")
     book = json.loads(notebook(output, files, archive_raw=archive_raw, revision=revision))
-    book["cells"][0]["source"] = ["# E 一次性 NQ125 分层挑战\n",
-        f"最终版本 {revision} 已冻结。100 筛查候选与 25 EM 对照，C1 复用，v7／完整 v8 各 125 条。\n",
-        "无人工初始诊断标签；属于 E 组件分层评测，团队范围隔离待协调。结果返回后不改策略或样本。\n"]
+    book["cells"][0]["source"] = ["# E one-shot NQ125 stratified challenge\n",
+        f"Final revision {revision} is frozen. 100 screened candidates and 25 EM controls. C1 is reused. v7 and full v8 each cover 125 items.\n",
+        "There is no human initial diagnosis label. This is a stratified evaluation of component E; team-scope isolation is still to be coordinated. Do not change the strategy or the samples after results return.\n"]
     adapter = (ROOT / "scripts/run_answer_repair_portable_tests.py").read_text()
     if sha(adapter.encode()) != manifest["preflight_adapter_sha256"]:
         raise ValueError("Preflight adapter changed since final development freeze")
