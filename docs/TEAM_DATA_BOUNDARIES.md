@@ -63,8 +63,8 @@ python scripts/audit_team_nq_data.py --ids-only --output-dir /tmp/team-nq-ids-ne
 
 这些 Diagnosis 标签仍是 AI 初标。原答与 gold 的语义等价、限定词、弱监督负例、答案选择器的 gold 正例是否被证据支持，都未因结构检查通过而成为人工 gold。新生成数据回执保留 labels_semantically_verified=false；不能直接当作高质量 E 蒸馏目标。
 
-历史 74,097 条 C1 和新团队 baseline 的 context_fallback 输出也不是同一份预测。前者可以用于登记后的开发/训练；最终配对比较仍需后者的 predictions、metrics、run_config。当前缺的是新 baseline 逐题输出，不是原始样本或检索库。
+历史 74,097 条 C1 和新团队 baseline 的 context_fallback 输出也不是同一份预测。前者可以用于登记后的开发/训练；最终配对比较使用的 predictions、metrics、run_config 已在 `baselines/outputs/`：Qwen-only、配套 RAG、自适应系统各 11,114 条，Judge 在 `baselines/outputs/judge/`。
 
 检索语料库和索引保持与 baseline 匹配。用途隔离针对 QA 样本及监督字段，不从维基知识库中删除测试题相关的正常检索段落。
 
-FEVER 的团队划分、P60 的原始在线特征和模型使用 ID、候选重排/选择器的训练来源、新 baseline 逐题交付仍是后续待办。E 仍 unavailable，未因本轮体检自动启用训练权重。
+FEVER 的团队划分、P60 的原始在线特征和模型使用 ID、候选重排/选择器的训练来源仍是后续待办。新 baseline 的 11,114 条逐题结果和 Judge 已在 `baselines/outputs/`。正式测试中的 generation_repair 已执行；本轮体检没有启用新的训练权重。
