@@ -22,7 +22,7 @@ F13/F15是同一题不同策略的不同答案，不重复算成两个独立样�
 
 重建材料使用 `scripts/prepare_answer_repair_final_review.py`；生成摘要及网页使用 `scripts/summarize_answer_repair_historical_review.py` 的 `--directory artifacts/answer_repair/final_review_v1 --prefix F --title 'E · 最终42条改答审核' --summary-version answer_repair_final_changed_assisted_complete_v1 --scope '<完整批次及限制说明>'` 参数。无新模型调用，无策略改动。
 
-完整数字与限制见 `docs/ANSWER_REPAIR_RESULTS_20261021_FINAL.md`。人工确认、端到端路由实验及团队数据隔离协调仍待完成。
+完整数字与限制见 `docs/ANSWER_REPAIR_RESULTS_20261021_FINAL.md`。F1–F42人工处理已完成。历史H1–H45人工确认、端到端路由实验及团队数据隔离协调仍待完成。
 
 ## 当前人工确认更新（累计第四批，2026-10-22）
 

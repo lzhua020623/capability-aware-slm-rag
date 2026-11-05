@@ -12,4 +12,4 @@
 - 私有输入：<https://www.kaggle.com/datasets/yearo111/e-final-nq75-frozen-r3-20261020>。
 - 运行版本：<https://www.kaggle.com/code/yearo111/e-final-nq75-r3-comparison-20261020?scriptVersionId=360070600>，T4 ×2。
 
-`manifest.json`、`preparation.json` 是冻结准备快照，`validation.json` 是本地校验；实际云端状态见 `cloud_status.json`。2026-10-21 已收取29个原始导出文件并通过300条冻结回放。v7 EM 20→23，完整r3 20→20（只改N96一题），两个消融分别为19、21。主策略15条改答已完成辅助意见，人工最终收益仍待确认。输出ZIP指纹及逐文件SHA见 `result_validation.json`，统一清单见 `../final_review_v1/F42_review.html`，完整解释见 `docs/ANSWER_REPAIR_RESULTS_20261021_FINAL.md`。
+`manifest.json`、`preparation.json` 是冻结准备快照，`validation.json` 是本地校验；实际云端状态见 `cloud_status.json`。2026-10-21 已收取29个原始导出文件并通过300条冻结回放。v7 EM 20→23，完整r3 20→20（只改N96一题），两个消融分别为19、21。主策略15条改答已完成辅助意见。这15条已纳入 F1–F15，42 条总清单早于2026-10-22处理完成，结论见 data/annotations/human/answer_repair_final_v1_batch04_20261022.summary.json。输出ZIP指纹及逐文件SHA见 `result_validation.json`，统一清单见 `../final_review_v1/F42_review.html`，完整解释见 `docs/ANSWER_REPAIR_RESULTS_20261021_FINAL.md`。
