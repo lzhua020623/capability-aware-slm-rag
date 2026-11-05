@@ -1,15 +1,15 @@
-# E 最终 75 条开发实验
+# E final 75-item development experiment
 
-最终推理版本为 r3。最后 r4 的三项预声明回归仅 N12 通过，按原规则回退 r3；没有根据 EM 选择版本，也不追加 r5。
+The final inference version is r3. Of the final three pre-declared r4 regressions only N12 passed, so per the original rule it fell back to r3; the version was not selected based on EM, and no r5 is added.
 
-原 75 条为 11 个已确认内部 E 目标和 64 个正确对照。C1 复用，新增 v7／完整 r3／去原检查／去候选检查四组各 75 条；共 300 条输出，上限 600 次生成。仅用于最终开发描述，完成后不再调参，不当作未见收益证据。
+The original 75 items are 11 confirmed internal E targets and 64 correct controls. C1 is reused, and four new groups of 75 items each are added: v7 / full r3 / without original check / without candidate check; 300 outputs in total, with an upper limit of 600 generations. Used only for the final development description; no further tuning after completion, and not treated as evidence of unseen gains.
 
-- 输入归档：`answer_repair_final_r3_nq75_gpu.tar.gz`。
-- SHA-256：`b5be903db6efecb5681498f0110ebed65920369ca1e5d466492ebae7455fc98b`。
-- 推理源码：29 个文件与选定 r3 冻结源逐一一致；只有评测清单识别和打包脚本等非推理文件按记录适配。
-- 测试：Python 3.13 通过该冻结版本原 111 项便携检查。AST 兼容适配器只在 unittest 进程运行，不修改冻结包或模型进程。
-- Notebook：`notebooks/answer_repair_final_nq75.ipynb`。
-- 私有输入：<https://www.kaggle.com/datasets/yearo111/e-final-nq75-frozen-r3-20261020>。
-- 运行版本：<https://www.kaggle.com/code/yearo111/e-final-nq75-r3-comparison-20261020?scriptVersionId=360070600>，T4 ×2。
+- Input archive: `answer_repair_final_r3_nq75_gpu.tar.gz`.
+- SHA-256: `b5be903db6efecb5681498f0110ebed65920369ca1e5d466492ebae7455fc98b`.
+- Inference source: 29 files match the selected frozen r3 source one by one; only non-inference files such as the evaluation-list recognition and packaging scripts were adapted as recorded.
+- Tests: Python 3.13 passes the original 111 portable checks of this frozen version. The AST compatibility adapter runs only in the unittest process and does not modify the frozen package or the model process.
+- Notebook: `notebooks/answer_repair_final_nq75.ipynb`.
+- Private input: <https://www.kaggle.com/datasets/yearo111/e-final-nq75-frozen-r3-20261020>.
+- Run version: <https://www.kaggle.com/code/yearo111/e-final-nq75-r3-comparison-20261020?scriptVersionId=360070600>, T4 ×2.
 
-`manifest.json`、`preparation.json` 是冻结准备快照，`validation.json` 是本地校验；实际云端状态见 `cloud_status.json`。2026-10-21 已收取29个原始导出文件并通过300条冻结回放。v7 EM 20→23，完整r3 20→20（只改N96一题），两个消融分别为19、21。主策略15条改答已完成辅助意见。这15条已纳入 F1–F15，42 条总清单早于2026-10-22处理完成，结论见 data/annotations/human/answer_repair_final_v1_batch04_20261022.summary.json。输出ZIP指纹及逐文件SHA见 `result_validation.json`，统一清单见 `../final_review_v1/F42_review.html`，完整解释见 `docs/ANSWER_REPAIR_RESULTS_20261021_FINAL.md`。
+`manifest.json` and `preparation.json` are frozen preparation snapshots, and `validation.json` is the local validation; for the actual cloud status see `cloud_status.json`. On 2026-10-21 the 29 raw exported files were collected and passed the 300-item frozen replay. v7 EM 20→23, full r3 20→20 (changed only one question, N96), and the two ablations were 19 and 21 respectively. Assisted opinions have been completed for the 15 changed answers of the main strategy. These 15 items have been included in F1–F15, and the 42-item full list was fully processed before 2026-10-22; for the conclusions see data/annotations/human/answer_repair_final_v1_batch04_20261022.summary.json. The output ZIP fingerprint and per-file SHA are in `result_validation.json`, the unified list is `../final_review_v1/F42_review.html`, and the full explanation is in `docs/ANSWER_REPAIR_RESULTS_20261021_FINAL.md`.

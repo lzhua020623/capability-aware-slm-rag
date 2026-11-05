@@ -1,68 +1,68 @@
-# T4 开发集完整结果 · 2026-10-25
+# T4 development set complete results · 2026-10-25
 
-GPU 推理及冻结自动评分已完成。**Adaptive 在 NQ EM 上持平，在 FEVER 净增4题；E与全增强仍有负净收益。** NQ语义审核、AC6与轨迹人工验收尚未完成，尚未进行T5选型或最终测试。
+GPU inference and frozen automatic scoring are complete. **Adaptive ties on NQ EM and has a net gain of 4 questions on FEVER; E and full enhancement still have negative net gains.** NQ semantic review, AC6 and trace human acceptance are not yet complete, and neither the T5 selection run nor the final test has been carried out.
 
-## 结果是否可用
+## Are the results usable
 
-[Kaggle V2](https://www.kaggle.com/code/yearo111/controller-t3-cuda-engineering-frozen-20261024?scriptVersionId=361785012)运行31,265.1秒（约8.68小时），页面显示failure。实际2,800条预测全部保存后，末尾汇总投影遗漏`total_seconds`，导致`KeyError`。这是汇总工程错误；原始记录中有完整耗时字段，所有固定ID、七组配对、输入/提示哈希、预算、运行环境和工程凭证均通过验收，调用失败及预算阻断为0。没有重新生成答案。
+[Kaggle V2](https://www.kaggle.com/code/yearo111/controller-t3-cuda-engineering-frozen-20261024?scriptVersionId=361785012) ran for 31,265.1 seconds (about 8.68 hours), and the page shows failure. After all 2,800 predictions were actually saved, the final summary projection omitted `total_seconds`, causing a `KeyError`. This is a summary engineering error; the raw records contain complete timing fields, and all fixed IDs, the seven-group pairing, input/prompt hashes, budgets, the runtime environment and the engineering receipts passed acceptance, with call failures and budget blocks at 0. No answers were regenerated.
 
-原始[manifest](raw_metadata/manifest.json)的failed状态保留，不改写历史。[验收](release_audit.json)和[从原预测重建的汇总](reconstructed_summary.json)单独保存。当前runner仅补齐汇总所需字段；新增回归测试从400道虚构题、七组、2,800条保存一直执行到成功汇总。774项完整回归通过（85.605秒），测试流关闭清理后该回归再次通过（16.795秒），见[验证](validation/summary_fix_tests.json)。冻结GPU包及原始预测未修改。
+The failed status in the original [manifest](raw_metadata/manifest.json) is retained, without rewriting history. The [acceptance](release_audit.json) and the [summary rebuilt from the original predictions](reconstructed_summary.json) are stored separately. The current runner only fills in the fields required by the summary; a new regression test runs from 400 fictional questions, seven groups and 2,800 saved records all the way to a successful summary. 774 full regression tests passed (85.605 seconds), and after the test streams were closed and cleaned up this regression passed again (16.795 seconds); see [validation](validation/summary_fix_tests.json). The frozen GPU package and the original predictions were not modified.
 
-原始ZIP为`controller_t4_development_v1_outputs.zip`，14,232,583字节，SHA256：`be3b926b8f808cd39b1c32b64564e5e5619518bebd2585af3fd8f0a6616bc7a5`。其中原始预测127,988,603字节，SHA256：`972d5571b8f2e2263581c17a089a01f5c76498f7057e69e276d5206ddb30a1ad`。Git保留原始ZIP和小型元数据；128MB解压预测仅位于忽略目录`data/processed/controller_results/t4_v1/`，可从ZIP无损恢复。
+The raw ZIP is `controller_t4_development_v1_outputs.zip`, 14,232,583 bytes, SHA256: `be3b926b8f808cd39b1c32b64564e5e5619518bebd2585af3fd8f0a6616bc7a5`. Within it, the raw predictions are 127,988,603 bytes, SHA256: `972d5571b8f2e2263581c17a089a01f5c76498f7057e69e276d5206ddb30a1ad`. Git keeps the raw ZIP and small metadata; the 128MB extracted predictions are only in the ignored directory `data/processed/controller_results/t4_v1/` and can be losslessly restored from the ZIP.
 
-## 七组比较
+## Seven-group comparison
 
-每个数据集200条development。NQ使用冻结EM，FEVER使用冻结标签准确率；各列均为正确数/200。NQ的语义等价答案另行审核，不修改本次gold或别名。本轮E为NQ `short_answer_quote`、FEVER `verify_repair`，共享Qwen/NF4；结论对应这两个冻结策略和本批数据。
+200 development items per dataset. NQ uses frozen EM and FEVER uses frozen label accuracy; each column is number correct/200. Semantically equivalent NQ answers are reviewed separately, without modifying this round's gold or aliases. In this round E is NQ `short_answer_quote` and FEVER `verify_repair`, sharing Qwen/NF4; the conclusions apply to these two frozen policies and this batch of data.
 
-| 比较组 | NQ EM | FEVER准确率 | NQ 修好 / 改坏 | FEVER 修好 / 改坏 |
+| Comparison group | NQ EM | FEVER accuracy | NQ fixed / broken | FEVER fixed / broken |
 |---|---:|---:|---:|---:|
-| C1缓存基线 | 78（39.0%） | 170（85.0%） | 0 / 0 | 0 / 0 |
-| Always Retrieve | 85（42.5%） | 171（85.5%） | 11 / 4 | 5 / 4 |
-| Always Rerank | 81（40.5%） | 172（86.0%） | 5 / 2 | 5 / 3 |
-| Always Repair（E） | 68（34.0%） | 166（83.0%） | 4 / 14 | 2 / 6 |
-| Full 串行全增强 | 72（36.0%） | 166（83.0%） | 10 / 16 | 5 / 9 |
-| Adaptive | 78（39.0%） | 174（87.0%） | 1 / 1 | 4 / 0 |
-| Adaptive No Probe | 79（39.5%） | 174（87.0%） | 2 / 1 | 4 / 0 |
+| C1 cached baseline | 78 (39.0%) | 170 (85.0%) | 0 / 0 | 0 / 0 |
+| Always Retrieve | 85 (42.5%) | 171 (85.5%) | 11 / 4 | 5 / 4 |
+| Always Rerank | 81 (40.5%) | 172 (86.0%) | 5 / 2 | 5 / 3 |
+| Always Repair (E) | 68 (34.0%) | 166 (83.0%) | 4 / 14 | 2 / 6 |
+| Full serial full enhancement | 72 (36.0%) | 166 (83.0%) | 10 / 16 | 5 / 9 |
+| Adaptive | 78 (39.0%) | 174 (87.0%) | 1 / 1 | 4 / 0 |
+| Adaptive No Probe | 79 (39.5%) | 174 (87.0%) | 2 / 1 | 4 / 0 |
 
-NQ token F1：C1为0.553569，Adaptive为0.553021，No Probe为0.557711，Always Retrieve为0.568517；其余完整指标见[evaluation.json](evaluation.json)。送入模块、生成新候选、`answer_replaced`状态均不等于改坏；上表改坏严格指原答指标正确、最终指标错误。
+NQ token F1: C1 is 0.553569, Adaptive is 0.553021, No Probe is 0.557711, Always Retrieve is 0.568517; for the other complete metrics see [evaluation.json](evaluation.json). Being sent into a module, generating a new candidate, or an `answer_replaced` status is not the same as broken; in the table above, broken strictly means the original answer's metric was correct and the final metric is wrong.
 
-## 损失来自哪里
+## Where the losses come from
 
-**NQ路由存在漏修。** 离线观察到的“保留+C1后三个单动作”逐题最优为93/200，Adaptive为78/200。差距由1个可避免误修和14个漏掉的修复机会构成；14题中10题被保留原答、2题送去重排、1题送去E、1题送去补检索。10个漏修可被固定补检索组修好（不同动作的成功集合有重叠）。这是当前动作集合的观察上限，不能当作可部署性能、纯Diagnosis因果损失或模型内在上限；NQ仍受EM口径影响。
+**NQ routing has missed repairs.** The offline-observed per-question optimum of "keep + the three single actions after C1" is 93/200, while Adaptive is 78/200. The gap consists of 1 avoidable harmful repair and 14 missed repair opportunities; of the 14 questions, 10 kept the original answer, 2 were sent to reranking, 1 was sent to E and 1 was sent to retrieval enhancement. 10 missed repairs could be fixed by the fixed retrieval-enhancement group (the success sets of different actions overlap). This is an observed ceiling for the current action set and cannot be treated as deployable performance, a pure Diagnosis causal loss or a model-intrinsic ceiling; NQ is still affected by the EM criterion.
 
-**E既有输出契约问题，也有接受候选后的误修。** NQ单独E有111/200次invalid_output（55.5%）：引文不是证据逐字切片50次、RANK无效39次、引文超60词20次，其余行格式/短答案长度各1次；另有3次候选无法锚定。35次实际改答按EM修好4题、改坏14题。FEVER单独E有56次invalid_output，其中46次为引文并非逐字片段、8次为repair没有改变原标签、2次JSON解析失败；实际改答修好2题、改坏6题。格式回退不等于最终答案错误，所有回退保留并照常计入比较，见[错误分类](diagnostics.json)。
+**E has both output-contract problems and harmful repairs after accepting candidates.** Standalone E on NQ had 111/200 invalid_output (55.5%): the quote was not a verbatim slice of the evidence 50 times, RANK was invalid 39 times, the quote exceeded 60 words 20 times, and line format/short-answer length 1 time each; in addition, 3 candidates could not be anchored. The 35 actual changed answers fixed 4 questions and broke 14 by EM. Standalone E on FEVER had 56 invalid_output, of which 46 were quotes that were not verbatim fragments, 8 were repairs that did not change the original label, and 2 were JSON parse failures; the actual changed answers fixed 2 questions and broke 6. A format fallback is not the same as a wrong final answer; all fallbacks are kept and counted in the comparison as usual; see [error classification](diagnostics.json).
 
-Full中逐阶段正确数为：NQ **78→85→84→72**，FEVER **170→171→171→166**，依次对应C1→补检索→重排→E。在已有前序状态上，最后E阶段NQ修4坏16、FEVER修0坏5，不能与E从原C1单独执行的数字混用。
+The per-stage correct counts in Full are: NQ **78→85→84→72**, FEVER **170→171→171→166**, corresponding in order to C1→retrieval enhancement→reranking→E. On top of the existing preceding state, the final E stage fixed 4 and broke 16 on NQ and fixed 0 and broke 5 on FEVER; these cannot be mixed with the numbers for E executed alone from the original C1.
 
-**不能因单独E整体为负就声称它拖累了当前Adaptive。** Adaptive的NQ E子集16题最终没有改答（13次invalid_output、2次keep、1次无法锚定），净值为0；Adaptive的唯一NQ误修来自补检索，唯一修好来自重排。FEVER Adaptive只选择保留或补检索，E与重排触发数为0，FEVER的4题收益来自选择性补检索。FEVER观察最优179/200，Adaptive174/200，仍漏掉5个单动作可修机会。
+**The overall negative result of standalone E cannot be used to claim that it drags down the current Adaptive.** Adaptive's NQ E subset of 16 questions ended with no changed answers (13 invalid_output, 2 keep, 1 could not be anchored), net 0; Adaptive's only NQ harmful repair came from retrieval enhancement, and its only fix came from reranking. FEVER Adaptive only chose keep or retrieval enhancement, with 0 E and reranking triggers; FEVER's 4-question gain came from selective retrieval enhancement. The FEVER observed optimum is 179/200 and Adaptive is 174/200, still missing 5 repair opportunities fixable by a single action.
 
-**Probe在这批没有额外准确率收益。** NQ调用56次Probe，Adaptive比No Probe少正确1题；FEVER调用53次Probe，最终200个标签与No Probe完全一致。NQ额外Qwen调用102对65，FEVER119对67。该比较只支持本批配置的开发观察，不能推广为所有Probe都无效。
+**Probe gave no additional accuracy gain in this batch.** NQ called Probe 56 times, and Adaptive had 1 fewer correct question than No Probe; FEVER called Probe 53 times, and the final 200 labels are exactly identical to No Probe. Additional Qwen calls were 102 vs 65 for NQ and 119 vs 67 for FEVER. This comparison only supports a development observation for this batch's configuration and cannot be generalized to all Probes being ineffective.
 
-## 成本与统计边界
+## Cost and statistical boundaries
 
-| 数据集 | Adaptive增量Qwen调用 / Full | Adaptive增量tokens估计 / Full | 增量tokens少用 |
+| Dataset | Adaptive incremental Qwen calls / Full | Adaptive incremental token estimate / Full | Incremental tokens saved |
 |---|---:|---:|---:|
 | NQ | 102 / 584 | 111,759 / 488,569 | 77.1% |
 | FEVER | 119 / 590 | 171,624 / 946,069 | 81.9% |
 
-这里包含Probe，token口径为输入token加重新分词估计的输出token，**仅统计缓存C1之后的增量**。共有C1的生成/初检索成本不完整，因此不能据此宣布proposal的完整流水线AC5通过。组内累计耗时（排除共用C1及资源加载）：NQ Adaptive868.4秒、Full5003.9秒；FEVER Adaptive1791.5秒、Full8172.8秒。它们是本次交错执行中累计的组内计时，不是分别独立部署的墙钟实验。
+This includes Probe; the token criterion is input tokens plus re-tokenized estimated output tokens, **counting only the increment after cached C1**. The shared C1 generation/initial retrieval cost is incomplete, so this cannot be used to declare that the proposal's full-pipeline AC5 passed. Cumulative within-group time (excluding the shared C1 and resource loading): NQ Adaptive 868.4 seconds, Full 5003.9 seconds; FEVER Adaptive 1791.5 seconds, Full 8172.8 seconds. These are within-group timings accumulated during this interleaved execution, not wall-clock experiments of separate independent deployments.
 
-这批是development描述性结果。Adaptive对C1的配对精确McNemar：NQ p=1、FEVER p=0.125；四项Holm后分别为1和0.375。Adaptive对Full的保守非劣检验Holm后为NQ0.4262、FEVER0.0840，均未确立预登记非劣。不能用单一bootstrap区间或较高的点估计替代检验结论，也不能把“未确立”写成“证明更差”。统计方法和全部区间保留在[evaluation.json](evaluation.json)。
+This batch is a descriptive development result. Paired exact McNemar of Adaptive vs C1: NQ p=1, FEVER p=0.125; after four-test Holm, 1 and 0.375 respectively. The conservative non-inferiority test of Adaptive vs Full after Holm gives NQ 0.4262 and FEVER 0.0840; neither establishes the preregistered non-inferiority. A single bootstrap interval or a higher point estimate cannot replace the test conclusion, and "not established" cannot be written as "proven worse". The statistical methods and all intervals are retained in [evaluation.json](evaluation.json).
 
-## 人工审核与后续
+## Human review and follow-up
 
-- [NQ改答队列](nq_changed_answer_review.jsonl)：104个不同“原答→候选”对，覆盖84道题；按相同答案对合并来源组，保留初始Top5和各组最终证据。前14条来自Adaptive改答。所有人工字段pending，EM分数只作辅助。
-- [路由重点队列](routing_priority_review.jsonl)：NQ15个、FEVER5个误修/漏修观察案例。优先确认NQ语义，避免把EM差异误当路由失败。
-- [Adaptive警示和完整轨迹队列](adaptive_flagged_trace_review.jsonl)：51条（NQ29、FEVER22），保留完整运行记录。AC6需至少50个人工确认、观察精确率≥90%；至少50条轨迹质性审核的独立性/完成字段另记。两项均未验收，警示本身不是真值。
+- [NQ changed-answer queue](nq_changed_answer_review.jsonl): 104 distinct "original answer→candidate" pairs, covering 84 questions; source groups are merged by identical answer pair, keeping the initial Top5 and each group's final evidence. The first 14 entries come from Adaptive changed answers. All human fields are pending, and EM scores are only auxiliary.
+- [Routing priority queue](routing_priority_review.jsonl): 15 NQ and 5 FEVER observed harmful-repair/missed-repair cases. Confirm NQ semantics first, to avoid mistaking EM differences for routing failures.
+- [Adaptive warnings and complete trace queue](adaptive_flagged_trace_review.jsonl): 51 entries (NQ 29, FEVER 22), keeping the complete run records. AC6 requires at least 50 human confirmations with observed precision ≥90%; the independence/completion fields for the qualitative review of at least 50 traces are recorded separately. Neither has passed acceptance, and the warnings themselves are not ground truth.
 
-按预登记T5规则，当前NQ损失中漏修机会14大于可避免误修1，优先检查NQ路由漏修；E契约拒绝和No Probe结果用于解释及候选设计。尚未选定或晋升新候选，本次评分/分析未读取selection/final的gold，也未改阈值、提示、模型、知识库、训练或RSI。语义审核收口后只做一个集中候选，在独立选型集确认，随后冻结最终测试。没有证据支持当前直接把E晋升为已有效的默认策略。
+Per the preregistered T5 rules, in the current NQ losses the 14 missed repair opportunities exceed the 1 avoidable harmful repair, so NQ routing missed repairs are checked first; E contract rejections and the No Probe results are used for explanation and candidate design. No new candidate has been selected or promoted yet; this scoring/analysis did not read selection/final gold, and did not change thresholds, prompts, models, the knowledge base, training or RSI. After the semantic review is closed, only one focused candidate is made, confirmed on an independent selection set, and then the final test is frozen. There is no evidence supporting directly promoting E now to an already-effective default policy.
 
-## 重现
+## Reproduction
 
-从仓库根目录，在现有完整依赖环境运行：
+From the repository root, in the existing complete dependency environment, run:
 
 ```bash
 python artifacts/controller/t4_v1/reproduce.py --output-dir /tmp/controller-t4-offline-replay
 ```
 
-输出目录必须不存在，防止覆盖人工字段。脚本只读本次ZIP、已封存工程凭证和development gold，验证哈希/配对/预算后重建汇总、冻结评测、损失分析和待审队列；没有模型加载或GPU调用。原始CLI评分与独立ZIP重放的JSON结果已逐对象一致核对，见[重放凭证](reproduction_receipt.json)。原始推理源码是42c7974；后续汇总修补不替换归档中的源码、原manifest或预测。
+The output directory must not exist, to prevent overwriting human fields. The script only reads this ZIP, the sealed engineering receipts and the development gold, and after verifying hashes/pairing/budgets it rebuilds the summary, the frozen evaluation, the loss analysis and the review queues; no model loading or GPU calls. The JSON results of the original CLI scoring and the independent ZIP replay have been checked object by object to be identical; see the [replay receipt](reproduction_receipt.json). The original inference source is 42c7974; the subsequent summary patch does not replace the archived source, the original manifest or the predictions.

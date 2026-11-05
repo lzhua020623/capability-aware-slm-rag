@@ -1,31 +1,31 @@
-# E 最终改答审核清单
+# E final changed-answer review list
 
-2026-10-21，最终75开发与一次性125挑战已完成冻结回放。全部主策略改答形成42条审核材料，涉及41个样本；代理辅助42/42；截至2026-10-22，用户已过目42条，42条处理完成，37条可二元计分、5条已处理保留评分说明。最新入口是 `F42_human_review.html`；原 `F42_review.html` 保留为人工确认前的冻结展示材料。
+On 2026-10-21, the final 75-item development run and the one-time 125-item challenge completed frozen replay. All changed answers of the main strategy formed 42 review items, covering 41 samples; assistant assistance 42/42; as of 2026-10-22, the user has looked through 42 items, 42 items are fully processed, 37 can be scored in binary, and 5 have been processed with scoring notes retained. The latest entry point is `F42_human_review.html`; the original `F42_review.html` is kept as the frozen display material from before human confirmation.
 
-- F1–F14：开发75的 v7 改答，对照原 N 编号。
-- F15：开发75的最终 r3 唯一改答，原 N96。
-- F16–F42：挑战125的 v7 改答，保留 U 编号（冻结 challenge_number）。挑战 r3 没有改答。
+- F1–F14: v7 changed answers of development 75, mapped to the original N numbers.
+- F15: the only changed answer of the final r3 on development 75, originally N96.
+- F16–F42: v7 changed answers of challenge 125, keeping the U numbers (frozen challenge_number). The challenge r3 has no changed answers.
 
-F13/F15是同一题不同策略的不同答案，不重复算成两个独立样本。`prepare_answer_repair_final_review.py` 只会复用问题、初末答案、证据、参考和实际引用完全相同的审核材料；保留等价结果来源。本批没有完全相同的材料可合并。消融记录不在主审核范围，完整预测仍保存。
+F13/F15 are different answers from different strategies for the same question, and are not double-counted as two independent samples. `prepare_answer_repair_final_review.py` only reuses review material whose question, initial and final answers, evidence, references and actual citations are completely identical; the source of equivalent results is retained. This batch has no completely identical material to merge. Ablation records are not in the main review scope; full predictions are still saved.
 
-打开 `F42_review.html` 查看问题、C1、改答、代理意见、实际引用及完整Top-5，可按编号搜索。在聊天中回复“F1–F5同意”或逐条纠正即可。页面只读，不会自动提交人工标签。H前缀继续用于历史45条，N前缀只指原开发编号。
+Open `F42_review.html` to view the question, C1, changed answer, assistant opinion, actual citations and full Top-5; searchable by number. Reply in chat with "F1–F5 agree" or correct items one by one. The page is read-only and does not automatically submit human labels. The H prefix continues to be used for the historical 45 items; the N prefix refers only to the original development numbers.
 
-| 分层／策略 | 建议修复 | 疑似误修 | 正确保留 | 正确性待定 |
+| Stratum / strategy | Suggested fix | Suspected harmful repair | Correctly preserved | Correctness pending |
 |---|---:|---:|---:|---:|
-| 开发 v7 | 3 | 2 | 8 | 1 |
-| 开发 r3 | 1 | 0 | 0 | 0 |
-| 挑战 v7 | 2 | 4 | 15 | 6 |
+| Development v7 | 3 | 2 | 8 | 1 |
+| Development r3 | 1 | 0 | 0 | 0 |
+| Challenge v7 | 2 | 4 | 15 | 6 |
 
-以上是人工确认前的代理初稿快照，不能当作当前人工结论或最终收益。初稿重点待定为F4、F19、F21、F22、F35、F36、F40；其他35条同样需要确认。F32还需确认FIFA项目及语料时点，F30需确认degree与diploma口径。
+The above is the assistant's draft snapshot from before human confirmation, and cannot be taken as the current human conclusion or the final gain. The key pending items in the draft were F4, F19, F21, F22, F35, F36, F40; the other 35 items also need confirmation. F32 still needs confirmation of the FIFA event and the corpus time point, and F30 needs confirmation of the degree vs diploma criterion.
 
-`pending_pairs.jsonl` 保存冻结材料、原结果SHA和全部pending人工字段。`assisted_partial.jsonl` 沿用历史工具命名，实际已有全部42条代理意见，含逐字来源定位。`manifest.json` 冻结并集范围；`assisted_summary.json` 记录后续代理完成状态。未知保留null，既有初始人工正确性不被代理覆盖。
+`pending_pairs.jsonl` saves the frozen material, the original result SHA and all pending human fields. `assisted_partial.jsonl` keeps the historical tool naming, but actually already contains all 42 assistant opinions, with verbatim source locations. `manifest.json` freezes the union scope; `assisted_summary.json` records the subsequent assistant completion status. Unknowns stay null, and existing initial human correctness is not overwritten by the assistant.
 
-重建材料使用 `scripts/prepare_answer_repair_final_review.py`；生成摘要及网页使用 `scripts/summarize_answer_repair_historical_review.py` 的 `--directory artifacts/answer_repair/final_review_v1 --prefix F --title 'E · 最终42条改答审核' --summary-version answer_repair_final_changed_assisted_complete_v1 --scope '<完整批次及限制说明>'` 参数。无新模型调用，无策略改动。
+Materials are rebuilt with `scripts/prepare_answer_repair_final_review.py`; the summary and web page are generated with the `--directory artifacts/answer_repair/final_review_v1 --prefix F --title 'E · 最终42条改答审核' --summary-version answer_repair_final_changed_assisted_complete_v1 --scope '<full batch and limitation description>'` arguments of `scripts/summarize_answer_repair_historical_review.py`. No new model calls, no strategy changes.
 
-完整数字与限制见 `docs/ANSWER_REPAIR_RESULTS_20261021_FINAL.md`。F1–F42人工处理已完成。历史H1–H45人工确认、端到端路由实验及团队数据隔离协调仍待完成。
+For the full numbers and limitations see `docs/ANSWER_REPAIR_RESULTS_20261021_FINAL.md`. Human processing of F1–F42 is complete. Human confirmation of the historical H1–H45, the end-to-end routing experiment and team data-isolation coordination are still pending.
 
-## 当前人工确认更新（累计第四批，2026-10-22）
+## Current human confirmation update (cumulative batch 4, 2026-10-22)
 
-F12/F23/F25/F36记录保留原答但改答正确性待定；F37按必须具体写Continental Army的受援对象口径，记两答都错。其余同意意见保留原有null。追加“F4支持”后，F4记为修复；F12再次要求保留C1原答，短答正确性仍待定。第三批确认F21原对改错、F22两答都对、F35原错改对、F40两答都错。F12/F23/F25/F36已决定保留原答，F19已完成外部核查；这5条只保留评分说明，不再作为待办。旧表为代理初稿快照，当前人工统计见 `data/annotations/human/answer_repair_final_v1_batch04_20261022.summary.json`，原话及澄清另存同名前缀 `.confirmations.json`，详细解释见 `docs/ANSWER_REPAIR_FINAL_HUMAN_REVIEW_20261021.md`。
+F12/F23/F25/F36 are recorded as keeping the original answer, but the correctness of the changed answer is pending; F37, under the criterion that the aid recipient must be specifically stated as Continental Army, is recorded as both answers wrong. The other agreement opinions keep their existing null. After the additional "F4 supported", F4 is recorded as a fix; F12 again requested keeping the C1 original answer, and short-answer correctness is still pending. Batch 3 confirmed F21 original right changed wrong, F22 both answers right, F35 original wrong changed right, F40 both answers wrong. F12/F23/F25/F36 have been decided to keep the original answer, and F19 has completed external verification; these 5 items only retain scoring notes and are no longer to-dos. The old table is the assistant's draft snapshot; for current human statistics see `data/annotations/human/answer_repair_final_v1_batch04_20261022.summary.json`, the original wording and clarifications are saved separately with the same prefix `.confirmations.json`, and for the detailed explanation see `docs/ANSWER_REPAIR_FINAL_HUMAN_REVIEW_20261021.md`.
 
-开发v7确认修复4、误修2、待定1；开发r3确认修复1，无误修或待定；挑战v7确认修复3、误修4、待定4。未决项未按错误或正确补值，未计算跨策略汇总净收益。
+Development v7 confirmed fixes 4, harmful repairs 2, pending 1; development r3 confirmed fix 1, no harmful repairs or pending; challenge v7 confirmed fixes 3, harmful repairs 4, pending 4. Unresolved items were not imputed as wrong or correct, and no cross-strategy aggregate net gain was computed.

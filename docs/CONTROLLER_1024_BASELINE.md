@@ -1,10 +1,10 @@
 # Production Adaptive RAG · controller_2
 
-正式生产链路已冻结。算法、阈值、P60 78 维定义、Diagnosis 与 Controller mapping 不再改动。
+The official production pipeline is frozen. The algorithm, thresholds, the P60 78-dimensional definition, Diagnosis and the Controller mapping will no longer be changed.
 
-登记文件：[current_baseline.json](../configs/controller/current_baseline.json)  
-基线名：`diagnosis_20261024_p60_p64_v1`  
-Reference RAG：[reference_rag_v1.json](../configs/controller/reference_rag_v1.json)
+Registration file: [current_baseline.json](../configs/controller/current_baseline.json)  
+Baseline name: `diagnosis_20261024_p60_p64_v1`  
+Reference RAG: [reference_rag_v1.json](../configs/controller/reference_rag_v1.json)
 
 ## Architecture
 
@@ -20,39 +20,39 @@ raw Query
   → AdaptiveRAGResult / Final Answer
 ```
 
-Probe 按正式设计关闭（`probe_enabled=false`）。
+Probe is turned off per the official design (`probe_enabled=false`).
 
 ## Reference RAG
 
-| 项 | 正式配置 |
+| Item | Official configuration |
 |---|---|
 | Embedding | `BAAI/bge-base-en-v1.5` |
-| Index / corpus | matched NQ-Train（`nq_train_bge_base*`，约 1,224,119 passages） |
+| Index / corpus | matched NQ-Train (`nq_train_bge_base*`, about 1,224,119 passages) |
 | Top-k | 5 |
-| Generator | `Qwen/Qwen2.5-7B-Instruct`，NF4，确定性生成 |
-| Prompt | `context_fallback`（`FREEZE_CONTEXT_FALLBACK`） |
+| Generator | `Qwen/Qwen2.5-7B-Instruct`, NF4, deterministic generation |
+| Prompt | `context_fallback` (`FREEZE_CONTEXT_FALLBACK`) |
 
-旧 Dev index（`nq_bge_base`）禁止用于 production；加载时会拒绝。
+The old Dev index (`nq_bge_base`) is forbidden for production; it is rejected at load time.
 
 ## Diagnosis / Selection
 
-- **Diagnosis**：登记分类器 `models/diagnosis/diagnosis_v2_expanded_hierarchical.json`
-- **P60 FeatureProvider**：`src.controller.p60_online_features.build_p60_online_feature_provider`，78 维，含 P26 semantic runtime；`metered_runtime=true`
-- **Frozen Selection**：`configs/controller/p60_online_adapter.json` + 三个 HGB joblib；阈值与 z-stats 冻结
-- **Provenance**：`artifacts/controller/p60_online_adapter/training_provenance.json`
+- **Diagnosis**: registered classifier `models/diagnosis/diagnosis_v2_expanded_hierarchical.json`
+- **P60 FeatureProvider**: `src.controller.p60_online_features.build_p60_online_feature_provider`, 78 dimensions, including the P26 semantic runtime; `metered_runtime=true`
+- **Frozen Selection**: `configs/controller/p60_online_adapter.json` + three HGB joblibs; thresholds and z-stats frozen
+- **Provenance**: `artifacts/controller/p60_online_adapter/training_provenance.json`
 
 ## Controller actions
 
 | Diagnosis / selection | Action |
 |---|---|
-| `selected=False` | `no_action`（终答 = 初答） |
+| `selected=False` | `no_action` (final answer = initial answer) |
 | `evidence_insufficiency` | `retrieval_enhancement` |
 | `evidence_accessibility` | `evidence_refinement` |
 | `evidence_utilisation` | `generation_repair` |
 
-`E_mode`（NQ/FEVER）正式为 `allow_repair`（`evidence_id_v2a`）。
+`E_mode` (NQ/FEVER) is officially `allow_repair` (`evidence_id_v2a`).
 
-## 正式入口（raw query）
+## Official entry point (raw query)
 
 ```python
 from pathlib import Path
@@ -62,42 +62,42 @@ root = Path(".")
 pipeline, env = load_current_pipeline(
     root=root,
     nq_resources=root / "configs/controller/nq_train_resources_v1.json",
-    data_role="validation",  # or "train"; test 禁止
+    data_role="validation",  # or "train"; test forbidden
     attach_reference_rag=True,
 )
 result = pipeline.run("your question here")
 print(result.final_answer)
 ```
 
-就绪检查：
+Readiness check:
 
 ```bash
 python scripts/check_controller_current.py
 ```
 
-应报告 `ready_for_gpu=true`。不要把工程 smoke helper 当作正式 API。
+It should report `ready_for_gpu=true`. Do not treat the engineering smoke helper as the official API.
 
-## Runtime assets（不进 Git）
+## Runtime assets (not in Git)
 
-下列资源本地必须存在；路径登记在 config / registry，文件本身由 `.gitignore` 排除：
+The following resources must exist locally; their paths are registered in config / registry, and the files themselves are excluded by `.gitignore`:
 
-- matched NQ-Train FAISS index / ids / offsets / corpus（`data/processed/...`）
-- Diagnosis 与 P60 HGB 模型权重（`models/...`）
-- Hugging Face / 本地缓存：`BAAI/bge-base-en-v1.5`、`BAAI/bge-reranker-large`、`BAAI/bge-reranker-base`、`Qwen/Qwen2.5-7B-Instruct`
-- P26 semantic runtime 数组（若在线特征需要）
+- matched NQ-Train FAISS index / ids / offsets / corpus (`data/processed/...`)
+- Diagnosis and P60 HGB model weights (`models/...`)
+- Hugging Face / local cache: `BAAI/bge-base-en-v1.5`, `BAAI/bge-reranker-large`, `BAAI/bge-reranker-base`, `Qwen/Qwen2.5-7B-Instruct`
+- P26 semantic runtime arrays (if needed by online features)
 
-小型正式 config、provenance 与 registry **应**进入 Git。
+Small official config, provenance and registry files **should** go into Git.
 
-## 验证状态
+## Verification status
 
-Production E2E smoke（Train 裸 query，完整链路）已覆盖：
+Production E2E smoke (Train raw query, full pipeline) has covered:
 
 - `no_action`
 - `retrieval_enhancement`
 - `evidence_refinement`
 - `generation_repair`
 
-无 mock / unavailable / missing implementation / exception。  
-证据摘要：`artifacts/controller/production_e2e_smoke_v1/smoke_results_final.json`。
+No mock / unavailable / missing implementation / exception.  
+Evidence summary: `artifacts/controller/production_e2e_smoke_v1/smoke_results_final.json`.
 
-该 smoke 只证明工程路径可运行，**不是**准确率或收益结论。冻结 Test（11,114）未在本阶段执行。
+This smoke only proves that the engineering path runs; it is **not** an accuracy or gain conclusion. The frozen Test (11,114) was not run in this stage.

@@ -1,10 +1,10 @@
-# FEVER 团队资源验收
+# FEVER Team Resource Acceptance
 
-- `import_validation.json`：两个原 ZIP 的大小/SHA-256、选定成员的 CRC/哈希验收、全量 5,396,106 条 corpus/ID 顺序与文本检查、offsets 指纹。
-- `original_metadata.json`：从原包取出的 601-byte 建库记录，与仓库原 `results/retrieval/fever_bge_ivfpq_meta.json` 字节一致。
-- `structure_validation.json`：实际加载 IndexIVFPQ，核对数量、维度、IP、PQ 参数、nprobe、by_residual；三条重建 PQ 向量搜索 Top20 后回读原文。
-- `import.log` / `structure.log`：对应实际执行日志。
+- `import_validation.json`: size/SHA-256 of the two original ZIPs, CRC/hash acceptance of the selected members, full order and text checks of the 5,396,106 corpus/ID entries, and the offsets fingerprint.
+- `original_metadata.json`: the 601-byte index-build record taken from the original package, byte-identical to the repository's original `results/retrieval/fever_bge_ivfpq_meta.json`.
+- `structure_validation.json`: actually loads IndexIVFPQ and checks count, dimension, IP, PQ parameters, nprobe, and by_residual; searches Top20 with three reconstructed PQ vectors and then reads back the original text.
+- `import.log` / `structure.log`: the corresponding actual execution logs.
 
-本机资源位于 `data/processed/controller_resources/fever_v1/`，大型资源和 offsets 不进原始 Git。复现命令见 [接入说明](../../../docs/CONTROLLER_RESOURCE_ADAPTER_V1.md)。两个原 ZIP 保留在本机 Downloads，来源为团队 Drive；需要迁移时复用原包并按哈希核对。
+Local resources are at `data/processed/controller_resources/fever_v1/`; large resources and offsets do not go into the original Git. For reproduction commands, see the [integration notes](../../../docs/CONTROLLER_RESOURCE_ADAPTER_V1.md). The two original ZIPs are kept in the local Downloads, sourced from the team Drive; when migration is needed, reuse the original packages and verify them by hash.
 
-`import_validation.json` 的 remaining 是导入完成当时的记录；其后 structural/search 检查已通过。FEVER 原 BGE revision 仍未记录，本轮不声称做过语义 BGE 兼容验收或问答质量评测。ZIP 的旧 fever_dev 只记指纹，不替换 T2 冻结来源。后续还需 FEVER provider、新 C1 与正式 execution seal。
+The remaining in `import_validation.json` is the record at the time the import completed; the structural/search checks passed afterwards. The original FEVER BGE revision is still not recorded; this round does not claim to have done semantic BGE compatibility acceptance or QA quality evaluation. The old fever_dev in the ZIP only has its fingerprint recorded and does not replace the T2 frozen source. The FEVER provider, the new C1, and the formal execution seal are still needed later.

@@ -1,59 +1,59 @@
-# NQ Train 索引配套文件恢复
+# NQ Train index companion file recovery
 
-本次沿用团队原有的 74,097 条问题子集及其检索库，不扩大 NQ 样本、不重建完整向量索引。语料和原索引来自团队 [nq_train_document](https://drive.google.com/drive/u/0/folders/1ZF9i_M-PJSzJSOW34rKPcAB1Ft-0QCQA) 共享目录。
+This time the team's original 74,097-question subset and its retrieval store are kept, without expanding the NQ samples or rebuilding the full vector index. The corpus and original index come from the team's [nq_train_document](https://drive.google.com/drive/u/0/folders/1ZF9i_M-PJSzJSOW34rKPcAB1Ft-0QCQA) shared folder.
 
-## 恢复什么
+## What is recovered
 
-| 本地路径（相对仓库） | 作用 |
+| Local path (relative to the repository) | Purpose |
 |---|---|
-| `data/processed/retrieval/nq_train_corpus.jsonl` | 从 Drive 取回的原语料正文 |
-| `data/processed/indexes/nq_train_bge_base.index` | 从 Drive 取回的原 FAISS IndexFlatIP |
-| `data/processed/indexes/nq_train_bge_base_ids.jsonl` | 第 i 个向量对应的 passage ID |
-| `data/processed/indexes/nq_train_bge_base_offsets.npy` | 第 i 段原文在 UTF-8 corpus 文件中的位置，int64 数组 |
-| `data/processed/indexes/nq_train_bge_metadata.json` | 本次恢复的指纹和验证记录，明确区别于原始建库记录 |
+| `data/processed/retrieval/nq_train_corpus.jsonl` | Original corpus text retrieved from Drive |
+| `data/processed/indexes/nq_train_bge_base.index` | Original FAISS IndexFlatIP retrieved from Drive |
+| `data/processed/indexes/nq_train_bge_base_ids.jsonl` | Passage ID corresponding to the i-th vector |
+| `data/processed/indexes/nq_train_bge_base_offsets.npy` | Position of the i-th original passage in the UTF-8 corpus file, int64 array |
+| `data/processed/indexes/nq_train_bge_metadata.json` | Fingerprints and validation records of this recovery, clearly distinguished from the original index-build records |
 
-文件与原检索程序的 `CorpusLookup.seek` 读取方式一致。大型语料、索引及生成的 sidecars 位于被 Git 忽略的 `data/processed/`；可复现脚本、测试、哈希和验证摘要入库。
+The files match the `CorpusLookup.seek` reading method of the original retrieval program. The large corpus, indexes and generated sidecars are in the Git-ignored `data/processed/`; reproducible scripts, tests, hashes and validation summaries are committed.
 
-2026-10-24 的实际恢复已经成功：1,224,119 个段落的 ID 和 offsets 均已生成，64 个位置的原文定位和独立 BGE 向量比对通过。最小余弦相似度为 0.9999998808，最大分量差为 3.39×10⁻⁷。这里统计的是原检索库的段落数量，问题来源仍为原 74,097 条子集。实际模型快照及完整文件指纹见验证目录。
+The actual recovery on 2026-10-24 succeeded: IDs and offsets for 1,224,119 passages were all generated, and original-text location and independent BGE vector comparison at 64 positions passed. The minimum cosine similarity is 0.9999998808 and the maximum component difference is 3.39×10⁻⁷. What is counted here is the number of passages in the original retrieval store; the questions still come from the original 74,097-item subset. The actual model snapshot and full file fingerprints are in the validation directory.
 
-## 为什么可以恢复
+## Why recovery is possible
 
-[原建库代码](../scripts/build_nq_train_bge_index.py) 按语料文件中非空行的原始顺序编码，并按 shard 编号顺序将向量追加进索引。因此在原语料与原索引确实配对时，可以扫描语料恢复 ID 与位置，保留每一条记录的原顺序，不需要重新编码全部语料。
+The [original index-build code](../scripts/build_nq_train_bge_index.py) encodes the non-empty lines of the corpus file in their original order and appends vectors to the index in shard-number order. Therefore, when the original corpus and original index are truly paired, IDs and positions can be recovered by scanning the corpus, preserving the original order of every record, without re-encoding the full corpus.
 
-恢复工具不会自动筛除、重排或修正记录。重复 ID、空正文、无效 JSON、数量或维度不一致都会报错，且不发布半成品；已有配套文件不会被覆盖。
+The recovery tool does not automatically filter, reorder or correct records. Duplicate IDs, empty text, invalid JSON, or count or dimension mismatches all raise errors, and no partial output is published; existing companion files are not overwritten.
 
-## 核验方式与边界
+## Verification method and boundaries
 
-[恢复脚本](../scripts/recover_nq_train_index_sidecars.py) 执行以下检查：
+The [recovery script](../scripts/recover_nq_train_index_sidecars.py) performs the following checks:
 
-1. 原索引为 IndexFlatIP、768 维、1,224,119 个向量，全部向量有限且已 L2 归一化。
-2. 非空语料行与索引数量一致、passage ID 唯一、正文非空；保存原文件 SHA-256。
-3. 在固定 seed 42 抽取的 64 个位置（含首尾）上，用原检索程序相同的文本文件 `seek` 方式读取，并核对 ID。
-4. 指定 `--verify-embeddings` 后，解析并记录一个确定的 BGE revision，在 CPU 上重编码这 64 段正文，与原索引对应行的向量逐一比较。余弦相似度须 ≥0.9999，最大分量差须 ≤0.001；不一致时不发布配套文件。
+1. The original index is IndexFlatIP, 768-dim, with 1,224,119 vectors, all finite and L2-normalized.
+2. Non-empty corpus lines match the index count, passage IDs are unique and text is non-empty; the original file SHA-256 is saved.
+3. At 64 positions drawn with fixed seed 42 (including the first and last), read using the same text-file `seek` method as the original retrieval program, and check the IDs.
+4. With `--verify-embeddings`, resolve and record a definite BGE revision, re-encode these 64 passages on CPU, and compare each with the vector of the corresponding row in the original index. Cosine similarity must be ≥0.9999 and the maximum component difference ≤0.001; on mismatch the companion files are not published.
 
-第 4 项只检验抽样位置及当前快照的数值兼容性，不能证明全部向量逐项相同，也不能将本次 BGE revision 声称为原 C1 的历史 revision。原始运行环境和编码耗时没有找回，metadata 中保持 unknown/null。
+Item 4 only checks numerical compatibility at the sampled positions and with the current snapshot; it cannot prove that all vectors are identical element by element, nor can this BGE revision be claimed to be the historical revision of the original C1. The original runtime environment and encoding duration were not recovered and remain unknown/null in the metadata.
 
-## 崩溃核对与低内存运行
+## Crash check and low-memory operation
 
-原合并进程的 macOS 崩溃报告确认 `SIGSEGV / EXC_BAD_ACCESS`，故障栈位于 `libomp.dylib`，进程内存在三个同名运行库镜像。报告没有记录 OOM 终止；这些证据支持运行库兼容问题这一排查方向，但尚不能单凭报告确定是哪两个包发生冲突。随后应用重启导致的执行会话丢失也不等于已确认相同原因。
+The macOS crash report of the original merge process confirms `SIGSEGV / EXC_BAD_ACCESS`, with the fault stack in `libomp.dylib` and three runtime library images of the same name in the process memory. The report did not record an OOM kill; this evidence supports runtime library compatibility as a direction of investigation, but the report alone cannot yet determine which two packages conflicted. The subsequent loss of the execution session caused by an application restart also does not equal a confirmed identical cause.
 
-当前工具默认使用只读磁盘映射加载 FlatIP，依赖 FAISS 的 [`IO_FLAG_MMAP_IFC`](https://github.com/facebookresearch/faiss/blob/main/faiss/index_io.h) 支持；BGE 抽样编码在独立 CPU 子进程运行，并将 OpenMP、OpenBLAS、Accelerate 和 Torch 编码线程限制为一。这样不需要在同一个进程同时持有大索引和 Torch 编码运行库。该方式已完成实际恢复；无须为本次 sidecar 生成更换 CPU 或 GPU。
+The current tool by default loads FlatIP with read-only disk mapping, relying on FAISS [`IO_FLAG_MMAP_IFC`](https://github.com/facebookresearch/faiss/blob/main/faiss/index_io.h) support; BGE sample encoding runs in a separate CPU subprocess, limiting the OpenMP, OpenBLAS, Accelerate and Torch encoding threads to one. This avoids holding the large index and the Torch encoding runtime in the same process at the same time. This method has completed the actual recovery; there is no need to switch CPU or GPU for this sidecar generation.
 
-不支持 Flat mmap 的 FAISS 会明确报错，不能静默退回大堆内存加载。`--index-read-mode heap` 是显式兼容选项，需自行确认内存余量。原语料和索引不被改写。完整系统 Qwen 实验仍应使用项目已选的 CUDA GPU 平台。
+FAISS without Flat mmap support raises an explicit error and cannot silently fall back to large heap-memory loading. `--index-read-mode heap` is an explicit compatibility option; confirm the memory headroom yourself. The original corpus and index are not rewritten. Full-system Qwen experiments should still use the CUDA GPU platform chosen by the project.
 
-这些检查恢复的是检索资源的可用性，不计算 QA 指标，不表示模型准确率提升、全部语料经过人工审核或 Controller 全部执行路径已经验收。FEVER 资源、NQ Train Controller provider 适配和正式执行 seal 继续按 T2/T3 清单处理；原评测保留池和最终样本不改动。
+These checks recover the usability of the retrieval resources; they do not compute QA metrics, and do not mean improved model accuracy, human review of the whole corpus, or acceptance of all Controller execution paths. FEVER resources, NQ Train Controller provider adaptation and the formal execution seal continue per the T2/T3 lists; the original evaluation held-out pool and final samples are not changed.
 
-## 执行
+## Execution
 
-需先将原 corpus 和 index 放到表中的路径，并安装项目要求的 NumPy、FAISS CPU、Sentence Transformers、PyTorch 等依赖。恢复本身使用 CPU；重编码抽样段落会在本机缓存缺失时下载 BGE 权重。
+First place the original corpus and index at the paths in the table, and install the dependencies required by the project, such as NumPy, FAISS CPU, Sentence Transformers and PyTorch. Recovery itself uses CPU; re-encoding the sampled passages downloads the BGE weights if they are missing from the local cache.
 
 ```bash
 python scripts/recover_nq_train_index_sidecars.py --verify-embeddings --sample-count 64 --index-read-mode mmap
 python -m unittest tests.test_nq_index_sidecar_recovery -v
 ```
 
-工具拒绝覆盖已有 sidecars。`--verify-embeddings` 未启用的记录会明确写 `performed=false`，不能当作通过向量顺序核验。
+The tool refuses to overwrite existing sidecars. Records without `--verify-embeddings` enabled explicitly write `performed=false` and cannot be treated as passing the vector order check.
 
-本次实际运行及测试结果保存于 [验证目录](../artifacts/controller/nq_index_recovery_v1/README.md)。
+The actual run and test results of this time are saved in the [validation directory](../artifacts/controller/nq_index_recovery_v1/README.md).
 
-后续已对全部 1,224,119 个段落逐条检查 ID/offset/原文，并执行实际 seek 回读；这与此前 64 段向量比对是两个不同检查。Controller 的新资源注册及 offset provider 见 [资源接入说明](CONTROLLER_RESOURCE_ADAPTER_V1.md)，全量定位原始报告见 [validation.json](../artifacts/controller/nq_mapping_full_v1/validation.json)。
+Subsequently, all 1,224,119 passages were checked item by item for ID/offset/original text, with an actual seek read-back; this and the earlier 64-passage vector comparison are two different checks. The Controller's new resource registry and offset provider are in the [resource integration notes](CONTROLLER_RESOURCE_ADAPTER_V1.md), and the original full location report is in [validation.json](../artifacts/controller/nq_mapping_full_v1/validation.json).

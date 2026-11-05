@@ -1,81 +1,81 @@
-# Controller 当前任务 · T1–T9
+# Controller current tasks · T1–T9
 
-2026-10-27。用户指定以 10 月 24 日 Diagnosis `138d52a` 为后续主线，见 [新基线登记](CONTROLLER_1024_BASELINE.md)。旧 T1–T5 保持历史冻结；新 P60 的特征、来源和执行协议尚未就绪，不把切换主线当成效果验收。沿用原阶段编号。
+2026-10-27. The user designated the October 24 Diagnosis `138d52a` as the main line going forward; see [new baseline registration](CONTROLLER_1024_BASELINE.md). The old T1–T5 remain historically frozen; the features, provenance and execution protocol of the new P60 are not yet ready, and switching the main line is not treated as effect acceptance. The original stage numbering is kept.
 
-后续开发已迁至 `controller_2`，兼容合并补检索 `37e469e` 与重排 `5583285`，见 [合并交接](CONTROLLER2_INTEGRATION.md)。NQ 统一采用团队 `feature/baseline-evaluation@387ddaf` 的划分：Train 51,866、Validation 11,117、Test 11,114。旧配置和封存包不覆盖。
+Subsequent development has moved to `controller_2`, compatibly merging retrieval enhancement `37e469e` and reranking `5583285`; see [merge handover](CONTROLLER2_INTEGRATION.md). NQ uniformly adopts the split of the team's `feature/baseline-evaluation@387ddaf`: Train 51,866, Validation 11,117, Test 11,114. Old configs and sealed packages are not overwritten.
 
-本轮 [T2 数据对齐与边界](TEAM_DATA_BOUNDARIES.md)已接入原始 split，核对 74,097 个 ID、初标数量元数据与本地 15 个 C1 分片；当前保守允许池为 Train 46,421、Validation 9,440，Test 仍为完整 11,114。已知下游 test 曝光扩大核对为 603 条。训练/评测入口已加入角色与来源检查；新 baseline 逐题输出、FEVER 统一和已有训练模型的原始使用 ID 仍待交付。
+This round's [T2 data alignment and boundaries](TEAM_DATA_BOUNDARIES.md) has integrated the original split, checking 74,097 IDs, the initial-label count metadata and the 15 local C1 shards; the current conservative allowed pool is Train 46,421 and Validation 9,440, with Test still the full 11,114. The known downstream test exposure check has been expanded to 603 items. Role and provenance checks have been added to the training/evaluation entry points; the new baseline per-question outputs, FEVER unification and the original used IDs of already-trained models are still to be delivered.
 
-| 阶段 | 内容 | 状态 |
+| Stage | Content | Status |
 |---|---|---|
-| T1 | 协议、比较组、预算、指标与停止规则 | 已冻结；修订另立版本 |
-| T2 | 数据划分、共同 C1、检索资源、曝光隔离 | NQ 原始 split/ID/结构体检与用途守卫已完成；已知 test 曝光 603，保守可用 Train 46,421、Validation 9,440；旧保留池不解封，新 baseline 逐题输出、模型使用 ID 与 FEVER 统一待补 |
-| T3 | 集成执行器、预算与轨迹、CUDA 工程验收 | 补检索 37e469e、重排最新 1d51856 已兼容接入；新 selector/深候选池保留实验用途边界，默认配置不变；原在线特征/来源及真实新主线验收待补 |
-| T4 | 两数据集各 200 条开发基线 | 2,800 条已验收；语义、标记和轨迹人工审核未收口 |
-| T5 | 历史 r2/路由选型；新增 E 蒸馏扩展 | 历史 r2 停止、E unavailable，0.2 候选拒绝；新 T5-D 独立准备协议、500 条教师试产与开发/选型 ID，不改变生产默认 |
-| T6 | 受控轨迹驱动自改进 | 可选扩展，主线后评估资源 |
-| T7 | 最终系统、环境与评测包封存 | 当前主线改为 10/24 Diagnosis；待特征/来源核对、新协议、预算与版本封存；不沿用旧路由作默认 |
-| T8 | 团队统一 test 上的一次最终配对评测 | 未开始；NQ 按 11,114 条登记新协议，FEVER 待统一；旧各 500 条是历史协议，不静默改写 |
-| T9 | AC6、轨迹审核、演示、报告、团队交接 | 待最终收口 |
+| T1 | Protocol, comparison groups, budgets, metrics and stopping rules | Frozen; amendments get separate versions |
+| T2 | Data splits, common C1, retrieval resources, exposure isolation | NQ original split/ID/structural check and usage guard completed; known test exposure 603, conservatively usable Train 46,421, Validation 9,440; the old held-out pool is not unsealed; new baseline per-question outputs, model used IDs and FEVER unification still to be added |
+| T3 | Integrated executor, budgets and trajectories, CUDA engineering acceptance | Retrieval enhancement 37e469e and the latest reranking 1d51856 compatibly integrated; the new selector/deep candidate pool keep experimental usage boundaries, default config unchanged; original online features/provenance and real new-main-line acceptance still to be added |
+| T4 | 200-item development baseline for each of the two datasets | 2,800 items accepted; semantic, flag and trajectory human review not closed |
+| T5 | Historical r2/routing selection run; new E distillation extension | Historical r2 stopped, E unavailable, 0.2 candidate rejected; the new T5-D independently prepares the protocol, 500-item teacher pilot production and development/selection-run IDs, without changing the production default |
+| T6 | Controlled trajectory-driven self-improvement | Optional extension; resources evaluated after the main line |
+| T7 | Final system, environment and evaluation package sealing | Current main line changed to the 10/24 Diagnosis; pending feature/provenance check, new protocol, budget and version sealing; the old routing is not carried over as default |
+| T8 | One final paired evaluation on the team's unified test | Not started; NQ registers a new protocol with 11,114 items, FEVER pending unification; the old 500 items each are a historical protocol and are not silently rewritten |
+| T9 | AC6, trajectory review, demo, report, team handover | Awaiting final closure |
 
-## T5.0 · 分层合并 Diagnosis 更新（用户已授权）
+## T5.0 · Layered merge of the Diagnosis update (authorized by the user)
 
-来源为 `feature/diagnosis-probe-zheng` 的 `138d52aa22e0eee78637e01f981a030d7ad388df`。
+The source is `138d52aa22e0eee78637e01f981a030d7ad388df` of `feature/diagnosis-probe-zheng`.
 
-| 子任务 | 要求 | 状态 |
+| Subtask | Requirement | Status |
 |---|---|---|
-| T5.0.1 | 审查变更、模型/特征来源与默认路径 | 已审查；原 Diagnosis 权重不变；新 P60 缺训练/调参 ID 及真实特征提供器 |
-| T5.0.2 | 保留旧重排契约和延迟导入，兼容新公共接口与多失败表示 | 本兼容提交已接入；不替换默认实验路径 |
-| T5.0.3 | 补执行器返回一致性检查 | 已实现并加回归：动作匹配、改答标记与实际一致、非成功结果保留原状态 |
-| T5.0.4 | 合并到已提交的 r2，再做完整回归与路由回放 | 回执见 [兼容集成](DIAGNOSIS_138D52A_INTEGRATION.md)；GPU 包重新封存，原包保留 |
-| T5.0.5 | P60 当前主线接入 | 用户已选为后续基线；当前登记、真实增强适配及严格检查已实现。原 78 维特征与三模型训练/调参 ID 未交付，生产检查停止；补齐后登记新协议再验收 |
+| T5.0.1 | Review changes, model/feature provenance and the default path | Reviewed; original Diagnosis weights unchanged; the new P60 lacks training/tuning IDs and a real feature provider |
+| T5.0.2 | Keep the old reranking contract and lazy imports, compatible with the new public interface and multi-failure representation | Integrated in this compatibility commit; does not replace the default experiment path |
+| T5.0.3 | Add executor return consistency checks | Implemented with regression tests: action match, changed-answer flag consistent with reality, non-success results keep the original state |
+| T5.0.4 | Merge into the committed r2, then run full regression and routing replay | Receipt in [compatibility integration](DIAGNOSIS_138D52A_INTEGRATION.md); GPU package re-sealed, original package kept |
+| T5.0.5 | P60 current main-line integration | Selected by the user as the baseline going forward; current registration, real enhancement adaptation and strict checks implemented. The original 78-dim features and the training/tuning IDs of the three models are not delivered, so the production check stops; once supplied, register a new protocol and then accept |
 
-旧 T4/T5 继续使用其冻结 `IntegratedController`／Probe 路径，唯一 0.2 候选结果已封存。2026-10-27 起后续主线明确改用 `src.pipeline.current` 的 P64/P60，Probe OFF；不静默重解释旧实验。原特征与来源未齐时不退回旧路由。多失败表示和新基线选择均不等于效果已验证。
+The old T4/T5 continue to use their frozen `IntegratedController`/Probe path, and the single 0.2 candidate result is sealed. From 2026-10-27, the subsequent main line explicitly switches to P64/P60 of `src.pipeline.current`, Probe OFF; old experiments are not silently reinterpreted. While the original features and provenance are incomplete, there is no fallback to the old routing. Neither the multi-failure representation nor the new baseline selection equals a verified effect.
 
-## T5.1–T5.9 · r2 与路由主线
+## T5.1–T5.9 · r2 and routing main line
 
-| 子任务 | 内容 | 当前证据与启动条件 |
+| Subtask | Content | Current evidence and start conditions |
 |---|---|---|
-| T5.1 | 18 短题＋2 长题独立复核、封存 | 已完成；[封存记录](../artifacts/controller/e_v2a_interface_r2/fixture_review/README.md) |
-| T5.2 | 登记标签、验收分支、全局模式和误修上限 | 已登记；GPU 前对齐为两数据集共用模式，冻结指标零误修，NQ 另需语义零误修且无待定 |
-| T5.3 | 实现、测试、共享模型解码与封存运行包 | 实现、全局模式及兼容接口已提交；当前 v2 包引用 `e3ddead`，原未运行包保留 |
-| T5.4 | Kaggle 20 项真实验收 | 已完成并审计：Version 1 / 362285592；10 通过、1 结构失败、9 语义失败、0 执行失败，两长题均已执行；不是 semantic_only |
-| T5.5 | 开发运行 | 已执行 failed 停止分支：0 次；不启动 400／800 次开发，不追加 r3 |
-| T5.6 | ZIP 独立审计与全局 E 模式冻结 | 已完成：[原始 ZIP 与审计](../artifacts/controller/e_v2a_interface_r2/kaggle_v1/README.md)，26 项校验一致；两数据集所有 E 组共用 unavailable，真实开发合规率未测，FR12 未验收 |
-| T5.7 | 人工审核（并行） | [17 题确认快照](../artifacts/controller/t5_human_review_v1/review/review17.html)：用户采用全部辅助意见，11 完整定案、6 未完整定案；属于辅助可见参考审核。T4 其余改答及历史 5 条语义误修 ID 仍待收口；73 条原对保留题仅作回归 |
-| T5.8 | 开发回放、冻结至多一个 NQ 路由候选 | 已完成：[唯一 0.2 候选](../artifacts/controller/t5_candidate_v1/README.md)，NQ EM 78→81，5 修好／2 改坏；语义净值范围 −11 到 +14。用户已采用重点队列含待定意见，仅冻结送选型，不晋升 |
-| T5.9 | 选型确认一次 | [首次 GPU 原始输出与独立审计](../artifacts/controller/t5_selection_v1/kaggle_v1/README.md)已完成：400 题／2,000 记录、零调用／预算失败；六条活动长路径通过。原 Adaptive：NQ 89→93、FEVER 163→164。唯一 0.2 候选相对原路由 NQ 93→90，3 修好／6 改坏（冻结 EM），按登记拒绝晋升并保留原路由；不试其他阈值，15 对语义审核仅作解释。T8 未开始 |
+| T5.1 | Independent re-check and sealing of 18 short + 2 long questions | Completed; [sealing record](../artifacts/controller/e_v2a_interface_r2/fixture_review/README.md) |
+| T5.2 | Register labels, acceptance branches, global mode and harmful-repair cap | Registered; aligned before GPU as a mode shared by both datasets, zero harmful repairs on frozen metrics, and NQ additionally requires zero semantic harmful repairs with no pending items |
+| T5.3 | Implementation, tests, shared model decoding and sealed run package | Implementation, global mode and compatibility interface committed; the current v2 package references `e3ddead`, the original unrun package is kept |
+| T5.4 | Kaggle 20-item real acceptance | Completed and audited: Version 1 / 362285592; 10 passed, 1 structural failure, 9 semantic failures, 0 execution failures, both long questions executed; not semantic_only |
+| T5.5 | Development run | Executed the failed stop branch: 0 runs; the 400/800 development runs are not started, and no r3 is added |
+| T5.6 | Independent ZIP audit and global E mode freeze | Completed: [raw ZIP and audit](../artifacts/controller/e_v2a_interface_r2/kaggle_v1/README.md), 26 checks consistent; all E groups of both datasets share unavailable, the real development compliance rate is not measured, FR12 not accepted |
+| T5.7 | Human review (parallel) | [17-question confirmation snapshot](../artifacts/controller/t5_human_review_v1/review/review17.html): the user adopted all assisted opinions, 11 fully finalized, 6 not fully finalized; this is an assisted review with visible references. The remaining T4 changed answers and the historical 5 semantic harmful-repair IDs still await closure; 73 originally-correct kept questions are for regression only |
+| T5.8 | Development replay, freeze at most one NQ routing candidate | Completed: [single 0.2 candidate](../artifacts/controller/t5_candidate_v1/README.md), NQ EM 78→81, 5 fixed/2 broken; semantic net value range −11 to +14. The user adopted the focus-queue opinions including pending ones; only frozen and sent to the selection run, not promoted |
+| T5.9 | One selection-run confirmation | [First GPU raw output and independent audit](../artifacts/controller/t5_selection_v1/kaggle_v1/README.md) completed: 400 questions/2,000 records, zero call/budget failures; six active long paths passed. Original Adaptive: NQ 89→93, FEVER 163→164. The single 0.2 candidate relative to the original routing: NQ 93→90, 3 fixed/6 broken (frozen EM); promotion rejected per the registration and the original routing kept; no other thresholds tried, and the 15-pair semantic review is for explanation only. T8 not started |
 
-r2 的结果不改变冻结数据、预算或评分。E 不可用的比较组如实标注为保留策略，零调用／零误修不能作为修复能力或 AC6 语义标记精确率证据。
+The r2 results do not change frozen data, budgets or scoring. Comparison groups where E is unavailable are truthfully labeled as a keep policy; zero calls/zero harmful repairs cannot be used as evidence of repair capability or of AC6 semantic flag precision.
 
-T5.7 当前记录：[用户采用辅助意见](../artifacts/controller/t5_human_review_v1/README.md)。原 [15 题未审快照](../artifacts/controller/e_v2a_v1/t5_development_review/routing15_review.html) 和 [17 题辅助快照](../artifacts/controller/t5_assisted_review_v1/README.md) 保留；未获确认的代理判断仍不填成人审，用户采用也不消除待定值。旧 T4、r1 和 r2 失败结果保持原字节。
+T5.7 current record: [user adopted assisted opinions](../artifacts/controller/t5_human_review_v1/README.md). The original [15-question unreviewed snapshot](../artifacts/controller/e_v2a_v1/t5_development_review/routing15_review.html) and [17-question assisted snapshot](../artifacts/controller/t5_assisted_review_v1/README.md) are kept; unconfirmed assistant judgments are still not filled in as human review, and user adoption does not eliminate pending values. The old T4, r1 and r2 failure results keep their original bytes.
 
-## T5-D · E 输出蒸馏扩展（2026-10-27）
+## T5-D · E output distillation extension (2026-10-27)
 
-用户授权在组件复查后启动 E 蒸馏。最新代码均已汇合，但 P60 原材料与新权重验收尚未齐，因此先独立完成无 API/GPU 的准备；不宣称所有组件已可生产运行。详见 [E 蒸馏准备](E_DISTILLATION_V1.md)。
+The user authorized starting E distillation after the component review. The latest code has all been merged, but the P60 raw materials and the new weight acceptance are not yet complete, so the preparation without API/GPU is first completed independently; it is not claimed that all components can already run in production. See [E distillation preparation](E_DISTILLATION_V1.md).
 
-| 子任务 | 内容 | 当前状态 |
+| Subtask | Content | Current status |
 |---|---|---|
-| T5-D1 | 固定 E 输入/输出、学生及原契约指纹 | 准备协议和教师执行预算已封存；训练配置及晋升数值待训练前登记 |
-| T5-D2 | 冻结角色内样本 | Train 平衡试产 500；Validation 均匀 Development 500 / Selection 500；Test 不动 |
-| T5-D3 | 离线教师任务、参考隔离和本地契约检查 | 工具及 API transport 已实现；另登记 token-window v2 和可见进度，同一账本/预算/请求体，需显式切换；完整任务重放、来源/版本/预算守卫，格式通过不自动批准 SFT |
-| T5-D4 | 实际教师登记与 500 条试产 | 500／500 完成且独立重放通过，零失败/重复/未结算；49 替换、451 保留，目标最长 126 tokens，保守记账 $6.58152。用户聊天批量放行100项用于候选采集，无逐条网页标注；SFT批准仍为0。见 [10/28 结果](E_TEACHER_PILOT_RESULTS_20261028.md) |
-| T5-D5 | 最新累计5,000调用上限，筛合格监督数据 | 用户改为“可以直接上5000”，沿用$40累计上限。2,000批次已完成54条、在新增第55次TimeoutError停止；554完整结果复用，第55次保留全额预留且不重发，从56继续最多4,445次。4500个Train任务保持原1500前缀；无自动补采。后续timeout600秒，模型/请求体/零重试不变。见 [扩量与恢复](E_TEACHER_EXPANSION_20261028.md) |
-| T5-D6 | QLoRA/SFT 与真实工程验收 | 未开始；只训 E adapter，C1 固定；先测显存、长输入和目标 token 长度 |
-| T5-D7 | 固定输入比较与一次选型 | 未开始；Development500比较C1 / 原E / 蒸馏E，报告语义修复/误修、EM/F1及成本，用学生收益决定是否考虑扩量；Selection500只给最终候选一次确认 |
-| T5-D8 | 集成与版本晋升 | 达标且 P60/共同 baseline 就绪后执行；不静默修改旧实验 |
+| T5-D1 | Fix E input/output, the student and the original contract fingerprints | Preparation protocol and teacher execution budget sealed; training config and promotion values to be registered before training |
+| T5-D2 | Freeze in-role samples | Train balanced pilot production 500; Validation uniform Development 500 / Selection 500; Test untouched |
+| T5-D3 | Offline teacher tasks, reference isolation and local contract checks | Tools and API transport implemented; token-window v2 and visible progress registered separately, same ledger/budget/request body, requires explicit switching; full task replay, provenance/version/budget guards; passing the format does not automatically approve SFT |
+| T5-D4 | Actual teacher registration and 500-item pilot production | 500/500 completed and the independent replay passed, zero failures/duplicates/unsettled; 49 replaced, 451 kept, longest target 126 tokens, conservative ledger $6.58152. The user batch-released 100 items in chat for candidate collection, with no per-item web annotation; SFT approvals are still 0. See [10/28 results](E_TEACHER_PILOT_RESULTS_20261028.md) |
+| T5-D5 | Latest cumulative cap of 5,000 calls, filter qualified supervision data | The user changed to "可以直接上5000", keeping the $40 cumulative cap. The 2,000 batch completed 54 items and stopped at a TimeoutError on the newly added 55th; the 554 complete results are reused, the 55th keeps its full reservation and is not resent, continuing from 56 with at most 4,445 calls. The 4500 Train tasks keep the original 1500 as prefix; no automatic backfill. Subsequent timeout 600 seconds; model/request body/zero retries unchanged. See [expansion and recovery](E_TEACHER_EXPANSION_20261028.md) |
+| T5-D6 | QLoRA/SFT and real engineering acceptance | Not started; only train the E adapter, C1 fixed; first measure VRAM, long inputs and target token length |
+| T5-D7 | Fixed-input comparison and one selection run | Not started; Development500 compares C1 / original E / distilled E, reporting semantic repairs/harmful repairs, EM/F1 and cost, and the student gain decides whether to consider expansion; Selection500 gives only the final candidate one confirmation |
+| T5-D8 | Integration and version promotion | Executed once targets are met and P60/common baseline are ready; old experiments are not silently modified |
 
-500是已完成的教师试产；最新用户允许直接到累计5,000调用上限，包含无响应名额，最多4,999完整候选，不能写成合格SFT数或学生有效。旧2,000包和失败账本不覆盖；训练/模型选型不能访问Test，FEVER未注册，DPO/RSI不在本轮启动。
+500 is the completed teacher pilot production; the latest user permission goes directly to the cumulative cap of 5,000 calls, including the no-response slot, i.e. at most 4,999 complete candidates, which cannot be written as the number of qualified SFT items or as the student being effective. The old 2,000 package and failure ledger are not overwritten; training/model selection cannot access Test, FEVER is not registered, and DPO/RSI are not started this round.
 
-## T7–T9 的剩余验收
+## Remaining acceptance for T7–T9
 
-- T7：固定代码、模式、路由、团队划分与曝光、环境、预算和统计。原各 500 条协议保持历史冻结；扩展到团队 NQ 11,114 条必须单独登记，不复用已曝光选型集作独立确认。
-- T8：团队统一 NQ test 11,114 条配对评测，FEVER 范围另行统一；比较组、调用额度及统计修订先在 T7 登记。逐数据集报告冻结指标、修复、误修和区间，披露已知曝光。最终成本使用实测；共同 C1 成本不全时只认证可追溯范围，不以开发 Full 代理成本宣布完整 AC5 达标。
-- T9：至少 50 条 flagged 人审，AC6 观察精确率目标 ≥90%，报告覆盖；不足样本按预先冻结顺序补抽，不强行标记。另审至少 50 条完整轨迹，两项独立计分；完成轨迹展示、报告、复现入口和责任交接。
-- 报告披露多标签能力、FinDER、C1 来源/成本等尚未通过的要求；只核验或不可用的 E 不写成修复成功。
+- T7: Fix code, mode, routing, team splits and exposure, environment, budgets and statistics. The original 500-item-each protocol stays historically frozen; extending to the team's NQ 11,114 items must be registered separately, and the already-exposed selection-run set is not reused as independent confirmation.
+- T8: Paired evaluation on the team's unified NQ test of 11,114 items, with the FEVER scope unified separately; comparison groups, call quotas and statistical amendments are registered in T7 first. Per dataset, report frozen metrics, repairs, harmful repairs and intervals, and disclose known exposure. Final cost uses measurements; when the common C1 cost is incomplete, only the traceable scope is certified, and the development Full proxy cost is not used to declare full AC5 met.
+- T9: Human review of at least 50 flagged items, AC6 observed precision target ≥90%, report coverage; if samples are insufficient, draw more in the pre-frozen order, without forcing flags. Additionally review at least 50 full trajectories, with the two items scored independently; complete the trajectory display, report, reproduction entry and responsibility handover.
+- The report discloses requirements not yet passed, such as multi-label capability, FinDER and C1 provenance/cost; an E that is only verified or unavailable is not written as repair success.
 
-## 资源与每轮自检
+## Resources and per-round self-check
 
-硬截止日与备用 GPU 尚待提供。10月26日最近一次 Kaggle 显示 `10:30 / 30 hrs`，按已用约 10.5 小时规划，启动前重新核对。最终评测粗估约 20 小时，需要额度重置或补充资源；不承诺当前额度覆盖全部主线。
+The hard deadline and backup GPU are still to be provided. The most recent Kaggle check on October 26 showed `10:30 / 30 hrs`; planning assumes about 10.5 hours used, to be re-checked before launch. The final evaluation is roughly estimated at about 20 hours, requiring a quota reset or supplementary resources; it is not promised that the current quota covers the whole main line.
 
-每轮开工检查分支、用户文件、冻结哈希、数据角色、验收与预算；收工检查相关测试及完整回归、独立结果审计、记录真实性、唯一用户署名 commit。源代码先提交，再封存包；运行中以包内源码为准。RSI、训练/DPO、限定条件自动保护、独立验证器及知识库修改均另立扩展，不混入唯一主线候选。
+At the start of each round, check the branch, user files, frozen hashes, data roles, acceptance and budget; at the end, check the related tests and full regression, the independent result audit, the truthfulness of records and the commit signed only by the user. Source code is committed first, then the package is sealed; during runs the in-package source is authoritative. RSI, training/DPO, conditional automatic protection, independent verifiers and knowledge-base modification are each separate extensions, not mixed into the single main-line candidate.

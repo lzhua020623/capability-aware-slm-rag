@@ -1,55 +1,55 @@
-# E v2a 与唯一 NQ 路由候选 · 2026-10-25
+# E v2a and the single NQ routing candidate · 2026-10-25
 
-本修订在观察 T4 后、运行 v2a 和搜索路由前登记。T1/T3、T4 原始预测及 gold 保持原字节。E 接口修正与路由收益分开评估，不把修订冒充原先的预登记。机器协议见 [e_v2a_amendment_v1.json](../configs/controller/e_v2a_amendment_v1.json)。
+This amendment was registered after observing T4 and before running v2a and searching routing. T1/T3, the original T4 predictions and gold keep their original bytes. The E interface correction and routing gains are evaluated separately, and the amendment is not passed off as the original pre-registration. The machine protocol is in [e_v2a_amendment_v1.json](../configs/controller/e_v2a_amendment_v1.json).
 
-当前：登记、单次接口、共享模型的 XGrammar view、计费/回退、GPU 前置门槛与封存工具已实现。[接口修正 r1 的实际结果](../artifacts/controller/e_v2a_interface_r1/README.md)已封存：虚构 NQ 的保留、修复通过，缺证案例的核验类别与期望不符；结构有效且安全保留，并非本题误修。已按规则停止，真实开发预测 0，FEVER 和长输入未测，E 打通要求尚未验收；原 T4 不覆盖。[15 题审核页](../artifacts/controller/e_v2a_v1/t5_development_review/routing15_review.html)含原 Top-5、各动作实际证据和离线参考，人工仍为 0/15，路由候选未冻结。五条语义误修的 ID 核对仍待用户确认。
+Current: registration, the single-call interface, the shared model's XGrammar view, metering/fallback, GPU prerequisite gates and sealing tools are implemented. [The actual results of interface correction r1](../artifacts/controller/e_v2a_interface_r1/README.md) are sealed: the fictitious NQ keep and repair cases passed, while the verification category of the missing-evidence case did not match expectations; it was structurally valid and safely kept, not a harmful repair on that question. It was stopped per the rules; real development predictions are 0, FEVER and long inputs are untested, and the requirement to get E working end to end has not yet been accepted; the original T4 is not overwritten. [The 15-question review page](../artifacts/controller/e_v2a_v1/t5_development_review/routing15_review.html) contains the original Top-5, the actual evidence for each action and offline references; human review is still 0/15, and the routing candidate is not frozen. The ID verification of the five semantic harmful repairs is still pending user confirmation.
 
-2026-10-26 另行登记 [r2 统一标签定义](CONTROLLER_E_V2A_R2.md)。r2 是语义定义修订，r1 结果原样保留。18+2 道新虚构验收题已在改提示之前经三轮独立盲审封存；验收运行全部检查，并按执行、结构、语义三类分别归类失败，开发阶段按三种分支执行；主线不安排 r3。
+2026-10-26: [r2 unified label definition](CONTROLLER_E_V2A_R2.md) registered separately. r2 is a semantic-definition amendment; r1 results are kept as is. 18+2 new fictitious acceptance questions were sealed after three rounds of independent blind review before the prompts were changed; the acceptance run executes all checks and classifies failures separately into execution, structural and semantic categories, and the development stage proceeds along three branches; the main line does not schedule r3.
 
-已登记三阈值的开发回放：0.2 为 5 修好/2 改坏、净 EM +3，新增 107 次检索；0.3 为 2/1、净 +1，新增 64 次；0.4 为 0/0、新增 26 次。只用于设计，尚未冻结候选或晋升；语义收益待人工核对，详见 [全部尝试](../artifacts/controller/e_v2a_v1/t5_development_review/routing_search_development.json)。800 条历史 Adaptive/No Probe 的模块参数、输入与固定动作输出全部一致，凭据单独保留。
+Development replay of three registered thresholds: 0.2 gives 5 fixed/2 broken, net EM +3, 107 additional retrievals; 0.3 gives 2/1, net +1, 64 additional; 0.4 gives 0/0, 26 additional. For design only; no candidate has yet been frozen or promoted; semantic gains are pending human verification; see [all attempts](../artifacts/controller/e_v2a_v1/t5_development_review/routing_search_development.json) for details. The module parameters, inputs and fixed-action outputs of the 800 historical Adaptive/No Probe items are all consistent, and the evidence is kept separately.
 
-2026-10-25 恢复 Chrome 后，Kaggle 在分配 GPU 前拒绝嵌入式 Notebook（源码超过 1 MB）。现运行入口改为 [transport_r2 短 Notebook](../artifacts/controller/e_v2a_v1/transport_r2/controller_e_v2a_development_v1_dataset.ipynb)，约 4 KB，从私有 Dataset 读取带 `.bin` 后缀的原压缩字节，避免自动解压。原 tar SHA256 仍为 `728c8ba512115825c3a4c362f5e4a51a3c860d74ad4d6e977dcaf93ca12adcf3`，推理源码、提示、预算、门槛未改，非语义重试。原嵌入式与中间传输文件仅保留审计。新增两个传输检查后完整 811 项回归通过。
+2026-10-25: after Chrome was restored, Kaggle rejected the embedded Notebook (source over 1 MB) before allocating a GPU. The run entry point is now the [transport_r2 short Notebook](../artifacts/controller/e_v2a_v1/transport_r2/controller_e_v2a_development_v1_dataset.ipynb), about 4 KB, which reads the original compressed bytes with a `.bin` suffix from a private Dataset to avoid automatic decompression. The original tar SHA256 is still `728c8ba512115825c3a4c362f5e4a51a3c860d74ad4d6e977dcaf93ca12adcf3`; inference source, prompts, budget and gates are unchanged; this is a non-semantic retry. The original embedded and intermediate transport files are kept only for audit. After adding two transport checks, the full 811-item regression passes.
 
-## 开工和收工自检
+## Start-of-work and end-of-work self-checks
 
-每个逻辑工作轮次先检查分支、用户已有文件、冻结指纹、数据角色、验收条件和 GPU 额度；收工检查测试、diff、冻结指纹、记录真实性，使用配置的唯一用户身份提交。原有未跟踪标注文件不纳入本轮提交。CPU 检查不能代替真实 CUDA 回执，辅助意见不能代替人审。
+Each logical work round first checks the branch, the user's existing files, frozen fingerprints, data roles, acceptance conditions and GPU quota; at end of work it checks tests, diff, frozen fingerprints and the truthfulness of records, and commits with the single configured user identity. Pre-existing untracked annotation files are not included in this round's commits. CPU checks cannot replace real CUDA receipts, and assisted opinions cannot replace human review.
 
-## E v2a 的工程边界
+## Engineering boundaries of E v2a
 
-同一 Qwen2.5-7B/NF4、单次调用、384 输出 tokens，NQ 保留 v7 的 20 词候选上限。复用 v9 无损句子编号，只由程序还原引用，运行时无 gold。新增明确的原答核验和候选检查，不引入多轮事实分解、限定词结构、独立模型或训练。
+Same Qwen2.5-7B/NF4, single call, 384 output tokens; NQ keeps v7's 20-word candidate cap. Reuses v9's lossless sentence numbering, with quotes restored only by the program and no gold at runtime. Adds explicit original-answer verification and candidate checks, without introducing multi-round fact decomposition, qualifier structures, independent models or training.
 
-`supported` 一律保留；`unsupported` 只接受通过来源和答案片段检查的改答，否则保留且标记未解决。`insufficient` 保留，证据冲突在原因里记录。失败、截断和无法解析原答核验时标记 `incomplete`，不补造判断。候选不合格时仍保留可独立验证的原答核验字段。等价扩写不算语义修复；错答补齐必要限定后变对可以计为修复，EM 与语义分开报告。
+`supported` is always kept; `unsupported` only accepts changed answers that pass the source and answer-span checks, otherwise the answer is kept and marked unresolved. `insufficient` is kept, with evidence conflicts recorded in the reason. Failures, truncation and unparseable original-answer verification are marked `incomplete`, without fabricating a judgement. When the candidate is unqualified, the independently verifiable original-answer verification fields are still kept. An equivalent expansion does not count as a semantic repair; a wrong answer that becomes right after adding a necessary qualifier can count as a repair; EM and semantics are reported separately.
 
-工程前置使用两数据集各三道全新虚构题，预先固定支持保留、错误修复、缺证未解决三类期望，全部通过。两数据集分别运行至少 14k-token 长输入，同时开启 XGrammar 0.2.8 和 prefill256；不允许静默关掉任一功能。前置失败立即停止，不进入真实开发集。
+The engineering prerequisites use three brand-new fictitious questions per dataset, with three expectation classes fixed in advance (supported-keep, error-repair, missing-evidence-unresolved); all passed. Each dataset separately runs at least a 14k-token long input with XGrammar 0.2.8 and prefill256 both enabled; silently turning off either feature is not allowed. A prerequisite failure stops immediately, without entering the real development set.
 
-实现参考 [XGrammar 官方 HF 接口](https://xgrammar.mlc.ai/docs/latest/start/quick_start.html)；其结构约束能力不等于语义核验正确，也不能代替本项目 NF4/prefill256 组合的实际 CUDA 凭证。
+The implementation references the [official XGrammar HF interface](https://xgrammar.mlc.ai/docs/latest/start/quick_start.html); its structural-constraint capability does not equal correct semantic verification, nor can it replace actual CUDA evidence for this project's NF4/prefill256 combination.
 
-真实开发每数据集 200 条，完整契约合规率分别至少 90%，失败和回退不从分母删除。insufficient 或 unresolved 的并集比例严格超过 90% 时，暂停启用并复查，不能通过强制改答压低比例。这是排错线，不是判断合理拒绝为错误的真值。
+Real development uses 200 items per dataset, with a full contract compliance rate of at least 90% for each; failures and fallbacks are not removed from the denominator. When the proportion of the union of insufficient or unresolved strictly exceeds 90%, enabling is paused and re-examined; the proportion cannot be pushed down by forcing changed answers. This is a debugging line, not ground truth for judging reasonable refusals as errors.
 
-## 开发集选择 E 的运行模式
+## Selecting E's run mode on the development set
 
-先一次保存允许修复的诊断输出，再离线派生统一的运行模式，不重复生成并挑答案。任一数据集合规不达标则工程未通过，模式固定为 unavailable：保留原答并标记核验未完成，不在 v1 和其它回退间事后择优。
+First save the repair-allowed diagnostic output once, then derive the unified run mode offline, without regenerating and picking answers. If either dataset fails compliance, engineering does not pass and the mode is fixed as unavailable: keep the original answer and mark verification as incomplete, without choosing post hoc between v1 and other fallbacks.
 
-合规后按各数据集冻结 T4 Adaptive 的 E 子集计算净变化。NQ 有 16 条，FEVER 为零；该集合不因 v2a 结果而改变。净值非负可允许改答；负值或不可估计则 verify_only。FEVER 无 E 路由样本不能默认为安全，默认只核验。所有含 E 的系统组使用相同的冻结数据集模式；Full/Always 在只核验时必须明确披露实际不执行 E 替换。
+After compliance, compute the net change per dataset on the E subset of the frozen T4 Adaptive. NQ has 16 items, FEVER zero; this set does not change because of v2a results. A non-negative net value allows changed answers; a negative or non-estimable value means verify_only. FEVER having no E-routed samples cannot be assumed safe; the default is verify-only. All system groups containing E use the same frozen per-dataset mode; Full/Always must explicitly disclose that E replacement is not actually executed when in verify-only.
 
-`p*r-(1-p)*h` 的分母是同一参考集合的原错/原对，NQ 使用冻结 EM，不冒充 utilisation 语义标签。历史 9/32≈0.28 来自已暴露 PRIMARY 的目标类型/正确比，只能作历史风险说明，不能直接应用于所有数据集。模式门槛通过不代表统计证明正收益。
+The denominators of `p*r-(1-p)*h` are the original-wrong/original-right of the same reference set; NQ uses frozen EM and does not pass it off as utilisation semantic labels. The historical 9/32≈0.28 comes from the target-type/correct ratio of the already-exposed PRIMARY and can only serve as a historical risk note, not be applied directly to all datasets. Passing the mode gate does not mean a statistically proven positive gain.
 
-## 开发运行与回放
+## Development runs and replay
 
-Always Repair v2a 两数据集合计 400 次；另在原 Full 的实际进入 E 状态上运行 400 次。Full 前两阶段可复用，但不能把原 C1 上的单模块结果移植到变化后的状态。保存 entering-state、版本和预算指纹。Adaptive/No Probe 复用同输入固定动作输出；原 Probe 调用保留成本，回放不是部署延迟实测。
+Always Repair v2a: 400 runs across both datasets in total; in addition, 400 runs on the actual E-entering states of the original Full. Full's first two stages can be reused, but single-module results on the original C1 cannot be transplanted onto the changed states. Save entering-state, version and budget fingerprints. Adaptive/No Probe reuse the fixed-action outputs on the same inputs; the original Probe calls keep their cost, and replay is not a measured deployment latency.
 
-开发只读取 development gold；选型与 final 不提前评分。用户指出的五条真实 E 误修和 73 条原对保留题仅作排错；逐 ID 审核凭据未齐时不声称已正式结算。路由重点 15 个 NQ 案例必须由用户确认，才可冻结候选。
+Development reads only development gold; selection run and final are not scored in advance. The five real E harmful repairs and the 73 original-right kept questions pointed out by the user are used only for debugging; while per-ID review evidence is incomplete, no formal settlement is claimed. The 15 key NQ routing cases must be confirmed by the user before the candidate can be frozen.
 
-## 唯一路由搜索
+## Single routing search
 
-只对 NQ、原 action=no_action 生效。唯一变量为一级失败概率下限，网格固定 `[0.2, 0.3, 0.4]`，达到下限则补检索。已有明确 supported 的 Probe 固定否决额外检索；没有 Probe 时直接使用已有 Diagnosis 概率，不增加 Probe，不伪造缺失判断。模型原始标签保留，策略覆盖单独记录。
+Applies only to NQ with original action=no_action. The single variable is the lower bound on first-level failure probability, with the grid fixed at `[0.2, 0.3, 0.4]`; reaching the lower bound triggers retrieval enhancement. An existing explicit supported Probe always vetoes extra retrieval; without a Probe, the existing Diagnosis probability is used directly, no Probe is added and missing judgements are not forged. The model's original labels are kept, and policy overrides are recorded separately.
 
-T4 有 153 条动作可变，指标仍覆盖全部 NQ200。记录三个尝试，按 EM 净增、误修少、额外检索少、阈值高的顺序选择。最佳净增不为正则保留原路由。所有阈值选择仅用开发，运行时规则不得访问 gold、人审对错或按 ID 特判。
+T4 has 153 items whose action can vary; metrics still cover all of NQ200. Record three attempts and choose in the order of EM net gain, fewer harmful repairs, fewer extra retrievals, higher threshold. If the best net gain is not positive, the original routing is kept. All threshold choices use only development; runtime rules must not access gold, human-review correctness or special-case by ID.
 
-候选在 v2a 固定模式的新基线上再回放一次。人工确认 15 个重点案例后，只冻结一个规则进入 selection。选型仅运行四组固定动作/Adaptive，C1 缓存；不运行 Full、No Probe、E v1。已有 Probe 轨迹只采集一次，匹配条件下比较两套路由。NQ 冻结 EM 净增必须为正；语义净退步或未决项可能使语义净值转负时否决。FEVER 由 dataset 作用域保证路由不变，并验收输出一致。
+The candidate is replayed once more on the new baseline with v2a's fixed mode. After human confirmation of the 15 key cases, only one rule is frozen to enter selection. The selection run runs only the four fixed-action/Adaptive groups, with C1 cached; Full, No Probe and E v1 are not run. Existing Probe traces are collected only once, and the two routing sets are compared under matching conditions. NQ frozen EM net gain must be positive; it is vetoed if semantic net regression or unresolved items could turn the semantic net value negative. FEVER's routing is guaranteed unchanged by the dataset scope, and output consistency is accepted.
 
-## 最终与交付
+## Final and delivery
 
-冻结后两数据集各 500 条、六主组只运行一次，沿用 T3 四项检验/Holm 和完整成本口径。预计新开发 2–3 小时、选型约 4.4 小时、最终约 20 小时，另留加载和中断余量，实际额度以账号为准。两项语义扩展、训练、清洗和 RSI 排在主线之后。
+After freezing, 500 items per dataset, the six main groups are run only once, following T3's four tests/Holm and the complete cost definition. Estimated new development 2–3 hours, selection run about 4.4 hours, final about 20 hours, with additional margin for loading and interruptions; actual quota is as per the account. The two semantic extensions, training, cleaning and RSI come after the main line.
 
-每轮交付明确已完成代码/CPU 检查、实际 GPU 状态、待人审字段；不把打包、提交 Notebook 或生成合法 JSON 当作准确率提升。AC6 与完整轨迹审核按原协议独立验收。
+Each round's delivery states the completed code/CPU checks, the actual GPU status and the fields pending human review; packaging, submitting a Notebook or generating valid JSON is not treated as an accuracy improvement. AC6 and complete trace review are accepted independently per the original protocol.

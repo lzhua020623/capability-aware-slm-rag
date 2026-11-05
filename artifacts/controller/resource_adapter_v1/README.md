@@ -1,13 +1,13 @@
-# Controller 资源接口验收 · 2026-10-24
+# Controller resource interface acceptance · 2026-10-24
 
-本轮交付：NQ 全量 offset 定位校验、显式资源指纹注册、lazy Controller provider、开发查询真实检索重放；FEVER 原包导入、全量 ID/正文顺序核对及 FAISS 搜索回读验收。
+Delivered this round: NQ full offset location validation, explicit resource fingerprint registration, lazy Controller provider, real retrieval replay of development queries; FEVER original package import, full ID/body-text order check and FAISS search read-back acceptance.
 
-`validation.json` 记录新增/改动源码及测试指纹、实际 CPU 环境、测试数量和各验证入口。`tests.log` 是完整回归，**706 项全部通过**；`targeted_tests.log` 是 NQ 注册/provider 与已有 Controller 接口的 31 项定向回归。
+`validation.json` records the fingerprints of new/changed source code and tests, the actual CPU environment, test counts and each validation entry point. `tests.log` is the full regression, **all 706 tests passed**; `targeted_tests.log` is a 31-test targeted regression of NQ registration/provider and the existing Controller interfaces.
 
-`protocol_check.json` 验证原 T1 的设计哈希及 68 个参考 Git blob；只报告 runner/providers 两处显式源码差异，不修改冻结设计。`data_check.json` 检查 T2 完整冻结及 552 个来源指纹。T2 旧报告中的资源缺口描述是冻结时快照，本轮通过追加验收记录更新进度，不重写历史数据。
+`protocol_check.json` verifies the original T1 design hash and the 68 reference Git blobs; it reports only two explicit source differences, in runner/providers, and does not modify the frozen design. `data_check.json` checks the complete T2 freeze and the 552 source fingerprints. The resource-gap description in the old T2 report is a snapshot from freeze time; this round updates progress by appending acceptance records, without rewriting historical data.
 
-本轮不修改原提示、分类器、阈值、预算、Top20/Top5 或样本划分。NQ 新增 `--nq-resources` 与旧 metadata 路径互斥，旧接口保留。新增读取层仅提供 passage_id/text；检索返回增加原分数，离线标注字段不进入运行时。
+This round does not modify the original prompts, classifier, thresholds, budgets, Top20/Top5 or sample splits. The new NQ `--nq-resources` is mutually exclusive with the old metadata path, and the old interface is retained. The new read layer provides only passage_id/text; retrieval results additionally include the original scores, and offline annotation fields do not enter the runtime.
 
-`local_mmap_search_diagnostic.log` / `local_heap_search_diagnostic.log` 为 CPU 重放耗时较长时的本机搜索诊断：两种加载方式均实际完成原全库搜索，未发生崩溃。这是并行负载下的一次诊断，不能作为受控速度比较；正式成本需在锁定的 GPU 执行环境中重新测量。
+`local_mmap_search_diagnostic.log` / `local_heap_search_diagnostic.log` are local search diagnostics from when the CPU replay took a long time: both loading methods actually completed the original full-store search, with no crash. This is a single diagnostic under parallel load and cannot serve as a controlled speed comparison; formal costs must be re-measured in the locked GPU execution environment.
 
-**仍未完成正式执行 seal**：FEVER provider、固定 FEVER 900 条新 C1、Full/No Probe/人工类型对照、严格全配对统计验收及 CUDA 环境锁定继续按 T1/T3 推进。CPU 与资源检查不构成准确率收益证明。
+**The formal execution seal is still not complete**: the FEVER provider, the fixed 900-item new FEVER C1, the Full/No Probe/human-type comparisons, strict fully paired statistical acceptance and CUDA environment locking continue to proceed under T1/T3. CPU and resource checks do not constitute proof of accuracy gains.

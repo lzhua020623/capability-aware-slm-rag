@@ -1,46 +1,46 @@
-# E 的 Verification 与 Answer Repair
+# Verification and Answer Repair for E
 
-E 对应 Evidence Utilisation：模型已经看到可用证据，初始回答却可能取错实体、误解关系、忽视否定或输出不受证据支持的答案。Diagnosis 由其他成员负责，Controller 决定何时调用 E。
+E corresponds to Evidence Utilisation: the model has already seen usable evidence, yet the initial answer may pick the wrong entity, misread a relation, ignore a negation, or output an answer not supported by the evidence. Diagnosis is owned by other members, and the Controller decides when to call E.
 
-截至 2026-10-16，工作基础为 v7，下一轮 v8 尚未实现。v7 主包与第 4 批已完成一次 GPU 运行，541+300 条结果通过各自冻结代码回放；两种策略均未晋升默认，人工语义验收仍待完成。当前入口为 [交接清单](ANSWER_REPAIR_HANDOFF.md)、[v7 结果](ANSWER_REPAIR_RESULTS_20261014_V7.md) 和 [统一审核总表](../artifacts/answer_repair/v7_combined_review/review_all.txt)。
+As of 2026-10-16, the working basis is v7; the next round, v8, is not yet implemented. The v7 main bundle and batch 4 have completed one GPU run, and the 541+300 results passed replay with their respective frozen code; neither strategy was promoted to default, and human semantic acceptance is still pending. The current entry points are the [handoff checklist](ANSWER_REPAIR_HANDOFF.md), [v7 results](ANSWER_REPAIR_RESULTS_20261014_V7.md) and the [combined review sheet](../artifacts/answer_repair/v7_combined_review/review_all.txt).
 
-已确认的 37 条早期候选中，19 条核心错误候选与 9 条正确对照已用于开发，9 条暂缓。v6r1 关键案例的用户确认见 [确认清单](ANSWER_REPAIR_CONFIRMATION_20261014.md)。这些已有开发依据可用于工程改进；新语义规则仍需审核关键争议案例，并另行验收。
+Of the 37 confirmed early candidates, 19 core error candidates and 9 correct controls have been used for development, and 9 are deferred. User confirmation of the key v6r1 cases is in the [confirmation checklist](ANSWER_REPAIR_CONFIRMATION_20261014.md). These existing development bases can be used for engineering improvements; new semantic rules still require review of the key disputed cases and separate acceptance.
 
-下文解释共用接口与早期单次 JSON 核验行为；`short_answer_quote` 和 `fever_nli_anchored` 的具体行为以 [v7 协议](ANSWER_REPAIR_V7.md) 为准，独立模型成本单列。旧版设计、失败分析和执行记录见 [历史归档](history/answer_repair/README.md)，不能把旧的“待运行”状态当成当前进度。
+The text below explains the shared interface and the early single-pass JSON verification behaviour; for the specific behaviour of `short_answer_quote` and `fever_nli_anchored`, the [v7 protocol](ANSWER_REPAIR_V7.md) is authoritative, and the independent model cost is listed separately. Old designs, failure analyses and execution records are in the [history archive](history/answer_repair/README.md); the old "pending run" status must not be taken as current progress.
 
-## 输入输出及处理规则
+## Inputs, outputs and processing rules
 
-`repair_answer(DiagnosisInput, generator)` 直接复用 [共享接口](DIAGNOSIS_PROBE_INTERFACE.md)。输入只含 sample ID、dataset、query、原始证据及 initial answer。适配器显式选择字段，不把 gold、C0/C3、correctness、retrieval gold hit 或大模型结果传给模型。
+`repair_answer(DiagnosisInput, generator)` directly reuses the [shared interface](DIAGNOSIS_PROBE_INTERFACE.md). The input contains only the sample ID, dataset, query, original evidence and initial answer. The adapter selects fields explicitly and does not pass gold, C0/C3, correctness, retrieval gold hit or large-model results to the model.
 
-证据内容和顺序保持 C1 原样。模型输出：
+Evidence content and order are kept exactly as in C1. The model outputs:
 
 ```json
 {"verdict":"repair","answer":"Paris","citations":[{"rank":1,"quote":"The capital of France is Paris."}]}
 ```
 
-| Verdict | 首版行为 |
+| Verdict | First-version behaviour |
 |---|---|
-| `keep` | 引用支持原答案的证据，原答案必须保持不变 |
-| `repair` | 提供修复答案和引用；NQ 的新答案必须是引用中的完整文字片段，FEVER 必须恰好为 SUPPORTS 或 REFUTES |
-| `insufficient` | 不强制改变答案，记录证据不足状态，由上层处理 unresolved 或后续操作 |
+| `keep` | Cite evidence supporting the original answer; the original answer must remain unchanged |
+| `repair` | Provide a repaired answer and citations; for NQ the new answer must be a complete text span from the citation, for FEVER it must be exactly SUPPORTS or REFUTES |
+| `insufficient` | Do not force an answer change; record the evidence-insufficient status and let the upper layer handle unresolved or follow-up actions |
 
-引用的 rank 必须存在，quote 必须出现在对应 passage 中；匹配允许大小写和空白差异，保留词语和标点。格式错误、伪造引用、非法标签或无依据的新 NQ span 均回退到初始答案并记录 `invalid_output`。Backend 异常直接停止，可续跑；不会伪装成模型选择 keep。没有可用证据时零调用。
+The cited rank must exist, and the quote must appear in the corresponding passage; matching tolerates case and whitespace differences and preserves words and punctuation. Format errors, fabricated citations, illegal labels or unsupported new NQ spans all fall back to the initial answer and record `invalid_output`. Backend exceptions stop the run directly and can be resumed; they are not disguised as the model choosing keep. With no usable evidence there are zero calls.
 
-这个例子只解释接口，不是实验结果。真实 NQ C1 中也有类似任务理解错误，例如问题询问 “what is the sentencing reform act of 1984”，初始回答却给出 “U.S. Sentencing Commission”，而现有证据同时描述该法律和它设立的委员会。E 应核对问题所问对象和证据中关系，再选择回答片段，不能仅检查两个实体是否都出现。
+This example only explains the interface and is not an experimental result. Real NQ C1 also contains similar task-understanding errors; for example, the question asks "what is the sentencing reform act of 1984", but the initial answer gives "U.S. Sentencing Commission", while the existing evidence describes both the law and the commission it established. E should check the object the question asks about and the relations in the evidence before choosing an answer span, not merely check that both entities appear.
 
-引用检查证明片段来自输入，不能证明片段蕴含答案。FEVER 尤其需要核对实体、关系、否定、数量和多证据组合。首版日志固定标记 `independent_support_status=not_checked`，不会把引用合法当作 NLI entailment、faithfulness 或运行时答案正确的证明。v6r1 的显式独立 MNLI 分支已实测，但 dev50 出现两条错误实体导致的误修；高分仍不是人工真值，支持性和校准尚需后续验收。
+A citation check proves that the span comes from the input; it cannot prove that the span entails the answer. FEVER in particular requires checking entities, relations, negation, quantities and multi-evidence combinations. The first-version log fixes the marker `independent_support_status=not_checked` and does not treat a valid citation as proof of NLI entailment, faithfulness or runtime answer correctness. The explicit independent MNLI branch of v6r1 has been tested, but dev50 showed two harmful repairs caused by wrong entities; high scores are still not human ground truth, and supportiveness and calibration still need later acceptance.
 
-## 与 Diagnosis 和 Controller 的边界
+## Boundaries with Diagnosis and the Controller
 
-最终集成使用 `src/compensation/controller_adapter.py` 的 `generation_repair(request, decision, generator)`。`decision` 是上游完成 Diagnosis、Probe 和 Safe Binary 后的 `ControllerDecision`；E 仅执行 action=`generation_repair`，其他动作返回原答案且零调用。上游 confidence 即使低于旧阈值，E 也不重复判断；路由政策由 Controller 负责。调用方应复用同一个已加载 generator。
+Final integration uses `generation_repair(request, decision, generator)` in `src/compensation/controller_adapter.py`. `decision` is the `ControllerDecision` produced after upstream Diagnosis, Probe and Safe Binary have completed; E only executes action=`generation_repair`, and other actions return the original answer with zero calls. Even if the upstream confidence is below the old threshold, E does not re-judge it; routing policy is the Controller's responsibility. The caller should reuse the same loaded generator.
 
-离线 runner 用 `--controller-decisions path.jsonl` 接收 `ControllerDecision.to_dict()` 的七个字段，文件应覆盖本次评测所有 ID。未知字段、缺失决策或 ID 不匹配均报错，支持可选 dataset 字段。示例：
+The offline runner uses `--controller-decisions path.jsonl` to receive the seven fields of `ControllerDecision.to_dict()`; the file should cover all IDs in this evaluation. Unknown fields, missing decisions or mismatched IDs all raise errors; an optional dataset field is supported. Example:
 
 ```json
 {"sample_id":"1","action":"generation_repair","diagnosis_label":"evidence_utilisation","diagnosis_confidence":0.2,"used_probe":true,"probe_overrode_diagnosis":false,"needs_compensation":true}
 ```
 
-在整合上游 Controller/Probe 分支后，可只加载一次模型，给 Probe 注入相同模型的原始 greedy 调用，给 E 使用带 JSON 停止器的 generator。Probe 的 prompt、160-token 预算、trigger 和 Safe Binary 不变：
+After integrating the upstream Controller/Probe branch, the model can be loaded only once, injecting the same model's raw greedy call into the Probe and giving E the generator with a JSON stopper. The Probe's prompt, 160-token budget, trigger and Safe Binary are unchanged:
 
 ```python
 from src.compensation.qwen_repair import QwenRepairGenerator
@@ -58,34 +58,34 @@ decision = run_controller(item, classifier, probe)
 e_result = generation_repair(item, decision, e_generator)
 ```
 
-这是整合用法，当前 E 分支没有复制上游 Controller/Probe 实现。四种 action 与真实上游 `ControllerDecision` 类已在隔离目录完成确定性 fixture 验证；另已完成真实 GPU Controller→E 开发试跑，27 次 Probe 和 1 次 E，无净收益，见 [独立实验报告](history/answer_repair/ANSWER_REPAIR_RESULTS_20261013.md)。外部 model loader、classifier 和 input 对象均由调用方提供。其他两类补偿没有在该试跑中执行，不能称为完整 adaptive 系统评测。
+This is integration usage; the current E branch does not copy the upstream Controller/Probe implementation. The four actions and the real upstream `ControllerDecision` class have completed deterministic fixture verification in an isolated directory; a real GPU Controller→E development trial run has also been completed, with 27 Probe calls and 1 E call and no net gain, see the [standalone experiment report](history/answer_repair/ANSWER_REPAIR_RESULTS_20261013.md). The external model loader, classifier and input objects are all provided by the caller. The other two compensation types were not executed in that trial run, so it cannot be called a complete adaptive system evaluation.
 
-旧 `--diagnoses` 仅用于独立开发消融，不能替代最终 Controller 路由。它接收如下 runtime output JSONL，dataset 使用 `nq`/`fever`，并覆盖所有本次评测 ID：
+The old `--diagnoses` is used only for standalone development ablations and cannot replace final Controller routing. It accepts runtime output JSONL as below, with dataset using `nq`/`fever`, and covers all IDs in this evaluation:
 
 ```json
 {"sample_id":"1","dataset":"nq","diagnosis_label":"evidence_utilisation","confidence":0.85,"needs_probe":false}
 ```
 
-仅主标签为 utilisation 且 `needs_probe=false` 时执行 E；其他标签保留初始答案并零调用，等待 Probe 的样本也跳过。阈值和 Probe 策略由 Controller 管理，E 不自行设置 confidence threshold。缺失 diagnosis 会报错。
+E is executed only when the primary label is utilisation and `needs_probe=false`; other labels keep the initial answer with zero calls, and samples waiting for the Probe are also skipped. Thresholds and the Probe policy are managed by the Controller; E does not set its own confidence threshold. A missing diagnosis raises an error.
 
-`--all` 是明确的 Always-Verify 开发消融，不要求 diagnosis 分类器存在，也不读取 gold 来挑选错误样本。它可先验证 E 的效果，然后再接团队真实的 diagnosis 输出。人工标签用于离线 oracle-routing 消融时，需要独立命名和报告，不能当作 runtime diagnosis。
+`--all` is an explicit Always-Verify development ablation; it does not require a diagnosis classifier to exist and does not read gold to pick error samples. It can be used to verify E's effect first, before connecting the team's real diagnosis output. When human labels are used for offline oracle-routing ablations, they must be named and reported separately and cannot be treated as runtime diagnosis.
 
-## 文件
+## Files
 
-| 文件 | 用途 |
+| File | Purpose |
 |---|---|
-| `src/compensation/answer_repair.py` | 纯 Python 策略入口、核验规则与回退 |
-| `src/compensation/qwen_repair.py` | 延迟加载共享 Qwen NF4 generator，记录 token 和延迟 |
-| `src/compensation/controller_adapter.py` | 接收最终 ControllerDecision，仅执行 E 动作 |
-| `scripts/run_answer_repair.py` | 读 C1、可选路由、预检、落盘、锁和断点续跑 |
-| `src/evaluation/answer_repair.py` | 独立的离线配对评分与汇总 |
-| `tests/test_answer_repair.py` | 行为、信息隔离、路由和中断恢复测试 |
+| `src/compensation/answer_repair.py` | Pure-Python strategy entry point, verification rules and fallback |
+| `src/compensation/qwen_repair.py` | Lazily loads the shared Qwen NF4 generator, records tokens and latency |
+| `src/compensation/controller_adapter.py` | Receives the final ControllerDecision and executes only the E action |
+| `scripts/run_answer_repair.py` | Reads C1, optional routing, pre-check, persistence, locking and checkpoint resume |
+| `src/evaluation/answer_repair.py` | Standalone offline paired scoring and aggregation |
+| `tests/test_answer_repair.py` | Tests for behaviour, information isolation, routing and interruption recovery |
 
-代码要求 Python 3.11+，与 diagnosis 的 `StrEnum` 接口一致。预检和测试只需标准库，不加载 torch、transformers、FAISS、模型或数据集。
+The code requires Python 3.11+, consistent with diagnosis's `StrEnum` interface. Pre-checks and tests need only the standard library and do not load torch, transformers, FAISS, models or datasets.
 
-## 当前电脑可直接执行
+## Directly runnable on the current computer
 
-在仓库根目录：
+From the repository root:
 
 ```bash
 python3.11 scripts/run_answer_repair.py --dataset nq --source-ref origin/feature/-ce-70B --all --check-only
@@ -93,96 +93,96 @@ python3.11 scripts/run_answer_repair.py --dataset fever --source-ref origin/feat
 python3.11 -m unittest discover -s tests -v
 ```
 
-`--source-ref` 直接从该提交中读取 archived C1，包括已记录的 Top-5 全文。无需重新检索或下载 Wikipedia/index。亦可用 `--c1 path/to/c1.jsonl` 读取本地 C1 交接文件。`--dry-run` 输出第一条 prompt，仍不调用模型、不保存预测，避免把模拟输出混入真实结果。
+`--source-ref` reads archived C1 directly from that commit, including the recorded Top-5 full text. No re-retrieval or download of Wikipedia/index is needed. Alternatively, `--c1 path/to/c1.jsonl` reads a local C1 handoff file. `--dry-run` prints the first prompt, still without calling the model or saving predictions, to avoid mixing simulated output into real results.
 
-## GPU 机器执行
+## Running on a GPU machine
 
-### 首轮便携实验包（2026-10-13）
+### First-round portable experiment bundle (2026-10-13)
 
-本机为 Apple Silicon Mac，未安装 PyTorch 或 Transformers，没有 CUDA；真实修复在 Colab 执行。准备脚本会冻结开发样本，并打包当前代码和已有 C1 全文。下面为首版建立命令；已存在的版本包拒绝被不同代码覆盖：
+This machine is an Apple Silicon Mac without PyTorch or Transformers installed and without CUDA; real repair runs on Colab. The preparation script freezes the development samples and packages the current code and the existing C1 full text. The command below builds the first version; an existing version bundle refuses to be overwritten by different code:
 
 ```bash
 python3.11 scripts/prepare_answer_repair_experiment.py
 ```
 
-修订版复用原始开发 ID，另建包：
+Revised versions reuse the original development IDs and build a separate bundle:
 
 ```bash
 python3.11 scripts/prepare_answer_repair_experiment.py --out-dir artifacts/answer_repair/v2 --bundle-name answer_repair_v2_gpu
 ```
 
-生成 `configs/splits/answer_repair_v1_dev.json` 和 `artifacts/answer_repair/v1/answer_repair_v1_gpu.tar.gz`。解压后按包内 `README_GPU.md` 操作即可，无需 clone、下载原始数据、重建检索库或手动拼接未提交代码；模型首次运行仍需下载到 Hugging Face cache。
+This generates `configs/splits/answer_repair_v1_dev.json` and `artifacts/answer_repair/v1/answer_repair_v1_gpu.tar.gz`. After extraction, follow `README_GPU.md` inside the bundle; no clone, raw-data download, retrieval-index rebuild or manual stitching of uncommitted code is needed; the model still needs to be downloaded to the Hugging Face cache on first run.
 
-样本只取 Diagnosis v1 与 v2-expanded 的训练 ID 交集，并排除两版全部 validation/test IDs。v1 的 90 条 NQ train IDs 已在 v2 变成 validation/test，因此不能继续把整个 v1 train 当作 E 的开发池。交集内可选 FEVER 331 条、NQ 214 条。用固定 seed 42 的 SHA-256 排序，各选择 50 条，不使用 correctness、参考答案或 diagnosis 标签选择样本。参考答案仅保留用于原有离线评分。
+Samples are taken only from the intersection of training IDs in Diagnosis v1 and v2-expanded, excluding all validation/test IDs of both versions. The 90 NQ train IDs of v1 became validation/test in v2, so the whole v1 train can no longer be used as E's development pool. The intersection offers 331 FEVER and 214 NQ samples. Using SHA-256 ordering with fixed seed 42, 50 are selected from each, without using correctness, reference answers or diagnosis labels to select samples. Reference answers are kept only for the existing offline scoring.
 
-首轮 FEVER 开发集初始正确 45、错误 5；NQ 初始 EM 正确 20、错误 30。两套 smoke 各 10 条，是各自开发集的前 10 条，不能与开发结果相加当成独立样本。先运行 FEVER smoke 并审核输出，再运行两套开发集的 Always-Verify 与等输出预算 Reanswer 对照。这一小规模结果只用于开发和判断是否继续扩展，不能作为最终 held-out 结果。
+In the first-round FEVER development set, 45 initial answers are correct and 5 wrong; in NQ, 20 are correct by initial EM and 30 wrong. The two smoke sets have 10 each, being the first 10 of each development set, and cannot be added to the development results as independent samples. First run the FEVER smoke and review the output, then run the Always-Verify and equal-output-budget Reanswer comparisons on both development sets. This small-scale result is only for development and for judging whether to expand, and cannot serve as the final held-out result.
 
-GPU 环境需要 Python 3.11+ 及与宿主兼容的 CUDA PyTorch。已有 CUDA PyTorch 时，其余 E 依赖只需 `requirements-answer-repair.txt`，不需要 FAISS 或 sentence-transformers：
+The GPU environment needs Python 3.11+ and a CUDA PyTorch compatible with the host. With CUDA PyTorch already present, the remaining E dependencies need only `requirements-answer-repair.txt`, without FAISS or sentence-transformers:
 
 ```bash
 python -m pip install -r requirements-answer-repair.txt
 python scripts/check_answer_repair_environment.py --require-cuda --out environment.json
 ```
 
-环境检查不会加载或下载模型。真实调用日志额外记录 Python、依赖版本、CUDA、GPU、模型配置中可取得的 revision、tokenizer revision 和 device map；revision 若为空，需要另行核实实际模型快照。断点续跑时环境记录发生变化会拒绝继续写同一文件。便携包附有所有输入与代码文件的 SHA-256 校验清单。
+The environment check does not load or download the model. Real call logs additionally record Python, dependency versions, CUDA, GPU, the revision obtainable from the model config, the tokenizer revision and the device map; if the revision is empty, the actual model snapshot must be verified separately. When resuming from a checkpoint, a changed environment record refuses further writes to the same file. The portable bundle includes a SHA-256 checksum list of all input and code files.
 
-### 从仓库运行
+### Running from the repository
 
-也可以在 GPU 机器 clone `feature/verification-answer-repair` 分支，按 [SETUP.md](SETUP.md) 安装 CUDA PyTorch、项目依赖及正确的 Python 版本。使用同一个冻结 7B、NF4 和 greedy；不接入离线 70B backend。冻结输入包、结果和新 clone 的 CPU 回放步骤见 [交接清单](ANSWER_REPAIR_HANDOFF.md)。
+Alternatively, clone the `feature/verification-answer-repair` branch on the GPU machine and install CUDA PyTorch, the project dependencies and the correct Python version per [SETUP.md](SETUP.md). Use the same frozen 7B, NF4 and greedy; do not connect the offline 70B backend. The frozen input bundle, results and CPU replay steps for a fresh clone are in the [handoff checklist](ANSWER_REPAIR_HANDOFF.md).
 
-下面展示 archived C1 的通用调用方式。首轮开发实际使用便携包中的训练交集样本；未经核对划分，不使用整个 500 条作为调 prompt 的开发集。工程 smoke 的结果使用独立文件：
+The following shows the general invocation for archived C1. First-round development actually used the training-intersection samples in the portable bundle; without verifying the split, do not use the whole 500 as the development set for prompt tuning. Engineering smoke results use a separate file:
 
 ```bash
 python scripts/run_answer_repair.py --dataset fever --source-ref origin/feature/-ce-70B --all --limit 10 --out results/answer_repair/fever_smoke10.jsonl
 ```
 
-检查 JSON 解析、引用校验、上下文长度和输出 token。正式运行：
+Check JSON parsing, citation validation, context length and output tokens. Formal run:
 
 ```bash
 python scripts/run_answer_repair.py --dataset fever --source-ref origin/feature/-ce-70B --all
 python scripts/run_answer_repair.py --dataset nq --source-ref origin/feature/-ce-70B --all
 ```
 
-接入 diagnosis 后，另开输出文件：
+After connecting diagnosis, use a separate output file:
 
 ```bash
 python scripts/run_answer_repair.py --dataset fever --source-ref origin/feature/-ce-70B --controller-decisions path/to/controller_decisions.jsonl --out results/answer_repair/fever_routed.jsonl
 ```
 
-每次 `--limit` 表示固定前 N 条的开发 cohort；改变 N 必须另开输出文件。正式比较需要使用同一份 ID 划分，不能只从较易修复的失败中挑样本。
+Each `--limit` denotes a fixed development cohort of the first N items; changing N requires a separate output file. Formal comparisons must use the same ID split and cannot pick samples only from failures that are easier to repair.
 
-默认修复输出预算为 384 tokens，因 JSON 和短引用需要额外输出空间；C1 原有 64-token 设置及结果不修改。另有 `--strategy reanswer`，用同一证据及 C1 instruction 再次直接生成，作为额外调用/输出预算控制；它使用与 E 相同的 384-token 上限。Greedy 下相同 prompt 的输出常会保持相同，差异需要结合截断、模型 revision 和环境检查，不能自动归因于修复算法。
+The default repair output budget is 384 tokens, because JSON and short citations need extra output space; the original C1 64-token setting and results are not modified. There is also `--strategy reanswer`, which regenerates directly with the same evidence and C1 instruction, as an extra call/output-budget control; it uses the same 384-token cap as E. Under greedy decoding, output for the same prompt often stays identical; differences need to be examined together with truncation, model revision and environment checks, and cannot be automatically attributed to the repair algorithm.
 
-共享 model loader 的软件环境、远端 model revision 和 GPU 特性仍影响复现。运行时需保存 Git 提交、Python 包版本、模型 revision、GPU 和时间。脚本指纹防止不同输入、代码及设置混写，不能替代这些环境记录。
+The software environment of the shared model loader, the remote model revision and GPU characteristics still affect reproduction. At run time, save the Git commit, Python package versions, model revision, GPU and time. The script fingerprint prevents mixing writes from different inputs, code and settings, but cannot replace these environment records.
 
-## 结果与成本解释
+## Interpreting results and cost
 
-E 结果写入 `results/answer_repair/`，`condition=E`；proposal 的 `C2` 专指 accessibility-controlled evidence，不复用这个名称。每条保存初始/最终答案、证据 IDs、实际引用、原始输出、解析状态、额外调用和 token/延迟，source 指向冻结 C1 输入。
+E results are written to `results/answer_repair/` with `condition=E`; `C2` in the proposal refers specifically to accessibility-controlled evidence, and this name is not reused. Each record saves the initial/final answer, evidence IDs, actual citations, raw output, parse status, extra calls and tokens/latency, and source points to the frozen C1 input.
 
-引用异常或证据不足均保留原答案，因此状态不是“修复成功”。离线评分单独读取参考答案，采用已有 NQ EM/F1 和 FEVER scorer；它不参与模型 prompt 或动作路由。
+Citation anomalies or insufficient evidence both keep the original answer, so the status is not "repair succeeded". Offline scoring reads reference answers separately, using the existing NQ EM/F1 and FEVER scorers; it does not participate in the model prompt or action routing.
 
-`.summary.json` 汇总全体评测样本，包括被路由跳过的样本：
+`.summary.json` aggregates all evaluated samples, including samples skipped by routing:
 
-- `fixed`：初始错误 → 最终正确；`regressed`：初始正确 → 最终错误。
-- `net_correct_gain = fixed - regressed`；`accuracy_gain` 是其占样本总数的比例。
-- `repair_success_rate` 的分母是初始错误数，`regression_rate` 的分母是初始正确数。
-- 全体与变化样本计数、状态分布、NQ F1、配对 McNemar exact p-value。
-- 额外调用、token 总量与额外生成延迟；`output_tokens_estimate` 来自输出文本重新分词，不包含 EOS。
+- `fixed`: initially wrong → finally correct; `regressed`: initially correct → finally wrong.
+- `net_correct_gain = fixed - regressed`; `accuracy_gain` is its proportion of the total sample count.
+- The denominator of `repair_success_rate` is the number initially wrong; the denominator of `regression_rate` is the number initially correct.
+- Counts for all and changed samples, status distribution, NQ F1, paired McNemar exact p-value.
+- Extra calls, total tokens and extra generation latency; `output_tokens_estimate` comes from re-tokenizing the output text and excludes EOS.
 
-额外生成延迟不含模型加载和整个框架耗时。没有 GPU 单价时不虚构货币成本。Archived C1 可能来自不同环境，不能直接用它的 latency 推导同一部署的端到端加速比；完整系统评测需要同环境计时，也要计 diagnosis/NLI/Probe 的成本。
+Extra generation latency excludes model loading and overall framework time. Without a GPU unit price, no monetary cost is fabricated. Archived C1 may come from a different environment, so its latency cannot be used directly to derive an end-to-end speed-up ratio for the same deployment; a complete system evaluation needs timing in the same environment and must also count the cost of diagnosis/NLI/Probe.
 
-## 续跑
+## Resuming
 
-结果每条 append、flush、fsync。输出锁保证同一文件只能有一个写入进程。中断后用同一命令继续，会检查指纹、ID 顺序、初始答案和评测一致性，再跳过已完成记录。
+Each result is appended, flushed and fsynced. An output lock ensures only one writer process per file. After an interruption, continue with the same command; it checks the fingerprint, ID order, initial answers and evaluation consistency, then skips completed records.
 
-完整末条缺换行会自动补齐；不完整 JSON、重复/乱序结果、不同来源或不同 prompt/token 设置会拒绝续跑并保留原文件。硬中断可能遗留 `.lock`，确认原进程已停止后才移除。实验条件或输入改变时另开文件。
+A missing newline at the end of a complete final record is added automatically; incomplete JSON, duplicate/out-of-order results, a different source or different prompt/token settings refuse to resume and keep the original file. A hard interruption may leave a `.lock` behind; remove it only after confirming the original process has stopped. Use a separate file when experimental conditions or inputs change.
 
-## 实验完成标准
+## Experiment completion criteria
 
-按 2026-10-14 最新指令，人工结果复评可暂缓；待审核项已隔离，自动工程工作继续。工程完成不意味着算法有效性或全团队 held-out 验收完成。
+Per the latest instruction of 2026-10-14, human re-evaluation of results may be deferred; items awaiting review are isolated, and automated engineering work continues. Engineering completion does not mean that algorithm effectiveness or team-wide held-out acceptance is complete.
 
-首轮先在固定、同时包含正确和错误答案的开发集上报告 C1 与 Always-Verify 配对结果，审核所有 changed 和 invalid outputs，再决定是否改 prompt。人工审核应同时覆盖改对、改错、模型自称 keep、证据不足和 quote 合法却不支持结论的案例。
+The first round first reports C1 vs Always-Verify paired results on a fixed development set containing both correct and wrong answers, reviews all changed and invalid outputs, and then decides whether to change the prompt. Human review should cover cases repaired correctly, broken, self-declared keep by the model, insufficient evidence, and valid quotes that do not support the conclusion.
 
-NQ 主表继续保留冻结 EM/F1；语义复评必须对初始和最终答案用同一 judge/人工规则，不允许只宽松评分修复答案。独立 verifier/人工 faithfulness 结果另报。
+The NQ main table continues to keep frozen EM/F1; semantic re-evaluation must use the same judge/human rules for both initial and final answers, and must not score only repaired answers leniently. Independent verifier/human faithfulness results are reported separately.
 
-之后在 held-out 样本比较 Always-Verify 与 diagnosis-routed E，并与其他两个补偿操作形成 failure-type × action 矩阵。最终是否保留 E、怎样触发 E，应由净收益、误修率和成本结果决定；当前工程测试不提供这一效果结论。
+Afterwards, compare Always-Verify with diagnosis-routed E on held-out samples, and form a failure-type × action matrix together with the other two compensation operations. Whether to keep E in the end, and how to trigger E, should be decided by net gain, harmful repair rate and cost results; the current engineering tests do not provide this effectiveness conclusion.

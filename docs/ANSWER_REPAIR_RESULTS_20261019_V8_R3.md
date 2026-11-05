@@ -1,47 +1,47 @@
-# v8r3 结果：格式修正通过，语义核验仍是主要限制
+# v8r3 results: format fix passes, semantic verification is still the main limitation
 
-2026-10-19，Kaggle 第 1 版成功执行 553.1 秒（约 9.2 分钟），固定 8 个开发样本、四组 32 条真实输出，共 43 次模型生成。全部记录通过冻结 CPU 决策和成本回放，工程门槛本地重算与云端一致。**v8 三组格式错误为 0，完整流程开始产生有效修复；这仍不是可靠净增益或默认策略验收。**
+On 2026-10-19, Kaggle version 1 ran successfully in 553.1 seconds (about 9.2 minutes), with a fixed set of 8 development samples, 32 real outputs across four groups, and 43 model generations in total. All records passed the frozen CPU decision and cost replay, and the engineering gates recomputed locally match the cloud. **The three v8 groups had 0 format errors and the full pipeline began producing valid repairs; this is still not acceptance of a reliable net gain or of a default policy.**
 
-## 来源与一致性
+## Provenance and consistency
 
-- [Kaggle 执行记录](https://www.kaggle.com/code/yearo111/e-v8r3-smoke8-contract-fix-20261019/log?scriptVersionId=359908613)：私有 Notebook，T4 ×2。
-- 固定 N1/N2/N8/N12/N15/N31/N48/N96，4 个已接受正确对照、4 个内部 E 目标。均为已使用的开发样本，无盲测或 held-out 声明。
-- 模型仍为 Qwen/Qwen2.5-7B-Instruct，revision `a09a35458c702b33eeacc393d103063234e8bc28`；NF4、greedy、seed 42、384 token 预算与上一轮相同。所有语义核验均为同一 Qwen，不能称为独立模型验证。
-- 运行时只用 C1 问题、原答案及实际检索 Top-5；gold、人工标签仅用于离线评测和审核。与 r2 输入逐字一致。
-- r3 冻结包 SHA-256：`72ed761fd8017ebbaf439729ff318caa55c0823acf4b62429c4db8f31310b6f1`。
-- 结果 ZIP SHA-256：`766c9c377be6b7cc4123a1225f3b4670ae10348df7db3a703e72d9665d36da45`。
-- 两轮共有的 41 次生成，其已解码输出全部逐字一致；r3 新增 2 次 N96 候选核验。说明本轮差异来自明确文法恢复及后续流程进入，没有更换语义提示或运行时参考答案。
+- [Kaggle execution log](https://www.kaggle.com/code/yearo111/e-v8r3-smoke8-contract-fix-20261019/log?scriptVersionId=359908613): private Notebook, T4 ×2.
+- Fixed N1/N2/N8/N12/N15/N31/N48/N96: 4 accepted correct controls and 4 internal E targets. All are previously used development samples; no blind-test or held-out claim is made.
+- The model is still Qwen/Qwen2.5-7B-Instruct, revision `a09a35458c702b33eeacc393d103063234e8bc28`; NF4, greedy, seed 42 and the 384-token budget are the same as in the previous round. All semantic verification uses the same Qwen and cannot be called independent model verification.
+- At runtime only the C1 question, the original answer and the actual retrieved Top-5 are used; gold and human labels are used only for offline evaluation and review. The inputs are verbatim identical to r2.
+- r3 frozen bundle SHA-256: `72ed761fd8017ebbaf439729ff318caa55c0823acf4b62429c4db8f31310b6f1`.
+- Result ZIP SHA-256: `766c9c377be6b7cc4123a1225f3b4670ae10348df7db3a703e72d9665d36da45`.
+- For the 41 generations shared by both rounds, the decoded outputs are all verbatim identical; r3 adds 2 N96 candidate verifications. This shows that the difference in this round comes from the explicit grammar recovery and the subsequent pipeline stages being reached, with no change to the semantic prompts or the runtime reference answers.
 
-## 工程验收
+## Engineering acceptance
 
-v8 阶段共 35 次：原检查 16 次有效、候选生成 11 次有效、候选核验 5 次有效；另 3 次候选生成因来源约束被拒，均在去原检查组。格式拒绝为 0，未分类拒绝为 0；完整三阶段路径 2 条，事后裁切 0 次，生成总数 43 小于上限 64。云端 111 项便携检查通过。v7 对照仍有 3 条原有 invalid_output，不计入 v8 文法修正效果。
+The v8 stages ran 35 times in total: 16 valid original checks, 11 valid candidate generations and 5 valid candidate verifications; another 3 candidate generations were rejected by the source constraint, all in the no-original-check group. Format rejections were 0 and unclassified rejections were 0; there were 2 complete three-stage paths, 0 post-hoc truncations, and 43 total generations, below the limit of 64. The 111 portable checks passed in the cloud. The v7 control still has its 3 pre-existing invalid_output, which do not count toward the effect of the v8 grammar fix.
 
-r3 预设工程政策区分格式故障与正确的来源／长度拒绝。它未降低逐字连续原文定位要求，也未把 r2 的旧门槛失败重算为通过。来源拒绝不是成功修复，工程通过也不代表答案正确。没有自动启动 75 条重跑。
+The r3 pre-registered engineering policy distinguishes format faults from correct source/length rejections. It did not lower the requirement for verbatim contiguous source localization, nor did it recompute r2's old gate failure as a pass. A source rejection is not a successful repair, and an engineering pass does not mean the answer is correct. The 75-sample rerun was not started automatically.
 
-## 实际输出
+## Actual outputs
 
-以下 EM 为严格参考答案匹配，每组分母均为 8；“改答数”不是修复成功数。
+The EM below is strict reference-answer matching, with a denominator of 8 for each group; "changed answers" is not the number of successful repairs.
 
-| 组别 | EM 正确数 | 改答数 | 模型调用数 | 关键状态 |
+| Group | EM correct | Changed answers | Model calls | Key status |
 |---|---:|---:|---:|---|
-| v7 对照 | 1→2 | 5 | 8 | 3 invalid_output、5 repaired |
-| 完整 v8r3 | 1→1 | 1 | 13 | 5 原支持、1 候选不变、1 候选被拒、1 修复 |
-| 去原答案核验 | 1→0 | 2 | 11 | 2 不变、3 来源拒绝、1 候选被拒、2 改答 |
-| 去候选核验 | 1→2 | 2 | 11 | 5 原支持、1 不变、2 改答 |
+| v7 control | 1→2 | 5 | 8 | 3 invalid_output, 5 repaired |
+| Full v8r3 | 1→1 | 1 | 13 | 5 original supported, 1 candidate unchanged, 1 candidate rejected, 1 repaired |
+| No original-answer verification | 1→0 | 2 | 11 | 2 unchanged, 3 source rejections, 1 candidate rejected, 2 changed answers |
+| No candidate verification | 1→2 | 2 | 11 | 5 original supported, 1 unchanged, 2 changed answers |
 
-完整流程仅修改 N96：`Hungarian literature` → `the pastry being a finger food : the consumer would pick apart the bread as a monkey would`。引文 R1 直接解释了名称来源，辅助审核建议视为修复，仍待人工确认。离线参考为 `being a finger food: the consumer would pick apart the bread as a monkey would`；候选多了 `the pastry`，严格 EM 仍为 0，因此整体 EM 没增加。不能为这条样本事后修改评分规则。
+The full pipeline changed only N96: `Hungarian literature` → `the pastry being a finger food : the consumer would pick apart the bread as a monkey would`. Citation R1 directly explains the origin of the name; the assisted review suggests treating it as a repair, still pending human confirmation. The offline reference is `being a finger food: the consumer would pick apart the bread as a monkey would`; the candidate has an extra `the pastry`, so strict EM is still 0, and therefore overall EM did not increase. The scoring rule must not be changed post hoc for this sample.
 
-完整流程四个正确对照最终均保留原答案，但 N12 的原检查仍误判为错，后来候选与原答案相同才保留。四个 E 目标中，N8 和 N31 被误判为已支持而跳过修复；N48 的正确候选 Govind Ballabh Pant Sagar 仍被后续核验错误拒绝。这些是答案与证据对应的语义错误，并非剩余字段格式故障。
+In the full pipeline all four correct controls ultimately kept the original answer, but N12's original check still misjudged it as wrong, and it was kept only because the later candidate was identical to the original answer. Of the four E targets, N8 and N31 were misjudged as already supported and skipped repair; N48's correct candidate Govind Ballabh Pant Sagar was still wrongly rejected by the subsequent verification. These are semantic errors in matching answers to evidence, not remaining field-format faults.
 
-## 辅助审核与下一轮
+## Assisted review and next round
 
-[10 条改答待审](../artifacts/answer_repair/v8r3_smoke8/review/changed_outputs_pending.jsonl) 对应 5 个唯一 ID；[辅助意见](../artifacts/answer_repair/v8r3_smoke8/review/assisted_changed_outputs.jsonl) 建议 N31/N48/N96 为修复、N12 为无必要扩写、N15 为术语退化成现象复述。跨组重复不能当独立样本，辅助意见不覆盖人工结论。所有新最终答案的人审字段仍为 pending。
+[10 changed answers pending review](../artifacts/answer_repair/v8r3_smoke8/review/changed_outputs_pending.jsonl) correspond to 5 unique IDs; the [assisted opinion](../artifacts/answer_repair/v8r3_smoke8/review/assisted_changed_outputs.jsonl) suggests that N31/N48/N96 are repairs, N12 is an unnecessary expansion, and N15 degrades a term into a restatement of the phenomenon. Duplicates across groups cannot be treated as independent samples, and the assisted opinion does not override human conclusions. The human-review fields of all new final answers are still pending.
 
-下一轮先冻结并对照测试“按问题从证据抽取事实，再比较被审答案”的核验方法，重点检验作品身份、比较关系方向和术语类型，保留同样的正确对照、干扰证据与成本统计。它是待验证算法路线，不能预设一定提升。工程已经可测量，应把主要精力转向减少语义误放与误拒；待行为稳定后再运行固定 75 条开发集，并补充自然目标错误、使用共同未调参测试集。当前 8 条只用于工程排错，不足以估计最终系统收益。
+The next round will first freeze and run a controlled test of a verification method that "extracts facts from the evidence according to the question, then compares the answer under review", focusing on work identity, the direction of comparison relations and term type, while keeping the same correct controls, distractor evidence and cost accounting. It is an algorithmic route still to be validated and cannot be presumed to bring an improvement. Engineering is now measurable, so the main effort should shift to reducing semantic wrong acceptances and wrong rejections; once behaviour is stable, run the fixed 75-sample development set, then add natural target errors and use a common untuned test set. The current 8 samples are only for engineering debugging and are insufficient to estimate the final system gain.
 
-## 保存位置
+## Storage locations
 
-- [原始输出](../artifacts/answer_repair/v8r3_smoke8/kaggle_20261019/)
-- [冻结 CPU 回放](../artifacts/answer_repair/v8r3_smoke8/release_audit/cpu_replay.json)
-- [结果校验与跨版本一致性](../artifacts/answer_repair/v8r3_smoke8/result_validation.json)
-- [云端工程门槛](../artifacts/answer_repair/v8r3_smoke8/kaggle_20261019/smoke_acceptance.json)
+- [Raw outputs](../artifacts/answer_repair/v8r3_smoke8/kaggle_20261019/)
+- [Frozen CPU replay](../artifacts/answer_repair/v8r3_smoke8/release_audit/cpu_replay.json)
+- [Result validation and cross-version consistency](../artifacts/answer_repair/v8r3_smoke8/result_validation.json)
+- [Cloud engineering gates](../artifacts/answer_repair/v8r3_smoke8/kaggle_20261019/smoke_acceptance.json)

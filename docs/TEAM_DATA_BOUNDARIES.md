@@ -1,70 +1,70 @@
-# 团队数据对齐与用途边界 · 2026-10-27
+# Team data alignment and usage boundaries · 2026-10-27
 
-当前分支 `controller_2`。本轮将团队原始划分按原字节引入，并收紧后续数据准备、训练和当前生产入口的用途检查。没有重划分、修改测试 ID、启动训练或教师 API。
+Current branch `controller_2`. This round ingests the team's original split as original bytes and tightens usage checks for later data preparation, training and the current production entry. There was no re-splitting, no modification of test IDs, and no training or teacher API was started.
 
-## 团队的唯一 NQ 划分
+## The team's single NQ split
 
-来源：`feature/baseline-evaluation@387ddafc82bc939ebd27b3137d580db6ecb2e04a`。
+Source: `feature/baseline-evaluation@387ddafc82bc939ebd27b3137d580db6ecb2e04a`.
 
-- 文件：[diagnosis_nq_train_74097_split.json](../baselines/splits/diagnosis_nq_train_74097_split.json)
-- SHA-256：`7da01c94cd7b5f92076edebc80911ac891d3861a01cf6b40a1e5e6efb6482dc4`
-- 登记：[team_nq_data_v1.json](../configs/splits/team_nq_data_v1.json)，由当前生产配置绑定其哈希。
+- File: [diagnosis_nq_train_74097_split.json](../baselines/splits/diagnosis_nq_train_74097_split.json)
+- SHA-256: `7da01c94cd7b5f92076edebc80911ac891d3861a01cf6b40a1e5e6efb6482dc4`
+- Registration: [team_nq_data_v1.json](../configs/splits/team_nq_data_v1.json), whose hash is bound by the current production configuration.
 
-| 用途 | 团队原始数量 | 本轮保守允许的新实验池 |
+| Usage | Team original count | New experiment pool conservatively allowed this round |
 |---|---:|---:|
 | Train | 51,866 | 46,421 |
 | Validation | 11,117 | 9,440 |
-| Test | 11,114 | 原 ID、顺序及数量全部保留；正式执行须另立 T7 封存 |
+| Test | 11,114 | Original IDs, order and count are all kept; formal execution requires a separate T7 seal |
 
-额外排除是用途限制，不是重新划分：Train 仍排除旧完整保留池和旧 Controller selection；Validation 进一步排除已登记的下游开发/分析曝光。不会把被排除的题转给另一个角色。
+The extra exclusions are usage restrictions, not re-splitting: Train still excludes the old full held-out pool and the old Controller selection; Validation additionally excludes the registered downstream development/analysis exposure. Excluded questions are not reassigned to another role.
 
-## 已实际核查的内容
+## What was actually checked
 
-- 本地标注索引与团队划分均为 74,097 个唯一 ID，缺失、多出、重复均为 0；团队三组 ID 无交集。
-- 本地初标按团队 Train/Validation 聚合的标签数量，与划分文件中的对应元数据完全一致；这不能证明每个语义标签正确，也不能替代原始 Diagnosis 文件的逐 ID 标签比对。
-- 15 个原始 C1 分片都在 `data/processed/external/nq_train_delivery_20261017/`，逐份 SHA-256 与入库交付 manifest 一致。原始数据集没有缺失，不需要重新下载。
-- 对允许使用的 46,421 条 Train 和 9,440 条 Validation 流式检查：query、原答、Top-5 数量/顺序/唯一 ID/原文/有限分数、gold 参考字段均无结构异常；规范化 query 指纹跨这两组的重复为 0。
-- Test 的问题、证据和 gold 不进行解码检查。未以读取 test 内容的方式重做近重复筛查；不把团队原分组声明当成新的独立内容审计。
+- The local annotation index and the team split both have 74,097 unique IDs, with 0 missing, extra or duplicate; the team's three ID groups are disjoint.
+- The label counts of the local initial labels aggregated by team Train/Validation exactly match the corresponding metadata in the split file; this cannot prove that each semantic label is correct, nor replace a per-ID label comparison against the original Diagnosis files.
+- All 15 raw C1 shards are in `data/processed/external/nq_train_delivery_20261017/`, and each SHA-256 matches the committed delivery manifest. The raw dataset has nothing missing and does not need to be re-downloaded.
+- Streaming checks on the allowed 46,421 Train and 9,440 Validation items: query, original answer, Top-5 count/order/unique IDs/original text/finite scores, and gold reference fields have no structural anomalies; duplicates of normalised query fingerprints across these two groups are 0.
+- The questions, evidence and gold of Test are not decoded for checking. Near-duplicate screening was not redone in a way that reads test content; the team's original grouping declaration is not treated as a new independent content audit.
 
-独立复查工具：
+Independent re-check tool:
 
 ```bash
 python scripts/audit_team_nq_data.py --output-dir /tmp/team-nq-audit-new
 python scripts/audit_team_nq_data.py --ids-only --output-dir /tmp/team-nq-ids-new
 ```
 
-输出目录必须全新。完整检查只解码允许角色的 C1 内容；test/受保护记录先按 ID 跳过。工具不改数据或模型。
+The output directory must be new. The full check decodes only the C1 content of allowed roles; test/protected records are skipped by ID first. The tool does not modify data or models.
 
-## 历史曝光扩大核对
+## Historical exposure expansion check
 
-[known_exposure_ids.json](../artifacts/controller/team_data_v1/known_exposure_ids.json) 按已保存的 E、Controller 和重排实验 ID 重算，记录文件哈希和来源。
+[known_exposure_ids.json](../artifacts/controller/team_data_v1/known_exposure_ids.json) is recomputed from the saved E, Controller and reranking experiment IDs, recording file hashes and provenance.
 
-- 旧 E 登记、Controller 开发/选型的 130 条只是前一次核对范围。
-- 加入重排目标类、正确类及 pilot 等已保存结果后，共有 **603 条不同的团队 test ID** 已进入下游实验或分析。它们不是“603 条答错”，也不等于“603 条已训练”。
-- 其余 **10,511 条**仅表示“不在当前登记的曝光来源中”，不是团队完全未见的证明。旧训练权重的实际训练/调参 ID 尚未全部交付，潜在训练重叠仍未排除。
-- 最终主表继续对齐团队 11,114 条，披露已知曝光，并补报排除已知曝光的配对分析；不偷偷替换成另一个测试集。
+- The 130 items from the old E registry and the Controller development/selection run were only the scope of the previous check.
+- After adding saved results such as reranking target classes, correct classes and pilot, a total of **603 distinct team test IDs** have entered downstream experiments or analysis. They are not "603 answered wrongly", nor do they equal "603 trained on".
+- The remaining **10,511 items** only mean "not in the currently registered exposure sources", not proof that they are completely unseen by the team. The actual training/tuning IDs of the old training weights have not all been delivered, and potential training overlap has still not been ruled out.
+- The final main table continues to align with the team's 11,114 items, discloses known exposure, and additionally reports a paired analysis excluding known exposure; it is not quietly replaced with another test set.
 
-## 可执行边界
+## Executable boundaries
 
-实现：[src/data/team_nq.py](../src/data/team_nq.py)。
+Implementation: [src/data/team_nq.py](../src/data/team_nq.py).
 
-1. 固定原始 Git 提交与 split 指纹；即使重新分配后保持相同数量、再重算配置哈希，也拒绝冒充原团队划分。
-2. ID 必须是精确字符串；未知 ID、浮点/整数强转、跨角色、旧保留池、已曝光 Validation 均拒绝。独立外部数据需要单独来源登记。
-3. 先按团队角色分开，再生成训练正负例；答案选择器的借用答案只来自同一角色，并记录 donor_sample_id。合成/增强样本需要可核查的 parent ID。
-4. 两个 builder 不再在 74,097 条上另做随机 70/15/15 或 90/10。新数据输出仅含 train/validation，没有 test.jsonl，且不覆盖旧目录。
-5. 两个 trainer 在任何模型加载、CUDA 设置及样本截取之前，验证策略源文件指纹、完整训练文件哈希、角色、donor/parent 及规范化问题交集。builder 另记录原始输入文件指纹。旧无回执数据必须重新准备。
-6. 重排 trainer 不读取或自动评分本地 test；重排比较和端到端组件评测默认使用登记后的 Validation。自定义子集、复用原答缓存和旧参数不能绕过用途检查；缓存也先核对 ID，再解码原答和加载模型。
-7. 当前生产入口默认 data_role=validation，逐题在 Diagnosis/增强前检查角色并记录策略/划分指纹。普通入口不能请求 test；FEVER 没有统一登记前也不能套用 NQ 的角色。低层虚构测试注入会明确标记未执行生产数据边界。
-8. 未来教师输入通过 teacher_input() 仅保留 sample_id、dataset、query、initial_answer、evidence；gold、AI 标签及额外证据标注不进入请求。教师数据生成限允许的 Train。
+1. Pin the original Git commit and split fingerprint; even if a reassignment keeps the same counts and the configuration hash is then recomputed, impersonating the original team split is rejected.
+2. IDs must be exact strings; unknown IDs, float/integer coercion, cross-role, the old held-out pool and exposed Validation are all rejected. Independent external data needs separate provenance registration.
+3. Split by team role first, then generate training positive/negative examples; borrowed answers for the answer selector come only from the same role, recording donor_sample_id. Synthetic/augmented samples need a verifiable parent ID.
+4. The two builders no longer do another random 70/15/15 or 90/10 split on the 74,097 items. New data outputs contain only train/validation, with no test.jsonl, and do not overwrite old directories.
+5. Before any model loading, CUDA setup or sample truncation, the two trainers verify the policy source file fingerprint, the full training file hash, roles, donor/parent and normalised question intersections. The builders additionally record the raw input file fingerprints. Old data without receipts must be re-prepared.
+6. The reranking trainer does not read or automatically score the local test; reranking comparison and end-to-end component evaluation default to the registered Validation. Custom subsets, reused original-answer caches and old parameters cannot bypass usage checks; caches also check IDs first, before decoding original answers and loading models.
+7. The current production entry defaults to data_role=validation, checks the role per question before Diagnosis/enhancement and records the policy/split fingerprints. The ordinary entry cannot request test; FEVER also cannot reuse NQ's roles before it has a unified registration. Low-level fabricated test injection is explicitly marked as not enforcing the production data boundary.
+8. Future teacher inputs keep only sample_id, dataset, query, initial_answer, evidence via teacher_input(); gold, AI labels and extra evidence annotations do not enter requests. Teacher data generation is limited to the allowed Train.
 
-旧冻结包仍可按各自历史协议复现，不改写历史配置和结果；上述是当前分支的新实验入口。P60 若实际使用独立 NQ Dev 训练，需单独登记来源和跨集隔离，不能伪装为本次 Train 数据。
+Old frozen packages can still be reproduced under their respective historical protocols, without rewriting historical configurations and results; the above are the new experiment entries of the current branch. If P60 actually used an independent NQ Dev for training, it needs separate provenance registration and cross-set isolation, and cannot be disguised as this round's Train data.
 
-## 数据体检不等于语义验收
+## Data health check does not equal semantic acceptance
 
-这些 Diagnosis 标签仍是 AI 初标。原答与 gold 的语义等价、限定词、弱监督负例、答案选择器的 gold 正例是否被证据支持，都未因结构检查通过而成为人工 gold。新生成数据回执保留 labels_semantically_verified=false；不能直接当作高质量 E 蒸馏目标。
+These Diagnosis labels are still initial AI labels. Semantic equivalence between original answers and gold, qualifiers, weakly supervised negatives, and whether the answer selector's gold positives are supported by evidence have not become human gold just because structural checks passed. Newly generated data receipts keep labels_semantically_verified=false; they cannot be used directly as high-quality E distillation targets.
 
-历史 74,097 条 C1 和新团队 baseline 的 context_fallback 输出也不是同一份预测。前者可以用于登记后的开发/训练；最终配对比较使用的 predictions、metrics、run_config 已在 `baselines/outputs/`：Qwen-only、配套 RAG、自适应系统各 11,114 条，Judge 在 `baselines/outputs/judge/`。
+The historical 74,097-item C1 and the new team baseline's context_fallback outputs are also not the same set of predictions. The former can be used for registered development/training; the predictions, metrics and run_config used for the final paired comparison are already in `baselines/outputs/`: Qwen-only, the companion RAG and the adaptive system with 11,114 items each, with Judge in `baselines/outputs/judge/`.
 
-检索语料库和索引保持与 baseline 匹配。用途隔离针对 QA 样本及监督字段，不从维基知识库中删除测试题相关的正常检索段落。
+The retrieval corpus and index remain matched with the baseline. Usage isolation targets QA samples and supervision fields; normal retrieval passages related to test questions are not deleted from the Wikipedia knowledge base.
 
-FEVER 的团队划分、P60 的原始在线特征和模型使用 ID、候选重排/选择器的训练来源仍是后续待办。新 baseline 的 11,114 条逐题结果和 Judge 已在 `baselines/outputs/`。正式测试中的 generation_repair 已执行；本轮体检没有启用新的训练权重。
+Team splitting for FEVER, P60's raw online features and model usage IDs, and the training provenance of candidate reranking/selectors are still later to-dos. The 11,114 per-question results and Judge of the new baseline are already in `baselines/outputs/`. generation_repair in the formal test has been executed; this round's health check did not enable new training weights.

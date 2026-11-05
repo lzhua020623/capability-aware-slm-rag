@@ -1,74 +1,74 @@
-# E v8 NQ75：Kaggle 结果与输出契约失败
+# E v8 NQ75: Kaggle results and output contract failure
 
-2026-10-19，Kaggle 第 2 版成功运行 4,481.3 秒（74.7 分钟），四组各 75 条，共 300 条真实预测。输入及模型配置与冻结实验包相同。**完整 v8 在全部 75 条原答案核验上失败并回退，未执行后续修复；本轮不能证明其语义保护或修复收益。** 不晋升默认策略。
+On 2026-10-19, Kaggle version 2 ran successfully in 4,481.3 seconds (74.7 minutes), four groups of 75 records each, 300 real predictions in total. Inputs and model configuration are the same as the frozen experiment package. **Full v8 failed the original answer check on all 75 records and fell back, without executing the subsequent repair; this round cannot demonstrate its semantic protection or repair gain.** The default strategy is not promoted.
 
-## 完整性与复现
+## Completeness and reproduction
 
-- [Kaggle 第 2 版结果](https://www.kaggle.com/code/yearo111/e-v8-nq75-conservative-gates-20261019/output?scriptVersionId=359843897)，T4 ×2；首次加载失败与本次成功分开记录。
-- [原始结果 ZIP](../artifacts/answer_repair/v8_nq75/answer_repair_v8_nq75_outputs_export.zip)，SHA-256 `0bf8aa78707b9764ef07dab0948ad029240f969f230ba823c2365fd39772277f`，27 个文件，CRC 和解压内容哈希通过。
-- 原输入包 SHA-256 `906f096f78e36a4f272cdd863ce2e7383d62acb638c1e480a06c5d3f75daa7a3`；云端核对全部 85 个负载文件。原包、原始输出、参考答案和评分均未改写。
-- [CPU 决策回放](../artifacts/answer_repair/v8_nq75/release_audit/cpu_replay.json)：使用输入包内冻结算法重放全部 300 条，决策、阶段轨迹、调用及成本通过核对，无新 GPU 调用。
-- [完整验证记录](../artifacts/answer_repair/v8_nq75/result_validation.json)：重新汇总与原报告的计数、决策及审核队列一致；16 个 F1 汇总字段存在不超过 `1.11e-16` 的浮点舍入差异，按 `1e-12` 容差核对。原始与重新生成的审核队列完全一致。
+- [Kaggle version 2 results](https://www.kaggle.com/code/yearo111/e-v8-nq75-conservative-gates-20261019/output?scriptVersionId=359843897), T4 ×2; the first loading failure and this success are recorded separately.
+- [Original result ZIP](../artifacts/answer_repair/v8_nq75/answer_repair_v8_nq75_outputs_export.zip), SHA-256 `0bf8aa78707b9764ef07dab0948ad029240f969f230ba823c2365fd39772277f`, 27 files, CRC and unpacked content hashes pass.
+- Original input package SHA-256 `906f096f78e36a4f272cdd863ce2e7383d62acb638c1e480a06c5d3f75daa7a3`; all 85 payload files were checked in the cloud. The original package, original outputs, reference answers and scoring were not rewritten.
+- [CPU decision replay](../artifacts/answer_repair/v8_nq75/release_audit/cpu_replay.json): replays all 300 records with the frozen algorithm inside the input package; decisions, stage traces, calls and costs pass the check, with no new GPU calls.
+- [Full validation record](../artifacts/answer_repair/v8_nq75/result_validation.json): the re-aggregation matches the original report's counts, decisions and review queue; 16 F1 aggregate fields have floating-point rounding differences of no more than `1.11e-16`, checked with a `1e-12` tolerance. The original and regenerated review queues are fully identical.
 
-回放通过仅说明结果可追溯、程序决策可复现，不能验证答案语义正确。
+Passing the replay only shows that the results are traceable and the program decisions reproducible; it cannot verify that answers are semantically correct.
 
-## 四组结果
+## Four-group results
 
-75 条是已参与开发的 NQ Train 定案样本：11 个内部 E 目标、64 个正确对照，25 条未决排除；不是盲审、总体随机样本或未见测试集。C1 的人工正确数为 64，冻结 EM 正确数为 20；两种口径不能混用。
+The 75 records are NQ Train finalized samples already involved in development: 11 internal E targets, 64 correct controls, with 25 unresolved excluded; they are not a blind review, an overall random sample or an unseen test set. C1's human-correct count is 64 and its frozen EM-correct count is 20; the two criteria cannot be mixed.
 
-| 组别 | 严格 EM 正确数（初始→最终） | EM 改对／改错 | 答案变化 | Qwen 调用 | 生成耗时合计 |
+| Group | Strict EM correct count (initial→final) | EM changed to correct/broken | Answer changes | Qwen calls | Total generation time |
 |---|---:|---:|---:|---:|---:|
-| C1 原答案 | 20→20 | 0／0 | 0 | 0 | 0 |
-| v7 `short_answer_quote` | 20→23 | 5／2 | 14 | 75 | 477.2 秒 |
-| v8 `conservative_repair` | 20→20 | 0／0 | 0 | 75 | 1,657.3 秒 |
-| 去原答案核验 | 20→20 | 0／0 | 1 | 77 | 459.8 秒 |
-| 去候选核验 | 20→20 | 0／0 | 0 | 75 | 1,644.3 秒 |
+| C1 original answer | 20→20 | 0/0 | 0 | 0 | 0 |
+| v7 `short_answer_quote` | 20→23 | 5/2 | 14 | 75 | 477.2 seconds |
+| v8 `conservative_repair` | 20→20 | 0/0 | 0 | 75 | 1,657.3 seconds |
+| Without original answer check | 20→20 | 0/0 | 1 | 77 | 459.8 seconds |
+| Without candidate check | 20→20 | 0/0 | 0 | 75 | 1,644.3 seconds |
 
-v7 的平均 F1 为 `0.583828→0.618655`，去原答案核验组为 `0.583828→0.580751`，其余不变。共实际生成 302 次，低于 600 次预算上限，因为大多数记录提前回退。耗时是各阶段记录的生成耗时，不含载入等所有云端开销；不是等调用预算比较。
+v7's mean F1 is `0.583828→0.618655`, the without-original-answer-check group is `0.583828→0.580751`, and the rest are unchanged. 302 generations were actually made in total, below the 600 budget upper bound, because most records fell back early. Time is the generation time recorded by each stage, excluding loading and all other cloud overhead; this is not an equal-call-budget comparison.
 
-v7 在 11 个目标上改答 4 条，在 64 个正确对照上改答 10 条；这些计数不是人工改对／改错。新答案的语义净收益仍为 null，必须复核。
+v7 changed answers on 4 of the 11 targets and on 10 of the 64 correct controls; these counts are not human changed-to-correct/broken. The semantic net gain of the new answers is still null and must be reviewed.
 
-## 首要失败：原答案检查全部无效
+## Primary failure: all original answer checks invalid
 
-完整 v8 与去候选核验组都得到 `original_check_invalid: 75`：
+Both full v8 and the without-candidate-check group got `original_check_invalid: 75`:
 
-| 原答案核验拒收原因 | 每组条数 |
+| Original answer check rejection reason | Records per group |
 |---|---:|
-| 不符合严格 9 行输出契约 | 65 |
-| 引文无法作为连续原文片段定位 | 10 |
+| Does not follow the strict 9-line output contract | 65 |
+| Quote cannot be located as a contiguous original text span | 10 |
 
-真实生成中，46 条重复出现 `ENTITY:` 标签；也有输出额外段落，导致总行数超过 9。28 条耗尽 384 token 预算。代码按设计拒收并返回 C1。另有符合 9 行的输出，其引文添加了包围引号或改写了原文表示，未通过连续切片校验。
+In real generation, 46 records repeated the `ENTITY:` label; some outputs also had extra paragraphs, making the total line count exceed 9. 28 records exhausted the 384-token budget. The code rejected them by design and returned C1. Other outputs did conform to 9 lines, but their quotes added surrounding quotation marks or rewrote the original text's representation, and failed the contiguous slice check.
 
-例如 N1 的回答本为 Essex Farm 附近，Qwen 连续重复 `ENTITY…REASON` 检查表，最终被截断。N12 的输出虽为 9 行，但引文未通过原文匹配；其理由还把题目的音乐视频拍摄地点误解成“歌曲本身没有拍摄”，说明即使解决格式也仍需检查语义。
+For example, N1's answer was originally near Essex Farm, but Qwen repeated the `ENTITY…REASON` checklist continuously and was eventually truncated. N12's output had 9 lines, but the quote failed original text matching; its reason also misread the question's music video filming location as "the song itself was not filmed", showing that semantics still need checking even if the format is solved.
 
-所以“64 条正确对照未被修改”不能解释为保护机制成功识别了正确答案；它们全部走了异常回退。两个有原答案核验的实验组尚未到达差异阶段，因此本轮无法衡量候选核验的消融效果。
+So "64 correct controls were not modified" cannot be interpreted as the protection mechanism successfully identifying correct answers; they all took the abnormal fallback. The two experiment groups with the original answer check never reached the stage where they differ, so this round cannot measure the ablation effect of the candidate check.
 
-此前单元测试验证的是给定合规／违规输出时的程序行为，没有证明真实模型会遵守格式。本次真实运行暴露了这一工程缺口；后续必须加入真实模型的小批量阶段验收，再扩大运行。
+Earlier unit tests verified program behaviour given compliant/non-compliant outputs, and did not prove that the real model would follow the format. This real run exposed that engineering gap; small-batch stage acceptance with the real model must be added before expanding runs.
 
-## 其他失败与语义风险
+## Other failures and semantic risks
 
-v7 有 44 条 `invalid_output`：19 条 RANK 不是纯编号、17 条引文无法定位、8 条引文超过 60 词；另有 1 条主题词约束拒绝。去原答案核验组有 57 条候选无效（42 引文定位、9 编号、4 缺少 RANK、1 超长引文、1 非三行输出），以及 1 条候选核验无效、12 条证据不足回退、4 条候选与原答案相同。
+v7 has 44 `invalid_output`: 19 with RANK not a pure number, 17 quotes that cannot be located, 8 quotes over 60 words; plus 1 subject-word constraint rejection. The without-original-answer-check group has 57 invalid candidates (42 quote location, 9 rank number, 4 missing RANK, 1 overlong quote, 1 non-three-line output), plus 1 invalid candidate check, 12 insufficient-evidence fallbacks and 4 candidates identical to the original answer.
 
-去原答案核验组只有 N2 改答：`San Bernardino Mountains` 变成经纬度，F1 下降，但这本身不能判定语义错误。它来自已确认正确对照，仍需复核是否有必要及是否符合所求地点粒度。
+In the without-original-answer-check group only N2 changed answer: `San Bernardino Mountains` became latitude/longitude, and F1 dropped, but this alone cannot determine a semantic error. It comes from a confirmed correct control, and still needs review of whether the change was necessary and whether it matches the requested location granularity.
 
-v7 的实例说明程序可追溯与真实回答问题之间仍有差距：
+v7's instances show that there is still a gap between program traceability and actually answering the question:
 
-- N15：`inflation` 被替换成 `rise in the price level`，把所求术语换成问题的描述，有明确误修风险。
-- N24：`A. Mitchell Palmer` 被替换成 `the United States Department of Justice`，把“谁领导”换成执行机构，有明确关系／类型错误风险。
-- N31 与 N48 分别改成 Prince、Govind Ballabh Pant Sagar，符合此前识别的作品区分和比较关系目标；N96 改成像猴子一样掰取面包的命名原因，但 EM 仍为 0。需单独确认这些新输出。
-- 部分 EM 改善来自已有正确答案补充地名或名词：例如 Seoul→Seoul, South Korea、Mohs→Mohs scale；不能把全部 5 个 EM 改对都算成语义修复。
-- `fairy tale`→`English fairy tale` 导致 EM 回退，语义可能保持正确；不能把全部 2 个 EM 改错都算成语义损害。
+- N15: `inflation` was replaced with `rise in the price level`, replacing the requested term with the question's description, a clear harmful repair risk.
+- N24: `A. Mitchell Palmer` was replaced with `the United States Department of Justice`, replacing "who led" with the executing agency, a clear relation/type error risk.
+- N31 and N48 were changed to Prince and Govind Ballabh Pant Sagar respectively, matching the previously identified work-distinction and comparison-relation targets; N96 was changed to the naming reason of pulling bread apart like a monkey, but EM is still 0. These new outputs need separate confirmation.
+- Some EM improvements come from adding place names or nouns to already correct answers: e.g. Seoul→Seoul, South Korea, Mohs→Mohs scale; not all 5 EM changed-to-correct can be counted as semantic repairs.
+- `fairy tale`→`English fairy tale` caused an EM regression while semantics may remain correct; not all 2 EM changed-to-broken can be counted as semantic damage.
 
-以上是辅助分析，未写入人工最终标签。
+The above is assisted analysis and has not been written into the human final labels.
 
-## 人工审核与后续顺序
+## Human review and subsequent order
 
-原 [300 条输出审核队列](../artifacts/answer_repair/v8_nq75/kaggle_20261019/output_review_queue.jsonl) 保留 pending 人工字段；优先审核 [15 条改答记录](../artifacts/answer_repair/v8_nq75/review/changed_outputs_pending.jsonl)，每条包含问题、前后答案、完整 Top-5、离线参考及原 C1 审核依据。v7 为 N12/N15/N24/N29/N31/N47/N48/N52/N54/N68/N71/N84/N96/N100，去原答案核验组为 N2。编号沿用原 NQ Train 首批 100 条。
+The original [300-record output review queue](../artifacts/answer_repair/v8_nq75/kaggle_20261019/output_review_queue.jsonl) keeps pending human fields; prioritise reviewing the [15 changed-answer records](../artifacts/answer_repair/v8_nq75/review/changed_outputs_pending.jsonl), each containing the question, before and after answers, full Top-5, offline reference and the original C1 review basis. For v7 they are N12/N15/N24/N29/N31/N47/N48/N52/N54/N68/N71/N84/N96/N100, and for the without-original-answer-check group N2. The numbering follows the original NQ Train first batch of 100.
 
-1. **先修输出契约与生成终止条件。** 明确单份检查输出，检验编号与引文的可接受表示；任何表示规范化仍必须定位真实原文，不能模糊匹配或删除否定、替换实体，也不能在重复但矛盾的检查中挑有利结论。保留本次严格输出及失败计数。
-2. 用实际失败原文加入回归检查，并用少量固定开发例跑真实模型 smoke，确认原检查、修复、候选检查确实可进入且可拒绝。不得仅凭本地合成输出通过就提交完整运行。
-3. 另存新修订的提示／代码／配置与结果，在同一 75 条上重新跑四组、统计格式有效率、目标修复、正确对照误修及调用成本。不能把离线放宽解析回放当作新模型实验。
-4. 并行人工确认这 15 条新输出，检查未修复目标。25 条旧未决继续隔离，无需等其全部完成才修工程问题。
-5. 流程正常后再判断同模型核验是否有效；固定策略后，与团队确认未参与开发的共同评测集，再扩大自然错误和正确对照。当前失败首先是输出契约问题，扩数据或更换数据集不能解决它。
+1. **First fix the output contract and generation stopping conditions.** Specify a single check output, and test the acceptable representations of rank numbers and quotes; any representation normalisation must still locate the real original text, and cannot use fuzzy matching, delete negations or substitute entities, nor pick the favourable conclusion among repeated but contradictory checks. Keep this run's strict outputs and failure counts.
+2. Add the actual failing raw text to regression checks, and run a real-model smoke on a small number of fixed development examples, to confirm that the original check, repair and candidate check can actually be entered and can reject. A full run must not be submitted merely because local synthetic outputs pass.
+3. Save the newly revised prompts/code/config and results separately, rerun the four groups on the same 75 records, and count format validity rate, target repairs, correct-control harmful repairs and call cost. Offline lenient-parsing replay cannot be treated as a new model experiment.
+4. In parallel, have humans confirm these 15 new outputs and check unrepaired targets. The 25 old unresolved records remain isolated; there is no need to wait for all of them to be completed before fixing engineering problems.
+5. Only after the pipeline works normally, judge whether same-model checking is effective; after fixing the strategy, confirm with the team a shared evaluation set not involved in development, then expand natural errors and correct controls. The current failure is first an output contract problem, and expanding data or replacing the dataset cannot solve it.
 
-本轮未修改算法、未重新运行 GPU，未改人工标签，也未覆盖 v7 历史结果。完整 v8 尚未通过有效性验收。
+This round did not modify the algorithm, did not rerun the GPU, did not change human labels, and did not overwrite v7 historical results. Full v8 has not yet passed validity acceptance.

@@ -1,67 +1,67 @@
-# Controller 实验协议 v1 · T1
+# Controller experiment protocol v1 · T1
 
-日期：2026-10-23。分支：`controller`。参考实现：`86a7b126225f7cbc5ffe4c7af7db3137acbec9f5`。
+Date: 2026-10-23. Branch: `controller`. Reference implementation: `86a7b126225f7cbc5ffe4c7af7db3137acbec9f5`.
 
-**T1 冻结比较设计，不宣称已经具备正式运行条件。** 模型、现有组件、比较组、预算、计分和停止规则在此确定；T2 封存样本与资源，T3 补齐比较组和运行验收后，另建执行清单。当前没有新的 GPU 实验或准确率结论。
+**T1 freezes the comparison design and does not claim that the conditions for a formal run are already in place.** The model, existing components, comparison groups, budget, scoring and stopping rules are fixed here; T2 seals the samples and resources, and after T3 completes the comparison groups and run acceptance, a separate execution checklist is created. There are currently no new GPU experiments or accuracy conclusions.
 
-机器可读协议见 [experiment_protocol_v1.json](../configs/controller/experiment_protocol_v1.json)，原实现、提示、评分和分类器的 SHA-256 见 [参考快照](../configs/controller/protocol_v1_reference_sources.json)。快照包含依赖及历史策略源码，不表示这些策略全部启用。原 E 冻结实验及其结论不重开、不覆盖。
+The machine-readable protocol is in [experiment_protocol_v1.json](../configs/controller/experiment_protocol_v1.json); SHA-256s of the original implementation, prompts, scoring and classifiers are in the [reference snapshot](../configs/controller/protocol_v1_reference_sources.json). The snapshot includes dependencies and historical policy source code, which does not mean all those policies are enabled. The original frozen E experiment and its conclusions are not reopened or overwritten.
 
-## 1. 本轮回答的问题
+## 1. Questions answered in this round
 
-1. 同一批 C1 输入上，Diagnosis → Probe → Controller → 增强，是否比保留 C1 更准确？修复多少、改坏多少、额外花多少？
-2. 动态选择是否优于固定调用某一种增强？相对 Full Enhancement 能否以较少调用维持接近的质量？
-3. 如果没有净提升，损失来自错误路由、增强模块本身，还是二者交互？
+1. On the same batch of C1 inputs, is Diagnosis → Probe → Controller → enhancement more accurate than keeping C1? How many are fixed, how many are broken, and how much extra does it cost?
+2. Is dynamic selection better than always invoking one particular enhancement? Relative to Full Enhancement, can it maintain close quality with fewer calls?
+3. If there is no net improvement, does the loss come from wrong routing, the enhancement modules themselves, or the interaction of the two?
 
-主实验固定生成模型，不训练 Qwen，不同时引入蒸馏、DPO、知识库清洗、自动 prompt 搜索或 RSI。这些可以作为独立扩展，需另立版本和比较组。
+The main experiment fixes the generation model: Qwen is not trained, and distillation, DPO, knowledge-base cleaning, automatic prompt search or RSI are not introduced at the same time. These can be independent extensions and need their own versions and comparison groups.
 
-## 2. 固定组件与明确的待补项
+## 2. Fixed components and explicit pending items
 
-| 项目 | 本轮约定 |
+| Item | Agreement for this round |
 |---|---|
-| 生成模型 | 两数据集共用 `Qwen/Qwen2.5-7B-Instruct`；revision/tokenizer `a09a35458c702b33eeacc393d103063234e8bc28`；NF4、FP16 compute、double quant；greedy，seed 42 |
-| C1 | 同题各组读取完全相同的缓存答案和有序 Top5；原 C1 模型/提示/索引来源需 T2 核对，不能反推或补写未知 revision |
-| 检索 | `BAAI/bge-base-en-v1.5`；原 query；与该批 C1 匹配的 corpus/index/metadata；不能用旧 dev 索引替代 NQ Train 索引 |
-| 检索增强 | NQ P3-20：Top20 + reranker，等权 rank RRF，k=60，回到 Top5；不改 query，不追加检索循环 |
-| Reranker | `BAAI/bge-reranker-large`；revision `55611d7bca2a7133960a6d3b71e083071bbfc312`；CPU/FP32/raw logits，max_length 512 |
-| 重排过滤 | 原 Top5，keep5、无分数阈值、probe_hint_weight=0、require_grounded=true；顺序不变不重答 |
-| Diagnosis | `diagnosis_v2_expanded_hierarchical.json` 原参数和 27 个特征；单一主导类型，不宣称实现了多标签诊断 |
-| Probe | 原提示；触发区间 [0.50, 0.65]，否则仅在 stage2 存在且最大分数 <0.50 时触发；至多一次 |
-| Safe Binary | 原规则；仅允许 failure → correct 的安全覆盖，阈值 stage1 ≤0.70、stage2 max ≤0.50；不切换三种 failure 类型 |
-| E / NQ | `short_answer_quote`，提示版本 `v7_short_answer_in_quote_lines`；Qwen 生成短答案和引文，程序检查格式/来源 |
-| E / FEVER | `verify_repair`，提示版本 `v3_balanced_examples`；同一 Qwen 核验并输出标签/引文；本轮不调用独立 NLI |
+| Generation model | Both datasets share `Qwen/Qwen2.5-7B-Instruct`; revision/tokenizer `a09a35458c702b33eeacc393d103063234e8bc28`; NF4, FP16 compute, double quant; greedy, seed 42 |
+| C1 | For the same question, every group reads exactly the same cached answer and ordered Top5; the original C1 model/prompt/index provenance needs T2 verification, and an unknown revision cannot be inferred backwards or filled in |
+| Retrieval | `BAAI/bge-base-en-v1.5`; original query; the corpus/index/metadata matching this batch of C1; the old dev index cannot substitute for the NQ Train index |
+| Retrieval enhancement | NQ P3-20: Top20 + reranker, equal-weight rank RRF, k=60, back to Top5; query unchanged, no additional retrieval loop |
+| Reranker | `BAAI/bge-reranker-large`; revision `55611d7bca2a7133960a6d3b71e083071bbfc312`; CPU/FP32/raw logits, max_length 512 |
+| Reranking filter | Original Top5, keep5, no score threshold, probe_hint_weight=0, require_grounded=true; no re-answer if the order is unchanged |
+| Diagnosis | `diagnosis_v2_expanded_hierarchical.json` original parameters and 27 features; single dominant type, no claim of multi-label diagnosis |
+| Probe | Original prompt; trigger interval [0.50, 0.65], otherwise triggered only when stage2 exists and the maximum score is <0.50; at most once |
+| Safe Binary | Original rules; only safe overrides of failure → correct are allowed, thresholds stage1 ≤0.70, stage2 max ≤0.50; no switching among the three failure types |
+| E / NQ | `short_answer_quote`, prompt version `v7_short_answer_in_quote_lines`; Qwen generates the short answer and quote, and the program checks format/source |
+| E / FEVER | `verify_repair`, prompt version `v3_balanced_examples`; the same Qwen verifies and outputs the label/quote; no independent NLI is called in this round |
 
-E 的这组配置是**集成比较基线**，不代表历史 v7 FEVER NLI 的复现，也未被宣布为优胜策略。当前源码的 `conservative_repair` 是 r4；不能借这个策略名声称运行旧 r3。
+This E configuration is the **integration comparison baseline**; it does not represent a reproduction of the historical v7 FEVER NLI, nor has it been declared the winning strategy. The current source's `conservative_repair` is r4; this strategy name cannot be used to claim that the old r3 was run.
 
-BGE 的实际权重 revision、两个数据集的资源哈希、原 C1 provenance、硬件和完整依赖锁仍需 T2/T3 封存。仅写模型名称、拥有相同 passage 数量或通过结构检查，都不能证明资源相配。若旧 C1 来源无法核验，须在首次比较前选择并记录：保留为“历史 C1 后处理实验”，或重建可追溯 C1；不能悄悄混用。
+BGE's actual weight revision, the resource hashes of both datasets, the original C1 provenance, hardware and the full dependency lock still need T2/T3 sealing. Merely writing the model name, having the same number of passages, or passing structural checks cannot prove the resources match. If the old C1 source cannot be verified, one must choose and record before the first comparison: keep it as a "historical C1 post-processing experiment", or rebuild a traceable C1; they cannot be quietly mixed.
 
-## 3. 六个主比较组、两个解释性对照
+## 3. Six main comparison groups and two explanatory controls
 
-以下各组使用相同题目、C1、gold、模型和组件策略。`always` 指每题尝试该动作，模块自身的拒绝/回退规则仍保留。
+The groups below use the same questions, C1, gold, model and component policies. `always` means the action is attempted on every question; the module's own rejection/fallback rules are still kept.
 
-| 模式 | 行为 | 当前状态 |
+| Mode | Behaviour | Current status |
 |---|---|---|
-| `c1` | 保留原答 | 已有 |
-| `always_retrieve` | 每题尝试补检索并重答 | NQ 已有；FEVER 待 T3 |
-| `always_rerank` | 每题尝试重排并按原规则重答 | 已有 |
-| `always_repair` | 每题尝试 E | 已有 |
-| `full_enhancement` | 固定顺序：补检索 → 重排 → E；不诊断、不 Probe | 待 T3 |
-| `adaptive` | Diagnosis → 可选 Probe → Safe Binary → 一条动作或保留 | 已有；FEVER 补检索待 T3 |
-| `adaptive_no_probe` | 同一 Diagnosis，关闭 Probe 和其覆盖，其余不变 | 解释性消融，待 T3 |
-| `human_type_routed` | 离线人工主导类型决定动作；correct 保留；unknown 单列不执行 | 解释性对照，待 T3；只用有可靠类型标注的共同子集 |
+| `c1` | Keep the original answer | Exists |
+| `always_retrieve` | Attempt retrieval enhancement and re-answer on every question | Exists for NQ; FEVER pending T3 |
+| `always_rerank` | Attempt reranking on every question and re-answer per the original rules | Exists |
+| `always_repair` | Attempt E on every question | Exists |
+| `full_enhancement` | Fixed order: retrieval enhancement → reranking → E; no diagnosis, no Probe | Pending T3 |
+| `adaptive` | Diagnosis → optional Probe → Safe Binary → one action or keep | Exists; FEVER retrieval enhancement pending T3 |
+| `adaptive_no_probe` | Same Diagnosis, Probe and its overrides turned off, everything else unchanged | Explanatory ablation, pending T3 |
+| `human_type_routed` | Offline human dominant type determines the action; correct is kept; unknown is listed separately and not executed | Explanatory control, pending T3; uses only the common subset with reliable type annotation |
 
-人工类型只能在离线比较驱动中转换成动作，不能把 gold answer、gold evidence、正确性或人工理由塞入模型提示。它测量“给定人工类型后”的效果，**不一定是最优动作上限**。失败类型 × 三个动作矩阵直接复用固定动作输出；按类型汇总时必须使用同一个可靠标注子集，并注明样本数。
+Human types can only be converted into actions in the offline comparison driver; gold answers, gold evidence, correctness or human rationales cannot be put into model prompts. It measures the effect "given the human type", and is **not necessarily the upper bound of the optimal action**. The failure type × three actions matrix directly reuses the fixed-action outputs; when aggregating by type, the same reliably annotated subset must be used and the sample count stated.
 
-Full 的状态传递固定为上一阶段接受的 `final_answer` 和 `final_evidence`。未改变答案时沿用当前执行器保留上下文的规则；被拒绝的候选/上下文不进入下一阶段。某阶段失败则保留进入该阶段的状态，记录错误，剩余阶段在预算内继续尝试；共享预算从不重置。原 query 不变，无模型自由重排步骤或额外重试。该 Full 的具体定义须随结果报告，不泛称所有可能的“全增强”。
+Full's state passing is fixed as the `final_answer` and `final_evidence` accepted by the previous stage. When the answer is unchanged, the current executor's rule for keeping context is followed; rejected candidates/contexts do not enter the next stage. If a stage fails, the state entering that stage is kept, the error recorded, and the remaining stages are still attempted within budget; the shared budget is never reset. The original query is unchanged, with no free model reranking step or extra retries. The specific definition of this Full must be reported with the results, rather than generically referring to every possible "full enhancement".
 
-当前 FEVER 检索返回 `unsupported_dataset`，不能算实现完成。正式跨两数据集比较需 T3 补齐。资源不足时只能在看结果前封存为“仅 NQ 完整比较、FEVER 部分路径”，不能看过收益后删除 FEVER 或把回退当作 Full。
+Currently FEVER retrieval returns `unsupported_dataset`, which cannot count as implemented. The formal comparison across both datasets needs T3 to complete it. If resources are insufficient, it can only be sealed before seeing results as "NQ-only full comparison, FEVER partial path"; FEVER cannot be dropped after seeing gains, nor can fallback be treated as Full.
 
-T3 的 FEVER 补检索按同一算法补齐：原 claim 经匹配 C1 的 BGE/FAISS 后端取 Top20，同一 reranker 与 RRF 选 Top5，再使用原 FEVER C1 提示重答；只接受可解析的 SUPPORTS/REFUTES，否则保留进入阶段的答案。NQ 的答案 span 检查不能直接用于 FEVER 标签，这个差异须在实现与结果中披露；标签可解析仍不等于语义正确。两个解释性对照先用于开发/选型诊断，最终保留集固定执行六个主组。
+T3's FEVER retrieval enhancement is completed with the same algorithm: the original claim takes Top20 through the BGE/FAISS backend matching C1, the same reranker and RRF select Top5, then the original FEVER C1 prompt is used to re-answer; only parseable SUPPORTS/REFUTES are accepted, otherwise the answer entering the stage is kept. NQ's answer span check cannot be applied directly to FEVER labels; this difference must be disclosed in the implementation and results; a parseable label still does not equal semantic correctness. The two explanatory controls are first used for development/selection-run diagnosis, and the final held-out set runs the six main groups in a fixed manner.
 
-## 4. 调用与输出预算
+## 4. Call and output budget
 
-预算从缓存 C1 **之后**开始，包括 Probe。每次 provider 调用都计数，异常调用也计；scoring 一次是对一个候选列表评分，不等于一个模型内部 batch。
+The budget starts **after** the cached C1, and includes Probe. Every provider call is counted, including calls that raise exceptions; one scoring means scoring one candidate list, not one batch inside a model.
 
-| 模式 | Qwen 次数上限 | 补检索次数 | scoring 次数 | 各阶段 max_new_tokens 之和上限 |
+| Mode | Qwen call cap | Retrieval enhancement calls | Scoring calls | Cap on sum of max_new_tokens across stages |
 |---|---:|---:|---:|---:|
 | C1 | 0 | 0 | 0 | 0 |
 | Always Retrieve | 1 | 1 | 1 | 64 |
@@ -71,69 +71,69 @@ T3 的 FEVER 补检索按同一算法补齐：原 claim 经匹配 C1 的 BGE/FAI
 | Adaptive | 2 | 1 | 1 | 544 |
 | No Probe / Human Type | 1 | 1 | 1 | 384 |
 
-这是所选组件的最坏路径上限，不是每题必定消费量；互斥动作的各列最大值也不一定出现在同一条路径。Probe=160、补检索重答=64、重排重答=64、E=384。输入上下文沿用对应模板及已有截断/超长拒绝契约；不为了某组好看单独增加证据长度或输出预算。
+These are worst-case path caps for the selected components, not the amount necessarily consumed per question; the column maxima of mutually exclusive actions do not necessarily occur on the same path. Probe=160, retrieval-enhancement re-answer=64, reranking re-answer=64, E=384. Input context follows the corresponding template and the existing truncation/over-length rejection contract; evidence length or output budget is not increased separately to make some group look good.
 
-当前 `integration_v1.json` 的通用硬上限是 Qwen 4、检索 1、scoring 1。它能容纳当前单路线，却不够运行 Full 的两次评分。**T3 按上表生成每组显式预算配置并校验执行轨迹**；不把所有组都改成无限预算，也不修改各模块原有提示。实际消费不同是比较目标之一，不人为补空调用。
+The current generic hard caps in `integration_v1.json` are Qwen 4, retrieval 1, scoring 1. They accommodate the current single route but are not enough for Full's two scorings. **T3 generates an explicit budget configuration for each group per the table above and validates execution traces**; not all groups are changed to an unlimited budget, and the modules' original prompts are not modified. Differences in actual consumption are one of the comparison targets; empty calls are not artificially padded.
 
-同批比较固定硬件、精度、依赖和资源，记录 arm 执行顺序及预热；加载时间单列。失败调用 token 未知记 null。部分 token 总和必须标成部分观测，缺失不能当零，不能据此声称完整省费比例。除增量成本外，若 C1 成本可追溯，再加共同 C1 成本报告全流程成本；不可用增量省费比例冒充全流程比例。
+Same-batch comparisons fix hardware, precision, dependencies and resources, and record arm execution order and warm-up; load time is listed separately. Tokens of failed calls are recorded as null when unknown. Partial token sums must be marked as partial observations; missing values cannot be treated as zero, and a complete cost-saving ratio cannot be claimed on that basis. Besides incremental cost, if C1 cost is traceable, the common C1 cost is added to report full-pipeline cost; the incremental cost-saving ratio cannot be passed off as the full-pipeline ratio.
 
-## 5. 数据、样本量与隔离
+## 5. Data, sample size and isolation
 
-T2 在任何新模型输出产生前提交 data manifest：数据来源、筛选代码/规则、seed 42、候选总体、各数据集/划分的 N、ID 清单、排除原因、输入/gold SHA-256、曝光登记、资源映射和样本量对应的估计精度。**本 T1 不虚构已冻结的样本量，也不把 74,097 条当作已使用测试集。**
+T2 submits the data manifest before any new model output is produced: data source, filtering code/rules, seed 42, candidate population, N for each dataset/split, ID lists, exclusion reasons, input/gold SHA-256, exposure registration, resource mapping and the estimation precision corresponding to the sample size. **This T1 does not fabricate a frozen sample size, nor treat the 74,097 items as a used test set.**
 
-- 主比较在符合预先规定数据完整性条件的总体中抽样，不按 EM=0、某种失败类型、预计可修复性或人工偏好筛题；正确原答必须进入，才能估计误修。失败类型富集集另报，不能代表总体准确率。
-- NQ 使用原数据参考短答案；FEVER 本轮范围为 SUPPORTS/REFUTES 且具备合格来源的子集，不将此成绩泛化为包含 NEI 的完整 FEVER。
-- 分清开发、选型和最终保留数据。开发可诊断错误；最终保留集只在最终版本冻结后跑一次。NQ 已用的 75/125、E 曝光 ID、Diagnosis 训练/验证和已查看测试都登记；E 未曝光不等于团队未曝光。
-- 新交付的 AI/启发式诊断标签不能视为全量人工 gold。它们可帮助排查，但主 QA 计分仍来自官方答案/标签，人工类型对照另有 provenance。
-- 先处理跨划分重复与已知问题，记录规则；已发表划分和结果保持原样。排除只可依据预先的结构/来源条件，不能看模型答错后删题。
-- 冻结后不得修改 gold alias 来给新答案加分。合理语义等价/欠完整争议保存为独立人工审核记录，同时保留原自动分数。
+- The main comparison samples from the population meeting pre-specified data-integrity conditions, without filtering questions by EM=0, a particular failure type, expected repairability or human preference; correct original answers must be included in order to estimate harmful repair. Failure-type-enriched sets are reported separately and cannot represent population accuracy.
+- NQ uses the original data's reference short answers; FEVER's scope in this round is the SUPPORTS/REFUTES subset with qualified sources, and this score is not generalised to the complete FEVER including NEI.
+- Keep development, selection-run and final held-out data distinct. Development may diagnose errors; the final held-out set is run only once after the final version is frozen. NQ's already-used 75/125, E-exposed IDs, Diagnosis training/validation and already-viewed tests are all registered; unexposed to E does not equal unexposed to the team.
+- Newly delivered AI/heuristic diagnosis labels cannot be treated as full human gold. They can help troubleshooting, but the main QA scoring still comes from official answers/labels, and the human-type control has separate provenance.
+- Handle cross-split duplicates and known issues first and record the rules; published splits and results remain as is. Exclusions may only rest on prior structural/source conditions; questions cannot be deleted after seeing the model answer wrongly.
+- After freezing, gold aliases must not be modified to give new answers extra points. Reasonable semantic-equivalence/incompleteness disputes are saved as independent human review records, while the original automatic scores are retained.
 
-## 6. 评分、成本与结论边界
+## 6. Scoring, cost and conclusion boundaries
 
-主指标：NQ normalized EM；FEVER label accuracy。NQ token F1 为辅助。两个数据集分别报告，不把 EM 与 label accuracy 混成一个未定义的平均值。公式：
+Primary metrics: NQ normalized EM; FEVER label accuracy. NQ token F1 is auxiliary. The two datasets are reported separately; EM and label accuracy are not mixed into an undefined average. Formulas:
 
 ```text
-修复数 = 原答错、终答对的题数
-误修数 = 原答对、终答错的题数
-净增正确 = 修复数 - 误修数
-准确率差 = 净增正确 / 全部配对题数
-修复率 = 修复数 / 原答错的题数
-误修率 = 误修数 / 原答对的题数
+fixed count = questions with original answer wrong and final answer right
+harmful repair count = questions with original answer right and final answer wrong
+net correct gain = fixed count - harmful repair count
+accuracy difference = net correct gain / all paired questions
+fix rate = fixed count / questions with original answer wrong
+harmful repair rate = harmful repair count / questions with original answer right
 ```
 
-分母为零记 N/A。格式错误、无操作、拒绝、预算超限和 provider 失败都保留并单列；不能仅计算“成功执行”的样本。按数据集检查每一组与冻结 ID 清单完全一致，所有配对题使用相同 C1 输入哈希。某组整组缺失不能因剩余组相互配对而通过正式验收。
+A zero denominator is recorded as N/A. Format errors, no-ops, rejections, budget overruns and provider failures are all kept and listed separately; computation cannot be restricted to "successfully executed" samples. Per dataset, every group is checked to match the frozen ID list exactly, and all paired questions use the same C1 input hash. A group that is entirely missing cannot pass formal acceptance just because the remaining groups pair with each other.
 
-统计预先约定：准确率差按题做配对 bootstrap，10,000 次、seed 42，报告 95% percentile 区间；精确 McNemar 双侧检验。确认性比较限定为最终 adaptive vs C1 的两个数据集，Holm 校正两项 p 值；其他组别和类型子集作解释性比较。开发集上的数字只指导选型，不是独立确认性证据。现有 evaluator 有 McNemar，但 bootstrap、Holm、对完整冻结清单的验收尚需 T3 补齐。
+Statistics agreed in advance: the accuracy difference uses a per-question paired bootstrap, 10,000 iterations, seed 42, reporting the 95% percentile interval; exact two-sided McNemar test. Confirmatory comparisons are limited to final adaptive vs C1 on the two datasets, with Holm correction of the two p-values; other groups and type subsets are explanatory comparisons. Numbers on the development set only guide the selection run and are not independent confirmatory evidence. The existing evaluator has McNemar, but bootstrap, Holm and acceptance against the complete frozen list still need T3 to complete them.
 
-人工审核优先覆盖主组中**全部改答的并集**和关键歧义，隐藏方法名、打乱两答案位置并固定判分准则；无法盲审时披露辅助审核影响。保留“对/错/待定”及理由。只审核改答可估计经审净变化及待定上下界，但不能据此报告全体语义准确率或以未审 C1 的对错作为完整修复率/误修率分母。引用/短答案在证据里出现，仅说明来源检查通过，不说明语义支持。
+Human review prioritises covering **the union of all changed answers** in the main groups and key ambiguities, hiding method names, shuffling the positions of the two answers and fixing the grading criteria; when blind review is impossible, the influence of assisted review is disclosed. Keep "correct/incorrect/pending" and the rationale. Reviewing only changed answers can estimate the reviewed net change and the pending upper/lower bounds, but cannot be used to report overall semantic accuracy, nor to use the correctness of unreviewed C1 as the denominator of the complete fix rate/harmful repair rate. A quote/short answer appearing in the evidence only shows that the source check passed, not semantic support.
 
-成本至少报告实际 Qwen/Probe、检索、scoring 次数，token 观测覆盖，增量端到端时延、加载时间、失败次数、route 分布、no_action 比例和未支持比例。只有记录齐全、相同环境与完整配对时，才比较费用。人工/大模型离线审核费用另列，不能混入在线模型质量成绩。
+Cost reporting includes at least actual Qwen/Probe, retrieval and scoring counts, token observation coverage, incremental end-to-end latency, load time, failure counts, route distribution, no_action proportion and unsupported proportion. Costs are compared only with complete records, the same environment and complete pairing. Human/large-model offline review costs are listed separately and cannot be mixed into online model quality scores.
 
-## 7. 继续、停止与版本纪律
+## 7. Continuation, stopping and version discipline
 
-- T4 先完成一次冻结基线比较。T5 用同批固定动作输出、No Probe 和可靠人工类型子集定位最大损失；不预设所有下游问题都是 Diagnosis 引起的。
-- 基线之后最多一轮集中优化：针对最大的瓶颈预登记一个候选系统及改动、理由、版本哈希；若候选同时涉及多个组件，必须说明归因限制，不能把整包收益分配给单模块。无穷 prompt 搜索和反复使用旧 smoke 调语义不在计划内。必要的实现错误修正另记，相关配对组统一重跑。
-- 在 T2 冻结的选型数据上，候选相对基线净增正确 >0 才晋升；持平保留基线，退步保留基线或停用有害动作。最终保留集不得参与选型。若没有可信净收益，如实报告适用范围/负结果，不以加数据、改评分或继续循环强行做出正数。
-- 最终保留集运行一次，报告 C1/最终 adaptive 和冻结主比较组。样本点估计变好称“观察到提升”；宣称统计证据需区间与校正检验支持。小样本无显著差异不等于证明无效。
-- Proposal 的“相对 Full token 降低 ≥20%、准确率下降 ≤2 个百分点”保留为工程目标，尚未达到也不是保证。分别报告增量/完整成本；点估计达标不等于统计非劣，需要相应不确定性分析支持。
-- 语义答错、解析失败不重试。确定的基础设施中断最多按同一输入/代码/模型/环境重启一次，保留失败记录、新建运行目录；不挑选每题最好的答案。涉及有效计算版本变化时建新清单，整组配对重跑。
+- T4 first completes one frozen baseline comparison. T5 uses the same batch of fixed-action outputs, No Probe and the reliable human-type subset to locate the largest loss; it is not presumed that all downstream problems are caused by Diagnosis.
+- After the baseline, at most one round of focused optimisation: pre-register one candidate system for the largest bottleneck, with its changes, rationale and version hash; if the candidate involves multiple components at once, attribution limits must be stated, and the whole-package gain cannot be allocated to a single module. Endless prompt search and repeatedly using old smoke runs to tune semantics are not in the plan. Necessary implementation bug fixes are recorded separately, and the related paired groups are re-run uniformly.
+- On the selection-run data frozen in T2, a candidate is promoted only if its net correct gain over the baseline is >0; on a tie the baseline is kept; on a regression the baseline is kept or the harmful action is disabled. The final held-out set must not take part in the selection run. If there is no credible net gain, report the scope of applicability/negative result truthfully, without forcing a positive number by adding data, changing scoring or continuing to loop.
+- The final held-out set is run once, reporting C1/final adaptive and the frozen main comparison groups. A better sample point estimate is called "an observed improvement"; claiming statistical evidence requires support from intervals and corrected tests. No significant difference on a small sample does not prove ineffectiveness.
+- The Proposal's "token reduction ≥20% relative to Full, accuracy drop ≤2 percentage points" is kept as an engineering target; it has not yet been reached and is not a guarantee. Incremental/complete costs are reported separately; a point estimate meeting the target does not equal statistical non-inferiority, which needs corresponding uncertainty analysis for support.
+- Semantically wrong answers and parse failures are not retried. A definite infrastructure interruption may be restarted at most once with the same input/code/model/environment, keeping the failure record and creating a new run directory; the best answer per question is not cherry-picked. When an effective computation version changes, a new list is created and the whole group pairing is re-run.
 
-T1 的原协议和参考快照保持不变。T2/T3 生成独立的 data manifest 与 execution seal，引用 T1 哈希并登记相对参考实现的差异；补齐工程能力不等于可以重调已有提示/阈值。更换模型、评分、主比较组、筛选或预算，需在运行前写明协议修订版本；运行后的修订只能作为新实验。
+T1's original protocol and reference snapshot stay unchanged. T2/T3 generate an independent data manifest and execution seal, referencing T1 hashes and registering differences relative to the reference implementation; completing engineering capabilities does not mean existing prompts/thresholds can be re-tuned. Changing the model, scoring, main comparison groups, filtering or budget requires writing a protocol revision version before the run; revisions after the run can only be new experiments.
 
-## 8. 交付与启动门槛
+## 8. Deliverables and start-up gates
 
-| 任务 | 必须产出的可核验结果 |
+| Task | Verifiable results that must be produced |
 |---|---|
-| T1（本次） | 本文、机器协议、参考 SHA 清单、只读检查器、回归测试与提交 |
-| T2 | 配对输入/gold、ID 与 N、团队曝光排查、划分、索引/元数据/BGE revision 与 C1 来源；无训练标签混入 runtime |
-| T3 | Full/FEVER 检索/No Probe/人工类型驱动、每组预算与覆盖、统计与清单验收、CUDA 环境锁、执行 seal |
-| T4 启动前 | 在虚构/已曝光工程样本上验证真实 CUDA、模型/索引、调用计费及输出；不靠未见题来调格式 |
+| T1 (this round) | This document, the machine protocol, the reference SHA list, a read-only checker, regression tests and the commit |
+| T2 | Paired inputs/gold, IDs and N, team exposure check, splits, index/metadata/BGE revision and C1 provenance; no training labels mixed into runtime |
+| T3 | Full/FEVER retrieval/No Probe/human-type driver, per-group budget and coverage, statistics and list acceptance, CUDA environment lock, execution seal |
+| Before T4 starts | Verify real CUDA, model/index, call metering and output on fictitious/already-exposed engineering samples; do not rely on unseen questions to tune formatting |
 
-检查 T1（只读、不加载模型、不读取题目或 gold）：
+Check T1 (read-only, no model loading, no reading of questions or gold):
 
 ```bash
 python scripts/check_controller_protocol.py
 python scripts/check_controller_protocol.py --require-execution-ready
 ```
 
-第一条在协议/参考快照自洽时返回 0；工作区相对参考实现的变化单列，不自动接受为新基线。第二条在本设计阶段明确返回 2 并列出 T2/T3 门槛。**T1 检查器不会批准 GPU 运行，也未接管现有 runner**；正式启动验收由 T3 的执行 seal 检查承担。
+The first returns 0 when the protocol/reference snapshot is self-consistent; workspace changes relative to the reference implementation are listed separately and not automatically accepted as a new baseline. The second explicitly returns 2 in this design stage and lists the T2/T3 gates. **The T1 checker does not approve GPU runs, nor has it taken over the existing runners**; formal start-up acceptance is the responsibility of T3's execution seal check.

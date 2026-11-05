@@ -1,69 +1,69 @@
-# E 开发样本辅助审核（2026-10-13）
+# E development sample assisted review (2026-10-13)
 
-本批已完成 **37 条 Codex 辅助审核意见**，10 月 13 日出包时人工确认数为 **0**。每条保留原问题、初始 C1 答案、完整且原顺序的 Top-5、原 diagnosis 标签、离线参考答案、证据摘录、建议和一项待人工确认的问题。辅助意见不是人工标签、独立 verifier 输出或新的实验效果。
+This batch has completed **37 Codex assisted review opinions**; the human-confirmed count when the package was issued on October 13 was **0**. Each record keeps the original question, the initial C1 answer, the complete Top-5 in original order, the original diagnosis label, the offline reference answer, evidence excerpts, a suggestion, and one question pending human confirmation. Assisted opinions are not human labels, independent verifier outputs, or new experimental effects.
 
-2026-10-14 进度：累计 **37/37 条处理意见已确认**。第 1–10、16–18、20、24、26、28、31、32 条纳入 E utilisation 核心开发候选（19 条）；第 11–14、23、33、34、36、37 条保留正确对照（9 条）；第 15、19、21、22、25、27、29、30、35 条暂缓纳入并单独保存歧义/标签边界案例（9 条，标签仍未解决）。可用于下一轮开发的候选共 28 条；全部处理意见已确认不等于全部标签争议已解决。第 17 条由用户补充失败原因后，从 agent 的暂缓建议调整为 utilisation；用户原始解释及 agent 对表述的限定分别记录。第 23 条保留正确对照，并按用户建议记录“大多数药学院学生在第一学年结束时”的范围限定，未改写原答案。第 33 条保留关联推断备注；第 35 条因“出现暗示”不等于“明确揭晓”，按聊天中修订的建议暂缓作为正确对照。第 36–37 条由用户主动明确表示支持，记录为对既有正确对照建议的确认，不声称此前已展示单独的最后一组表格。记录见 [聊天确认文件](../../../data/annotations/human/answer_repair_review_20261014.jsonl)，保留用户原回复及对应确认范围。审核方式是聊天辅助确认，不能描述为独立逐条原文复核或盲评。原审核包保持不变，另有 [兼容页面导入的审核结果](../../../artifacts/answer_repair/review_20261013/E_human_reviews_chat_20261014.json)。
+Progress as of 2026-10-14: cumulatively **37/37 processing opinions confirmed**. Records 1–10, 16–18, 20, 24, 26, 28, 31, 32 are included as E utilisation core development candidates (19 records); records 11–14, 23, 33, 34, 36, 37 are kept as correct controls (9 records); records 15, 19, 21, 22, 25, 27, 29, 30, 35 are deferred from inclusion and saved separately as ambiguity/label-boundary cases (9 records, labels still unresolved). 28 candidates in total are usable for the next development round; all processing opinions being confirmed does not mean all label disputes are resolved. Record 17 was changed from the agent's deferral suggestion to utilisation after the user supplied the failure reason; the user's original explanation and the agent's qualification of the wording are recorded separately. Record 23 is kept as a correct control, and the scope qualification "大多数药学院学生在第一学年结束时" is recorded per the user's suggestion, without rewriting the original answer. Record 33 keeps a note on associative inference; record 35 is deferred as a correct control per the suggestion revised in chat, because "appearing as a hint" is not the same as "explicitly revealed". Records 36–37 were explicitly supported by the user on their own initiative and are recorded as confirmation of the existing correct-control suggestions, without claiming that a separate final group table had been shown before. Records are in the [chat confirmation file](../../../data/annotations/human/answer_repair_review_20261014.jsonl), which keeps the user's original replies and the corresponding confirmation scope. The review method was chat-assisted confirmation and cannot be described as independent record-by-record source re-checking or blind review. The original review package is unchanged; there are also [review results importable into the compatible page](../../../artifacts/answer_repair/review_20261013/E_human_reviews_chat_20261014.json).
 
-打开 [本地审核页面](../../../artifacts/answer_repair/review_20261013/E_assisted_review.html) 即可开始，不需要 GPU、服务器或联网。源 diagnosis 标签、gold 和上一轮实验结果均未改写。
+Open the [local review page](../../../artifacts/answer_repair/review_20261013/E_assisted_review.html) to start; no GPU, server, or network is needed. Source diagnosis labels, gold, and previous-round experimental results have not been rewritten.
 
-审核后的 28 条已用于准备 [v5 开发实验](ANSWER_REPAIR_V5.md)，名单另存为 [固定开发 manifest](../../../configs/splits/answer_repair_reviewed_dev_v1.json)。原页面内的 packet 仍保留出包时状态；查看聊天确认结果需导入上述审核 JSON。人工输出复评将在真实模型运行后另做，不混入这次初始样本审核。
+The 28 reviewed records have been used to prepare the [v5 development experiment](ANSWER_REPAIR_V5.md), and the list is saved separately as the [fixed development manifest](../../../configs/splits/answer_repair_reviewed_dev_v1.json). The packet inside the original page still keeps its state at package issue; to view chat confirmation results, import the review JSON above. Human re-review of outputs will be done separately after the real model run and will not be mixed into this initial sample review.
 
-## 样本范围
+## Sample scope
 
-| 数据集 | 训练交集内 utilisation 候选 | 上轮 dev50 已用 | 本轮新纳入 utilisation | 新的 correct 对照 |
+| Dataset | utilisation candidates in training intersection | Already used in previous dev50 | Newly included utilisation this round | New correct controls |
 |---|---:|---:|---:|---:|
 | FEVER | 10 | 1 | 9 | 5 |
 | NQ | 17 | 4 | 13 | 5 |
-| 合计 | 27 | 5 | 22 | 10 |
+| Total | 27 | 5 | 22 | 10 |
 
-从冻结 C1 各 500 条中，取 Diagnosis v1/v2 训练集交集，排除两版所有 validation/test ID，并要求原 `needs_manual_review=false`。这覆盖该范围内的全部 utilisation 标签样本。每个数据集的 5 条 correct 对照从未进入上一轮 dev50 的合格样本中，按 `SHA256(E-review-control:42:dataset:sample_id)` 选择；没有按本次审核结果挑对照。
+From the 500 frozen C1 samples of each dataset, take the training-set intersection of Diagnosis v1/v2, exclude all validation/test IDs of both versions, and require the original `needs_manual_review=false`. This covers all utilisation-labelled samples in that scope. The 5 correct controls per dataset are selected from eligible samples never in the previous dev50, by `SHA256(E-review-control:42:dataset:sample_id)`; controls were not picked based on this review's results.
 
-总计 32 条本轮新纳入、5 条已用于 E 开发；被本次审核查看过的样本后续属于开发材料。NQ 3216 扩展池不在本批范围内，本批保留与上一轮相同的 C1 来源。按标签定向选择的 cohort 不代表总体类别分布，不能据此计算部署总体收益。
+In total 32 are newly included this round and 5 were already used for E development; samples viewed in this review subsequently count as development material. The NQ 3216 expansion pool is not in this batch's scope; this batch keeps the same C1 source as the previous round. A cohort selected by targeting labels does not represent the overall class distribution and cannot be used to compute overall deployment gains.
 
-- C1 commit：`6f08f2fe2dc2dcf39b75177763207682b2890a31`
-- 标签和划分 commit：`7c7863f98f87e892119481a79e23ca6dcebdced0`
-- 完整来源路径、哈希及选中 ID：[review_packet.json](../../../artifacts/answer_repair/review_20261013/review_packet.json)
+- C1 commit: `6f08f2fe2dc2dcf39b75177763207682b2890a31`
+- Label and split commit: `7c7863f98f87e892119481a79e23ca6dcebdced0`
+- Full source paths, hashes, and selected IDs: [review_packet.json](../../../artifacts/answer_repair/review_20261013/review_packet.json)
 
-## 辅助审核结论
+## Assisted review conclusions
 
-| 原样本组 | Codex 建议 | 数量 |
+| Original sample group | Codex suggestion | Count |
 |---|---|---:|
-| utilisation 候选 | 可提交人工确认，建议纳入 E 核心开发候选 | 18（FEVER 10，NQ 8） |
-| utilisation 候选 | 标签边界、参考答案或问法需进一步复核，暂缓纳入 | 8 |
-| utilisation 候选 | 原答案已有针对性证据支持，建议核查原标签 | 1 |
-| correct 对照 | 初步支持保留，仍待人工确认 | 9 |
-| correct 对照 | 实体歧义，建议暂缓作为干净对照 | 1 |
+| utilisation candidates | Can be submitted for human confirmation; suggested for inclusion as E core development candidates | 18 (FEVER 10, NQ 8) |
+| utilisation candidates | Label boundary, reference answer, or question wording needs further re-review; deferred from inclusion | 8 |
+| utilisation candidates | The original answer already has targeted evidence support; suggest checking the original label | 1 |
+| correct controls | Preliminarily supported for keeping, still pending human confirmation | 9 |
+| correct controls | Entity ambiguity; suggest deferring as a clean control | 1 |
 
-建议先在页面选择“建议优先复核的争议项”，共 10 条。以下几个案例最能影响 cohort 的有效性：
+It is suggested to first select "建议优先复核的争议项" on the page, 10 records in total. The following cases most affect the validity of the cohort:
 
-| ID | 疑点 | 请人工确认 |
+| ID | Doubt | Please confirm by human review |
 |---|---|---|
-| NQ `-5471777320348063942`（pharmacy white coat） | 原答案第一学年末由 R5 的 pharmacy 专属描述支持；gold 取自 R1 的 some schools 泛指描述。 | 是否原答案本来正确？建议移出错误核心集，但不自动改源标签。 |
-| NQ `-3112358457025326292`（No Game No Life） | gold 第六卷对应电影改编材料；问题似乎问 TV 动画终点。 | 先明确所问对象，并确认 Top-5 是否真有改编终点证据。 |
-| NQ `6680816286694593040`（Patriots） | R1 十次，R3/R5 九次，语料时点混杂。 | 截至日期和冲突证据处理规则是什么？能否算清楚证据下的 utilisation？ |
-| FEVER `55426`（Firefox 对照） | R2 是同名游戏，R5 是浏览器；声明未消歧。 | 原 REFUTES 是否在当前输入下成立？不能只凭 correct 标签认定是干净对照。 |
-| NQ `-288937641151618309` / `-5670674709553776773` / `678930299284183680` | 原答案与不相关节目/项目段落的值相同，正确事实也在 Top-5。 | 团队应如何区分干扰造成的 accessibility 与 utilisation？单次输出不能证明因果。 |
+| NQ `-5471777320348063942` (pharmacy white coat) | The original answer "end of the first year" is supported by R5's pharmacy-specific description; gold is taken from R1's generic "some schools" description. | Was the original answer actually correct? Suggest moving it out of the error core set, but do not automatically change the source label. |
+| NQ `-3112358457025326292` (No Game No Life) | Gold's sixth volume corresponds to the film adaptation material; the question seems to ask about the end point of the TV anime. | First clarify what is being asked, and confirm whether the Top-5 really contain evidence of the adaptation end point. |
+| NQ `6680816286694593040` (Patriots) | R1 says ten times, R3/R5 say nine times; corpus time points are mixed. | What are the cutoff date and the rule for handling conflicting evidence? Can it count as utilisation under clear evidence? |
+| FEVER `55426` (Firefox control) | R2 is a game with the same name, R5 is the browser; the claim is not disambiguated. | Does the original REFUTES hold under the current input? It cannot be deemed a clean control just from the correct label. |
+| NQ `-288937641151618309` / `-5670674709553776773` / `678930299284183680` | The original answer equals a value in an unrelated show/project passage, and the correct fact is also in the Top-5. | How should the team distinguish accessibility caused by distraction from utilisation? A single output cannot prove causation. |
 
-另有 paleomagnetism、Easter lily 的答题粒度问题，以及 WWI 问题未提供选项导致答案不唯一。对照中的 Gothic art 和 Smoking Man 也保留了谓词强度的人工确认问题，没有把原标签当成无需审查的真值。
+There are also answer-granularity issues for paleomagnetism and Easter lily, and the WWI question provides no options, making the answer non-unique. Among the controls, Gothic art and Smoking Man also keep human confirmation questions about predicate strength; the original labels are not treated as ground truth exempt from review.
 
-所有建议只按冻结 C1 语料判断；没有用当前网络知识补证据，也没有把 C3/70B 结果当作标签依据。动态问题按语料时点解释。对原始证据的 52 段引用已逐字校验；这只能证明摘录来源，不能代替人工语义裁决。
+All suggestions are judged only against the frozen C1 corpus; no current web knowledge was used to supplement evidence, and C3/70B results were not used as a label basis. Dynamic questions are interpreted at the corpus time point. The 52 quoted passages of original evidence have been verified verbatim; this only proves the source of the excerpts and cannot replace human semantic judgement.
 
-## 怎么审核
+## How to review
 
-1. 在页面选择样本，先读问题、原答案及必要的 Top-5；长证据可逐条展开或“展开全部证据”。
-2. 展开 Codex 辅助意见查看定位的原文与疑点。原标签和 gold 放在另一个折叠区，避免一开始只追随参考答案。
-3. 填审核人、原答案状态、证据状态、建议标签和用途。辅助意见不会自动填入人工字段。
-4. 点击“确认本条人工审核”。纳入 E 核心要求同时确认：原答案有实质错误、证据充分且清楚、标签为 utilisation。暂时无法决定时，选择争议/暂缓并记录问题。
-5. 每完成一批点击“导出审核 JSON”。浏览器会保存本地草稿，导出文件可重新导入同一版本页面。更换浏览器或审核包版本前务必导出。
+1. Select a sample on the page and first read the question, the original answer, and the necessary Top-5; long evidence can be expanded one by one or with "展开全部证据".
+2. Expand the Codex assisted opinion to view the located source text and doubts. The original label and gold are in a separate collapsed area, to avoid simply following the reference answer from the start.
+3. Fill in the reviewer, original answer status, evidence status, suggested label, and usage. Assisted opinions are not automatically filled into the human fields.
+4. Click "确认本条人工审核". Inclusion in the E core requires confirming all of: the original answer has a substantive error, the evidence is sufficient and clear, and the label is utilisation. When you cannot decide yet, choose disputed/deferred and record the issue.
+5. After finishing each batch, click "导出审核 JSON". The browser saves a local draft, and the exported file can be re-imported into the page of the same version. Always export before switching browsers or review package versions.
 
-本页面不是盲评工具，旧标签类别可见，辅助理由也可展开；不能将这种辅助审核描述成独立双盲标注。人工争议应交回 Diagnosis 负责人按共同规则裁决，再建立新的 E cohort。正式受控实验前需冻结最终 ID、标签依据和评分口径。
+This page is not a blind review tool: old label categories are visible and assisted rationales can be expanded; this kind of assisted review cannot be described as independent double-blind annotation. Human disputes should be returned to the Diagnosis owner for adjudication under shared rules before building a new E cohort. Final IDs, label basis, and scoring criteria must be frozen before formal controlled experiments.
 
-## 复现与验证
+## Reproduction and validation
 
 ```sh
 python3.11 scripts/prepare_answer_repair_review.py
 ```
 
-[准备脚本](../../../scripts/prepare_answer_repair_review.py) 读取固定 Git commits、上一轮 manifest 和 [独立保存的辅助意见](../../../data/annotations/assisted/answer_repair_review_20261013.jsonl)。输出写入被 Git 忽略的 `artifacts/answer_repair/review_20261013/`，不会修改源标注或运行模型。
+The [preparation script](../../../scripts/prepare_answer_repair_review.py) reads fixed Git commits, the previous round's manifest, and the [separately saved assisted opinions](../../../data/annotations/assisted/answer_repair_review_20261013.jsonl). Output is written to the Git-ignored `artifacts/answer_repair/review_20261013/`, and does not modify source annotations or run the model.
 
-已验证：37 个唯一 ID、185 段原证据完整保留、两版保留划分零重叠、37 条 agent-only 意见、52 段摘录逐字匹配、HTML 内嵌数据与 JSON 一致。页面已在 Chrome 打开检查；人工确认逻辑检查了缺字段、错误引用编号和不一致纳入条件，未产生任何模拟人工结论。详细 [校验记录](../../../artifacts/answer_repair/review_20261013/validation.json) 随包保存。
+Verified: 37 unique IDs, 185 original evidence passages fully preserved, zero overlap between the held-out splits of both versions, 37 agent-only opinions, 52 excerpts matched verbatim, HTML embedded data consistent with JSON. The page was opened and checked in Chrome; the human confirmation logic was checked for missing fields, wrong citation numbers, and inconsistent inclusion conditions, without producing any simulated human conclusions. The detailed [validation record](../../../artifacts/answer_repair/review_20261013/validation.json) is saved with the package.

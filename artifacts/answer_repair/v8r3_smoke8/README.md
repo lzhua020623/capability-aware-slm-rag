@@ -1,14 +1,14 @@
-# v8r3：候选格式修正的独立工程验收
+# v8r3: independent engineering acceptance of the candidate format fix
 
-固定 8 个开发样本、四组 32 条预测、最多 64 次生成。只兼容三种明确候选文法并区分格式、来源、长度拒绝；语义提示、模型、证据、参考与预算均不变。实际 r2 的 33 次阶段提示哈希与 r3 全部一致。
+Fixed 8 development samples, 32 predictions in four groups, at most 64 generations. Only three explicit candidate grammars are made compatible, and format, source and length rejections are distinguished; semantic prompts, model, evidence, references and budget are all unchanged. The hashes of the 33 actual r2 stage prompts all match r3.
 
-- [方案与预设门槛](../../../docs/ANSWER_REPAIR_V8_R3.md)
-- `manifest.json`、`preparation.json` 是运行前冻结快照，运行后不改写。
-- `validation.json`：151 项本地检查、111 项冻结便携检查通过；98 个负载文件逐个校验，Notebook 编译通过，32 条模拟流程 CPU 回放通过。模拟结果不作为模型结果入库。
-- `offline_candidate_diagnostic.json`：仅用新解析器检查旧 r2 的 33 份阶段原文，6 次字段省略可恢复、3 次来源拒绝仍保留。没有新模型调用，不推断新最终答案，也不改变 r2 失败记录。
-- 冻结包 SHA-256：`72ed761fd8017ebbaf439729ff318caa55c0823acf4b62429c4db8f31310b6f1`。
-- `cloud_status.json` 单独记录云端实际状态；Kaggle 第 1 版（359908613）成功运行 553.1 秒，T4 ×2；32 条输出、43 次生成、冻结回放与新工程门槛均通过。见 [实际结果](../../../docs/ANSWER_REPAIR_RESULTS_20261019_V8_R3.md)。
+- [Plan and pre-set thresholds](../../../docs/ANSWER_REPAIR_V8_R3.md)
+- `manifest.json` and `preparation.json` are pre-run frozen snapshots and are not rewritten after the run.
+- `validation.json`: 151 local checks and 111 frozen portable checks passed; 98 payload files verified one by one, the Notebook compiles, and CPU replay of 32 simulated pipeline records passed. Simulated results are not stored as model results.
+- `offline_candidate_diagnostic.json`: only uses the new parser to check the 33 stage raw texts of the old r2; 6 field omissions are recoverable, and 3 source rejections are still kept. No new model calls, no inference of new final answers, and the r2 failure record is not changed.
+- Frozen package SHA-256: `72ed761fd8017ebbaf439729ff318caa55c0823acf4b62429c4db8f31310b6f1`.
+- `cloud_status.json` records the actual cloud status separately; Kaggle version 1 (359908613) ran successfully for 553.1 seconds, T4 ×2; 32 outputs, 43 generations, frozen replay and the new engineering threshold all passed. See [actual results](../../../docs/ANSWER_REPAIR_RESULTS_20261019_V8_R3.md).
 
-新门槛要求格式错误为零，并单独报告来源或长度拒绝。来源拒绝不计作成功修复。r2 原门槛失败记录保持不变。工程通过也不代表语义提升，仍需审核新答案；不会自动启动 75 条完整重跑。
+The new threshold requires zero format errors, and reports source or length rejections separately. Source rejections are not counted as successful repairs. The r2 original threshold failure record remains unchanged. An engineering pass also does not represent semantic improvement, and the new answers still need review; the full 75-item rerun will not be started automatically.
 
-完整流程只修正 N96，辅助建议为正确命名缘由；EM 1→1。N8/N31 仍误放，N48 正确候选仍误拒。10 条改答记录的辅助意见已保存，人审字段 pending，不能宣称可靠净提升。
+The full pipeline only fixed N96, with the assisted suggestion being the correct naming origin; EM 1→1. N8/N31 are still wrongly accepted, and the correct candidate of N48 is still wrongly rejected. Assisted opinions for the 10 changed-answer records have been saved, the human review fields are pending, and a reliable net improvement cannot be claimed.

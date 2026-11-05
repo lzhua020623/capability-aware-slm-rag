@@ -1,13 +1,13 @@
-# v8r2：8 条真实模型工程验收
+# v8r2: 8-item real-model engineering acceptance
 
-只修正生成停止、编号和引文显示格式，三阶段语义决策与 v7 对照保持原行为。规则与通过条件见 [v8r2 说明](../../../docs/ANSWER_REPAIR_V8_R2.md)。原 75 条失败实验完整保留。
+Only generation stopping, numbering and citation display format are fixed; the three-stage semantic decisions and the v7 control keep their original behaviour. For rules and pass conditions see [v8r2 notes](../../../docs/ANSWER_REPAIR_V8_R2.md). The original 75-item failed experiment is fully retained.
 
-- 固定 N1/N2/N8/N12/N15/N31/N48/N96：4 个正确对照、4 个 E 目标，均来自已有开发样本。
-- 四组各 8 条，共 32 条输出，最多 64 次生成；同一冻结 Qwen7B NF4 设置。
-- 输入包 SHA-256 `ca318d513f5feab0ff2f4c94acf19888e46ef0021ec454ef6dfd43f166bf58fe`，93 个负载文件全部校验。
-- `validation.json`：106 项便携检查通过，32 条模拟流程记录通过 CPU 回放；模拟结果不是 GPU 结果。
-- `manifest.json` 与 `preparation.json`：运行前冻结快照，不改为事后验收状态。
-- `cloud_status.json`：单独记录 Kaggle 状态；第 1 版成功运行 585.8 秒，32 条真实预测均完成冻结回放；原工程门槛失败，完整流程无改答。见 [结果报告](../../../docs/ANSWER_REPAIR_RESULTS_20261019_V8_R2.md)。
-- Notebook：`notebooks/answer_repair_v8r2_smoke8.ipynb`，兼容 Kaggle 自动解压输入；实际输入、原答案、gold 均来自原冻结包，未注入运行时参考答案或标签。
+- Fixed N1/N2/N8/N12/N15/N31/N48/N96: 4 correct controls, 4 E targets, all from existing development samples.
+- 8 items per group across four groups, 32 outputs in total, at most 64 generations; the same frozen Qwen7B NF4 setup.
+- Input package SHA-256 `ca318d513f5feab0ff2f4c94acf19888e46ef0021ec454ef6dfd43f166bf58fe`, all 93 payload files verified.
+- `validation.json`: 106 portable checks passed, and 32 simulated pipeline records passed CPU replay; simulated results are not GPU results.
+- `manifest.json` and `preparation.json`: pre-run frozen snapshots, not changed to a post-hoc acceptance status.
+- `cloud_status.json`: records the Kaggle status separately; version 1 ran successfully for 585.8 seconds, and all 32 real predictions completed frozen replay; the original engineering threshold failed, and the full pipeline had no changed answers. See [results report](../../../docs/ANSWER_REPAIR_RESULTS_20261019_V8_R2.md).
+- Notebook: `notebooks/answer_repair_v8r2_smoke8.ipynb`, compatible with Kaggle auto-extracted input; the actual inputs, original answers and gold all come from the original frozen package, and no runtime reference answers or labels were injected.
 
-工程通过需满足预先固定的格式有效性、三阶段覆盖、原文可追溯、原始生成未裁切和调用预算条件。通过后才能重跑完整 75 条开发实验；不代表语义增益或策略晋升。
+Engineering pass requires meeting the pre-fixed conditions of format validity, three-stage coverage, traceability to the source text, untruncated raw generation and call budget. Only after passing can the full 75-item development experiment be rerun; it does not represent semantic gain or strategy promotion.

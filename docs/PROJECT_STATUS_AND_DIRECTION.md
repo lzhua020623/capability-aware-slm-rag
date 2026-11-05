@@ -1,156 +1,156 @@
-# 项目进度与研究方向
+# Project Progress and Research Direction
 
-## 当前入口 · 2026-10-28
+## Current entry · 2026-10-28
 
-[扩量与超时恢复](E_TEACHER_EXPANSION_20261028.md)：最新用户“可以直接上5000”，沿用US$40累计上限，覆盖“先2000”。原2,000批在新增第55次TimeoutError停止，前54条已独立重放，完整候选累计554；已知单价估算US$3.784529，未知请求完整预留US$0.13211，继续按US$3.916639记。原55次账本和响应已冻结，恢复不重发第55次、不退款、不补采，从56继续最多4,445次；所有post-pilot请求共4500，最多4999完整候选。新timeout600秒，固定教师/提示/Top-5/输出预算/零重试。训练仍未开始；Development500评估学生、Selection500一次确认、Test不动。原100项聊天批量放行及两个临时入训隔离项保留，不宣称100%语义准确率或学生收益。
+[Expansion and timeout recovery](E_TEACHER_EXPANSION_20261028.md): the user's latest instruction "can go straight to 5000" keeps the US$40 cumulative cap and supersedes "2000 first". The original 2,000 batch stopped at the newly added 55th request with a TimeoutError; the first 54 items have been independently replayed, for a cumulative 554 complete candidates; the known unit-price estimate is US$3.784529, the unknown request is fully reserved at US$0.13211, and accounting continues at US$3.916639. The original 55-request ledger and responses are frozen; recovery does not resend the 55th request, does not refund and does not re-collect, and continues from 56 for at most 4,445 requests; all post-pilot requests total 4500, with at most 4999 complete candidates. The new timeout is 600 seconds, with fixed teacher/prompt/Top-5/output budget/zero retries. Training has still not started; Development500 evaluates the student, Selection500 is a one-time confirmation, Test is untouched. The original 100-item chat batch approval and the two temporary training-entry isolation items are kept; no claim of 100% semantic accuracy or student benefit is made.
 
-10/28远端复查：主仓库13个分支与两个fork已核对，其中 baseline `10601c5` 的 11,114 条预测、指标和 Judge 已在本目录 `baselines/outputs/`。重排 `d4d9e45` 比已合入的 `1d51856` 仍多 11 个提交，这一项尚未合并。Diagnosis仍为已合入的`138d52a`、补检索`37e469e`，P60原始在线特征与训练来源缺口未因baseline结果到位而消失。E采集与组件同步并行。
+10/28 remote re-check: 13 branches of the main repository and two forks have been checked; of these, the 11,114 predictions, metrics and Judge of baseline `10601c5` are already in `baselines/outputs/` in this directory. Reranking `d4d9e45` is still 11 commits ahead of the merged `1d51856`; this item has not yet been merged. Diagnosis is still the merged `138d52a` and retrieval enhancement `37e469e`; the gaps in P60 raw online features and training provenance have not disappeared because the baseline results arrived. E collection and component sync proceed in parallel.
 
-[E 教师试产 500 条已完成](E_TEACHER_PILOT_RESULTS_20261028.md)：Azure GPT-6.1 Sol 输出全部通过独立来源/契约/账本重放，49 替换、451 保留，目标最长126 tokens；保守记账$6.58152。离线EM仅作教师试产诊断：95→112（18修好、1改坏），不是蒸馏Qwen或最终测试收益。原审核快照保持历史状态，最新聊天批量放行另行登记；SFT未开始。正式 11,114 条测试中的 generation_repair 已运行，1575 条状态为 success。原C1、路由、团队数据隔离不变。
+[E teacher pilot production of 500 items completed](E_TEACHER_PILOT_RESULTS_20261028.md): all Azure GPT-6.1 Sol outputs passed independent source/contract/ledger replay, 49 replaced and 451 kept, with targets at most 126 tokens; conservative accounting $6.58152. Offline EM serves only as a teacher pilot-production diagnostic: 95→112 (18 fixed, 1 broken), not a benefit of distilled Qwen or of the final test. The original review snapshot keeps its historical state, and the latest chat batch approval is registered separately; SFT has not started. In the formal 11,114-item test, generation_repair has been run, and 1575 items have status success. The original C1, routing and team data isolation are unchanged.
 
-## 历史入口 · 2026-10-27
+## Historical entry · 2026-10-27
 
-最新 [E 输出蒸馏准备](E_DISTILLATION_V1.md)：新 T5-D 扩展固定现有五字段契约，Train 内 500 条平衡试产，Validation 独立开发/选型各 500。Azure GPT-6.1 Sol 2026-09-29 首次 3 条真实连接检查已通过版本、来源和结构重放，目标均低于 384 tokens，保守记账 $0.04104；这不是语义验收或修复增益。沿同一账本继续至多 500 次／15 USD，完整试产和 SFT 尚未完成。当前 C1、路由、E unavailable 不变；P60 材料缺口仍阻止新主线端到端运行。
+Latest [E output distillation preparation](E_DISTILLATION_V1.md): the new T5-D extension fixes the existing five-field contract, with a balanced 500-item pilot production within Train and independent development/selection sets of 500 each in Validation. The first 3-item real connection check of Azure GPT-6.1 Sol on 2026-09-29 has passed version, source and structural replay, with all targets below 384 tokens, conservative accounting $0.04104; this is not semantic acceptance or a repair gain. Continuing on the same ledger for at most 500 requests/15 USD; the full pilot production and SFT are not yet completed. Current C1, routing and E unavailable are unchanged; the P60 material gap still blocks end-to-end runs of the new main line.
 
-准备提交后，重排分支更新至 `1d51856`，已兼容加入 selector 评测和显式 Top-N 候选池，见 [新集成说明](RERANK_1D51856_INTEGRATION.md)。当前默认权重、Top-5 与 E 教师任务不变；新工具保留团队数据和资源指纹检查。
+After the preparation commit, the reranking branch was updated to `1d51856`, with selector evaluation and an explicit Top-N candidate pool compatibly added, see the [new integration notes](RERANK_1D51856_INTEGRATION.md). The current default weights, Top-5 and the E teacher task are unchanged; the new tools keep team data and resource fingerprint checks.
 
-最新 [团队数据对齐与边界](TEAM_DATA_BOUNDARIES.md)：NQ split 原字节接入，74,097 个 ID 与初标数量元数据一致，本地 15 个原始 C1 分片哈希通过；允许池 46,421 Train / 9,440 Validation 的结构检查通过。已知 test 下游曝光扩大到 603；保留团队 11,114 条原 test，不称全量完全未见。新训练与当前生产入口执行用途检查，新 baseline 逐题输出和 FEVER 统一仍待补。
+Latest [team data alignment and boundaries](TEAM_DATA_BOUNDARIES.md): the NQ split was ingested as original bytes, the 74,097 IDs are consistent with the initial-label count metadata, and the hashes of the 15 local raw C1 shards pass; structural checks on the allowed pool of 46,421 Train / 9,440 Validation pass. Known downstream test exposure has expanded to 603; the team's original 11,114-item test is kept, without claiming that all of it is completely unseen. New training and the current production entry perform usage checks; new baseline per-question outputs and FEVER unification are still to be supplied.
 
-后续操作分支为 `controller_2`：从 `5da8fa6` 创建，已兼容汇合补检索 `37e469e` 和重排 `5583285`，见 [合并交接](CONTROLLER2_INTEGRATION.md)。新增重排训练、随机/裁剪对照、候选答案轨迹与补检索结果审计保留各自来源；当前默认权重和预算不变。E 蒸馏尚未开始，P60 缺失项继续阻止真实运行。后续 NQ 已登记团队 51,866/11,117/11,114 划分并执行保守用途隔离；旧 T4/T5 保留，新 baseline 逐题输出和模型原始使用 ID 仍待交付。
+The subsequent working branch is `controller_2`: created from `5da8fa6`, it has compatibly merged retrieval enhancement `37e469e` and reranking `5583285`, see the [merge handoff](CONTROLLER2_INTEGRATION.md). The newly added reranking training, random/truncation controls, candidate-answer trajectories and retrieval-enhancement result audits keep their respective provenance; current default weights and budget are unchanged. E distillation has not yet started, and the missing P60 items continue to block real runs. Subsequently, NQ registered the team's 51,866/11,117/11,114 split and applied conservative usage isolation; the old T4/T5 are kept, and new baseline per-question outputs and the models' original usage IDs are still to be delivered.
 
-用户指定后续以 10 月 24 日 Diagnosis `138d52a` 为基线，该提交已在 controller 历史中。新增 [当前基线登记与真实模块适配](CONTROLLER_1024_BASELINE.md)：C1 → Diagnosis → P60 → Controller → EnhancementExecutor，Probe OFF；生产入口为 `src.pipeline.current.load_current_pipeline()`，旧 T4/T5 入口只作历史复现。E 保持 unavailable。已接上真实增强实现并保留计量，当前仍缺原 78 维特征生成代码和三个 HGB 的训练／调参 ID 来源，生产检查明确停止；未启动 GPU 或宣称新路由收益。已有 T5 0.2 候选已拒绝，不能将它的结果当作 P60 的结果。当前任务见 [T1–T9](CONTROLLER_TASKS.md)。
+The user specified that the October 24 Diagnosis `138d52a` is the baseline from now on; this commit is already in the controller history. Newly added [current baseline registration and real module adaptation](CONTROLLER_1024_BASELINE.md): C1 → Diagnosis → P60 → Controller → EnhancementExecutor, Probe OFF; the production entry is `src.pipeline.current.load_current_pipeline()`, and the old T4/T5 entries are only for historical reproduction. E remains unavailable. Real enhancement implementations have been wired up with metering kept; the original 78-dimensional feature generation code and the training/tuning ID provenance of the three HGBs are still missing, so the production check explicitly stops; no GPU has been started and no new routing benefit is claimed. The existing T5 0.2 candidate has been rejected, and its results cannot be taken as P60's results. Current tasks are in [T1–T9](CONTROLLER_TASKS.md).
 
-## 历史入口 · 2026-10-26
+## Historical entry · 2026-10-26
 
-当前分支 `controller`。Diagnosis `138d52a` 的新框架已兼容合并，P60 未启用，默认 Diagnosis／Probe 路由不变，见 [集成审查](DIAGNOSIS_138D52A_INTEGRATION.md)。r2 首次 GPU 已完成：18 短题＋2 长题全部运行，10 项通过、结构失败 1、语义失败 9、执行失败 0；独立 ZIP 审计一致。按预登记将所有 E 组统一冻结为 unavailable，真实开发调用为 0，FR12 未验收，主线不再安排 r3。见 [原始结果](../artifacts/controller/e_v2a_interface_r2/kaggle_v1/README.md) 和 [当前 T1–T9](CONTROLLER_TASKS.md)。17 题辅助意见已由用户采用，11 题完整定案、6 题仍未完整定案，见 [审核记录](../artifacts/controller/t5_human_review_v1/README.md)。已在固定 unavailable 模式下完成三阈值开发回放，冻结唯一 NQ 0.2 候选送一次选型：EM 78→81，语义净值仍可能为负，不宣称收益，见 [候选依据](../artifacts/controller/t5_candidate_v1/README.md)。首次选型 [Kaggle 362316572](https://www.kaggle.com/code/yearo111/controller-t5-selection-frozen-20261026?scriptVersionId=362316572) 已成功完成并独立审计：400 题／2,000 条完整，六项活动长路径和两条历史查询通过，调用／预算失败为 0。冻结评分下原 Adaptive 为 NQ 89→93、FEVER 163→164；唯一 NQ 0.2 候选相对原路由 93→90（3 修好／6 改坏），按规则拒绝晋升，保留原路由，不继续搜索其他阈值。见 [原始结果及选型报告](../artifacts/controller/t5_selection_v1/kaggle_v1/README.md)。NQ 的 15 个候选改答对语义审核仍 pending，不将 EM 回退当成人审误修；最终评测未开始。下方的分支与 E 状态为历史快照。
+Current branch `controller`. The new framework of Diagnosis `138d52a` has been compatibly merged, P60 is not enabled, and the default Diagnosis/Probe routing is unchanged, see the [integration review](DIAGNOSIS_138D52A_INTEGRATION.md). The first r2 GPU run is complete: all 18 short questions + 2 long questions ran, 10 passed, 1 structural failure, 9 semantic failures, 0 execution failures; the independent ZIP audit agrees. Per pre-registration, all E groups are uniformly frozen as unavailable, real development calls are 0, FR12 is not accepted, and the main line no longer schedules r3. See the [raw results](../artifacts/controller/e_v2a_interface_r2/kaggle_v1/README.md) and the [current T1–T9](CONTROLLER_TASKS.md). The assisted opinions on 17 questions have been adopted by the user; 11 questions are fully finalized and 6 are still not fully finalized, see the [review record](../artifacts/controller/t5_human_review_v1/README.md). Development replay of three thresholds has been completed in fixed unavailable mode, and the single NQ 0.2 candidate was frozen and sent to one selection run: EM 78→81, the semantic net value may still be negative, and no benefit is claimed, see the [candidate rationale](../artifacts/controller/t5_candidate_v1/README.md). The first selection run [Kaggle 362316572](https://www.kaggle.com/code/yearo111/controller-t5-selection-frozen-20261026?scriptVersionId=362316572) completed successfully and was independently audited: 400 questions/2,000 items complete, six active long paths and two historical queries passed, call/budget failures are 0. Under frozen scoring, the original Adaptive is NQ 89→93 and FEVER 163→164; the single NQ 0.2 candidate relative to the original routing is 93→90 (3 fixed/6 broken), so per the rules promotion is rejected, the original routing is kept, and no other thresholds are searched. See the [raw results and selection-run report](../artifacts/controller/t5_selection_v1/kaggle_v1/README.md). Semantic review of NQ's 15 candidate changed-answer pairs is still pending, and EM regressions are not treated as human-reviewed harmful repairs; final evaluation has not started. The branch and E status below are historical snapshots.
 
-## 历史入口 · 2026-10-25
+## Historical entry · 2026-10-25
 
-开发分支为 `controller`，历史分支已集成，T3真实GPU工程验收已通过。[T4完整开发结果](../artifacts/controller/t4_v1/README.md)已下载验收、离线评分并独立ZIP重放一致：两数据集各200条、七组2,800条齐全，调用/预算失败为0。GPU末尾汇总遗漏字段导致failure，预测不受影响，已修补并通过774项回归。Adaptive的NQ EM为78→78、FEVER标签170→174；单独E为NQ78→68、FEVER170→166。仅为开发观察，104个NQ改答对和51条警示轨迹仍待人工，未开始T5/选型/最终测试。旧预实验C1、NQ Train C1、新FEVER 900条C1和两套完整检索资源均已到位，不重跑已有C1。该入口优先于下方历史状态；T1/T2和gold不改。
+The development branch is `controller`, historical branches are integrated, and T3 real-GPU engineering acceptance has passed. The [T4 full development results](../artifacts/controller/t4_v1/README.md) have been downloaded and accepted, scored offline, and independently ZIP-replayed consistently: 200 items per dataset, all seven groups with 2,800 items complete, call/budget failures 0. A missing field in the final GPU summary caused a failure; predictions were unaffected, and it has been patched and passed 774 regression tests. Adaptive's NQ EM is 78→78 and FEVER labels 170→174; E alone is NQ 78→68 and FEVER 170→166. These are development observations only; 104 NQ changed-answer pairs and 51 warning trajectories still await human review, and T5/selection run/final test have not started. Old preliminary C1, NQ Train C1, the new FEVER 900-item C1 and two full sets of retrieval resources are all in place; existing C1 is not rerun. This entry takes precedence over the historical status below; T1/T2 and gold are unchanged.
 
-## 当前状态 2026年10月19日
+## Current status, October 19, 2026
 
-E 已实现 [v8 保守修复](ANSWER_REPAIR_V8.md)，并完成 75 条 NQ Train 的四组 GPU 实验及 300 条冻结决策回放。完整 v8 的原答案核验 75 条全部无效回退，未进入修复；原 15 条新改答待人审，后续 r3 已修复工程契约但语义核验仍有限，见 [v8 结果](ANSWER_REPAIR_RESULTS_20261019_V8.md)。v7 历史主包 541 条和第 4 批 300 条已通过各自冻结回放，合计 836 个唯一 ID；策略均未晋升默认，可靠净收益仍待验收。
+E has implemented [v8 conservative repair](ANSWER_REPAIR_V8.md) and completed four groups of GPU experiments on 75 NQ Train items plus a 300-item frozen decision replay. In full v8, original-answer verification fell back as invalid on all 75 items and none entered repair; the original 15 new changed answers await human review, and the subsequent r3 has fixed the engineering contract but semantic verification remains limited, see [v8 results](ANSWER_REPAIR_RESULTS_20261019_V8.md). The v7 historical main package of 541 items and batch 4 of 300 items have passed their respective frozen replays, totalling 836 unique IDs; none of the policies has been promoted to default, and reliable net benefit still awaits acceptance.
 
-v8r3 的固定 8 条、四组 32 条 GPU 输出已完成并通过冻结回放，v8 格式错误为 0，工程门槛通过。完整流程只改答 N96，辅助判断为命名缘由修复，仍待人审；EM 1→1，N8/N31 误放和 N48 正确候选误拒仍存在。见 [r3 结果](ANSWER_REPAIR_RESULTS_20261019_V8_R3.md)。下一步单独验证先提取证据事实、再比较被审答案的语义核验方法；未启动 75 条重跑，策略未晋升默认。
+The fixed 8 items of v8r3, four groups of 32 GPU outputs, are complete and passed frozen replay, v8 format errors are 0, and the engineering threshold is passed. The full pipeline changed the answer only for N96, which the assisted judgement deems a naming-rationale repair, still awaiting human review; EM 1→1, and N8/N31 wrongly accepted and N48's correct candidate wrongly rejected still remain. See [r3 results](ANSWER_REPAIR_RESULTS_20261019_V8_R3.md). The next step separately validates a semantic verification method that first extracts evidence facts and then compares the reviewed answer; the 75-item rerun has not been started, and the policy has not been promoted to default.
 
-main 已新增 NQ Train C1 流水线（`058f10b`），并合入 E 分支。Drive 全部 74,097 条已核对并接入 E，原始 diagnosis 标签均为 null；内部用途划分与首批 100 条开发审核材料已固定，见 [接入说明](ANSWER_REPAIR_NQ_TRAIN.md)。有 23,745 条满足 EM=0 且参考段落命中，但这不是 utilisation 标签，需审核确认。本轮仅运行其中 75 条定案开发样本，内部评测预留尚需与团队用途协调。
+main has added the NQ Train C1 pipeline (`058f10b`), and it has been merged into the E branch. All 74,097 Drive items have been checked and ingested into E, and the original diagnosis labels are all null; the internal usage split and the first batch of 100 development review materials are fixed, see the [ingestion notes](ANSWER_REPAIR_NQ_TRAIN.md). 23,745 items satisfy EM=0 with a reference-passage hit, but this is not a utilisation label and requires review to confirm. This round runs only 75 finalized development samples among them, and the internal evaluation reserve still needs coordination with team usage.
 
-首批 100 条的代理辅助审核已完成，初次建议 69 条可接受、8 条 utilisation 候选、23 条暂缓。用户前六批已对全部 100 条给出意见，首轮过目完成：75 条定案（11 个内部 E 目标、64 个正确对照）、25 条待定、未过目为 0，见 [审核结果](ANSWER_REPAIR_NQ_TRAIN_REVIEW_20261017.md)。N76 按用户提供的荷兰圣尼古拉斯来源说明与原 C1 同实体核对，已标明解释依据；25 条待定含 17 条原暂缓和 8 条条件／口径要求。N99 已单独确认所求关系的证据缺失，完整主标签仍暂缓；N58 的 21 受原证据的购买类型／渠道限定，N83 的补充时间来自 2018 年 7 月快照。用户原话、代理分歧与未决字段分别保留，过目完成不等于所有主标签或全量数据标注完成。
+The assistant's assisted review of the first 100 items is complete, initially suggesting 69 acceptable, 8 utilisation candidates and 23 deferred. In the first six batches the user gave opinions on all 100 items, completing the first pass: 75 finalized (11 internal E targets, 64 correct controls), 25 pending, 0 not reviewed, see [review results](ANSWER_REPAIR_NQ_TRAIN_REVIEW_20261017.md). N76 was checked as the same entity as the original C1 using the Dutch Saint Nicholas source notes provided by the user, with the interpretive basis marked; the 25 pending include 17 originally deferred and 8 with condition/criteria requirements. N99 has been separately confirmed to lack evidence for the requested relation, and its full primary label remains deferred; N58's 21 is qualified by the purchase type/channel in the original evidence, and N83's supplementary time comes from a July 2018 snapshot. The user's original words, the assistant's disagreements and unresolved fields are kept separately; completing the pass does not mean all primary labels or full-data annotation are complete.
 
-当前已固定 75 条定案开发输入（11 个 E 目标和 64 个正确对照），25 条待定隔离，并完成四组真实输出。主来源、gold 和冻结评分未修改。初筛中 49 条建议可接受来自 EM 不匹配候选，说明筛查混有语义等价答案；有选择的开发集和人工审核数量不能当作 E 净收益。
+Currently 75 finalized development inputs are fixed (11 E targets and 64 correct controls), 25 pending items are isolated, and four groups of real outputs are complete. Primary sources, gold and frozen scoring are unmodified. In the initial screen, 49 items suggested as acceptable came from EM-mismatch candidates, showing that the screen mixes in semantically equivalent answers; a selected development set and the number of human reviews cannot be taken as E net benefit.
 
-统一审核入口为 [v7 总表](../artifacts/answer_repair/v7_combined_review/review_all.txt)，全部人工字段仍 pending，先审 95 条变化记录（93 个唯一 ID）。第 4 批的诊断分层全部来自上游 AI 初标；其正确性和 failure 类型需与输出语义审核分开确认。
+The unified review entry is the [v7 combined table](../artifacts/answer_repair/v7_combined_review/review_all.txt); all human fields are still pending, and the 95 changed records (93 unique IDs) are reviewed first. Batch 4's diagnosis strata all come from upstream initial AI labels; their correctness and failure types need to be confirmed separately from output semantic review.
 
-FEVER 预实验池留出集正确数 232→229，NQ 同池留出 EM 71→62；第 4 批 NQ EM 63→67，其中 utilisation 标签层 0→10/120、correct 标签层 63→54/100。冻结指标和代理初读均不能替代人工结论，完整口径见 [v7 结果与路线](ANSWER_REPAIR_RESULTS_20261014_V7.md)。
+FEVER preliminary-pool held-out correct count 232→229, NQ same-pool held-out EM 71→62; batch 4 NQ EM 63→67, of which the utilisation label stratum 0→10/120 and the correct label stratum 63→54/100. Neither frozen metrics nor the assistant's initial reading can replace human conclusions; full criteria are in [v7 results and roadmap](ANSWER_REPAIR_RESULTS_20261014_V7.md).
 
-r3 已完成输出文法的真实模型小批量验收。下一轮使用已有开发样本，单独比较按问题提取证据事实后再核验答案的语义门控方法；并行审核新改答与旧 v7 关键误修，不需要等待全量审核。随后重跑固定四组开发实验，补充自然目标错误及正确对照，保留共同未用于选策略的系统测试集；不优先更换主数据集。
+r3 has completed small-batch real-model acceptance of the output grammar. The next round uses existing development samples to separately compare a semantic gate method that extracts evidence facts per question and then verifies the answer; new changed answers and the key old v7 harmful repairs are reviewed in parallel, without waiting for full review. Then the four fixed development experiments are rerun, adding natural target errors and correct controls, and keeping a shared system test set not used for policy selection; replacing the main dataset is not a priority.
 
-早期 10 月 13—14 日的逐次进度、旧路由试跑与阶段性判断已移至 [历史进度](history/answer_repair/PROGRESS_UPDATES_20261013_14.md)。下面保留项目定义、冻结分支和预实验事实；main 更新到 10 月 17 日取得的引用，其余分支仍按原冻结记录。当前交付见 [E 交接](ANSWER_REPAIR_HANDOFF.md)。
+The early October 13–14 step-by-step progress, old routing trial runs and interim judgements have been moved to [historical progress](history/answer_repair/PROGRESS_UPDATES_20261013_14.md). Below, the project definition, frozen branches and preliminary-experiment facts are kept; main is updated to the reference obtained on October 17, and the other branches still follow the original frozen records. Current delivery is in the [E handoff](ANSWER_REPAIR_HANDOFF.md).
 
-## 项目要解决什么
+## What the project aims to solve
 
-同一个小模型 RAG 出错，可能是没有拿到证据、拿到证据却被噪声干扰，或者证据清楚但答案仍然错误。项目研究这些原因是否对应不同的有效补偿操作，以及按原因选择操作，能否比固定执行全部操作更省成本，同时保持答案质量与证据支持。
+When the same small-model RAG makes an error, it may be because it did not get the evidence, got the evidence but was distracted by noise, or had clear evidence yet still answered wrongly. The project studies whether these causes correspond to different effective compensating operations, and whether selecting operations by cause can be cheaper than always executing all operations while maintaining answer quality and evidence support.
 
 ```mermaid
 flowchart LR
-    Q[问题或声明] --> R[BGE与FAISS检索Top 5]
-    R --> A[固定Qwen 7B生成初始答案]
+    Q[Question or claim] --> R[BGE and FAISS retrieval Top 5]
+    R --> A[Fixed Qwen 7B generates initial answer]
     A --> D[Diagnosis]
-    D --> P[不确定时一次Probe]
+    D --> P[One Probe when uncertain]
     D --> C[Controller]
     P --> C
-    C --> K[保留初始答案]
+    C --> K[Keep initial answer]
     C --> I[Retrieval Enhancement]
-    C --> F[Reranking与Filtering]
-    C --> E[Verification与Answer Repair]
-    I --> O[最终答案与证据及成本记录]
+    C --> F[Reranking and Filtering]
+    C --> E[Verification and Answer Repair]
+    I --> O[Final answer with evidence and cost records]
     F --> O
     E --> O
     K --> O
 ```
 
-Reference RAG 提供共同实验底座。项目的主要贡献需要来自诊断、操作匹配、选择性 Probe，以及质量和成本之间的实验比较。仅增加一条修复 prompt 不足以验证整体研究假设。
+Reference RAG provides the shared experimental foundation. The project's main contribution needs to come from diagnosis, operation matching, selective Probe, and experimental comparison between quality and cost. Merely adding one repair prompt is not enough to validate the overall research hypothesis.
 
-## 所有远程分支的实际进度
+## Actual progress of all remote branches
 
-| 分支 | 核对提交 | 已有产物 | 当前限制 |
+| Branch | Checked commit | Existing artifacts | Current limitations |
 |---|---|---|---|
-| `main` | `058f10b` | Reference RAG、预实验协议、新 NQ Train 检索/C1/标注交付流水线 | 新 Train 交付标签全 null；未汇合全部后续模块 |
-| `feature/nq-c0-c1` | `bcb248c` | NQ C0/C1 各 500 条、续跑脚本 | 没有 NQ C3 |
-| `feature/nq-c3` | `8b03009` | 汇合 NQ C0/C1/C3、recoverability cohorts | 没有 FEVER C1 |
-| `feature/fever-c1` | `6ebdfc9` | 全量 FEVER 索引 C1 500 条、检索 checkpoint、FEVER 配对分析；包含 NQ 分支成果 | 没有本次 FEVER C0 runner 及其结果 |
-| `feature/F500-c0c3` | `1238a4f` | FEVER C0/C3 各 500 条、完整续跑校验、全量索引 metadata | 本地原分支停在 `064447d`，落后 metadata 提交 |
-| `feature/-ce-70B` | `6f08f2f` | NQ C0/C1/C3、FEVER C1/C3、NQ judge 复评及 Llama 70B 对照 | 不包含 FEVER C0；没有完成配置中要求的 Qwen 32B 对照 |
-| `feature/diagnosis-probe-zheng` | `7c7863f` | normalized 标注、Diagnosis v2-expanded、Probe、Safe Binary、Controller、冻结划分及测试交接 | utilisation/accessibility 路由精度和覆盖有限；上游只做路由，不执行补偿 |
-| `reranking` | `338ff34` | 已汇合冻结上游；证据重排接口、68 项 CPU 测试及 NQ frozen500 keep3/keep5 检索侧比较 | 未测最终答案收益；keep5 为开发结果选定默认 |
+| `main` | `058f10b` | Reference RAG, preliminary-experiment protocol, new NQ Train retrieval/C1/annotation delivery pipeline | New Train delivery labels are all null; not all later modules are merged |
+| `feature/nq-c0-c1` | `bcb248c` | NQ C0/C1 500 items each, resume script | No NQ C3 |
+| `feature/nq-c3` | `8b03009` | Merges NQ C0/C1/C3, recoverability cohorts | No FEVER C1 |
+| `feature/fever-c1` | `6ebdfc9` | Full FEVER index C1 500 items, retrieval checkpoint, FEVER paired analysis; includes NQ branch results | No FEVER C0 runner from this round or its results |
+| `feature/F500-c0c3` | `1238a4f` | FEVER C0/C3 500 items each, full resume validation, full index metadata | The original local branch stopped at `064447d`, behind the metadata commit |
+| `feature/-ce-70B` | `6f08f2f` | NQ C0/C1/C3, FEVER C1/C3, NQ judge re-evaluation and Llama 70B comparison | Does not include FEVER C0; the Qwen 32B comparison required in the config was not completed |
+| `feature/diagnosis-probe-zheng` | `7c7863f` | normalized annotations, Diagnosis v2-expanded, Probe, Safe Binary, Controller, frozen split and test handoff | utilisation/accessibility routing precision and coverage are limited; upstream only routes and does not execute compensation |
+| `reranking` | `338ff34` | Merged the frozen upstream; evidence reranking interface, 68 CPU tests, and NQ frozen500 keep3/keep5 retrieval-side comparison | Final answer benefit not measured; keep5 was chosen as the default from development results |
 
-原有本地 `main`、`Qihan` 都位于 `c15977c`；原有本地 `feature/F500-c0c3` 位于 `064447d`。现已同步远程引用。导致 fetch 失败的非法重复引用 `origin/HEAD 2` 已移到 `.git/codex-backups/origin-HEAD-2-20261011` 保存，原分支提交未改写。
+The original local `main` and `Qihan` were both at `c15977c`; the original local `feature/F500-c0c3` was at `064447d`. Remote references are now synced. The illegal duplicate reference `origin/HEAD 2` that caused fetch failures has been moved to `.git/codex-backups/origin-HEAD-2-20261011` for safekeeping; original branch commits were not rewritten.
 
-E 开发与交付分支为 `feature/verification-answer-repair`，以 diagnosis 接口分支为基底。其他分支的实验结果通过 Git ref 读取，不需要复制数据集、检索库或重新跑 C1。实现、冻结实验归档和辅助审核一并纳入版本控制，最新交付以该分支的 Git 记录为准，复现入口见 `ANSWER_REPAIR_HANDOFF.md`。
+The E development and delivery branch is `feature/verification-answer-repair`, based on the diagnosis interface branch. Experimental results from other branches are read via Git refs, with no need to copy datasets or retrieval corpora or rerun C1. Implementation, frozen experiment archives and assisted reviews are all under version control; the latest delivery is per this branch's Git history, and the reproduction entry is in `ANSWER_REPAIR_HANDOFF.md`.
 
-## 预实验已经确认的事实
+## Facts confirmed by the preliminary experiments
 
-10 月 11 日逐条核对了以下数据集每个条件的 500 个唯一 ID，并确认 C0/C1/C3 的 ID 集合一致。当时七个远程分支的 `configs/preliminary.yaml` 和两个 sample manifests 字节完全一致。70B 分支保存的 NQ/FEVER C1/C3 文件与原产出分支字节一致。
+On October 11, the 500 unique IDs of each condition of the following datasets were checked item by item, confirming that the C0/C1/C3 ID sets are identical. At that time, `configs/preliminary.yaml` and the two sample manifests on the seven remote branches were byte-for-byte identical. The NQ/FEVER C1/C3 files saved on the 70B branch are byte-identical to those on the original producing branches.
 
-| 数据集与指标 | C0 无证据 | C1 原始 Top 5 | C3 gold evidence |
+| Dataset and metric | C0 no evidence | C1 original Top 5 | C3 gold evidence |
 |---|---|---|---|
 | NQ EM | 51/500 = 10.2% | 176/500 = 35.2% | 258/500 = 51.6% |
 | NQ token F1 | 0.1939 | 0.4899 | 0.6778 |
 | FEVER accuracy | 360/500 = 72.0% | 402/500 = 80.4% | 476/500 = 95.2% |
 
-来源：NQ 与 FEVER C1/C3 在 `feature/-ce-70B` 的 `results/preliminary/`；FEVER C0 在 `feature/F500-c0c3` 同一目录。
+Sources: NQ and FEVER C1/C3 are in `results/preliminary/` on `feature/-ce-70B`; FEVER C0 is in the same directory on `feature/F500-c0c3`.
 
-Recoverable Failure Rate 的冻结定义是 `C1 wrong 且 C3-7B correct / C1 wrong`：
+The frozen definition of Recoverable Failure Rate is `C1 wrong and C3-7B correct / C1 wrong`:
 
-| 口径 | C1 错误 | gold evidence 后恢复 | RFR | C1/C3 均错误 |
+| Criteria | C1 wrong | Recovered with gold evidence | RFR | Both C1/C3 wrong |
 |---|---|---|---|---|
-| NQ 冻结 EM | 324 | 97 | 29.94% | 227 |
-| FEVER 冻结标签 | 98 | 80 | 81.63% | 18 |
-| NQ judge 复评 | 192 | 125 | 65.10% | 67 |
+| NQ frozen EM | 324 | 97 | 29.94% | 227 |
+| FEVER frozen labels | 98 | 80 | 81.63% | 18 |
+| NQ judge re-evaluation | 192 | 125 | 65.10% | 67 |
 
-NQ judge 复评后的 C1/C3 正确率分别为 61.6%/81.8%。冻结指标要求最短 answer span，而一些 gold 字符串更长或存在 token spacing 差异；这会混入评测误判。Judge 文件有 626 条 C1/C3 verdict，包含 566 条 EM 错误答案和 60 条 EM 正确答案的检查。60/60 一致只验证了这一批已正确答案，不能证明 judge 没有宽松误判。冻结 EM 和 judge 复评必须分别报告，不能把复评结果写成已经完成的人类金标准标注。
+After NQ judge re-evaluation, C1/C3 accuracy is 61.6%/81.8% respectively. The frozen metric requires the shortest answer span, while some gold strings are longer or have token spacing differences; this mixes in evaluation misjudgements. The Judge file has 626 C1/C3 verdicts, including checks of 566 EM-wrong answers and 60 EM-correct answers. 60/60 agreement only validates this batch of already-correct answers and cannot prove that the judge has no lenient misjudgements. Frozen EM and judge re-evaluation must be reported separately, and re-evaluation results must not be written up as completed human gold-standard annotation.
 
-更大模型对照实际使用 Llama-3.3-70B：NQ 在 judge 修正后的 67 个 persistent failures 上，EM 恢复 8 个、judge 恢复 15 个；FEVER 在 18 个 persistent failures 上恢复 8 个。统一采用该分支复评口径时合计为 23/85。它支持“这些选中的 7B 失败中有一些可由该 70B 模型恢复”，不能独立证明参数规模是原因，也不能比较两个模型的总体准确率；模型家族、推理环境及评测口径都发生了变化。剩余 62 个案例应称为当前设置下尚未解决，不能据此断言不可修复。
+The larger-model comparison actually used Llama-3.3-70B: on the 67 persistent failures after judge correction, NQ recovered 8 by EM and 15 by judge; FEVER recovered 8 of 18 persistent failures. Using that branch's re-evaluation criteria uniformly, the total is 23/85. This supports "some of these selected 7B failures can be recovered by this 70B model", but cannot independently prove that parameter scale is the cause, nor compare the two models' overall accuracy; model family, inference environment and evaluation criteria all changed. The remaining 62 cases should be called unresolved under the current setup, and must not be asserted to be unrepairable on this basis.
 
-C3 的一次直接生成也不是所有外部补偿策略的严格上界。由上述配对计数可得，NQ 有 15 个、FEVER 有 6 个样本在 C1 正确而 C3 错误；改变提示、约束输出或增加核验可能产生不同结果。
+A single direct generation under C3 is also not a strict upper bound for all external compensation strategies. From the paired counts above, NQ has 15 and FEVER 6 samples that are correct under C1 but wrong under C3; changing prompts, constraining output or adding verification may produce different results.
 
-## Diagnosis 与标注状态
+## Diagnosis and annotation status
 
-10 月 13 日远端已发布上述产物，替代 10 月 11 日“仅接口、未找到标签”的历史结论。`feature/diagnosis-probe-zheng` 中有 `fever_500_labels.jsonl`、`nq_500_labels.jsonl` 和 `nq_3216_labels_normalized.jsonl`，以及训练/验证/测试划分、classifier 参数和冻结评测。它们是项目样本的四类 diagnosis 标注，不是原始 FEVER/NQ benchmark 全量 failure 标注。
+On October 13, the remote published the above artifacts, replacing the October 11 historical conclusion of "interface only, no labels found". `feature/diagnosis-probe-zheng` contains `fever_500_labels.jsonl`, `nq_500_labels.jsonl` and `nq_3216_labels_normalized.jsonl`, as well as the train/validation/test split, classifier parameters and frozen evaluation. These are four-class diagnosis annotations of project samples, not full failure annotations of the original FEVER/NQ benchmarks.
 
-Diagnosis v2-expanded 使用 NQ 1889/406/403、FEVER 331/71/71 的 train/validation/test 划分；过滤 `needs_manual_review` 后还有未纳入样本。上游 PRIMARY test 473 条 pipeline accuracy 0.691、macro-F1 0.370、utilisation F1 0.217。E 路由 48 条中只有 9 条标注 utilisation，32 条原本 correct，因此必须评估误路由下的误修风险。详细来源为冻结 `DIAGNOSIS_PROBE_CONTROLLER_HANDOFF.md`，这些汇总只用于交接，没有使用测试单条数据调 E。
+Diagnosis v2-expanded uses NQ 1889/406/403 and FEVER 331/71/71 train/validation/test splits; after filtering `needs_manual_review` there are still samples not included. Upstream PRIMARY test, 473 items: pipeline accuracy 0.691, macro-F1 0.370, utilisation F1 0.217. Of the 48 items routed to E, only 9 are labelled utilisation and 32 were originally correct, so harmful-repair risk under misrouting must be evaluated. The detailed source is the frozen `DIAGNOSIS_PROBE_CONTROLLER_HANDOFF.md`; these summaries are used only for handoff, and no individual test items were used to tune E.
 
-当前 `gold_evidence_in_top5` 是离线检索命中标记。FEVER 代码按任意 gold page 命中判断，命中页面不能保证所需全部证据句或证据组合存在。NQ 命中 gold passage 也不能证明上下文已经清晰。不能直接用这个布尔值区分 accessibility 与 utilisation，更不能把它输入在线 diagnosis 或 E。
+The current `gold_evidence_in_top5` is an offline retrieval hit flag. The FEVER code judges by a hit on any gold page, and a hit page does not guarantee that all required evidence sentences or evidence combinations are present. An NQ gold passage hit also does not prove that the context is clear. This boolean cannot be used directly to distinguish accessibility from utilisation, much less be fed into online diagnosis or E.
 
-## Proposal 与实际实现需要对齐的地方
+## Where the Proposal and the actual implementation need to be aligned
 
-| 项目 | Proposal v21 | 仓库实际状态与建议 |
+| Item | Proposal v21 | Actual repository status and recommendation |
 |---|---|---|
-| 运行模型 | 3B 候选，视 pilot 调整到 3B–7B | 已冻结 Qwen2.5-7B-Instruct、NF4、greedy；主实验继续保持这一设置 |
-| 大模型对照 | 同家族 14B，资源允许时增加 32B | 冻结配置改为要求 32B；实际跑的是 Llama 70B。报告需要如实记录替代及其限制 |
-| C2 | 清洗/重排 C1 中已有证据的 accessibility control | 冻结预实验明确排除 C2。需要补充该控制或明确采用人工证据审核等替代标签依据；E 的结果命名为 `E` |
-| diagnosis | 三个独立 sigmoid 分数，允许多标签 | 接口只有一个主标签、confidence、needs_probe。主标签可用于 MVP 路由，但不等价于多标签 profile；不能按当前接口宣称满足 FR6 |
-| Evidence Utilisation 标签 | C3 下仍错误/unsupported | 当前 runtime 定义是实际 C1 证据清楚充分但回答错误。两种条件有差异；离线 oracle failure 不能直接等同于在线 C1 utilisation |
-| 证据支持核验 | 共用轻量 NLI，并审核 unresolved flags | E v6r1 已冻结并实测独立 MNLI，记录完整概率与成本；存在错误实体误判，尚未验收 faithfulness 或接成全系统共用核验组件 |
-| Probe 推断 | 响应变化用于更新 failure profile | 响应变了不一定更正确；响应没变不证明能力限制。需要核验证据支持，并对 Probe 的诊断收益做消融 |
+| Run model | 3B candidate, adjusted to 3B–7B depending on the pilot | Frozen at Qwen2.5-7B-Instruct, NF4, greedy; the main experiments keep this setup |
+| Large-model comparison | Same-family 14B, adding 32B if resources allow | The frozen config was changed to require 32B; Llama 70B was actually run. The report must faithfully record the substitution and its limitations |
+| C2 | Accessibility control that cleans/reranks the existing evidence in C1 | The frozen preliminary experiment explicitly excludes C2. Either add this control or explicitly adopt an alternative label basis such as human evidence review; E's results are named `E` |
+| diagnosis | Three independent sigmoid scores, allowing multiple labels | The interface has only one primary label, confidence, needs_probe. The primary label can be used for MVP routing but is not equivalent to a multi-label profile; meeting FR6 cannot be claimed with the current interface |
+| Evidence Utilisation label | Still wrong/unsupported under C3 | The current runtime definition is that the actual C1 evidence is clear and sufficient but the answer is wrong. The two conditions differ; an offline oracle failure cannot be directly equated with online C1 utilisation |
+| Evidence support verification | Shared lightweight NLI, with review of unresolved flags | E v6r1 has frozen and tested an independent MNLI, recording full probabilities and cost; there are wrong-entity misjudgements, and it has not yet been accepted for faithfulness or wired in as a system-wide shared verification component |
+| Probe inference | Response changes are used to update the failure profile | A changed response is not necessarily more correct; an unchanged response does not prove a capability limitation. Evidence support must be verified, and Probe's diagnostic benefit must be ablated |
 
-建议保留“固定 7B + 原因诊断 + 选择性补偿 + 质量/成本比较”的主线，先把能复现实验的 MVP 做实。若采用单主标签简化，报告应明确这是工程调整；若坚持 proposal 的多标签要求，需要由 diagnosis 负责人扩展 profile 输出及评测，E 本身无需改变。
+It is recommended to keep the main line of "fixed 7B + cause diagnosis + selective compensation + quality/cost comparison", and first make a reproducible MVP solid. If the single-primary-label simplification is adopted, the report should state clearly that this is an engineering adjustment; if the proposal's multi-label requirement is upheld, the diagnosis owner needs to extend the profile output and evaluation, and E itself does not need to change.
 
-## 下一阶段需要验证的假设
+## Hypotheses to validate in the next stage
 
-第一步：冻结标签依据和 ID 划分，检查 NQ judge 翻转样本，补足 accessibility/utilisation 的证据。已有 500+500 预实验样本可作开发材料；若它们用于挑选策略或阈值，最终主结果宜采用剩余未使用样本作为独立评测集。资源限制下复用这些样本时，应报告为探索性结果。
+Step 1: freeze the label basis and ID split, check the NQ judge-flipped samples, and supplement evidence for accessibility/utilisation. The existing 500+500 preliminary samples can serve as development material; if they are used to select policies or thresholds, the final main results should use the remaining unused samples as an independent evaluation set. When these samples are reused under resource constraints, they should be reported as exploratory results.
 
-第二步：三个补偿操作分别可运行。E 先在包含原本正确及错误答案的固定开发样本上运行 Always-Verify，统计改对、改错、解析失败与成本；再接 diagnosis 主标签做选择性修复。单独在已知错误集上跑不能测量误修风险，也不能证明总体提升。
+Step 2: each of the three compensation operations can run. E first runs Always-Verify on a fixed development sample containing both originally correct and wrong answers, counting fixed-to-correct, changed-to-wrong, parse failures and cost; then it connects the diagnosis primary label for selective repair. Running only on a known-error set cannot measure harmful-repair risk, nor prove an overall improvement.
 
-第三步：按 diagnosis 分组，每个样本都评测三个操作，形成“失败类型 × 操作”的效果矩阵。只有此时才能验证图中的对应关系。对同一批样本使用配对比较和置信区间；若有多重比较，应在解释显著性时处理相应影响。
+Step 3: group by diagnosis and evaluate all three operations on every sample, forming a "failure type × operation" effect matrix. Only then can the correspondence in the figure be validated. Use paired comparisons and confidence intervals on the same batch of samples; if there are multiple comparisons, handle their impact when interpreting significance.
 
-第四步：端到端比较 Vanilla RAG、Always-Rerank、Always-Verify、Full Enhancement 和 adaptive framework；另比较无 Probe 与选择性 Probe。记录包括 diagnosis 特征提取在内的全部模型调用、token、延迟，不能只计补偿操作的成本。
+Step 4: compare end to end Vanilla RAG, Always-Rerank, Always-Verify, Full Enhancement and the adaptive framework; also compare no Probe with selective Probe. Record all model calls, tokens and latency, including diagnosis feature extraction; the cost must not be counted for the compensation operations alone.
 
-E 的交付和执行方法见 [ANSWER_REPAIR.md](ANSWER_REPAIR.md)，最新真实结果见 [v7 报告](ANSWER_REPAIR_RESULTS_20261014_V7.md)。v7 两批合计 841 条已通过冻结代码回放；可靠净收益与人工 faithfulness 验收尚未完成。后续结合已有开发样本与关键人工复核设计下一轮，再由团队开展三个操作的共同未见评测。
+E's delivery and execution method is in [ANSWER_REPAIR.md](ANSWER_REPAIR.md), and the latest real results are in the [v7 report](ANSWER_REPAIR_RESULTS_20261014_V7.md). v7's two batches totalling 841 items have passed frozen code replay; reliable net benefit and human faithfulness acceptance are not yet completed. Next, the next round will be designed using existing development samples and key human re-reviews, and then the team will carry out a shared unseen evaluation of the three operations.
 
-## 方法依据
+## Methodological basis
 
-[D2R-RAG](https://proceedings.mlr.press/v318/hashemifar26a.html) 已研究 observable diagnosis 和预算约束下的 repair selection。因此整体贡献要通过小模型失败类型、选择性 evidence Probe 和质量/成本实验具体体现。
+[D2R-RAG](https://proceedings.mlr.press/v318/hashemifar26a.html) has already studied observable diagnosis and repair selection under budget constraints. Therefore the overall contribution must be concretely demonstrated through small-model failure types, selective evidence Probe, and quality/cost experiments.
 
-[Self-Refine](https://arxiv.org/abs/2303.17651) 提供同一模型反馈和修订的研究参照；[自纠错局限研究](https://arxiv.org/abs/2310.01798) 在其推理设置中发现，缺少外部反馈的自纠错可能无效或造成退化。它们不直接给出本项目 7B 的效果，E 的证据约束及误修率需要实测。
+[Self-Refine](https://arxiv.org/abs/2303.17651) provides a research reference for same-model feedback and revision; [a study on the limits of self-correction](https://arxiv.org/abs/2310.01798) found in its reasoning setting that self-correction without external feedback may be ineffective or cause degradation. They do not directly give the effect for this project's 7B; E's evidence constraints and harmful-repair rate need to be measured.

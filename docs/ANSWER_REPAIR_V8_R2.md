@@ -1,35 +1,35 @@
-# E v8r2：先修输出契约，再做真实模型 smoke
+# E v8r2: fix the output contract first, then run a real-model smoke
 
-这是原 v8 的工程修订。原始 906f096f 输入包、0bf8aa78 结果 ZIP 和严格回放保持不变；不将旧输出放宽解析后的结果冒充新模型实验。
+This is an engineering revision of the original v8. The original 906f096f input bundle, the 0bf8aa78 result ZIP and the strict replay remain unchanged; results from re-parsing old outputs with relaxed parsing are not passed off as a new model experiment.
 
-## 修改与边界
+## Changes and boundaries
 
-- **在生成时停止重复输出**：仅 v8 请求带标签的生成。九行检查的 REASON 行、三行候选的 ANSWER 行由换行结束后触发停止；不在最后字段尚未写完时提前截断。EOS 可正常结束没有末尾换行的合规输出。程序保存完整实际生成，记录停止器是否触发；不事后从重复、矛盾或多套检查中选一个。
-- **明确单份检查**：提示要求基于完整 Top-5 给一个总体判断，停止后不追加按段落的第二套检查。三阶段语义标准、分支和调用预算不变。
-- **编号表示**：v8 接受一个整数或一层方括号，如 `3`、`[3]`；不接受多编号、说明文字、负数或嵌套括号。rank=0 仍只允许不确定性与 QUOTE=NONE。
-- **引文包围符**：优先匹配原字符串；若不匹配，仅尝试移除一对匹配的外围引号，再执行既有连续片段与词边界定位。最终引文／答案仍返回证据原文切片。不能删除否定、替换实体、改写、拼接或做近似匹配。证据中本就存在的引号优先保留。
-- v7 的三行解析、引用约束和生成方式保持原有行为。共享后端新增的带标签停止只由 v8 显式调用。模型 revision、NF4/FP16、greedy、seed 和每次 384 token 上限保持。
+- **Stop repeated output during generation**: only v8 requests labelled generation. Stopping is triggered after the REASON line of the nine-line check and the ANSWER line of the three-line candidate are ended by a newline; generation is not truncated early while the last field is not yet finished. EOS can normally end a compliant output without a trailing newline. The program saves the full actual generation and records whether the stopper was triggered; it does not pick one post hoc from repeated, contradictory or multiple sets of checks.
+- **Explicit single check**: the prompt requires one overall judgement based on the full Top-5, with no second per-passage set of checks appended after stopping. The three-stage semantic criteria, branches and call budget are unchanged.
+- **Number representation**: v8 accepts one integer or one level of square brackets, such as `3`, `[3]`; it does not accept multiple numbers, explanatory text, negative numbers or nested brackets. rank=0 still only allows uncertainty with QUOTE=NONE.
+- **Citation enclosing marks**: the original string is matched first; if it does not match, only removing one pair of matching outer quotes is tried, followed by the existing contiguous-fragment and word-boundary localization. The final citation/answer still returns the source slice of the evidence. Negations cannot be deleted, entities replaced, text rewritten, concatenated or approximately matched. Quotes already present in the evidence are preferentially kept.
+- v7's three-line parsing, citation constraints and generation method keep their original behaviour. The labelled stopping newly added to the shared backend is only called explicitly by v8. Model revision, NF4/FP16, greedy, seed and the 384-token limit per call are kept.
 
-代码与提示改用新版本 `v8r2_single_response_grounded_display_v1`；指纹纳入新停止模块，拒绝用新代码续写旧输出。阶段轨迹加入输出契约和停止观察，仍支持保存的完整三阶段 CPU 回放。停止观察为 false 只表示未由该停止器结束，可能是 EOS 或 token 上限，不能自动当作格式错误。
+Code and prompts switch to the new version `v8r2_single_response_grounded_display_v1`; the fingerprint includes the new stopping module, and resuming old outputs with the new code is refused. Stage traces add the output contract and stop observation, and still support CPU replay of the saved complete three stages. A stop observation of false only means the output was not ended by this stopper; it may be EOS or the token limit, and cannot automatically be treated as a format error.
 
-## 真实失败回归与离线诊断
+## Real-failure regressions and offline diagnosis
 
-`tests/fixtures/answer_repair_v8r1_contract_cases.json` 固定了来自原结果 ZIP 的三类真实失败，仅包含运行时证据、原生成及来源哈希。测试覆盖生成时停止、完整历史重复响应拒收、包围引号和编号兼容，以及实体、否定、词边界和原文切片约束。另验证三阶段后端调用、轨迹防篡改与 CPU 回放。
+`tests/fixtures/answer_repair_v8r1_contract_cases.json` fixes three classes of real failures from the original result ZIP, containing only runtime evidence, original generations and source hashes. Tests cover stopping during generation, rejection of full historical repeated responses, enclosing quotes and number compatibility, as well as entity, negation, word-boundary and source-slice constraints. Three-stage backend calls, trace tamper-proofing and CPU replay are also verified.
 
-离线解析检查只衡量已有文本是否符合新解析契约。改变分支后所需的后续模型输出尚不存在，不能据此计算新的最终答案或语义提升。真实模型 smoke 另存，不与离线测试混淆。
+The offline parsing check only measures whether existing text conforms to the new parsing contract. The subsequent model outputs needed after branches change do not yet exist, so new final answers or semantic improvements cannot be computed from it. The real-model smoke is stored separately and not confused with offline tests.
 
-## 固定 8 条 smoke
+## Fixed 8-item smoke
 
-来自已开发过的 75 条，编号 N1/N2/N8/N12/N15/N31/N48/N96：4 个已确认正确对照、4 个 E 目标。选取重复、引号、编号、作品身份、比较关系与原因说明等情况；不是未见评测，也不用于证明收益。
+From the 75 already developed on, IDs N1/N2/N8/N12/N15/N31/N48/N96: 4 confirmed correct controls and 4 E targets. Chosen to cover repetition, quotes, numbering, work identity, comparison relations and reason explanations; it is not an unseen evaluation and is not used to prove gains.
 
-协议见 `configs/answer_repair_v8r2_smoke8_v1.json`。四组各 8 条，共 32 条预测、最多 64 次生成。运行时仍只用 C1 问题、原答案与实际检索 Top-5，gold 和初始审核只离线报告。
+Protocol in `configs/answer_repair_v8r2_smoke8_v1.json`. Four groups of 8 each, 32 predictions in total, at most 64 generations. At runtime only the C1 question, original answer and actual retrieved Top-5 are still used; gold and the initial review are reported only offline.
 
-预先固定工程通过条件：32 条完整且顺序正确；v8 所有实际进入的阶段均有效；三类阶段各至少一个有效调用；完整三阶段路径至少一条；后端停止观察存在；生成文本未事后裁切；不超过 64 次生成。v7 的既有严格解析错误单独报告，不因它们修改控制组。工程通过不要求 EM 提升，也不授予语义正确标签。
+Pre-fixed engineering pass conditions: 32 records complete and in correct order; all stages actually entered by v8 are valid; at least one valid call for each of the three stage types; at least one complete three-stage path; backend stop observation present; generated text not truncated post hoc; no more than 64 generations. v7's existing strict parsing errors are reported separately, and the control group is not modified because of them. An engineering pass does not require an EM improvement and does not grant semantic correctness labels.
 
-准备入口：`python scripts/prepare_answer_repair_v8_r2.py`。新包使用支持 Kaggle 自动解压的已验证加载器。Notebook 只运行 8 条 smoke 并导出结果及 `smoke_acceptance.json`，不会自动开展全量实验。
+Preparation entry point: `python scripts/prepare_answer_repair_v8_r2.py`. The new bundle uses the validated loader that supports Kaggle auto-extraction. The Notebook only runs the 8-item smoke and exports the results and `smoke_acceptance.json`, and will not automatically launch the full experiment.
 
-先核对真实 smoke 的格式、引用、阶段覆盖与成本。通过后再以另一个冻结包重跑同一 75 条四组开发实验；未通过则保存失败并继续修正。人工可并行审核原 15 条改答与新输出，不必等 25 条旧未决定案。任何阶段都不把本开发队列当作 held-out，或把 Qwen 自检当作独立裁判。
+First check the real smoke's format, citations, stage coverage and cost. If it passes, rerun the same 75-item four-group development experiment with another frozen bundle; if not, save the failure and continue fixing. Humans may review the original 15 changed answers and the new outputs in parallel, without waiting for the 25 old unresolved items to be finalized. At no stage is this development queue treated as held-out, or Qwen self-checking treated as an independent judge.
 
-## 真实执行结果
+## Real execution results
 
-Kaggle 第 1 版已成功执行 585.8 秒，32 条预测、41 次生成，冻结 CPU 回放通过。入口检查恢复，但候选 6 次格式错误及 3 次来源拒绝使 r2 原预设门槛失败，完整流程无改答。见 [结果与语义问题](ANSWER_REPAIR_RESULTS_20261019_V8_R2.md)。后续 [v8r3](ANSWER_REPAIR_V8_R3.md) 是独立新修订，不覆盖本版冻结包或失败记录。
+Kaggle version 1 ran successfully in 585.8 seconds, with 32 predictions and 41 generations, and the frozen CPU replay passed. The entry check recovered, but 6 candidate format errors and 3 source rejections made r2's original pre-set gate fail, and the full pipeline had no changed answers. See [results and semantic issues](ANSWER_REPAIR_RESULTS_20261019_V8_R2.md). The subsequent [v8r3](ANSWER_REPAIR_V8_R3.md) is a separate new revision and does not overwrite this version's frozen bundle or failure records.

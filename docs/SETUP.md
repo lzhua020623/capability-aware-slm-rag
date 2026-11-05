@@ -1,15 +1,15 @@
 # Setup
 
-Windows 环境。PyTorch **不在** `requirements.txt` 里，需按本机硬件单独安装，再装其余依赖。
+Windows environment. PyTorch is **not** in `requirements.txt`; install it separately for your machine's hardware, then install the remaining dependencies.
 
-模型和原始/预处理数据都很大，**不会提交到 GitHub**（见 `.gitignore`：`.venv/`、`data/raw/*`、`data/processed/*`、`models/`、`checkpoints/`）。clone 之后用下面已验证的脚本在本地重建数据。Preliminary Recoverability Experiment 必须使用冻结的 sample manifests，不要重新抽样。`results/` 里体积较小的 smoke-test / retrieval metrics 可以随仓库保留，用于对照，不是可执行的数据或模型。
+Models and raw/preprocessed data are very large and **will not be committed to GitHub** (see `.gitignore`: `.venv/`, `data/raw/*`, `data/processed/*`, `models/`, `checkpoints/`). After cloning, rebuild the data locally with the verified scripts below. The Preliminary Recoverability Experiment must use the frozen sample manifests; do not resample. The small smoke-test / retrieval metrics in `results/` can be kept with the repository for comparison; they are not executable data or models.
 
-当前正式 Retriever：**BGE + FAISS + Top-5**（`BAAI/bge-base-en-v1.5`）。Primary SLM：`Qwen/Qwen2.5-7B-Instruct`，4-bit NF4。第一次加载该模型时，Hugging Face 会把它下载到本地 cache（不在本仓库里）。
+Current formal Retriever: **BGE + FAISS + Top-5** (`BAAI/bge-base-en-v1.5`). Primary SLM: `Qwen/Qwen2.5-7B-Instruct`, 4-bit NF4. The first time this model is loaded, Hugging Face downloads it to the local cache (not in this repository).
 
-**smoke test** = 工程验证（工程能否跑通）。  
-**Preliminary Recoverability Experiment** = 配置已冻结，FEVER500 7B C0/C3 已完成。见 [实验结果](../results/preliminary/fever_c0_c3_summary.md) 和 [冻结协议](PRELIMINARY_EXPERIMENT.md)。
+**smoke test** = engineering verification (whether the engineering runs end to end).  
+**Preliminary Recoverability Experiment** = configuration frozen, FEVER500 7B C0/C3 completed. See [experiment results](../results/preliminary/fever_c0_c3_summary.md) and [frozen protocol](PRELIMINARY_EXPERIMENT.md).
 
-## 1. Clone repository / 克隆存储库
+## 1. Clone repository / Clone the repository
 
 ```powershell
 git clone <repository-url>
@@ -18,7 +18,7 @@ cd capability-aware-slm-rag
 
 ## Shared Experiment Data Setup
 
-组员 clone 仓库、创建 Python 环境并安装依赖后，用仓库里已验证的脚本在本地重建共用数据，不需要 `ELEC5623_shared_data.zip`：
+After cloning the repository, creating the Python environment and installing dependencies, team members rebuild the shared data locally with the verified scripts in the repository; `ELEC5623_shared_data.zip` is not needed:
 
 ```powershell
 python scripts/download_data.py
@@ -27,120 +27,120 @@ python scripts/prepare_nq.py
 python scripts/prepare_retrieval_data.py
 ```
 
-负责 NQ C1 的组员可用已记录的 NQ 检索脚本生成正式 BGE IndexFlatIP：`python scripts/run_nq_bge_retriever.py`。
+The team member responsible for NQ C1 can generate the formal BGE IndexFlatIP with the recorded NQ retrieval script: `python scripts/run_nq_bge_retriever.py`.
 
-所有人必须使用冻结的 manifests，不得重新抽样：
+Everyone must use the frozen manifests and must not resample:
 
-- NQ：`configs/splits/preliminary_nq_500.json`
-- FEVER：`configs/splits/preliminary_fever_500.json`
+- NQ: `configs/splits/preliminary_nq_500.json`
+- FEVER: `configs/splits/preliminary_fever_500.json`
 
-本地数据准备完成后即可跑 FEVER **C0** 和 **C3**。正式 FEVER **C1** 必须等 integrator 的全库检索 / index；**不能**使用早先 100k smoke-test candidate pool。
+Once local data preparation is complete, FEVER **C0** and **C3** can be run. Formal FEVER **C1** must wait for the integrator's full-corpus retrieval / index; the earlier 100k smoke-test candidate pool **must not** be used.
 
-## 2. 创建并激活 `.venv`
+## 2. Create and activate `.venv`
 
 ```powershell
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 ```
 
-若 PowerShell 阻止激活脚本，先执行一次：
+If PowerShell blocks the activation script, first run once:
 
 ```powershell
 Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 ```
 
-## 3. 安装 PyTorch，检查 CUDA
+## 3. Install PyTorch and check CUDA
 
-NVIDIA CUDA 13.0：
+NVIDIA CUDA 13.0:
 
 ```powershell
 pip install torch --index-url https://download.pytorch.org/whl/cu130
 ```
 
-CPU 或其他 CUDA 版本：用 [PyTorch 官网](https://pytorch.org/get-started/locally/) 上对应本机的安装命令。
+CPU or other CUDA versions: use the install command for your machine from the [PyTorch website](https://pytorch.org/get-started/locally/).
 
 ```powershell
 python -c "import torch; print(torch.cuda.is_available())"
 ```
 
-`True` 表示 PyTorch 能看到 GPU。`False` 表示在用 CPU，或 CUDA 未装对。4-bit NF4 加载 Qwen 需要 CUDA。
+`True` means PyTorch can see the GPU. `False` means CPU is being used, or CUDA is not installed correctly. Loading Qwen in 4-bit NF4 requires CUDA.
 
-## 4. 安装 `requirements.txt`
+## 4. Install `requirements.txt`
 
 ```powershell
 pip install -r requirements.txt
 ```
 
-## 5. 下载数据
+## 5. Download data
 
 ```powershell
 python scripts/download_data.py
 ```
 
-会拉取 Natural Questions validation（Hugging Face `datasets`，保存到 `data/raw/natural_questions/dev`）、FEVER `train.jsonl` / `shared_task_dev.jsonl`，以及 FEVER Wikipedia `wiki-pages.zip`（解压到 `data/raw/fever/wiki-pages/`）。已存在的文件会跳过。
+Fetches Natural Questions validation (Hugging Face `datasets`, saved to `data/raw/natural_questions/dev`), FEVER `train.jsonl` / `shared_task_dev.jsonl`, and FEVER Wikipedia `wiki-pages.zip` (extracted to `data/raw/fever/wiki-pages/`). Existing files are skipped.
 
-## 6. 验证数据
+## 6. Verify data
 
 ```powershell
 python scripts/verify_data.py
 ```
 
-只读检查，不修改数据。全部通过时打印 `DATA VALIDATION PASSED`。
+Read-only check; does not modify data. Prints `DATA VALIDATION PASSED` when everything passes.
 
-## 7. NQ preprocessing / NQ 预处理
+## 7. NQ preprocessing / NQ preprocessing
 
 ```powershell
 python scripts/prepare_nq.py
 ```
 
-从 `data/raw/natural_questions/dev` 生成 controlled subset：`data/processed/nq_controlled/dev.jsonl` 和 `stats.json`。不修改原始数据，不跑检索。
+Generates the controlled subset from `data/raw/natural_questions/dev`: `data/processed/nq_controlled/dev.jsonl` and `stats.json`. Does not modify raw data and does not run retrieval.
 
-## 8. retrieval-data preprocessing / 检索数据预处理
+## 8. retrieval-data preprocessing / Retrieval data preprocessing
 
 ```powershell
 python scripts/prepare_retrieval_data.py
 ```
 
-写出 Retriever 用的 JSONL（不做 embedding、不建 FAISS index、不跑语言模型）：
+Writes the JSONL used by the Retriever (no embedding, no FAISS index built, no language model run):
 
 - `data/processed/retrieval/nq_dev.jsonl`
 - `data/processed/retrieval/nq_corpus.jsonl`
 - `data/processed/retrieval/fever_dev.jsonl`
 - `data/processed/retrieval/fever_corpus.jsonl`
 
-NQ 的正式 FAISS index 需要在本地用已验证过的脚本生成（同样不在 GitHub 上）：
+The formal NQ FAISS index must be generated locally with the verified script (likewise not on GitHub):
 
 ```powershell
 python scripts/run_nq_bge_retriever.py
 ```
 
-这会编码 NQ corpus 并写入 `data/processed/indexes/nq_bge_base.index` 与 `nq_bge_base_meta.jsonl`。E5 对照文件 `nq_e5_base.index` / `nq_e5_base_meta.jsonl` 由 `python scripts/run_nq_retriever.py` 生成，仅作历史对比。正式 NQ C1 使用 **BGE + IndexFlatIP**：`nq_bge_base.index` + `nq_bge_base_meta.jsonl`。
+This encodes the NQ corpus and writes `data/processed/indexes/nq_bge_base.index` and `nq_bge_base_meta.jsonl`. The E5 comparison files `nq_e5_base.index` / `nq_e5_base_meta.jsonl` are generated by `python scripts/run_nq_retriever.py`, for historical comparison only. Formal NQ C1 uses **BGE + IndexFlatIP**: `nq_bge_base.index` + `nq_bge_base_meta.jsonl`.
 
-FEVER 正式 C1 **不是** `scripts/run_fever_base_rag.py` 里那个 100k controlled smoke-test pool；那次检索不能当作正式实验结果。全库 FEVER index 由 integrator 构建，组员不要自行运行 `python scripts/build_fever_index.py`，除非之后另有明确要求。
+Formal FEVER C1 is **not** the 100k controlled smoke-test pool in `scripts/run_fever_base_rag.py`; that retrieval cannot be taken as a formal experimental result. The full-corpus FEVER index is built by the integrator; team members should not run `python scripts/build_fever_index.py` themselves unless explicitly requested otherwise later.
 
-## 哪些可直接复用，哪些必须本地重新生成
+## What can be reused directly and what must be regenerated locally
 
-clone 后仓库里有代码、`configs/`、`docs/`，以及（若已提交）`results/` 下的小型 json/jsonl。Preliminary Recoverability Experiment 必须使用冻结的 500-ID manifests，不要重新抽样。共用 `data/` 按上面的脚本在本地重建。
+After cloning, the repository has code, `configs/`, `docs/`, and (if committed) small json/jsonl under `results/`. The Preliminary Recoverability Experiment must use the frozen 500-ID manifests; do not resample. Shared `data/` is rebuilt locally with the scripts above.
 
-需要在本机重新生成的大文件：
+Large files that must be regenerated on this machine:
 
-| 内容 | 原因 |
+| Content | Reason |
 |---|---|
-| `data/raw/` | `.gitignore`，含 NQ disk dataset、FEVER jsonl、wiki-pages |
+| `data/raw/` | `.gitignore`; contains NQ disk dataset, FEVER jsonl, wiki-pages |
 | `data/processed/nq_controlled/` | `.gitignore` |
-| `data/processed/retrieval/` | `.gitignore`；FEVER corpus 约数百万页 |
-| `data/processed/indexes/` | `.gitignore`；NQ BGE/E5 FlatIP、FEVER IVFPQ index、embedding shards 与 passage ids |
-| `Qwen/Qwen2.5-7B-Instruct` | Hugging Face cache，不在仓库内；第一次跑 generator 时自动下载 |
-| `BAAI/bge-base-en-v1.5` | 同样由 `sentence-transformers` 下载到 HF cache |
+| `data/processed/retrieval/` | `.gitignore`; FEVER corpus is about several million pages |
+| `data/processed/indexes/` | `.gitignore`; NQ BGE/E5 FlatIP, FEVER IVFPQ index, embedding shards and passage ids |
+| `Qwen/Qwen2.5-7B-Instruct` | Hugging Face cache, not in the repository; downloaded automatically the first time the generator runs |
+| `BAAI/bge-base-en-v1.5` | Likewise downloaded to the HF cache by `sentence-transformers` |
 
-本机如果已经跑过上述脚本，对应目录非空即可跳过，脚本对已存在的下载也会跳过。不要覆盖 `results/` 里已有的 3B smoke-test 文件。
+If this machine has already run the above scripts, you can skip them as long as the corresponding directories are non-empty; the scripts also skip existing downloads. Do not overwrite the existing 3B smoke-test files in `results/`.
 
-## Directory / 目录
+## Directory / Directories
 
-- `configs/` — 正式配置。generator 与 retrieval 以 `configs/base.yaml` 为准。
-- `data/raw/` — 官方原始数据（不入库）。
-- `data/processed/` — NQ subset、retrieval JSONL、FAISS index（不入库）。
-- `src/` — 检索、生成、评测代码。
-- `scripts/` — 下载、验证、预处理、smoke test。
-- `results/` — 检索指标与 smoke-test 输出。
-- `docs/` — 环境与冻结检索说明。
+- `configs/` — formal configuration. generator and retrieval follow `configs/base.yaml`.
+- `data/raw/` — official raw data (not committed).
+- `data/processed/` — NQ subset, retrieval JSONL, FAISS index (not committed).
+- `src/` — retrieval, generation and evaluation code.
+- `scripts/` — download, verification, preprocessing, smoke test.
+- `results/` — retrieval metrics and smoke-test outputs.
+- `docs/` — environment and frozen retrieval notes.

@@ -1,72 +1,72 @@
-# E v2a r2：统一核验标签 · GPU 运行包
+# E v2a r2: Unified Verification Labels · GPU Run Package
 
-协议见 [CONTROLLER_E_V2A_R2.md](../../../docs/CONTROLLER_E_V2A_R2.md)，验收题封存记录见 [fixture_review](fixture_review/README.md)。
+For the protocol, see [CONTROLLER_E_V2A_R2.md](../../../docs/CONTROLLER_E_V2A_R2.md); for the sealing record of the acceptance questions, see [fixture_review](fixture_review/README.md).
 
-**当前结果：首次 GPU 已结束，20 项中 10 项通过，结构失败 1、语义失败 9、执行失败 0。按预登记停止，开发调用为 0，全局 E 为 unavailable；主线不再安排 r3。** [原始结果与解释](kaggle_v1/README.md)、[离线部署决定](deployment_decision.json)均已保存。
+**Current result: the first GPU run has finished; 10 of 20 items passed, with 1 structural failure, 9 semantic failures, and 0 execution failures. Stopped per preregistration; development calls are 0 and global E is unavailable; the mainline no longer schedules r3.** The [raw results and interpretation](kaggle_v1/README.md) and the [offline deployment decision](deployment_decision.json) are both saved.
 
-## 当前执行包 v2
+## Current Execution Package v2
 
-执行入口为 [transport_v2 短 Notebook](transport_v2/controller_e_v2a_r2_development_dataset.ipynb)，配套同目录 `.tar.gz.bin`。源码提交 `e3ddead`，SHA256：`589dd9750d9e21336e0312609c47ee42d4ae338a86c566da7c15c25cd461ab07`。唯一当前指针见 [current_release.json](current_release.json)。
+The execution entry is the [transport_v2 short Notebook](transport_v2/controller_e_v2a_r2_development_dataset.ipynb), with the accompanying `.tar.gz.bin` in the same directory. Source commit `e3ddead`, SHA256: `589dd9750d9e21336e0312609c47ee42d4ae338a86c566da7c15c25cd461ab07`. The only current pointer is in [current_release.json](current_release.json).
 
-v2 对齐为两数据集共用离线 E 模式，并合入未启用 P60 的兼容接口。模型、核验提示、18＋2 封存题、单次 384-token 预算和分支调用数不变。原 v1 从未在 GPU 运行，保留原字节，不使用它提交本次实验。
+v2 aligns to the offline E mode shared by both datasets, and merges in a compatible interface with P60 not enabled. The model, verification prompt, the 18+2 sealed questions, the 384-token single-call budget, and the branch call counts are unchanged. The original v1 never ran on GPU; its original bytes are kept, and it is not used to submit this experiment.
 
-## 历史未运行包 v1
+## Historical Unrun Package v1
 
-此包来自 `9d91a40`，生成于离线全局模式对齐之前，GPU 从未运行。保留原字节作审计，执行前改用随后封存的 v2；不把 v1 当作当前执行入口。
+This package comes from `9d91a40` and was generated before the offline global mode alignment; it never ran on GPU. Its original bytes are kept for audit; before execution the subsequently sealed v2 was used instead; v1 is not treated as the current execution entry.
 
-源码提交为 `9d91a40`，压缩包 SHA256 为 `d4e8d3e6ba0901fd6581e8be05e96e86206ff998e38207b81b79efb98f6ad882`。
+The source commit is `9d91a40`, and the archive SHA256 is `d4e8d3e6ba0901fd6581e8be05e96e86206ff998e38207b81b79efb98f6ad882`.
 
-| 文件 | 用途 |
+| File | Purpose |
 |---|---|
-| [transport_v1/controller_e_v2a_r2_development_dataset.ipynb](transport_v1/controller_e_v2a_r2_development_dataset.ipynb) | 约 4 KB 的短 Notebook，提交到 Kaggle 运行 |
-| `transport_v1/controller_e_v2a_r2_development.tar.gz.bin` | 上传为私有 Dataset；保留 `.bin` 后缀，防止被自动解压 |
-| `gpu_release_v1/` | 原压缩包、嵌入式 Notebook 和执行清单，仅作封存，不直接提交 |
+| [transport_v1/controller_e_v2a_r2_development_dataset.ipynb](transport_v1/controller_e_v2a_r2_development_dataset.ipynb) | Short Notebook of about 4 KB, submitted to Kaggle to run |
+| `transport_v1/controller_e_v2a_r2_development.tar.gz.bin` | Uploaded as a private Dataset; keep the `.bin` suffix to prevent automatic decompression |
+| `gpu_release_v1/` | Original archive, embedded Notebook, and execution manifest; sealed only, not submitted directly |
 
-名称与 r1 的 `controller_e_v2a_development_v1` 不同。即使误挂了 r1 的 Dataset，Notebook 的指纹断言也会失败。
+The name differs from r1's `controller_e_v2a_development_v1`. Even if r1's Dataset is mounted by mistake, the Notebook's fingerprint assertion will fail.
 
-## 运行流程
+## Run Flow
 
-在 Kaggle 上依次执行：
+On Kaggle, execute in order:
 
-1. 安装依赖。
-2. 运行便携单元测试。
-3. 预检。
-4. 运行 20 项验收：18 道短题和 2 道长题全部运行，并把失败分为执行、结构、语义三类。
+1. Install dependencies.
+2. Run the portable unit tests.
+3. Pre-check.
+4. Run the 20 acceptance items: all 18 short questions and 2 long questions are run, and failures are classified into three types: execution, structural, and semantic.
 
-然后按验收结果分支：
+Then branch according to the acceptance result:
 
-| 验收结果 | 后续运行 | 进程退出码 |
+| Acceptance result | Follow-up run | Process exit code |
 |---|---|---|
-| 全部通过 | 800 次开发 E | 0 |
-| 只有语义失败 | 两个数据集以 verify_only 只跑 Always Repair 400 次 | 0 |
-| 有执行或结构失败 | 停止，E 不可用 | 3（Notebook 报错，但输出照常导出） |
+| All passed | 800 development E calls | 0 |
+| Only semantic failures | Both datasets run only Always Repair, 400 calls, in verify_only | 0 |
+| Execution or structural failures | Stop; E unavailable | 3 (the Notebook reports an error, but outputs are still exported) |
 
-无论哪种结果，都会导出 `controller_e_v2a_r2_development_outputs.zip`。
+Whatever the result, `controller_e_v2a_r2_development_outputs.zip` is exported.
 
-## 本地验证
+## Local Validation
 
-以下均为 CPU 检查，**不等于** GPU 验收或语义正确：
+All of the following are CPU checks and **do not equal** GPU acceptance or semantic correctness:
 
-- 完整回归测试通过。
-- [真实 XGrammar 0.2.8 编译](validation/r2_schema_cpu.json)：使用 Qwen 分词器。18 道题的理想输出全部被接受；r1 的旧标签 `unsupported`、非 insufficient 判断配空的核验 ID，都会被拒绝。短题提示最长 1,307 tokens；两道长题分别为 17,514 和 17,539 tokens。
-- [当前 v2 解包检查](validation/extracted_bundle_v2_check.json)：101 个文件指纹一致；800 条开发输入中没有 gold 类字段；解包后 32 项便携测试和预检全部通过。原 v1 检查保留作历史记录。
+- The full regression tests passed.
+- [Real XGrammar 0.2.8 compilation](validation/r2_schema_cpu.json): uses the Qwen tokenizer. The ideal outputs of all 18 questions are accepted; r1's old label `unsupported` and non-insufficient verdicts paired with empty verification IDs are both rejected. The longest short-question prompt is 1,307 tokens; the two long questions are 17,514 and 17,539 tokens respectively.
+- [Current v2 unpacking check](validation/extracted_bundle_v2_check.json): 101 file fingerprints match; there are no gold-type fields in the 800 development inputs; after unpacking, the 32 portable tests and the pre-check all passed. The original v1 check is kept as a historical record.
 
-## 独立复核
+## Independent Review
 
-拿到输出后，不需要调用模型、也不读 gold：
+After obtaining the outputs, no model call is needed and gold is not read:
 
 ```bash
 python scripts/audit_controller_e_v2a_outputs.py --archive <outputs.zip> --release-dir artifacts/controller/e_v2a_interface_r2/gpu_release_v2
 ```
 
-审计脚本会根据原始记录重新计算每一项的失败类别和验收结果，并检查开发输出是否严格落在对应分支内：语义失败分支不得替换任何答案。
+The audit script recomputes each item's failure category and acceptance result from the raw records, and checks that the development outputs fall strictly within the corresponding branch: the semantic-failure branch must not replace any answer.
 
-## 已执行的停止分支
+## Executed Stop Branch
 
-- GPU 的 18 短题＋2 长题已完成，结果为 failed，开发预测数为 0。
-- 依据原登记，全局 E 模式已离线冻结为 unavailable，不执行 400／800 条开发，也不启动 r3。
-- 真实开发合规率未测，不填 0 或 100%；虚构题契约比例不替代该统计。运行前登记的启用门槛保留不改。
+- The GPU's 18 short + 2 long questions are complete; the result is failed, and the number of development predictions is 0.
+- Per the original registration, the global E mode has been frozen offline as unavailable; the 400/800 development runs are not executed, and r3 is not started.
+- The real development compliance rate was not measured and is not filled in as 0 or 100%; the fictional-question contract ratio does not substitute for this statistic. The enabling gates registered before the run are kept unchanged.
 
-## 首次 GPU 启动 · 2026-10-26
+## First GPU Launch · 2026-10-26
 
-已在 [Kaggle Version 1 / 362285592](https://www.kaggle.com/code/yearo111/controller-e-r2-shared-frozen-20261026?scriptVersionId=362285592) 确认 Running、Private、GPU T4×2。已通过包内 32 项测试和 800 输入／20 验收预检。首次启动观察见 [launch_v1.json](launch_v1.json)；此记录不代表真实语义或长输入门槛通过，后续结果另存，不覆盖本记录。
+Confirmed Running, Private, GPU T4×2 on [Kaggle Version 1 / 362285592](https://www.kaggle.com/code/yearo111/controller-e-r2-shared-frozen-20261026?scriptVersionId=362285592). The package's 32 tests and the 800-input/20-acceptance pre-check passed. The first launch observation is in [launch_v1.json](launch_v1.json); this record does not mean the real semantic or long-input gates passed; later results are saved separately, without overwriting this record.

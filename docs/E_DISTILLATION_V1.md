@@ -1,85 +1,85 @@
-# E 输出蒸馏准备 · 2026-10-27
+# E output distillation preparation · 2026-10-27
 
-分支 `controller_2`。本轮启动新的 NQ 蒸馏扩展，已准备数据、契约和离线教师任务，并在 Azure 建好教师部署及受控试产入口；不覆盖旧 r2 失败结果，也不改变当前 E unavailable、C1 权重、检索资源或路由。**500 条真实教师试产已完成并独立重放**，100 条语义审核已准备，人工门槛、SFT 和 GPU 训练验收尚未完成，见 [2026-10-28 结果](E_TEACHER_PILOT_RESULTS_20261028.md)。[首次 3 条连接检查](../artifacts/controller/e_teacher_sol_connection_v1/README.md)保留为历史快照。
+Branch `controller_2`. This round starts the new NQ distillation extension: data, contracts and offline teacher tasks have been prepared, and the teacher deployment and a controlled pilot-production entry point have been set up on Azure; it does not overwrite the old r2 failure results, nor change the current E unavailable, C1 weights, retrieval resources or routing. **The 500-item real teacher pilot production is complete and independently replayed**, the 100-item semantic review is prepared, and the human gate, SFT and GPU training acceptance are not yet complete; see [2026-10-28 results](E_TEACHER_PILOT_RESULTS_20261028.md). The [first 3-item connection check](../artifacts/controller/e_teacher_sol_connection_v1/README.md) is kept as a historical snapshot.
 
-## 组件复查结论
+## Component review conclusions
 
-本轮刷新主仓库全部远端分支，并核对两个已知 fork，无新增提交。Diagnosis `138d52a`、补检索 `37e469e`、重排 `5583285`、E `5da1fe5` 均已在当前历史中；集成层保留后续兼容修正，不要求与分支原文件逐字节相同。
+This round refreshed all remote branches of the main repository and checked two known forks: no new commits. Diagnosis `138d52a`, retrieval enhancement `37e469e`, reranking `5583285` and E `5da1fe5` are all in the current history; the integration layer keeps later compatibility fixes and is not required to be byte-identical to the original branch files.
 
-上段记录首轮检查。准备提交后再次刷新，重排新增三次提交至 `1d51856`，已做 [后续兼容集成](RERANK_1D51856_INTEGRATION.md)：补上新 selector 评测的用途边界、深候选池资源登记和 frozen 后端参数检查。当前 E 契约及样本未变。
+The paragraph above records the first-round check. After the preparation commit, another refresh found three new reranking commits up to `1d51856`, for which [follow-up compatibility integration](RERANK_1D51856_INTEGRATION.md) was done: adding usage boundaries for the new selector evaluation, deep candidate pool resource registration and frozen backend parameter checks. The current E contract and samples are unchanged.
 
-最新源码已合入，不等于全部组件可以生产运行：P60 缺原始 78 维在线特征和三个 HGB 的使用 ID，启动检查退出 2；新重排权重和答案选择器未晋升；E r2 未通过真实验收。团队 baseline 分支没有整体合并，原始 NQ split 已按指纹独立接入，其新 context_fallback 逐题输出仍待交付。
+Merging the latest source does not mean all components can run in production: P60 lacks the original 78-dim online features and the used IDs of the three HGBs, and the startup check exits 2; the new reranking weights and answer selector are not promoted; E r2 did not pass real acceptance. The team baseline branch was not merged as a whole; the original NQ split was integrated independently by fingerprint, and its new context_fallback per-question outputs are still to be delivered.
 
-因此可以独立准备 E 训练数据，但不能启动新的端到端效果评测。组件审计与运行回执在 [本轮归档](../artifacts/controller/e_distillation_v1/README.md)。
+Therefore E training data can be prepared independently, but a new end-to-end effect evaluation cannot be started. The component audit and run receipts are in [this round's archive](../artifacts/controller/e_distillation_v1/README.md).
 
-## 本轮固定的内容
+## What is fixed this round
 
-- [准备协议](../configs/distillation/e_prep_v1.json)绑定现有 v2a 的提示、解析器和数据边界源码哈希。
-- 学生为现有 `Qwen/Qwen2.5-7B-Instruct`，沿用仓库登记的 revision。候选方法为 QLoRA/SFT，只训练 E 的 adapter；C1 使用原权重。训练库版本、显存、adapter 参数和长输入方案需在实际训练前登记实测。
-- 输入仍只有 sample_id、dataset、query、initial_answer、Top-5。教师没有 gold、AI 标签、Diagnosis 结果、工具或外部检索。
-- 模型输出沿用 original_verification、verdict_evidence_ids、replacement_answer、replacement_evidence_ids、reason 五字段。supported 保留；contradicted 仅在有合格候选时替换；insufficient 保留并标记。最终动作由程序执行，不另训一套矛盾的动作字段。
-- 教师给出至多 60 词的简短可核查理由。学生输出预算仍为 384 tokens；词数限制不能代替真实 tokenizer 检查。教师的可见输出与内部推理总预算分别登记，不默认把 384 当作教师总预算。
-- 教师已选 Azure GPT-6.1 Sol `2026-09-29`、Global Standard 按量计费、100K TPM。部署 `elec5623-e-teacher-sol-v1` 的状态已核对为 Succeeded；原 ELEC5623 项目区域不支持该模型，因此使用用户同一订阅下已有的兼容项目，没有另建资源。密钥不提交到仓库。
+- The [preparation protocol](../configs/distillation/e_prep_v1.json) binds the source hashes of the existing v2a prompts, parser and data boundaries.
+- The student is the existing `Qwen/Qwen2.5-7B-Instruct`, keeping the revision registered in the repository. The candidate method is QLoRA/SFT, training only E's adapter; C1 uses the original weights. The training library version, VRAM, adapter parameters and long-input scheme must be registered and measured before actual training.
+- Inputs are still only sample_id, dataset, query, initial_answer and Top-5. The teacher has no gold, AI labels, Diagnosis results, tools or external retrieval.
+- Model output keeps the five fields original_verification, verdict_evidence_ids, replacement_answer, replacement_evidence_ids and reason. supported is kept; contradicted is replaced only when there is a qualified candidate; insufficient is kept and flagged. The final action is executed by the program; no separate, contradictory action field is trained.
+- The teacher gives a short verifiable reason of at most 60 words. The student output budget is still 384 tokens; the word limit cannot substitute for a real tokenizer check. The teacher's visible output and internal reasoning total budget are registered separately, and 384 is not taken by default as the teacher's total budget.
+- The teacher chosen is Azure GPT-6.1 Sol `2026-09-29`, Global Standard pay-as-you-go, 100K TPM. The status of deployment `elec5623-e-teacher-sol-v1` has been verified as Succeeded; the original ELEC5623 project region does not support this model, so an existing compatible project under the user's same subscription is used, with no new resource created. Keys are not committed to the repository.
 
-## 教师调用登记
+## Teacher call registration
 
-独立 [执行登记](../configs/distillation/e_teacher_sol_pilot_v1.json)引用原准备协议与完整任务指纹，原准备协议保持字节不变。选择 Sol 的原因是它提供结构化输出及推理能力，当前 Azure 公布的普通短输入单价为每百万输入 $2、输出 $10，低于 Astra 的 $10/$50；这不证明它在本任务上足够好，仍需试产验收。[Microsoft 价格表](https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/provisioned-throughput-sizing)
+The independent [execution registration](../configs/distillation/e_teacher_sol_pilot_v1.json) references the original preparation protocol and the full task fingerprints; the original preparation protocol stays byte-unchanged. Sol was chosen because it provides structured outputs and reasoning capability, and Azure's currently published standard short-input price is $2 per million input and $10 output, lower than Astra's $10/$50; this does not prove it is good enough for this task, and pilot-production acceptance is still required. [Microsoft pricing table](https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/provisioned-throughput-sizing)
 
-- **版本限制**：Azure 当前策略仍为 `OnceNewDefaultVersionAvailable`，页面未能关闭自动升级。客户端要求每个 response.model 精确为 `gpt-6.1-sol-2026-09-29`；不匹配即停止，该条不接受。不能把部署本身写成禁止自动升级，也不能声称调用前已通过管理 API 实时验证版本。
-- **预算**：这一份试产账本最多 500 次请求、15 USD 的客户端费用上限。请求先预留完整输入包 UTF-8 字节数加 4096 的 token 上界，以及 4096 个总输出 token；拒绝输入上界超过 90K 的请求。按每百万输入 $5／输出 $15 保守记账，覆盖当前公布的输入缓存写入及长上下文单价。成功后按 usage 结算，reasoning 已在 completion_tokens 中，不重复计算。这是当前登记价格下的上界估计，不能当 Azure 账单，也不控制其他应用花费或未来价格变化。
-- **失败**：超时、用量缺失、版本不符、拒绝、截断、非法引用或契约不合规都立即停止，保留完整预留费用；不自动重试，不覆盖原响应。进程中断时已预留的请求同样阻止重发。
-- **默认运行**：无 `--execute` 仅验证。实际调用默认累计 3 条，继续运行使用同一固定目录和账本跳过已成功 ID；显式指定累计 500 才扩到完整试产。四种冻结 AI 分层轮流调用，预算停止不会只留下第一类。为低于部署限流，初版单进程最多每分钟 1 次，500 次至少约 8.5 小时；这不消耗本地 GPU。
-- **教师和学生预算分开**：教师 4096 含内部推理及可见输出，medium reasoning；只保存 provider 返回的可见 JSON、用量和请求信息，不请求隐藏思维链。学生目标仍须逐条验证不超过 Qwen 的 384 tokens。
-- **质量门槛**：扩量前全量来源/契约合规率至少 95%；按固定哈希抽审至多 50 条替换（至少需有 25 条），剩余名额在支持并保留、缺证并保留、明确错误但无候选三类间轮流补至共 100 条；稀少保留类全部纳入后再分配余量。三种核验标签各至少 10 条。语义正确至少 95 条，审核替换中不能有误修，待定按未通过；少于 100 个合规输出或修复/标签覆盖不足则不扩量。格式检查不会批准 SFT，所有入训目标另做 384-token 检查。该门槛是本次试产的工程决策，不能据此宣称总体误修率为零。
+- **Version restriction**: Azure's current policy is still `OnceNewDefaultVersionAvailable`, and automatic upgrades could not be disabled on the page. The client requires every response.model to be exactly `gpt-6.1-sol-2026-09-29`; on mismatch it stops and that item is not accepted. The deployment itself cannot be described as forbidding automatic upgrades, nor can it be claimed that the version was verified in real time via the management API before the calls.
+- **Budget**: this pilot-production ledger allows at most 500 requests and a client-side cost cap of 15 USD. Each request first reserves a token upper bound of the full input package UTF-8 byte count plus 4096, and 4096 total output tokens; requests whose input upper bound exceeds 90K are rejected. Conservative accounting at $5 input/$15 output per million covers the currently published input cache-write and long-context prices. After success, settlement is by usage; reasoning is already in completion_tokens and is not double-counted. This is an upper-bound estimate under the currently registered prices; it cannot be treated as the Azure bill, and does not control spending by other applications or future price changes.
+- **Failures**: timeouts, missing usage, version mismatch, refusal, truncation, illegal citations or contract non-compliance all stop immediately, keeping the full reserved cost; no automatic retries, and the original responses are not overwritten. When a process is interrupted, already-reserved requests are likewise blocked from being resent.
+- **Default run**: without `--execute` it only validates. Actual calls default to a cumulative 3; continuing uses the same fixed directory and ledger and skips already-successful IDs; explicitly specifying a cumulative 500 expands to the full pilot production. The four frozen AI strata are called in rotation, so a budget stop does not leave only the first class. To stay below the deployment rate limit, the initial version uses a single process with at most 1 call per minute, so 500 calls take at least about 8.5 hours; this does not consume the local GPU.
+- **Teacher and student budgets are separate**: the teacher's 4096 includes internal reasoning and visible output, with medium reasoning; only the visible JSON, usage and request information returned by the provider are saved, and no hidden chain of thought is requested. The student target must still be verified item by item to not exceed Qwen's 384 tokens.
+- **Quality gate**: before expansion, the full provenance/contract compliance rate must be at least 95%; by fixed hash, review at most 50 replacements (at least 25 are required), and fill the remaining slots in rotation among three classes (supported and kept, insufficient evidence and kept, clearly wrong but no candidate) up to 100 in total; after the rare kept classes are fully included, the remainder is allocated. Each of the three verification labels has at least 10 items. At least 95 must be semantically correct, there must be no harmful repairs among the reviewed replacements, and pending counts as not passed; if there are fewer than 100 compliant outputs or repair/label coverage is insufficient, there is no expansion. Format checks do not approve SFT, and all training targets get a separate 384-token check. This gate is an engineering decision for this pilot production and cannot be used to claim an overall harmful-repair rate of zero.
 
 ```bash
-# 只做本地复核，不调用 Azure
+# Local re-check only, no Azure calls
 python scripts/run_e_teacher_pilot.py
 
-# 在本机终端配置实际 Azure v1 base endpoint；API key 不放命令行/聊天
-export AZURE_OPENAI_ENDPOINT='https://<已登记的资源>.services.ai.azure.com/openai/v1/'
+# Configure the actual Azure v1 base endpoint in the local terminal; do not put the API key on the command line/in chat
+export AZURE_OPENAI_ENDPOINT='https://<registered-resource>.services.ai.azure.com/openai/v1/'
 python scripts/run_e_teacher_pilot.py --execute --prompt-key
-# 同一账本下的后续完整试产（先核查前三条，不会重复已成功请求）
+# Subsequent full pilot production under the same ledger (the first three items are checked first; already-successful requests are not repeated)
 python scripts/run_e_teacher_pilot.py --execute --prompt-key --total-requests 500
 ```
 
-endpoint 必须与实际观察的资源哈希一致；其他资源、重定向、含 key 的 URL 均被拒绝。`--prompt-key` 用终端隐藏输入读取已有密钥，仅存本次进程内存；也可预先配置 `AZURE_OPENAI_API_KEY`。用户已通过隐藏输入完成首次 3 次真实调用，密钥未交给代理或写入仓库。不要发送密钥给对话。
+The endpoint must match the observed resource hash; other resources, redirects and URLs containing a key are rejected. `--prompt-key` reads the existing key via hidden terminal input and keeps it only in this process's memory; `AZURE_OPENAI_API_KEY` can also be configured in advance. The user has completed the first 3 real calls via hidden input; the key was not given to the assistant or written to the repository. Do not send the key in the conversation.
 
-首次检查实测：两次 supported、一次 insufficient，均保留原答，Qwen 目标含 EOS 分别 86、66、70 tokens；保守客户端费用合计 $0.04104，实际 Azure 账单未核实。它只验证连接与输出契约，没有覆盖真实替换，也不是教师语义通过。Texans 一题引用的是 Texans/Chiefs 旧球队链条，与离线参考存在实体对齐风险，必须进入语义待审；不能因为格式通过就加入 SFT。之后从同一账本第 4 条继续，完整试产质量门槛不变。
+First check measurements: two supported and one insufficient, all keeping the original answer; the Qwen targets including EOS were 86, 66 and 70 tokens respectively; the conservative client-side cost totaled $0.04104, and the actual Azure bill is not verified. It only validates the connection and output contract, does not cover real replacements, and is not a teacher semantic pass. The Texans question cites the old Texans/Chiefs team chain, which carries an entity-alignment risk against the offline reference and must go into pending semantic review; it cannot be added to SFT just because the format passed. After that, continue from item 4 of the same ledger, with the full pilot-production quality gate unchanged.
 
-## 节流补充 · transport v2
+## Throttling supplement · transport v2
 
-500 条是 Azure 远端教师调用，本机 CPU 只发送请求，不运行教师模型。换到 Kaggle GPU 不会消除客户端等待；GPU 用于后续学生推理和 QLoRA。原每 61 秒一条是初版保守策略，已观察到单条服务时间约 2.5–7.3 秒后，新增独立 [transport v2 登记](../configs/distillation/e_teacher_transport_v2.json)，原教师登记、请求体、样本顺序、预算及质量门槛均保持原字节。
+The 500 items are remote Azure teacher calls; the local CPU only sends requests and does not run the teacher model. Switching to a Kaggle GPU would not remove the client-side waiting; the GPU is for later student inference and QLoRA. The original one item per 61 seconds was a conservative initial policy; after observing single-item service times of about 2.5–7.3 seconds, a new independent [transport v2 registration](../configs/distillation/e_teacher_transport_v2.json) was added, while the original teacher registration, request bodies, sample order, budget and quality gate all keep their original bytes.
 
-v2 需显式启用，串行最多一条在途，任意滚动 61 秒完整 token 预留总额不超过 95K、请求数不超过 60，开始时间至少相隔 5 秒。按完整请求 UTF-8 字节上界＋4096 输入 allowance＋4096 最大输出预留；不按少量实际输出提前退还 rate 预留。全部 500 条预估范围 15,705–22,922 tokens/条，均通过窗口检查。[Microsoft 文档](https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/quota)说明 rate 估算包含输入和最大输出，与计费用量不同。
+v2 must be explicitly enabled: serial with at most one request in flight, the total full token reservations in any rolling 61 seconds not exceeding 95K, no more than 60 requests, and start times at least 5 seconds apart. The reservation is the full request UTF-8 byte upper bound + 4096 input allowance + 4096 maximum output; rate reservations are not refunded early based on small actual outputs. The estimated range for all 500 items is 15,705–22,922 tokens/item, all passing the window check. The [Microsoft documentation](https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/quota) states that rate estimation includes the input and maximum output, which differs from billed usage.
 
 ```bash
 python scripts/run_e_teacher_pilot.py --execute --prompt-key \
   --total-requests 500 --transport-profile token_window_v2
 ```
 
-继续用同一个目录、进程锁和累计费用账本；已完成样本不重发。恢复时先等待一个完整窗口，清除旧进程未知的 rate 时间，再开始发送。新 profile 和客户端/调度器源码哈希在发送前追加到账本。原失败停止、不自动重试和不保存凭据保持不变。Azure 临时限流仍可触发停止，不能把 95K 本地估算写成服务保证。
+Continue using the same directory, process lock and cumulative cost ledger; completed samples are not resent. On resume, first wait one full window, clearing rate times unknown to the old process, then start sending. The new profile and the client/scheduler source hashes are appended to the ledger before sending. The original stop-on-failure, no automatic retries and no stored credentials remain unchanged. Azure temporary rate limiting can still trigger a stop; the local 95K estimate cannot be written as a service guarantee.
 
-终端现在打印 resume、rate_wait 和 completed 进度，只含累计条数、标签/动作和保守费用，不打印问题、证据或凭据。正在运行的旧 Python 进程不会热更新；切换要在无未结算请求时停止旧进程，再用同一账本启动 v2、重新隐藏输入密钥。不能并行起两个 writer，不能强杀未结算请求后自动重发。
+The terminal now prints resume, rate_wait and completed progress, containing only cumulative counts, labels/actions and conservative cost, without printing questions, evidence or credentials. A running old Python process will not hot-update; to switch, stop the old process when there are no unsettled requests, then start v2 with the same ledger and re-enter the key via hidden input. Do not start two writers in parallel, and do not force-kill unsettled requests and then automatically resend them.
 
-离线模拟剩余 490 条：单条服务时间设为 5／15／30 秒时，v2 分别约 1.71／2.06／4.10 小时；旧策略约 8.30 小时。这是当前输入形状的调度模拟，不是 GPU 或 Azure 端到端实测，不承诺固定完成时间。真实连接和教师语义结果继续按原协议记录。
+Offline simulation of the remaining 490 items: with single-item service time set to 5/15/30 seconds, v2 takes about 1.71/2.06/4.10 hours respectively; the old policy about 8.30 hours. This is a scheduling simulation for the current input shape, not an end-to-end GPU or Azure measurement, and does not promise a fixed completion time. Real connection and teacher semantic results continue to be recorded per the original protocol.
 
-## 样本安排
+## Sample arrangement
 
-团队划分和旧保留池限制不变，使用 [NQ 用途边界](TEAM_DATA_BOUNDARIES.md)。
+The team splits and old held-out pool restrictions are unchanged, using the [NQ usage boundaries](TEAM_DATA_BOUNDARIES.md).
 
-| 清单 | 数量 | 取样与用途 |
+| List | Count | Sampling and purpose |
 |---|---:|---|
-| Teacher pilot | 500 | 从允许的 46,421 Train 中，对四种 AI 初标各取 125；只用于教师质量/成本试产 |
-| Development | 500 | 从允许的 9,440 Validation 按固定哈希均匀抽取，开发评测 |
-| Selection | 500 | 从同一允许 Validation 池抽取，与 Development 不重叠；候选确认一次 |
-| Final test | 11,114 | 保持封存，当前工具不能读取其问题/证据/gold |
+| Teacher pilot | 500 | From the allowed 46,421 Train, 125 for each of the four AI initial labels; only for teacher quality/cost pilot production |
+| Development | 500 | Uniformly drawn by fixed hash from the allowed 9,440 Validation; development evaluation |
+| Selection | 500 | Drawn from the same allowed Validation pool, not overlapping Development; one candidate confirmation |
+| Final test | 11,114 | Kept sealed; current tools cannot read its questions/evidence/gold |
 
-取样只读 ID 和 AI 元数据，不根据 gold、答案或试跑得分筛题。Pilot 是有意平衡的诊断样本，不代表自然分布，更不是 500 条已确认 utilisation。开发/选型仍是团队 validation 的用途子集，不重新划分团队数据。
+Sampling reads only IDs and AI metadata, and does not filter questions by gold, answers or trial-run scores. The pilot is an intentionally balanced diagnostic sample, not representative of the natural distribution, let alone 500 confirmed utilisation items. Development/selection run are still usage subsets of the team validation, and the team data is not re-split.
 
-通过教师试产后，候选目标是 5,000 条合格混合监督样本，上限 10,000；扩量清单、预算和质量门槛须另行封存。不能把本轮 500 条试产当成完整训练规模，也不能直接复制 AI 标签作为训练目标。
+After passing the teacher pilot production, the candidate target is 5,000 qualified mixed supervision samples, capped at 10,000; the expansion list, budget and quality gate must be sealed separately. This round's 500-item pilot production cannot be treated as the full training scale, and AI labels cannot be copied directly as training targets.
 
-## 工具与输出
+## Tools and outputs
 
 ```bash
 python scripts/prepare_e_distillation.py \
@@ -87,23 +87,23 @@ python scripts/prepare_e_distillation.py \
   --export-pilot data/processed/e_distillation_v1/pilot_20261027
 ```
 
-重新验证清单时只给 `--manifest`；输出目录必须全新，既有试产不能覆盖。
+When re-validating the list, pass only `--manifest`; the output directory must be brand new, and an existing pilot production cannot be overwritten.
 
-- `teacher_tasks.jsonl`：五字段 runtime、原学生提示、教师消息、对象根输出 schema 和内容指纹。它是离线任务，不是可以直接提交的 API Batch 文件。
-- `offline_references.jsonl`：物理分开的 train gold/AI 元数据，仅供离线筛查，不能随教师任务上传。
-- `inputs_manifest.json`：原始 15 分片哈希、样本清单指纹、两个导出文件哈希和待办。完整任务/参考保存在被忽略的 data/processed；仓库只记录 ID 和审计摘要。
+- `teacher_tasks.jsonl`: five-field runtime, original student prompt, teacher messages, object-root output schema and content fingerprint. It is an offline task, not an API Batch file that can be submitted directly.
+- `offline_references.jsonl`: physically separated train gold/AI metadata, only for offline screening, and must not be uploaded with the teacher tasks.
+- `inputs_manifest.json`: hashes of the original 15 shards, the sample list fingerprint, hashes of the two exported files and to-dos. The full tasks/references are saved in the ignored data/processed; the repository only records IDs and audit summaries.
 
-工具先按 ID 排除 Validation/Test/保留池，再解码 Train。教师提示生成前，离线字段由白名单剔除。现有学生 v2a schema 保留不变；教师传输 schema 使用 object 根，跨字段与来源约束在本地继续检查。
+The tool first excludes Validation/Test/held-out pool by ID, then decodes Train. Before teacher prompt generation, offline fields are removed by an allowlist. The existing student v2a schema is kept unchanged; the teacher transport schema uses an object root, and cross-field and provenance constraints continue to be checked locally.
 
-`audit_teacher_output()` 只认证格式和来源，永远返回 semantic_verified=false、approved_for_SFT=false。它可发现引用不存在、片段不在原文、错误改答分支和等价改答等情况；它不能证明问题关系、限定词或答案含义正确。
+`audit_teacher_output()` only certifies format and provenance, and always returns semantic_verified=false, approved_for_SFT=false. It can detect nonexistent citations, snippets not in the original text, wrong changed-answer branches and equivalent changed answers; it cannot prove that the question relation, qualifiers or answer meaning are correct.
 
-## 下一步和停止边界
+## Next steps and stopping boundaries
 
-1. 教师部署、执行预算、来源守卫及 API transport 已登记并实现；首次 3 条连接/契约检查已完成并独立重放，不静默换模型、放宽格式或另开账本。
-2. 同一账本的 500 条已完成，费用记账 $6.58152；已生成 100 条质量审核（49 替换、21 支持保留、21 不足保留、9 无候选）。当前人工确认 0，不能拿结果修改本轮门槛，也不自动转 SFT。
-3. 教师能力和来源检查通过后，再扩量并构建 SFT 数据；tokenizer 检查所有目标长度，截断不得移除依据后保留原监督。
-4. 实测训练环境并冻结至多两个训练配置、工程 fixtures、正确题误修上限、置信区间与晋升规则。任何训练前这些字段都必须具体化；本准备协议不冒充最终执行封存。
-5. 固定 C1、Top-5、提示、解码和预算，比较保留 C1、原 E、蒸馏 E。开发选择一个候选，Selection 确认一次；同时报告语义修复/误修、EM/F1、覆盖与成本。
-6. 达标后接入固定路由；P60 和共同 baseline 未齐时不宣布集成收益。FEVER 未统一前不进入本轮。DPO、RSI 和知识库修改另列，不同时改变。
+1. Teacher deployment, execution budget, provenance guards and API transport are registered and implemented; the first 3-item connection/contract check is complete and independently replayed; no silent model switching, format relaxation or opening of a separate ledger.
+2. The 500 items under the same ledger are complete, with a ledger cost of $6.58152; the 100-item quality review has been generated (49 replacements, 21 supported kept, 21 insufficient kept, 9 no candidate). Current human confirmations are 0; the results cannot be used to modify this round's gate, and there is no automatic conversion to SFT.
+3. Only after the teacher capability and provenance checks pass, expand and build the SFT data; the tokenizer checks all target lengths, and truncation must not remove the supporting basis while still keeping the original supervision.
+4. Measure the training environment and freeze at most two training configs, engineering fixtures, the harmful-repair cap on correct questions, confidence intervals and promotion rules. All these fields must be made concrete before any training; this preparation protocol does not pose as the final execution seal.
+5. Fix C1, Top-5, prompts, decoding and budget, and compare keeping C1, the original E and the distilled E. Development selects one candidate, Selection confirms once; also report semantic repairs/harmful repairs, EM/F1, coverage and cost.
+6. After targets are met, integrate into the fixed routing; while P60 and the common baseline are incomplete, no integration gain is announced. FEVER does not enter this round until it is unified. DPO, RSI and knowledge-base modification are listed separately and are not changed at the same time.
 
-教师 API 准备依据 [OpenAI Docs Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)：传输格式约束不证明语义正确，拒绝/截断仍需单独处理。训练实现参考 [TRL SFT](https://huggingface.co/docs/trl/main/en/sft_trainer) 和 [PEFT 量化/QLoRA](https://huggingface.co/docs/peft/main/en/developer_guides/quantization)；实际环境须锁定版本后验收。
+The teacher API preparation is based on [OpenAI Docs Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs): transport format constraints do not prove semantic correctness, and refusals/truncations still need separate handling. The training implementation references [TRL SFT](https://huggingface.co/docs/trl/main/en/sft_trainer) and [PEFT quantization/QLoRA](https://huggingface.co/docs/peft/main/en/developer_guides/quantization); the actual environment must be version-locked before acceptance.

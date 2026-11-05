@@ -1,95 +1,95 @@
-# E v7：短答案与引文分离、FEVER 主体实体约束
+# E v7: separating short answers from citations, FEVER subject-entity constraint
 
-> **已运行（2026-10-14，Kaggle T4 x2）**：结果见 [ANSWER_REPAIR_RESULTS_20261014_V7.md](ANSWER_REPAIR_RESULTS_20261014_V7.md)。FEVER 开发批次与离线回放一致，held-out 1 修复 / 4 误修；NQ 各批次冻结 EM 净负或持平，held-out 显著为负。两种策略均不晋升；本文是运行前协议，不随结果回改。第 4 批 `heldout3216` 也已运行一次：utilisation 层 EM 0→10、correct 层 63→54，见同一结果报告。
+> **Run (2026-10-14, Kaggle T4 x2)**: results in [ANSWER_REPAIR_RESULTS_20261014_V7.md](ANSWER_REPAIR_RESULTS_20261014_V7.md). The FEVER development batches match the offline replay, held-out 1 repair / 4 harmful repairs; NQ frozen EM is net negative or flat across batches, and significantly negative on held-out. Neither policy is promoted; this document is the pre-run protocol and is not revised after the results. Batch 4 `heldout3216` has also been run once: utilisation stratum EM 0→10, correct stratum 63→54, see the same results report.
 
-2026-10-14 设计并冻结。v7 是 v6r1 辅助审核后的下一版，修改范围只有两点：NQ 把“答案”和“支持引文”分成两个字段；FEVER 的 NLI 判定只允许提到声明主体实体的窗口投票。模型、量化、greedy、seed、NLI 模型版本与 0.90 阈值全部沿用 v6，不新增模型调用。GPU 运行前的协议即本文；结果另写报告，不回改本文。
+Designed and frozen on 2026-10-14. v7 is the next version after the v6r1 assisted review, and the scope of changes is only two points: NQ splits the "answer" and the "supporting citation" into two fields; FEVER's NLI decision only lets windows that mention the claim's subject entity vote. Model, quantization, greedy, seed, NLI model version and the 0.90 threshold all carry over from v6, with no new model calls. This document is the pre-GPU-run protocol; results are written in a separate report, and this document is not revised.
 
-## 为什么是这两点
+## Why these two points
 
-v6r1 的 128 条辅助审核（代理 + 独立盲评两读一致）说明：
+The 128-item assisted review of v6r1 (assistant + independent blind rating, the two reads agreeing) shows:
 
-- NQ `extractive_reanswer` 的 15 条冻结 EM 退步都是“答案正确但扩成整句”，另有 6 条语义修复 EM 没识别；真正的语义误修只有 1 条（statute）。问题在输出形态，不在选择能力。dev50 有 24/50 无效输出，其中 17 条是空格/引号格式差异导致的“非逐字”拒绝，5 条是 JSON 内部引号没转义。
-- FEVER `fever_nli` 的 2 条误修（Men in Black II、Henry Cavill）都由引用错误实体的高分 contradiction 窗口触发；审核后 14 条里 4 条 conflict 也是同名/无关页面的窗口在捣乱（Eva Green 对 The Big Green，Alan Shepard 对 Weinel/Kinnan，Babur 对 Bidar Bakht）。
+- The 15 frozen-EM regressions of NQ `extractive_reanswer` were all "correct answer but expanded into a full sentence", and another 6 semantic repairs were not recognized by EM; there was only 1 true semantic harmful repair (statute). The problem lies in the output form, not in the selection ability. dev50 had 24/50 invalid outputs, of which 17 were "non-verbatim" rejections caused by whitespace/quote formatting differences, and 5 were unescaped quotes inside JSON.
+- The 2 harmful repairs of FEVER `fever_nli` (Men in Black II, Henry Cavill) were both triggered by high-scoring contradiction windows citing the wrong entity; among the 14 post-review items, 4 conflicts were also caused by windows from same-name/unrelated pages (Eva Green vs The Big Green, Alan Shepard vs Weinel/Kinnan, Babur vs Bidar Bakht).
 
-## 预先固定的策略
+## Pre-fixed policies
 
-### `short_answer_quote`（仅 NQ）
+### `short_answer_quote` (NQ only)
 
-同一 Qwen2.5-7B-Instruct / NF4 / FP16 / greedy / seed 42，最多一次 384-token 生成，不使用 JSON 停止器。模型输出三行：
+Same Qwen2.5-7B-Instruct / NF4 / FP16 / greedy / seed 42, at most one 384-token generation, no JSON stopper. The model outputs three lines:
 
 ```
-RANK: <证据块编号>
-QUOTE: <该块内一段连续原文，≤60 词>
-ANSWER: <QUOTE 内最短的回答片段，≤20 词>
+RANK: <evidence block number>
+QUOTE: <a contiguous source span within that block, ≤60 words>
+ANSWER: <the shortest answering span within QUOTE, ≤20 words>
 ```
 
-或单行 `INSUFFICIENT`。程序规则：
+Or the single line `INSUFFICIENT`. Program rules:
 
-1. QUOTE 必须能定位为该块的字符切片；ANSWER 必须能定位为 QUOTE 内的字符切片。匹配忽略空白和引号写法（`` '' 与弯引号归一为 "），保留全部词与标点，切片必须落在词/标点边界上。`Can't` 可匹配语料的 `Ca n't`，`York` 不能匹配 `Yorkshire`，不能删否定词或拼接。
-2. 最终答案 = ANSWER 的原文切片，引用 = QUOTE 的原文切片；不返回任何模型自撰文本。
-3. ANSWER 与初始答案按冻结 EM 归一化相等时为 `kept`，否则 `repaired`。
-4. 词法锚点：问题的内容词（≥3 字母，去停用词）至少三分之一出现在被引用的整段里，否则状态 `unanchored_candidate`，保留初始答案。这是弱规则，只挡完全离题的段落；它是否有用要靠 held-out 上的有/无锚点回放对比，不能假设。
-5. 格式、编号、定位、长度任一失败回退初始答案并记 `invalid_output`。
+1. QUOTE must be localizable as a character slice of that block; ANSWER must be localizable as a character slice within QUOTE. Matching ignores whitespace and quote style (`` '' and curly quotes are normalized to "), keeps all words and punctuation, and slices must fall on word/punctuation boundaries. `Can't` can match the corpus's `Ca n't`, `York` cannot match `Yorkshire`, and negations cannot be deleted nor spans concatenated.
+2. Final answer = the source slice of ANSWER, citation = the source slice of QUOTE; no model-authored text is returned.
+3. When ANSWER and the initial answer are equal under frozen EM normalization the status is `kept`, otherwise `repaired`.
+4. Lexical anchor: at least one third of the question's content words (≥3 letters, stopwords removed) must appear in the whole cited passage, otherwise the status is `unanchored_candidate` and the initial answer is kept. This is a weak rule that only blocks completely off-topic passages; whether it is useful must be shown by the with/without-anchor replay comparison on held-out and cannot be assumed.
+5. Any failure of format, numbering, localization or length falls back to the initial answer and records `invalid_output`.
 
-### `fever_nli_anchored`（仅 FEVER）
+### `fever_nli_anchored` (FEVER only)
 
-同一 `microsoft/deberta-large-mnli`（revision `7296194b…`）、同样的分窗、FP32、阈值 0.90、窗口概率全部保存；分类器成本与 v6 完全相同。唯一改动是判定规则：
+Same `microsoft/deberta-large-mnli` (revision `7296194b…`), same windowing, FP32, threshold 0.90, all window probabilities saved; classifier cost is exactly the same as v6. The only change is the decision rule:
 
-- 取声明的主体实体块 = 去掉句首冠词/介词后第一串大写开头的词（数字不算，所有格 s 不断开）。例如 "Henry Cavill starred in two Superman films." → `henry cavill`；"The 1974 crime film The Sugarland Express was…" → `sugarland express`；"In 2003, Eva Green debuted in film." → `eva green`。
-- 只有主体块每个词都出现在窗口文本里（允许单复数）的窗口才有资格投票；其余窗口的分数记录但忽略。
-- 投票规则与 v6 相同：有资格窗口中任一 entailment ≥ 0.90 且无 contradiction ≥ 0.90 → SUPPORTS；反之 → REFUTES；双向或均无 → 保留初始答案。
-- 被排除的高分窗口、每个窗口的锚点覆盖、主体块缺失词都写入 `anchor_filter`，回放可复现。
+- Take the claim's subject-entity block = the first run of capitalized words after removing a sentence-initial article/preposition (numbers do not count, a possessive s does not break it). For example "Henry Cavill starred in two Superman films." → `henry cavill`; "The 1974 crime film The Sugarland Express was…" → `sugarland express`; "In 2003, Eva Green debuted in film." → `eva green`.
+- Only windows in which every word of the subject block appears in the window text (singular/plural allowed) are eligible to vote; scores of the other windows are recorded but ignored.
+- The voting rule is the same as v6: among eligible windows, any entailment ≥ 0.90 with no contradiction ≥ 0.90 → SUPPORTS; the reverse → REFUTES; both or neither → keep the initial answer.
+- Excluded high-scoring windows, each window's anchor coverage, and missing subject-block words are all written to `anchor_filter`, reproducible by replay.
 
-不要求谓语里的属性词出现（如 "Brubaker is a solely Australian film" 的 Australian），因为反驳证据本来就会给出另一个值。主体词在证据里以别名/代词出现时会被保守地排除，这是有意的：排除只会让答案保持不变，不会改错。
+Attribute words in the predicate are not required to appear (such as Australian in "Brubaker is a solely Australian film"), because refuting evidence would naturally give another value. When subject words appear in the evidence as aliases/pronouns they are conservatively excluded; this is intentional: exclusion can only keep the answer unchanged, never make it wrong.
 
-### 离线回放（设计阶段证据，非 held-out）
+### Offline replay (design-stage evidence, not held-out)
 
-在 v6r1 已保存的窗口概率上只换判定规则（`scripts/replay_fever_nli_anchored.py`，输出在 `artifacts/answer_repair/v7_design/`）：
+Only the decision rule is swapped, on the window probabilities already saved by v6r1 (`scripts/replay_fever_nli_anchored.py`, output in `artifacts/answer_repair/v7_design/`):
 
-| 批次 | n | 初始正确 | v6 最终 | v7 最终 | v6 修复/误修 | v7 修复/误修 |
+| Batch | n | Initially correct | v6 final | v7 final | v6 repaired/harmful | v7 repaired/harmful |
 |---|---:|---:|---:|---:|---:|---:|
-| FEVER 审核后 14 条 | 14 | 4 | 7 | 10 | 3/0 | 6/0 |
-| FEVER 原 dev50 | 50 | 45 | 44 | 46 | 1/2 | 1/0 |
+| FEVER 14 post-review items | 14 | 4 | 7 | 10 | 3/0 | 6/0 |
+| FEVER original dev50 | 50 | 45 | 44 | 46 | 1/2 | 1/0 |
 
-新增的 3 个修复是 Eva Green、Alan Shepard、Babur 三条 conflict 被解开；消除的 2 个误修是 Men in Black II 与 Henry Cavill。这个规则是看着这些样本设计的，所以上述数字只说明规则按设计工作，不能当作效果证据；效果要看下面的 held-out。NQ 的新策略需要真实生成，没有离线回放。
+The 3 new repairs are the three conflicts of Eva Green, Alan Shepard and Babur being resolved; the 2 eliminated harmful repairs are Men in Black II and Henry Cavill. This rule was designed while looking at these samples, so the numbers above only show that the rule works as designed and cannot be taken as evidence of effect; the effect must be judged on the held-out below. The new NQ policy requires real generation and has no offline replay.
 
-## 固定数据与运行顺序
+## Fixed data and run order
 
-实验包由 `scripts/prepare_reviewed_answer_repair.py --experiment v7` 生成，manifest 为 `configs/splits/answer_repair_reviewed_v7.json`。
+The experiment bundle is generated by `scripts/prepare_reviewed_answer_repair.py --experiment v7`, with manifest `configs/splits/answer_repair_reviewed_v7.json`.
 
-1. `reviewed`：v5/v6 的 28 条审核后训练开发样本（FEVER 14，NQ 14），与 v6r1 成对比较。
-2. `dev50`：v1 的固定 dev50 × 2，观察正确答案误修，与 v6r1 成对比较。
-3. `heldout`：E 从未看过的全部共享训练样本（Diagnosis v1/v2 训练交集 − dev50 − 37 条审核包）。FEVER 267 条，NQ 146 条。选样不读标签、正确性或参考答案。**只运行一次，不论结果如何都如实报告，不在它上面调任何阈值或提示词。**
+1. `reviewed`: the 28 post-review training development samples from v5/v6 (FEVER 14, NQ 14), compared pairwise with v6r1.
+2. `dev50`: v1's fixed dev50 × 2, to observe harmful repairs of correct answers, compared pairwise with v6r1.
+3. `heldout`: all shared training samples E has never seen (Diagnosis v1/v2 training intersection − dev50 − the 37-item review bundle). FEVER 267, NQ 146. Sample selection does not read labels, correctness or reference answers. **Run only once, report honestly regardless of the outcome, and do not tune any threshold or prompt on it.**
 
-第 3 批的离线标签构成（只在这里说明，脚本不读）：FEVER 232 条 correct + 35 条 insufficiency，没有 utilisation 标注；NQ 126 条 correct、13 条 insufficiency、7 条 accessibility，也没有 utilisation 标注，但其中 75 条冻结 EM 为错。所以这一批主要回答“E 在误路由（本来就对）的样本上会不会改错”和“EM 判错但语义正确的答案会不会被改坏”，不能回答修复率。真正含 utilisation 标注、E 又没碰过的 NQ 样本在 Diagnosis v2 训练集的 3216 扩展池里（1587 条，含 120 条 utilisation）。
-4. `heldout3216`（仅 NQ，独立实验包）：从上述 1587 条按离线标签分层取 300 条：utilisation 全部 120、accessibility 全部 35、correct 100、insufficiency 45（seed 42 哈希排序，`configs/splits/answer_repair_nq_heldout_3216_v1.json`）。gold 短答案取自 Diagnosis 负责人提供的本地工作簿 `NQ_C1_3216_合并全量.xlsx`（SHA-256 `a82961a6…`，不入库）的 `gold_answer` 列，导出为 `data/annotations/gold/nq_heldout_3216_v1_gold.jsonl`（入库）；工作簿的 question、c1_prediction 与上游入库导出 300/300 一致，`em_reference` 与重算 EM 300/300 一致。冻结 EM 初始正确 63 / 错误 237。实验包 `artifacts/answer_repair/v7_heldout3216/answer_repair_v7_heldout3216_gpu.tar.gz`（SHA-256 `6f27757935128f3e04e2881e1fb832885b10d45ef55316fa425b889950651bde`），notebook `notebooks/answer_repair_colab_v7_heldout3216.ipynb` / `answer_repair_kaggle_v7_heldout3216.ipynb`。**同样只跑一次**，结果按四个层分别报告；这是按标签分层的 held-out，不代表部署分布，修复率只在 utilisation 层内解释。
+The offline label composition of batch 3 (described only here; the script does not read it): FEVER 232 correct + 35 insufficiency, no utilisation labels; NQ 126 correct, 13 insufficiency, 7 accessibility, also no utilisation labels, but 75 of them are wrong under frozen EM. So this batch mainly answers "will E break samples that were misrouted (already correct)" and "will answers that EM judges wrong but are semantically correct be broken", and cannot answer the repair rate. NQ samples that truly carry utilisation labels and that E has not touched are in the 3216 extension pool of the Diagnosis v2 training set (1587 items, including 120 utilisation).
+4. `heldout3216` (NQ only, separate experiment bundle): 300 items stratified by offline labels from the 1587 above: all 120 utilisation, all 35 accessibility, 100 correct, 45 insufficiency (seed 42 hash ordering, `configs/splits/answer_repair_nq_heldout_3216_v1.json`). Gold short answers are taken from the `gold_answer` column of the local workbook `NQ_C1_3216_合并全量.xlsx` provided by the Diagnosis owner (SHA-256 `a82961a6…`, not committed), exported as `data/annotations/gold/nq_heldout_3216_v1_gold.jsonl` (committed); the workbook's question and c1_prediction agree 300/300 with the upstream committed export, and `em_reference` agrees 300/300 with the recomputed EM. Frozen EM: 63 initially correct / 237 wrong. Experiment bundle `artifacts/answer_repair/v7_heldout3216/answer_repair_v7_heldout3216_gpu.tar.gz` (SHA-256 `6f27757935128f3e04e2881e1fb832885b10d45ef55316fa425b889950651bde`), notebook `notebooks/answer_repair_colab_v7_heldout3216.ipynb` / `answer_repair_kaggle_v7_heldout3216.ipynb`. **Likewise run only once**; results are reported separately for the four strata; this is a label-stratified held-out that does not represent the deployment distribution, and the repair rate is interpreted only within the utilisation stratum.
 
-成本按 v6 协议分开记：Qwen 调用/生成秒数/输入 token 只计 NQ；NLI forward 批次/分类秒数/输入 token 只计 FEVER。
+Costs are recorded separately per the v6 protocol: Qwen calls/generation seconds/input tokens count only NQ; NLI forward batches/classification seconds/input tokens count only FEVER.
 
-## 报告口径
+## Reporting measures
 
-- 冻结 FEVER accuracy 与 NQ EM/F1 照旧是主表，分批报告，重叠 ID 不合并。
-- 成对语义审核沿用 v6r1 的四项（初始/最终正确性、初始/最终支持性）和 `docs/ANSWER_REPAIR_CONFIRMATION_20261014.md` 里统一的完整性口径；代理建议不等于人工真值。
-- 必须同时报告：`unanchored_candidate`、`invalid_output`、`nli_uncertain` 的数量和它们里面原本错误的比例；被锚点排除的高分窗口数；有/无 NQ 锚点规则的回放对比。
-- 任一批出现净负收益或 held-out 误修率高于 dev50，都照实写进结果，不得回头改规则再跑同一批。
+- Frozen FEVER accuracy and NQ EM/F1 remain the main tables as before, reported per batch, without merging overlapping IDs.
+- Paired semantic review follows the four items of v6r1 (initial/final correctness, initial/final support) and the unified completeness measure in `docs/ANSWER_REPAIR_CONFIRMATION_20261014.md`; assistant suggestions are not human ground truth.
+- Must be reported together: the counts of `unanchored_candidate`, `invalid_output` and `nli_uncertain` and the proportion of originally wrong items among them; the number of high-scoring windows excluded by anchors; the replay comparison with/without the NQ anchor rule.
+- If any batch shows a net negative gain or a held-out harmful-repair rate higher than dev50, write it into the results as is; the rules must not be changed afterwards and the same batch rerun.
 
-## 代码
+## Code
 
-| 文件 | 内容 |
+| File | Contents |
 |---|---|
-| `src/compensation/anchors.py` | 主体实体块、内容词锚点、覆盖率；无模型 |
-| `src/compensation/nli_repair.py` | `repair_from_nli_trace_anchored`；v6 函数原样保留供历史回放 |
-| `src/compensation/short_answer_repair.py` | 三行格式、空白/引号归一化定位、短答案校验 |
-| `scripts/replay_fever_nli_anchored.py` | 用 v6r1 轨迹离线回放 v7 FEVER 规则 |
-| `scripts/run_answer_repair.py` | 注册两个策略；`fever_nli_anchored` 续跑按 v7 规则校验 |
-| `tests/test_answer_repair_v7.py` | 锚点、决策、定位、解析、续跑、adapter 边界 |
+| `src/compensation/anchors.py` | Subject-entity block, content-word anchors, coverage; no model |
+| `src/compensation/nli_repair.py` | `repair_from_nli_trace_anchored`; v6 function kept as is for historical replay |
+| `src/compensation/short_answer_repair.py` | Three-line format, whitespace/quote-normalized localization, short-answer validation |
+| `scripts/replay_fever_nli_anchored.py` | Offline replay of the v7 FEVER rule using v6r1 traces |
+| `scripts/run_answer_repair.py` | Registers the two policies; `fever_nli_anchored` resumption is validated by v7 rules |
+| `tests/test_answer_repair_v7.py` | Anchors, decisions, localization, parsing, resumption, adapter boundaries |
 
 ```sh
 python3.11 -m unittest discover -s tests
 python3.11 scripts/prepare_reviewed_answer_repair.py --experiment v7 --manifest configs/splits/answer_repair_reviewed_v7.json --out-dir artifacts/answer_repair/v7_reviewed --bundle-name answer_repair_v7_reviewed_gpu
 python3.11 scripts/build_reviewed_answer_repair_notebook.py --experiment v7 --bundle artifacts/answer_repair/v7_reviewed/answer_repair_v7_reviewed_gpu.tar.gz --out notebooks/answer_repair_colab_v7_reviewed.ipynb
 python3.11 scripts/build_kaggle_answer_repair_notebook.py --notebook notebooks/answer_repair_colab_v7_reviewed.ipynb --bundle artifacts/answer_repair/v7_reviewed/answer_repair_v7_reviewed_gpu.tar.gz --out notebooks/answer_repair_kaggle_v7_reviewed.ipynb
-# 第 4 批（需要本地工作簿）
+# Batch 4 (requires the local workbook)
 .venv/bin/python scripts/build_nq_heldout_from_diagnosis_inputs.py --workbook "data/annotations/NQ_C1_3216_合并全量.xlsx"
 python3.11 scripts/prepare_nq_heldout3216_bundle.py --c1 artifacts/answer_repair/v7_reviewed/inputs_extra/nq_heldout3216_c1.jsonl
 python3.11 scripts/build_kaggle_answer_repair_notebook.py --notebook notebooks/answer_repair_colab_v7_heldout3216.ipynb --bundle artifacts/answer_repair/v7_heldout3216/answer_repair_v7_heldout3216_gpu.tar.gz --out notebooks/answer_repair_kaggle_v7_heldout3216.ipynb

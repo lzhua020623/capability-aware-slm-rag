@@ -1,11 +1,11 @@
-# 新增第55次请求超时 · 2026-10-28
+# Timeout of the 55th New Request · 2026-10-28
 
-原2,000批次新增54条完整响应后，第55次请求发生`TimeoutError`，没有响应文件。原socket超时配置180秒；不能确认供应商是否已完成或计费。当前端点的无密钥GET返回401，只说明检查时可达。
+After the original 2,000 batch added 54 new complete responses, the 55th request hit a `TimeoutError`, with no response file. The original socket timeout was configured at 180 seconds; it cannot be confirmed whether the provider completed or billed it. A keyless GET to the current endpoint returned 401, which only shows it was reachable at check time.
 
-原500＋54共554完整候选；54条已独立验证版本、原始字节、用量、契约和费用。已知累计单价估算US$3.784529，加未知请求最大预留US$0.13211，继续按US$3.916639计，不退款、不重发、不补采。
+Original 500 + 54 gives 554 complete candidates in total; the 54 have independently verified version, raw bytes, usage, contract, and cost. The known cumulative unit-price estimate is US$3.784529, plus the maximum reservation of US$0.13211 for the unknown request, still counted as US$3.916639; no refund, no resend, no re-collection.
 
-- `original_attempts55.tar.gz`：原journal及54个响应，55个白名单成员，不含密钥或启动器。
-- `archive_manifest.json`：压缩包及每个成员SHA-256。
-- `timeout_audit.json`：完整性、费用与诊断局限。
+- `original_attempts55.tar.gz`: the original journal and 54 responses, 55 whitelisted members, no key or launcher.
+- `archive_manifest.json`: SHA-256 of the archive and of each member.
+- `timeout_audit.json`: integrity, cost, and diagnostic limitations.
 
-恢复不是绕过失败保护：本次对一个已冻结失败进行独立审计，保留全部费用，明确将该ID标记为无响应、不可入训。原账本保持字节不变，后续写新目录；新未知失败仍停止。用户随后授权[累计5,000／$40](../e_teacher_expansion_5000_v1/README.md)，恢复从新增ordinal56开始。
+Recovery is not a bypass of the failure protection: this time one frozen failure was independently audited, all costs were kept, and that ID was explicitly marked as unresponsive and not eligible for training. The original ledger stays byte-identical, and later writes go to a new directory; new unknown failures still stop. The user subsequently authorized [cumulative 5,000/$40](../e_teacher_expansion_5000_v1/README.md), and recovery starts from new ordinal56.

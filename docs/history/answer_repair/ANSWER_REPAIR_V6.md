@@ -1,31 +1,31 @@
-# E v6：一次抽取与独立 MNLI 判定
+# E v6: single-pass extraction and independent MNLI verdict
 
-本轮是 v5 负结果后的固定开发实验。保留旧代码策略与冻结实验包，新增两个显式可选的运行策略。人工结果验收按用户要求暂缓，自动检查不代替人工结论。v6r1 仅补充 JSON 环境字段的断点续跑兼容、成本元数据及回放工具；模型、提示词、阈值、名单和策略均不改。原 v6 归档保留，但未确认真实 GPU 执行。
+This round is a fixed development experiment after the negative v5 results. The old code strategies and frozen experiment packages are kept, and two explicitly optional run strategies are added. Human acceptance of results is deferred at the user's request; automatic checks do not replace human conclusions. v6r1 only adds resume compatibility for JSON environment fields, cost metadata, and replay tools; the model, prompts, thresholds, list, and strategies are unchanged. The original v6 archive is kept, but its real GPU execution was not confirmed.
 
-## 预先固定的策略
+## Pre-fixed strategies
 
-- `extractive_reanswer`，仅 NQ：同一 Qwen2.5-7B-Instruct / NF4 / FP16 / greedy / seed 42，最多一次 384-token 生成。只输出 `spans`；程序把通过校验的原文字符片段作为答案，多个片段用 ` ; ` 连接。最多 3 个片段，每个最多 80 词，总共最多 120 词。保留词语、否定和标点，允许空格与大小写的格式差异。拒绝不存在、重叠、重复和超长片段。引用可追溯不等于语义正确，选择了错误事件仍可能通过。
-- `fever_nli`，仅 FEVER：独立 `microsoft/deberta-large-mnli`，revision `7296194b9009373def4f7c5dad292651e4b5cf4e`，FP32、eval、batch 4、阈值固定 0.90。claim 始终作为完整 hypothesis，每段 C1 evidence 是 premise，超长证据以 64 token 重叠分窗，保留所有 token，不截断 claim。任一窗口 entailment ≥ 0.90 且无 contradiction ≥ 0.90，输出 SUPPORTS；反向则 REFUTES；双向高分冲突或均无高分则保留初始答案。0.90 是未经 FEVER 校准的分类器分数阈值，不代表 90% 事实正确率；跨窗口、多跳推断和同名实体仍可能失败。窗口原文、位置、三类概率、模型版本与成本全部保存。
+- `extractive_reanswer`, NQ only: the same Qwen2.5-7B-Instruct / NF4 / FP16 / greedy / seed 42, at most one 384-token generation. Outputs only `spans`; the program uses the validated verbatim character spans as the answer, joining multiple spans with ` ; `. At most 3 spans, each at most 80 words, at most 120 words in total. Words, negations, and punctuation are preserved; formatting differences in whitespace and case are allowed. Non-existent, overlapping, duplicate, and over-long spans are rejected. Being traceable to a citation does not mean being semantically correct; choosing the wrong event can still pass.
+- `fever_nli`, FEVER only: independent `microsoft/deberta-large-mnli`, revision `7296194b9009373def4f7c5dad292651e4b5cf4e`, FP32, eval, batch 4, threshold fixed at 0.90. The claim is always the full hypothesis and each C1 evidence passage is a premise; over-long evidence is split into windows overlapping by 64 tokens, keeping all tokens, without truncating the claim. If any window has entailment ≥ 0.90 and none has contradiction ≥ 0.90, output SUPPORTS; the reverse gives REFUTES; a bidirectional high-score conflict or no high score in either direction keeps the initial answer. 0.90 is a classifier score threshold not calibrated on FEVER and does not represent 90% factual accuracy; cross-window, multi-hop inference, and same-name entities can still fail. Window source text, positions, the three class probabilities, the model version, and cost are all saved.
 
-NLI 的官方模型卡注明 MNLI fine-tuning；选它是为了避免显式 FEVER 监督模型引入额外任务标签。官方资料不能证明预训练语料与本项目完全无重叠，不能宣称绝对无污染。
+The official NLI model card states MNLI fine-tuning; it was chosen to avoid a model with explicit FEVER supervision introducing extra task labels. The official materials cannot prove that the pretraining corpus has no overlap at all with this project, so absolute freedom from contamination cannot be claimed.
 
-来源：[固定版本模型卡](https://huggingface.co/microsoft/deberta-large-mnli/blob/7296194b9009373def4f7c5dad292651e4b5cf4e/README.md)、[官方实现](https://github.com/microsoft/DeBERTa)、[标签映射](https://huggingface.co/microsoft/deberta-large-mnli/blob/7296194b9009373def4f7c5dad292651e4b5cf4e/config.json)。
+Sources: [pinned-version model card](https://huggingface.co/microsoft/deberta-large-mnli/blob/7296194b9009373def4f7c5dad292651e4b5cf4e/README.md), [official implementation](https://github.com/microsoft/DeBERTa), [label mapping](https://huggingface.co/microsoft/deberta-large-mnli/blob/7296194b9009373def4f7c5dad292651e4b5cf4e/config.json).
 
-NLI 是增加独立模型的实验，不是相同 SLM 预算的公平替代对照。`extra_calls/latency/input_tokens` 仅统计 Qwen；`verifier_calls/verifier_latency/verifier_input_tokens` 单独统计分类器 forward batch、批处理墙钟延迟（含分批编码、传输与前向，不含预先分窗）和未 padding 输入 token。模型下载/初始化时间不在逐条前向延迟中，完整运行日志保留。`--max-new-tokens 1` 是 NLI CLI 占位参数，无生成、不产生 token。
+NLI is an experiment that adds an independent model, not a fair replacement comparison under the same SLM budget. `extra_calls/latency/input_tokens` count only Qwen; `verifier_calls/verifier_latency/verifier_input_tokens` separately count classifier forward batches, batch wall-clock latency (including batched encoding, transfer, and forward, excluding the prior windowing), and unpadded input tokens. Model download/initialization time is not included in per-sample forward latency; full run logs are kept. `--max-new-tokens 1` is a placeholder argument for the NLI CLI; there is no generation and no tokens are produced.
 
-## 固定数据及停止条件
+## Fixed data and stopping conditions
 
-1. 重用 v5 的 28 条已审核训练开发样本：FEVER 14，NQ 14。来源、人工纳入理由及旧 EM 不一致项不变。
-2. 额外跑冻结旧 dev50：FEVER 50、NQ 50，观察正确样本误修。与第 1 批重叠 FEVER 1、NQ 4；不能把 128 条输出当成独立样本，也不能把重复样本的修复算两次。
-3. 本轮只运行这两个预先固定的策略；不根据结果反复修改阈值或追求小开发集的最高分。不触碰 Diagnosis validation/test。
-4. 自动结果归档、CPU 确定性回放、Controller 边界检查和交付文档完成后，工程工作可交接；人工语义验收与团队最终 held-out 验收单列 pending。不得用这一轮开发结果宣称总体修复有效。
+1. Reuse the 28 reviewed training development samples of v5: FEVER 14, NQ 14. Sources, human inclusion reasons, and old EM inconsistencies are unchanged.
+2. Additionally run the frozen old dev50: FEVER 50, NQ 50, to observe harmful repairs on correct samples. Overlap with batch 1 is FEVER 1, NQ 4; the 128 outputs cannot be treated as independent samples, and repairs of duplicate samples cannot be counted twice.
+3. This round runs only these two pre-fixed strategies; thresholds are not repeatedly modified based on results, nor is the top score on the small development set pursued. Diagnosis validation/test is not touched.
+4. Once automatic result archiving, CPU deterministic replay, Controller boundary checks, and delivery documentation are complete, the engineering work can be handed over; human semantic acceptance and the team's final held-out acceptance are listed separately as pending. This round's development results must not be used to claim overall repair effectiveness.
 
-## 代码及复现
+## Code and reproduction
 
-- `src/compensation/extractive_repair.py`：NQ 提示词和字符片段回填。
-- `src/compensation/nli_repair.py`：NLI 分窗、GPU 推断、冲突回退与离线回放。
-- `src/compensation/answer_repair.py`：统一入口；`controller_adapter.py` 接受相同策略，仍只执行上游 `generation_repair`。
-- `scripts/run_answer_repair.py`：预检、带版本指纹的断点续跑、原始输出和成本。
+- `src/compensation/extractive_repair.py`: NQ prompt and character-span backfilling.
+- `src/compensation/nli_repair.py`: NLI windowing, GPU inference, conflict fallback, and offline replay.
+- `src/compensation/answer_repair.py`: unified entry point; `controller_adapter.py` accepts the same strategies and still executes only upstream `generation_repair`.
+- `scripts/run_answer_repair.py`: pre-checks, resume with version fingerprints, raw outputs, and cost.
 
 ```sh
 python3.11 -m unittest discover -s tests
@@ -33,4 +33,4 @@ python3.11 scripts/prepare_reviewed_answer_repair.py --experiment v6 --manifest 
 python3.11 scripts/build_reviewed_answer_repair_notebook.py --experiment v6 --bundle artifacts/answer_repair/v6r1_reviewed/answer_repair_v6r1_reviewed_gpu.tar.gz --out notebooks/history/answer_repair/answer_repair_colab_v6r1_reviewed.ipynb
 ```
 
-运行状态与结论见 `ANSWER_REPAIR_RESULTS_20261014.md`；归档包中的本文是运行前协议，不随之后结果重写。
+See `ANSWER_REPAIR_RESULTS_20261014.md` for run status and conclusions; this document inside the archive is the pre-run protocol and is not rewritten with later results.

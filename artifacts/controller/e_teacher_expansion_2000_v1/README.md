@@ -1,23 +1,23 @@
-# E 2,000候选采集封存 · 2026-10-28
+# E 2,000-Candidate Collection Seal · 2026-10-28
 
-最新用户指令：**先2000条 有效再扩量**。本轮是累计2,000候选（原500复用＋最多1,500新增），累计单价估算停止上限US$20；此前5,000／US$40选择已被覆盖。按原500条usage外推累计约US$13.71，其中新增约US$10.28；未核实Azure实际账单。新增付费调用0，训练0，学生效果尚未测量。
+Latest user instruction: **先2000条 有效再扩量**. This round is a cumulative 2,000 candidates (original 500 reused + at most 1,500 new), with a cumulative unit-price-estimate stop cap of US$20; the earlier 5,000/US$40 choice has been superseded. Extrapolating from the usage of the original 500, the cumulative total is about US$13.71, of which the new part is about US$10.28; the actual Azure bill has not been verified. New paid calls 0, training 0, student effect not yet measured.
 
-- `budget_acceptance.json`：最新原话、覆盖关系、预算和不自动扩量的边界。
-- `sample_manifest.json`：原500 ID＋本轮1,500 ID，四类AI元数据各375，属于Train；不根据gold/EM抽样。
-- `execution_receipt.json`：输入文件、原始15分片、源码和协议指纹。执行前全部匹配；原C1/Top-5不变。
-- `teacher_tasks.jsonl.gz`：本轮1,500个运行时任务的无损压缩归档。只有问题、原答、Top-5及固定提示/输出schema，不含离线参考字段。
-- `offline_references.jsonl.gz`：物理隔离的离线Train参考，不进入教师请求；不是监督目标。
-- `verification.json`：逐条与原C1分片独立匹配、用途/交叉检查、压缩往返、限流包大小及归档指纹。没有调用Azure。
-- `full_tests.log`、`self_check.json`：完整回归和收工检查（测试完成后写入）。
+- `budget_acceptance.json`: the latest verbatim instruction, the supersession relationship, the budget, and the boundary of no automatic scale-up.
+- `sample_manifest.json`: original 500 IDs + this round's 1,500 IDs, 375 for each of the four AI metadata categories, belonging to Train; not sampled based on gold/EM.
+- `execution_receipt.json`: input files, the original 15 shards, source code, and protocol fingerprints. All matched before execution; the original C1/Top-5 are unchanged.
+- `teacher_tasks.jsonl.gz`: lossless compressed archive of this round's 1,500 runtime tasks. Contains only the questions, original answers, Top-5, and the fixed prompt/output schema; no offline reference fields.
+- `offline_references.jsonl.gz`: physically isolated offline Train references, which do not enter teacher requests; not supervision targets.
+- `verification.json`: per-record independent matching against the original C1 shards, purpose/cross checks, compression round-trip, rate-limit package size, and archive fingerprints. Azure was not called.
+- `full_tests.log`, `self_check.json`: full regression and end-of-work check (written after the tests complete).
 
-恢复输入时只把`teacher_tasks.jsonl.gz`解压到配置的`inputs_directory/teacher_tasks.jsonl`；在线预检不打开参考文件。离线审核另将`offline_references.jsonl.gz`解压到同目录的参考文件。先比对`verification.json`中的压缩/解压SHA-256，再运行：
+When restoring inputs, only decompress `teacher_tasks.jsonl.gz` to the configured `inputs_directory/teacher_tasks.jsonl`; the online pre-check does not open reference files. Offline review separately decompresses `offline_references.jsonl.gz` to the reference file in the same directory. First compare the compressed/decompressed SHA-256 in `verification.json`, then run:
 
 ```bash
 python scripts/run_e_teacher_expansion.py
 ```
 
-实际采集需显式`--execute`，密钥由用户在本机终端隐藏输入。客户端使用独立进程锁和追加式journal；原500不重发。发送前完整预留，按固定单价估算结算；未知费用或版本变化停止且不自动重试。已付费但目标契约不合格则隔离、继续下个登记ID，不补采。最多新增1,500次，不能自动转为5,000条。
+Actual collection requires an explicit `--execute`; the key is entered hidden by the user in a local terminal. The client uses an independent process lock and an append-only journal; the original 500 are not resent. A full reservation is made before sending, and settlement uses the fixed unit-price estimate; an unknown cost or version change stops without automatic retry. If paid but the target contract is not met, the record is quarantined and the next registered ID continues, with no re-collection. At most 1,500 new calls; cannot automatically switch to 5,000.
 
-2,000候选不等于2,000条合格SFT。原100项按聊天批量放行候选采集，不生成不存在的网页逐条判断或100%语义准确率；原试产审核快照不改写。两项代理争议保留临时入训隔离，目标还需来源、384-token长度及语义筛选。只训练E的Qwen adapter，C1不改。是否继续扩量以训练后学生Development500的配对净收益和误修审核为依据；Selection500只给最终候选一次确认，团队Test11,114条保持封存。
+2,000 candidates do not equal 2,000 qualified SFT examples. The original 100 items were released for candidate collection by batch chat approval; this does not create nonexistent per-item web judgments or a 100% semantic accuracy, and the original pilot-production review snapshot is not rewritten. The two assistant disputes keep their temporary training quarantine; targets still need source, 384-token length, and semantic filtering. Only E's Qwen adapter is trained; C1 is unchanged. Whether to continue scaling up depends on the paired net gain on student Development500 after training and on the harmful-repair review; Selection500 gives only one confirmation for the final candidate, and the team Test11,114 stays sealed.
 
-相关实现和用法见[扩量与费用说明](../../../docs/E_TEACHER_EXPANSION_20261028.md)。历史5,000个ID库存仅作离线准备快照，不构成本轮API授权；原500结果和保守账本不覆盖。
+For the related implementation and usage, see the [expansion and cost notes](../../../docs/E_TEACHER_EXPANSION_20261028.md). The historical 5,000-ID inventory is only an offline preparation snapshot and does not constitute API authorization for this round; the original 500 results and the conservative ledger are not overwritten.

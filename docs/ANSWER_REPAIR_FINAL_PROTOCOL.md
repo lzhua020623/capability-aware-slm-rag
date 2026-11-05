@@ -1,43 +1,43 @@
-# E 最终实验与审核收口协议
+# Closing protocol for E's final experiment and review
 
-2026-10-19 用户确认执行。r4 最后一次 smoke 已完成，因 N31／N48 回归条件失败，按预先规则选择 r3 作为最终冻结实验版本，不追加 r5。随后不再根据开发或未见结果改策略。工程完成、开发结果、未见结果与辅助／人工审核分别报告；r3 未自动晋升默认。
+The user confirmed execution on 2026-10-19. The final r4 smoke has completed; because the N31/N48 regression conditions failed, r3 was selected as the final frozen experiment version per the pre-set rule, and no r5 is added. After that, the strategy is no longer changed based on development or unseen results. Engineering completion, development results, unseen results and assisted/human review are reported separately; r3 was not automatically promoted to default.
 
-## 1. 最后一轮 smoke
+## 1. Final smoke round
 
-r4 只改核验提示，先 FACT 再六项判断，同步十行解析和停止契约；不改共享 SEMANTICS、最小修复提示、候选文法、连续来源定位、模型／revision、greedy／seed、384 token、三阶段或四组。沿用固定八条开发样本和 r3 工程门槛。完整组预先要求 N31 原检查 unsupported；N48 原检查 unsupported 且正确候选 supported；N12 原检查 supported 并保留原答。其他样本全部保存，EM/F1 不用于选择。全通过选 r4，否则保留 r3；不追加 r5。N31 下游候选引文失败仍照实记录。
+r4 changes only the verification prompt, FACT first and then six judgements, with the ten-line parsing and stop contract synchronised; it does not change the shared SEMANTICS, the minimal-repair prompt, the candidate grammar, contiguous source localisation, model/revision, greedy/seed, 384 tokens, the three stages or the four groups. It reuses the fixed eight development samples and the r3 engineering threshold. The full group requires in advance that for N31 the original check is unsupported; for N48 the original check is unsupported and the correct candidate is supported; for N12 the original check is supported and the original answer is kept. All other samples are saved, and EM/F1 are not used for selection. If all pass, select r4, otherwise keep r3; no r5 is added. The downstream candidate-citation failure of N31 is still recorded as is.
 
-## 2. 最终 75 条开发数字
+## 2. Final 75-item development numbers
 
-使用原 75 条，C1 复用现有记录，v7、最终 v8、去原检查、去候选检查四组新增生成。模型、证据、scorer、gold 和预算保持冻结。同批 v7 的 20→23 作为开发参照。记录 EM/F1、各阶段拒绝、改答、额外调用、tokens、时延。得到结果后停止修改，不宣称未见收益。
+Using the original 75 items, C1 reuses existing records, and four groups are newly generated: v7, final v8, without original check, and without candidate check. Model, evidence, scorer, gold and budget remain frozen. The same-batch v7 20→23 serves as the development reference. Record EM/F1, rejections at each stage, changed answers, extra calls, tokens and latency. Once results are obtained, stop modifying, and do not claim unseen gains.
 
-## 3. 一次性 E 未见分层挑战集
+## 3. One-off unseen stratified challenge set for E
 
-从确认未用于调参的内部 calibration 自动抽 100 条 EM=0 且参考 passage 命中候选、25 条 EM=1 对照，沿用首批筛查与固定 ID 哈希排序方式。不逐条预览或人工挑选，先固定 seed、ID、来源哈希、用途与已见排除集合。自动筛查会使用离线 gold，运行时提示不得使用 gold／EM／标签。候选不能直接视为 utilisation；按层分别报告，不外推整个 NQ 自然分布。
+From the internal calibration confirmed as not used for tuning, automatically draw 100 items with EM=0 whose reference passage hits the candidates, plus 25 EM=1 controls, reusing the first-batch screening and fixed ID hash ordering. No item-by-item preview or manual selection; first fix the seed, IDs, source hashes, purpose and the seen exclusion set. Automatic screening uses offline gold; runtime prompts must not use gold/EM/labels. Candidates cannot be directly regarded as utilisation; report per stratum, and do not extrapolate to the natural distribution of all of NQ.
 
-C1 复用已有冻结预测，新增运行 v7 和最终 v8，一次性如实报告。基础设施故障可在同一指纹／配置下续跑，不得看结果后换策略、换样本或追加调参。校准样本需登记为已使用并与 Diagnosis 训练隔离；团队共同 reserved_evaluation 的用途与端到端 ID 还需协调，当前不能称整个系统独立测试。
+C1 reuses the existing frozen predictions; v7 and final v8 are newly run and reported once, truthfully. Infrastructure failures may be resumed under the same fingerprint/configuration; after seeing results, it is not allowed to switch strategy, switch samples or add tuning. Calibration samples must be registered as used and isolated from Diagnosis training; the purpose and end-to-end IDs of the team's shared reserved_evaluation still need coordination, and the whole system cannot currently be called independently tested.
 
-`scripts/prepare_answer_repair_unseen.py` 必须读取已选定的最终 75 条冻结包及其指纹，才会生成这 125 条输入。它重验所有来源分片、复算原始划分、沿用原哈希排序，并排除已见 ID 所在的规范化问题组；额外已见 ID 可通过 `--additional-exposed-ids` 登记。控制台仅输出数量和指纹，不展示题目、答案或证据。最终版本选定前只作工具准备，不提前抽取真实样本。
+`scripts/prepare_answer_repair_unseen.py` must read the selected final 75-item frozen bundle and its fingerprint before it generates these 125 inputs. It re-verifies all source shards, recomputes the original split, reuses the original hash ordering, and excludes the normalised question groups containing seen IDs; additional seen IDs can be registered via `--additional-exposed-ids`. The console outputs only counts and fingerprints, without showing questions, answers or evidence. Before the final version is selected, it is only tool preparation, and real samples are not drawn in advance.
 
-2026-10-20 状态：r4 真实回归未通过后，已按原规则选定 r3，并冻结最终 75 条包 `b5be903d…`。随后自动冻结了上述 125 条输入，来源指纹、固定 ID 与 E 消耗登记见 `artifacts/answer_repair/unseen_nq125/manifest.json`；没有逐条预览或人工筛选。两项 Kaggle 任务已经提交：75 条版本 `360070600`，125 条版本 `360075807`。尚未收集完成结果，不能把任务提交视作有效推理完成。团队范围的训练隔离仍待协调。
+Status on 2026-10-20: after r4 failed the real regression, r3 was selected per the original rule, and the final 75-item bundle `b5be903d…` was frozen. The above 125 inputs were then frozen automatically; source fingerprints, fixed IDs and the E consumption registration are in `artifacts/answer_repair/unseen_nq125/manifest.json`; there was no item-by-item preview or manual screening. Two Kaggle jobs have been submitted: the 75-item version `360070600` and the 125-item version `360075807`. Completed results have not yet been collected, and job submission cannot be regarded as valid completed inference. Team-wide training isolation is still pending coordination.
 
-## 4. 审核收口
+## 4. Closing the review
 
-新 75 条与未见批审核 v7 和最终 v8 全部改答的并集，相同 C1 和完全相同最终答案可复用核对，策略不同答案分别审核。代理先辅助，用户按编号确认；歧义保留未决，不删除样本或改 gold。只审改答可报告修复数、误修数和该批净改变量，不能据此计算完整语义准确率或以所有原错答为分母的修复率。75 条已有初始人审标签，可单独使用其对应分母。
+The new 75 items and the unseen batch review the union of all changed answers of v7 and final v8; the same C1 and identical final answers can be checked once and reused, while answers differing by strategy are reviewed separately. The assistant assists first, and the user confirms by number; ambiguities remain unresolved, without deleting samples or changing gold. Reviewing only changed answers allows reporting the number fixed, the number of harmful repairs and the batch's net change, but not computing complete semantic accuracy or a repair rate with all originally wrong answers as the denominator. The 75 items already have initial human review labels, and their corresponding denominator can be used separately.
 
-历史 v7 held-out 采用固定抽样规则审核改答，记录分层、seed、抽审数量和覆盖。841 是历史预测记录数，不能写成全量人工审核完成。辅助审核不是独立盲标。
+Historical v7 held-out reviews changed answers using a fixed sampling rule, recording strata, seed, number sampled and coverage. 841 is the number of historical prediction records and cannot be written as full human review completed. Assisted review is not independent blind labelling.
 
-历史抽审规则已固定于 `configs/answer_repair_v7_historical_review_v1.json`：只按改答筛选、seed 42、按 cohort／dataset／strategy 分层，每层取 ID 哈希排序前 20 条（不足则全取），不用 EM 或正确性挑选。77 条历史 held-out 改答中选出 45 条：FEVER 5/5、旧 NQ 20/20、第 4 批 NQ 20/52；2026-10-20 已完成全部代理辅助意见，人工确认仍为 0/45。清单、依据、分层统计及只读网页见 `artifacts/answer_repair/v7_historical_review_v1/`。分层覆盖分别报告，不把这 45 条当作全部 77 条的已知修复率。
+The historical sampling rule is fixed in `configs/answer_repair_v7_historical_review_v1.json`: filter only by changed answer, seed 42, stratify by cohort/dataset/strategy, take the first 20 per stratum by ID hash ordering (take all if fewer), without using EM or correctness for selection. 45 of the 77 historical held-out changed answers were selected: FEVER 5/5, old NQ 20/20, batch 4 NQ 20/52; on 2026-10-20 all assistant assisted opinions were completed, and human confirmation is still 0/45. The list, rationale, stratum statistics and read-only web page are in `artifacts/answer_repair/v7_historical_review_v1/`. Stratum coverage is reported separately, and these 45 are not treated as the known repair rate of all 77.
 
-## 5. 报告与团队
+## 5. Report and team
 
-以修复、误修、保守核验的修复率及成本代价、适用触发条件组织 E 章节，结论服从最终实际结果。交接首段声明最终冻结实验版本与默认策略状态。与 Zheng 确认端到端执行人、机器、共同测试 ID 与数据用途；E 的 --all 组件实验不能代替 Diagnosis→Controller→E 端到端结果。
+Organise the E chapter around fixes, harmful repairs, the repair rate of conservative verification together with its cost, and applicable trigger conditions; conclusions follow the final actual results. The first paragraph of the handoff states the final frozen experiment version and the default strategy status. Confirm with Zheng the end-to-end executor, machine, shared test IDs and data use; E's --all component experiment cannot replace Diagnosis→Controller→E end-to-end results.
 
-## 结果接收与工程核对
+## Result intake and engineering check
 
-2026-10-21 已收取两项完整导出，300／250条预测均通过冻结回放与汇总复算，未改策略或重跑。本轮GPU实验与代理辅助审核已完成；最终主策略改答42条和历史抽审45条的人工确认仍待完成。当前数字及解释见 [最终报告](ANSWER_REPAIR_RESULTS_20261021_FINAL.md)。
+On 2026-10-21 both complete exports were received; the 300/250 predictions all passed frozen replay and summary recomputation, without strategy changes or reruns. This round's GPU experiments and the assistant's assisted review are complete; human confirmation of the 42 final main-strategy changed answers and the 45 historical sampled items is still pending. Current numbers and interpretation are in the [final report](ANSWER_REPAIR_RESULTS_20261021_FINAL.md).
 
-`scripts/collect_answer_repair_final.py` 接收对应 Kaggle 输出 ZIP（`--run dev75` 或 `--run challenge125`），校验 CRC、冻结包／模型指纹、执行环境及原始测试通过记录，然后使用该实验的冻结代码回放全部 300／250 条结果，并重算汇总。`--python` 指向与 Kaggle 相同的 Python 主／次版本，避免跨版本浮点求和差异；原始 ZIP 和导出文件保持原样。
+`scripts/collect_answer_repair_final.py` receives the corresponding Kaggle output ZIP (`--run dev75` or `--run challenge125`), verifies the CRC, frozen bundle/model fingerprints, execution environment and the original test-pass records, then uses that experiment's frozen code to replay all 300/250 results and recompute the summary. `--python` points to the same Python major/minor version as Kaggle, avoiding cross-version floating-point summation differences; the original ZIP and exported files are kept as is.
 
-只有 v7 和最终 r3 的改答进入 `review/primary_changed_pairs.jsonl`，消融记录保留在完整审计中。所有最终语义判断及人工字段保持 pending，不能用工程回放替代人工审核。工具已用 250 条独立标明的合成记录完成集成检验；默认路径拒收合成结果，显式允许时也只能写到临时目录，不能作为模型实验结果入库。
+Only the changed answers of v7 and final r3 enter `review/primary_changed_pairs.jsonl`; ablation records are kept in the full audit. All final semantic judgements and human fields remain pending, and engineering replay cannot replace human review. The tool has completed integration testing with 250 independently labelled synthetic records; the default path rejects synthetic results, and even when explicitly allowed they can only be written to a temporary directory and cannot be committed as model experiment results.
 
-2026-10-21 人工第一批更新：F1–F42已过目，正确性定案32条、未决10条；偏好不代替二元判错，接受待定仍保留null。确认另存 `data/annotations/human/answer_repair_final_v1_batch01_20261021.*`，历史H45未被自动确认。见 [人工报告](ANSWER_REPAIR_FINAL_HUMAN_REVIEW_20261021.md)。
+Human first-batch update on 2026-10-21: F1–F42 have been reviewed, with correctness finalized for 32 and 10 unresolved; preferences do not substitute for binary wrong judgements, and accepted pending items keep null. Confirmations are stored separately in `data/annotations/human/answer_repair_final_v1_batch01_20261021.*`, and historical H45 was not automatically confirmed. See the [human report](ANSWER_REPAIR_FINAL_HUMAN_REVIEW_20261021.md).

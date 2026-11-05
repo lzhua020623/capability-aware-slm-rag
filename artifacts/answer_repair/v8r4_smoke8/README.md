@@ -1,12 +1,12 @@
-# 最后一轮 v8r4 FACT 核验 smoke
+# Final round v8r4 FACT verification smoke
 
-只改核验提示及其十行契约，不改最小修复、候选来源检查、模型或 384 token 预算。独立包 SHA-256：`d13880c5e114b5f8379f931103af249e1f10b4975de98c9a5b74a9c161900e11`。
+Only the verification prompt and its ten-line contract are changed; minimal repair, candidate source checks, model and the 384 token budget are not changed. Independent package SHA-256: `d13880c5e114b5f8379f931103af249e1f10b4975de98c9a5b74a9c161900e11`.
 
-- 158 项本地检查、118 项冻结便携检查通过；103 个负载文件逐个校验，Notebook 编译通过。
-- 32 条模拟流程完成冻结回放；它们不是模型实验结果，不入研究结果。
-- 固定原 8 条，四组 32 条真实输出，上限 64 次生成；实际状态见 `cloud_status.json`。
-- 沿用 r3 工程门槛，追加 N31/N48/N12 三项完整流程核验回归；EM/F1 不选版本。
-- 全部通过选 r4，否则保留 r3；不在这八条上追加 r5。N31 后续引用失败仍记录，不强行放宽来源约束。
-- `manifest.json`、`preparation.json` 是运行前快照，不能事后改成通过状态。
+- 158 local checks and 118 frozen portable checks passed; 103 payload files verified one by one, and the Notebook compiles.
+- 32 simulated pipeline records completed frozen replay; they are not model experiment results and are not included in research results.
+- Fixed original 8 items, 32 real outputs in four groups, upper limit 64 generations; for the actual status see `cloud_status.json`.
+- The r3 engineering threshold is reused, plus three full-pipeline verification regressions N31/N48/N12; EM/F1 do not select the version.
+- If all pass select r4, otherwise keep r3; no r5 is added on these eight items. The subsequent citation failure of N31 is still recorded, and the source constraint is not forcibly relaxed.
+- `manifest.json` and `preparation.json` are pre-run snapshots and cannot be changed to a passed status afterwards.
 
-方案见 [r4 说明](../../../docs/ANSWER_REPAIR_V8_R4.md)，收口计划见 [最终实验协议](../../../docs/ANSWER_REPAIR_FINAL_PROTOCOL.md)。新的输出和人工结论仍待实际运行及审核。
+For the plan see [r4 notes](../../../docs/ANSWER_REPAIR_V8_R4.md), and for the wrap-up plan see [final experiment protocol](../../../docs/ANSWER_REPAIR_FINAL_PROTOCOL.md). New outputs and human conclusions are still pending the actual run and review.

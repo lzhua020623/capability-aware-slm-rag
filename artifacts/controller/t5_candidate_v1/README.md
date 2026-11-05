@@ -1,36 +1,36 @@
-# T5.8 开发回放与唯一候选 · 2026-10-26
+# T5.8 development replay and the single candidate · 2026-10-26
 
-已按原网格冻结 **NQ threshold=0.2**，仅作为一次选型的候选，未晋升。默认 Diagnosis、Probe、Safe Binary、模型、提示和三个模块均不改；E 在两数据集所有组共用 unavailable。原始 T4 及 r2 的失败保持原字节。
+**NQ threshold=0.2** has been frozen from the original grid, only as the candidate for a single selection run, not promoted. The default Diagnosis, Probe, Safe Binary, models, prompts and three modules are all unchanged; E is unavailable for all groups in both datasets. The failures of the original T4 and r2 keep their original bytes.
 
-## 冻结前复查
+## Pre-freeze re-check
 
-原 15 题及补充 2 题的辅助意见均已由用户明确采用，见 [确认记录](../t5_human_review_v1/README.md)。其中 11 题完整定案、6 题含待定；“已过目并接受待定”不等于所有语义标签已确定。这里满足的是重点队列已由用户处理的前置条件，不用未知值来宣称通过语义效果门槛。
+The assisted opinions on the original 15 questions and the 2 supplementary questions have all been explicitly adopted by the user; see the [confirmation record](../t5_human_review_v1/README.md). Of these, 11 questions are fully finalized and 6 contain pending items; "reviewed and accepted the pending items" does not mean all semantic labels have been determined. What is satisfied here is the precondition that the priority queue has been handled by the user; unknown values are not used to claim that the semantic effect threshold has been passed.
 
-按原登记，开发阶段用冻结 EM 网格选择至多一个规则；语义净退步／待定下界否决发生在一次性选型。没有新增开发语义门槛，也不因开发语义未知而换阈值、补搜或反复调参。下面的宽区间会披露，并要求选型后审核新路由实际改过的所有答案。
+Per the original registration, the development phase uses the frozen EM grid to select at most one rule; the veto by semantic net regression/pending lower bound happens in the single selection run. No new development semantic threshold is added, and the threshold is not changed, no additional search is done and no repeated tuning happens because development semantics are unknown. The wide intervals below will be disclosed, and all answers actually changed by the new routing are required to be reviewed after the selection run.
 
-## 开发结果（每数据集 200）
+## Development results (200 per dataset)
 
-| NQ 阈值 | 原路由正确数 | 候选正确数 | EM 修好／改坏 | 新增检索 | 改答数 | 已完整语义审核的改答 | 语义净值上下界 |
+| NQ threshold | Original routing correct | Candidate correct | EM fixed/broken | New retrievals | Changed answers | Changed answers with complete semantic review | Semantic net lower/upper bounds |
 |---|---:|---:|---|---:|---:|---:|---|
-| 0.2 | 78 | 81 | 5／2 | 107 | 17 | 4 | −11 到 +14 |
-| 0.3 | 78 | 79 | 2／1 | 64 | 11 | 1 | −9 到 +10 |
-| 0.4 | 78 | 78 | 0／0 | 26 | 4 | 0 | −4 到 +4 |
+| 0.2 | 78 | 81 | 5/2 | 107 | 17 | 4 | −11 to +14 |
+| 0.3 | 78 | 79 | 2/1 | 64 | 11 | 1 | −9 to +10 |
+| 0.4 | 78 | 78 | 0/0 | 26 | 4 | 0 | −4 to +4 |
 
-FEVER 的原路由正确数为 174/200；三种规则下答案、动作与回放成本均保持一致。来源缓存的 800 条 Adaptive／No Probe 的输入、最终答案、证据和模块调用参数与固定动作组全部匹配。E 不可用的 16 条 NQ 路由保留进入 E 的原答，只保留已有 Probe 调用，不执行或虚构 E 核验。
+FEVER's original routing correct count is 174/200; answers, actions and replay costs are identical under all three rules. The inputs, final answers, evidence and module call parameters of the 800 cached source Adaptive/No Probe records all match the fixed-action groups. The 16 NQ items routed to E, with E unavailable, keep the original answer that entered E and keep only the existing Probe calls; E verification is neither executed nor fabricated.
 
-阈值 0.2 比原路由多 3 个 EM 正确答案（1.5 个百分点），但**尚不能确认语义净收益**。其 17 个改答里，4 个有完整确认；4 个在已有队列中仍待定（R09、R11、R16、R17）；9 个不在原重点审核队列。上下界按所有未知取最坏／最好情况计算，未用 EM 补填语义真值。完全相同的答案变化为零。
+Threshold 0.2 has 3 more EM-correct answers than the original routing (1.5 percentage points), but **a semantic net gain cannot yet be confirmed**. Of its 17 changed answers, 4 have complete confirmation; 4 are still pending in the existing queue (R09, R11, R16, R17); 9 are not in the original priority review queue. The bounds are computed by taking the worst/best case for all unknowns, without filling in semantic ground truth with EM. There are zero answer changes that are exactly identical.
 
-0.2 的回放新增 LLM 调用为 104 次、检索和重排评分各 107 次；复用已测调用耗时后，新增 provider 时间估计约 1,444.9 秒。估计不包含部署调度、加载与共同 C1，不是新实测延迟或 AC5 认证。规则“多做补检索”成本较高，必须在最终与 Full 比较时如实报告，不能只挑收益数字。
+The 0.2 replay adds 104 LLM calls and 107 each of retrievals and reranking scorings; reusing measured call times, the added provider time is estimated at about 1,444.9 seconds. The estimate excludes deployment scheduling, loading and the shared C1, and is not a newly measured latency or an AC5 certification. The rule "do more retrieval enhancement" is costly and must be reported truthfully in the final comparison with Full; one must not cherry-pick only the gain numbers.
 
-## 候选规则与下一步
+## Candidate rule and next steps
 
-只有 `dataset=nq` 且原动作 `no_action` 的题可被覆盖；已有明确 supported 的 Probe 固定否决；其余使用已有一级失败概率，达到 0.2 则补检索。没有 Probe 时不新增调用、不把缺失判断当作 unsupported。运行时不访问 gold、人审对错或按 sample_id 特判。
+Only questions with `dataset=nq` and original action `no_action` can be overridden; an existing explicit supported Probe is a fixed veto; otherwise the existing first-level failure probability is used, and retrieval enhancement is applied if it reaches 0.2. When there is no Probe, no new calls are added and a missing judgment is not treated as unsupported. The runtime does not access gold or human-review correctness, and does not special-case by sample_id.
 
-[candidate.json](candidate.json) 是冻结入口；[analysis.json](analysis.json) 保存全部三次尝试及逐题变化；[replay_records.jsonl](replay_records.jsonl) 是带来源指纹的离线投影，不是 GPU 原始预测。只读取 development gold，尚未读取或评分选型／final 样本。
+[candidate.json](candidate.json) is the frozen entry point; [analysis.json](analysis.json) stores all three attempts and the per-question changes; [replay_records.jsonl](replay_records.jsonl) is an offline projection with source fingerprints, not raw GPU predictions. Only development gold was read; selection/final samples have not yet been read or scored.
 
-下一步两个数据集各 200 条选型，只运行原 Adaptive、Always Retrieve、Always Rerank、Always Repair（E 不可用，无 E 模型调用），C1 复用。候选结果从同输入固定动作与已观测 Probe 回放，不能用未观测 Probe 或 Full 回放替代。选型后 NQ 冻结 EM 净增须 >0；候选相对原路由所有改答都做语义审核，语义净值或待定最坏下界为负则不晋升、保留原路由，不再选另一个阈值。FEVER 路由保持不变并核对输出一致。
+Next step: a selection run of 200 items for each of the two datasets, running only the original Adaptive, Always Retrieve, Always Rerank and Always Repair (E unavailable, no E model calls), with C1 reused. Candidate results are replayed from the fixed actions on the same inputs and the observed Probes; they cannot be replaced by unobserved Probes or a Full replay. After the selection run, the NQ frozen EM net gain must be >0; all changed answers of the candidate relative to the original routing receive semantic review, and if the semantic net value or the worst-case pending lower bound is negative, it is not promoted, the original routing is kept, and no other threshold is selected. FEVER routing stays unchanged and the outputs are checked for consistency.
 
-复查（目标目录必须不存在）：
+Re-check (the target directory must not exist):
 
 ```bash
 python scripts/prepare_controller_t5_candidate.py --output-dir /tmp/controller-t5-candidate-new

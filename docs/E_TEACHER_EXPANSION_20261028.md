@@ -1,42 +1,42 @@
-# E 扩量与超时恢复 · 2026-10-28
+# E expansion and timeout recovery · 2026-10-28
 
-最新用户指令是“**可以直接上5000**”，覆盖此前“先2000条 有效再扩量”。沿用用户此前确认的累计5,000／US$40选项：原500条试产复用，后续最多4,500次请求（**包含已经尝试的55次**），不自动超过5,000，也不自动批准SFT。按原试产usage外推累计约US$34.27，实际账单未核实，未知费用保留完整预留。登记见 [5000配置](../configs/distillation/e_expansion_5000_v1.json)和[本轮确认](../artifacts/controller/e_teacher_expansion_5000_v1/user_acceptance.json)。
+The latest user instruction is "**可以直接上5000**", overriding the earlier "先2000条 有效再扩量". The cumulative 5,000/US$40 option previously confirmed by the user is kept: the original 500-item pilot production is reused, with at most 4,500 subsequent requests (**including the 55 already attempted**); 5,000 is not exceeded automatically, and SFT is not approved automatically. Extrapolating from the original pilot usage, the cumulative total is about US$34.27; the actual bill is not verified, and unknown costs keep their full reservation. Registered in the [5000 config](../configs/distillation/e_expansion_5000_v1.json) and [this round's confirmation](../artifacts/controller/e_teacher_expansion_5000_v1/user_acceptance.json).
 
-## 本次停止的原因与保留内容
+## Reason for this stop and what is kept
 
-2,000条采集在新增第55次请求发生`TimeoutError`，该次没有保存到响应。原客户端socket等待上限180秒；记录不能区分连接超时、读取超时、临时网络中断或远端延迟，不能认定是Azure故障。无密钥GET检查当前端点收到401，说明检查时端点可达，不证明原请求没计费。问题不是预算超限或GPU显存不足。
+The 2,000-item collection hit a `TimeoutError` on the newly added 55th request, and no response was saved for it. The original client socket wait cap was 180 seconds; the record cannot distinguish connection timeout, read timeout, temporary network interruption or remote latency, and cannot be attributed to an Azure fault. A key-less GET check received 401 from the current endpoint, showing that the endpoint was reachable at check time, which does not prove the original request was not billed. The problem is not a budget overrun or insufficient GPU memory.
 
-- 原500＋新增54，共554条完整候选；新增54条的模型版本、原始响应哈希、usage、来源契约和结算已独立重放。
-- 新增54条全部结构/来源通过，38 supported、6 contradicted、10 insufficient；49保留、5替换。没有据此测量学生收益或自动批准语义目标。
-- 可核实的累计单价估算US$3.784529；第55次完整预留US$0.13211继续占用预算，累计按US$3.916639计。
-- [原始归档和超时审计](../artifacts/controller/e_teacher_expansion_timeout_20261028/README.md)保存原journal及54个响应，旧账本、旧配置和执行封存保持原字节。
+- Original 500 + 54 new, 554 complete candidates in total; the model version, raw response hashes, usage, provenance contract and settlement of the 54 new items have been independently replayed.
+- All 54 new items passed structure/provenance: 38 supported, 6 contradicted, 10 insufficient; 49 kept, 5 replaced. Student gain was not measured on this basis, and semantic targets were not automatically approved.
+- Verifiable cumulative unit-price estimate US$3.784529; the 55th request's full reservation of US$0.13211 continues to occupy the budget, so the cumulative total is counted as US$3.916639.
+- The [raw archive and timeout audit](../artifacts/controller/e_teacher_expansion_timeout_20261028/README.md) saves the original journal and the 54 responses; the old ledger, old config and execution seal keep their original bytes.
 
-## 恢复与规模边界
+## Recovery and scale boundaries
 
-恢复版只跳过已经逐条审计的第55次，不重发、不退款、不增加替补题；从后续第56次继续，**最多再发4,445次**。新4,500-ID清单是原1,500-ID清单的固定扩展前缀；全部来自允许的Train，每种AI元数据1,125个，复用原500后每层请求配额共1,250。抽样只用ID和冻结AI元数据，不根据gold、预测或EM筛题。Development500、Selection500和团队Test11,114条均排除。
+The recovery version only skips the 55th request, which has been audited individually: no resend, no refund, no added replacement questions; it continues from the subsequent 56th, **sending at most 4,445 more**. The new 4,500-ID list is a fixed extension that keeps the original 1,500-ID list as its prefix; all IDs come from the allowed Train, 1,125 per AI metadata class, and after reusing the original 500, each stratum's request quota totals 1,250. Sampling uses only IDs and frozen AI metadata, and does not filter questions by gold, predictions or EM. Development500, Selection500 and the team Test of 11,114 items are all excluded.
 
-因为已有1次响应不可得，即使后续全成功，最多得到**4,999条完整候选**；格式不合格或预算停止还会降低数量，不能把5,000个调用名额写成5,000条合格SFT。
+Because 1 response is already unavailable, even if all subsequent requests succeed, at most **4,999 complete candidates** are obtained; format failures or budget stops would reduce the count further, and the 5,000 call slots cannot be written as 5,000 qualified SFT items.
 
-本次只改传输执行：后续请求timeout从180秒增到600秒；模型、版本、提示、原Top-5、reasoning、4096总完成预算、学生384-token预算和token-window v2均不改。增加请求开始时间、失败阶段、耗时、异常类型及可得HTTP状态；不保存密钥、错误响应正文或任意异常字符串。更长timeout不能保证请求成功。
+This change only affects transport execution: the subsequent request timeout increases from 180 seconds to 600 seconds; the model, version, prompts, original Top-5, reasoning, 4096 total completion budget, student 384-token budget and token-window v2 are all unchanged. Request start time, failure stage, duration, exception type and HTTP status when available are added; keys, error response bodies and arbitrary exception strings are not saved. A longer timeout cannot guarantee request success.
 
-原失败账本只读导入，新账本使用独立目录和追加式事件；执行时同时持有原目录锁和新目录锁。每次启动重放原54条以及新已完成响应，检查费用、身份、顺序、源码与输入指纹，不重复计费。新发生的未知费用请求仍立即停止，需要单独审计，**不会自动套用第55次的跳过规则**。
+The original failure ledger is imported read-only; the new ledger uses an independent directory and append-only events; during execution, both the original directory lock and the new directory lock are held. Each startup replays the original 54 items and the newly completed responses, checking cost, identity, order, source and input fingerprints, without double billing. A newly occurring unknown-cost request still stops immediately and needs a separate audit; **the skip rule of the 55th request is not applied automatically**.
 
 ```bash
-# 默认只验证输入、来源和旧账本，不调用Azure
+# By default only validate inputs, provenance and the old ledger; no Azure calls
 python scripts/run_e_teacher_5000.py
 
-# 实际采集：本机终端隐藏输入已有密钥
+# Actual collection: enter the existing key via hidden input in the local terminal
 python scripts/run_e_teacher_5000.py --execute --prompt-key
 ```
 
-新客户端价格估算基数包含原500、已完成54和未知费用全额预留；每次发送前仍按US$5／15保守费率预留最大输入/输出，再按固定单价估算结算。达到US$40即停止。串行最多一条在途，滚动61秒完整预留不超过95K，开始间隔至少5秒，恢复先等一个窗口，自动重试0。
+The new client price-estimation base includes the original 500, the 54 completed and the full reservation for the unknown cost; before each send, the maximum input/output is still reserved at the conservative US$5/15 rate, and then settled at the fixed unit-price estimate. It stops upon reaching US$40. Serial with at most one request in flight, full reservations within a rolling 61 seconds not exceeding 95K, start intervals of at least 5 seconds, resume first waits one window, automatic retries 0.
 
-## 费用与质量口径
+## Cost and quality basis
 
-[原500条费用复核](../artifacts/controller/e_teacher_expansion_release_20261028/cost_reconciliation.json)将旧保守记账US$6.58152与官方单价估算US$3.42705分列，不改写旧流水。按[微软公布的短上下文价格](https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/provisioned-throughput-sizing)，普通输入／缓存读取／缓存写入／输出每百万分别为US$2／0.10／2.50／10；缓存写入是输入子集，reasoning是completion子集，不重复计费。实际Azure账单未核实；价格或服务tier不符合登记则停止。
+The [original 500-item cost reconciliation](../artifacts/controller/e_teacher_expansion_release_20261028/cost_reconciliation.json) lists the old conservative ledger of US$6.58152 and the official unit-price estimate of US$3.42705 separately, without rewriting the old records. According to [Microsoft's published short-context prices](https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/provisioned-throughput-sizing), standard input/cache read/cache write/output per million are US$2/0.10/2.50/10 respectively; cache writes are a subset of input and reasoning is a subset of completion, not double-billed. The actual Azure bill is not verified; if the price or service tier does not match the registration, it stops.
 
-用户之前对冻结100项声明“已完成审核，按结果登记”“算全部通过 我在网页里面没有标注”，按[聊天确认](../artifacts/controller/e_teacher_expansion_release_20261028/user_batch_release.json)放行候选采集，不生成不存在的逐条网页判断或100%实测语义准确率。T011与Texans/Chiefs两项代理争议保留临时入训隔离。新目标仍需来源、384-token长度、语义与跨集检查；待定项单列，不自动进入SFT。
+For the frozen 100 items, the user previously stated "已完成审核，按结果登记" and "算全部通过 我在网页里面没有标注"; per the [chat confirmation](../artifacts/controller/e_teacher_expansion_release_20261028/user_batch_release.json), candidate collection was released, without generating nonexistent per-item web judgments or a 100% measured semantic accuracy. The two items disputed by the assistant, T011 and Texans/Chiefs, remain under temporary training-entry isolation. New targets still need provenance, 384-token length, semantic and cross-set checks; pending items are listed separately and do not automatically enter SFT.
 
-只训练Qwen E adapter，C1保持原权重。训练配置和数值晋升门槛在训练前登记，Development500比较C1／原E／蒸馏E的修复、误修、EM/F1和成本；Selection500仅给最终候选一次确认。Test不用于蒸馏或提示修改。用户本次允许直接采到5,000的上限，不代表学生已有效，也不授权继续扩大到更多数据。
+Only the Qwen E adapter is trained; C1 keeps the original weights. The training config and numeric promotion thresholds are registered before training; Development500 compares the repairs, harmful repairs, EM/F1 and cost of C1/original E/distilled E; Selection500 gives only the final candidate one confirmation. Test is not used for distillation or prompt modification. The user's permission this time to collect directly up to the 5,000 cap does not mean the student is already effective, nor does it authorize further expansion to more data.
 
-旧2,000配置、任务包和预算记录在[历史封存](../artifacts/controller/e_teacher_expansion_2000_v1/README.md)，不覆盖；不要再使用旧启动脚本尝试恢复这次失败。
+The old 2,000 config, task package and budget records are in the [historical seal](../artifacts/controller/e_teacher_expansion_2000_v1/README.md) and are not overwritten; do not use the old launch script again to try to recover from this failure.

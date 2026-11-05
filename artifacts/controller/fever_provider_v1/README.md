@@ -1,9 +1,9 @@
-# FEVER provider 验收
+# FEVER Provider Acceptance
 
-`query_replay.json/log`：固定前 10 条已曝光历史 C1 查询，真实固定 BGE 快照、原 IVFPQ(nprobe=16)、lazy offset 读取；10/10 的 Top5 ID 及顺序与原 C1 一致，Top20 前五项也一致。未使用历史预测、gold 或新最终题目判断。
+`query_replay.json/log`: the fixed first 10 exposed historical C1 queries, the real fixed BGE snapshot, the original IVFPQ(nprobe=16), and lazy offset reading; for 10/10 the Top5 IDs and order match the original C1, and the first five of Top20 also match. Historical predictions, gold, or new final questions were not used for judgment.
 
-`tests.log`：全仓库 726 项 CPU 回归通过。定向测试覆盖 FEVER 的提示/标签回退/一次检索重答、索引与 dataset 分派、资源哈希链、C1 全 900 条虚构工程样本覆盖、源码/输入漂移与中断保存。`initial_targeted_tests.log` 保留旧 smoke 预期 FEVER unsupported 的一次失败；测试已更新为显式验证新 FEVER 搜索与重答，未跳过。
+`tests.log`: 726 CPU regression tests across the whole repository passed. Targeted tests cover FEVER prompt/label fallback/one-retrieval re-answer, index and dataset dispatch, the resource hash chain, coverage of all 900 C1 fictional engineering samples, source/input drift, and interruption saving. `initial_targeted_tests.log` keeps one failure from the old smoke expectation that FEVER is unsupported; the test was updated to explicitly verify the new FEVER search and re-answer, not skipped.
 
-`protocol_check.json`：原 T1 设计与 68 个参考 Git blob 完整；登记 P3/execution/providers/runner 及相关测试的当前源码差异，不回写冻结协议。`data_check.json`：T2 划分及全部 552 个来源指纹不变。
+`protocol_check.json`: the original T1 design and the 68 reference Git blobs are complete; it registers the current source diffs of P3/execution/providers/runner and related tests, without writing back to the frozen protocol. `data_check.json`: the T2 splits and all 552 source fingerprints are unchanged.
 
-完整执行状态与源码/文件指纹见 `validation.json`。CPU 验证不代表真实 Qwen GPU 推理已经完成，更不代表 QA 指标提升。
+The full execution status and source/file fingerprints are in `validation.json`. CPU validation does not mean real Qwen GPU inference has been completed, let alone that QA metrics improved.

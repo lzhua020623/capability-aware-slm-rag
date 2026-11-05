@@ -1,21 +1,21 @@
-# E 的 Colab 与 Kaggle 实验
+# Colab and Kaggle experiments for E
 
-当前工作基础是已完成的 v7，下一轮 v8 尚未实现。下面保留 v7 的复现入口；历史 v1 至 v6r1 的运行过程与旧环境状态见 [历史执行记录](history/answer_repair/GPU_RUNS_V1_V6R1.md)。已有结果无需重新推理，优先离线回放。
+The current working basis is the completed v7; the next round, v8, is not yet implemented. The v7 reproduction entry points are kept below; the run history and old environment status of historical v1 to v6r1 are in the [historical execution records](history/answer_repair/GPU_RUNS_V1_V6R1.md). Existing results need no re-inference; offline replay is preferred.
 
-## v7 已完成实验
+## Completed v7 experiments
 
-| 实验 | Notebook | 输入与结果 |
+| Experiment | Notebook | Inputs and results |
 |---|---|---|
-| 主包：审核集、dev50、预实验池留出集，共 541 条 | [Colab](../notebooks/answer_repair_colab_v7_reviewed.ipynb) / [Kaggle](../notebooks/answer_repair_kaggle_v7_reviewed.ipynb) | `artifacts/answer_repair/v7_reviewed/` |
-| 第 4 批：NQ3216 分层留出集，300 条 | [Colab](../notebooks/answer_repair_colab_v7_heldout3216.ipynb) / [Kaggle](../notebooks/answer_repair_kaggle_v7_heldout3216.ipynb) | `artifacts/answer_repair/v7_heldout3216/` |
+| Main bundle: review set, dev50, pilot-pool held-out set, 541 in total | [Colab](../notebooks/answer_repair_colab_v7_reviewed.ipynb) / [Kaggle](../notebooks/answer_repair_kaggle_v7_reviewed.ipynb) | `artifacts/answer_repair/v7_reviewed/` |
+| Batch 4: NQ3216 stratified held-out set, 300 | [Colab](../notebooks/answer_repair_colab_v7_heldout3216.ipynb) / [Kaggle](../notebooks/answer_repair_kaggle_v7_heldout3216.ipynb) | `artifacts/answer_repair/v7_heldout3216/` |
 
-两批均已在 Kaggle 运行一次。实验设计见 [冻结协议](ANSWER_REPAIR_V7.md)，完整结果、局限和后续路线见 [v7 报告](ANSWER_REPAIR_RESULTS_20261014_V7.md)。留出集不作为下一轮调参开发集，复用 Notebook 不能记作新的算法版本。
+Both batches have been run once on Kaggle. The experimental design is in the [frozen protocol](ANSWER_REPAIR_V7.md), and the complete results, limitations and follow-up roadmap are in the [v7 report](ANSWER_REPAIR_RESULTS_20261014_V7.md). The held-out sets are not used as the tuning development set for the next round, and reusing a Notebook cannot be recorded as a new algorithm version.
 
-每个版本目录保留输入 `.tar.gz`、原始输出 ZIP、`kaggle_20261014/` 和 `release_audit/`。准确哈希以 [归档清单](../artifacts/answer_repair/git_archive_manifest.json) 为准；解压副本 `gpu_bundle/` 可在需要时重建，不入库。
+Each version directory keeps the input `.tar.gz`, the raw output ZIP, `kaggle_20261014/` and `release_audit/`. Exact hashes are authoritative in the [archive manifest](../artifacts/answer_repair/git_archive_manifest.json); the extracted copy `gpu_bundle/` can be rebuilt when needed and is not committed.
 
-## 无 GPU 离线回放
+## Offline replay without a GPU
 
-从仓库根目录执行，把输入包解压到新的临时目录，再用包内冻结代码核对保存结果：
+Run from the repository root: extract the input bundle into a new temporary directory, then use the frozen code inside the bundle to check the saved results:
 
 ```sh
 replay_dir="$(mktemp -d)"
@@ -26,10 +26,10 @@ python3.11 scripts/audit_answer_repair_release.py \
   --out-dir "$replay_dir/audit"
 ```
 
-第 4 批使用对应的 `v7_heldout3216` 包与结果目录，输出到另一个临时目录。回放检查冻结源文件、结果 manifest、裁决和分数，不加载模型，不自动填写语义人工标签。
+Batch 4 uses the corresponding `v7_heldout3216` bundle and results directory, outputting to a different temporary directory. Replay checks the frozen source files, the results manifest, verdicts and scores; it does not load the model and does not automatically fill in semantic human labels.
 
-当前人工审核统一使用 [v7 总表](../artifacts/answer_repair/v7_combined_review/review_all.txt)，结构化数据在同目录 `review_all.jsonl`；新生成的空审核队列不覆盖已有人工作表。
+Current human review uniformly uses the [v7 combined sheet](../artifacts/answer_repair/v7_combined_review/review_all.txt), with structured data in `review_all.jsonl` in the same directory; newly generated empty review queues do not overwrite existing human worksheets.
 
-## 后续新实验
+## Future new experiments
 
-先完成新策略开发、固定开发样本、对照和调用预算，再生成独立实验包及 Notebook。使用新输出目录，不覆盖旧包。历史构建脚本的默认输出已指向历史 Notebook 目录；新实验必须显式指定版本和输出位置。此轮仓库整理没有更改模型、提示词、阈值、策略或样本。
+First complete new strategy development, fixed development samples, controls and the call budget, then generate a separate experiment bundle and Notebook. Use a new output directory and do not overwrite old bundles. The default output of the historical build scripts already points to the historical Notebook directory; new experiments must specify the version and output location explicitly. This round of repository tidying did not change the model, prompts, thresholds, strategy or samples.

@@ -1,83 +1,83 @@
-# v9 工程试跑：证据 ID 与分解核验
+# v9 engineering trial run: evidence IDs and decomposed verification
 
-本轮是已暴露开发数据上的工程验证，不能证明修复收益。旧 v7／r3／r4 的实验包和结果保持冻结；v9 是独立入口，尚未晋升默认策略。
+This round is engineering validation on already exposed development data and cannot prove repair gains. The old v7/r3/r4 experiment bundles and results remain frozen; v9 is a separate entry point and has not yet been promoted to default policy.
 
-`v9_dev_v1/v2/v3` 是工程快照，不代表三种新的优化算法；研究对照一直是直接重答、证据 ID、证据 ID＋分解核验。
+`v9_dev_v1/v2/v3` are engineering snapshots and do not represent three new optimization algorithms; the research comparison has always been direct re-answering, evidence IDs, and evidence IDs + decomposed verification.
 
-## 实现与范围
+## Implementation and scope
 
-FEVER 与 NQ 均使用固定 revision 的 Qwen2.5-7B-Instruct，NF4／FP16／double quant、seed 42、greedy。三组为直接重答、证据 ID、证据 ID＋分解核验。后者先分解最多三个事实问题，再分别读取完整 Top-5 回答，最后与 C1 比较；前两阶段不见原答，事实问答不见彼此输出。它们共享同一模型权重，不能称为独立核验模型。
+Both FEVER and NQ use Qwen2.5-7B-Instruct at a fixed revision, NF4/FP16/double quant, seed 42, greedy. The three groups are direct re-answering, evidence IDs, and evidence IDs + decomposed verification. The latter first decomposes into at most three fact questions, then answers each by reading the full Top-5, and finally compares with C1; the first two stages do not see the original answer, and the fact Q&A calls do not see each other's outputs. They share the same model weights and cannot be called an independent verification model.
 
-直接组与 ID 组最多一次调用，分解组最多五次，每次最多 384 新 token；三组不匹配算力。引用由程序按 ID 从原文重建，NQ 改答还须定位于选中原文；来源存在不能证明选句相关或答案正确。未使用 XGrammar、外部网页、NLI、训练或自动提示进化。
+The direct group and the ID group make at most one call, the decomposition group at most five, each with at most 384 new tokens; the three groups are not compute-matched. Citations are reconstructed by the program from the source text by ID, and NQ changed answers must also be localized within the selected source text; the existence of a source cannot prove that the selected sentence is relevant or the answer correct. XGrammar, external web pages, NLI, training or automatic prompt evolution were not used.
 
-输入冻结为 NQ75 与 FEVER50 已有开发样本，本次只按哈希各取五条，排除已退役的 NQ smoke8。同一十题跑三组，预计 30 条预测。旧 challenge125 不进入新试跑，也不用于选型。初答人工标签覆盖 NQ75／75、FEVER4／50；本次五条 FEVER 恰好都未获人工二元评分，不能据自动参考答案推导人工语义准确率。
+Inputs are frozen as existing NQ75 and FEVER50 development samples; this time only five of each were taken by hash, excluding the retired NQ smoke8. The same ten questions run through three groups, expecting 30 predictions. The old challenge125 does not enter the new trial run and is not used for the selection run. Initial-answer human labels cover NQ75/75 and FEVER4/50; the five FEVER items this time happen to all lack human binary scores, so human semantic accuracy cannot be inferred from automatic reference answers.
 
-## 首版：工程门槛未通过
+## First version: engineering gate not passed
 
-[冻结输入与收取文件](../artifacts/answer_repair/v9_dev_v1/README.md)。Kaggle Version 1（`360999513`）运行 592.9 秒后失败：FEVER 分解组第二题的最终判断发生 CUDA OOM。程序没有换模型、换量化或截断证据。
+[Frozen inputs and collected files](../artifacts/answer_repair/v9_dev_v1/README.md). Kaggle Version 1 (`360999513`) failed after running 592.9 seconds: a CUDA OOM occurred in the final judgement of the second question of the FEVER decomposition group. The program did not switch models, switch quantization or truncate evidence.
 
-保存 26／30 条预测，五组完整各五条、末组一条。五组均通过本地冻结代码回放，末组已保存的一条通过前缀回放；不能把前缀回放称为整组完成。已保存 16 条结构化预测中，九条未通过协议校验并保留原答，包括声明 keep 却改写原答、repair 未实际改答、答案不在选中原文、decision 大小写不符、ID 数量超过约束。十条直接组输出另计。
+26/30 predictions were saved: five groups complete with five each, and one in the last group. All five groups passed the local frozen-code replay, and the one saved record of the last group passed prefix replay; prefix replay cannot be called completion of the whole group. Of the 16 saved structured predictions, nine failed protocol validation and kept the original answer, including declaring keep but rewriting the original answer, repair not actually changing the answer, the answer not being in the selected source text, decision case mismatch, and the number of IDs exceeding the constraint. The ten direct-group outputs are counted separately.
 
-这表明：来源 ID 可以消除由程序还原引文时的编造，但模型仍会选错句、改写抽取答案或违反契约。不能用大量回退造成的低改答率声称核验可靠。失败时尚未写入结果的调用成本缺失，保存记录的成本总和不是整次失败作业的总成本。
+This shows: source IDs can eliminate fabrication when the program reconstructs citations, but the model still selects wrong sentences, rewrites extracted answers or violates the contract. A low changed-answer rate caused by many fallbacks cannot be used to claim that verification is reliable. The costs of calls not yet written to results at the time of failure are missing; the sum of the costs of saved records is not the total cost of the whole failed job.
 
-## 修正版：只压缩证据序列化
+## Fixed version: compress only the evidence serialization
 
-[第二份冻结包](../artifacts/answer_repair/v9_dev_v2/README.md)。首版逐句展示 `rank`、`passage_id`、起止偏移量等重复元数据；修正版只在提示中展示一次 passage 映射和 `句子 ID → 完整原文`，完整偏移映射仍保存在 trace。字符、句子 ID、近重复冲突、模型、样本、规则、校验与预算全部保留。AST 对比确认修复模块中只有 `context` 函数改变，另更新版本标识。
+[Second frozen bundle](../artifacts/answer_repair/v9_dev_v2/README.md). The first version displayed repeated metadata such as `rank`, `passage_id` and start/end offsets for every sentence; the fixed version shows in the prompt only one passage mapping and `sentence ID → full source text`, while the full offset mapping is still saved in the trace. Characters, sentence IDs, near-duplicate conflicts, model, samples, rules, validation and budget are all kept. AST comparison confirms that only the `context` function changed in the repair module, plus an updated version identifier.
 
-十题上下文字符量降为原来的 58%–76%，不等同于 token 或显存同比下降。13 项核心检查及相关检查共 78 项通过，六组冻结 CPU 预检通过。Kaggle Version 2（`361004665`）在相同 T4×2／联网环境运行 495.4 秒正常结束，30／30 条保存，六组本地冻结回放均通过，成本有限且未超预定预算，未再发生 OOM。
+The context character count of the ten questions dropped to 58%–76% of the original, which is not equivalent to a proportional drop in tokens or GPU memory. The 13 core checks and related checks, 78 in total, passed, and the six-group frozen CPU pre-check passed. Kaggle Version 2 (`361004665`) ran 495.4 seconds in the same T4×2/internet-enabled environment and ended normally, 30/30 saved, all six groups passed local frozen replay, costs were bounded and did not exceed the pre-set budget, and no further OOM occurred.
 
-但 **20 条结构化输出中 19 条不合规，全部回退 C1，零条实际改答**；剩下一条为 keep。这不等于 E 准确率高或成功避免误修，而是大部分输出没有进入有效判断。十条直接重答独立统计，不能代替结构化 E 的成功。
+But **19 of the 20 structured outputs were non-compliant, all fell back to C1, and zero actually changed the answer**; the remaining one was keep. This does not mean E has high accuracy or successfully avoided harmful repairs; rather, most outputs did not enter valid judgement. The ten direct re-answers are counted separately and cannot substitute for the success of structured E.
 
-| 数据集／策略 | 不合规／样本数 | 实际调用数 | 每题模型生成秒数 |
+| Dataset/policy | Non-compliant/samples | Actual calls | Model generation seconds per question |
 |---|---:|---:|---:|
-| NQ 直接重答 | 0／5 | 5 | 1.26 |
-| NQ 证据 ID | 5／5 | 5 | 5.70 |
-| NQ 分解核验 | 4／5 | 12 | 10.91 |
-| FEVER 直接重答 | 0／5 | 5 | 4.10 |
-| FEVER 证据 ID | 5／5 | 5 | 9.24 |
-| FEVER 分解核验 | 5／5 | 13 | 15.37 |
+| NQ direct re-answer | 0/5 | 5 | 1.26 |
+| NQ evidence ID | 5/5 | 5 | 5.70 |
+| NQ decomposed verification | 4/5 | 12 | 10.91 |
+| FEVER direct re-answer | 0/5 | 5 | 4.10 |
+| FEVER evidence ID | 5/5 | 5 | 9.24 |
+| FEVER decomposed verification | 5/5 | 13 | 15.37 |
 
-本次累计 45 次调用、约 232.86 秒模型生成时间；495.4 秒作业时间还包含依赖、模型加载、预检和回放。无效输出会提前结束分解流程，因此不能用这份成本代表流程全部有效后的成本。
+This run totals 45 calls and about 232.86 seconds of model generation time; the 495.4 seconds of job time also include dependencies, model loading, pre-checks and replay. Invalid outputs end the decomposition flow early, so this cost cannot represent the cost when the whole flow is valid.
 
-其中十条首先报 Unknown evidence ID：压缩格式同时展示 `sources.R1` 和可引用的 `R1S1`，模型选了段落键。**这是本次接口设计引入的歧义，不能只归咎于模型或样本量。** 其他问题包括 keep 却改写原答、大小写、非法 JSON、引用数量超限，以及 NQ 答案仍是改写句而非选中原文片段。原始输出保留，不放宽解析来追求表面有效率。
+Ten of them first reported Unknown evidence ID: the compressed format displayed both `sources.R1` and the citable `R1S1`, and the model chose the passage key. **This is an ambiguity introduced by this interface design and cannot be blamed solely on the model or the sample size.** Other problems include keep but rewriting the original answer, case, invalid JSON, citation count over the limit, and NQ answers still being rewritten sentences rather than fragments of the selected source text. Raw outputs are kept, and parsing is not relaxed to pursue a superficial validity rate.
 
-## 单一来源命名空间候选
+## Single source-namespace candidate
 
-另立 `v9_dev_v3`，将提示中的证据按 passage title 分组，只展示可引用的句子 ID；完整标题与原文都保留。补明精确句子 ID、最多五个事实引用和 decision 小写要求；语义规则、解析器、fallback、模型、同一批输入与预算不变。78 项检查及六组冻结预检通过。根目录为此候选，复现 Version 1／2 应使用各自包内源码。
+A separate `v9_dev_v3` groups the evidence in the prompt by passage title and shows only the citable sentence IDs; full titles and source text are all kept. It adds explicit requirements for exact sentence IDs, at most five fact citations and lowercase decision; semantic rules, parser, fallback, model, the same batch of inputs and budget are unchanged. The 78 checks and the six-group frozen pre-check passed. The root directory is this candidate; reproducing Version 1/2 should use the source code inside each bundle.
 
-在 Version 3 提交前声明门槛：30 条完整、六组回放、预算有效，且结构化输出至少 18／20 合规，才考虑进入下一阶段。90% 是工程可用性门槛，不是准确率或显著性证据。本次接口复测后冻结结果，不继续围绕这十题调提示；若仍未达标，记录负结果，完整开发先搁置，另行定义约束解码方案。
+Gate declared before submitting Version 3: 30 complete, six-group replay, valid budget, and at least 18/20 structured outputs compliant, before entering the next stage is considered. 90% is an engineering usability gate, not evidence of accuracy or significance. Results are frozen after this interface retest, and prompts are not further tuned around these ten questions; if still below the gate, record a negative result, shelve full development for now, and separately define a constrained decoding scheme.
 
-Version 3（`361008203`）已在 523.2 秒正常结束。30 条齐全，六组本地冻结回放和预算检查全部通过；**来源 ID 不匹配错误由十条降为零，但结构化输出仅 11／20 合规，未达到 18／20 门槛**。已执行停止规则，不继续围绕此十题调提示，不运行完整开发或新未见评测。
+Version 3 (`361008203`) ended normally in 523.2 seconds. All 30 are present, and the six-group local frozen replay and budget checks all passed; **source ID mismatch errors dropped from ten to zero, but only 11/20 structured outputs were compliant, not reaching the 18/20 gate**. The stop rule has been executed: prompts are not further tuned around these ten questions, and neither full development nor a new unseen evaluation is run.
 
-| 数据集／策略 | 合规结构化输出 | 实际改答 | 调用数 | 每题模型生成秒数 |
+| Dataset/policy | Compliant structured outputs | Actual changed answers | Calls | Model generation seconds per question |
 |---|---:|---:|---:|---:|
-| NQ 证据 ID | 4／5 | 2 | 5 | 6.49 |
-| NQ 分解核验 | 3／5 | 1 | 15 | 13.47 |
-| FEVER 证据 ID | 3／5 | 0 | 5 | 10.30 |
-| FEVER 分解核验 | 1／5 | 0 | 13 | 15.76 |
+| NQ evidence ID | 4/5 | 2 | 5 | 6.49 |
+| NQ decomposed verification | 3/5 | 1 | 15 | 13.47 |
+| FEVER evidence ID | 3/5 | 0 | 5 | 10.30 |
+| FEVER decomposed verification | 1/5 | 0 | 13 | 15.76 |
 
-直接重答两组各五次调用，NQ 每题约 1.30 秒、FEVER 约 4.09 秒；均不要求结构化契约，不能把其“无结构化拒收”与上表的合规率等同。共 48 次调用、约 257.05 秒生成时间。剩余九条不合规：keep 改写原答五条、引用数量一条、非法 JSON 一条、NQ 非原文答案一条、repair 未改变答案一条。严格校验保留，不追改原始输出或人审标签。
+The two direct re-answer groups made five calls each, about 1.30 seconds per question for NQ and about 4.09 seconds for FEVER; neither requires a structured contract, so their "no structured rejections" cannot be equated with the compliance rates in the table above. 48 calls in total, about 257.05 seconds of generation time. The remaining nine non-compliant: keep rewriting the original answer five, citation count one, invalid JSON one, NQ non-source answer one, repair not changing the answer one. Strict validation is kept, and raw outputs or human-review labels are not retroactively changed.
 
-三条实际改答对应两道题，均为 NQ：仅 ID 组将 True Blood 第七季从 16 改为 10；两组分别将 Harry and the Hendersons 的演员从 Graham Greene 改为 Kevin Peter Hall。辅助意见认为两题答案方向正确，但尚无本轮新增人工确认，不计为三个独立人审修复。
+The three actual changed answers correspond to two questions, both NQ: only the ID group changed True Blood season seven from 16 to 10; the two groups each changed the actor in Harry and the Hendersons from Graham Greene to Kevin Peter Hall. The assisted opinion considers both questions' answers to be in the correct direction, but there is no new human confirmation in this round yet, and they are not counted as three independent human-reviewed repairs.
 
-True Blood 暴露了更重要的边界：R1 明确说 ten episodes；模型输出 10 并引用 R1 和 R2，程序却是在 R2 的 **June 10** 日期处找到字面答案。R2 实际说 16 episodes，且不点明 True Blood，模型理由却称 R2 同样确认 10 集。答案碰巧正确、引文来自原文、字面定位成功，都不代表所选答案片段对应正确事实关系。本轮不为这一题补专用规则。
+True Blood exposes a more important boundary: R1 explicitly says ten episodes; the model output 10 and cited R1 and R2, but the program found the literal answer at the **June 10** date in R2. R2 actually says 16 episodes and does not name True Blood, yet the model's reason claimed R2 likewise confirms 10 episodes. That the answer happens to be correct, the citation comes from the source, and literal localization succeeded does not mean the selected answer fragment corresponds to the correct factual relation. This round does not add a special-purpose rule for this question.
 
-新改答已整理为 [V1–V3辅助审核网页](../artifacts/answer_repair/v9_dev_v3/kaggle_20261022_v3/changed_review.html) 和同目录 `changed_assisted_review.jsonl`。原答错误沿用先前已确认的 NQ75 标签，只留下新候选及引用质量待人工确认；与已关闭的 F42 清单分开。
+The new changed answers have been organized into the [V1–V3 assisted review web page](../artifacts/answer_repair/v9_dev_v3/kaggle_20261022_v3/changed_review.html) and `changed_assisted_review.jsonl` in the same directory. Original-answer errors carry over the previously confirmed NQ75 labels; only the new candidates and citation quality are left for human confirmation; this is separate from the closed F42 list.
 
-## 输出约束后续方案（前三份冻结包未实现）
+## Follow-up plan for output constraints (not implemented in the first three frozen bundles)
 
-优先另立受约束生成方案，使用新的合成工程样例验证接口，不再调此十题。依据 [XGrammar 官方 HF 接入说明](https://xgrammar.mlc.ai/docs/latest/start/quick_start.html) 和 [JSON Schema 文档](https://xgrammar.mlc.ai/docs/latest/defining_structures/json_generation.html)，拟在生成时约束字段、decision／FEVER 标签、当前合法句子 ID，并让 keep 的答案由契约约束为原答。这是本项目的拟议设计，当前三份 GPU 包均未集成 XGrammar。
+Prioritize a separate constrained generation scheme, validating the interface with new synthetic engineering examples, without further tuning on these ten questions. Based on the [official XGrammar HF integration guide](https://xgrammar.mlc.ai/docs/latest/start/quick_start.html) and the [JSON Schema documentation](https://xgrammar.mlc.ai/docs/latest/defining_structures/json_generation.html), the plan is to constrain fields, decision/FEVER labels and the currently valid sentence IDs at generation time, and to have the contract constrain the answer for keep to be the original answer. This is a proposed design of this project; none of the current three GPU bundles integrate XGrammar.
 
-需要单独验证 Qwen NF4／当前 Transformers／Python 组合，记录编译及生成成本；限制输出长度仍可能造成未完成结果。程序继续做精确来源、数量／去重和抽取检查。来源 ID 合法、JSON 合法不能证明主体、关系、时间或答案正确；候选应绑定具体的支持片段，并把数字表示归一化与语义判断分开设计、独立验证。
+The Qwen NF4/current Transformers/Python combination needs separate validation, recording compilation and generation costs; limiting output length may still cause incomplete results. The program continues to do exact source, count/deduplication and extraction checks. A valid source ID and valid JSON cannot prove that the subject, relation, time or answer is correct; candidates should be bound to specific supporting fragments, and numeric representation normalization should be designed separately from semantic judgement and validated independently.
 
-当日后续已新增独立 [contract_v1实验](../artifacts/answer_repair/v9_contract_v1/README.md)，用12个全新虚构题、两种结构化策略及prompt_only／XGrammar两种解码，48条预测，未回用上述十题。两解码组收到相同schema文本，固定Qwen revision／NF4／预算。Kaggle361060970已完成48条及云端回放，本地40个源码哈希、48条回放和汇总重算均通过；实际96次调用。受约束组22/24严格合规，达到独立预声明22/24门槛，Unknown ID与keep改写为0；提示组20/24。新增合规对应同一S02的两个策略结果，剩余受约束拒绝对应同一S03的9/nine原文片段限制，不可当作多个独立题的变化。
+Later that day a separate [contract_v1 experiment](../artifacts/answer_repair/v9_contract_v1/README.md) was added, using 12 brand-new fictional questions, two structured policies and two decodings, prompt_only/XGrammar, 48 predictions, without reusing the ten questions above. Both decoding groups received the same schema text, with fixed Qwen revision/NF4/budget. Kaggle361060970 completed 48 predictions and the cloud replay; the 40 local source hashes, 48 replays and the summary recomputation all passed; 96 calls in practice. The constrained group was 22/24 strictly compliant, reaching the independently pre-declared 22/24 gate, with Unknown ID and keep rewriting at 0; the prompt group was 20/24. The added compliance corresponds to two policy results for the same S02, and the remaining constrained rejections correspond to the 9/nine source-fragment restriction of the same S03; they cannot be treated as changes across multiple independent questions.
 
-该任务在最后ZIP导出时报错：冻结源码mtime=0，ZIP默认拒绝1980年前时间戳。已通过Kaggle的Download output收回完整原始结果并保存完整日志，推理与回放未丢失。新增exportfix notebook仅修正导出时间戳处理，原包及原notebook不覆盖，不重跑模型。平台failure与推理完成分开记录。
+This task errored at the final ZIP export: frozen source mtime=0, and ZIP by default rejects timestamps before 1980. The complete raw results were recovered via Kaggle's Download output and the full log saved; inference and replay were not lost. The new exportfix notebook only fixes the export timestamp handling; the original bundle and original notebook are not overwritten, and the model is not rerun. The platform failure and inference completion are recorded separately.
 
-新工程门槛通过只允许另行冻结真实语义开发协议，不表示正确率提升或默认策略晋升。旧十题停止规则仍有效；不会围绕这12题继续调提示或放宽抽取条件。标签质量审核、必要人审与评分取舍仍是下一步依赖。
+Passing the new engineering gate only permits separately freezing a real semantic development protocol; it does not indicate an accuracy improvement or default-policy promotion. The old ten-question stop rule remains in effect; prompts will not be further tuned or extraction conditions relaxed around these 12 questions. Label quality review, necessary human review and scoring trade-offs remain the next dependencies.
 
-## 后续顺序
+## Subsequent order
 
-先结算最后一次接口复测，按预声明门槛决定能否进入正式开发。执行与回放通过不代表输出契约或语义门槛通过。完整开发运行前固定语义评分与误拒／误修／成本取舍，补 FEVER 和候选答案的必要人工评分；不能把格式拒收归零当作修复收益。
+First settle the last interface retest, and decide per the pre-declared gate whether to enter formal development. Passing execution and replay does not mean the output contract or semantic gate passes. Before the full development run, fix the semantic scoring and the wrong-rejection/harmful-repair/cost trade-offs, and add the necessary human scores for FEVER and candidate answers; reducing format rejections to zero cannot be treated as repair gains.
 
-再运行固定开发对照并审核改答，冻结后准备新未见数据，与 Diagnosis 负责人确认训练排除及近重复隔离。现有 125 挑战已经使用，不能反复用于调提示。历史 H1–H45 可并行审核；F1–F42 已处理完成，不重复向用户索要结论。
+Then run the fixed development comparison and review changed answers; after freezing, prepare new unseen data and confirm training exclusion and near-duplicate isolation with the Diagnosis owner. The existing 125 challenge has already been used and cannot be repeatedly used for prompt tuning. Historical H1–H45 can be reviewed in parallel; F1–F42 are processed, and the user is not asked for conclusions again.

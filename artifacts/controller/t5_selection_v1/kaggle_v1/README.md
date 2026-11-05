@@ -1,47 +1,47 @@
-# T5 选型结果 · 2026-10-26
+# T5 selection results · 2026-10-26
 
-首次私有 [Kaggle Version 1 / 362316572](https://www.kaggle.com/code/yearo111/controller-t5-selection-frozen-20261026?scriptVersionId=362316572) 已成功完成。页面记录运行 13,888.8 秒，约 3 小时 51 分钟；NQ、FEVER 各 200 道，五组共 2,000 条唯一记录，调用失败和预算超限为 0。本轮没有训练模型，也不是最终测试。
+The first private [Kaggle Version 1 / 362316572](https://www.kaggle.com/code/yearo111/controller-t5-selection-frozen-20261026?scriptVersionId=362316572) completed successfully. The page records a run of 13,888.8 seconds, about 3 hours 51 minutes; 200 questions each for NQ and FEVER, 2,000 unique records across five groups, with call failures and budget overruns at 0. No model was trained in this round, and this is not the final test.
 
-**唯一 NQ 0.2 路由候选不晋升，保留原路由。** 相对同一 E unavailable 模式的原 Adaptive，NQ 冻结 EM 为 93→90/200，修好 3、改坏 6，净 −3（−1.5 个百分点）；没有满足预登记的正净增条件。不改试 0.3／0.4，不因后续语义审核改写这次 EM 选型决定。
+**The single NQ 0.2 routing candidate is not promoted; the original routing is kept.** Relative to the original Adaptive in the same E-unavailable mode, NQ frozen EM is 93→90/200, with 3 fixed and 6 broken, net −3 (−1.5 percentage points); the preregistered positive net-gain condition was not met. 0.3/0.4 will not be tried instead, and this EM selection decision will not be rewritten because of the subsequent semantic review.
 
-## 原始输出与核验
+## Raw outputs and verification
 
-- [outputs.zip](outputs.zip)：原始下载字节，7,339,856 bytes，SHA256 `2139d926fb32c6071b95ceae3035ac95c06e7da10118b9c8976e302bcb62a7bd`。18 个 ZIP 成员，17 个文件校验全部一致。未覆盖原 T4、E r2 或运行包。
-- 源码提交 `7c281d0193a4d1e205cfbc23dca31d6d4a0ac861`，输入包 SHA256 `151676a8c07008257086701c5dbced4fdc0b5e0f98f75f6e88caf98dcbae8f6f`。输入/执行封存、全部 400 题的 ID 与有效输入指纹、离线参考指纹逐一一致。
-- 六个活动长输入路径通过，实际输入至少 16,005 tokens；两个停用 E 的零调用检查通过。两条历史查询的有序 Top-5 复现通过。云端预检使用原封存包，不含 QA gold。
-- 400 条原 Adaptive 的进入状态、最终答案、最终证据和非 Probe 调用参数，与对应固定动作结果完全一致。候选复用这些结果和原有 Probe，无新 GPU 调用。
-- 原 summary 从全部预测独立复算一致。不能把 `answer_replaced` 状态计数当作实际改答数，更不能当作成功修复数。
+- [outputs.zip](outputs.zip): the original downloaded bytes, 7,339,856 bytes, SHA256 `2139d926fb32c6071b95ceae3035ac95c06e7da10118b9c8976e302bcb62a7bd`. 18 ZIP members; all 17 file checksums match. The original T4, E r2 and the run package were not overwritten.
+- Source commit `7c281d0193a4d1e205cfbc23dca31d6d4a0ac861`, input package SHA256 `151676a8c07008257086701c5dbced4fdc0b5e0f98f75f6e88caf98dcbae8f6f`. The input/execution seals, the IDs and valid-input fingerprints of all 400 questions, and the offline reference fingerprints all match one by one.
+- The six active long-input paths passed, with actual inputs of at least 16,005 tokens; the two zero-call checks with E disabled passed. The ordered Top-5 reproduction of the two historical queries passed. The cloud preflight used the original sealed package, which contains no QA gold.
+- The entry state, final answers, final evidence and non-Probe call parameters of the 400 original Adaptive records are exactly identical to the corresponding fixed-action results. The candidate reuses these results and the original Probes, with no new GPU calls.
+- The original summary was independently recomputed from all predictions and matches. The `answer_replaced` status count cannot be treated as the number of actual changed answers, let alone as the number of successful repairs.
 
-## 冻结评分
+## Frozen scoring
 
-每个单元格是正确数／200。NQ 为 normalized EM，FEVER 为二分类标签准确率；两者分开报告。
+Each cell is number correct/200. NQ is normalized EM and FEVER is binary label accuracy; the two are reported separately.
 
-| 比较组 | NQ | NQ 相对 C1 修好／改坏 | FEVER | FEVER 相对 C1 修好／改坏 |
+| Comparison group | NQ | NQ fixed/broken vs C1 | FEVER | FEVER fixed/broken vs C1 |
 |---|---:|---:|---:|---:|
-| C1 缓存 | 89（44.5%） | 0／0 | 163（81.5%） | 0／0 |
-| Always Retrieve | 89（44.5%） | 9／9 | 167（83.5%） | 7／3 |
-| Always Rerank | 92（46.0%） | 7／4 | 164（82.0%） | 6／5 |
-| Always Repair，E 停用 | 89（44.5%） | 0／0 | 163（81.5%） | 0／0 |
-| 原 Adaptive | 93（46.5%） | 4／0 | 164（82.0%） | 1／0 |
-| 新 NQ 0.2 候选，离线回放 | 90（45.0%） | 7／6 | 164（82.0%） | 1／0 |
+| C1 cached | 89 (44.5%) | 0/0 | 163 (81.5%) | 0/0 |
+| Always Retrieve | 89 (44.5%) | 9/9 | 167 (83.5%) | 7/3 |
+| Always Rerank | 92 (46.0%) | 7/4 | 164 (82.0%) | 6/5 |
+| Always Repair, E disabled | 89 (44.5%) | 0/0 | 163 (81.5%) | 0/0 |
+| Original Adaptive | 93 (46.5%) | 4/0 | 164 (82.0%) | 1/0 |
+| New NQ 0.2 candidate, offline replay | 90 (45.0%) | 7/6 | 164 (82.0%) | 1/0 |
 
-原 Adaptive 相对 C1 的观察净增为 NQ +2.0、FEVER +0.5 个百分点；精确双侧 McNemar p 分别为 0.125、1.0。这是选型集描述，不能宣称已建立显著提升。候选相对原 Adaptive 的差值 95% 配对 bootstrap 区间为 [−4.5, +1.5] 个百分点，p=0.5078125；拒绝原因是未达到登记的选型门槛，并非证明统计显著变差。未运行 Full，不套用最终四项 Holm 家族，也不认证 AC5。
+The observed net gain of the original Adaptive relative to C1 is NQ +2.0 and FEVER +0.5 percentage points; the exact two-sided McNemar p is 0.125 and 1.0 respectively. This is a description of the selection set and cannot claim that a significant improvement has been established. The 95% paired bootstrap interval of the candidate's difference relative to the original Adaptive is [−4.5, +1.5] percentage points, p=0.5078125; the reason for rejection is not reaching the registered selection threshold, not proof of a statistically significant deterioration. Full was not run, the final four-test Holm family is not applied, and AC5 is not certified.
 
-## 路由与成本
+## Routing and cost
 
-候选额外将 103 道 NQ 题送往补检索，实际改变 15 个答案。相比原 Adaptive，回放估算多 100 次 Qwen 调用、103 次检索、103 次评分，工具/模型调用耗时合计约增加 1,347 秒。原 Probe 保留；该时间是已有调用的回放估计，不是新系统部署时延。FEVER 逐题答案、动作和回放成本完全不变。
+The candidate additionally sends 103 NQ questions to retrieval enhancement, actually changing 15 answers. Compared with the original Adaptive, the replay estimates 100 more Qwen calls, 103 retrievals and 103 scorings, with total tool/model call time increased by about 1,347 seconds. The original Probes are kept; this time is a replay estimate from existing calls, not the deployment latency of a new system. FEVER per-question answers, actions and replay costs are completely unchanged.
 
-原 Adaptive 的实测增量调用为 NQ：79 次 Qwen、9 次检索、27 次评分；FEVER：111 次 Qwen、63 次检索、63 次评分。各组详细实测值见 [audit.json](audit.json)。所有成本均在缓存 C1 之后，不包含共同 C1 的历史生成成本。
+The measured incremental calls of the original Adaptive are NQ: 79 Qwen, 9 retrievals, 27 scorings; FEVER: 111 Qwen, 63 retrievals, 63 scorings. Detailed measured values for each group are in [audit.json](audit.json). All costs are after cached C1 and exclude the historical generation cost of the shared C1.
 
-## E 与语义审核边界
+## E and semantic review boundaries
 
-E 两数据集统一 unavailable，Always Repair 共 400 条保持输入答案，零 E 模型调用；原 Adaptive 的 10 条 NQ E 路由也回退保留，FEVER E 路由为 0。此结果不能证明 E 修复有效、核验准确或 AC6 达标。
+E is uniformly unavailable for both datasets; Always Repair keeps the input answer for all 400 records, with zero E model calls; the original Adaptive's 10 NQ E routes also fall back to keeping, and FEVER E routes are 0. This result cannot prove that E repair is effective, that verification is accurate, or that AC6 is met.
 
-[candidate_review15.jsonl](candidate_review15.jsonl) 保存候选相对原 Adaptive 的全部 15 个改答对、问题、原 Top-5、候选证据及冻结参考；人工语义字段全部 pending。NQ 的 6 条 EM 回退不等于已经确认 6 条真实语义误修，例如人名扩写与参考短名可能产生 EM 分歧。审核用于解释结果及报告，不将选型题转作下一轮训练或调参。T4 和 T9 的其他审核仍单独保留。
+[candidate_review15.jsonl](candidate_review15.jsonl) stores all 15 changed-answer pairs of the candidate relative to the original Adaptive, the questions, the original Top-5, the candidate evidence and the frozen references; all human semantic fields are pending. The 6 NQ EM regressions do not mean that 6 real semantic harmful repairs have been confirmed; for example, an expanded person's name versus a short reference name can produce an EM disagreement. The review is used to explain the results and for the report, and the selection questions are not turned into training or tuning for the next round. Other reviews for T4 and T9 are still kept separately.
 
-## 复现与后续
+## Reproduction and follow-up
 
-[audit.json](audit.json) 为完整自动核验与评分，[decision.json](decision.json) 为拒绝决定，[candidate_replay.jsonl](candidate_replay.jsonl) 为 400 条离线反事实结果；均不是新增 GPU 预测。新增 8 项回归在 `tests/test_controller_t5_output_audit.py`；完整 965 项测试全部通过（139.540 秒），原始 ZIP 在另一进程生成的五个结果文件逐字节一致。首次本地完整检查因缺少依赖失败的日志保留，补齐后 3 项失败路径复查及完整回归均通过；未重跑 GPU。验证记录见 [self_check.json](self_check.json)。
+[audit.json](audit.json) is the complete automatic verification and scoring, [decision.json](decision.json) is the rejection decision, and [candidate_replay.jsonl](candidate_replay.jsonl) is the 400 offline counterfactual results; none of them are new GPU predictions. The 8 new regression tests are in `tests/test_controller_t5_output_audit.py`; all 965 full tests passed (139.540 seconds), and the five result files generated from the raw ZIP in another process are byte-for-byte identical. The log of the first local full check, which failed due to missing dependencies, is kept; after the dependencies were added, the re-check of the 3 failure paths and the full regression both passed; GPU was not rerun. Validation records are in [self_check.json](self_check.json).
 
 ```bash
 python scripts/audit_controller_t5_selection.py \
@@ -49,4 +49,4 @@ python scripts/audit_controller_t5_selection.py \
   --output-dir /tmp/controller_t5_selection_independent_replay
 ```
 
-该命令要求目标不存在以保护历史审计。下一步是保留原路由、收口审核、登记最终评测范围并进入 T7 封存；T8 尚未开始。蒸馏、RSI、E 语义修订均须另立扩展和数据隔离，不能继续用本次选型反馈搜索新候选。
+This command requires the target not to exist, to protect the historical audit. Next step: keep the original routing, close the review, register the final evaluation scope and enter T7 sealing; T8 has not started. Distillation, RSI and E semantic revisions must each be set up as a separate extension with data isolation, and this selection feedback must not continue to be used to search for new candidates.

@@ -1,10 +1,10 @@
-# E 开发实验结果：2026-10-14
+# E development experiment results: 2026-10-14
 
-## v5 已完成：同模型复核没有改善结果
+## v5 completed: same-model review did not improve results
 
-Colab T4，固定 28 条训练开发样本，四组共 112 条真实输出、123 次 Qwen 调用。GPU 包 SHA-256 `4f115e81d9698e60f3db6f29d2b018c0388f8daf6f3ca7ed4a3b74723485b9dd`；输出 ZIP `2a43425501468e666087fa26df4627ad648847ff673ff49156c8e3addc8e93d7`。全部输出已归档并通过 CPU 回放，原始候选在 query/guarded 两组一致。回放验证解析/决策/成本，不重新验证模型事实判断。
+Colab T4, 28 fixed training development samples, four groups totalling 112 real outputs and 123 Qwen calls. GPU package SHA-256 `4f115e81d9698e60f3db6f29d2b018c0388f8daf6f3ca7ed4a3b74723485b9dd`; output ZIP `2a43425501468e666087fa26df4627ad648847ff673ff49156c8e3addc8e93d7`. All outputs have been archived and passed CPU replay; the original candidates are identical in the query/guarded groups. Replay verifies parsing/decisions/cost and does not re-verify the model's factual judgements.
 
-| 数据集 / 策略 | 冻结正确数（14 条） | 修复 / 误修 | 改答案 | 调用 | 生成秒数 |
+| Dataset / strategy | Frozen correct (14 samples) | Fixed / harmful repair | Changed answers | Calls | Generation seconds |
 |---|---:|---:|---:|---:|---:|
 | FEVER / v4 grounded | 4 → 6 | 2 / 0 | 2 | 14 | 44.80 |
 | FEVER / v5 query | 4 → 4 | 0 / 0 | 0 | 14 | 82.53 |
@@ -15,98 +15,98 @@ Colab T4，固定 28 条训练开发样本，四组共 112 条真实输出、123
 | NQ / v5 guarded | 2 → 2 | 0 / 0 | 3 | 19 | 117.74 |
 | NQ / reanswer | 2 → 2 | 0 / 0 | 2 | 14 | 18.26 |
 
-这些是原始 FEVER accuracy / NQ EM。NQ 人工确认正确对照为 5 条，但旧 EM 只认 2 条。v4 的两个 NQ EM 修复发生在已确认正确的 Columbia 和 bias 对照上，因此不能解释为真实错误修复。所有新输出的成对人工正确性/证据支持仍未验收，语义指标为 null。
+These are raw FEVER accuracy / NQ EM. NQ has 5 human-confirmed correct controls, but the old EM recognizes only 2. Both v4 NQ EM repairs occurred on the already-confirmed-correct Columbia and bias controls, so they cannot be interpreted as real error repairs. Paired human correctness/evidence support for all new outputs has not yet been accepted; semantic metrics are null.
 
-FEVER 同模型复核接受了 6 条，其中 3 条仍与参考标签相反（Eva、Daggering、Bea）。六项全 yes 不提供独立支持，增加的六次调用没有修复错误。NQ query 组 8/14 输出无效，主要为答案不在连续引文中或引文标点被重写；有些答案的语义可能改善，但也有错误事件与部分答案，不能简单放宽全部校验。
+FEVER same-model review accepted 6 samples, 3 of which are still opposite to the reference label (Eva, Daggering, Bea). Six all-yes answers provide no independent support, and the six extra calls did not repair errors. In the NQ query group 8/14 outputs are invalid, mainly because the answer is not in a contiguous quote or the quote's punctuation was rewritten; some answers may be semantically improved, but there are also wrong events and partial answers, so not all checks can simply be relaxed.
 
-原始文件：`artifacts/answer_repair/v5_reviewed/colab_20261014/`；校验报告 `artifacts/answer_repair/v5_reviewed/cpu_replay.json`。旧汇总字段 `*_observed_calls` 在两阶段实验中实际计数的是有 token 记录的样本数；`extra_calls` 和 token 总数正确。v6 起新增 observed_samples 并修正 observed_calls，不改写已冻结 v5 结果。
+Raw files: `artifacts/answer_repair/v5_reviewed/colab_20261014/`; validation report `artifacts/answer_repair/v5_reviewed/cpu_replay.json`. In the two-stage experiment, the old summary field `*_observed_calls` actually counted the number of samples with token records; `extra_calls` and token totals are correct. From v6 onward observed_samples is added and observed_calls is fixed, without rewriting the frozen v5 results.
 
-## v6r1 已完成：独立 NLI 有局部修复，原文抽取 EM 退步
+## v6r1 completed: independent NLI gives local repairs, verbatim extraction regresses EM
 
-协议见 `ANSWER_REPAIR_V6.md`。最新版 v6r1 已实现并完成 81 项 CPU 测试、隔离归档内同样 81 项测试、四组完整预检及 48 个文件的哈希核对。使用真实固定 tokenizer 处理 FEVER 14+50 条输入，共生成 365 个窗口，每条最多 9 个窗口；所有非空白证据字符覆盖完整且输入不超过 512 tokens。该检查没有模型 forward，不能算 NLI 效果实验。
+See `ANSWER_REPAIR_V6.md` for the protocol. The latest version v6r1 has been implemented and completed 81 CPU tests, the same 81 tests inside the isolated archive, full pre-checks for all four groups, and hash verification of 48 files. Using the real fixed tokenizer on 14+50 FEVER inputs produced 365 windows in total, at most 9 windows per sample; all non-whitespace evidence characters are fully covered and no input exceeds 512 tokens. This check involved no model forward pass and cannot count as an NLI effectiveness experiment.
 
-最新 E adapter 又回放了既有 100 条真实 ControllerDecision（使用冻结上游 schema 类）：71 no_action、26 retrieval_enhancement、2 evidence_refinement、1 generation_repair；历史 E 行为与单次调用完全保留。这是 CPU 兼容性回放，不是新 GPU 效果结果。
+The latest E adapter also replayed the existing 100 real ControllerDecisions (using the frozen upstream schema classes): 71 no_action, 26 retrieval_enhancement, 2 evidence_refinement, 1 generation_repair; historical E behaviour and single-call behaviour are fully preserved. This is a CPU compatibility replay, not a new GPU effectiveness result.
 
-Kaggle T4 x2 环境完成全部四组真实推断，共 128 条输出、123 个唯一 dataset/sample_id。审核后 cohort 与旧 dev50 重叠 FEVER 1 条、NQ 4 条，以下分别报告，不能合并为独立样本。GPU 会话已在下载和验证归档后释放。
+The Kaggle T4 x2 environment completed real inference for all four groups: 128 outputs in total, 123 unique dataset/sample_id. The reviewed cohort overlaps the old dev50 by 1 FEVER and 4 NQ samples; they are reported separately below and cannot be combined as independent samples. The GPU session was released after the archive was downloaded and verified.
 
-| 数据集 / 开发批次 | 冻结正确数 | 指标修复 / 指标误修 | 改答案 | invalid / conflict / uncertain |
+| Dataset / development batch | Frozen correct | Metric fixed / metric harmful repair | Changed answers | invalid / conflict / uncertain |
 |---|---:|---:|---:|---:|
-| FEVER / 审核后 14 条 | 4 → 7 | 3 / 0 | 3 | 0 / 4 / 3 |
-| FEVER / 原 dev50 | 45 → 44 | 1 / 2 | 3 | 0 / 5 / 7 |
-| NQ / 审核后 14 条 | 2 → 0 | 0 / 2 | 10 | 4 / 0 / 0 |
-| NQ / 原 dev50 | 20 → 7 | 0 / 13 | 26 | 24 / 0 / 0 |
+| FEVER / reviewed 14 | 4 → 7 | 3 / 0 | 3 | 0 / 4 / 3 |
+| FEVER / original dev50 | 45 → 44 | 1 / 2 | 3 | 0 / 5 / 7 |
+| NQ / reviewed 14 | 2 → 0 | 0 / 2 | 10 | 4 / 0 / 0 |
+| NQ / original dev50 | 20 → 7 | 0 / 13 | 26 | 24 / 0 / 0 |
 
-FEVER 使用 accuracy，NQ 使用冻结 EM。NQ 审核后 14 条的 F1 为 0.2920→0.3164，核心错误 9 条为 0.0202→0.2399；但正确对照 5 条的 F1 为 0.7813→0.4541。旧 dev50 的 F1 为 0.5489→0.3756。EM 的退步与语义误修须分开：不少原文抽取返回整句，包含正确答案也会 EM=0。
+FEVER uses accuracy, NQ uses frozen EM. F1 on the 14 reviewed NQ samples is 0.2920→0.3164, and on the 9 core error samples 0.0202→0.2399; but F1 on the 5 correct controls is 0.7813→0.4541. F1 on the old dev50 is 0.5489→0.3756. EM regression must be separated from semantic harmful repair: many verbatim extractions return whole sentences, which get EM=0 even when they contain the correct answer.
 
-| 数据集 / 批次 | Qwen 调用 / 生成秒数 / 输入 tokens | NLI forward 批次 / 分类秒数 / 输入 tokens |
+| Dataset / batch | Qwen calls / generation seconds / input tokens | NLI forward batches / classification seconds / input tokens |
 |---|---|---|
-| FEVER / 审核后 14 条 | 0 / 0 / 无生成 | 29 / 12.75 / 21,910 |
-| FEVER / 原 dev50 | 0 / 0 / 无生成 | 101 / 31.50 / 62,352 |
-| NQ / 审核后 14 条 | 14 / 73.59 / 11,797 | 0 / 0 / 0 |
-| NQ / 原 dev50 | 50 / 332.66 / 46,385 | 0 / 0 / 0 |
+| FEVER / reviewed 14 | 0 / 0 / no generation | 29 / 12.75 / 21,910 |
+| FEVER / original dev50 | 0 / 0 / no generation | 101 / 31.50 / 62,352 |
+| NQ / reviewed 14 | 14 / 73.59 / 11,797 | 0 / 0 / 0 |
+| NQ / original dev50 | 50 / 332.66 / 46,385 | 0 / 0 / 0 |
 
-成本字段遵循运行前 v6 协议，模型下载/初始化不在上述逐条耗时中。两类模型预算不同，不能把 NLI 视为等预算的 Qwen 替代。v5 在 Colab、v6r1 在 Kaggle，依赖环境也不同，跨版本延迟不是受控速度比较。
+Cost fields follow the pre-run v6 protocol; model download/initialization is not included in the per-sample times above. The two model types have different budgets, so NLI cannot be regarded as an equal-budget replacement for Qwen. v5 ran on Colab and v6r1 on Kaggle with different dependency environments, so cross-version latency is not a controlled speed comparison.
 
-### 具体结果说明
+### Detailed result notes
 
-FEVER 审核后核心 10 条中，Daggering `156493`、Sugarland Express `203615`、Greek language `72578` 的标签改为参考标签；正确对照 4 条都没有改答案。Sugarland Express 同时出现在 dev50，不能重复算独立修复。候选引用分别直接涉及舞蹈、Spielberg 合写和阿尔巴尼亚的希腊语使用，但新输出的人工支持性仍待确认。
+Among the 10 reviewed FEVER core samples, Daggering `156493`, Sugarland Express `203615`, and Greek language `72578` changed to the reference label; none of the 4 correct controls changed answer. Sugarland Express also appears in dev50 and cannot be double-counted as an independent repair. The candidate citations directly concern dancing, Spielberg's co-writing, and the use of Greek in Albania respectively, but human assessment of support for the new outputs is still pending.
 
-dev50 的两条 FEVER 指标误修暴露实体问题：`140820` 问 Men in Black II，NLI 却引用 2015 年比利时电影 Black，以 contradiction 0.9792 改成 REFUTES；`33982` 问 Henry Cavill 的 Superman 电影，引用 Henry's Crime，以 contradiction 0.9253 改成 REFUTES。高阈值和引文来源校验都没有阻止无关实体触发判定。因此不能依据审核后 14 条的改善晋升该策略。
+The two FEVER metric harmful repairs in dev50 expose an entity problem: `140820` asks about Men in Black II, but NLI cited the 2015 Belgian film Black and changed to REFUTES with contradiction 0.9792; `33982` asks about Henry Cavill's Superman film, cited Henry's Crime, and changed to REFUTES with contradiction 0.9253. Neither the high threshold nor quote-source validation prevented an unrelated entity from triggering a verdict. Therefore the strategy cannot be promoted based on the improvement on the 14 reviewed samples.
 
-NQ 的抽取机制成功保留原文字符，但答案与证据混为一个长片段。`5259818422556035007` 从 Ringo Starr 变成含该名字的整句；`970104939222709777` 从 Abbot Suger 变成艺术史整句，两者都由 EM=1 变成 0，尚不能据此称为语义改错。相反，Annie 演唱者、Loihi 定义和 Astros 对手等核心候选包含更多回答信息却仍 EM=0，需人工判断。
+The NQ extraction mechanism successfully preserves verbatim characters, but merges answer and evidence into one long span. `5259818422556035007` changed from Ringo Starr to a whole sentence containing that name; `970104939222709777` changed from Abbot Suger to a whole art-history sentence; both went from EM=1 to 0, which is not yet enough to call them semantically broken. Conversely, core candidates such as the Annie singer, the Loihi definition, and the Astros opponent contain more answer information but are still EM=0 and need human judgement.
 
-另有来源合法却没有回答问题的案例：`970985133701043298` 问 legislative act 的类别，抽取“国会两院多数通过”而没有类别；`-1209334507323554133` 问 crock pot 低档温度，抽取最低液位与加热位置说明，没有温度。这些是代理辅助分析，未写成人工真值。invalid 回退保留原答案，也不代表原答案正确或有证据支持。
+There are also cases where the source is valid but the question is not answered: `970985133701043298` asks for the category of a legislative act, and extracts "passed by a majority of both houses of Congress" without the category; `-1209334507323554133` asks for the low-setting temperature of a crock pot, and extracts instructions on the minimum liquid level and heating position, without a temperature. These are the assistant's assisted analysis and are not recorded as human ground truth. An invalid fallback keeps the original answer, which also does not mean the original answer is correct or evidence-supported.
 
-### 归档、回放和人工队列
+### Archive, replay, and human review queue
 
-输入包 SHA-256：`74d40b01c96245e1caf2ac8af786bf3b05394971863bddc81a75a2a2afa45ef5`。
-结果 ZIP SHA-256：`3e9cd5eec2a658cf9ff5146c2b7322c9166d35367b9af34696439847589df684`。
-原始 30 文件位于 `artifacts/answer_repair/v6r1_reviewed/kaggle_20261014/`，包括预测、原始模型输出、NLI 全窗口概率、环境、安装/测试/运行日志及四组汇总。Python 3.13.15、torch 2.11.0+cu128、transformers 5.16.1、accelerate 1.14.0、bitsandbytes 0.50.2，模型 revision 均按冻结协议固定。
+Input package SHA-256: `74d40b01c96245e1caf2ac8af786bf3b05394971863bddc81a75a2a2afa45ef5`.
+Results ZIP SHA-256: `3e9cd5eec2a658cf9ff5146c2b7322c9166d35367b9af34696439847589df684`.
+The original 30 files are in `artifacts/answer_repair/v6r1_reviewed/kaggle_20261014/`, including predictions, raw model outputs, full-window NLI probabilities, environment, install/test/run logs, and the four group summaries. Python 3.13.15, torch 2.11.0+cu128, transformers 5.16.1, accelerate 1.14.0, bitsandbytes 0.50.2; model revisions are all pinned per the frozen protocol.
 
-Kaggle 自动解压加载核对固定 checksum index 后验证全部 48 文件，保存 `input_integrity.json`；没有声称重新验证不存在的原归档字节。加载适配的原归档、预解压、篡改文件及篡改清单四种场景均已验收。云端 81 项测试通过。
+Kaggle auto-extraction loading verified all 48 files after checking the fixed checksum index and saved `input_integrity.json`; it does not claim to re-verify bytes of an original archive that does not exist. Four scenarios have been accepted: loading the adapted original archive, pre-extracted files, tampered files, and a tampered manifest. 81 tests pass in the cloud.
 
-`artifacts/answer_repair/v6r1_reviewed/release_audit/cpu_replay.json` 使用该运行自己的冻结代码验证全部 128 条：原始输出/完整 NLI trace 重放、输入与设置指纹、决策、引用、成本及汇总一致。CPU 回放不验证事实真值。
+`artifacts/answer_repair/v6r1_reviewed/release_audit/cpu_replay.json` uses this run's own frozen code to verify all 128 records: raw output/full NLI trace replay, input and settings fingerprints, decisions, citations, cost, and summaries are consistent. CPU replay does not verify factual truth.
 
-完整审核底稿为 `release_audit/pending_semantic_pairs.jsonl`；可编辑排序副本为 `release_audit/review_priority.jsonl`，阅读版为 `release_audit/review_priority.md`。128 条人工字段全部 pending/null，前 42 条为改动结果：17 条冻结指标退步、4 条改善、21 条其他改动；其中仍有跨 cohort 重复 ID，按两批保留。先审 FEVER 两条疑似实体误修，再审 NQ 指标退步，之后审改善与其他改动。对同一条初始/最终答案分别判断正确性与支持性，不能自动用参考匹配代填。v5 另外 112 条及初始 9 条边界样本继续暂缓。
+The full review worksheet is `release_audit/pending_semantic_pairs.jsonl`; the editable sorted copy is `release_audit/review_priority.jsonl`, and the readable version is `release_audit/review_priority.md`. All 128 human fields are pending/null; the first 42 are changed results: 17 frozen-metric regressions, 4 improvements, 21 other changes; cross-cohort duplicate IDs remain among them and are kept as two batches. First review the two FEVER suspected entity harmful repairs, then the NQ metric regressions, then the improvements and other changes. For the same initial/final answer, judge correctness and support separately; they must not be auto-filled with reference matching. The other 112 v5 records and the initial 9 boundary samples remain deferred.
 
-本轮预先约定的工程、GPU、自动验收、归档与交接工作已完成。研究结论是目前策略尚未证明可靠净收益：保留负结果，不晋升默认策略，不继续追调同一小开发集阈值。待人工复评后，再决定是否开发“短答案与独立引文分离、实体相关性和不回答问题的回退”；新策略必须另冻结版本，并由团队安排共同未用于选策略的 held-out 评测。
+The pre-agreed engineering, GPU, automatic acceptance, archiving, and handoff work for this round is complete. The research conclusion is that the current strategy has not yet demonstrated a reliable net gain: keep the negative results, do not promote it to the default strategy, and do not keep tuning thresholds on the same small development set. After human re-review, decide whether to develop "separation of short answer and independent quote, entity relevance, and fallback for not answering the question"; a new strategy must be frozen as a separate version and the team must arrange a held-out evaluation that is jointly unused for strategy selection.
 
-## 128 条代理辅助审核（待用户确认）
+## Assisted review of 128 records by the assistant (pending user confirmation)
 
-按用户要求已逐条完成辅助审核。审核使用冻结参考及 C1 证据，属于非盲的代理开发分析；人工字段全部仍为 pending/null，以下数字不是人工金标准或正式语义指标。128 条实验记录对应 123 个唯一样本，5 条重复的审核材料已核对完全一致，判断复用而结果指纹分别保留。
+At the user's request, assisted review has been completed record by record. The review used the frozen references and C1 evidence and is a non-blind development analysis by the assistant; all human fields remain pending/null, and the numbers below are not a human gold standard or formal semantic metrics. The 128 experiment records correspond to 123 unique samples; the review materials of the 5 duplicates were checked to be fully identical, so the judgements are reused while result fingerprints are kept separately.
 
-| 批次 | 建议语义修复 | 建议语义误修 | 正确性边界未决 |
+| Batch | Suggested semantic repair | Suggested semantic harmful repair | Correctness boundary unresolved |
 |---|---:|---:|---:|
-| FEVER 审核后 14 条 | 3 | 0 | 0 |
+| FEVER reviewed 14 | 3 | 0 | 0 |
 | FEVER dev50 | 1 | 2 | 0 |
-| NQ 审核后 14 条 | 6 | 0 | 0 |
+| NQ reviewed 14 | 6 | 0 | 0 |
 | NQ dev50 | 3 | 1 | 4 |
 
-去重后暂判 9 个修复、3 个误修；这些是代理建议，其中胫骨/腓骨的部位回答为中置信度边界，需重点确认。7 个唯一样本至少有一项正确性或支持性待定，不强行二分；另外有已给出暂定意见但仍需复核的参考错配及范围问题。
+After deduplication, 9 repairs and 3 harmful repairs are tentatively judged; these are the assistant's suggestions, among which the tibia/fibula location answer is a medium-confidence boundary case that needs focused confirmation. 7 unique samples have at least one pending correctness or support item and are not forced into a binary; there are also reference mismatches and scope issues with tentative opinions that still need re-review.
 
-NQ 的 15 条冻结 EM 退步（审核后 2 条、dev50 13 条）均暂判为答案仍正确、扩为有据长句。6 个唯一语义修复候选是：胫骨/腓骨部位、Annie 演唱者、Loihi 定义与位置、结肠 serrated adenoma 定义、Astros 最近对手、Jenny 回归集数。冻结 EM 均未识别这些改善。dev50 的真实误修候选 `970985133701043298` 恰好被 EM 漏掉：原 statute 语义正确，最终“由国会两院多数通过”不回答法律类别。
+The 15 NQ frozen-EM regressions (2 reviewed, 13 dev50) are all tentatively judged as answers that are still correct, expanded into evidence-supported long sentences. The 6 unique semantic repair candidates are: tibia/fibula location, the Annie singer, the Loihi definition and location, the colon serrated adenoma definition, the Astros' most recent opponent, and the episode of Jenny's return. Frozen EM recognized none of these improvements. The real harmful repair candidate in dev50, `970985133701043298`, is exactly the one EM missed: the original statute is semantically correct, while the final "passed by a majority of both houses of Congress" does not answer the legal category.
 
-FEVER 63 个唯一样本中，15 个实际引用涉及错误实体，另 1 个引用的是相关页面内不相关的分窗；不是全部都改了答案。支持性必须检查实际 quote，而不能只看文档标题或正确标签。例如 DID 案实际引用窗口只讨论 amnesia/fugue/conversion disorder，未包含该页前面的 DID 定义。全体 123 个唯一样本中，19 个的正确性判断仍依赖冻结参考标签/答案作暂定，理由已明确说明 C1 缺口。
+Among 63 unique FEVER samples, the actual citations of 15 concern the wrong entity, and 1 more cites an irrelevant window within a related page; not all of them changed the answer. Support must be checked against the actual quote, not just the document title or the correct label. For example, in the DID case the actually cited window discusses only amnesia/fugue/conversion disorder and does not include the DID definition earlier on that page. Among all 123 unique samples, the correctness judgement of 19 still tentatively relies on the frozen reference label/answer, with the C1 gap explicitly stated as the reason.
 
-参考错配重点包括：慢炖锅 low 与 warming 档混淆、Little League 问题引用 Major League 距离、苏联起止年份问题的参考却为 in Eurasia；药学生白袍题沿用之前人工确认的“大多数美国药学生第一学年末”口径。古地磁题保留用户关于岩层记录、过去地磁/板块信息及时间尺度的修正理由。
+Key reference mismatches include: the slow cooker low vs. warming setting confusion, the Little League question citing the Major League distance, and the Soviet Union start/end years question whose reference is in Eurasia; the pharmacy student white coat question follows the previously human-confirmed criterion of "most US pharmacy students, at the end of the first year". The paleomagnetism question keeps the user's correction rationale about rock-layer records, past geomagnetic/plate information, and time scale.
 
-逐条阅读：`artifacts/answer_repair/v6r1_reviewed/assisted_review_20261014/assisted_review.md`。
-机器可读记录：同目录 `assisted_pairs.jsonl`，每条有四项代理建议、独立引用判断、理由、置信度、风险标记和已逐字定位的证据片段；`decisions.json` 保存显式代理判断，`summary.json` 保存分批及去重统计。生成脚本只校验和排版这些判断，不自动生成语义标签。后续人工确认应引用该阅读版的 1–128 编号，旧 37 条初始审核编号不混用。
+Record-by-record reading: `artifacts/answer_repair/v6r1_reviewed/assisted_review_20261014/assisted_review.md`.
+Machine-readable records: `assisted_pairs.jsonl` in the same directory; each record has four assistant suggestions, an independent citation judgement, rationale, confidence, risk flags, and verbatim-located evidence snippets; `decisions.json` stores the explicit assistant judgements, and `summary.json` stores per-batch and deduplicated statistics. The generation script only validates and formats these judgements and does not automatically generate semantic labels. Subsequent human confirmation should cite the 1–128 numbering of that readable version; the old 37-record initial review numbering must not be mixed in.
 
-辅助审核说明 NQ 的 EM 下降不能直接解释为语义质量全面退步；新方案有待确认的局部修复信号，同时有不回答问题的误改。当前仍不晋升默认策略，先确认关键案例、统一答案完整性口径及参考疑点，再决定下一版。
+The assisted review shows that the NQ EM drop cannot be directly interpreted as an across-the-board semantic quality regression; the new approach has local repair signals pending confirmation, along with harmful changes that do not answer the question. The default strategy is still not promoted; first confirm the key cases, unify the answer-completeness criterion and the reference doubts, and then decide on the next version.
 
-## 关键案例人工确认（2026-10-14）
+## Human confirmation of key cases (2026-10-14)
 
-用户按 [确认清单](../../ANSWER_REPAIR_CONFIRMATION_20261014.md) 整体同意（原话“同意”），范围是 28 个关键案例及其重复记录；其余 97 个唯一样本仍为辅助审核结论、待批量确认。确认方式是聊天辅助摘要确认，不是独立盲评；另有一次不看 Codex 结论的独立盲评二读，在 9 个修复、3 个误修上与辅助审核一致。记录文件：`data/annotations/human/answer_repair_v6r1_confirmations_20261014.json`（用户确认与改判）、`data/annotations/human/answer_repair_v6r1_pairs_20261014.jsonl`（逐条 pair_review，绑定结果 SHA-256，输出 SHA-256 `2f0dc68b…`）。
+The user agreed overall per the [confirmation checklist](../../ANSWER_REPAIR_CONFIRMATION_20261014.md) (original wording "同意"), covering 28 key cases and their duplicate records; the remaining 97 unique samples are still assisted review conclusions pending batch confirmation. The confirmation method was confirmation of a chat-assisted summary, not an independent blind review; a separate independent blind second reading without seeing Codex's conclusions agreed with the assisted review on the 9 repairs and 3 harmful repairs. Record files: `data/annotations/human/answer_repair_v6r1_confirmations_20261014.json` (user confirmations and changed rulings), `data/annotations/human/answer_repair_v6r1_pairs_20261014.jsonl` (per-record pair_review, bound to the result SHA-256, output SHA-256 `2f0dc68b…`).
 
-| 批次 | 已确认 | 待确认 | 语义修复 | 语义误修 |
+| Batch | Confirmed | Pending confirmation | Semantic repair | Semantic harmful repair |
 |---|---:|---:|---:|---:|
-| FEVER 审核后 14 条 | 3 | 11 | 3 | 0 |
-| FEVER dev50 | 4 | 46 | 1（与审核后重复） | 2 |
-| NQ 审核后 14 条 | 12 | 2 | 6 | 0 |
-| NQ dev50 | 11 | 39 | 3（均与审核后重复） | 1 |
-| 去重 | 26 | 97 | **9** | **3** |
+| FEVER reviewed 14 | 3 | 11 | 3 | 0 |
+| FEVER dev50 | 4 | 46 | 1 (duplicate of reviewed) | 2 |
+| NQ reviewed 14 | 12 | 2 | 6 | 0 |
+| NQ dev50 | 11 | 39 | 3 (all duplicates of reviewed) | 1 |
+| Deduplicated | 26 | 97 | **9** | **3** |
 
-暂缓 2 条（#113 Little League 投手距离、#121 苏联起止年份）均为参考错配，不计入。C 组改判：#31、#32 初始判正确（不计修复）；#54 支持性记不足；#109、#125 支持性记是。确认采用的 7 条答案完整性口径见确认清单，后续 v7 的成对审核沿用同一口径。
+2 deferred (#113 Little League pitching distance, #121 Soviet Union start/end years) are both reference mismatches and are not counted. Group C changed rulings: #31, #32 initially judged correct (not counted as repairs); #54 support recorded as insufficient; #109, #125 support recorded as yes. The 7 answer-completeness criteria adopted in the confirmation are in the confirmation checklist, and subsequent v7 paired reviews follow the same criteria.
 
-这组人工确认的含义：v6r1 的 FEVER NLI 在目标错误样本上有 3 个真实修复，同时在 dev50 上有 2 个实体错误导致的误修；NQ 原文抽取有 6 个冻结 EM 未识别的真实修复和 1 个 EM 未识别的真实误修。v7 的两项改动正是针对这 3 个误修的成因；其效果仍以 held-out 为准。
+Meaning of this set of human confirmations: v6r1's FEVER NLI has 3 real repairs on target error samples, along with 2 harmful repairs on dev50 caused by entity errors; NQ verbatim extraction has 6 real repairs that frozen EM did not recognize and 1 real harmful repair that EM did not recognize. v7's two changes target exactly the causes of these 3 harmful repairs; their effect is still subject to held-out evaluation.

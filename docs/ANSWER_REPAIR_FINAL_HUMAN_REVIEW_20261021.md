@@ -1,65 +1,65 @@
-# E 最终改答人工确认：累计记录
+# Human confirmation of E's final changed answers: cumulative record
 
-2026-10-21首次确认，2026-10-22追加澄清。**42条处理完成，待处理0条；37条可二元计分，5条已处理并保留评分说明。**这是参考可见的聊天辅助确认，不是独立盲标。原始问题、gold、EM、模型输出和代理初稿都未修改；历史H1–H45不在本次确认范围。
+First confirmed on 2026-10-21, with clarifications added on 2026-10-22. **42 items processed, 0 pending processing; 37 can be scored in binary, and 5 are processed with scoring notes retained.** This is a reference-visible chat-assisted confirmation, not an independent blind label. The original questions, gold, EM, model outputs and the assistant's initial drafts were not modified; historical H1–H45 are outside the scope of this confirmation.
 
-最新入口为 [人工审核网页](../artifacts/answer_repair/final_review_v1/F42_human_review.html)。冻结辅助网页继续作为最初展示材料，保留其当时“人工0/42”的快照，不代表当前状态。
+The latest entry point is the [human review web page](../artifacts/answer_repair/final_review_v1/F42_human_review.html). The frozen assisted web page remains the original presentation material and keeps its snapshot of "human 0/42" from that time, which does not represent the current status.
 
-## 本次明确的修改
+## Changes made explicit in this round
 
-| 编号 | 人工决定 | 对计数的影响 |
+| No. | Human decision | Effect on counts |
 |---|---|---|
-| F4 | 追加回复“F4支持”，接受剧情内相对时间；原答Han仍错，改答正确 | 从待定变为修复 |
-| F12 | 原答完整句子更好；追加“按照C1原答”，短答正确性仍待定 | 不直接计误修 |
-| F21 | 追加确认原对改错：一般定义不能用严重形式替代 | 记误修 |
-| F22 | 追加确认原答parabolic可接受，改答也对 | 记正确仍正确 |
-| F23 | 再次要求维持C1原答；改答正确性待定 | 不直接计误修 |
-| F25 | 再次要求维持C1原答Xerxes I；改答正确性待定 | 不直接计误修 |
-| F35 | 追加确认原错改对：特例无机电子供体不足，一般供体答案正确 | 记修复 |
-| F36 | 要求维持原答first season；年份范围改答的正确性仍待定 | 记录原答偏好 |
-| F40 | 追加确认原答与改答均未回答学习类型 | 记两答都错 |
-| F37 | 原题问受援对象；用户要求明确Continental Army，Americans不够具体，American Revolution是事件，两答都错 | 从代理初稿的疑似误修改为原错仍错 |
+| F4 | Follow-up reply "F4 support", accepting in-plot relative time; the original answer Han is still wrong, the changed answer is correct | Changed from pending to fixed |
+| F12 | The original full-sentence answer is better; follow-up "follow the C1 original answer"; correctness of the short answer is still pending | Not directly counted as a harmful repair |
+| F21 | Follow-up confirms originally correct, changed to wrong: a general definition cannot be replaced by a severe form | Counted as a harmful repair |
+| F22 | Follow-up confirms the original answer parabolic is acceptable, and the changed answer is also correct | Counted as correct and still correct |
+| F23 | Again requested keeping the C1 original answer; correctness of the changed answer is pending | Not directly counted as a harmful repair |
+| F25 | Again requested keeping the C1 original answer Xerxes I; correctness of the changed answer is pending | Not directly counted as a harmful repair |
+| F35 | Follow-up confirms originally wrong, changed to correct: the special-case inorganic electron donor is insufficient, the general donor answer is correct | Counted as fixed |
+| F36 | Requested keeping the original answer first season; correctness of the year-range changed answer is still pending | Original-answer preference recorded |
+| F40 | Follow-up confirms that neither the original nor the changed answer answers the type of learning | Counted as both answers wrong |
+| F37 | The question asks for the recipient of help; the user required explicitly Continental Army, Americans is not specific enough, American Revolution is an event, both answers wrong | Changed from the assistant's initial draft of suspected harmful repair to originally wrong and still wrong |
 
-F37用户最初提到“应写帮助行为”，经澄清已明确采用**具体受援者**的口径，不把who改成how。F12/F23/F25/F36的偏好与二元正确性分开记录，不推导成全局完整性或人名规则。F12/F23/F25/F37四条的支持性评分未被单独确认，保留null；代理证据判断仍在原稿中供对照。
+For F37 the user initially mentioned "should write the helping action"; after clarification, the criterion of the **specific recipient of help** was explicitly adopted, and who was not changed to how. The preferences for F12/F23/F25/F36 are recorded separately from binary correctness and are not generalised into global completeness or person-name rules. The supportiveness scores of the four items F12/F23/F25/F37 were not separately confirmed and remain null; the assistant's evidence judgements are still in the original draft for comparison.
 
-首批其余38条按用户同意的代理字段记录，其中已有null继续保留；第二批解决F4，第三批澄清F21/F22/F35/F40并补F36原答偏好。**同意“待定”不会自动变成对或错。**全部四个字段都定案的结果为36条；正确性定案37条中，F37的支持性仍未单独确认，不影响它“两答都错”的正确性分类。
+The remaining 38 items of the first batch were recorded per the assistant fields the user agreed to, with existing nulls kept; the second batch resolved F4, and the third batch clarified F21/F22/F35/F40 and added the F36 original-answer preference. **Agreeing with "pending" does not automatically turn it into correct or wrong.** Results with all four fields finalized total 36; among the 37 with correctness finalized, F37's supportiveness is still not separately confirmed, which does not affect its "both answers wrong" correctness classification.
 
-## 按批次与策略的人工结果
+## Human results by batch and strategy
 
-| 批次／策略 | 改答总数 | 确认修复 | 确认误修 | 正确仍正确 | 原错仍错 | 正确性待定 |
+| Batch / strategy | Total changed answers | Confirmed fixed | Confirmed harmful repair | Correct and still correct | Wrong and still wrong | Correctness pending |
 |---|---:|---:|---:|---:|---:|---:|
-| 开发75 · v7 | 14 | 4 | 2 | 7 | 0 | 1 |
-| 开发75 · 完整r3 | 1 | 1 | 0 | 0 | 0 | 0 |
-| 挑战125 · v7 | 27 | 3 | 4 | 14 | 2 | 4 |
-| 挑战125 · 完整r3 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Dev75 · v7 | 14 | 4 | 2 | 7 | 0 | 1 |
+| Dev75 · full r3 | 1 | 1 | 0 | 0 | 0 | 0 |
+| Challenge125 · v7 | 27 | 3 | 4 | 14 | 2 | 4 |
+| Challenge125 · full r3 | 0 | 0 | 0 | 0 | 0 | 0 |
 
-开发v7确认修复为F4、F5、F7、F13，误修为F2、F3；完整r3确认修复为F15。F13与F15是同一个N96的两个不同输出，分别属于各策略，不能相加当两个独立样本。挑战v7确认修复为F16、F32、F35，误修为F21、F28、F30、F34；F37/F40两答都错，F22两答都对。
+Dev v7 confirmed fixes are F4, F5, F7, F13, and harmful repairs F2, F3; full r3 confirmed fix is F15. F13 and F15 are two different outputs for the same N96, each belonging to its own strategy, and cannot be added up as two independent samples. Challenge v7 confirmed fixes are F16, F32, F35, and harmful repairs F21, F28, F30, F34; F37/F40 both answers wrong, F22 both answers correct.
 
-只看已定案项，开发v7为+2、挑战v7为−1，但两组仍有待定项，**这两个差值不是全组最终净收益**。开发v7全部改答的逻辑净变化范围为[+1,+2]条；挑战v7为[−5,−1]条。它们是未决二元判断的可能范围，不是统计置信区间。完整r3开发净修复+1已定案，挑战0改答，因此答案语义净变化为0。
+Looking only at finalized items, dev v7 is +2 and challenge v7 is −1, but both groups still have pending items, **so these two differences are not the final net gain for the whole group**. The logical net-change range over all dev v7 changed answers is [+1,+2] items; for challenge v7 it is [−5,−1] items. They are the possible ranges of the unresolved binary judgements, not statistical confidence intervals. Full r3's dev net repair of +1 is finalized, and challenge has 0 changed answers, so the semantic net change of the answers is 0.
 
-开发75已有初始人审64个正确、11个错误，完整r3只改N96且现已确认修复，其余74个答案保持原样。所以按这批既定人审口径，语义正确数可记为**64→65/75**；它依然是已见开发结果。该题EM仍为0，冻结EM依然为20→20。不能把这个开发语义改善推广成未见收益，r3仍不晋升默认。挑战125没有全量初始人工正确性分母，不计算完整语义准确率或完整修复召回率。
+Dev75 already has initial human review with 64 correct and 11 wrong; full r3 changed only N96, now confirmed fixed, and the other 74 answers stay as they were. So under this batch's established human-review criteria, the number semantically correct can be recorded as **64→65/75**; it is still a seen development result. That question's EM is still 0, and frozen EM remains 20→20. This development semantic improvement cannot be generalised into an unseen gain, and r3 is still not promoted to default. Challenge125 has no full initial human correctness denominator, so no complete semantic accuracy or complete repair recall is computed.
 
-## 已处理并保留评分说明
+## Processed with scoring notes retained
 
-**F12、F19、F23、F25、F36。**
+**F12, F19, F23, F25, F36.**
 
-- F12：已按用户决定保留C1完整原答；改答未作二元评分，不再作为待办。
-- F19：已完成外部核查，官方资料支持1991年9月6日；辅助结论为两答均正确。外部结论与人工金标分开保存，固定Top-5的日期冲突仍记录，不再作为待办。
-- F23：已按用户决定保留含greyouts的C1原答；改答未作二元评分，不再作为待办。
-- F25：已按用户决定保留Xerxes I的C1原答；改答未作二元评分，不再作为待办。
-- F36：已按用户决定保留first season；改答未作二元评分，不再作为待办。
+- F12: The full C1 original answer was kept per the user's decision; the changed answer was not scored in binary and is no longer a to-do.
+- F19: External verification is complete; official sources support 6 September 1991; the assisted conclusion is that both answers are correct. The external conclusion is stored separately from the human gold standard, and the date conflict in the fixed Top-5 is still recorded; no longer a to-do.
+- F23: The C1 original answer containing greyouts was kept per the user's decision; the changed answer was not scored in binary and is no longer a to-do.
+- F25: The C1 original answer Xerxes I was kept per the user's decision; the changed answer was not scored in binary and is no longer a to-do.
+- F36: first season was kept per the user's decision; the changed answer was not scored in binary and is no longer a to-do.
 
-本页42条均已处理，不再重复询问这5条。处理完成与二元计分分别记录：不自动把保留偏好变成误修，也不把代理外部核查变成人工金标；原有计数和净变化范围保持不变。历史H1–H45人工确认仍待完成。
+All 42 items on this page are processed, and these 5 will not be asked about again. Processing completion and binary scoring are recorded separately: a retained preference is not automatically turned into a harmful repair, nor is the assistant's external verification turned into a human gold standard; the existing counts and net-change ranges remain unchanged. Human confirmation of historical H1–H45 is still pending.
 
-## F19近重复证据核查
+## F19 near-duplicate evidence check
 
-用户询问F19为何引用证据看起来完全一样。逐段核对：R2/R3只差两个日期的前导零（1／01、7／07）；R4与R2相同主体文本后多一句莫斯科相对方位与距离。三个passage_id不同，不能视为三份独立来源。语料构建仅按完整文本精确去重，检索检查passage_id唯一，没有对近重复内容做多样性选择。
+The user asked why the evidence cited by F19 looks exactly the same. Passage-by-passage check: R2/R3 differ only in the leading zeros of two dates (1/01, 7/07); R4 has the same body text as R2 plus one extra sentence on the relative direction and distance from Moscow. The three passage_ids are different, and they cannot be regarded as three independent sources. Corpus construction deduplicated only by exact full text, and the retrieval check ensures passage_id uniqueness; no diversity selection was applied to near-duplicate content.
 
-上游交付分片SHA已复核，原分片→冻结C1→运行输入→审核材料的五个段落ID及原文逐条一致，重复不是审核网页引入的。实际引用是R1的逐字片段，与R1对应内容相同是来源定位的正常结果。原始语料文档元数据本机不可用，具体页面／版本来源未核实。
+The upstream delivery shard SHA has been re-verified; the five passage IDs and original texts are consistent item by item from original shard → frozen C1 → run input → review material, so the duplication was not introduced by the review web page. The actual citation is a verbatim span of R1, and being identical to R1's corresponding content is the normal result of source localisation. The original corpus document metadata is unavailable locally, and the specific page/version source has not been verified.
 
-R1写9月6日，R2–R4写9月7日，不能按重复段落数量消除冲突。后续已查俄罗斯总统图书馆和圣彼得堡市政府记录，支持9月6日；F19外部核查任务已完成，辅助结论单独归档。见 [F19来源审计](../artifacts/answer_repair/final_review_v1/F19_source_audit_20261021.json)。未去重、替换或改写冻结证据，也未更改gold或模型结果。
+R1 says 6 September, R2–R4 say 7 September; the conflict cannot be resolved by the number of duplicated passages. Subsequently the Presidential Library of Russia and Saint Petersburg city government records were checked and support 6 September; the F19 external verification task is complete, and the assisted conclusion is archived separately. See the [F19 source audit](../artifacts/answer_repair/final_review_v1/F19_source_audit_20261021.json). The frozen evidence was not deduplicated, replaced or rewritten, and gold and model results were not changed.
 
-## 追溯与保护
+## Traceability and protection
 
-当前累计原话、澄清及来源SHA见 [第四批确认输入](../data/annotations/human/answer_repair_final_v1_batch04_20261022.confirmations.json)；逐结果判断见 [当前人工记录](../data/annotations/human/answer_repair_final_v1_batch04_20261022.jsonl)；分层及未决项见 [当前统计回执](../data/annotations/human/answer_repair_final_v1_batch04_20261022.summary.json)。第四批通过SHA关联第三批、第二批及首批，旧确认、记录和统计保留原字节。本次“同意”原本对应待定，已追问缺失的四个二元字段；用户回复“是”，按提问中的简写“21改错、22原对、35原错、40改错”落盘，并在commentary回述。保留原答是人工选择，不回改冻结模型输出。第四批按用户指出“这几个不是处理过了么”纠正工作流状态：4条保留原答、1条完成外部核查，均关闭重复审核待办，不新增二元正确性标签。
+The current cumulative verbatim statements, clarifications and source SHAs are in the [batch 4 confirmation input](../data/annotations/human/answer_repair_final_v1_batch04_20261022.confirmations.json); per-result judgements are in the [current human record](../data/annotations/human/answer_repair_final_v1_batch04_20261022.jsonl); stratification and unresolved items are in the [current statistics receipt](../data/annotations/human/answer_repair_final_v1_batch04_20261022.summary.json). Batch 4 links to batch 3, batch 2 and the first batch via SHA, and the old confirmations, records and statistics keep their original bytes. This round's "agree" originally corresponded to pending items, so the four missing binary fields were asked about; the user replied "yes", which was persisted per the shorthand in the question "21 changed wrong, 22 originally correct, 35 originally wrong, 40 changed wrong" and restated in the commentary. Keeping the original answer is a human choice and does not retroactively change the frozen model output. Batch 4 corrected the workflow status per the user's remark "weren't these already processed": 4 items keep the original answer and 1 completed external verification, all duplicate review to-dos are closed, and no new binary correctness labels are added.
 
-使用 `scripts/apply_answer_repair_final_confirmations.py` 应用，按审核材料及结果指纹绑定，不按sample_id跨输出复制。新增检查覆盖null不被补值、偏好不被误记为误修、同题不同答案保持独立、F37改判、范围缺失和既有C1人审保护；连同相关既有检查共14项通过。没有新增GPU调用、改策略或改评分。
+Apply with `scripts/apply_answer_repair_final_confirmations.py`, bound by review material and result fingerprints, not copied across outputs by sample_id. New checks cover nulls not being filled in, preferences not being misrecorded as harmful repairs, different answers to the same question staying independent, the F37 re-judgement, missing scope and protection of the existing C1 human review; together with the related existing checks, 14 checks pass. No new GPU calls, strategy changes or scoring changes were made.

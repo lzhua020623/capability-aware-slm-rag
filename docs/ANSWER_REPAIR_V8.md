@@ -1,67 +1,67 @@
-# E v8：NQ 原答案保护与候选核验
+# E v8: NQ original-answer protection and candidate verification
 
-2026-10-19 开发版本，尚未晋升默认。原 75 条四组实验因原检查格式失败，r2 修复入口后候选格式仍未通过。现 [v8r3 真实结果](ANSWER_REPAIR_RESULTS_20261019_V8_R3.md) 已完成 32 条输出、通过冻结回放及工程门槛，完整流程只改答 N96，EM 1→1；语义误放与误拒仍需优化，人审未完成。历史包与结果均保留。
+Development version of 2026-10-19, not yet promoted to default. The original 75-sample four-group experiment failed on the original-check format, and after r2 fixed the entry point the candidate format still did not pass. Now the [v8r3 real results](ANSWER_REPAIR_RESULTS_20261019_V8_R3.md) have completed 32 outputs and passed the frozen replay and engineering gates; the full pipeline changed only N96, EM 1→1; semantic wrong acceptances and wrong rejections still need optimization, and human review is not complete. Historical bundles and results are all kept.
 
-## 本轮要检验什么
+## What this round tests
 
-v7 能找到真实引文，但真实引文可能属于另一作品、另一事件或另一关系，也可能没有回答问题。直接替换还会损害本来正确的别名或简短答案。本轮检验：在同一模型、同一问题、同一 C1 Top-5 下，先判断原答案是否确有错误，再要求修复候选通过语义核验，能否减少误修并保留有效修复。
+v7 can find real citations, but a real citation may belong to another work, another event or another relation, or may not answer the question. Direct replacement also harms aliases or short answers that were originally correct. This round tests: under the same model, same question and same C1 Top-5, whether first judging whether the original answer is really wrong, and then requiring the repair candidate to pass semantic verification, can reduce harmful repairs while keeping valid repairs.
 
-运行时只读取 `DiagnosisInput` 的问题、初始答案、检索证据及样本标识。证据是 C1 实际检索的 Top-5，不是 oracle gold evidence。参考答案、人工标签和 EM/F1 只用于选开发队列及离线报告，不进入提示或运行时分支。
+At runtime only the question, initial answer, retrieved evidence and sample identifier of `DiagnosisInput` are read. The evidence is the Top-5 actually retrieved by C1, not oracle gold evidence. Reference answers, human labels and EM/F1 are used only for selecting the development queue and for offline reporting, and do not enter prompts or runtime branches.
 
-## 固定输入与对照
+## Fixed inputs and controls
 
-采用 [75 条已定案开发清单](../configs/splits/answer_repair_nq_train_confirmed_dev_v6.json)：11 个内部 E utilisation 目标、64 个正确对照。两条部分回答 N33/N62 也属于目标。25 条未决继续排除；不改 main 来源、C1 回答、gold 或冻结评分。人工确认采用本对话辅助审核，并非盲审或独立标注。
+Uses the [75-item finalized development list](../configs/splits/answer_repair_nq_train_confirmed_dev_v6.json): 11 internal E utilisation targets and 64 correct controls. The two partial answers N33/N62 are also targets. The 25 unresolved items remain excluded; the main source, C1 answers, gold and frozen scoring are not changed. Human confirmation used the assisted review in this conversation, not blind review or independent annotation.
 
-这是有意筛选的 NQ Train 开发队列，不能估计总体错误比例、系统路由收益或未见集净提升。不能把这 75 条用于调优后再称为 held-out。FEVER 本轮保持原有实现，并通过回归测试；本轮不对 FEVER 声称新收益。
+This is a deliberately filtered NQ Train development queue and cannot estimate the overall error rate, system routing gain or unseen-set net improvement. These 75 items cannot be used for tuning and then called held-out. FEVER keeps its existing implementation in this round and passes regression tests; this round claims no new gain on FEVER.
 
-| 对照组 | 处理 | 单条生成上限 |
+| Control group | Treatment | Generation limit per item |
 |---|---|---:|
-| C1 | 复用原始答案，不重新生成 | 0 |
-| `short_answer_quote` | v7 一次抽取短答案和引文 | 1 |
-| `conservative_repair` | 原答案核验 → 最小修复 → 候选核验 | 3 |
-| `conservative_no_original_gate` | 最小修复 → 候选核验 | 2 |
-| `conservative_no_candidate_gate` | 原答案核验 → 最小修复 | 2 |
+| C1 | Reuse the original answer, no regeneration | 0 |
+| `short_answer_quote` | v7 extracts the short answer and citation in one pass | 1 |
+| `conservative_repair` | Original-answer verification → minimal repair → candidate verification | 3 |
+| `conservative_no_original_gate` | Minimal repair → candidate verification | 2 |
+| `conservative_no_candidate_gate` | Original-answer verification → minimal repair | 2 |
 
-三组 v8 使用完全相同的修复提示；消融仅移除对应核验。四组各 75 条，共 300 条输出，最多 600 次额外生成。全部使用冻结 Qwen2.5-7B-Instruct revision `a09a35458c702b33eeacc393d103063234e8bc28`、NF4、FP16、greedy、seed 42；每次最多 384 输出 token。v8 的额外计算高于 v7，须并列报告调用、输入/输出 token、延迟，不能声称等预算比较。
+The three v8 groups use exactly the same repair prompt; the ablations only remove the corresponding verification. Each of the four groups has 75 items, 300 outputs in total, at most 600 extra generations. All use the frozen Qwen2.5-7B-Instruct revision `a09a35458c702b33eeacc393d103063234e8bc28`, NF4, FP16, greedy, seed 42; each call has at most 384 output tokens. v8's extra compute is higher than v7's; calls, input/output tokens and latency must be reported side by side, and an equal-budget comparison cannot be claimed.
 
-实验使用 `--all`，故意同时覆盖错误目标和正确对照，以测试修复／误修。它绕过 Diagnosis/Controller；生产集成仍只在上游最终 action 为 `generation_repair` 时调用 E，其余动作零调用保留原答案。不在 E 新设路由阈值。
+The experiment uses `--all`, deliberately covering both error targets and correct controls to test repairs/harmful repairs. It bypasses Diagnosis/Controller; production integration still calls E only when the upstream final action is `generation_repair`, and other actions make zero calls and keep the original answer. No new routing threshold is set in E.
 
-## 实际决策规则
+## Actual decision rules
 
-1. **原答案核验**：六项分别检查实体／作品／事件、关系及其方向和条件、答案类型、必要完整性、证据支持、冲突。模型只能输出 yes/no/uncertain，加一段可定位引文和简短理由。六项全 yes 保留原答案；有 no 且没有 uncertain 才进入修复；任一 uncertain 或格式／引用错误均保留原答案。
-2. **最小修复**：结合问题、完整 Top-5 与原答案，提取最短但足以回答问题的连续证据片段。why/how/definition 可以是从句或句子；避免因 20 词限制把原因截成实体。候选最多 64 词，引文最多 100 词。无法用一个完整片段回答时返回 `INSUFFICIENT`。没有额外示例、样本 ID 特判或人工答案注入。
-3. **候选核验**：重新检查候选本身是否回答问题，并复核完整 Top-5。只有六项全 yes 才替换；任一 no/uncertain 或格式／引用错误均回退 C1。去掉此步的组仅为开发消融。
+1. **Original-answer verification**: six items check, respectively, entity/work/event, relation with its direction and conditions, answer type, necessary completeness, evidence support, and conflict. The model may only output yes/no/uncertain, plus one localizable citation and a brief reason. All six yes keeps the original answer; repair is entered only if there is a no and no uncertain; any uncertain or format/citation error keeps the original answer.
+2. **Minimal repair**: combining the question, the full Top-5 and the original answer, extract the shortest contiguous evidence fragment that is still sufficient to answer the question. why/how/definition answers may be a clause or a sentence; avoid truncating a reason into an entity because of the 20-word limit. Candidates are at most 64 words, citations at most 100 words. Return `INSUFFICIENT` when one complete fragment cannot answer. No extra examples, sample-ID special cases or human answer injection.
+3. **Candidate verification**: recheck whether the candidate itself answers the question, and recheck the full Top-5. Replacement happens only if all six are yes; any no/uncertain or format/citation error falls back to C1. The group without this step is only a development ablation.
 
-核验由同一个 Qwen 独立调用执行，**不是独立 NLI，也不是独立裁判**。错误可能相关，六项通过也不能当作真实正确性。引用与答案定位是可追溯检查，语义判断仍有误差。
+Verification is performed by separate calls to the same Qwen, **neither an independent NLI nor an independent judge**. Errors may be correlated, and passing all six items cannot be taken as true correctness. Citation and answer localization are traceable checks; semantic judgements still have errors.
 
-所有阶段采用严格的带标签逐行输出，关闭 JSON 停止器，保留原始生成。引文允许空白和 PTB 引号的显示差异，但必须落在原段的连续、有词边界的窗口内；不会模糊替换实体、删除否定或拼接句段。最终候选采用原文切片。规范化后相同则保留 C1 原始表达，不强制改写有效别名、日期、昵称，也不统一要求完整姓名或额外行政层级。
+All stages use strict labelled line-by-line output, with the JSON stopper disabled and raw generations kept. Citations allow display differences in whitespace and PTB quotes, but must fall within a contiguous, word-bounded window of the original passage; entities are not fuzzily replaced, negations are not deleted and sentence fragments are not concatenated. The final candidate uses the source slice. If identical after normalization, the original C1 expression is kept; valid aliases, dates and nicknames are not forcibly rewritten, and full names or extra administrative levels are not uniformly required.
 
-本版仍受连续抽取限制：跨段综合、多跳推理或无明确可抽取表述时可能不修复。原答案核验过于保守也可能漏掉真实错误；这些必须按阶段失败数、未修复目标和人工复核记录报告。
+This version is still limited by contiguous extraction: cross-passage synthesis, multi-hop reasoning or the absence of an explicitly extractable statement may prevent repair. Original-answer verification that is too conservative may also miss real errors; these must be reported via per-stage failure counts, unrepaired targets and human review records.
 
-无证据返回零调用。格式／引用／不确定性属于可记录回退；CUDA、网络、模型载入等后端异常仍停止运行并保留已完成记录，避免把基础设施失败算作模型“保持正确”。同一环境可校验后续跑，更换模型／代码／环境则需独立输出。每条 v8 保存阶段、提示哈希、原始输出、解析、引用偏移和逐次成本，可在 CPU 上重新执行决策并验证最终结果与成本。
+No evidence returns zero calls. Format/citation/uncertainty are recordable fallbacks; backend exceptions such as CUDA, network and model loading still stop the run and keep completed records, to avoid counting infrastructure failures as the model "staying correct". Resumption can be validated within the same environment; changing model/code/environment requires separate outputs. Each v8 record saves stages, prompt hashes, raw outputs, parses, citation offsets and per-call costs, so decisions can be re-executed on CPU and the final results and costs verified.
 
-## 代码与运行
+## Code and running
 
-- 核心实现：[conservative_repair.py](../src/compensation/conservative_repair.py)。
-- 策略分发：[answer_repair.py](../src/compensation/answer_repair.py)；Controller 适配：[controller_adapter.py](../src/compensation/controller_adapter.py)。
-- 协议：[answer_repair_v8_nq75_v1.json](../configs/answer_repair_v8_nq75_v1.json)。
-- 冻结打包：`python scripts/prepare_answer_repair_v8.py`。
-- Kaggle/Colab：[answer_repair_v8_nq75_transport_r1.ipynb](../notebooks/answer_repair_v8_nq75_transport_r1.ipynb)，配套 `artifacts/answer_repair/v8_nq75/answer_repair_v8_nq75_gpu.tar.gz`。
-- 单组预检：`python scripts/run_answer_repair.py --dataset nq --c1 artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch06_c1.jsonl --all --strategy conservative_repair --check-only`。
-- CPU 回放入口：`repair_from_v8_trace`；断点续跑自动检查记录。
+- Core implementation: [conservative_repair.py](../src/compensation/conservative_repair.py).
+- Policy dispatch: [answer_repair.py](../src/compensation/answer_repair.py); Controller adapter: [controller_adapter.py](../src/compensation/controller_adapter.py).
+- Protocol: [answer_repair_v8_nq75_v1.json](../configs/answer_repair_v8_nq75_v1.json).
+- Frozen packaging: `python scripts/prepare_answer_repair_v8.py`.
+- Kaggle/Colab: [answer_repair_v8_nq75_transport_r1.ipynb](../notebooks/answer_repair_v8_nq75_transport_r1.ipynb), paired with `artifacts/answer_repair/v8_nq75/answer_repair_v8_nq75_gpu.tar.gz`.
+- Single-group pre-check: `python scripts/run_answer_repair.py --dataset nq --c1 artifacts/answer_repair/nq_train_dev_v1/confirmed/through_batch06_c1.jsonl --all --strategy conservative_repair --check-only`.
+- CPU replay entry point: `repair_from_v8_trace`; checkpoint resumption checks records automatically.
 
-Notebook 按 tar.gz 及每文件 SHA-256 校验冻结代码；安装与 v7 云端记录相同的四项直接依赖版本，保留宿主 CUDA PyTorch 并导出完整环境。四组按顺序运行，不能根据中途答案选择样本或改策略；不同云端环境的随机性和时延比较仍需谨慎解释。
+The Notebook validates the frozen code via the tar.gz and per-file SHA-256; it installs the same four direct dependency versions as recorded in the v7 cloud run, keeps the host CUDA PyTorch and exports the full environment. The four groups run in order, and samples cannot be selected or the policy changed based on intermediate answers; comparisons of randomness and latency across different cloud environments still need cautious interpretation.
 
-## 输出后如何验收
+## How to accept after output
 
-`scripts/summarize_answer_repair_v8.py` 生成 `comparison.json` 和 `output_review_queue.jsonl`：原始 EM/F1、各组修复／误修、阶段通过／拒绝／无效计数、调用及延迟；另按 11 目标和 64 对照分组。任何新的修复答案都保留 pending 人工字段；先审变化，再看未修复目标，核对问题、初始答案、候选与 Top-5。
+`scripts/summarize_answer_repair_v8.py` generates `comparison.json` and `output_review_queue.jsonl`: raw EM/F1, per-group repairs/harmful repairs, per-stage pass/reject/invalid counts, calls and latency; additionally grouped by the 11 targets and 64 controls. Any new repaired answer keeps the pending human fields; first review the changes, then look at unrepaired targets, checking the question, initial answer, candidate and Top-5.
 
-旧 C1 人工正确性不自动成为新答案的标签。新输出的人审净收益在审核前为 null。若只有 EM 改善而语义质量下降，应报告下降；若 EM 不匹配但人审认可，保留冻结指标并另报语义结果。
+The old C1 human correctness does not automatically become the label of new answers. The human-reviewed net gain of new outputs is null before review. If only EM improves while semantic quality declines, report the decline; if EM does not match but human review approves, keep the frozen metric and report the semantic result separately.
 
-本轮只决定是否值得继续：修复收益要超过对正确答案的损害，且额外计算可接受；不得因少量开发样本的正增益就替换默认。之后固定规则，与团队确认未用于开发的 NQ/FEVER 评测划分，报告完整结果及成本，再决定扩充自然错误、调整核验方式或采用独立 verifier。
+This round only decides whether it is worth continuing: repair gains must exceed the harm to correct answers, and the extra compute must be acceptable; the default must not be replaced because of a positive gain on a small number of development samples. After that, fix the rules, confirm with the team an NQ/FEVER evaluation split not used for development, report full results and costs, and then decide whether to expand natural errors, adjust the verification method or adopt an independent verifier.
 
-## 云端执行修正（不改算法）
+## Cloud execution fix (algorithm unchanged)
 
-第 1 版实际取得 T4，运行 30.5 秒后在读取实验包阶段失败，模型推理未开始、预测为 0。Kaggle 自动解压了上传的归档，原 Notebook 只搜索 tar.gz 文件名。当前使用 transport r1 Notebook，保留原包 SHA-256 `906f096f78e36a4f272cdd863ce2e7383d62acb638c1e480a06c5d3f75daa7a3`。
+Version 1 actually obtained a T4 and failed after 30.5 seconds at the stage of reading the experiment bundle; model inference had not started and predictions were 0. Kaggle automatically extracted the uploaded archive, while the original Notebook only searched for the tar.gz filename. The transport r1 Notebook is now used, keeping the original bundle SHA-256 `906f096f78e36a4f272cdd863ce2e7383d62acb638c1e480a06c5d3f75daa7a3`.
 
-对于自动解压目录，先比对已固定的 checksums 文档哈希 `5499fcca237c5d8f50187c27bf24f5f6189176dab8d86184b507116420f3997e`，再核对全部 85 个文件，并只复制已核对的内容到运行目录。7 项加载与回放测试和真实冻结包的解压布局验证通过；全仓现为 136 项测试通过。新旧 Notebook、失败记录和加载验证均保留，模型、75 条样本、提示、评分及四组消融未调整。
+For the auto-extracted directory, first compare the hash of the already fixed checksums document `5499fcca237c5d8f50187c27bf24f5f6189176dab8d86184b507116420f3997e`, then check all 85 files, and copy only the checked content into the run directory. 7 loading and replay tests and the extraction-layout verification of the real frozen bundle passed; the whole repository now has 136 tests passing. New and old Notebooks, failure records and loading verification are all kept; the model, the 75 samples, prompts, scoring and the four-group ablations were not adjusted.

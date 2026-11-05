@@ -1,64 +1,64 @@
-# v8r2 smoke：入口恢复，候选拒收及语义核验仍需修正
+# v8r2 smoke: entry restored, candidate rejection and semantic checking still need correction
 
-Kaggle 第 1 版 `359869429` 已成功完成 8 条 ×4 组的 32 条真实输出。结果 ZIP SHA-256 为 `a1e1d549e5887682be0b554695fb41f412271ffec733e2e303b6fc49489ce387`，共 28 文件。输入包为 `ca318d513f5feab0ff2f4c94acf19888e46ef0021ec454ef6dfd43f166bf58fe`，93 个负载文件已核对。
+Kaggle version 1 `359869429` successfully completed 32 real outputs of 8 records ×4 groups. The result ZIP SHA-256 is `a1e1d549e5887682be0b554695fb41f412271ffec733e2e303b6fc49489ce387`, 28 files in total. The input package is `ca318d513f5feab0ff2f4c94acf19888e46ef0021ec454ef6dfd43f166bf58fe`, and 93 payload files have been checked.
 
-原版 75 条及其结果保持不变。此次仅用于工程验收，不能估计总体或未见集收益。
+The original 75 records and their results remain unchanged. This run is only for engineering acceptance and cannot estimate overall or unseen-set gains.
 
-## 实际进展
+## Actual progress
 
-- 完整版的 8 条原答案核验全部有效：5 条判断 supported、3 条 unsupported；去候选核验组也有 8 条有效。原版同一子集全部为 original_check_invalid，入口问题已在真实生成上得到修正。
-- 三类阶段都已实际执行：16 次有效 original_check、5 次有效 minimal_repair、3 次有效 candidate_check；其中 1 条完整三阶段路径。
-- 33 个 v8 阶段中，9 次由输出边界停止器结束、24 次未由该停止器结束（可能为 EOS 或上限，不能仅据此判断）。实际生成未被事后裁切。
-- 但仍有 9 次 minimal_repair 验证拒收，预设工程门槛未通过，因此不扩到 75 条，也不修改门槛以追认此次通过。
+- All 8 original answer checks of the full version are valid: 5 judged supported, 3 unsupported; the without-candidate-check group also has 8 valid. On the same subset the original version was entirely original_check_invalid, so the entry problem has been corrected in real generation.
+- All three stage types were actually executed: 16 valid original_check, 5 valid minimal_repair, 3 valid candidate_check; of these, 1 record took the full three-stage path.
+- Of the 33 v8 stages, 9 were ended by the output boundary stopper and 24 were not ended by that stopper (possibly EOS or the limit, which cannot be determined from this alone). Actual generations were not trimmed post hoc.
+- But there were still 9 minimal_repair validation rejections, the preset engineering threshold was not passed, so it is not expanded to 75 records, and the threshold is not modified to retroactively approve this run.
 
-## 四组结果
+## Four-group results
 
-初始冻结 EM 为 1/8；初始人工分组是 4 个正确对照与 4 个 E 目标，不能混用两种口径。
+The initial frozen EM is 1/8; the initial human grouping is 4 correct controls and 4 E targets, and the two criteria cannot be mixed.
 
-| 组别 | EM 正确数 | 改答 | 调用 | 主要状态 |
+| Group | EM correct count | Changed answers | Calls | Main status |
 |---|---:|---:|---:|---|
-| v7 对照 | 1→2 | 5 | 8 | 3 invalid_output、5 repaired |
-| 完整 v8r2 | 1→1 | 0 | 12 | 5 original_supported、2 candidate_invalid、1 candidate_rejected |
-| 去原答案核验 | 1→0 | 1 | 10 | 1 candidate_unchanged、5 candidate_invalid、1 repaired、1 candidate_rejected |
-| 去候选核验 | 1→2 | 1 | 11 | 5 original_supported、2 candidate_invalid、1 repaired |
+| v7 control | 1→2 | 5 | 8 | 3 invalid_output, 5 repaired |
+| Full v8r2 | 1→1 | 0 | 12 | 5 original_supported, 2 candidate_invalid, 1 candidate_rejected |
+| Without original answer check | 1→0 | 1 | 10 | 1 candidate_unchanged, 5 candidate_invalid, 1 repaired, 1 candidate_rejected |
+| Without candidate check | 1→2 | 1 | 11 | 5 original_supported, 2 candidate_invalid, 1 repaired |
 
-共实际生成 41 次，不超过 64 次预算。7 条改答记录的人工最终标签保留 pending。EM 不等于语义真值；本轮不能据此声称正提升。
+41 generations were actually made in total, not exceeding the 64 budget. The human final labels of the 7 changed-answer records stay pending. EM does not equal semantic truth; this round cannot claim a positive improvement on that basis.
 
-## 两类问题需要分开处理
+## Two kinds of problems need to be handled separately
 
-候选输出拒收共有 9 次，来自 5 个不同的“问题＋候选提示”输出（不同消融会重复相同提示）：
+Candidate output rejections total 9, coming from 5 distinct "question + candidate prompt" outputs (different ablations repeat the same prompt):
 
-1. **格式省略**：N12 输出三行裸值，N96 第一行只输出 `1` 而非 `RANK: 1`。完整／去原核验／去候选核验各出现这两类，共 6 次。可在新修订中设计明确且无歧义的候选文法兼容，但仍必须逐项做原文定位，不能接受任意散文或从多套响应中挑选。
-2. **来源约束拒绝**：去原核验组另有 3 次。N2 的 ANSWER 不在所引经纬度片段内；N8 的答案未在所选引文中定位；N31 的 QUOTE 删除了原文中间内容。这些拒绝体现了来源保护，不能通过模糊匹配、拼接或放宽连续片段要求来消除。
+1. **Format omission**: N12 output three bare-value lines, and N96's first line output only `1` instead of `RANK: 1`. The full / without-original-check / without-candidate-check groups each showed these two kinds, 6 times in total. Explicit and unambiguous candidate grammar compatibility can be designed in the new revision, but original text location must still be done item by item, and arbitrary prose cannot be accepted nor a choice made among multiple sets of responses.
+2. **Source constraint rejection**: 3 more in the without-original-check group. N2's ANSWER is not within the quoted latitude/longitude span; N8's answer was not located in the selected quote; N31's QUOTE deleted content from the middle of the original text. These rejections reflect source protection and cannot be eliminated through fuzzy matching, splicing or relaxing the contiguous span requirement.
 
-格式拒收与模型提出了不合格证据应分别记录；本轮统一的 candidate_invalid 不够清楚。下一版应明确区分格式、来源和长度等限制的拒绝，前瞻固定新的工程验收定义；本轮既定 false 保留。
+Format rejections and the model proposing non-compliant evidence should be recorded separately; this round's single candidate_invalid is not clear enough. The next version should explicitly distinguish rejections due to format, source, length and other limits, and fix a new engineering acceptance definition prospectively; this round's established false is kept.
 
-入口恢复后也暴露了语义误判：已确认为 E 目标的 N8/N31 被原答案核验放行；N48 提取 Govind Ballabh Pant Sagar 后被候选核验拒绝，而去掉候选核验的组接受了该答案。去原核验组把正确的 inflation 改为 a rise in the price level 并通过自检。这说明同模型的单独六项检查仍可能误放和误拒，不能把结构有效当作语义正确。
+After the entry was restored, semantic misjudgements were also exposed: N8/N31, confirmed as E targets, were let through by the original answer check; N48 extracted Govind Ballabh Pant Sagar but was then rejected by the candidate check, while the group without the candidate check accepted that answer. The without-original-check group changed the correct inflation to a rise in the price level and passed self-check. This shows that the same model's separate six-item check can still wrongly accept and wrongly reject, and structural validity cannot be treated as semantic correctness.
 
-下一步先修候选文法与拒绝分类，保留来源防护；再独立检验六项核验对于作品身份、比较关系及术语类型的可靠性。语义规则的修改必须单列为新实验因素，而不是归入格式兼容或事后改写本次结果。
+The next step first fixes the candidate grammar and rejection classification while keeping source protection; then independently tests the reliability of the six-item check on work identity, comparison relations and term type. Changes to semantic rules must be listed as a separate new experimental factor, rather than folded into format compatibility or a post-hoc rewrite of this run's results.
 
-## 保存与审核
+## Storage and review
 
-- [原始输出](../artifacts/answer_repair/v8r2_smoke8/kaggle_20261019/)
-- [冻结 CPU 回放](../artifacts/answer_repair/v8r2_smoke8/release_audit/cpu_replay.json)
-- [结果校验](../artifacts/answer_repair/v8r2_smoke8/result_validation.json)
-- [7 条改答待审](../artifacts/answer_repair/v8r2_smoke8/review/changed_outputs_pending.jsonl)
-- [7 条改答的辅助意见](../artifacts/answer_repair/v8r2_smoke8/review/assisted_changed_outputs.jsonl)：N31/N48/N96 建议视为修复，N12 为正确答案无必要扩写，N15 为术语退化成现象复述；这对应 5 个唯一样本，跨组重复记录不能当作独立样本。人审字段均未更改，不能据此报告已确认净收益。
-- [预设门槛原始结果](../artifacts/answer_repair/v8r2_smoke8/kaggle_20261019/smoke_acceptance.json)
+- [Original outputs](../artifacts/answer_repair/v8r2_smoke8/kaggle_20261019/)
+- [Frozen CPU replay](../artifacts/answer_repair/v8r2_smoke8/release_audit/cpu_replay.json)
+- [Result validation](../artifacts/answer_repair/v8r2_smoke8/result_validation.json)
+- [7 changed answers pending review](../artifacts/answer_repair/v8r2_smoke8/review/changed_outputs_pending.jsonl)
+- [Assisted opinions on the 7 changed answers](../artifacts/answer_repair/v8r2_smoke8/review/assisted_changed_outputs.jsonl): N31/N48/N96 suggested as repairs, N12 an unnecessary expansion of a correct answer, N15 a term degraded into a restatement of the phenomenon; these correspond to 5 unique samples, and records repeated across groups cannot be treated as independent samples. Human review fields were not changed, and a confirmed net gain cannot be reported on this basis.
+- [Preset threshold raw results](../artifacts/answer_repair/v8r2_smoke8/kaggle_20261019/smoke_acceptance.json)
 
-## 后续语义优化依据
+## Basis for subsequent semantic optimisation
 
-已整理 [6 个辅助诊断案例](../artifacts/answer_repair/v8r2_smoke8/release_audit/semantic_failure_triage.jsonl)，包含完整 Top-5、原审核快照、实际阶段原文与辅助意见。新输出的人审字段仍为 pending。
+[6 assisted diagnosis cases](../artifacts/answer_repair/v8r2_smoke8/release_audit/semantic_failure_triage.jsonl) have been compiled, containing the full Top-5, the original review snapshot, the actual stage raw text and assisted opinions. The human review fields of the new outputs are still pending.
 
-| 样本 | 实际问题 | 后续要验证的行为 |
+| Sample | Actual problem | Behaviour to verify next |
 |---|---|---|
-| N8 | 将电影中的 Moon River 与题目同名歌曲混淆，错答被保留 | 精确对应作品名称、媒介及演唱者 |
-| N12 | 正确地点被原检查误拒，要求了题目没有的电影／MV 区分 | 避免凭空增加条件，测量正确对照误报 |
-| N31 | 理由与证据指向 Prince，却把 Charlie Rich 判为支持 | 先提取证据对象，再与被审答案比较 |
-| N48 | 正确否定第二大湖后，又错误拒绝正确候选 | 比较关系方向及核验对象必须一致 |
-| N96 | 候选缺少字段名，尚未得到实际候选核验结果 | 先修文法，重新生成后再判断语义 |
-| N15 | 去原检查组将 inflation 改成现象复述，候选检查放行 | 区分题目要的术语与相关释义 |
+| N8 | Confused Moon River in the film with the same-named song in the question; the wrong answer was kept | Precisely match the work title, medium and performer |
+| N12 | The correct location was wrongly rejected by the original check, which demanded a film/MV distinction the question does not have | Avoid adding conditions out of nothing; measure correct-control false positives |
+| N31 | The reason and evidence point to Prince, yet Charlie Rich was judged supported | First extract the evidence object, then compare with the answer under review |
+| N48 | After correctly negating the second-largest lake, the correct candidate was then wrongly rejected | The direction of the comparison relation and the check object must be consistent |
+| N96 | The candidate lacks the field name; no actual candidate check result has been obtained yet | Fix the grammar first, regenerate, then judge semantics |
+| N15 | The without-original-check group changed inflation into a restatement of the phenomenon, and the candidate check let it through | Distinguish the term the question asks for from related explanations |
 
-v8r3 只处理候选文法和拒绝分类，保持语义提示不变，以便隔离工程影响。之后优先单独测试“先按问题从证据抽取事实，再比较原答案／候选”的核验方法，和现有六项同时判断做同条件对照；这只是待验证路线，不能假设一定提升。保留正确对照和相似作品干扰证据，统计修复、误修、错答放过、正确候选误拒及调用成本。此时不优先更换数据集，也不根据这 8 条开发样本选择最终系统配置；自然目标错误及共同未用于调参的测试集仍需补足。
+v8r3 only handles candidate grammar and rejection classification, keeping the semantic prompts unchanged, to isolate the engineering impact. After that, priority is to separately test the checking method of "first extract the fact from the evidence according to the question, then compare the original answer/candidate", in a same-condition comparison with the existing simultaneous six-item judgement; this is only a route to be verified and cannot be assumed to improve. Keep correct controls and similar-work distractor evidence, and count repairs, harmful repairs, wrong answers let through, correct candidates wrongly rejected and call cost. At this point replacing the dataset is not a priority, nor is the final system configuration selected based on these 8 development samples; natural target errors and a shared test set not used for tuning still need to be filled in.
 
-本地隔离副本的全部 146 项 Python 检查通过，包内 106 项便携检查通过；32 条模拟流程和实际 32 条 GPU 输出分别验证，模拟记录不作为研究结果。任何新的修订、提示或模型结果均另存，不覆盖此包。
+All 146 Python checks of the local isolated copy pass, and 106 portable checks in the package pass; 32 simulated pipeline records and the actual 32 GPU outputs were verified separately, and simulated records are not used as research results. Any new revision, prompt or model result is saved separately and does not overwrite this package.

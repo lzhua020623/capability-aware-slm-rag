@@ -1,9 +1,9 @@
-# T2 验证记录 · 2026-10-23
+# T2 Validation Record · 2026-10-23
 
-- `tests.log`：完整 CPU 回归，665 项通过；本次新增 17 项。
-- `data_validation.json`：已冻结样本、引用、保留池与源文件哈希检查，不计算 EM/F1 或新收益。
-- `readiness_check.json`：`--require-full-t2` 按预期返回 2；FEVER 新 C1 和匹配索引资源仍待封存。
-- `branch_resource_inventory.json`：11 个远端分支的 C1/资源文件树核查，包括 controller；未跟踪 `.index`/`.npy`。不把被 Git 忽略的资源或档案内部推断为不存在。
-- `validation.json`：测试及检查命令、结果与产物哈希。
+- `tests.log`: full CPU regression, 665 tests passed; 17 were added in this run.
+- `data_validation.json`: checks of the frozen samples, references, held-out pool, and source file hashes; does not compute EM/F1 or new gains.
+- `readiness_check.json`: `--require-full-t2` returns 2 as expected; the FEVER new C1 and matching index resources are still pending sealing.
+- `branch_resource_inventory.json`: check of the C1/resource file trees of 11 remote branches, including controller; `.index`/`.npy` are not tracked. Resources ignored by Git or archive internals are not inferred to be nonexistent.
+- `validation.json`: test and check commands, results, and artifact hashes.
 
-这不是 GPU 实验结果，不能据此报告 QA 提升、完整知识库干净或新 FEVER C1 已完成。
+This is not a GPU experiment result and cannot be used to report QA improvement, a fully clean knowledge base, or that the new FEVER C1 is complete.

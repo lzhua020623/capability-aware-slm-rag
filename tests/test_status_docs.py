@@ -11,13 +11,13 @@ class StatusDocSentencesTest(unittest.TestCase):
     def test_project_status_splits_baseline_results_from_unmerged_rerank(self):
         text = (ROOT / "docs/PROJECT_STATUS_AND_DIRECTION.md").read_text(encoding="utf-8")
         self.assertIn(
-            "其中 baseline `10601c5` 的 11,114 条预测、指标和 Judge 已在本目录 `baselines/outputs/`。"
-            "重排 `d4d9e45` 比已合入的 `1d51856` 仍多 11 个提交，这一项尚未合并。",
+            "the 11,114 predictions, metrics and Judge of baseline `10601c5` are already in `baselines/outputs/` in this directory. "
+            "Reranking `d4d9e45` is still 11 commits ahead of the merged `1d51856`; this item has not yet been merged.",
             text,
         )
         self.assertIn(
-            "SFT未开始。正式 11,114 条测试中的 generation_repair 已运行，1575 条状态为 success。"
-            "原C1、路由、团队数据隔离不变。",
+            "SFT has not started. In the formal 11,114-item test, generation_repair has been run, and 1575 items have status success. "
+            "The original C1, routing and team data isolation are unchanged.",
             text,
         )
         self.assertNotIn("这两项尚未合并", text)
@@ -26,14 +26,14 @@ class StatusDocSentencesTest(unittest.TestCase):
     def test_team_data_boundaries_record_delivered_baseline_outputs(self):
         text = (ROOT / "docs/TEAM_DATA_BOUNDARIES.md").read_text(encoding="utf-8")
         self.assertIn(
-            "最终配对比较使用的 predictions、metrics、run_config 已在 `baselines/outputs/`："
-            "Qwen-only、配套 RAG、自适应系统各 11,114 条，Judge 在 `baselines/outputs/judge/`。",
+            "the predictions, metrics and run_config used for the final paired comparison are already in `baselines/outputs/`: "
+            "Qwen-only, the companion RAG and the adaptive system with 11,114 items each, with Judge in `baselines/outputs/judge/`.",
             text,
         )
         self.assertIn(
-            "FEVER 的团队划分、P60 的原始在线特征和模型使用 ID、候选重排/选择器的训练来源仍是后续待办。"
-            "新 baseline 的 11,114 条逐题结果和 Judge 已在 `baselines/outputs/`。"
-            "正式测试中的 generation_repair 已执行；本轮体检没有启用新的训练权重。",
+            "Team splitting for FEVER, P60's raw online features and model usage IDs, and the training provenance of candidate reranking/selectors are still later to-dos. "
+            "The 11,114 per-question results and Judge of the new baseline are already in `baselines/outputs/`. "
+            "generation_repair in the formal test has been executed; this round's health check did not enable new training weights.",
             text,
         )
         self.assertNotIn("当前缺的是新 baseline 逐题输出", text)

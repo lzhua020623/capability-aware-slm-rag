@@ -1,36 +1,36 @@
-# E r2 虚构验收题：独立盲审与封存（T5.1）
+# E r2 Fictional Acceptance Questions: Independent Blind Review and Sealing (T5.1)
 
-2026-10-26 在修改任何 r2 提示之前写成并封存。题目与期望见 [e_v2a_r2_fixtures.json](../../../../configs/controller/e_v2a_r2_fixtures.json)，指纹和审核记录见 [e_v2a_r2_fixture_seal.json](../../../../configs/controller/e_v2a_r2_fixture_seal.json)（SHA256 `423aef2a…`）。封存时 `src/compensation/evidence_v2a.py` 仍是 r1 原文。
+Written and sealed on 2026-10-26, before any r2 prompt was modified. The questions and expectations are in [e_v2a_r2_fixtures.json](../../../../configs/controller/e_v2a_r2_fixtures.json); fingerprints and review records are in [e_v2a_r2_fixture_seal.json](../../../../configs/controller/e_v2a_r2_fixture_seal.json) (SHA256 `423aef2a…`). At sealing time, `src/compensation/evidence_v2a.py` was still the original r1 text.
 
-## 题目构成
+## Question Composition
 
-18 道短题全部使用新虚构实体，不复用 Selen、Veyra、Velora、Nerin。
+All 18 short questions use new fictional entities and do not reuse Selen, Veyra, Velora, or Nerin.
 
-| 数据集 | 类别 | 每类题数 |
+| Dataset | Category | Questions per category |
 |---|---|---|
-| NQ | 支持保留、可修复的错误、无替换的错误、缺失事实、证据冲突 | 2 |
-| FEVER | 支持保留、可修复的错误、缺失事实、证据冲突 | 2 |
+| NQ | supported keep, repairable error, error without replacement, missing fact, evidence conflict | 2 |
+| FEVER | supported keep, repairable error, missing fact, evidence conflict | 2 |
 
-FEVER 的支持保留题有一道原标签为 REFUTES，用来检验“支持”指原标签正确，而不是声明成立。
+One of FEVER's supported-keep questions has the original label REFUTES; it is used to check that "supported" means the original label is correct, not that the claim holds.
 
-两道长题分别以 NQ、FEVER 的第一道可修复错误题为底题，在第 5 段末尾填充，长度落在 14,000–32,384 tokens 之间。用本地 Qwen 分词器配合 r1 提示估算，约为 17.4k；运行时按 r2 提示重新计算。
+The two long questions use the first repairable-error question of NQ and of FEVER respectively as their base, padded at the end of paragraph 5, with lengths falling between 14,000–32,384 tokens. Estimated with the local Qwen tokenizer and the r1 prompt, about 17.4k; at runtime it is recomputed with the r2 prompt.
 
-判定只比较四项：核验类别、最终动作、是否未解决、最终答案。两道 NQ 修复题预先登记了无害的写法变体（“Ilsa Marrow alone”、“in 1887”）。关键证据句只记录，不作为通过条件。
+Judgment compares only four items: verification category, final action, whether unresolved, and final answer. The two NQ repair questions have preregistered harmless wording variants ("Ilsa Marrow alone", "in 1887"). Key evidence sentences are only recorded and are not a pass condition.
 
-## 盲审
+## Blind Review
 
-每轮由一个新的独立代理完成。它只看到定义，以及打乱顺序、匿名编号的题目，看不到期望、题目类别、提示或仓库。
+Each round is done by a new independent assistant. It sees only the definitions and the shuffled, anonymously numbered questions; it cannot see the expectations, question categories, prompts, or repository.
 
-| 轮次 | 范围 | 与期望一致 | 轻微歧义 | 严重歧义 | 之后的修改 |
+| Round | Scope | Consistent with expectation | Minor ambiguity | Severe ambiguity | Subsequent changes |
 |---|---|---:|---:|---:|---|
-| 1 | 18 题 | 18/18 | 3 | 0 | 冲突来源改为同等地位；“折返”改为“从未登顶”；去掉与真实城市 Ostrava 相近的人名；定义补充冲突优先规则和最短片段要求；减少措辞泄露（非冲突题加入署名，一道冲突题去掉署名，一道缺失题加入近似干扰日期） |
-| 2 | 18 题（修改后） | 18/18 | 7 | 0 | 去掉与山脉同名的俱乐部；两段冲突证据改为对称写法，并加入“不得虚构重铸、重建等事件来调和冲突”；明确“判为错但无替换时保留原答并标记未解决”；改写一道无替换题的模板 |
-| 3 | 第 2 轮后修改的 3 题 | 3/3 | 3 | 0 | 无 |
+| 1 | 18 questions | 18/18 | 3 | 0 | Conflict sources changed to equal standing; "turned back" changed to "never reached the summit"; removed a personal name close to the real city Ostrava; the definitions added a conflict-priority rule and a shortest-span requirement; reduced wording leakage (attribution added to non-conflict questions, attribution removed from one conflict question, a near-miss distractor date added to one missing question) |
+| 2 | 18 questions (after changes) | 18/18 | 7 | 0 | Removed a club with the same name as the mountain range; the two conflicting evidence passages changed to symmetric wording, and added "must not invent events such as recasting or rebuilding to reconcile the conflict"; clarified "when judged wrong but with no replacement, keep the original answer and mark unresolved"; rewrote the template of one no-replacement question |
+| 3 | The 3 questions modified after round 2 | 3/3 | 3 | 0 | None |
 
-最终封存的每道题，都由最后一次覆盖它的盲审轮次按原样审过；这一点由 `tests/test_controller_e_v2a_r2_fixtures.py` 检查。
+Every finally sealed question was reviewed as-is by the last blind-review round covering it; this is checked by `tests/test_controller_e_v2a_r2_fixtures.py`.
 
-## 使用限制
+## Usage Limitations
 
-代理盲审不等于人工真值，只用于排除措辞歧义。
+Assistant blind review does not equal human ground truth; it is used only to rule out wording ambiguity.
 
-封存之后，题目、期望和可接受答案都不再改动。GPU 出结果后，不得围绕这些题调整提示后重跑。通过这些虚构题，只说明标签契约在受控输入上可以工作，不代表基准准确率、蕴含判断正确或有收益。
+After sealing, the questions, expectations, and acceptable answers are no longer changed. After GPU results come out, prompts must not be adjusted around these questions and rerun. Passing these fictional questions only shows that the label contract can work on controlled inputs; it does not indicate benchmark accuracy, correct entailment judgment, or gains.

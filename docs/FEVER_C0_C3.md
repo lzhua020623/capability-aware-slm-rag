@@ -1,45 +1,45 @@
-# FEVER500：7B C0 / C3 运行说明
+# FEVER500: 7B C0 / C3 run instructions
 
-本分支执行冻结的 Preliminary Recoverability Experiment 中的 FEVER C0 和 C3。
-研究目标是判断 Small-Model RAG 的错误能否通过正确证据修复；后续需汇合相同 ID 的 C1 结果，才能计算 Recoverable Failure Rate。仅 C0/C3 的 accuracy 不能代替该统计。
+This branch executes FEVER C0 and C3 of the frozen Preliminary Recoverability Experiment.
+The research goal is to determine whether Small-Model RAG errors can be repaired with correct evidence; C1 results for the same IDs must be merged later before the Recoverable Failure Rate can be computed. C0/C3 accuracy alone cannot substitute for this statistic.
 
-## 固定协议
+## Fixed protocol
 
-- 配置：`configs/preliminary.yaml`，模型参数同时检查 `configs/base.yaml`。
-- 样本：`configs/splits/preliminary_fever_500.json`，500 个唯一 ID，250 SUPPORTS + 250 REFUTES，保持 manifest 顺序，不重新抽样。
-- 模型：`Qwen/Qwen2.5-7B-Instruct`，4-bit NF4，greedy，`max_new_tokens=64`，seed 42。
-- C0：仅 instruction + claim，模型输入不含证据或 gold label，结果 `evidence=[]`。
-- C3：instruction + 当前样本全部 `gold_evidence_text` + claim，沿用共享 FEVER evidence 格式，不截成 Top-5、不检索。
-- 评测：沿用 `src/evaluation/fever.py` 的标签解析，计算 classification accuracy；UNKNOWN 计错。Smoke 若输出无法解析的标签则报错。
+- Config: `configs/preliminary.yaml`, with model parameters also checked against `configs/base.yaml`.
+- Samples: `configs/splits/preliminary_fever_500.json`, 500 unique IDs, 250 SUPPORTS + 250 REFUTES, keeping the manifest order, no resampling.
+- Model: `Qwen/Qwen2.5-7B-Instruct`, 4-bit NF4, greedy, `max_new_tokens=64`, seed 42.
+- C0: instruction + claim only; the model input contains no evidence or gold label, result `evidence=[]`.
+- C3: instruction + all `gold_evidence_text` of the current sample + claim, following the shared FEVER evidence format, not truncated to Top-5, no retrieval.
+- Evaluation: follows the label parsing of `src/evaluation/fever.py` and computes classification accuracy; UNKNOWN counts as wrong. Smoke raises an error if it outputs an unparseable label.
 
-原有 NQ/FEVER manifests、共享配置、提示词文本和解码参数均未修改。为支持无模型依赖预检，提示词构造移至 `src/generation/prompts.py`，旧的 `src.generation.qwen` 导入入口继续可用。
+The original NQ/FEVER manifests, shared configs, prompt text and decoding parameters are all unmodified. To support pre-checks without model dependencies, prompt construction moved to `src/generation/prompts.py`, and the old `src.generation.qwen` import entry point remains usable.
 
-## 租卡前准备
+## Preparation before renting a GPU
 
-先取得组内已预处理的 `data/processed/retrieval/fever_dev.jsonl`，放到相同路径。
-该文件必须包含冻结 ID 对应的 claim、label、gold_page_ids 和 gold_evidence_text。
-它被 gitignore，**clone 不会下载它**。C0/C3 不需要 FEVER corpus、FAISS 索引、BGE 或 NQ 数据。
-如需从原始数据重建，参考 [SETUP.md](SETUP.md)；现有完整预处理脚本也会处理 NQ 和 FEVER corpus。
+First obtain the team's preprocessed `data/processed/retrieval/fever_dev.jsonl` and place it at the same path.
+The file must contain the claim, label, gold_page_ids and gold_evidence_text for the frozen IDs.
+It is in gitignore, so **clone will not download it**. C0/C3 do not need the FEVER corpus, FAISS index, BGE or NQ data.
+To rebuild from raw data, see [SETUP.md](SETUP.md); the existing full preprocessing script also processes the NQ and FEVER corpus.
 
-在仓库根目录执行；预检环境只需 Python 和 PyYAML：
+Run from the repository root; the pre-check environment needs only Python and PyYAML:
 
 ```bash
 python -m pip install pyyaml
 python scripts/run_fever_preliminary.py --check-only
 ```
 
-预检验证模型配置、manifest、源数据，以及已有结果是否允许续跑。缺数据会明确失败，不会自动抽样或下载模型。
+The pre-check validates the model config, manifest, source data, and whether existing results allow resuming. Missing data fails explicitly; it will not automatically sample or download the model.
 
-## GPU 机器执行
+## Running on the GPU machine
 
 ```bash
 git clone --branch feature/F500-c0c3 https://github.com/lzhua020623/capability-aware-slm-rag.git
 cd capability-aware-slm-rag
 ```
 
-将上述 `fever_dev.jsonl` 放入指定路径，创建 Python 环境，按 [SETUP.md](SETUP.md) 安装适合机器的 CUDA PyTorch 和 `requirements.txt`。已有仓库则切换到该分支并 `git pull --ff-only`。
+Place the above `fever_dev.jsonl` at the specified path, create a Python environment, and install the CUDA PyTorch suitable for the machine and `requirements.txt` per [SETUP.md](SETUP.md). For an existing repository, switch to this branch and run `git pull --ff-only`.
 
-依次执行，前一步通过再继续：
+Run in order, continuing only after the previous step passes:
 
 ```bash
 python scripts/run_fever_preliminary.py --check-only
@@ -47,31 +47,31 @@ python scripts/run_fever_preliminary.py --smoke-test
 python -u scripts/run_fever_preliminary.py
 ```
 
-Smoke 对第一个冻结样本执行 C0 和 C3，不写正式结果；模型预测错不代表工程失败。
-正式运行共 1000 次生成，逐条落盘；中断后执行同一命令即可跳过已完成记录。
-也可以分别执行 `--conditions C0` 或 `--conditions C3`。同一结果文件只运行一个写入进程。
+Smoke runs C0 and C3 on the first frozen sample without writing formal results; a wrong model prediction does not mean an engineering failure.
+The formal run has 1000 generations in total, each written to disk; after an interruption, running the same command skips completed records.
+You can also run `--conditions C0` or `--conditions C3` separately. Only one writer process runs per result file.
 
-输出：
+Outputs:
 
-- `results/preliminary/fever_c0_7b.jsonl`：500 条。
-- `results/preliminary/fever_c3_7b.jsonl`：500 条。
+- `results/preliminary/fever_c0_7b.jsonl`: 500 items.
+- `results/preliminary/fever_c3_7b.jsonl`: 500 items.
 
-结束时输出总 accuracy、两类各自 accuracy、UNKNOWN 数量。每条结果包含原始输出、证据、耗时和实验指纹，便于与 C1 按 sample_id 汇合。
-再次运行已完成的条件，只检查并汇总结果，不加载模型。
+At the end it outputs the overall accuracy, the accuracy of each of the two classes and the UNKNOWN count. Each result contains the raw output, evidence, duration and experiment fingerprint, for merging with C1 by sample_id.
+Re-running a completed condition only checks and summarizes the results, without loading the model.
 
-## 续跑与结果保护
+## Resuming and result protection
 
-实验指纹绑定冻结样本内容、提示词、模型配置及推理/评测代码。旧模型、不同数据/提示词、无指纹的旧结果、重复 ID 或指标不一致都会拒绝续跑。需要新跑时先将旧结果移到独立归档目录，不要混写。
+The experiment fingerprint binds the frozen sample content, prompts, model config and inference/evaluation code. Old models, different data/prompts, old results without fingerprints, duplicate IDs or inconsistent metrics all cause resuming to be refused. For a new run, first move the old results to a separate archive directory; do not mix writes.
 
-结果每条写入后 flush + fsync；末条 JSON 完整但缺少换行时，会补换行后追加。如断电留下不完整 JSON，脚本会报告具体文件和行号并停止，保留原文件。先备份，确认仅末行是未完成写入后移除该末行，再续跑；不要忽略中间损坏行。
+Each result is flushed + fsynced after being written; if the last JSON is complete but missing a newline, a newline is added before appending. If a power loss leaves incomplete JSON, the script reports the specific file and line number and stops, keeping the original file. Back up first, confirm that only the last line is an incomplete write, then remove that last line and resume; do not ignore corrupted lines in the middle.
 
-续跑使用同一软件环境；指纹不锁定 Python 包版本或远端模型 revision。建议运行时保存 `python -m pip freeze` 和当前 `git rev-parse HEAD`，与结果一同交接。
+Resuming uses the same software environment; the fingerprint does not lock Python package versions or the remote model revision. It is recommended to save `python -m pip freeze` and the current `git rev-parse HEAD` at run time and hand them over together with the results.
 
-## 本地验证范围
+## Local validation scope
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-回归测试使用真实冻结 ID 与合成 claim/evidence、模拟生成器，在临时目录验证 500 × 2 的中断续跑、输入隔离、数据校验和结果防混写；不会生成正式实验结果。
-最初的代码验证在无 CUDA 的本地环境完成。随后已在 GPU 机器通过正式数据预检、真实 7B NF4 smoke，并完成 C0/C3 各 500 条生成；下载的结果也已在本地逐条校验。见 [实验结果与校验记录](../results/preliminary/fever_c0_c3_summary.md)。
+Regression tests use the real frozen IDs with synthetic claim/evidence and a mock generator, and validate in a temporary directory the 500 × 2 interrupted resume, input isolation, data validation and protection against mixed writes; they do not generate formal experiment results.
+The initial code validation was completed in a local environment without CUDA. Subsequently, the formal data pre-check and a real 7B NF4 smoke passed on a GPU machine, and the 500 generations each for C0/C3 were completed; the downloaded results were also verified item by item locally. See [experiment results and verification record](../results/preliminary/fever_c0_c3_summary.md).

@@ -1,78 +1,78 @@
-# E 最终冻结实验结果
+# E final frozen experiment results
 
-2026-10-21 收取两项 Kaggle 完整导出，550 条新增预测均通过各自冻结代码 CPU 回放和汇总复算。最终版本按运行前规则选定 **v8r3**；r4 的 N31／N48 回归失败，不追加 r5，不根据本轮数字换版本。**r3 不晋升默认策略：它保护原答的同时几乎不修复，未见批没有任何答案变化。**
+On 2026-10-21 two complete Kaggle exports were collected; all 550 new predictions passed their respective frozen-code CPU replays and summary recomputation. The final version was selected as **v8r3** per the pre-run rules; r4's N31/N48 regressions failed, no r5 is added, and the version is not switched based on this round's numbers. **r3 is not promoted to the default policy: it protects original answers but almost never repairs, and the unseen batch had no answer changes at all.**
 
-## 自动指标与成本
+## Automatic metrics and cost
 
-下面“修复／改坏”仅表示冻结 EM 从 0→1／1→0，不等于人工语义判断。C1 复用原预测，不新增调用。所有新增组使用同一 Qwen2.5-7B-Instruct revision、NF4、greedy、seed 42 和每阶段 384 token；没有访问运行时 gold。时延是模型生成调用累计值，不含下载、加载及测试，也不是端到端服务延迟。
+"Repaired/broken" below only means frozen EM went 0→1/1→0, and is not a human semantic judgement. C1 reuses the original predictions with no new calls. All new groups use the same Qwen2.5-7B-Instruct revision, NF4, greedy, seed 42 and 384 tokens per stage; runtime gold was not accessed. Latency is the cumulative model generation-call time, excluding download, loading and tests, and is not end-to-end service latency.
 
-| 批次／组 | EM 正确数 | EM 修复／改坏 | 改答数 | 额外调用 | 每题生成时延 | F1 |
+| Batch/group | EM correct | EM repaired/broken | Changed answers | Extra calls | Generation latency per question | F1 |
 |---|---:|---:|---:|---:|---:|---:|
-| 开发75 · C1 | 20/75 | — | — | 0 | — | 0.58383 |
-| 开发75 · v7 | 23/75 | 5 / 2 | 14 | 75 | 6.29 s | 0.61865 |
-| 开发75 · 完整 r3 | 20/75 | 0 / 0 | 1 | 83 | 9.70 s | 0.59658 |
-| 开发75 · 去原答检查 | 19/75 | 2 / 3 | 12 | 89 | 7.88 s | 0.56728 |
-| 开发75 · 去候选检查 | 21/75 | 1 / 0 | 2 | 81 | 9.48 s | 0.60991 |
-| 挑战125 · C1 | 25/125 | — | — | 0 | — | 0.46862 |
-| 挑战125 · v7 | 28/125 | 5 / 2 | 27 | 125 | 5.81 s | 0.46492 |
-| 挑战125 · 完整 r3 | 25/125 | 0 / 0 | 0 | 136 | 9.25 s | 0.46862 |
+| Dev75 · C1 | 20/75 | — | — | 0 | — | 0.58383 |
+| Dev75 · v7 | 23/75 | 5 / 2 | 14 | 75 | 6.29 s | 0.61865 |
+| Dev75 · full r3 | 20/75 | 0 / 0 | 1 | 83 | 9.70 s | 0.59658 |
+| Dev75 · no original-answer check | 19/75 | 2 / 3 | 12 | 89 | 7.88 s | 0.56728 |
+| Dev75 · no candidate check | 21/75 | 1 / 0 | 2 | 81 | 9.48 s | 0.60991 |
+| Challenge125 · C1 | 25/125 | — | — | 0 | — | 0.46862 |
+| Challenge125 · v7 | 28/125 | 5 / 2 | 27 | 125 | 5.81 s | 0.46492 |
+| Challenge125 · full r3 | 25/125 | 0 / 0 | 0 | 136 | 9.25 s | 0.46862 |
 
-开发75的初始人工标签为 11 个错误目标、64 个正确对照，与 EM 的 20 个正确不是同一口径。这是反复使用过的开发集，不能用本轮数字宣传未见收益。
+The initial human labels of Dev75 are 11 error targets and 64 correct controls, which is not the same measure as EM's 20 correct. This is a repeatedly used development set, and this round's numbers cannot be used to advertise unseen gains.
 
-挑战125来自未用于 E 调参的内部 calibration，按原规则自动取 100 条 EM=0 且参考 passage 命中的候选及 25 条 EM=1 对照，不人工挑题。候选层 v7 的 EM 为 0→5，对照层 25→23；r3 分别为 0→0、25→25。筛查使用 EM，不代表 100 条都是真实 utilisation 错误。该批比例人为固定，不能外推 NQ 自然分布；团队 Diagnosis 训练隔离及页面／语义近重复隔离尚未建立，因此只能称 E 组件分层挑战，不能称全系统独立测试。v7 整批 EM 的配对精确检验 p=0.453125，也不支持显著收益声明。
+Challenge125 comes from internal calibration data not used for E tuning; per the original rules it automatically took 100 candidates with EM=0 whose reference passage was hit plus 25 EM=1 controls, with no manual question picking. In the candidate stratum v7's EM went 0→5 and in the control stratum 25→23; for r3 these were 0→0 and 25→25 respectively. Screening used EM, which does not mean all 100 are true utilisation errors. The batch proportions are fixed artificially and cannot be extrapolated to the natural NQ distribution; isolation from the team's Diagnosis training and page/semantic near-duplicate isolation have not yet been established, so it can only be called an E component stratified challenge, not an independent full-system test. The paired exact test on v7's whole-batch EM gives p=0.453125, which also does not support a claim of significant gain.
 
-## 为什么 r3 几乎不改答
+## Why r3 almost never changes answers
 
-在开发75中，45 条原答被标 supported、24 条原核验无效，其余6条进入最小修复；只有2条产生有效候选，其中1条被候选核验拒绝，最终改答1条。按已经确认的初始人工标签，11个原错中有6个被标 supported、2个修复阶段仍输出原答、1个原核验无效、1个候选被拒、1个改答。因此障碍同时来自语义核验误放、候选漏修、候选误拒与引文生成失败。
+In Dev75, 45 original answers were labelled supported, 24 original verifications were invalid, and the remaining 6 entered minimal repair; only 2 produced valid candidates, of which 1 was rejected by candidate verification, leaving 1 final changed answer. By the already confirmed initial human labels, of the 11 originally wrong answers, 6 were labelled supported, 2 still output the original answer in the repair stage, 1 had an invalid original verification, 1 had its candidate rejected, and 1 was changed. The obstacles therefore come simultaneously from semantic-verification wrong acceptances, missed repairs by candidates, wrong rejections of candidates, and citation generation failures.
 
-在挑战125中，75条原答被标 supported、39条原核验无效、1条 uncertain，仅10条进入最小修复。其中1条 insufficient、6条输出不变、2条候选引文无效，仅有的1条有效候选又被拒绝。最终没有任何改答。不能把候选层57条 supported 一概称为误判，因为其中存在语义正确但 EM 不匹配的原答。
+In Challenge125, 75 original answers were labelled supported, 39 original verifications were invalid, 1 was uncertain, and only 10 entered minimal repair. Of these, 1 was insufficient, 6 output unchanged, 2 had invalid candidate citations, and the only 1 valid candidate was then rejected. In the end there were no changed answers at all. The 57 supported in the candidate stratum cannot all be called misjudgements, because some of them are original answers that are semantically correct but do not match on EM.
 
-两批完整组的原核验无效共63/200：59条不是逐字来源片段，4条超过引文字数约束，没有九行格式解析错误。无效时保留原答符合冻结安全策略，但也消耗调用而不产生修复。放宽解析可能增加被接受的引文，却不能自动解决模型把相似标题、角色／演员、定义／术语等关系混淆的问题。本轮不再调整这些规则或重跑。
+Across the full groups of both batches, invalid original verifications total 63/200: 59 were not verbatim source fragments and 4 exceeded the citation length constraint; there were no nine-line format parsing errors. Keeping the original answer when invalid conforms to the frozen safety policy, but it also consumes calls without producing repairs. Relaxing parsing might increase the number of accepted citations, but it cannot automatically solve the model's confusion of relations such as similar titles, role/actor, and definition/term. This round does not adjust these rules or rerun.
 
-## 冻结辅助初稿（人工确认前）
+## Frozen assisted draft (before human confirmation)
 
-审核并集含42条结果、41个样本：开发 v7 14条、开发 r3 1条、挑战 v7 27条；挑战 r3 无改答。相同 sample_id 不能直接去重：F13 与 F15 是同一题的两个不同答案，分别保留。消融14条额外改答留在完整审计中，不混入主策略审核范围。
+The review union contains 42 results from 41 samples: 14 from dev v7, 1 from dev r3, 27 from challenge v7; challenge r3 has no changed answers. Identical sample_id cannot be deduplicated directly: F13 and F15 are two different answers to the same question and are kept separately. The 14 extra changed answers from the ablations remain in the full audit and are not mixed into the main-policy review scope.
 
-| 分层／策略 | 建议语义修复 | 疑似误修 | 正确保留／同义改写 | 正确性待定 |
+| Stratum/policy | Suggested semantic repair | Suspected harmful repair | Correct kept/synonymous rewrite | Correctness pending |
 |---|---:|---:|---:|---:|
-| 开发 v7 · 14条 | 3 | 2 | 8 | 1 |
-| 开发 r3 · 1条 | 1 | 0 | 0 | 0 |
-| 挑战 v7 · 27条 | 2 | 4 | 15 | 6 |
+| Dev v7 · 14 | 3 | 2 | 8 | 1 |
+| Dev r3 · 1 | 1 | 0 | 0 | 0 |
+| Challenge v7 · 27 | 2 | 4 | 15 | 6 |
 
-上述是人工确认前冻结的参考可见代理初稿，当时人工确认0/42；当前人工结果见下一节，二者分开保留，不覆盖初稿。开发 r3 的唯一改答是 N96（F15），从 Hungarian literature 改为用手像猴子一样掰开食用的命名缘由；辅助判断倾向有效修复，即使 EM 仍为0。挑战 v7 的两个 EM 对照下降项只是车站名改地址、州名改所辖城市，辅助判断未见语义损害；另外却出现用“奖项数量”回答获奖原因、用“事件”回答人物等 EM 未完整呈现的误修。
+The above is a reference-visible assistant draft frozen before human confirmation, when human confirmation was 0/42; the current human results are in the next section, and the two are kept separately, without overwriting the draft. The only changed answer in dev r3 is N96 (F15), changed from Hungarian literature to the naming origin of pulling it apart by hand like a monkey to eat it; the assisted judgement leans towards a valid repair, even though EM is still 0. The two EM control drops in challenge v7 are merely a station name changed to an address and a state name changed to a city under its jurisdiction, and the assisted judgement saw no semantic harm; however, there were also harmful repairs not fully reflected by EM, such as answering the reason for an award with "the number of awards" and answering a person with "an event".
 
-初稿重点歧义为 F4、F19、F21、F22、F35、F36、F40；本次确认后的未决范围见下一节。F19 的参考把更名方向弄反且证据有两种日期；F30 区分文凭与学位；F38 有多次回归情节，不能强按单一参考判错。参考和原始评分都保持不变，仅记录审核备注。
+Key ambiguities in the draft were F4, F19, F21, F22, F35, F36, F40; the unresolved scope after this confirmation is in the next section. F19's reference reverses the direction of the renaming and the evidence has two dates; F30 distinguishes a diploma from a degree; F38 has multiple return plot events and cannot be forcibly judged wrong against a single reference. The references and original scores are both kept unchanged; only review notes are recorded.
 
-材料见 [最终42条网页](../artifacts/answer_repair/final_review_v1/F42_review.html)、[分层辅助统计](../artifacts/answer_repair/final_review_v1/assisted_summary.json)。历史固定抽审45条也已辅助完成，人工0/45，见 [历史45条网页](../artifacts/answer_repair/v7_historical_review_v1/H45_review.html)。历史和最终清单分开统计，不把841条历史预测写成全部人工审核完成。
+Materials: [final 42-item web page](../artifacts/answer_repair/final_review_v1/F42_review.html), [stratified assisted statistics](../artifacts/answer_repair/final_review_v1/assisted_summary.json). The historical fixed spot review of 45 items has also completed assisted review, with human 0/45; see [historical 45-item web page](../artifacts/answer_repair/v7_historical_review_v1/H45_review.html). Historical and final lists are counted separately, and the 841 historical predictions are not described as all having completed human review.
 
-## 人工确认更新（截至2026-10-22）
+## Human confirmation update (as of 2026-10-22)
 
-用户已过目全部F1–F42：截至2026-10-22追加澄清后，42条处理完成，其中37条可二元计分、5条保留评分说明，不再作为待处理。F12追加要求按照C1原答，继续记录保留／偏好原答。F12/F23/F25/F36记录保留原答，改答对错不强行计分。F21原对改错、F22两答都对、F35原错改对、F40两答都错；F37经澄清按具体受援者Continental Army要求，记两答都错，不再算误修。原gold、EM和冻结输出不变。
+The user has gone through all of F1–F42: as of the follow-up clarification on 2026-10-22, 42 items are processed, of which 37 can be scored in binary and 5 retain scoring notes, and they are no longer treated as pending. For F12 a follow-up requirement was to follow the C1 original answer, continuing to record keep/prefer the original answer. F12/F23/F25/F36 are recorded as keeping the original answer, and the correctness of the changed answer is not forcibly scored. F21 original correct changed wrong, F22 both answers correct, F35 original wrong changed correct, F40 both answers wrong; after clarification, F37 follows the requirement of the specific recipient Continental Army and is recorded as both answers wrong, no longer counted as a harmful repair. The original gold, EM and frozen outputs are unchanged.
 
-| 分层／策略 | 确认修复 | 确认误修 | 正确仍正确 | 两答都错 | 正确性待定 |
+| Stratum/policy | Confirmed repair | Confirmed harmful repair | Correct still correct | Both answers wrong | Correctness pending |
 |---|---:|---:|---:|---:|---:|
-| 开发v7 · 14条 | 4 | 2 | 7 | 0 | 1 |
-| 开发r3 · 1条 | 1 | 0 | 0 | 0 | 0 |
-| 挑战v7 · 27条 | 3 | 4 | 14 | 2 | 4 |
+| Dev v7 · 14 | 4 | 2 | 7 | 0 | 1 |
+| Dev r3 · 1 | 1 | 0 | 0 | 0 | 0 |
+| Challenge v7 · 27 | 3 | 4 | 14 | 2 | 4 |
 
-含未决项时，开发v7全部改答净变化只能界定在[+1,+2]，挑战v7在[−5,−1]，不是置信区间，不能只用已定案差值宣传最终收益。完整r3开发N96确认修复，按已有初始人审口径语义正确数64→65/75；挑战0改答，语义净变化0。开发改善不能推广为未见收益，默认策略状态不变。
+Including unresolved items, the net change across all changed answers of dev v7 can only be bounded within [+1,+2], and challenge v7 within [−5,−1]; these are not confidence intervals, and the finalized differences alone cannot be used to advertise the final gain. Full r3 dev N96 is a confirmed repair; under the existing initial human-review measure, the semantically correct count goes 64→65/75; challenge had 0 changed answers, semantic net change 0. The dev improvement cannot be generalized to unseen gains, and the default-policy status is unchanged.
 
-F12、F23、F25、F36已决定保留C1，F19已完成外部核查；这5条仅保留二元评分说明，不再列为待办，原人工标签与净变化范围不变。历史H1–H45仍未人工确认。当前材料为 [人工记录网页](../artifacts/answer_repair/final_review_v1/F42_human_review.html)，详细口径与追溯见 [本批人工报告](ANSWER_REPAIR_FINAL_HUMAN_REVIEW_20261021.md)。
+F12, F23, F25 and F36 have been decided to keep C1, and F19 has completed external checking; these 5 only retain binary scoring notes and are no longer listed as to-dos, and the original human labels and net-change ranges are unchanged. Historical H1–H45 are still not human-confirmed. The current material is the [human record web page](../artifacts/answer_repair/final_review_v1/F42_human_review.html), and the detailed measures and traceability are in [this batch's human report](ANSWER_REPAIR_FINAL_HUMAN_REVIEW_20261021.md).
 
-## 结论与剩余工作
+## Conclusions and remaining work
 
-当前证据支持“修复能力存在，误修与过度保守是主要障碍”，不支持“新增核验已经带来可靠净提升”。增加样本不能直接解决已观测的关系判断和引文生成问题；本轮已有额外125条检查泛化，下一步优先完成人工确认及如实报告，不再追加策略调参。任何新模型、训练或规则都应另立后续实验及新的未见数据，不能继续使用本批挑版本。
+Current evidence supports "repair capability exists; harmful repairs and over-conservatism are the main obstacles", and does not support "the added verification has already brought a reliable net improvement". Adding samples cannot directly solve the observed relation-judgement and citation-generation problems; this round already has an extra 125 items checking generalization, so the next step prioritizes completing human confirmation and honest reporting, with no further policy tuning. Any new model, training or rules should be set up as a separate follow-up experiment with new unseen data, and this batch must not continue to be used for picking versions.
 
-E 的本轮代码、组件 GPU 实验、冻结回放和辅助审核已完成；最终42条已处理完成（37条可二元计分、5条保留评分说明）；历史45条确认及团队端到端验收仍待完成。人工确认后按策略和批次计算改答的语义净变化，保留歧义，不能由仅审改答推导全量语义准确率。开发75可使用已有初始人审分母，挑战125没有完整初始人审分母。与 Zheng 确认端到端执行人、机器、共同 ID、Diagnosis 训练排除及数据角色后，按冻结策略比较实际路由触发下的收益和成本；没有发送团队消息或声称已完成该协调。
+E's code for this round, component GPU experiments, frozen replay and assisted review are complete; the final 42 items are processed (37 binary-scorable, 5 retaining scoring notes); confirmation of the historical 45 items and team end-to-end acceptance are still pending. After human confirmation, compute the semantic net change of changed answers per policy and batch, keeping ambiguities; full semantic accuracy cannot be inferred from reviewing only changed answers. Dev75 can use the existing initial human-review denominator; Challenge125 has no complete initial human-review denominator. After confirming with Zheng the end-to-end executor, machine, common IDs, Diagnosis training exclusion and data roles, compare gains and costs under actual routing triggers with the frozen policy; no team message has been sent, and no claim is made that this coordination is complete.
 
-## 追溯与验证
+## Traceability and verification
 
-| 项目 | 开发75 | 挑战125 |
+| Item | Dev75 | Challenge125 |
 |---|---|---|
 | Kaggle scriptVersionId | 360070600 | 360075807 |
-| 输入包 SHA-256 | `b5be903db6efecb5681498f0110ebed65920369ca1e5d466492ebae7455fc98b` | `17dcadf90d30e8fea7a4f5d0fd259f17d9c5739484eec52d7586a5855f52855f` |
-| 输出 ZIP SHA-256 | `15a5c987c38c0d1514af648ac190788ed4075115bf525eefbb84b3a0312f2802` | `f604e0b85266abd86efed22915a745eeb854d1bc15046ff42ea7e6856a5744eb` |
-| 原始导出文件数 | 29 | 19 |
-| 冻结回放记录数 | 300 | 250 |
+| Input bundle SHA-256 | `b5be903db6efecb5681498f0110ebed65920369ca1e5d466492ebae7455fc98b` | `17dcadf90d30e8fea7a4f5d0fd259f17d9c5739484eec52d7586a5855f52855f` |
+| Output ZIP SHA-256 | `15a5c987c38c0d1514af648ac190788ed4075115bf525eefbb84b3a0312f2802` | `f604e0b85266abd86efed22915a745eeb854d1bc15046ff42ea7e6856a5744eb` |
+| Raw export file count | 29 | 19 |
+| Frozen replay record count | 300 | 250 |
 
-原始 ZIP、日志、环境、预测、汇总、回放回执与逐文件 SHA-256 保存于 `artifacts/answer_repair/final_nq75/` 和 `unseen_nq125/`。目录名 `kaggle_20261020` 对应原冻结运行批次，2026-10-21 是本次接收整理日期。两包原推理源码与选定 r3 保持一致；后续接收、审核与报告工具不改变冻结推理。
+Raw ZIPs, logs, environment, predictions, summaries, replay receipts and per-file SHA-256 are stored in `artifacts/answer_repair/final_nq75/` and `unseen_nq125/`. The directory name `kaggle_20261020` corresponds to the original frozen run batch, and 2026-10-21 is the date of this receipt and organization. The original inference source code of both bundles is identical to the selected r3; the subsequent receipt, review and reporting tools do not change the frozen inference.

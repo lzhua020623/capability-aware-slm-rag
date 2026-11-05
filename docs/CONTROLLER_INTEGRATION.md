@@ -1,98 +1,98 @@
-# Controller 集成交接 · 2026-10-23
+# Controller integration handover · 2026-10-23
 
-2026-10-27 当前主线为 [10 月 24 日 Diagnosis／P60／P64](CONTROLLER_1024_BASELINE.md)，生产入口为 `src.pipeline.current.load_current_pipeline()`。下文保留原集成执行器和历史复现说明，旧命令不代表已经启用 P60。
+2026-10-27: the current main line is [the 24 October Diagnosis/P60/P64](CONTROLLER_1024_BASELINE.md), with the production entry point `src.pipeline.current.load_current_pipeline()`. The text below keeps the original integration executor and historical reproduction notes; the old commands do not mean P60 is already enabled.
 
-2026-10-26 当前阶段与新增合并任务见 [T1–T9 任务清单](CONTROLLER_TASKS.md)。Diagnosis 的 `138d52a` 将分层接入，保留现有默认计费执行器和 Probe；P60 的训练/调参曝光、在线特征、成本和效果待独立验收，不作为当前默认路由。E r2 的 [登记](CONTROLLER_E_V2A_R2.md)与全局模式在 GPU 前对齐；未启动选型或最终评测。
+2026-10-26: for the current stage and the newly added merge tasks see the [T1–T9 task list](CONTROLLER_TASKS.md). Diagnosis's `138d52a` will be integrated in layers, keeping the existing default metered executor and Probe; P60's training/tuning exposure, online features, cost and effect are pending independent acceptance and are not the current default routing. E r2's [registration](CONTROLLER_E_V2A_R2.md) and global mode are aligned before GPU; neither the selection run nor the final evaluation has been started.
 
-2026-10-25 最新入口：[T4完整结果与解释](../artifacts/controller/t4_v1/README.md)。T3真实CUDA工程验收和本地验收已通过；T4的2,800条配对预测已验收、自动评分并独立ZIP重放一致，774项完整回归通过。Kaggle failure是保存全部预测之后的汇总KeyError，原manifest保留，当前汇总接口已修补。Adaptive：NQ EM持平78/200，FEVER170→174/200；人工语义/警示/轨迹验收未完成，未进行T5或最终评测。
+2026-10-25 latest entry point: [T4 full results and interpretation](../artifacts/controller/t4_v1/README.md). T3 real-CUDA engineering acceptance and local acceptance have passed; T4's 2,800 paired predictions have been accepted, automatically scored and replayed consistently from an independent ZIP, and the full 774-item regression passes. The Kaggle failure was a summary KeyError after all predictions were saved; the original manifest is kept, and the current summary interface has been patched. Adaptive: NQ EM tied at 78/200, FEVER 170→174/200; human semantic/warning/trace acceptance is not complete, and T5 or final evaluation has not been carried out.
 
-后续已获用户授权按 [E v2a 与唯一 NQ 路由修订](CONTROLLER_E_V2A_AND_T5_V1.md) 推进：先登记并打通单次受约束核验，开发集确定 E 运行模式；唯一优化候选为 NQ 低置信度保留题追加补检索。每轮开工和收工自检，测试后提交。原 T1/T3 和 T4 结果不改；选型前仍需用户确认 15 个 NQ 路由重点案例。
+Subsequently, with user authorisation, work proceeds per [E v2a and the single NQ routing amendment](CONTROLLER_E_V2A_AND_T5_V1.md): first register and get the single constrained verification working end to end, with the development set determining E's run mode; the single optimisation candidate is to add retrieval enhancement for low-confidence kept NQ questions. Self-checks at the start and end of every round, commit after testing. The original T1/T3 and T4 results are unchanged; before the selection run, the user still needs to confirm the 15 key NQ routing cases.
 
-## 早期集成与验收记录（2026-10-23—24）
+## Early integration and acceptance records (2026-10-23—24)
 
-当前有效开发分支为 `controller`。本次汇合当日 10 个远端分支，并实现从冻结 C1 输出到最终答案的统一执行与离线评测入口。此版本用于建立系统基线，未晋升任何 E 策略为已证明有效的默认方案；尚未完成真实 GPU 端到端质量实验，未开始 Qwen 训练或 RSI。
+The currently active development branch is `controller`. This round merged that day's 10 remote branches and implemented a unified execution and offline evaluation entry point from frozen C1 outputs to final answers. This version is for establishing the system baseline; no E strategy has been promoted to a proven-effective default; real GPU end-to-end quality experiments have not been completed, and Qwen training or RSI has not started.
 
-后续实验设计已在 [T1 统一实验协议 v1](CONTROLLER_EXPERIMENT_PROTOCOL_V1.md) 冻结：六个主比较组、两个解释性对照、每组预算、配对评分和一次集中优化限制。T2 样本已冻结、资源验收仍待补齐，T3 仍需补齐 Full、FEVER 检索及对照/验收；本页的“已有”描述仅对应参考实现，不表示所有协议组均可执行。
+The subsequent experiment design is frozen in the [T1 unified experiment protocol v1](CONTROLLER_EXPERIMENT_PROTOCOL_V1.md): six main comparison groups, two explanatory controls, per-group budgets, paired scoring and a limit of one round of focused optimisation. T2 samples are frozen and resource acceptance is still to be completed; T3 still needs to complete Full, FEVER retrieval and the controls/acceptance; the "exists" descriptions on this page correspond only to the reference implementation and do not mean all protocol groups are executable.
 
-T1 的完整 CPU 回归为 648 项通过（新增 13 项协议测试），68 个参考文件无漂移，验证归档见 [protocol_v1](../artifacts/controller/protocol_v1/README.md)。下面第 4 节的 635 项是先前集成提交的历史验收数量。
+T1's full CPU regression is 648 passed (13 new protocol tests), with no drift across 68 reference files; the verification archive is at [protocol_v1](../artifacts/controller/protocol_v1/README.md). The 635 items in Section 4 below are the historical acceptance count of the earlier integration commit.
 
-T2 已冻结 [两数据集的样本和完整评测保留池](CONTROLLER_DATA_V1.md)：NQ 7,564、FEVER 1,886 条禁止用于训练/调参；各抽 500 条为本轮最终子集，开发/选型各 200 条。NQ 配对输入已导出，FEVER 仅生成 query-only C1 任务；该冻结提交时匹配索引、BGE revision、新 FEVER C1 待补齐，CPU 回归 665 项通过，未宣称 T2 全部就绪。NQ Train 的 ID/offset/corpus 资源格式也需在 T3 接入。
+T2 has frozen [the samples and complete evaluation held-out pools of both datasets](CONTROLLER_DATA_V1.md): NQ 7,564 and FEVER 1,886 items are forbidden for training/tuning; 500 drawn from each are this round's final subset, with 200 each for development/selection run. NQ paired inputs have been exported, while FEVER only generated query-only C1 tasks; at that freeze commit the matching index, BGE revision and new FEVER C1 were still to be completed, CPU regression 665 passed, and T2 was not claimed fully ready. The NQ Train ID/offset/corpus resource format also needs to be integrated in T3.
 
-2026-10-24 已[取回 NQ Train 原语料/索引并恢复配套文件](NQ_TRAIN_INDEX_RECOVERY.md)，64 段独立 BGE 向量比对通过，最新 CPU 回归 681 项通过。所核验快照与历史 C1 revision 的区别保留在恢复记录中；FEVER 和 Controller provider 接入仍按原 T2/T3 待办推进，原冻结样本、保留池及算法提示不改。
+2026-10-24: [retrieved the NQ Train original corpus/index and restored the accompanying files](NQ_TRAIN_INDEX_RECOVERY.md); 64 independent BGE vector comparisons passed, latest CPU regression 681 passed. The difference between the verified snapshot and the historical C1 revision is kept in the restoration record; FEVER and Controller provider integration still proceed per the original T2/T3 to-dos, and the original frozen samples, held-out pools and algorithm prompts are unchanged.
 
-随后完成 [NQ 全量定位核对、Train provider 接入和 FEVER 资源导入](CONTROLLER_RESOURCE_ADAPTER_V1.md)。NQ 新增 `--nq-resources` 入口；FEVER 原包及全量 ID/原文顺序已验收，FEVER 动态 provider、新 C1 和其余 T3 组仍待完成。下方旧接口说明与历史验收数字保留；资源接入的新增验证见链接。
+Subsequently completed [full NQ location verification, Train provider integration and FEVER resource import](CONTROLLER_RESOURCE_ADAPTER_V1.md). NQ adds the `--nq-resources` entry point; the FEVER original package and full ID/original-text ordering have been accepted, while the FEVER dynamic provider, new C1 and the remaining T3 groups are still to be completed. The old interface notes and historical acceptance numbers below are kept; for the new verification of resource integration see the link.
 
-最新已完成 [FEVER provider 与新 900 条 C1 采集包](CONTROLLER_FEVER_C1_V1.md)，全仓库 726 项 CPU 回归通过；固定 10 条历史查询 Top5 ID/顺序全部复现。FEVER 动态补检索现可通过 `--fever-resources` 启用，新 C1 实际 GPU 状态单独登记。下方 FEVER unsupported 描述对应初始合并版本；Full/No Probe/人工类型组和正式 seal 仍待 T3。
+Most recently completed: [FEVER provider and the new 900-item C1 collection package](CONTROLLER_FEVER_C1_V1.md); repository-wide 726 CPU regression items pass; the Top5 IDs/ordering of the fixed 10 historical queries are all reproduced. FEVER dynamic retrieval enhancement can now be enabled via `--fever-resources`, and the actual GPU status of the new C1 is registered separately. The FEVER unsupported description below corresponds to the initial merge version; the Full/No Probe/human-type groups and the formal seal are still pending T3.
 
-## 1. 来源与合并
+## 1. Sources and merges
 
-从 E 分支 `5da1fe5` 创建新分支，依次合并：
+A new branch was created from E branch `5da1fe5`, merging in turn:
 
-| 合并源 | 源提交 | 内容 |
+| Merge source | Source commit | Contents |
 |---|---|---|
-| `main` | `058f10b` | 已是 E 祖先；Reference RAG、NQ Train 流水线 |
-| `reranking` | `338ff34` | 包含 Diagnosis／Probe／Controller `7c7863f`，以及证据重排 |
-| `feature/retrieval-enhancement` | `1d97780` | 冻结 NQ P3-20 检索增强 |
-| `feature/fever-c1` | `6ebdfc9` | 包含 NQ C0/C1 `bcb248c`、C3 `8b03009`，及 FEVER C1 |
-| `feature/F500-c0c3` | `1238a4f` | FEVER C0/C3、索引来源 |
-| `feature/-ce-70B` | `6f08f2f` | 70B 对照、离线 judge 与结果 |
-| `feature/verification-answer-repair` | `5da1fe5` | E 全部历史代码、实验、审核和交接 |
+| `main` | `058f10b` | Already an E ancestor; Reference RAG, NQ Train pipeline |
+| `reranking` | `338ff34` | Contains Diagnosis/Probe/Controller `7c7863f`, plus evidence reranking |
+| `feature/retrieval-enhancement` | `1d97780` | Frozen NQ P3-20 retrieval enhancement |
+| `feature/fever-c1` | `6ebdfc9` | Contains NQ C0/C1 `bcb248c`, C3 `8b03009`, and FEVER C1 |
+| `feature/F500-c0c3` | `1238a4f` | FEVER C0/C3, index provenance |
+| `feature/-ce-70B` | `6f08f2f` | 70B control, offline judge and results |
+| `feature/verification-answer-repair` | `5da1fe5` | All of E's historical code, experiments, reviews and handovers |
 
-全部 10 个远端分支均为集成提交的祖先。逐分支比对 `data/`、`results/`、`artifacts/`、`models/`、`configs/splits/` 的 Git blob：原路径下的已入库数据与实验结果均保留原字节，详见 [branch_manifest.json](../artifacts/controller/integration_v1/branch_manifest.json)。未重写原分支历史。
+All 10 remote branches are ancestors of the integration commit. Git blobs of `data/`, `results/`, `artifacts/`, `models/`, `configs/splits/` were compared branch by branch: committed data and experiment results at their original paths all keep their original bytes; see [branch_manifest.json](../artifacts/controller/integration_v1/branch_manifest.json) for details. The original branch histories were not rewritten.
 
-合并冲突处理：
+Merge conflict handling:
 
-- README 汇合入口，旧进度明确标为历史记录。
-- `src/generation/qwen.py` 保留 E 已验证的 revision 固定、显式 NF4 GPU 放置和输出停止逻辑；不启用 70B 分支旧的自动 CPU offload 修改。该分支原代码仍在其提交历史中，`docs/LOCAL_ENV.md` 中旧 offload 环境变量说明不适用于本集成版本。
-- 重排分支的包级立即导入会破坏检索模块独立性，改为延迟导出，保留公共类名与函数名。
-- FEVER 分支把纯提示函数移到 `src/generation/prompts.py`，三个检索测试改从实际定义处核对，提示字节未改。
-- r4 冻结 AST 测试兼容 Python 3.12 的空 `type_params` 字段；原冻结 fixture 与提示哈希不改。
+- README merges the entry points, with old progress explicitly marked as historical record.
+- `src/generation/qwen.py` keeps E's verified revision pinning, explicit NF4 GPU placement and output stopping logic; the 70B branch's old automatic CPU offload modification is not enabled. That branch's original code remains in its commit history, and the old offload environment-variable notes in `docs/LOCAL_ENV.md` do not apply to this integration version.
+- The reranking branch's eager package-level imports would break the independence of the retrieval module; they were changed to lazy exports, keeping public class and function names.
+- The FEVER branch moved pure prompt functions to `src/generation/prompts.py`; three retrieval tests now check against the actual definition site, and the prompt bytes are unchanged.
+- The r4 frozen AST test is compatible with Python 3.12's empty `type_params` field; the original frozen fixture and prompt hashes are unchanged.
 
-## 2. 新增执行路径
+## 2. New execution path
 
 ```text
-冻结 C1 JSONL / 纯 DiagnosisInput JSONL
-  → 白名单适配（不向运行时传 gold 或人工标签）
-  → 冻结 Diagnosis → 可选一次 Probe → 原 Safe Binary
+Frozen C1 JSONL / pure DiagnosisInput JSONL
+  → Whitelist adaptation (no gold or human labels passed to runtime)
+  → Frozen Diagnosis → optional single Probe → original Safe Binary
   → no_action / retrieval_enhancement / evidence_refinement / generation_repair
-  → 统一结果、调用凭证、回退、预算和成本
-  → 单独进程加载 gold 做离线评测
+  → Unified results, call receipts, fallback, budget and cost
+  → Separate process loads gold for offline evaluation
 ```
 
-| 文件 | 职责 |
+| File | Responsibility |
 |---|---|
-| `src/controller/execution.py` | 统一执行器、严格输入验证、各模块适配、共享预算、逐调用轨迹 |
-| `src/controller/providers.py` | 外部加载并共享一个 Qwen；CPU reranker 和可选 NQ 检索资源 |
-| `configs/controller/integration_v1.json` | 明确选择 E 策略和调用／输出预算 |
-| `scripts/run_controller_integration.py` | 预检查、CPU smoke、真实运行、逐条保存和运行清单 |
-| `scripts/evaluate_controller_integration.py` | 预测之后独立 join gold，计算修复、误修、净收益、成本 |
-| `tests/test_controller_integration.py` | 四路执行、Probe 覆盖、失败和预算、gold 隔离、共享模型及 CLI |
-| `tests/test_controller_evaluation.py` | 配对样本、缺失／重复引用、修复与误修计分 |
+| `src/controller/execution.py` | Unified executor, strict input validation, per-module adaptation, shared budget, per-call traces |
+| `src/controller/providers.py` | Loads and shares one Qwen externally; CPU reranker and optional NQ retrieval resources |
+| `configs/controller/integration_v1.json` | Explicitly selects the E strategy and call/output budgets |
+| `scripts/run_controller_integration.py` | Pre-check, CPU smoke, real runs, per-item saving and run manifest |
+| `scripts/evaluate_controller_integration.py` | Joins gold independently after prediction, computes fixes, harmful repairs, net gain, cost |
+| `tests/test_controller_integration.py` | Four-way execution, Probe overrides, failures and budget, gold isolation, shared model and CLI |
+| `tests/test_controller_evaluation.py` | Paired samples, missing/duplicate references, fix and harmful-repair scoring |
 
-原 `run_controller()` 和各模块公共接口继续保留。本次不改 Diagnosis 特征、分类器参数、Probe 提示、Safe Binary 阈值、P3-20 排序公式、重排默认 keep5 或 E 提示。
+The original `run_controller()` and each module's public interface are kept. This round does not change Diagnosis features, classifier parameters, the Probe prompt, Safe Binary thresholds, the P3-20 ranking formula, reranking's default keep5 or the E prompts.
 
-### E 的明确版本选择
+### Explicit version selection for E
 
-集成配置使用 NQ `short_answer_quote`（已有 v7 Qwen 短答案与引文策略）、FEVER `verify_repair`（已有 Qwen 核验修复策略）。两者使用同一个 Qwen 模型对象；仅输出格式及停止适配不同。这个组合是**用于集成比较的显式基线**，并不是 v7 FEVER NLI 结果的复现，也不是新的性能提升结论。
+The integration configuration uses NQ `short_answer_quote` (the existing v7 Qwen short-answer-and-quote strategy) and FEVER `verify_repair` (the existing Qwen verify-and-repair strategy). Both use the same Qwen model object; only the output format and stop adaptation differ. This combination is an **explicit baseline for integration comparison**; it is not a reproduction of the v7 FEVER NLI results, nor a new performance-improvement conclusion.
 
-历史 NLI 实验与 v9 代码完整保留。v9 的合成契约通过尚不能替代真实质量验收，所以未自动启用。当前源码的 `conservative_repair` 是 **r4**；不能把配置改成这个名字就声称在运行冻结 r3。复现 r3 应使用原冻结包。
+The historical NLI experiments and v9 code are fully kept. Passing v9's synthetic contract cannot yet replace real quality acceptance, so it is not automatically enabled. The current source's `conservative_repair` is **r4**; changing the configuration to this name cannot be used to claim the frozen r3 is running. To reproduce r3, use the original frozen package.
 
-### 执行与回退
+### Execution and fallback
 
-- `no_action` 不调用增强 provider；若之前触发 Probe，Probe 成本仍计入。
-- NQ P3-20 使用原 query Top20、固定 revision 的 BGE reranker raw logits、RRF、Top5，至多一次重答。
-- FEVER 的 P3-20 请求返回 `unsupported_dataset`，不调用该路线的 provider，保持 C1；必须在覆盖率中单列。
-- 重排保留原默认 keep5；未改变顺序则不重答。
-- E 无有效输出时使用原模块的回退。引用／短答案出现于证据，只证明来源匹配，不能当作语义正确。
-- provider 异常计入 attempted calls，保存错误与 C1 回退；Probe 异常生成 uncertain 结果，不覆盖原类型。分类器加载／推断异常中止运行并标记失败，不伪造 correct 标签。
-- 每题最多 4 次 Qwen 调用（含 Probe）、1 次补检索、1 次 reranker API 调用。实际次数按 provider 调用计，不等于模型内部 batch 数。
-- 记录模型看到的完整提示、提示哈希、生成结果、证据、诊断、最终动作和异常；不声称这些轨迹是模型内部推理。
-- 未知 token 数保留 `null`，失败调用不记作零成本。计时明确是缓存 C1 之后的增量；全系统成本仍需加共同 C1 成本，加载时间单列。
-- 若保持 C1 答案，`final_evidence` 保持 C1 上下文；尝试过的增强上下文另保存在 module trace／调用记录中。
+- `no_action` does not call an enhancement provider; if Probe was triggered earlier, the Probe cost is still counted.
+- NQ P3-20 uses original-query Top20, revision-pinned BGE reranker raw logits, RRF, Top5, with at most one re-answer.
+- FEVER's P3-20 request returns `unsupported_dataset`, does not call that route's provider, and keeps C1; it must be listed separately in coverage.
+- Reranking keeps the original default keep5; if the order is unchanged there is no re-answer.
+- When E has no valid output, the original module's fallback is used. A quote/short answer appearing in the evidence only proves the source matches and cannot be treated as semantic correctness.
+- Provider exceptions count as attempted calls, saving the error and the C1 fallback; a Probe exception produces an uncertain result without overriding the original type. A classifier load/inference exception aborts the run and marks it failed, without forging a correct label.
+- At most 4 Qwen calls (including Probe), 1 retrieval enhancement and 1 reranker API call per question. Actual counts are per provider call and do not equal the number of internal model batches.
+- Record the full prompt seen by the model, the prompt hash, the generation result, evidence, diagnosis, final action and exceptions; these traces are not claimed to be the model's internal reasoning.
+- Unknown token counts are kept as `null`; failed calls are not recorded as zero cost. Timing is explicitly the increment after the cached C1; full-system cost still needs the common C1 cost added, and load time is listed separately.
+- If the C1 answer is kept, `final_evidence` keeps the C1 context; attempted enhancement contexts are saved separately in the module trace/call records.
 
-## 3. 运行
+## 3. Running
 
-使用单独环境。`requirements-controller.txt` 复用合并后团队依赖，并固定 Diagnosis 所用 sklearn；CUDA PyTorch 按 GPU 平台安装。不要与历史实验包的 Transformers 固定版本混装。CPU 回归环境版本见验证归档；它不代表已验证真实 CUDA 加载。
+Use a separate environment. `requirements-controller.txt` reuses the merged team dependencies and pins the sklearn used by Diagnosis; install CUDA PyTorch according to the GPU platform. Do not mix with the pinned Transformers versions of historical experiment packages. CPU regression environment versions are in the verification archive; it does not mean real CUDA loading has been verified.
 
 ```bash
 python -m pip install -r requirements-controller.txt
@@ -101,11 +101,11 @@ python scripts/run_controller_integration.py \
 python -m unittest discover -s tests -v
 ```
 
-Smoke 仅有 2 个虚构输入，运行 5 种模式，共 10 条结果；真实冻结分类器和真实路由／增强代码连接假 provider。不是新的 NQ／FEVER benchmark，也不用于调语义策略。
+Smoke has only 2 fictitious inputs, runs 5 modes, 10 results in total; the real frozen classifier and real routing/enhancement code are connected to fake providers. It is not a new NQ/FEVER benchmark, and is not used to tune semantic strategies.
 
-输入可为原标准 C1 导出（含 `condition`、`model_name`、`retrieved_top5_ids` 等），或仅含 `sample_id,dataset,query,evidence,initial_answer` 的运行时 JSONL。每条严格要求有序 Top5、有限检索分数、非空文本和唯一 ID。NQ Train 交付应先转换成此接口；不会直接把初标工作簿传给模型。
+The input may be the original standard C1 export (including `condition`, `model_name`, `retrieved_top5_ids`, etc.), or runtime JSONL containing only `sample_id,dataset,query,evidence,initial_answer`. Each item strictly requires an ordered Top5, finite retrieval scores, non-empty text and a unique ID. The NQ Train delivery should first be converted to this interface; the initial (AI) label workbook is never passed directly to the model.
 
-先在开发数据上检查，不打开最终测试集：
+Check on development data first, without opening the final test set:
 
 ```bash
 python scripts/run_controller_integration.py \
@@ -113,7 +113,7 @@ python scripts/run_controller_integration.py \
   --preflight --output-dir /path/to/new_preflight
 ```
 
-CUDA 上正式比较（资源路径必须属于该批 C1 的同一个 corpus/index 版本）：
+Formal comparison on CUDA (resource paths must belong to the same corpus/index version as this batch of C1):
 
 ```bash
 python scripts/run_controller_integration.py \
@@ -125,11 +125,11 @@ python scripts/run_controller_integration.py \
   --output-dir /path/to/new_controller_run
 ```
 
-NQ adaptive／always_retrieve 在真实运行时必须明确给出索引与元数据，不会悄悄用旧 dev 索引处理 Train 样本。结构与选中 ID/text 会校验，资源 SHA-256 进入环境记录；**这些哈希不自动证明索引与原始 C1 的版本相配**，运行者仍需核对交付来源。FEVER-only 不需要 NQ 索引，但检索增强仍未支持 FEVER。
+NQ adaptive/always_retrieve must be given the index and metadata explicitly in real runs; the old dev index will not be quietly used for Train samples. Structure and selected ID/text are validated, and resource SHA-256s go into the environment record; **these hashes do not automatically prove that the index matches the original C1's version**, and the operator still needs to verify the delivery source. FEVER-only does not need the NQ index, but retrieval enhancement still does not support FEVER.
 
-每次要求新输出目录，逐条 flush JSONL。产生 `manifest.json`、`environment.json`、`predictions.jsonl`、`summary.json`；包含 provider 失败或预算超限的运行返回非零退出码。暂不自动恢复半次运行，避免跨代码版本混用结果。
+Each run requires a new output directory, flushing JSONL item by item. It produces `manifest.json`, `environment.json`, `predictions.jsonl`, `summary.json`; runs containing provider failures or budget overruns return a non-zero exit code. Resuming half-finished runs is not automatic for now, to avoid mixing results across code versions.
 
-离线评价：gold JSONL 每条包含 `sample_id,dataset,gold_answer_or_label`，NQ 可为答案字符串列表，FEVER 为 SUPPORTS／REFUTES。
+Offline evaluation: each gold JSONL item contains `sample_id,dataset,gold_answer_or_label`; for NQ it may be a list of answer strings, for FEVER SUPPORTS/REFUTES.
 
 ```bash
 python scripts/evaluate_controller_integration.py \
@@ -138,24 +138,24 @@ python scripts/evaluate_controller_integration.py \
   --output /path/to/new_controller_run/offline_evaluation.json
 ```
 
-缺失／重复 gold、重复预测、各模式样本不配对或同题 C1 输入不一致均报错。NQ EM/F1 与 FEVER label accuracy 分开；修复数、误修数、净收益、动作覆盖和费用一并报告。NQ EM 不能替代语义人工审核；此计分也不等于证据忠实度验收。
+Missing/duplicate gold, duplicate predictions, unpaired samples across modes or inconsistent C1 inputs for the same question all raise errors. NQ EM/F1 and FEVER label accuracy are kept separate; fix count, harmful repair count, net gain, action coverage and cost are reported together. NQ EM cannot replace semantic human review; this scoring also does not equal evidence-faithfulness acceptance.
 
-## 4. 验证记录
+## 4. Verification records
 
-完整 CPU 回归：**635 项通过**，见 [tests.log](../artifacts/controller/integration_v1/tests.log)；环境见 [cpu_test_environment.json](../artifacts/controller/integration_v1/cpu_test_environment.json)。合并后首轮的 8 个兼容性失败也保留在 `initial_merge_tests.log`，未通过跳过测试处理。
+Full CPU regression: **635 passed**, see [tests.log](../artifacts/controller/integration_v1/tests.log); environment in [cpu_test_environment.json](../artifacts/controller/integration_v1/cpu_test_environment.json). The 8 compatibility failures from the first post-merge round are also kept in `initial_merge_tests.log`, and were not handled by skipping tests.
 
-分支来源检查覆盖 764 个唯一入库数据／结果／模型／划分文件路径（不含 data README 与占位文件），与各来源分支的对应 Git blob 均一致。CPU smoke 的运行清单与逐条输出单独归档；这些只用于工程验证，不报告 QA 提升。
+The branch provenance check covers 764 unique committed data/result/model/split file paths (excluding data READMEs and placeholder files), all consistent with the corresponding Git blobs of their source branches. The CPU smoke run manifest and per-item outputs are archived separately; these are only for engineering verification and do not report QA improvement.
 
-## 5. 当前完成范围与下一步
+## 5. Current scope of completion and next steps
 
-已完成：全分支合并、C1 后处理执行器、两数据集接口、可追溯回退、共享调用预算、配对离线评分、CPU 测试和虚构 smoke。原始问题到 C1 继续使用既有 Reference RAG 运行器，避免此次集成重算或改变冻结 C1。
+Completed: full-branch merge, C1 post-processing executor, two-dataset interfaces, traceable fallback, shared call budget, paired offline scoring, CPU tests and fictitious smoke. Going from raw questions to C1 continues to use the existing Reference RAG runner, to avoid recomputing or changing the frozen C1 in this integration.
 
-仍需完成，按优先级：
+Still to be completed, in priority order:
 
-1. T2 按 T1 协议冻结同一批开发/选型/最终保留数据、配对 gold、样本数、曝光登记和匹配资源；当前尚没有集成后的 QA 收益数字。
-2. T3 补充离线人工类型触发、No Probe 和失败类型 × 操作分析，区分路由损失和模块损失。固定动作结果复用，人工标签不进入在线模型提示。
-3. T3 补齐 FEVER 检索增强；如资源限制只能做部分范围，必须在看结果前声明，不能把回退算作已实现。
-4. T3 按已冻结顺序和预算实现 Full；补齐评分/完整清单验收和执行 seal 后进入 T4 GPU 比较。
-5. 根据同批比较仅优化最大的瓶颈，最多一轮预登记候选。保留最终未见测试集；蒸馏、DPO、知识库修改和 RSI 均不作为本次集成的隐含改动。
+1. T2 freezes, per the T1 protocol, the same batch of development/selection-run/final held-out data, paired gold, sample counts, exposure registration and matching resources; there are as yet no post-integration QA gain numbers.
+2. T3 adds offline human-type triggering, No Probe and failure type × operation analysis, separating routing loss from module loss. Fixed-action results are reused, and human labels do not enter online model prompts.
+3. T3 completes FEVER retrieval enhancement; if resource limits allow only a partial scope, it must be declared before seeing results, and fallback cannot be counted as implemented.
+4. T3 implements Full in the frozen order and budget; after completing scoring/complete-list acceptance and the execution seal, it enters the T4 GPU comparison.
+5. Based on the same-batch comparison, optimise only the largest bottleneck, with at most one round of pre-registered candidates. Keep the final unseen test set; distillation, DPO, knowledge-base modification and RSI are not implicit changes of this integration.
 
-合并前的全仓库与数据质量结论见 [10 月 23 日审计](PROJECT_AUDIT_AND_RSI_PLAN_20261023.md)。审计中的“尚未集成”描述对应合并前状态；本文件记录其后的工程进度。
+Pre-merge repository-wide and data-quality conclusions are in the [23 October audit](PROJECT_AUDIT_AND_RSI_PLAN_20261023.md). The "not yet integrated" description in the audit corresponds to the pre-merge state; this file records the engineering progress after it.

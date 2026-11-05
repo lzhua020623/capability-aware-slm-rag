@@ -1,85 +1,85 @@
-# E v2a r2：统一核验标签定义 · 2026-10-26 登记
+# E v2a r2: unified verification label definition · registered 2026-10-26
 
-**状态（2026-10-26）**：已登记并实现，当前 v2 包来自兼容集成提交 `e3ddead`，全局模式已对齐。`9d91a40` 的旧运行包保留，见 [r2 运行包](../artifacts/controller/e_v2a_interface_r2/README.md)。首次 GPU 运行：[Kaggle 362285592](https://www.kaggle.com/code/yearo111/controller-e-r2-shared-frozen-20261026?scriptVersionId=362285592)，已结束并独立审计：20 项中 10 项通过，结构失败 1、语义失败 9、执行失败 0。按登记停止、开发调用为 0，全局 unavailable；见 [原始结果与解释](../artifacts/controller/e_v2a_interface_r2/kaggle_v1/README.md)。主线不再安排 r3。
+**Status (2026-10-26)**: registered and implemented; the current v2 package comes from compatibility integration commit `e3ddead`, and the global mode is aligned. The old run package from `9d91a40` is kept; see the [r2 run package](../artifacts/controller/e_v2a_interface_r2/README.md). First GPU run: [Kaggle 362285592](https://www.kaggle.com/code/yearo111/controller-e-r2-shared-frozen-20261026?scriptVersionId=362285592), finished and independently audited: 10 of 20 items passed, structural failures 1, semantic failures 9, execution failures 0. Stopped per registration, development calls are 0, globally unavailable; see [raw results and interpretation](../artifacts/controller/e_v2a_interface_r2/kaggle_v1/README.md). The main line no longer schedules r3.
 
-r2 是在 r1 GPU 结果之后、实现与运行 r2 之前登记的**语义定义修订**，不是接口修正，也不是 bug 修复。机器协议见 [e_v2a_engineering_r2.json](../configs/controller/e_v2a_engineering_r2.json)。r1 的输出、审计和 `unavailable` 决定原样保留在 [e_v2a_interface_r1](../artifacts/controller/e_v2a_interface_r1/README.md)，r2 不覆盖它们。
+r2 is a **semantic-definition amendment** registered after the r1 GPU results and before implementing and running r2; it is not an interface correction, nor a bug fix. The machine protocol is in [e_v2a_engineering_r2.json](../configs/controller/e_v2a_engineering_r2.json). r1's outputs, audit and `unavailable` decision are kept as is in [e_v2a_interface_r1](../artifacts/controller/e_v2a_interface_r1/README.md); r2 does not overwrite them.
 
-## 为什么改
+## Why it was changed
 
-r1 在 NQ 缺失事实题上，理由写的是“证据没有开馆年份”，标签却给了 `unsupported`，期望应为 `insufficient`。原答被保留并标记，没有发生误修。
+On the NQ missing-fact question in r1, the rationale said "the evidence does not give the opening year", yet the label given was `unsupported`, when the expectation was `insufficient`. The original answer was kept and marked; no harmful repair occurred.
 
-我们的解释是标签定义不对称：FEVER 的提示写明“缺失或冲突的证据算 insufficient”，NQ 的提示没有这句；而且英文 unsupported 本身就可以表示“没有得到支持”。这是一个待检验的假设，单题输出不能证明因果。
+Our explanation is that the label definition is asymmetric: the FEVER prompt states "missing or conflicting evidence counts as insufficient", while the NQ prompt lacks this sentence; moreover, the English word unsupported can itself mean "not supported". This is a hypothesis to be tested; a single-question output cannot prove causation.
 
-## 改了什么
+## What was changed
 
-1. **两个数据集使用同一套定义。** 判断对象都是“进入 E 的答案”：NQ 是短答案，FEVER 是 SUPPORTS/REFUTES 标签。
-   - **supported**：证据确立原答正确。对 FEVER，指 SUPPORTS 且声明被确立，或 REFUTES 且声明被明确反驳。
-   - **contradicted**：证据明确证明原答错误，即同一请求事实给出了不同的值，或明确排除了原答。
-   - **insufficient**：证据既不能确立也不能排除原答，包括两种情况：只有相关事实、所求事实缺失；或几段证据互相冲突而证据本身没有说明谁对。缺少支持不等于反驳。冲突时，来源名称、权威性、时间和排序都不能用来裁决，也不能虚构重铸、重建之类的事件来调和。
-2. **模型输出的标签改为 `supported / contradicted / insufficient`。** 程序把 `contradicted` 映射为内部的 `unsupported`，下游状态、回退和审计不变。模型输出的原始标签保存在 `model_label` 中。
-3. **NQ 替换答案取能回答问题的最短连续原文片段**，不超过 20 词。判为错误但没有合格替换时，保留原答并标记未解决，系统从不弃答。
-4. **新增 NQ 答案类型检查，只记录告警。** 检查问题类型与替换答案的形式（when 需要时间表达，how many 需要数字，who/where 需要专名），写入 `type_warnings`，不阻断、不降级、不改答案。自动保护留作扩展。
+1. **Both datasets use the same set of definitions.** The object of judgement is always "the answer entering E": for NQ it is the short answer, for FEVER the SUPPORTS/REFUTES label.
+   - **supported**: the evidence establishes that the original answer is correct. For FEVER, this means SUPPORTS with the claim established, or REFUTES with the claim explicitly refuted.
+   - **contradicted**: the evidence explicitly proves the original answer wrong, i.e. it gives a different value for the same requested fact, or explicitly rules out the original answer.
+   - **insufficient**: the evidence can neither establish nor rule out the original answer, covering two cases: only related facts are present and the requested fact is missing; or several evidence passages conflict with each other and the evidence itself does not say which is right. Lack of support does not equal refutation. In a conflict, source name, authority, time and ordering cannot be used to adjudicate, nor can events such as recasting or rebuilding be invented to reconcile them.
+2. **The labels output by the model are changed to `supported / contradicted / insufficient`.** The program maps `contradicted` to the internal `unsupported`; downstream states, fallback and audit are unchanged. The model's raw output label is saved in `model_label`.
+3. **The NQ replacement answer takes the shortest contiguous original-text span that answers the question**, at most 20 words. When judged wrong but with no qualified replacement, the original answer is kept and marked unresolved; the system never abstains.
+4. **A new NQ answer-type check is added, which only records warnings.** It checks the question type against the form of the replacement answer (when needs a time expression, how many needs a number, who/where need a proper noun), writes to `type_warnings`, and does not block, downgrade or change the answer. Automatic protection is left as an extension.
 
-不变的部分：
+Unchanged parts:
 
-- 模型与运行：Qwen2.5-7B / NF4 / greedy / seed 42，单次调用，384 输出 tokens，XGrammar 0.2.8，prefill256；
-- 证据与输出约束：共享的 RULES 文本，句子编号与引文重建，schema 分支结构与 ID 数量，NQ 的 20 词连续片段检查，FEVER 的反向标签；
-- 数据与评测：数据和 gold，800 条开发计划，路由搜索。
+- Model and runtime: Qwen2.5-7B / NF4 / greedy / seed 42, single call, 384 output tokens, XGrammar 0.2.8, prefill256;
+- Evidence and output constraints: the shared RULES text, sentence numbering and quote reconstruction, schema branch structure and ID count, NQ's 20-word contiguous span check, FEVER's reverse label;
+- Data and evaluation: data and gold, the 800-item development plan, routing search.
 
-内部版本号为 `evidence_id_v2a_v3`。
+The internal version number is `evidence_id_v2a_v3`.
 
-## GPU 验收
+## GPU acceptance
 
-验收题在修改任何提示之前写成，经三轮独立盲审后封存，见 [T5.1 封存记录](../artifacts/controller/e_v2a_interface_r2/fixture_review/README.md)：
+The acceptance questions were written before any prompt was modified, and sealed after three rounds of independent blind review; see the [T5.1 sealing record](../artifacts/controller/e_v2a_interface_r2/fixture_review/README.md):
 
-- 18 道短题：NQ 五类、FEVER 四类，各 2 道；
-- 2 道长题：14k–32k tokens，XGrammar 与 prefill256 同时开启。
+- 18 short questions: five NQ categories and four FEVER categories, 2 each;
+- 2 long questions: 14k–32k tokens, with XGrammar and prefill256 both enabled.
 
-与 r1 不同，r2 会运行全部 20 项检查再分类，不在第一项失败时停止。每项结果按以下顺序归类：
+Unlike r1, r2 runs all 20 checks before classifying, rather than stopping at the first failure. Each result is classified in the following order:
 
-| 类别 | 条件 |
+| Category | Condition |
 |---|---|
-| 执行失败 | 异常、调用失败或被预算拦截、调用未完成、输出触顶；长题还包括输入不足 14,000 tokens、解码器不是 xgrammar、prefill 不是 256 |
-| 结构失败 | 契约未通过：核验未完成、来源 ID 非法、替换片段非法 |
-| 语义失败 | 契约通过，但核验类别、最终动作、是否未解决、最终答案中有任一项与封存期望不符 |
+| Execution failure | Exception, call failure or blocked by budget, call not completed, output hit the cap; for long questions also input under 14,000 tokens, decoder not xgrammar, prefill not 256 |
+| Structural failure | Contract not passed: verification incomplete, illegal source ID, illegal replacement span |
+| Semantic failure | Contract passed, but any one of the verification category, final action, whether unresolved, or final answer does not match the sealed expectation |
 
-关键证据句、类型告警和原始标签只记录，不作为通过条件。
+Key evidence sentences, type warnings and raw labels are only recorded, not used as pass conditions.
 
-如果平台在任何检查完成前就中断（没有任何模型输出），允许用同一实验包原样重启一次并记录。其余情况以第一次运行为准。
+If the platform is interrupted before any check completes (no model output at all), one restart with the same experiment package unchanged is allowed and recorded. In all other cases the first run is authoritative.
 
-## 开发阶段的三种分支
+## Three branches for the development stage
 
-| 验收结果 | 开发运行 | 说明 |
+| Acceptance result | Development runs | Notes |
 |---|---|---|
-| 全部通过 | Always Repair 400 次 + Full 的 E 阶段 400 次，共 800 次 | 只保存一次允许修复的诊断输出；运行模式之后离线派生，不重新生成 |
-| 只有语义失败 | 两个数据集都以 verify_only 只跑 Always Repair 400 次 | Full 复用前两阶段的答案，E 成本按估计值另行标注。这是实验性只核验，**不算 E 验收通过**，FR12 的修复要求未满足 |
-| 有执行或结构失败 | 0 次 | 两个数据集的 E 都设为 unavailable，保留原答并标记核验未完成，作为限制写入报告 |
+| All passed | Always Repair 400 runs + Full's E stage 400 runs, 800 in total | Save the repair-allowed diagnostic output only once; the run mode is derived offline afterwards, without regeneration |
+| Only semantic failures | Both datasets run only Always Repair 400 times in verify_only | Full reuses the answers from the first two stages, and E cost is annotated separately as an estimate. This is experimental verify-only, **does not count as E acceptance passed**, and FR12's repair requirement is not met |
+| Execution or structural failures present | 0 runs | E for both datasets is set to unavailable, keeping the original answer and marking verification incomplete, written into the report as a limitation |
 
-## 全局 E 模式
+## Global E mode
 
-NQ、FEVER 和所有含 E 的比较组共用一个全局模式。判断只在离线进行，不读取运行时 gold。
+NQ, FEVER and all comparison groups containing E share one global mode. The decision is made only offline, without reading runtime gold.
 
-- **unavailable**：验收失败；或任一数据集的开发契约合规率低于 90%。失败和无效调用都留在分母里。
-- **verify_only**：满足以下任一条件：
-  - 验收结果为只有语义失败；
-  - insufficient 与 unresolved 的并集超过 90%：暂停并复查，不能强制改答来压低比例；
-  - NQ 固定路由 16 条的冻结 EM 净值为负；FEVER 的零路由样本不提供净值或安全证据，须用它自身 Always Repair 200 条的误修保护条件；
-  - 超过误修上限。
-- **allow_repair**：验收通过、合规率不低于 90%、未超过复查线、NQ 固定路由子集净值不小于 0，并且两个数据集都满足误修上限。净值会同时计算修好与改坏，不能代替独立误修保护条件。
+- **unavailable**: acceptance failed; or the development contract compliance rate of either dataset is below 90%. Failures and invalid calls all stay in the denominator.
+- **verify_only**: any one of the following conditions holds:
+  - the acceptance result is semantic failures only;
+  - the union of insufficient and unresolved exceeds 90%: pause and re-examine; changed answers cannot be forced to push the proportion down;
+  - the frozen EM net value of NQ's 16 fixed-routed items is negative; FEVER's zero routed samples provide no net value or safety evidence, so the harmful-repair protection condition on its own 200 Always Repair items must be used;
+  - the harmful-repair cap is exceeded.
+- **allow_repair**: acceptance passed, compliance rate not below 90%, review line not exceeded, NQ fixed-routing subset net value not less than 0, and both datasets satisfy the harmful-repair cap. The net value counts both fixed and broken, and cannot replace the independent harmful-repair protection condition.
 
-**误修上限**，统计对象是 Always Repair 开发集的诊断输出：
+**Harmful-repair cap**: the object of the statistic is the diagnostic output on the Always Repair development set:
 
-- FEVER：冻结标签下“原对改错”的数量必须为 0。
-- NQ：冻结 EM 误修必须为 0；所有改答由用户做语义审核，已确认语义误修与待定项也必须为 0。两套口径分别记录，不改 gold 或别名。
+- FEVER: the number of "originally right, changed to wrong" under frozen labels must be 0.
+- NQ: frozen-EM harmful repairs must be 0; all changed answers get semantic review by the user, and confirmed semantic harmful repairs and pending items must also be 0. The two definitions are recorded separately, without changing gold or aliases.
 
-误修上限在首次 r2 GPU 运行前固定为 0，属于保守启用门槛，不是统计安全证明。只有语义失败的 400 次只核验开发也必须检查两数据集的真实契约合规率；任一低于 90% 则全局不可用。没有开发统计的只核验决定只是临时运行分支，不是最终冻结。
+The harmful-repair cap was fixed at 0 before the first r2 GPU run; it is a conservative enabling gate, not a statistical safety proof. The 400-run verify-only development under semantic-failures-only must also check the real contract compliance rate of both datasets; if either is below 90%, it is globally unavailable. A verify-only decision without development statistics is only a temporary run branch, not a final freeze.
 
-## 停止规则
+## Stopping rules
 
-- 主线不再安排 r3。r2 之后的 E 语义修订都放到 T8 之后作为扩展。
-- 不围绕 r2 验收题调整提示。不使用选型集或 final 数据。
-- 通过虚构验收只说明标签契约在受控输入上能工作，不代表基准准确率、蕴含判断正确或有收益。
+- The main line no longer schedules r3. Any E semantic amendment after r2 is placed after T8 as an extension.
+- Prompts are not adjusted around the r2 acceptance questions. Selection-run or final data are not used.
+- Passing the fictitious acceptance only shows that the label contract works on controlled inputs; it does not represent benchmark accuracy, correct entailment judgement or gains.
 
-## 2026-10-26 执行前口径对齐
+## 2026-10-26 pre-execution definition alignment
 
-新提示和 18＋2 验收题不变；仅把离线模式决定对齐为两个数据集共用一个模式，并同时要求 NQ 冻结 EM 与语义零误修。`9d91a40` 的 `gpu_release_v1` 未运行，保留作历史封存；执行前重新生成带更新口径的运行包。Diagnosis 新接口合并任务见 [T1–T9 当前任务](CONTROLLER_TASKS.md)。开发 Full 成本代理不进入最终确认性 AC5 实测结论。
+The new prompts and the 18+2 acceptance questions are unchanged; only the offline mode decision is aligned so that both datasets share one mode, and both NQ frozen EM and zero semantic harmful repairs are required. `gpu_release_v1` from `9d91a40` was not run and is kept as a historical sealed package; the run package with the updated definitions is regenerated before execution. For the Diagnosis new-interface merge task see [T1–T9 current tasks](CONTROLLER_TASKS.md). The development Full cost proxy does not enter the final confirmatory AC5 measured conclusion.

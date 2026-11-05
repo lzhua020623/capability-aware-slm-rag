@@ -1,25 +1,25 @@
-# Controller 资源接入 · 2026-10-24
+# Controller resource integration · 2026-10-24
 
-后续进度：FEVER provider、固定查询兼容回放及新 900 条 C1 采集包已补齐，见 [FEVER 接入与采集](CONTROLLER_FEVER_C1_V1.md)。以下保持本资源接入批次的范围和验收数字。
+Follow-up progress: the FEVER provider, fixed-query compatibility replay and the new 900-item C1 collection package have been completed; see [FEVER integration and collection](CONTROLLER_FEVER_C1_V1.md). The scope and acceptance numbers of this resource integration batch are kept below.
 
-当前完成的是 T2/T3 的资源与 NQ Train 接口接入。它解决“向量命中后如何取到对应原文”，不改变 Diagnosis、Probe、路由阈值、增强提示或评分标准。没有新的问答质量提升结论，完整比较仍需执行 seal 和 GPU 验收。
+What is currently completed is the T2/T3 resource and NQ Train interface integration. It solves "how to fetch the corresponding original text after a vector hit", and does not change Diagnosis, Probe, routing thresholds, enhancement prompts or scoring criteria. There is no new QA quality improvement conclusion; the full comparison still requires the execution seal and GPU acceptance.
 
-## 已完成的检查
+## Completed checks
 
-| 对象 | 已完成 | 范围限制 |
+| Object | Completed | Scope limits |
 |---|---|---|
-| NQ Train 检索库 | 1,224,119 条 ID、offset、原文逐条核对，逐条实际 seek 回读；绑定原索引 SHA-256 | 本轮不重新编码全部向量；此前 64 段独立 BGE 比对仍单独记录 |
-| NQ Controller provider | 显式资源注册表、文件指纹和全量核对报告验收；按 offset 读取原文，缓存最多 128 段 | 真实 Qwen 路由和答案生成尚需 CUDA；CPU replay 只验收检索 |
-| FEVER 原资源 | 从团队 Drive 下载两个原 ZIP；5,396,106 条 corpus/ID 全量顺序核对，生成 offsets | 原始 BGE revision 未记录；不能把结构检查称为语义向量验证 |
-| FEVER 原索引 | 元数据与已入库记录字节一致；实际 FAISS 属性和原文搜索回读检查单独归档 | 尚未接入 FEVER 动态补检索，新的 900 条 C1 也未生成 |
+| NQ Train retrieval store | 1,224,119 IDs, offsets and original texts checked one by one, each with an actual seek read-back; bound to the original index SHA-256 | This round does not re-encode all vectors; the earlier independent BGE comparison of 64 passages is still recorded separately |
+| NQ Controller provider | Explicit resource registry, file fingerprints and full check report accepted; original text read by offset, cache of at most 128 passages | Real Qwen routing and answer generation still require CUDA; CPU replay only accepts retrieval |
+| FEVER original resources | Two original ZIPs downloaded from the team Drive; 5,396,106 corpus/ID entries fully checked in order, offsets generated | Original BGE revision not recorded; structural checks cannot be called semantic vector validation |
+| FEVER original index | Metadata byte-identical to the record already in the repository; actual FAISS attribute and original-text search read-back checks archived separately | FEVER dynamic retrieval enhancement not yet integrated, and the new 900-item C1 has not been generated either |
 
-两种数量都是**知识库段落数**。NQ 问题仍来自原 74,097 条子集。冻结的开发/选型/最终候选仍为每个数据集 200/200/500；完整保留池 NQ 7,564、FEVER 1,886 不变。
+Both counts are **knowledge-base passage counts**. NQ questions still come from the original 74,097-item subset. The frozen development/selection-run/final candidates are still 200/200/500 per dataset; the full held-out pools of NQ 7,564 and FEVER 1,886 are unchanged.
 
-NQ 的独立向量验证快照为 `a5beb1e3e68b9ab74eb54cfd186867f64f240e1a`。这是本次验证和新执行显式固定的快照，历史 C1 的 revision 仍为未知。检索 replay 使用已曝光的开发集前 10 题，对比真实 BGE 查询和原索引产生的 Top5 ID，同时检查 Top20 的前五项一致；不读取离线 gold，不生成答案，不按 EM 选样或修改算法。
+The independent vector validation snapshot for NQ is `a5beb1e3e68b9ab74eb54cfd186867f64f240e1a`. This is the snapshot explicitly pinned for this validation and new executions; the revision of the historical C1 is still unknown. The retrieval replay uses the first 10 questions of the already-exposed development set, comparing the Top5 IDs produced by real BGE queries against the original index, and also checks that the first five items of Top20 match; it does not read the offline gold, does not generate answers, and does not select samples or modify the algorithm by EM.
 
-实际 replay **10/10 题的 Top5 ID 及顺序与原 C1 一致**，Top20 的前五项也一致。报告见 [retrieval_replay.json](../artifacts/controller/nq_mapping_full_v1/retrieval_replay.json)。这是检索资源/接口一致性结果，不能转换成回答正确率或 E 的收益。
+In the actual replay, **the Top5 IDs and their order match the original C1 for 10/10 questions**, and the first five items of Top20 also match. See the report in [retrieval_replay.json](../artifacts/controller/nq_mapping_full_v1/retrieval_replay.json). This is a retrieval resource/interface consistency result and cannot be converted into answer accuracy or a gain from E.
 
-## NQ Train 接入方式
+## NQ Train integration method
 
 ```bash
 python scripts/run_controller_integration.py \
@@ -28,34 +28,34 @@ python scripts/run_controller_integration.py \
   --preflight --output-dir /path/to/new_preflight
 ```
 
-注册表列出 corpus、index、ID、offset、恢复元数据和全量核对报告的路径、大小和 SHA-256。preflight 不加载模型，校验全部指纹；不指定资源时，旧的输入格式预检查仍可运行，但不能据此称资源就绪。真实执行也会重新校验资源。
+The registry lists the paths, sizes and SHA-256 of the corpus, index, IDs, offsets, recovery metadata and full check report. Preflight does not load models and verifies all fingerprints; when no resources are specified, the old input-format pre-check can still run, but this cannot be used to claim the resources are ready. Real execution also re-verifies the resources.
 
-`--nq-resources` 与旧的 `--nq-index/--nq-metadata` 二选一。旧接口继续用于含全文的 JSONL metadata；不能把只有 ID 的 sidecar 传给旧接口。新 provider 复用原 NQFaissBackend、原 BGE 查询前缀、L2 normalization、IP 分数和 Top20 上限，传给后续模块的段落仅含 passage_id/text/score。
+`--nq-resources` and the old `--nq-index/--nq-metadata` are mutually exclusive. The old interface continues to be used for JSONL metadata containing full text; an ID-only sidecar must not be passed to the old interface. The new provider reuses the original NQFaissBackend, the original BGE query prefix, L2 normalization, IP scores and the Top20 cap, and passages passed to downstream modules contain only passage_id/text/score.
 
-本机验证使用 FAISS CPU 1.15.1 的 Flat read-only mmap，BGE 独立进程编码，避免此前 macOS OpenMP 冲突。完整 CUDA 环境还需独立锁定和实测，不能用本地 CPU 环境替代 GPU seal。新 provider 显式检查 mmap 支持；缺失时会报错，防止静默换成占用更高的加载方式。
+Local validation uses FAISS CPU 1.15.1 Flat read-only mmap, with BGE encoding in a separate process, avoiding the earlier macOS OpenMP conflict. The full CUDA environment still needs to be locked and measured independently; the local CPU environment cannot substitute for the GPU seal. The new provider explicitly checks mmap support; if it is missing, an error is raised, preventing a silent switch to a higher-footprint loading method.
 
-资源检查与重放：
+Resource check and replay:
 
 ```bash
 python scripts/check_nq_train_index_mapping.py --output /path/to/new_mapping.json
 python scripts/replay_nq_controller_retrieval.py --output /path/to/new_replay.json
 ```
 
-## FEVER 资源位置与恢复
+## FEVER resource locations and recovery
 
-两个输入 ZIP 分别为 `for_fever_c1.zip`（424,325,031 bytes）和 `fever_corpus.zip`（1,265,030,053 bytes），来源为团队 ELEC5623 Drive 目录。校验码见 [import_validation.json](../artifacts/controller/fever_resources_v1/import_validation.json)。
+The two input ZIPs are `for_fever_c1.zip` (424,325,031 bytes) and `fever_corpus.zip` (1,265,030,053 bytes), sourced from the team ELEC5623 Drive folder. Checksums are in [import_validation.json](../artifacts/controller/fever_resources_v1/import_validation.json).
 
-本机解包到新的、被 Git 忽略的 `data/processed/controller_resources/fever_v1/`，不覆盖原云端占位文件：
+Unpacked locally into the new, Git-ignored `data/processed/controller_resources/fever_v1/`, without overwriting the original cloud placeholder files:
 
-| 文件 | 作用 |
+| File | Purpose |
 |---|---|
-| `fever_corpus.jsonl` | 原文正文 |
-| `fever_bge_ivfpq.index` | 原 IndexIVFPQ |
-| `fever_bge_ivfpq_ids.jsonl` | 向量序号到 passage ID |
-| `fever_bge_ivfpq_offsets.npy` | 向量序号到原文文件位置，本轮生成 |
-| `fever_bge_ivfpq_meta.json` | 原建库元数据，与仓库记录相同 |
+| `fever_corpus.jsonl` | Original text body |
+| `fever_bge_ivfpq.index` | Original IndexIVFPQ |
+| `fever_bge_ivfpq_ids.jsonl` | Vector index to passage ID |
+| `fever_bge_ivfpq_offsets.npy` | Vector index to original-text file position, generated this round |
+| `fever_bge_ivfpq_meta.json` | Original index-build metadata, identical to the repository record |
 
-ZIP 中自带的历史 `fever_dev.jsonl` 只记录哈希，未安装或覆盖 T2 的来源数据。它的字节大小与冻结来源不同；本次没有根据该副本重新选题、替换标签或修改保留池。
+Only the hash of the historical `fever_dev.jsonl` bundled in the ZIP is recorded; it was not installed and did not overwrite the T2 source data. Its byte size differs from the frozen source; this time no questions were reselected, no labels replaced and the held-out pool was not modified based on that copy.
 
 ```bash
 python scripts/import_fever_controller_resources.py \
@@ -66,13 +66,13 @@ python scripts/check_fever_controller_resources.py \
   --output /path/to/new_structure_check.json
 ```
 
-只提取明确指定的文件到明确目的地；拒绝覆盖、符号链接和重复成员。完整读取 ZIP 成员会校验 CRC。生成 offsets 前核对全部 ID 顺序、重复 ID、文本和数量。FAISS 检查使用三条 PQ 重建向量确认搜索结果能回读原文，不用这一步证明 BGE 语义匹配或 QA 收益。
+Only explicitly specified files are extracted to explicit destinations; overwrites, symbolic links and duplicate members are rejected. Fully reading ZIP members verifies CRC. Before generating offsets, all ID order, duplicate IDs, text and counts are checked. The FAISS check uses three PQ-reconstructed vectors to confirm that search results can read back the original text; this step is not used to prove BGE semantic matching or QA gains.
 
-## 后续执行顺序
+## Subsequent execution order
 
-1. 补 FEVER 动态检索 provider，并核验固定 BGE 查询快照与原检索结果的兼容性。
-2. 为冻结 FEVER 900 条生成原协议 C1 Top5/答案并封存；开发、选型、最终输出分开，不以答题结果删样。
-3. 补 T3 Full、No Probe、人工类型离线对照、各组预算和全样本配对验收，登记实际 CUDA 环境并创建 execution seal。
-4. 在同批输入上比较修复、误修、路由损失和成本，再决定集中优化；不提前使用保留池做调参。
+1. Add the FEVER dynamic retrieval provider, and verify compatibility of the fixed BGE query snapshot with the original retrieval results.
+2. Generate original-protocol C1 Top5/answers for the frozen FEVER 900 items and seal them; keep development, selection-run and final outputs separate, and do not drop samples based on answer results.
+3. Add T3 Full, No Probe, the offline human-type comparison, per-group budgets and full-sample paired acceptance; register the actual CUDA environment and create the execution seal.
+4. Compare repairs, harmful repairs, routing losses and costs on the same batch of inputs, then decide on focused optimization; do not use the held-out pool for tuning in advance.
 
-完整 CPU 回归 **706 项全部通过**。完整验证和源码差异登记见 [本轮验收](../artifacts/controller/resource_adapter_v1/README.md)。T1 协议及 T2 原冻结记录保持原字节；新进度是追加记录，不回写历史验收结论。
+Full CPU regression: **all 706 tests passed**. Full validation and source diff registration are in [this round's acceptance](../artifacts/controller/resource_adapter_v1/README.md). The T1 protocol and the original T2 frozen records keep their original bytes; new progress is appended records and does not write back historical acceptance conclusions.

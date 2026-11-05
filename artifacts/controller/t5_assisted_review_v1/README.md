@@ -1,29 +1,29 @@
-# T5 路由辅助审核 · 2026-10-26
+# T5 routing assisted review · 2026-10-26
 
-**后续状态**：用户已回复“按照你判断的来”，采用本页辅助意见；当前入库状态为 11 题完整定案、6 题未完整定案，见 [确认快照](../t5_human_review_v1/README.md)。下方保留本辅助快照生成时的状态。
+**Follow-up status**: the user replied "按照你判断的来", adopting the assisted opinions on this page; the current committed status is 11 questions fully finalized and 6 questions not fully finalized; see the [confirmation snapshot](../t5_human_review_v1/README.md). Below, the state at the time this assisted snapshot was generated is retained.
 
-入口：[17 题网页](review/review17.html)。R01–R15 保留原重点队列编号；R16、R17 是阈值 0.2 相对原路由新增的两个 EM 误修，原 15 题没有覆盖它们。可按编号在聊天中确认，也可在页面填写并导出；浏览器填写不会自动写回仓库。
+Entry point: [17-question web page](review/review17.html). R01–R15 keep the original priority queue numbering; R16 and R17 are two new EM harmful repairs of threshold 0.2 relative to the original routing, which the original 15 questions did not cover. You can confirm by number in chat, or fill in and export on the page; filling in the browser does not automatically write back to the repository.
 
-所有判断来自代理，仓库人审确认 **0/17**。页面展示方法名和参考，属于有辅助意见的可见参考审核，不是独立盲审；报告须披露辅助影响。人工选择没有自动预填。r2 GPU 尚未运行，本页展示 T4 的历史固定动作，不是 r2 新预测。
+All judgments come from the assistant (agent); repository human-review confirmations are **0/17**. The page shows method names and references, so this is a visible-reference review with assisted opinions, not an independent blind review; the report must disclose the influence of the assistance. Human selections are not automatically pre-filled. r2 GPU has not yet run; this page shows T4's historical fixed actions, not new r2 predictions.
 
-## 初步发现
+## Preliminary findings
 
-- R01、R02、R04、R05、R08、R12、R13、R14：倾向认为原答已正确，主要是名字、地域或细节写法差异；EM 改善不自动等于语义修复。
-- R07、R10、R15：补检索组给出更贴题且有直接依据的答案，倾向认为是有效修复，仍待用户确认。
-- R03、R06、R09、R11：涉及角色、所问关系、年份/赛事范围或播出版本，保留逐项待定，不按冻结参考强行裁决。
-- R16：65 与 62 集同时出现在证据中，统计范围不清；R17：Federer 与 Nadal 的“current”表述同时存在，缺少时点。两条按冻结 EM 为误修，语义先记冲突，倾向保留原答。
+- R01, R02, R04, R05, R08, R12, R13, R14: leaning towards the original answer already being correct, mainly differences in how names, regions or details are written; an EM improvement does not automatically equal a semantic repair.
+- R07, R10, R15: the retrieval-enhancement group gave answers that are more on-topic and directly supported, leaning towards these being valid repairs; still pending user confirmation.
+- R03, R06, R09, R11: involve roles, the relation being asked about, year/event scope or broadcast version; kept pending item by item, not forcibly adjudicated by the frozen reference.
+- R16: 65 and 62 episodes both appear in the evidence, so the counting scope is unclear; R17: "current" statements for both Federer and Nadal exist, lacking a point in time. Both are harmful repairs under frozen EM; semantically a conflict is recorded first, leaning towards keeping the original answer.
 
-这些意见不能作为新性能结论或全体 200 题的语义准确率。候选未冻结、未晋升，gold、别名、路由和模型均未改；也不把本页辅助意见直接作为训练/DPO 标签。
+These opinions cannot serve as new performance conclusions or as semantic accuracy for all 200 questions. The candidate is not frozen and not promoted; gold, aliases, routing and models are unchanged; and the assisted opinions on this page are not used directly as training/DPO labels either.
 
-## 来源与复查
+## Sources and re-check
 
-原始 T4 ZIP、原 15 题及辅助备注均有 SHA256，引用还绑定 passage ID、原文偏移和全文指纹，见 [manifest](review/review_manifest.json)。来源存在只证明可追溯，不证明辅助语义判断正确。
+The raw T4 ZIP, the original 15 questions and the assisted notes all have SHA256; citations are also bound to passage IDs, source-text offsets and full-text fingerprints; see [manifest](review/review_manifest.json). The existence of a source only proves traceability, not that the assisted semantic judgment is correct.
 
-- [辅助备注源文件](source_notes.json)
-- [全部问题、证据和逐题建议](review/review17.jsonl)
-- [原 15 题审核页](../e_v2a_v1/t5_development_review/routing15_review.html)
+- [Assisted notes source file](source_notes.json)
+- [All questions, evidence and per-question suggestions](review/review17.jsonl)
+- [Original 15-question review page](../e_v2a_v1/t5_development_review/routing15_review.html)
 
-生成命令（目标目录必须不存在，防止覆盖审核工作）：
+Generation command (the target directory must not exist, to prevent overwriting review work):
 
 ```bash
 python scripts/prepare_controller_t5_assisted_review.py --output-dir /tmp/controller-t5-assisted-new

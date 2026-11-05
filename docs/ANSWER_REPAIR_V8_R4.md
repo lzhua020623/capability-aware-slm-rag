@@ -1,22 +1,22 @@
-# v8r4：最后一轮 FACT 核验提示实验
+# v8r4: final round FACT verification prompt experiment
 
-已完成真实试跑：32 条通过工程检查及冻结回放，N31／N48 回归未通过，仅 N12 通过。按预设规则最终采用 r3；最终 75 条已另行提交。见 [结果报告](ANSWER_REPAIR_RESULTS_20261020_V8_R4.md)。以下保留原方案与基础设施重试说明。
+Real trial run completed: 32 records passed the engineering checks and frozen replay; the N31/N48 regressions failed, and only N12 passed. Per the pre-set rules, r3 is finally adopted; the final 75 items have been submitted separately. See [results report](ANSWER_REPAIR_RESULTS_20261020_V8_R4.md). The original plan and the infrastructure retry notes are kept below.
 
-本版只改核验提示及其十行解析／停止契约。先写 FACT（证据针对问题建立的事实），再比较当前被审核答案并给六项判断。候选核验传入候选答案；不增加模型调用，不新增独立验证器，也不在程序中把 FACT 当已验证真值。
+This version only changes the verification prompt and its ten-line parsing/stopping contract. It first writes FACT (the fact that the evidence establishes for the question), then compares the answer currently under review and gives the six judgements. Candidate verification passes in the candidate answer; no model calls are added, no new independent verifier is added, and the program does not treat FACT as verified truth.
 
-共享 SEMANTICS、最小修复提示、候选三种文法、原文定位、决策规则、模型 revision、greedy/seed、384 token 上限、三阶段和四组协议均保持 r3。冻结构建逐项校验未改函数 AST、常量及 8 条最小修复提示哈希。
+The shared SEMANTICS, the minimal repair prompt, the three candidate grammars, source localization, decision rules, model revision, greedy/seed, the 384-token limit, the three stages and the four-group protocol all stay as in r3. The frozen build checks item by item the AST of unchanged functions, the constants, and the hashes of the 8 minimal repair prompts.
 
-固定 8 个开发样本 N1/N2/N8/N12/N15/N31/N48/N96，四组 32 条输出，最多 64 次生成。沿用 r3 工程门槛；完整流程额外只检查三个事先确定的阶段行为：N31 原检查 unsupported；N48 原检查 unsupported、Govind Ballabh Pant Sagar 候选 supported；N12 原检查 supported 且保留原答。其他五条及所有消融完整记录，EM/F1 不参与版本选择。N31 后续候选来源拒绝仍如实计作修复失败，不把它混同为原检查回归失败。
+Fixed 8 development samples N1/N2/N8/N12/N15/N31/N48/N96, four groups with 32 outputs, at most 64 generations. Carries over r3's engineering gates; the full pipeline additionally checks only three pre-determined stage behaviours: N31 original check unsupported; N48 original check unsupported and Govind Ballabh Pant Sagar candidate supported; N12 original check supported and original answer kept. The other five and all ablations are fully recorded, and EM/F1 do not participate in version selection. A subsequent source rejection of N31's candidate is still honestly counted as a repair failure and is not conflated with an original-check regression failure.
 
-这是这些 8 条样本最后一次用于选提示。工程及三个回归全部通过才选 r4，否则保留 r3，禁止在本批追加 r5。基础设施故障允许同一指纹、同一配置续跑，不允许根据成绩修改策略或换样本。
+This is the last time these 8 samples are used for prompt selection. r4 is selected only if engineering and all three regressions pass, otherwise r3 is kept, and adding r5 on this batch is forbidden. Infrastructure faults allow resumption with the same fingerprint and same configuration, but changing the policy or samples based on scores is not allowed.
 
-最终版本随后在固定 75 条开发输入上运行 v7、完整 v8 和两种消融，C1 复用已有记录；运行后停止修改。未见分层挑战集、改答并集审核与团队端到端比较另行冻结，不能把 smoke、开发数字或参考可见的辅助审核写成独立收益。
+The final version then runs v7, full v8 and the two ablations on the fixed 75 development inputs, with C1 reusing existing records; modifications stop after the run. The unseen stratified challenge set, the changed-answer union review and the team end-to-end comparison are frozen separately; smoke, development numbers or reference-visible assisted review cannot be written up as independent gains.
 
-准备入口：`scripts/prepare_answer_repair_v8_r4.py`。协议：`configs/answer_repair_v8r4_smoke8_v1.json`。原 r3 及更早包、预测、gold、评分规则均保留原字节。
-## 2026-10-20 基础设施重试说明
+Preparation entry point: `scripts/prepare_answer_repair_v8_r4.py`. Protocol: `configs/answer_repair_v8r4_smoke8_v1.json`. The original r3 and earlier bundles, predictions, gold and scoring rules all keep their original bytes.
+## 2026-10-20 infrastructure retry notes
 
-Kaggle 第 1 版 `360053773` 在执行约 41.4 秒后，于 118 项便携检查中的 AST 指纹检查失败；CUDA 环境检查通过，模型生成次数为 0。Python 3.13 的 AST dump 表示与生成指纹时的 Python 3.11 不同，已在本地 3.13 精确复现同一指纹差异。该失败没有语义结果，不能据此选择 r3/r4。
+Kaggle version 1 `360053773` failed after about 41.4 seconds of execution at the AST fingerprint check among the 118 portable checks; the CUDA environment check passed, and the number of model generations was 0. The Python 3.13 AST dump representation differs from that of Python 3.11 used when generating the fingerprint; the same fingerprint difference was reproduced exactly on local 3.13. This failure has no semantic results, and r3/r4 cannot be selected based on it.
 
-第 2 版 `360064691` 使用同一个 `d13880c5…` 冻结包。新增适配器仅在独立的 unittest 进程中按 3.11 规则序列化 AST：保留原有结构检查，省去新增的空 type_params，遇到非空参数拒绝。没有修改冻结包中的任何文件，也不影响独立启动的模型进程。原 118 项冻结检查已在本地 Python 3.11、3.12、3.13 全部通过，另有两项适配器保护检查。
+Version 2 `360064691` uses the same `d13880c5…` frozen bundle. The new adapter serializes the AST under 3.11 rules only in a separate unittest process: it keeps the existing structure checks, omits the newly added empty type_params, and rejects non-empty parameters. No file in the frozen bundle was modified, and the separately launched model process is unaffected. The original 118 frozen checks all passed locally on Python 3.11, 3.12 and 3.13, plus two adapter guard checks.
 
-重试 Notebook、适配器指纹及首轮失败日志单独保存。重试在 577.3 秒完成，结果依原三项回归与工程门槛选定 r3，没有新增 r5，也没有查看 EM 选版本。最终 75 条已提交 `360070600`，沿用同一测试兼容方式，29 个推理源码文件逐一匹配所选 r3。
+The retry Notebook, adapter fingerprint and first-round failure log are saved separately. The retry finished in 577.3 seconds, and the result selected r3 according to the original three regressions and engineering gates, with no additional r5 and without looking at EM to select the version. The final 75 items have been submitted as `360070600`, using the same test compatibility approach, with all 29 inference source files matching the selected r3 one by one.

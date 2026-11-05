@@ -1,5 +1,5 @@
-# T3 CPU 合约验收
+# T3 CPU contract acceptance
 
-762项完整回归通过（68.200秒）；T1设计及T2来源检查通过。此次新增Full/No Probe/离线人工类型接口、分组预算、标准FEVER输入、支持状态警示、严格清单和离线Oracle/配对统计。
+762 full regression tests passed (68.200 seconds); the T1 design and T2 source checks passed. This round added Full/No Probe/offline human-type interfaces, group budgets, standard FEVER input, support-status warnings, strict manifests and offline Oracle/paired statistics.
 
-真实CUDA工程检查与执行封存尚未完成，T4未启动。本目录不是回答质量或AC5/AC6达标凭据。原T1/T2及模块提示不覆盖。
+The real CUDA engineering check and the execution seal are not yet complete, and T4 has not started. This directory is not evidence of answer quality or of meeting AC5/AC6. The original T1/T2 and module prompts are not overwritten.

@@ -1,46 +1,46 @@
-# E 教师试产结果 · 2026-10-28
+# E teacher pilot production results · 2026-10-28
 
-500 条 NQ Train 教师任务全部完成，独立重放通过。教师为 Azure GPT-6.1 Sol `2026-09-29`；当前结果是训练数据试产，**Qwen 尚未训练，E 尚未晋升，最终测试集没有参与**。
+All 500 NQ Train teacher tasks are complete and the independent replay passed. The teacher is Azure GPT-6.1 Sol `2026-09-29`; the current result is training-data pilot production: **Qwen has not been trained yet, E has not been promoted yet, and the final test set was not involved**.
 
-| 检查 | 结果 |
+| Check | Result |
 |---|---:|
-| 唯一请求／原始响应／成功结算 | 500／500／500 |
-| 失败／未结算／重复请求 | 0／0／0 |
-| 模型版本、JSON、证据来源及原账本重放 | 500／500 通过 |
-| 学生可见 JSON＋EOS 长度 | 最短 49、中位 75、最长 126 tokens；全部低于 384 |
-| 支持原答／证据不足／明确否定原答 | 320／122／58 |
-| 最终保留／提出替换 | 451／49 |
-| 未解决 | 131＝122 条不足＋9 条否定但无合格候选 |
-| 保守客户端费用 | $6.58152／$15；不是核实的 Azure 账单 |
+| Unique requests/raw responses/successful settlements | 500/500/500 |
+| Failures/unsettled/duplicate requests | 0/0/0 |
+| Model version, JSON, evidence provenance and original ledger replay | 500/500 passed |
+| Student-visible JSON + EOS length | Min 49, median 75, max 126 tokens; all below 384 |
+| Supports original answer/insufficient evidence/clearly contradicts original answer | 320/122/58 |
+| Finally kept/replacement proposed | 451/49 |
+| Unresolved | 131 = 122 insufficient + 9 contradicted but without a qualified candidate |
+| Conservative client-side cost | $6.58152/$15; not a verified Azure bill |
 
-全部输入依旧是原问题、原 C1 回答和检索 Top-5，教师没有收到 gold 或 AI 初标。500 条从允许 Train 按四类 AI 初标各 125 条取样，因此不代表自然分布。Validation 的开发／选型各 500 条及完整 Test 11,114 条未用于本次教师生成。
+All inputs are still the original question, the original C1 answer and the retrieved Top-5; the teacher did not receive gold or AI initial labels. The 500 items were sampled from the allowed Train at 125 for each of the four AI initial-label classes, so they do not represent the natural distribution. The 500 development/500 selection-run items of Validation and the full Test of 11,114 items were not used for this teacher generation.
 
-## 这些数字代表什么
+## What these numbers mean
 
-工程上，SOTA 教师能稳定输出当前 E 契约：没有截断、格式回退或非法引用，短目标也适合后续学生 384-token 预算。**引用合法不证明核验标签或替换语义正确，49 个替换也不是 49 个修好。**
+From an engineering standpoint, the SOTA teacher can stably output the current E contract: no truncation, format fallback or illegal citations, and the short targets also fit the later student 384-token budget. **Legal citations do not prove that verification labels or replacement semantics are correct, and 49 replacements are not 49 fixed.**
 
-使用物理隔离的离线参考，仅作 EM 诊断：C1 为 95／500，应用教师候选后为 112／500，18 条由错变对、1 条由对变错，净增 17。EM 会漏掉等价答案，也不能直接判断证据是否足够；不能把这些数写成蒸馏后 Qwen 的提升、最终测试收益或教师语义已通过。
+Using the physically isolated offline reference, for EM diagnosis only: C1 is 95/500, and after applying the teacher candidates it is 112/500, with 18 going from wrong to right and 1 from right to wrong, a net gain of 17. EM misses equivalent answers and cannot directly judge whether evidence is sufficient; these numbers cannot be written as post-distillation Qwen improvement, final test gain, or teacher semantics having passed.
 
-第 1–20 条来自旧节流，第 21–500 条来自 token-window v2；所有 ID、任务内容、模型、门槛和累计账本保持一致。后 480 条响应的 provider `created` 时间跨度约 **99.93 分钟**，是服务响应时间戳的跨度，不含首次冷却及最后请求的完整耗时，不是 GPU 训练时间。服务单次延迟中位约 3.43 秒。
+Items 1–20 come from the old throttling and items 21–500 from token-window v2; all IDs, task contents, model, gate and cumulative ledger are consistent. The provider `created` timestamps of the last 480 responses span about **99.93 minutes**, which is the span of service response timestamps, excluding the initial cooldown and the full duration of the last request, and is not GPU training time. The median single service latency is about 3.43 seconds.
 
-## 冻结的 100 条语义审核
+## The frozen 100-item semantic review
 
-[审核网页](../artifacts/controller/e_teacher_pilot_20261028/review/semantic_review100.html)和 [JSONL](../artifacts/controller/e_teacher_pilot_20261028/review/semantic_review100.jsonl)已准备，编号 T001–T100。每题含原问题、C1、教师判断与候选、引用句编号、完整 Top-5 和折叠的离线参考，默认全部未审。
+The [review web page](../artifacts/controller/e_teacher_pilot_20261028/review/semantic_review100.html) and [JSONL](../artifacts/controller/e_teacher_pilot_20261028/review/semantic_review100.jsonl) are prepared, numbered T001–T100. Each question contains the original question, C1, the teacher judgment and candidate, cited sentence numbers, the full Top-5 and the collapsed offline reference; all are unreviewed by default.
 
-- 49 条替换：全部纳入。
-- 21 条 supported 保留、21 条 insufficient 保留。
-- 9 条 contradicted 但没有候选：全部纳入。
+- 49 replacements: all included.
+- 21 supported kept, 21 insufficient kept.
+- 9 contradicted but without a candidate: all included.
 
-抽样按登记的行为分组执行，组内用 `SHA256(sample_id)` 升序，无可调 seed；不按 gold、EM 或代理判断筛选。替换组不足 50 时全纳入，剩余名额在三种保留分组间轮流分配；稀少组全纳入后再分配余量。三个核验标签的审核数量均达到至少 10 条要求。
+Sampling is performed by the registered behavior groups, ascending by `SHA256(sample_id)` within each group, with no tunable seed; there is no filtering by gold, EM or assistant judgment. When the replacement group has fewer than 50, all are included, and the remaining slots are allocated in rotation among the three kept groups; after the rare groups are fully included, the remainder is allocated. The review counts of all three verification labels meet the requirement of at least 10.
 
-**T011 需要重点看事件和时间限定**：原答 Kiriath-Jearim，教师改为 Jerusalem。证据描述约柜在不同阶段的位置，需检查它是否真的排除了原答；当前仅记 EM 对→错及待审，不预填成人工误修。初次连接里的 Texans/Chiefs 实体风险另保留为解释性案例，不把它临时插入冻结的 100 条审核。
+**T011 needs focused attention on the event and time qualifiers**: the original answer is Kiriath-Jearim, and the teacher changed it to Jerusalem. The evidence describes the location of the Ark at different stages; check whether it really rules out the original answer. Currently it is only recorded as EM right→wrong and pending review, not pre-filled as a human-review harmful repair. The Texans/Chiefs entity risk from the initial connection is kept separately as an explanatory case, and is not temporarily inserted into the frozen 100-item review.
 
-网页可逐条填写并导出 JSON，也可按 T 编号在聊天中确认。浏览器记录按样本和原始响应哈希隔离，换一批内容不会沿用旧选择。gold 只辅助理解题意，不能代替证据核验。页面不调用模型、不写入训练目标；导出的人工意见还需核对导入。
+The web page allows filling in item by item and exporting JSON; you can also confirm by T number in chat. Browser records are isolated by sample and raw response hash, so a different batch of content will not reuse old selections. gold only helps understand the question and cannot replace evidence verification. The page does not call models or write training targets; exported human opinions still need to be checked on import.
 
-## 下一步与停止条件
+## Next steps and stopping conditions
 
-先完成这 100 条的语义确认。按原登记，至少 95 条整条监督语义正确、审核替换中零误修、无待定，才能通过教师质量门槛。当前人工确认和获准 SFT 的数量均为 0。长度检查通过不等于语义通过。
+First complete the semantic confirmation of these 100 items. Per the original registration, at least 95 items with fully correct supervision semantics, zero harmful repairs among the reviewed replacements and no pending items are required to pass the teacher quality gate. The current numbers of human confirmations and of SFT approvals are both 0. Passing the length check does not equal passing semantics.
 
-门槛通过后另封存扩量清单、费用、目标配比和过滤办法，再扩到候选 5,000 条合格监督数据（上限 10,000）并实测 Kaggle QLoRA。只训练 E adapter，C1 固定；训练配置、长输入验收、正确题误修上限和晋升规则先登记。未通过则记录原因，不能事后放宽本轮门槛或直接把 500 条全量入训。
+After the gate passes, separately seal the expansion list, cost, target mix and filtering method, then expand to a candidate 5,000 qualified supervision items (cap 10,000) and measure Kaggle QLoRA. Only the E adapter is trained, with C1 fixed; the training config, long-input acceptance, harmful-repair cap on correct questions and promotion rules are registered first. If not passed, record the reason; this round's gate cannot be relaxed afterwards, and the 500 items cannot be put into training wholesale.
 
-原始输入/响应、完整账本、全量重放、环境、指纹和测试见 [结果归档](../artifacts/controller/e_teacher_pilot_20261028/README.md)。P60 原特征/来源及团队共同 baseline 等集成缺口不因教师试产完成而自动解决。
+The raw inputs/responses, full ledger, full replay, environment, fingerprints and tests are in the [results archive](../artifacts/controller/e_teacher_pilot_20261028/README.md). Integration gaps such as the P60 original features/provenance and the team common baseline are not automatically resolved by the completion of the teacher pilot production.

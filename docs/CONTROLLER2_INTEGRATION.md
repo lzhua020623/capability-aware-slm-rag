@@ -1,55 +1,55 @@
-# Controller 2 集成交接 · 2026-10-27
+# Controller 2 integration handover · 2026-10-27
 
-**当前生产 Adaptive RAG 状态与入口**见 [CONTROLLER_1024_BASELINE.md](CONTROLLER_1024_BASELINE.md)（E2E production path passed）。下文保留分支合并与兼容处理的历史交接记录。
+**Current production Adaptive RAG status and entry point**: see [CONTROLLER_1024_BASELINE.md](CONTROLLER_1024_BASELINE.md) (E2E production path passed). The text below retains the historical handover record of the branch merge and compatibility handling.
 
-后续操作在 `controller_2`。本轮从 `controller@5da8fa690bb04bd65f19ee9629b899d569fa0abe` 创建分支，合入两条增强路线的最新内容；下列合并说明描述当时的兼容集成，不以其中“E unavailable / P60 未交付”等过时表述为准。
+Subsequent work happens on `controller_2`. This round branched from `controller@5da8fa690bb04bd65f19ee9629b899d569fa0abe` and merged in the latest content of the two enhancement routes; the merge notes below describe the compatibility integration at that time, and outdated statements in them such as "E unavailable / P60 not delivered" are not authoritative.
 
-| 来源 | 冻结提交 | 本轮加入 |
+| Source | Frozen commit | Added this round |
 |---|---|---|
-| `feature/retrieval-enhancement` | `37e469e0bd101dc5a905f95aeca1cafdc6a07e9d` | 3 个提交：生成回放、Windows 兼容、历史 GPU 输出、评分和路由加权审计 |
-| `feature/reranking-enhancement` | `55832850640f5fe37c52a02779cc389a2e5f0276` | 18 个提交：重排训练、答案级与误修评测、随机重排/句子裁剪对照、候选留痕、统一适配器、答案选择器训练工具 |
+| `feature/retrieval-enhancement` | `37e469e0bd101dc5a905f95aeca1cafdc6a07e9d` | 3 commits: generation replay, Windows compatibility, historical GPU outputs, scoring and routing-weighted audit |
+| `feature/reranking-enhancement` | `55832850640f5fe37c52a02779cc389a2e5f0276` | 18 commits: reranking training, answer-level and harmful-repair evaluation, random-reranking/sentence-trimming controls, candidate traces, unified adapter, answer-selector training tools |
 
-补检索合并提交为 `5c793c7`。第二个合并提交同时包含下述兼容处理、测试与本交接；最终提交号以 Git 历史为准。
+The retrieval-enhancement merge commit is `5c793c7`. The second merge commit contains both the compatibility handling, tests and this handover described below; the final commit ID is as recorded in Git history.
 
-## 兼容处理
+## Compatibility handling
 
-- 保留原 P3-20 的 FEVER 支持、标签解析、失败回退、调用计量与包的延迟导入。上游最新三个提交主要补充实验工具与证据，不覆盖 Controller 已有的跨数据集适配。
-- `RefinementConfig/Result/Status` 以 `refinement_schema.py` 为唯一类型定义，`schema.py` 和包级旧导入继续指向同一类型。已接受结果的旧构造调用可从 final_answer 确定 candidate_answer；拒绝且未记录候选时仍为 unknown，不补造拒绝内容。
-- 新轨迹保留被拒绝的候选答案；证据 ID 不变但正文被裁剪时也能触发重新生成。新能力由显式实验配置启用。
-- 保留 `EnhancementResult` 对非有限延迟的拒绝，以及现有执行器对动作、答案变化和失败回退的一致性检查。
-- 补检索独立运行包增加已拆分的 `src/generation/prompts.py`。Windows 原包审计仍核对批准的源码哈希；较新 checkout 不会被冒充为历史原包。
-- 历史 T5 包装回归从原始冻结包恢复源码，补齐缺失文件前也核对旧哈希；新增检查确认当前 Controller 源码不能重建旧封存。生产封存检查与历史包均未放宽或覆盖。
-- 保留仓库 `AGENTS.md`、旧导入回归与全部历史实验归档，合并 `.gitignore` 两侧规则；用户未提交的辅助审核文件不纳入本轮提交。
+- Retain the original P3-20 FEVER support, label parsing, failure fallback, call metering and lazy package imports. The latest three upstream commits mainly add experiment tools and evidence and do not override the Controller's existing cross-dataset adaptation.
+- `RefinementConfig/Result/Status` take `refinement_schema.py` as the single type definition; `schema.py` and the old package-level imports continue to point to the same types. Old constructor calls for accepted results can determine candidate_answer from final_answer; for rejections with no recorded candidate it remains unknown, and rejected content is not fabricated.
+- New traces retain rejected candidate answers; regeneration can also be triggered when evidence IDs are unchanged but the text has been trimmed. New capabilities are enabled by explicit experiment configuration.
+- Retain `EnhancementResult`'s rejection of non-finite latency, and the existing executor's consistency checks on actions, answer changes and failure fallback.
+- The standalone retrieval-enhancement run package adds the split-out `src/generation/prompts.py`. The Windows original-package audit still checks the approved source hashes; a newer checkout will not be passed off as the historical original package.
+- The historical T5 wrapper regression restores source from the original frozen package and also checks the old hashes before filling in missing files; a new check confirms that the current Controller source cannot rebuild the old sealed package. Neither the production sealing check nor the historical packages were relaxed or overwritten.
+- Retain the repository's `AGENTS.md`, old-import regressions and all historical experiment archives, and merge the rules from both sides of `.gitignore`; the user's uncommitted assisted-review files are not included in this round's commits.
 
-## 当前实际运行配置
+## Current actual runtime configuration
 
-`configs/controller/current_baseline.json` 和 `p60_online_adapter.json` 保持合并前字节。
+`configs/controller/current_baseline.json` and `p60_online_adapter.json` keep their pre-merge bytes.
 
-- 后续基线仍为 10/24 Diagnosis/P60/P64，Probe OFF。
-- 原始 78 维在线特征提供器、三个 HGB 的训练/调参/校准/分析 ID 仍未交付，生产预检查退出 2；不调用虚构特征或退回旧路由。
-- NQ/FEVER 的 E 仍为 unavailable。蒸馏、LoRA、Azure 教师调用和新的 GPU 运行均未启动。
-- 默认重排仍使用已登记的 `BAAI/bge-reranker-large`，保留 Top-5，不启用裁剪。新训练重排权重未交付/登记；答案选择器目前有训练脚本和数据统计，没有已验收模型。
-- 不将重排的排序指标、随机对照或补检索的路由加权估计当作当前集成系统收益。来源结果在各自报告中解释，跨环境绝对成绩不直接拼接。
+- The subsequent baseline is still 10/24 Diagnosis/P60/P64, Probe OFF.
+- The original 78-dimensional online feature provider and the training/tuning/calibration/analysis IDs of the three HGBs are still not delivered; the production pre-check exits with 2; no fictitious features are called and there is no fallback to the old routing.
+- E for NQ/FEVER is still unavailable. Distillation, LoRA, Azure teacher calls and new GPU runs have not been started.
+- Default reranking still uses the registered `BAAI/bge-reranker-large`, keeps Top-5, and does not enable trimming. Newly trained reranking weights are not delivered/registered; the answer selector currently has a training script and data statistics, with no accepted model.
+- Do not treat reranking ranking metrics, random controls or the retrieval-enhancement routing-weighted estimates as gains of the current integrated system. Source results are interpreted in their respective reports, and absolute scores across environments are not directly concatenated.
 
-## 本地验证与可选依赖
+## Local verification and optional dependencies
 
-专项检查与完整回归记录见 [验证归档](../artifacts/controller/controller2_integration_v1/README.md)。这些测试使用虚构问题/提供器、历史冻结资产与本地审计，不进行教师 API 调用或 GPU 推理。
+Targeted checks and the full regression record are in the [verification archive](../artifacts/controller/controller2_integration_v1/README.md). These tests use fictitious questions/providers, historical frozen assets and local audits, with no teacher API calls or GPU inference.
 
-新的随机句子裁剪对照使用 NLTK 的英文句子切分器，需在现有项目依赖之外显式准备：
+The new random sentence-trimming control uses NLTK's English sentence tokenizer, which must be prepared explicitly beyond the existing project dependencies:
 
 ```bash
 python -m pip install -r requirements-refinement-experiments.txt
 python -m nltk.downloader punkt_tab
 ```
 
-模型代码不在运行时自动下载此资源；需要离线复现时，提前准备资源并配置 `NLTK_DATA`。本轮测试环境和资源校验记录在归档中。原 `requirements.txt` 已声明 pandas/openpyxl，完整测试环境也补齐这些依赖。
+Model code does not download this resource automatically at runtime; for offline reproduction, prepare the resource in advance and configure `NLTK_DATA`. This round's test environment and resource verification are recorded in the archive. The original `requirements.txt` already declares pandas/openpyxl, and the full test environment also includes these dependencies.
 
-## 后续任务
+## Follow-up tasks
 
-1. 接入团队 `feature/baseline-evaluation@387ddaf` 的原始 NQ 划分，固定 Train 51,866、Validation 11,117、Test 11,114；取得 matched RAG 的 predictions/metrics/run_config，按段落 ID 回读证据。该第三分支不在本次两路线合并范围内。
-2. 登记历史曝光与跨分支训练 ID。旧 E 登记 69 条、Controller 开发 34 条、选型 27 条落入团队 test，三者合计至少 130 条；不能将全 test 称为 E 完全未见。旧保留池继续保护，FEVER 另行统一。
-3. 核对新重排器和答案选择器的数据生成/训练 ID 与团队划分；现有脚本的局部划分不能替代团队 70/15/15。权重、近重复隔离、数据来源与预算通过核查后再登记候选。
-4. 并行补齐 P60 两项材料，并准备 E 的短输出契约与教师资格验证。E 训练只使用允许的 Train 数据，Validation 用于选型；Test 不进入训练或提示设计。
-5. 在固定模块/路由配置下验证 E 候选，完成工程和真实效果验收，再冻结新版本与最终团队配对评测协议。
+1. Hook up the original NQ split from the team's `feature/baseline-evaluation@387ddaf`, fixing Train 51,866, Validation 11,117, Test 11,114; obtain the matched RAG predictions/metrics/run_config and read evidence back by passage ID. This third branch is not within the scope of this two-route merge.
+2. Register historical exposure and cross-branch training IDs. 69 old E registrations, 34 Controller development items and 27 selection-run items fall into the team test, at least 130 in total across the three; the full test cannot be called completely unseen by E. The old held-out pool remains protected; FEVER will be unified separately.
+3. Check the data-generation/training IDs of the new reranker and answer selector against the team split; the local splits in existing scripts cannot replace the team's 70/15/15. Candidates are registered only after weights, near-duplicate isolation, data provenance and budget pass verification.
+4. In parallel, complete the two P60 materials, and prepare E's short-output contract and teacher qualification validation. E training uses only permitted Train data, with Validation used for the selection run; Test does not enter training or prompt design.
+5. Validate E candidates under a fixed module/routing configuration, complete engineering and real-effect acceptance, and then freeze the new version and the final team paired evaluation protocol.
 
-旧 T1–T5 包、成绩和停止结论保留原样。旧各 500 条最终候选属于原协议，团队新 test 的范围、比较组、GPU 预算与统计方法需另行封存。主线进度见 [T1–T9](CONTROLLER_TASKS.md)。
+The old T1–T5 packages, scores and stopping conclusions are kept as is. The old final candidates of 500 each belong to the original protocol; the scope, comparison groups, GPU budget and statistical method for the team's new test need to be sealed separately. For main-line progress see [T1–T9](CONTROLLER_TASKS.md).

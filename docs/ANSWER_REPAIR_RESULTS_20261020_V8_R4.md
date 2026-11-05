@@ -1,46 +1,46 @@
-# r4 结果与最终版本选择：采用冻结 r3
+# r4 results and final version selection: adopt frozen r3
 
-2026-10-20，最后一轮 r4 在固定 8 条开发样本、四组中完成 32 条真实输出，共 38 次生成。全部记录通过冻结代码 CPU 回放，工程门槛通过；预先声明的 N31／N48／N12 回归仅 N12 通过。**按运行前的规则，最终组件实验采用 r3，不追加 r5。**此决定先于查看本轮 EM；不能将这 8 条已见开发样本当独立效果评估。
+On 2026-10-20, the final round r4 completed 32 real outputs across four groups on the fixed 8 development samples, with 38 generations in total. All records passed the frozen-code CPU replay and the engineering gates passed; of the pre-declared N31/N48/N12 regressions, only N12 passed. **Per the pre-run rules, the final component experiment adopts r3, with no additional r5.** This decision was made before looking at this round's EM; these 8 already-seen development samples cannot be treated as an independent effectiveness evaluation.
 
-## 三项预先声明的回归
+## Three pre-declared regressions
 
-| 样本 | 预期行为 | r4 实际行为 | 验收 |
+| Sample | Expected behaviour | Actual r4 behaviour | Acceptance |
 |---|---|---|---|
-| N31 | 原答案 unsupported | 仍为 supported；FACT 写成 Charlie Rich 的 “The Most Beautiful Girl” | 未通过 |
-| N48 | 原答案 unsupported，正确候选 supported | 原答案被拒，但 Govind Ballabh Pant Sagar 候选仍被判 unsupported | 未通过 |
-| N12 | 原答案 supported，保留原答 | supported，保留 Holloway Sanatorium | 通过 |
+| N31 | Original answer unsupported | Still supported; FACT written as Charlie Rich's "The Most Beautiful Girl" | Failed |
+| N48 | Original answer unsupported, correct candidate supported | Original answer rejected, but the Govind Ballabh Pant Sagar candidate is still judged unsupported | Failed |
+| N12 | Original answer supported, keep the original answer | supported, kept Holloway Sanatorium | Passed |
 
-N31 的问题为 “who sings the most beautiful girl in the world”。FACT 没有保住所问歌名，仍围绕相似歌名生成摘要。N48 的候选核验已明确将 Govind Ballabh Pant Sagar 作为待审答案，但 FACT 仍围绕 Dhebar Lake 的 second-largest 描述，并写出没有更大湖泊证据的判断。它未完整利用同一 Top-5。FACT 自身会错，同模型的后续六项判断继续受到这个错误事实摘要影响；增加 FACT 并未解决这两个已知语义问题。
+N31's question is "who sings the most beautiful girl in the world". FACT did not keep the song title being asked about and still generated a summary around a similar song title. N48's candidate verification explicitly set Govind Ballabh Pant Sagar as the answer under review, but FACT still revolved around Dhebar Lake's second-largest description and wrote a judgement with no evidence of a larger lake. It did not fully use the same Top-5. FACT itself can be wrong, and the same model's subsequent six judgements remain affected by this erroneous fact summary; adding FACT did not resolve these two known semantic problems.
 
-## 执行、冻结与回放
+## Execution, freezing and replay
 
-首轮 Kaggle 版本 `360053773` 在实际执行约 41.4 秒时因 Python 3.13 AST dump 与本机 3.11 指纹表示不同而停止，模型生成次数为 0。失败已在本地 3.13 精确复现；它属于预检兼容故障，不是一次语义效果失败。
+The first Kaggle version `360053773` stopped after about 41.4 seconds of actual execution because the Python 3.13 AST dump differs from the local 3.11 fingerprint representation; the number of model generations was 0. The failure was reproduced exactly on local 3.13; it is a pre-check compatibility fault, not a semantic effectiveness failure.
 
-重试版本 [360064691](https://www.kaggle.com/code/yearo111/e-v8r4-smoke8-fact-final-20261019/log?scriptVersionId=360064691) 成功执行 577.3 秒，T4 ×2。仅在独立 unittest 进程中使用旧 AST 表示规则，原 118 项检查没有删减；冻结包、模型进程、输入、提示及预算的字节均未改变。该处理已在本地 3.11／3.12／3.13 上通过原 118 项检查。
+The retry version [360064691](https://www.kaggle.com/code/yearo111/e-v8r4-smoke8-fact-final-20261019/log?scriptVersionId=360064691) ran successfully in 577.3 seconds, T4 ×2. The old AST representation rule is used only in a separate unittest process, and none of the original 118 checks were removed; the bytes of the frozen bundle, model process, inputs, prompts and budget are all unchanged. This handling passed the original 118 checks locally on 3.11/3.12/3.13.
 
-- 原冻结包 SHA-256：`d13880c5e114b5f8379f931103af249e1f10b4975de98c9a5b74a9c161900e11`。
-- 成功结果 ZIP SHA-256：`135f5dfb36aa89f0f8e1261188cafdd9adefe316c0ad41ea1d842dcd40778982`。
-- 同一 Qwen/Qwen2.5-7B-Instruct、revision `a09a35458c702b33eeacc393d103063234e8bc28`，NF4／greedy／seed 42／384 token；实际 C1 Top-5，运行时无 gold／人工标签。
-- 32 条通过原冻结回放政策；验收门槛重算一致，改答队列逐字一致。派生汇总中一个 F1 聚合值有跨 Python 浮点末位差，处于原冻结回放容差内。原始导出文件未改写。
-- v8 有效阶段为原检查 12、候选生成 7、候选核验 4；来源定位拒绝 7 次，其中原检查 4 次、候选生成 3 次。格式拒绝 0，完整三阶段路径 1 条，事后裁切 0。
+- Original frozen bundle SHA-256: `d13880c5e114b5f8379f931103af249e1f10b4975de98c9a5b74a9c161900e11`.
+- Successful result ZIP SHA-256: `135f5dfb36aa89f0f8e1261188cafdd9adefe316c0ad41ea1d842dcd40778982`.
+- Same Qwen/Qwen2.5-7B-Instruct, revision `a09a35458c702b33eeacc393d103063234e8bc28`, NF4/greedy/seed 42/384 tokens; actual C1 Top-5, no gold/human labels at runtime.
+- The 32 records pass the original frozen replay policy; the acceptance gates recompute identically and the changed-answer queue is verbatim identical. One F1 aggregate in the derived summary differs in the last floating-point digit across Python versions, within the original frozen replay tolerance. The raw export files were not rewritten.
+- Valid v8 stages: 12 original checks, 7 candidate generations, 4 candidate verifications; 7 source-localization rejections, of which 4 were original checks and 3 candidate generations. 0 format rejections, 1 complete three-stage path, 0 post-hoc truncations.
 
-## 版本选定后的开发描述
+## Development description after version selection
 
-下表只描述已见的 8 条，EM 是严格参考匹配，改答不等于人工确认修复。
+The table below describes only the 8 already-seen samples; EM is strict reference matching, and a changed answer is not a human-confirmed repair.
 
-| 组别 | EM 正确数 | 改答数 | 生成调用数 |
+| Group | EM correct | Changed answers | Generation calls |
 |---|---:|---:|---:|
 | v7 | 1→2 | 5 | 8 |
-| 完整 r4 | 1→1 | 0 | 10 |
-| 去原检查 | 1→0 | 2 | 11 |
-| 去候选检查 | 1→2 | 1 | 9 |
+| Full r4 | 1→1 | 0 | 10 |
+| No original check | 1→0 | 2 | 11 |
+| No candidate check | 1→2 | 1 | 9 |
 
-完整 r4 中，5 条被判原答已支持、2 条原检查的引文未通过连续原文定位、1 条候选被拒；最终没有改答。N2、N8 的原检查引用不是合法逐字片段。8 条跨组改答记录仍仅为待审材料，本轮没有新增人工确认或可靠净增益结论。
+In full r4, 5 records were judged as original answer already supported, 2 original-check citations failed contiguous source localization, and 1 candidate was rejected; in the end there were no changed answers. The original-check citations for N2 and N8 were not valid verbatim fragments. The 8 cross-group changed-answer records remain review material only; this round adds no new human confirmation or conclusion of a reliable net gain.
 
-## 下一步与交接
+## Next steps and handoff
 
-最终 75 条采用 r3 推理源码。C1 复用已有预测，v7、完整 r3 和两个消融各生成 75 条，共 300 条输出、最多 600 次生成。冻结包 `b5be903d…` 的 29 个推理源码文件逐一核对为与所选 r3 一致，并在 Python 3.13 下通过所选版本原 111 项便携检查。该批已提交 [Kaggle 360070600](https://www.kaggle.com/code/yearo111/e-final-nq75-r3-comparison-20261020/log?scriptVersionId=360070600)，尚未收取结果，不能提前填写最终开发数字。
+The final 75 samples use the r3 inference source code. C1 reuses existing predictions; v7, full r3 and the two ablations each generate 75, for 300 outputs in total and at most 600 generations. The 29 inference source files of frozen bundle `b5be903d…` were checked one by one as identical to the selected r3, and passed the selected version's original 111 portable checks under Python 3.13. The batch has been submitted as [Kaggle 360070600](https://www.kaggle.com/code/yearo111/e-final-nq75-r3-comparison-20261020/log?scriptVersionId=360070600); results have not yet been collected, and the final development numbers must not be filled in early.
 
-开发批之后不再改算法；按最终协议运行一次 E 内部未见分层挑战，并审核 v7／最终 v8 的全部改答并集。最终实验版本选定与默认策略晋升分开，尚无默认策略晋升结论。
+After the development batch the algorithm will not be changed any further; per the final protocol, run an E-internal unseen stratified challenge once, and review the full union of changed answers from v7/final v8. Final experiment version selection is separate from default-policy promotion; there is no conclusion yet on default-policy promotion.
 
-原始结果、失败日志、回放和验收依据见 `artifacts/answer_repair/v8r4_smoke8/`；最终开发冻结包与运行状态见 `artifacts/answer_repair/final_nq75/`。
+Raw results, failure logs, replays and acceptance evidence are in `artifacts/answer_repair/v8r4_smoke8/`; the final development frozen bundle and run status are in `artifacts/answer_repair/final_nq75/`.

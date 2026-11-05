@@ -1,35 +1,35 @@
-# Controller T3 执行登记 · 2026-10-24
+# Controller T3 execution registration · 2026-10-24
 
-先完成 T3，再启动一次 T4 开发比较。**2026-10-25：真实 CUDA 工程凭证已验收，T4完整2,800条已验收并自动评分，人工语义/警示/轨迹审核待完成。** 完整结果见[T4归档](../artifacts/controller/t4_v1/README.md)，工程与启动记录见[T3归档](../artifacts/controller/t3_v1/README.md)。本文和 [补充策略](../configs/controller/t3_execution_policy_v1.json) 是 T1 的新增执行修订，不覆盖冻结 T1/T2、历史 C1、E 提示或 Diagnosis 参数。运行输入严格不含 gold；选型集和最终保留集不进入本批。
+Complete T3 first, then start one T4 development comparison. **2026-10-25: real CUDA engineering credentials accepted; the full T4 set of 2,800 items accepted and auto-scored; human semantic/warning/trajectory review still pending.** Full results are in the [T4 archive](../artifacts/controller/t4_v1/README.md), and engineering and launch records in the [T3 archive](../artifacts/controller/t3_v1/README.md). This document and the [supplementary policy](../configs/controller/t3_execution_policy_v1.json) are new execution amendments to T1, and do not overwrite frozen T1/T2, historical C1, E prompts or Diagnosis parameters. Run inputs strictly contain no gold; the selection-run set and the final held-out set do not enter this batch.
 
-## 方向复查
+## Direction review
 
-只运行同批集成对照，不另开模块效力实验。两个数据集各用现有 development 200 条；C1 读缓存，三个 Always 组分别测模块修复、误修和成本，Full 按补检索→重排→E实际传递状态，Adaptive 与 No Probe 用同一冻结分类器。七组均须覆盖完整冻结 ID 清单。人工类型接口已实现，但新队列无可靠标签，记录为未执行；离线逐题最优动作不是人工类型组，也不是新的 GPU 组。
+Only run the same-batch integrated comparison; no separate module efficacy experiment is opened. Each of the two datasets uses the existing 200 development items; C1 reads from cache, the three Always groups measure module repair, harmful repair and cost respectively, Full passes state in the actual order retrieval enhancement→reranking→E, and Adaptive and No Probe use the same frozen classifier. All seven groups must cover the full frozen ID list. The human-type interface is implemented, but the new queue has no reliable labels, so it is recorded as not executed; the offline per-question optimal action is not the human-type group, nor a new GPU group.
 
-旧预实验和已有 E 样本仅用于工程回归，不再整批重复跑。NQ 7,564、FEVER 1,886 条完整保留池继续封存。新 FEVER C1 已完成，不重跑。
+Old pre-experiments and existing E samples are used only for engineering regression and are no longer re-run as a whole batch. The full held-out pools of NQ 7,564 and FEVER 1,886 items remain sealed. The new FEVER C1 is complete and will not be re-run.
 
-## 封存前的必要修正
+## Required fixes before sealing
 
-FEVER C1 的原始文本可能带标签外说明。使用原 parser 得到标准标签再交给 Diagnosis，所有比较组统一适配；保存原文本和原始/有效输入哈希。开发 200 条含 23 条非纯标签，原输入路由为 correct 146 / insufficiency 54、Probe 40；规范化后为 132 / 68、Probe 53。这是输入表示修复，不是利用 gold 调参。已观察到训练/开发 FEVER 的 accessibility、utilisation 路由为零；不能写成对任意输入都硬性禁止。Probe 仍只允许 failure→correct。
+FEVER C1 raw text may contain explanations beyond the label. The original parser is used to obtain the standard label before passing it to Diagnosis, applied uniformly across all comparison groups; the raw text and the raw/effective input hashes are saved. The 200 development items include 23 that are not pure labels; with the original input, routing was correct 146 / insufficiency 54, Probe 40; after normalization it is 132 / 68, Probe 53. This is an input-representation fix, not gold-based tuning. The accessibility and utilisation routing for train/development FEVER has been observed to be zero; this must not be written as a hard ban for arbitrary inputs. Probe still only allows failure→correct.
 
-所有共享 Qwen 视图统一采用 native prefill_chunk_size=256。真实 CUDA 先分别用两任务的 Probe、两种重答和 E 路径检查至少 14,000 输入 token；保留完整输入、异常和预算轨迹。工程格式/执行验收不宣称语义修复成功。CPU FP32 reranker、固定 revision 和提示不变；真实吞吐测量后评估预算，不能直接把粗估小时数当作配额承诺。第二卡迁移须另登记，不能静默改为 FP16。
+All shared Qwen views uniformly use native prefill_chunk_size=256. Real CUDA first checks at least 14,000 input tokens separately for the Probe of both tasks, the two kinds of re-answering and the E path; full inputs, exceptions and budget trajectories are kept. Engineering format/execution acceptance does not claim semantic repair success. The CPU FP32 reranker, fixed revision and prompts are unchanged; budgets are evaluated after real throughput is measured, and rough hour estimates cannot be taken directly as a quota commitment. Migration to a second GPU must be registered separately and cannot silently switch to FP16.
 
-Full 使用共享预算，最多 Qwen 3、检索 1、评分 2、输出预算之和 512；中间失败保留进入状态并继续剩余阶段，预算不重置。融合排序字段留在 module trace，只把标准 EvidenceItem 字段交给后续阶段。
+Full uses a shared budget: at most 3 Qwen, 1 retrieval, 2 scoring, with a total output budget of 512. Intermediate failures keep the incoming state and continue with the remaining stages; the budget is not reset. Fused ranking fields stay in the module trace; only standard EvidenceItem fields are passed to later stages.
 
-## 评测和解释
+## Evaluation and interpretation
 
-误修严格为原答正确→终答错误；被路由、生成候选、改写或来源合法均不是误修。每组分别报告初答正确/错误分母、修复、误修、净变化和成本，另报实际 Adaptive 路由子集。NQ EM/F1 和语义审核分开；FEVER label accuracy 不等于证据支持。
+A harmful repair is strictly original answer correct→final answer wrong; being routed, generating a candidate, rewriting or having a legitimate source are not harmful repairs. Each group separately reports the initially-correct/initially-wrong denominators, repairs, harmful repairs, net change and cost, plus the actual Adaptive routing subset. NQ EM/F1 and semantic review are separate; FEVER label accuracy does not equal evidence support.
 
-离线 Oracle 在 keep+C1 上的三个单动作结果中选最高分，只读离线参考。报告漏修机会、可避免误修和本轮动作集合残余错误。不得称为可部署成绩、纯 Diagnosis 因果损失或模型固有能力上限。仅在输入、模块版本、预算与已有 Probe 一致时回放；新增 Probe/新提示仍需生成。Full 不能用三个独立答案拼接。缺失整组、缺行、重复、不同 C1 输入、伪造调用/提示哈希均拒绝正式验收。
+The offline Oracle picks the highest score among the three single-action results on keep+C1, reading only offline references. It reports missed-repair opportunities, avoidable harmful repairs and the residual errors of this round's action set. It must not be called a deployable score, a pure Diagnosis causal loss or an inherent model capability ceiling. Replay is used only when the inputs, module versions and budgets match the existing Probe; new Probes/new prompts still need to be generated. Full cannot be assembled from three independent answers. Missing whole groups, missing rows, duplicates, different C1 inputs, or forged call/prompt hashes are all rejected from formal acceptance.
 
-保留 T1 的配对 bootstrap 10,000 次、seed42、95% percentile 区间。新增 AC5 质量非劣检验：delta=Adaptive−Full，零假设 delta≤−0.02。使用 gain/loss 二项边际的单侧 Clopper-Pearson 界，各分配 alpha/2，经 union bound 构成差值下界并反演 p 值；这是有限样本保守检验，功效低于部分近似方法，必须披露。bootstrap 单侧下界另作描述，不能冒充校正检验。两个数据集的 Adaptive vs C1 精确双侧 McNemar 和 Adaptive vs Full 非劣共四项 Holm；开发结果只作描述，最终结论另报。原 T1 两项 family 保持历史记录，不回写。
+T1's paired bootstrap with 10,000 iterations, seed42 and 95% percentile interval is kept. A new AC5 quality non-inferiority test is added: delta=Adaptive−Full, null hypothesis delta≤−0.02. One-sided Clopper-Pearson bounds on the gain/loss binomial margins are used, each allocated alpha/2, combined via a union bound into a lower bound on the difference and inverted to obtain a p-value; this is a conservative finite-sample test with lower power than some approximate methods, which must be disclosed. The bootstrap one-sided lower bound is reported separately as descriptive and must not be passed off as a corrected test. For the two datasets, the exact two-sided McNemar of Adaptive vs C1 and the non-inferiority of Adaptive vs Full form four tests under Holm; development results are descriptive only, and final conclusions are reported separately. The original T1 two-test family is kept as a historical record and not written back.
 
-AC5 token 目标为至少节省20%。增量统计包括 Probe；缺失 token 保留 null，decoded output 的重分词数仍标为估计。没有共同 C1 成本和完整 token 账本时，不认证全流程 AC5。NQ 历史 C1 revision/完整成本未知，不能补写为已核验。
+The AC5 token target is a saving of at least 20%. Incremental statistics include Probe; missing tokens stay null, and re-tokenized counts of decoded output are still marked as estimates. Without a common C1 cost and a complete token ledger, full-pipeline AC5 is not certified. The NQ historical C1 revision/full cost is unknown and cannot be backfilled as verified.
 
-FR15 仅使用已有运行信号产生 flagged_for_review / unverified，零额外调用，不把无标记或保留原答当作成功。候选格式失败等只是警示，不是答案错误金标。AC6 仍须至少50条 flagged 人审、观察精确率≥90%，同时报告标记覆盖；未够50条或未达标如实说明。Proposal另要求至少50条完整轨迹质性审核，可与AC6重叠但分别计分。FR13最小轨迹展示与 NQ 改答审核输出在 T4 后接收交付。FR6多标签尚未达成、FinDER未执行、分类器结构及C2等偏离独立列明，不宣称全部Must已通过。
+FR15 only uses existing run signals to produce flagged_for_review / unverified, with zero extra calls; having no flag or keeping the original answer is not treated as success. Candidate format failures and the like are only warnings, not a gold standard of answer errors. AC6 still requires human review of at least 50 flagged items with observed precision ≥90%, while also reporting flag coverage; if there are fewer than 50 items or the target is not met, state it truthfully. The Proposal additionally requires qualitative review of at least 50 full trajectories, which may overlap with AC6 but are scored separately. The FR13 minimal trajectory display and the NQ changed-answer review output are delivered after T4. FR6 multi-label is not yet achieved, FinDER is not executed, and deviations such as the classifier structure and C2 are listed separately; it is not claimed that all Musts have passed.
 
-## T5 和停止规则
+## T5 and stopping rules
 
-T4 前不调模块、不重训 Diagnosis、不做 RSI/SFT/DPO。T4 后仅一个集中优化候选。先按可避免误修与漏修机会的正确题数比较，平局优先减少误修；全体Always净负不能单独触发停用。停用候选须检查实际路由子集；选型集仅确认一个候选，净增>0才晋升，平局保留基线。最终测试只跑一次，结果不回流。训练、知识库修改及受控轨迹自改进均属独立扩展，按剩余时间/额度决定，不混入本轮核心结论。
+Before T4: no module tuning, no Diagnosis retraining, no RSI/SFT/DPO. After T4, only one focused optimization candidate. First compare by the number of correct questions in avoidable harmful repairs and missed-repair opportunities; ties prefer fewer harmful repairs; an all-Always net negative alone cannot trigger disabling. A disabling candidate must check the actual routing subset; the selection-run set only confirms one candidate, which is promoted only if the net gain is >0, and ties keep the baseline. The final test runs only once, and results do not flow back. Training, knowledge-base modification and controlled trajectory self-improvement are all independent extensions, decided by remaining time/quota, and not mixed into this round's core conclusions.
 
-当前实现、CPU回归与GPU状态以新增执行归档为准。只有源码、输入、资源、运行环境和工程凭证均验收并登记后，才能把 T4 标为已启动。
+The current implementation, CPU regression and GPU status are governed by the new execution archive. Only after the source code, inputs, resources, runtime environment and engineering credentials are all accepted and registered can T4 be marked as started.

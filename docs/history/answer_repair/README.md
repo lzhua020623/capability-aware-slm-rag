@@ -1,29 +1,29 @@
-# E 历史归档
+# E historical archive
 
-这里保存 v1 至 v6r1 的文档、实验设计与早期进度。当前工作基础是 v7，下一轮 v8 尚未实现。当前说明见 [项目进度](../../PROJECT_STATUS_AND_DIRECTION.md)、[E 交接](../../ANSWER_REPAIR_HANDOFF.md) 和 [v7 结果](../../ANSWER_REPAIR_RESULTS_20261014_V7.md)。
+This directory stores the documents, experiment designs, and early progress of v1 through v6r1. The current working base is v7; the next round, v8, is not yet implemented. For current notes, see [project progress](../../PROJECT_STATUS_AND_DIRECTION.md), [E handoff](../../ANSWER_REPAIR_HANDOFF.md), and [v7 results](../../ANSWER_REPAIR_RESULTS_20261014_V7.md).
 
-## 文档索引
+## Document index
 
-| 文件 | 用途 |
+| File | Purpose |
 |---|---|
-| [ANSWER_REPAIR_RESULTS_20261013.md](ANSWER_REPAIR_RESULTS_20261013.md) | v1 至 v4、Reanswer 对照及 Controller 联调的真实结果 |
-| [ANSWER_REPAIR_RESULTS_20261014.md](ANSWER_REPAIR_RESULTS_20261014.md) | v5、v6r1 结果与 128 条辅助审核、关键人工确认 |
-| [ANSWER_REPAIR_REVIEW_20261013.md](ANSWER_REPAIR_REVIEW_20261013.md) | 37 条开发候选的选择、辅助审核与来源 |
-| [ANSWER_REPAIR_V5.md](ANSWER_REPAIR_V5.md) | 审核后开发集与同模型二次核验的冻结协议 |
-| [ANSWER_REPAIR_V6.md](ANSWER_REPAIR_V6.md) | NQ 原文抽取与 FEVER 独立 MNLI 的冻结协议 |
-| [STRATEGY_HISTORY.md](STRATEGY_HISTORY.md) | 早期 JSON 格式、引用匹配、候选生成和策略演化 |
-| [GPU_RUNS_V1_V6R1.md](GPU_RUNS_V1_V6R1.md) | 历史 Colab、Kaggle 执行、包哈希和 Controller 联调说明 |
-| [PROGRESS_UPDATES_20261013_14.md](PROGRESS_UPDATES_20261013_14.md) | 阶段进度、路由试跑、当时结论和数据限制 |
-| [HANDOFF_20261014.md](HANDOFF_20261014.md) | 整理前的交接快照，保留旧检查数、接口示例和后续补充 |
-| [archive_index.json](archive_index.json) | 本次迁移的旧路径、新路径和前后 SHA-256 |
+| [ANSWER_REPAIR_RESULTS_20261013.md](ANSWER_REPAIR_RESULTS_20261013.md) | Real results of v1 through v4, the Reanswer comparison, and Controller integration testing |
+| [ANSWER_REPAIR_RESULTS_20261014.md](ANSWER_REPAIR_RESULTS_20261014.md) | v5 and v6r1 results, the 128-record assisted review, and key human confirmations |
+| [ANSWER_REPAIR_REVIEW_20261013.md](ANSWER_REPAIR_REVIEW_20261013.md) | Selection, assisted review, and sources of the 37 development candidates |
+| [ANSWER_REPAIR_V5.md](ANSWER_REPAIR_V5.md) | Frozen protocol for the reviewed development set and same-model second verification |
+| [ANSWER_REPAIR_V6.md](ANSWER_REPAIR_V6.md) | Frozen protocol for NQ verbatim extraction and FEVER independent MNLI |
+| [STRATEGY_HISTORY.md](STRATEGY_HISTORY.md) | Early JSON format, citation matching, candidate generation, and strategy evolution |
+| [GPU_RUNS_V1_V6R1.md](GPU_RUNS_V1_V6R1.md) | Historical Colab and Kaggle execution, package hashes, and Controller integration testing notes |
+| [PROGRESS_UPDATES_20261013_14.md](PROGRESS_UPDATES_20261013_14.md) | Stage progress, routing trial runs, conclusions at the time, and data limitations |
+| [HANDOFF_20261014.md](HANDOFF_20261014.md) | Handoff snapshot before reorganization, keeping old check counts, interface examples, and later supplements |
+| [archive_index.json](archive_index.json) | Old paths, new paths, and before/after SHA-256 of this migration |
 
-人工确认口径仍保留在原路径 [ANSWER_REPAIR_CONFIRMATION_20261014.md](../../ANSWER_REPAIR_CONFIRMATION_20261014.md)，以保持人工来源记录的引用稳定。人工记录和 gold 不迁入历史目录。
+The human confirmation criteria remain at the original path [ANSWER_REPAIR_CONFIRMATION_20261014.md](../../ANSWER_REPAIR_CONFIRMATION_20261014.md), to keep references to human source records stable. Human records and gold are not moved into the history directory.
 
-## Notebook 索引
+## Notebook index
 
-历史 Notebook 位于 [notebooks/history/answer_repair](../../../notebooks/history/answer_repair/)。移动只改变目录，其内容与移动前完全相同。
+Historical notebooks are located in [notebooks/history/answer_repair](../../../notebooks/history/answer_repair/). The move only changed the directory; their contents are exactly the same as before the move.
 
-| 版本 | Notebook |
+| Version | Notebook |
 |---|---|
 | v1 | [Colab](../../../notebooks/history/answer_repair/answer_repair_colab.ipynb) |
 | v2 | [Colab](../../../notebooks/history/answer_repair/answer_repair_colab_v2.ipynb) |
@@ -33,27 +33,27 @@
 | v6 | [Colab](../../../notebooks/history/answer_repair/answer_repair_colab_v6_reviewed.ipynb) |
 | v6r1 | [Colab](../../../notebooks/history/answer_repair/answer_repair_colab_v6r1_reviewed.ipynb) / [Kaggle](../../../notebooks/history/answer_repair/answer_repair_kaggle_v6r1_reviewed.ipynb) |
 
-Notebook 负责加载各自冻结包，不能通过换输入包来冒充新策略。历史构建脚本仍保留，默认输出已指向本目录；已有实验包和 Notebook 不需要重新生成。
+Each notebook loads its own frozen package; swapping the input package cannot be used to pass off a new strategy. The historical build scripts are still kept, and their default output now points to this directory; existing experiment packages and notebooks do not need to be regenerated.
 
-## 原始实验材料
+## Original experiment materials
 
-输入包、下载 ZIP、逐样本预测、运行日志和审核资料仍保留在仓库根目录下的 `artifacts/answer_repair/`，没有搬移或修改冻结字节：
+Input packages, downloaded ZIPs, per-sample predictions, run logs, and review materials remain under `artifacts/answer_repair/` at the repository root; the frozen bytes were not moved or modified:
 
-- `v1/`、`v2/`、`v3/`：早期输入包及原始导出。
-- `session_20261013/`：v4 与 Controller 联调的组合原始导出。
-- `v5_reviewed/`、`v6_reviewed/`、`v6r1_reviewed/`：审核后开发实验及相应冻结材料。
-- `review_20261013/`、`handoff_20261014/`：早期审核来源与交付快照。
+- `v1/`, `v2/`, `v3/`: early input packages and raw exports.
+- `session_20261013/`: combined raw export of v4 and Controller integration testing.
+- `v5_reviewed/`, `v6_reviewed/`, `v6r1_reviewed/`: reviewed development experiments and the corresponding frozen materials.
+- `review_20261013/`, `handoff_20261014/`: early review sources and delivery snapshots.
 
-准确路径及哈希见 [git_archive_manifest.json](../../../artifacts/answer_repair/git_archive_manifest.json)。复现使用输入包中的冻结代码；文档链接和当前构建脚本的路径调整，不会重写旧包。
+See [git_archive_manifest.json](../../../artifacts/answer_repair/git_archive_manifest.json) for exact paths and hashes. Reproduction uses the frozen code in the input packages; path adjustments in document links and current build scripts do not rewrite old packages.
 
-## 早期 Reference RAG 工程验证
+## Early Reference RAG engineering validation
 
-以下均为 20 条 smoke，验证工程连通性，不能代替 500 条正式预实验；FEVER 使用缩小的受控候选池。
+All of the following are 20-sample smoke runs that validate engineering connectivity and cannot replace the 500-sample formal pre-experiment; FEVER uses a reduced controlled candidate pool.
 
-| 历史试跑 | 指标 | 检索与错误情况 |
+| Historical trial run | Metric | Retrieval and errors |
 |---|---|---|
-| NQ 3B v2 | EM 0.3000，F1 0.3460 | gold 在 Top-5：17/20；检索未命中 3/20；命中却答错 11/20 |
-| NQ 7B | EM 0.4000，F1 0.4770 | gold 在 Top-5：17/20；检索未命中 3/20；命中却答错 9/20 |
-| FEVER 3B | accuracy 0.8000 | gold 在 Top-5：20/20；命中却答错 4/20；不是全量语料的正式检索结果 |
+| NQ 3B v2 | EM 0.3000, F1 0.3460 | gold in Top-5: 17/20; retrieval miss 3/20; hit but answered wrong 11/20 |
+| NQ 7B | EM 0.4000, F1 0.4770 | gold in Top-5: 17/20; retrieval miss 3/20; hit but answered wrong 9/20 |
+| FEVER 3B | accuracy 0.8000 | gold in Top-5: 20/20; hit but answered wrong 4/20; not a formal retrieval result on the full corpus |
 
-原始输出仍在 `results/base_rag/`。这些历史模型规模与当前冻结 Qwen 7B 配置不同，应按各自实验口径解释。
+Raw outputs are still in `results/base_rag/`. These historical model sizes differ from the current frozen Qwen 7B configuration and should be interpreted under their respective experimental criteria.
