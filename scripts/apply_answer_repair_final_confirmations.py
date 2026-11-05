@@ -16,6 +16,10 @@ if str(ROOT) not in sys.path:
 from scripts.prepare_answer_repair_experiment import encode_json, write_frozen
 from scripts.summarize_answer_repair_historical_review import FIELDS, load, render
 
+AGREED_REASON_PREFIX = (
+    "The user agreed with this assisted opinion; null fields stay unresolved. Agent rationale: "
+)
+
 
 def sha(raw):
     return hashlib.sha256(raw).hexdigest()
@@ -101,7 +105,7 @@ def apply(rows, confirmation):
             basis = "explicit_user_clarification"
         else:
             values = {f: agent[f] for f in FIELDS}
-            reason = "用户同意本条辅助意见；其中 null 继续保留待定。代理理由：" + agent["reason_zh"]
+            reason = AGREED_REASON_PREFIX + agent["reason_zh"]
             preference, support_confirmed, basis = None, True, "accepted_agent_fields_including_nulls"
         if any(v is not None and type(v) is not bool for v in values.values()):
             raise ValueError("Judgments must be booleans or unresolved nulls")

@@ -1,7 +1,8 @@
 """Human uncertainty and different outputs for one sample must survive confirmation."""
+from pathlib import Path
 import unittest
 
-from scripts.apply_answer_repair_final_confirmations import apply
+from scripts.apply_answer_repair_final_confirmations import AGREED_REASON_PREFIX, apply
 
 
 FIELDS = ("initial_correct", "final_correct", "initial_supported", "final_supported")
@@ -27,6 +28,8 @@ class FinalConfirmationTests(unittest.TestCase):
     def test_agreeing_to_uncertainty_does_not_resolve_it(self):
         outputs, report = apply([row(4, (False, None, False, True))], confirmation([4]))
         self.assertIsNone(outputs[0]["human_review"]["final_correct"])
+        self.assertTrue(outputs[0]["human_review"]["reason"].startswith(AGREED_REASON_PREFIX))
+        self.assertIn("Explicit assisted opinion", outputs[0]["human_review"]["reason"])
         self.assertEqual(report["correctness_resolved_pairs"], 0)
         group = next(iter(report["by_run"].values()))
         self.assertIsNone(group["all_changed_pairs_net_change"])
@@ -99,6 +102,22 @@ class FinalConfirmationTests(unittest.TestCase):
         c["workflow_decisions"]["19"]["external_assessment"]["sources"] = []
         with self.assertRaises(ValueError):
             apply([pair], c)
+
+    def test_agreed_reason_prefix_is_english(self):
+        self.assertNotRegex(AGREED_REASON_PREFIX, r"[\u4e00-\u9fff]")
+        self.assertIn("null fields stay unresolved", AGREED_REASON_PREFIX)
+
+    def test_human_review_page_uses_english_session_chrome(self):
+        page = Path(__file__).resolve().parents[1] / "artifacts/answer_repair/final_review_v1/F42_human_review.html"
+        if not page.exists():
+            self.skipTest("optional archived page not present")
+        text = page.read_text(encoding="utf-8")
+        self.assertIn(AGREED_REASON_PREFIX, text)
+        self.assertNotIn("用户同意本条辅助意见", text)
+        self.assertIn("Presidential Library of Russia:", text)
+        self.assertIn("Government of Saint Petersburg:", text)
+        self.assertIn("Ленинграду возвращено имя Петра", text)
+        self.assertIn("Статистика культурной жизни Петербурга", text)
 
 
 if __name__ == "__main__":

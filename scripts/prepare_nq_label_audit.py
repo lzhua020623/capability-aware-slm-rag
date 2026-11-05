@@ -22,6 +22,11 @@ HUMAN_FIELDS = {"status": "pending", "initial_correct": None,
                 "answer_supported_by_top5": None, "evidence_sufficient": None,
                 "evidence_accessible": None, "primary_label": None,
                 "supporting_ranks": [], "supporting_quote": "", "reference_issue": None, "reason": ""}
+UNREVIEWED_CONFIDENCE = "unreviewed"
+UNREVIEWED_REASON = (
+    "Independent semantic assisted review has not been done; "
+    "the original initial labels are used only for stratified sampling."
+)
 
 
 def encoded(value):
@@ -137,8 +142,8 @@ def prepare(*, source_dir, overlay, import_audit, delivery_manifest, partition_p
             "human_verified": False, "human_review": dict(HUMAN_FIELDS),
             "source_record_sha256": digest(json.dumps(original, sort_keys=True, ensure_ascii=False).encode()),
             "preliminary_source": label_sources[sid]["source"],
-            "agent_assessment": {"suggested_diagnosis_label": None, "confidence": "未审核",
-                                 "reason_zh": "尚未做独立语义辅助审核；原初标仅用于分层抽样。",
+            "agent_assessment": {"suggested_diagnosis_label": None, "confidence": UNREVIEWED_CONFIDENCE,
+                                 "reason_zh": UNREVIEWED_REASON,
                                  "quoted_evidence": []}, "frozen_em": None, "frozen_f1": None}
         records.append(record)
     manifest = {"version": VERSION, "seed": seed, "samples": len(order),
