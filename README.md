@@ -145,6 +145,16 @@ Sources:
 - Matched RAG: `baselines/outputs/rag_matched_test_context_fallback/metrics.json`, `baselines/outputs/judge/rag_matched_full/judge_summary.json`
 - Adaptive product: `baselines/outputs/adaptive_product_test/metrics.json`, `baselines/outputs/judge/adaptive_product_full/judge_summary.json`
 
+`artifacts/controller/team_data_v1/known_exposure_ids.json` records 603 of these Test ids in saved downstream experiments or analysis (`counts.test` is 603). The table above keeps all 11,114. The table below drops those 603 ids and scores the remaining 10,511 from the same prediction and judge files. These 10,511 ids are the Test ids absent from that exposure file. Overlap with training ids outside the file remains unresolved.
+
+| Metric | Qwen-only | Matched RAG | Adaptive Product |
+|---|---:|---:|---:|
+| Exact Match | 10.86% | 29.86% | 34.79% |
+| Token F1 | 20.76% | 44.82% | 49.96% |
+| Normalized Accuracy | 10.92% | 30.18% | 35.14% |
+| AIC@5 | — | 68.79% | 68.79% |
+| Judge-assisted Accuracy | 29.48% | 57.63% | 62.92% |
+
 Product-specific fields from `baselines/outputs/adaptive_product_test/metrics.json`:
 
 | Field | Value |
